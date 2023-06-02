@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/member/signUp.css">
+    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/style.css">
+</head>
+<body>
+    <div id="sign-up-box">
+        <div class="sign-up-logo">로고</div>
+        <form action="/member/signUp" method="post" id="signUpFrmBox">
+
+            <div class="input-wrapper">
+                <input type="text" name="memberId" id="memberId">
+                <span aria-hidden="true">아이디</span>
+            </div>
+            <div class="input-wrapper">
+                <input type="password" name="memberPw" id="memberPw">
+                <span aria-hidden="true">비밀번호</span>
+            </div>
+            <div class="input-wrapper">
+                <input type="password" name="memberRePw" id="memberRePw">
+                <span aria-hidden="true">비밀번호 재입력</span>
+            </div>
+
+            <div class="sign-up-line"></div>
+
+            <div class="input-wrapper">
+                <input type="email" name="memberEmail" id="memberEmail">
+                <span aria-hidden="true">이메일</span>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" name="memberNickname" id="memberNickname">
+                <span aria-hidden="true">닉네임</span>
+            </div>
+            <div class="input-wrapper">
+                <input type="number" name="memberDateBirth" id="memberDateBirth">
+                <span aria-hidden="true">생년월일</span>
+            </div>
+
+            <div class="sign-up-line"></div>
+
+            <div class="input-wrapper">
+                <input type="number" name="memberPhoneNmbr" id="memberPhoneNmbr">
+                <span aria-hidden="true">전화번호</span>
+            </div>
+            <div class="input-wrapper">
+                <input type="number" name="authKey" id="authKey">
+                <span aria-hidden="true">인증번호</span>
+                <div id="authKeyLifeTime">5:00</div>
+                <div id="authKeyLifeTime">5:00</div>
+            </div>
+
+            <div id="sendAuthKeyBtn" class="">인증 요청</div>
+            <button id="signBtn" class="display-none">회원가입</button><!-- 회원가입 및 인증번호 검사 -->
+        </form>
+    </div>
+    <script src="js/signUp.js"></script>
+</body>
+</html>
