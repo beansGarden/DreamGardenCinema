@@ -1,0 +1,216 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+
+}
+
+/* 헤더 전제 영역 */
+header {
+    width: 100%;
+    height: 190px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    position: sticky;
+}
+
+/* 상단바 메뉴 영역 */
+.dg-menu {
+    display: flex;
+    width: 100%;
+    height: 190px;
+    
+    background: linear-gradient(black, rgb(99, 100, 100), white );
+}
+
+/* 상단바 메뉴 왼쪽 영역(영화, 예매, 멤버십)*/
+.dg-menu-L {
+    width: 50%;
+    display: flex;
+    margin-top: 85px;
+    justify-content: space-evenly;
+
+    list-style: none;
+}
+
+.dg-menu-L>li a{
+    text-decoration: none;
+    color: white;
+}
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(영화) */
+.dg-menu-drop-movie{
+    display: flex;
+    list-style: none;
+    margin-top: 10px;
+    /* position: absolute; */
+}
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 리스트 전체 영역 */
+.dg-menu-drop-movie>li{
+    display: none;
+    position: absolute;
+    right: 39px;
+    margin-top: 14px;
+}
+/* 홈 */
+.dg-menu-drop-movie>li:nth-child(1){
+    width: 30px;
+}
+/* 상영 예정작 */
+.dg-menu-drop-movie>li:nth-child(2){
+    width: 98px;
+}
+/* 현재 상영작  */
+.dg-menu-drop-movie>li:nth-child(3){
+    width: 98px;
+}
+
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(예약) */
+.dg-menu-drop-reservation{
+    display: flex;
+    list-style: none;
+    margin-top: 10px;
+    /* position: absolute; */
+}
+
+/* 상단바 메뉴 왼쪽 영역 - 예약 리스트 */
+.dg-menu-drop-reservation>li{
+    display: none;
+    position: absolute;
+    right: 39px;
+    margin-top: 14px;
+    
+}
+
+/* 예매하기 */
+.dg-menu-drop-reservation>li:nth-child(1){
+    width: 80px;
+}
+
+/* 상영 시간표 */
+.dg-menu-drop-reservation>li:nth-child(2){
+    width: 90px;
+}
+
+
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(멤버십) */
+.dg-menu-drop-membership{
+    display: flex;
+    list-style: none;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.dg-menu-drop-membership>li{
+    display: none;
+    position: absolute;
+    right: 39px;
+    margin-top: 14px;
+}
+
+/* 멤버십 이용약관 */
+.dg-menu-drop-membership>li:nth-child(1){
+    width: 135px;
+    
+    
+}
+.dg-menu-drop-membership>li:nth-child(2){
+    width: 90px;
+}
+
+
+/* 상단바 로고 영역 */
+
+.dg-logo>a>img{
+    height: 120px;
+    margin-top: 10px;
+}
+
+/* 상단바 메뉴 오른쪽 영역(고객센터, 로그인, 회원가입) */
+
+.dg-menu-R {
+    width: 50%;
+    display: flex;
+    margin-top: 85px;
+    justify-content: space-evenly;
+    
+    list-style: none;
+    text-decoration: none;
+    
+}
+
+.dg-menu-R>li>a{
+    text-decoration: none;
+    color: white;
+}
+
+.dg-menu-customer-service{
+    list-style: none;
+    display: flex;
+    margin-top: 10px;
+    /* position: absolute; */
+}
+
+
+.dg-menu-customer-service>li{
+    position: absolute;
+    display: none;
+    right: 39px;
+    margin-top: 14px;
+}
+
+.dg-menu-customer-service>li>a{
+    text-decoration: none;
+    color: white;
+    margin-top: 10px;
+}
+
+.dg-menu-customer-service>li:nth-child(1){
+    width: 50px;
+}
+.dg-menu-customer-service>li:nth-child(2){
+    width: 80px;
+}
+.dg-menu-customer-service>li:nth-child(3){
+    width: 80px;
+}
+
+
+/* 로그인 */
+.dg-menu-login{
+    display: flex;
+    /* position: absolute; */
+}
+
+
+/* 로그아웃 (로그인 상태에서 보임) */
+.dg-menu-logout{
+    display: none;
+}
+
+
+/* 회원가입 */
+.dg-menu-nonmember{
+    display: flex;
+    
+}
+
+/* 회원일 경우(로그인 상태에서 보임) */
+.dg-menu-member{
+    display: none;
+}
+
+hr{
+
+    margin-block-start: -4.5em;
+    margin-block-end: 4.5em;
+    overflow: visible;
+
+}
+
+
+
+
+
