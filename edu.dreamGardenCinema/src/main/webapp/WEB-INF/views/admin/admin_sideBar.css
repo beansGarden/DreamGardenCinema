@@ -1,0 +1,125 @@
+/* 사이드바 */
+
+/* 사이드바 전체 */
+.admin_sideBarWrap{
+    width: 250px;
+    height: 1000px;
+    border: 1px solid black;
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #301f35;
+}
+
+
+/* 사이드바 로고 */
+.admin_sideBarUserWrap{
+padding: 20px 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(47,128,237,0.1);
+}
+
+.admin_sideBarLogo{
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 70px;
+    padding: 0 30px;
+    position: relative;
+      border-bottom: 1px solid rgba(47,128,237,0.1);
+    
+}
+
+/* 사이드바 회원 */
+.admin_sideBarUserWrap{
+    padding: 20px 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgba(47,128,237,0.1);
+}
+
+.admin_sideBarUserTitle{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    
+
+}
+
+.admin_sideBarUserTitle span{
+    display: block;
+    color: #0e0d0d;
+    font-size: 12px;
+    line-height: 100%;
+    color: white;
+
+}
+.admin_sideBarUserTitle p{
+    color: #181616;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0;
+    line-height: 100%;
+    color: white;
+}
+
+.admin_sideBarLogOutBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    background-color: #151f30;
+    margin-left: 100px;
+    color: white;
+    
+}
+
+
+/* 사이드바 카테고리 */
+.admin_sideBarTableWrap{
+   
+}
+
+.material-symbols-outlined{
+    color: white;
+    margin-right: 10px;
+}
+
+.admin_sideBarList{
+    color: white;
+}
+
+.admin_sideBarTableLi{
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+.admin_sideBarTableLi a{
+   margin: 0px;
+   padding: 0px;
+   display: flex;
+   align-items: center;
+}
+
+
+/* 사이드바 카피라이트 */
+.admin_sideBarCopyRight{
+    height: 800px;
+    margin-top: 630px;
+    color: white;
+}
