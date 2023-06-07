@@ -1,3 +1,4 @@
+// input span 애니메이션
 const inputs = document.querySelectorAll('input');
 
 inputs.forEach(input => {
@@ -23,6 +24,7 @@ function removeClass(event) {
         span.classList.add('output-font-size-ani');
     }
 }
+
 /* 예시) 클릭 시 원하는곳에 경고 svg 추가 */
 const sampleBtn = document.getElementById("sampleBtn");
 

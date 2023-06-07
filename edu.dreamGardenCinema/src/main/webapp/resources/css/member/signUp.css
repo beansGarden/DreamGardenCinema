@@ -17,7 +17,7 @@ body{
 }
 
 /* 회원가입 모든 input */
-.input-wrapper > input{
+.input-wrapper> label > input{
     display: block;
     width: 400px;
     height: 45px;
@@ -33,11 +33,10 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.input-wrapper > input:focus {
+.input-wrapper> label > input:focus {
     outline: none;
     border-bottom: 2px solid #5250BE80;
 }
-/* input number 우측 화살표 제거 */
 .sign-up-line{
     width: 100%;
     border-bottom: 1px solid #80808050;
@@ -54,7 +53,7 @@ input::-webkit-inner-spin-button {
     position: relative;
 }
 /* 회원가입 모든 span */
-.input-wrapper > span{
+.input-wrapper> label > span{
     position: absolute;
     top: 10px;
     font-size: 16px;
@@ -71,7 +70,11 @@ input::-webkit-inner-spin-button {
     transform-origin: top left;
     animation-fill-mode: forwards;
 } 
-
+input::placeholder {
+    font-size: 12px;
+    color: #80808099;
+    transform: translateY(5px);
+}
 @keyframes shrinkFontSize {
     from {
         font-size: 16px;
@@ -127,7 +130,7 @@ input::-webkit-inner-spin-button {
     font-size: 16px;
 }
 /* 입력되지 않았을 때 input 빨간줄 */
-.null-input-border{
+.err-input-border{
     border-bottom: 1px #d7373f solid !important;
 }
 
