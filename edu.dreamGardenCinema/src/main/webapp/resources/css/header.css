@@ -50,22 +50,6 @@ header {
 
 }
 
-.dg-movie-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 195px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
-}
-
 .dg-movie-link::after {
 
     content: '';
@@ -76,11 +60,28 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 195px;
+    margin-left: -9vh;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 }
+
+.dg-movie-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -4.8vh;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
 
 
 .dg-movie-link:hover::before {
@@ -146,18 +147,6 @@ header {
     }
 }
 
-@-moz-keyframes fadein {
-
-    /* Firefox */
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 @-webkit-keyframes fadein {
 
     /* Safari and Chrome */
@@ -170,17 +159,7 @@ header {
     }
 }
 
-@-o-keyframes fadein {
 
-    /* Opera */
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
 
 /* 홈 */
 .dg-menu-drop-movie>li:nth-child(1) {
@@ -264,6 +243,21 @@ header {
     text-align: center;
 }
 
+.dg-reservation-link::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 80px;
+    margin-left: -9vh;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
 .dg-reservation-link::before {
     content: '';
     position: absolute;
@@ -273,28 +267,13 @@ header {
     background-color: #64DFE4;
 
     bottom: 80px;
-    left: 413px;
+    margin-left: -34px;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 
 }
 
-.dg-reservation-link::after {
-
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    top: 80px;
-    left: 413px;
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-}
 
 
 .dg-reservation-link:hover::before {
@@ -364,27 +343,9 @@ header {
 /* 상단 메뉴 호버시, 라인 생성(멤버십 탭) */
 
 .dg-membership-link {
-
     height: 25px;
     width: 36px;
-
     text-align: center;
-}
-
-.dg-membership-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 640px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
 }
 
 .dg-membership-link::after {
@@ -397,10 +358,26 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 640px;
+    margin-left: -10vh;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
+}
+
+.dg-membership-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -3.6vh;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
 }
 
 
@@ -413,7 +390,6 @@ header {
     transform-origin: right;
     transform: scaleX(1);
 }
-
 
 
 
@@ -513,22 +489,6 @@ header {
     text-align: center;
 }
 
-.dg-Service-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 1210px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
-}
-
 .dg-Service-link::after {
 
     content: '';
@@ -539,11 +499,28 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 1210px;
+    margin-left: -11vh;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 }
+
+.dg-Service-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -2.5vh;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
 
 
 .dg-Service-link:hover::before {
@@ -573,22 +550,6 @@ header {
     text-align: center;
 }
 
-.dg-login-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 1435px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
-}
-
 .dg-login-link::after {
 
     content: '';
@@ -599,11 +560,28 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 1435px;
+    margin-left: -10vh;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 }
+
+.dg-login-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -3.5vh;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
 
 
 .dg-login-link:hover::before {
@@ -631,22 +609,6 @@ header {
     text-align: center;
 }
 
-.dg-logout-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 1435px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
-}
-
 .dg-logout-link::after {
 
     content: '';
@@ -657,12 +619,27 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 1435px;
+    margin-left: -10vh;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 }
 
+.dg-logout-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -3.5vh;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
 
 .dg-logout-link:hover::before {
     transform-origin: left;
@@ -690,22 +667,6 @@ header {
     text-align: center;
 }
 
-.dg-singup-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 1665px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
-}
-
 .dg-singup-link::after {
 
     content: '';
@@ -716,11 +677,28 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 1665px;
+    margin-left: -11vh;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 }
+
+.dg-singup-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -2.5vh;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
 
 
 .dg-singup-link:hover::before {
@@ -748,22 +726,6 @@ header {
     text-align: center;
 }
 
-.dg-mypage-link::before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    border-radius: 2px;
-    background-color: #64DFE4;
-
-    bottom: 80px;
-    left: 1210px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s ease-in-out;
-
-}
-
 .dg-mypage-link::after {
 
     content: '';
@@ -774,8 +736,23 @@ header {
     background-color: #64DFE4;
 
     top: 80px;
-    left: 1210px;
+    margin-left: -11vh;
     transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-mypage-link::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 80px;
+    margin-left: -2.5vh;
+    transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 }
