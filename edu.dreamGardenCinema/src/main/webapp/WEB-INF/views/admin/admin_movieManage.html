@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>movieManage</title>
+    <link rel="stylesheet" href="../admin/style.css">
+    <link rel="stylesheet" href="../admin/admin_movieManage.css">
 </head>
 <body>
     <!-- 전체 감싸는 div -->
@@ -15,19 +17,20 @@
 
         <!-- 검색창 -->
         <div class="admin_movieSearchWrap">
+            <div  class="admin_moiveSearchWrap2"> 
             <select class="admin_movieManageSelect" name="" id="">
                 <option value="title">제목</option>
                 <option value="director">감독</option>
                 <option value="actor">배우</option>
             </select>
             <!-- 검색 input 창 -->
-            <div class="admin_movieManageInputWrap">
                 <input type="text" name="" id="" class="admin_movieManageInput">
-            </div>
+           </div>
             <!-- 검색 버튼 -->
             <div class="admin_movieManageBtnWrap">
-                <button type="button" class="admin_movieManageBtn"></button>
+                <button type="button" class="admin_movieSearchBtn">검색</button>
             </div>
+        </div>
             <!-- 목록 count -->
             <div class="admin_movieManageList">
                 <span>목록</span>
@@ -37,7 +40,7 @@
 
             </div>
             <!-- 게시판 -->
-            <div class="admin_movieManagerBoardWrap">
+            <div class="admin_movieManageBoardWrap">
                 <table>
                     <thead>
                     <tr>
@@ -61,18 +64,21 @@
                 </tbody>
 
                 </table>
+            </div>
 
                 <!-- 페이지 네이션 -->
 
                 <!-- 등록,수정,삭제 버튼 -->
-                <button class="admin_movieManageRegister">등록</button>
-                <button class="admin_movieManageModify">수정</button>
-                <button class="admin_movieManageDelete">삭제</button>
+                <div class="admin_movieBtn">
+                    <button class="admin_movieEndBtn">등록</button>
+                    <button class="admin_movieEndBtn">수정</button>
+                    <button class="admin_movieEndBtn">삭제</button>
+                </div>
             
 
-            </div>
+           
 
-        </div>
+       
 
 
 

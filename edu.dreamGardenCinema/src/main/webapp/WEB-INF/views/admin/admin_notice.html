@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>notice</title>
+    <link rel="stylesheet" href="../admin/style.css">
+    <link rel="stylesheet" href="../admin/admin_notice.css">
 </head>
 <body>
     <!-- 전체 감싸는 div -->
@@ -14,19 +16,20 @@
 
         <!-- 검색창 -->
         <div class="admin_noticeSearchWrap">
+            <div  class="admin_noticeSearchWrap2"> 
             <select class="admin_noticeSelect" name="" id="">
                 <option value="title">번호</option>
                 <option value="director">이름</option>
                 <option value="actor">이메일</option>
             </select>
             <!-- 검색 input 창 -->
-            <div class="admin_noticeInputWrap">
                 <input type="text" name="" id="" class="admin_noticeInput">
-            </div>
+        </div>
             <!-- 검색 버튼 -->
             <div class="admin_noticeBtnWrap">
                 <button type="button" class="admin_noticeBtn"></button>
             </div>
+        </div>
             <!-- 목록 count -->
             <div class="admin_noticeList">
                 <span>목록</span>
@@ -60,23 +63,19 @@
                 </tbody>
 
                 </table>
+            </div>
 
                 <!-- 페이지 네이션 -->
 
                 <!-- 등록,수정,삭제 버튼 -->
-                <button class="admin_noticeRegister">등록</button>
-                <button class="admin_noticeModify">수정</button>
-                <button class="admin_noticeDelete">삭제</button>
+                <div class="admin_noticeBtn">
+                    <button class="admin_noticeEndBtn">등록</button>
+                    <button class="admin_noticeEndBtn">수정</button>
+                    <button class="admin_noticeEndBtn">삭제</button>
+                </div>
+
         
-            
-
-            </div>
-
-        </div>
-
-
-
-    </div>    
+   </div>    
 
 
 </body>
