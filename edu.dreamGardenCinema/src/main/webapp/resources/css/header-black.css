@@ -1,0 +1,888 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+
+}
+
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* 헤더 전체 영역 */
+header {
+    width: 100%;
+    height: 190px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    position: sticky !important;
+    z-index: 200px;
+
+}
+
+/* 상단바 메뉴 영역 */
+.dg-menu {
+    display: flex;
+    width: 100%;
+    height: 190px;
+    min-width: 600px;
+    background: linear-gradient(black, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    /* background-color: rgba(0, 0, 0, 0.2); */
+}
+
+/* 상단바 메뉴 왼쪽 영역(영화, 예매, 멤버십)*/
+.dg-menu-L {
+    width: 50%;
+    display: flex;
+    margin-top: 85px;
+    justify-content: space-evenly;
+
+    list-style: none;
+    padding-left: 0px;
+}
+
+/* 상단바 L : 탭  */
+/* 영화 */
+.dg-menu-L>.dg-menu-L1>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 예매 */
+.dg-menu-L>.dg-menu-L2>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 멤버십 */
+.dg-menu-L>.dg-menu-L3>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 상단 메뉴 호버시, 라인 생성(영화탭) */
+.dg-movie-link {
+    height: 25vh;
+    width: 36vw;
+}
+
+.dg-movie-link::after {
+
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-movie-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
+.dg-movie-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-movie-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(영화) */
+.dg-menu-drop-movie {
+    display: flex;
+    list-style: none;
+    margin-top: 15px;
+    position: absolute;
+    margin-left: -95px;
+    padding-left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    height: 35px;
+    align-items: center;
+    border-radius: 7px;
+
+}
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 리스트 전체 영역 */
+.dg-menu-drop-movie li {
+    text-align: center;
+    display: none;
+}
+
+
+
+
+.dg-menu-L1:hover .dg-menu-drop-movie li {
+    display: block;
+
+    /* 드롭다운 List 항목 글자 천천히 뜨게 하기 (시간초설정) */
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s;
+    /* Firefox */
+    -webkit-animation: fadein 1.5s;
+    /* Safari and Chrome */
+    -o-animation: fadein 1.5s;
+    /* Opera */
+
+
+}
+
+/* 드롭다운 List 항목 글자 천천히 뜨게 하기 */
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+
+    /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+/* 홈 */
+.dg-menu-drop-movie>li:nth-child(1) {
+    width: 25px;
+}
+
+.dg-menu-drop-movie>li:nth-child(1)>a {
+    color: white;
+    text-decoration: none;
+}
+
+.dg-menu-drop-movie>li:nth-child(1)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* 상영 예정작 */
+.dg-menu-drop-movie>li:nth-child(2) {
+
+    width: 120px;
+}
+
+.dg-menu-drop-movie>li:nth-child(2)>a {
+    color: white;
+    text-decoration: none;
+}
+
+.dg-menu-drop-movie>li:nth-child(2)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* 현재 상영작  */
+.dg-menu-drop-movie>li:nth-child(3) {
+    width: 110px;
+}
+
+.dg-menu-drop-movie>li:nth-child(3)>a {
+    color: white;
+    text-decoration: none;
+}
+
+.dg-menu-drop-movie>li:nth-child(3)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(예약) */
+.dg-menu-drop-reservation {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: -60px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding-left: 0;
+
+    height: 35px;
+    align-items: center;
+
+    border-radius: 7px;
+}
+
+
+
+.dg-menu-L2:hover .dg-menu-drop-reservation li {
+    display: block;
+
+    /* 드롭다운 List 항목 글자 천천히 뜨게 하기 (시간초설정) */
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s;
+    /* Firefox */
+    -webkit-animation: fadein 1.5s;
+    /* Safari and Chrome */
+    -o-animation: fadein 1.5s;
+    /* Opera */
+}
+
+/* 상단바 메뉴 왼쪽 영역 - 예약 리스트 */
+.dg-menu-drop-reservation>li {
+    display: none;
+    right: 39px;
+    margin-right: 7px;
+    text-align: center;
+}
+
+/* 예매하기 */
+.dg-menu-drop-reservation>li:nth-child(1) {
+    width: 80px;
+}
+
+.dg-menu-drop-reservation>li:nth-child(1)>a {
+    color: white;
+    text-decoration: none;
+}
+
+.dg-menu-drop-reservation>li:nth-child(1)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+/* 상영 시간표 */
+.dg-menu-drop-reservation>li:nth-child(2) {
+    width: 100px;
+}
+
+.dg-menu-drop-reservation>li:nth-child(2)>a {
+    color: white;
+    text-decoration: none;
+}
+
+.dg-menu-drop-reservation>li:nth-child(2)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* 상단 메뉴 호버시, 라인 생성(예약탭) */
+.dg-reservation-link {
+
+    height: 25px;
+    width: 36px;
+
+    text-align: center;
+}
+
+.dg-reservation-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-reservation-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
+.dg-reservation-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-reservation-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+/* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(멤버십) */
+.dg-menu-drop-membership {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: -70px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding-left: 0;
+
+    height: 35px;
+    align-items: center;
+
+    border-radius: 7px;
+}
+
+.dg-menu-L3:hover .dg-menu-drop-membership li {
+    display: block;
+
+    /* 드롭다운 List 항목 글자 천천히 뜨게 하기 (시간초설정) */
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s;
+    /* Firefox */
+    -webkit-animation: fadein 1.5s;
+    /* Safari and Chrome */
+    -o-animation: fadein 1.5s;
+    /* Opera */
+}
+
+.dg-menu-drop-membership>li {
+    display: none;
+    right: 39px;
+    /* margin-top: 14px; */
+    margin-right: 7px;
+
+    text-align: center;
+}
+
+/* 멤버십 이용약관 */
+.dg-menu-drop-membership>li:nth-child(1) {
+    width: 135px;
+}
+
+.dg-menu-drop-membership>li:nth-child(1)>a {
+    color: white;
+    text-decoration: none;
+}
+.dg-menu-drop-membership>li:nth-child(1)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* 나의 멤버십 */
+.dg-menu-drop-membership>li:nth-child(2) {
+    width: 100px;
+}
+
+.dg-menu-drop-membership>li:nth-child(2)>a {
+    color: white;
+    text-decoration: none;
+}
+.dg-menu-drop-membership>li:nth-child(2)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+
+
+/* 상단 메뉴 호버시, 라인 생성(멤버십 탭) */
+
+.dg-membership-link {
+    height: 25px;
+    width: 36px;
+    text-align: center;
+}
+
+.dg-membership-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-membership-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+
+.dg-membership-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-membership-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+
+
+/* 상단바 로고 영역 */
+
+.dg-logo>a>img {
+    height: 120px;
+    margin-top: 10px;
+}
+
+/* 상단바 메뉴 오른쪽 영역(고객센터, 로그인, 회원가입) */
+
+.dg-menu-R {
+    width: 50%;
+    display: flex;
+    margin-top: 85px;
+    justify-content: space-evenly;
+
+    list-style: none;
+    text-decoration: none;
+
+}
+
+.dg-menu-R>li>a {
+    text-decoration: none;
+    color: white;
+}
+
+/* 고객센터 탭 영역 */
+
+.dg-menu-customer-service {
+    height: 35px;
+    list-style: none;
+    display: flex;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: -62px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
+
+    align-items: center;
+
+    padding-left: 0;
+
+}
+
+/* 상단바 R-R1 고객센터탭 */
+.dg-menu-R>.dg-menu-R1>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+.dg-menu-R1:hover .dg-menu-customer-service li {
+    display: block;
+
+    /* 드롭다운 List 항목 글자 천천히 뜨게 하기 (시간초설정) */
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s;
+    /* Firefox */
+    -webkit-animation: fadein 1.5s;
+    /* Safari and Chrome */
+    -o-animation: fadein 1.5s;
+    /* Opera */
+}
+
+
+.dg-menu-customer-service>li {
+    display: none;
+    right: 39px;
+    margin-right: 6px;
+
+    text-align: center;
+}
+
+.dg-menu-customer-service>li>a {
+    text-decoration: none;
+    color: white;
+    margin-top: 10px;
+}
+.dg-menu-customer-service>li>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.dg-menu-customer-service>li:nth-child(1) {
+    width: 50px;
+}
+
+.dg-menu-customer-service>li:nth-child(2) {
+    width: 80px;
+}
+
+.dg-menu-customer-service>li:nth-child(3) {
+    width: 80px;
+}
+
+
+/* 상단 메뉴 호버시, 라인 생성(고객센터 탭) */
+
+.dg-Service-link {
+    height: 25px;
+    width: 36px;
+
+    text-align: center;
+}
+
+.dg-Service-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-Service-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-Service-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-Service-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+/* 로그인 */
+.dg-menu-login {
+    display: flex;
+    /* position: absolute; */
+}
+
+.dg-menu-login>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 상단 메뉴 호버시, 라인 생성(로그인 탭) */
+
+.dg-login-link {
+    height: 25px;
+    width: 100px;
+
+    text-align: center;
+}
+
+.dg-login-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-login-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+
+
+.dg-login-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-login-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+/* 로그아웃 (로그인 상태에서 보임) */
+.dg-menu-logout {
+    display: none;
+}
+
+.dg-menu-logout>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 상단 메뉴 호버시, 라인 생성(로그아웃 탭) */
+
+.dg-logout-link {
+    height: 25px;
+    width: 60px;
+
+    text-align: center;
+}
+
+.dg-logout-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-logout-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
+.dg-logout-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-logout-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+
+/* 회원가입 */
+.dg-menu-nonmember {
+    display: flex;
+}
+
+.dg-menu-nonmember>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 상단 메뉴 호버시, 라인 생성(회원가입 탭) */
+
+.dg-singup-link {
+    height: 25px;
+    width: 110px;
+
+    text-align: center;
+}
+
+.dg-singup-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-singup-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+
+}
+
+.dg-singup-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-singup-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+
+/* 회원일 경우(로그인 상태에서 보임) */
+.dg-menu-member {
+    display: none;
+}
+
+.dg-menu-member>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+/* 상단 메뉴 호버시, 라인 생성(마이페이지 탭) */
+
+.dg-mypage-link {
+    height: 25px;
+    width: 70px;
+
+    text-align: center;
+}
+
+.dg-mypage-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    top: 25px;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+.dg-mypage-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #64DFE4;
+
+    bottom: 28px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s ease-in-out;
+}
+
+
+.dg-mypage-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dg-mypage-link:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+hr {
+
+    margin-block-start: -4.5em;
+    margin-block-end: 4.5em;
+    overflow: visible;
+
+}

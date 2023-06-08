@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qna</title>
+</head>
+<body>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_qnaWrap">
+
+              <!-- 게시판 제목 -->
+              <span id="admin_faqTitle">FAQ 관리</span>
+
+
+        <!-- 검색창 -->
+        <div class="admin_qnaSearchWrap">
+            <select class="admin_qnaSelect" name="" id="">
+                <option value="title">번호</option>
+                <option value="director">이름</option>
+                <option value="actor">이메일</option>
+            </select>
+            <!-- 검색 input 창 -->
+            <div class="admin_qnaInputWrap">
+                <input type="text" name="" id="" class="admin_qnaInput">
+            </div>
+            <!-- 검색 버튼 -->
+            <div class="admin_qnaBtnWrap">
+                <button type="button" class="admin_qnaBtn"></button>
+            </div>
+            <!-- 목록 count -->
+            <div class="admin_qnaList">
+                <span>목록</span>
+                <span>( 총</span>
+                <span class="admin_qnaCount">0</span>
+                <span>개)</span>
+
+            </div>
+            <!-- 게시판 -->
+            <div class="admin_qnaBoardWrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll"></th>
+                        <th>번호</th>
+                        <th>카테고리</th>
+                        <th>제목</th>
+                        <th>등록인</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="" id="" class="admin_qnaCheckbox"></td>
+                        <td>1</td>
+                        <td>[예매/결제]</td>
+                        <td>인터넷 예매 후 현장에서 취소 가능한가요?</td>
+                        <td>2023.05.31</td>
+
+                    </tr>
+                </tbody>
+
+                </table>
+
+                <!-- 페이지 네이션 -->
+
+                <!-- 등록,수정,삭제 버튼 -->
+                <button class="admin_qnaRegister">등록</button>
+                <button class="admin_qnaModify">수정</button>
+                <button class="admin_qnaDelete">삭제</button>
+        
+            
+
+            </div>
+
+        </div>
+
+
+
+    </div>    
+
+
+</body>
+</html>

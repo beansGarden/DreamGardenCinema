@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qna</title>
+</head>
+<body>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_faqWrap">
+        
+            <!-- 게시판 제목 -->
+            <span id="admin_qnaTitle">1:1문의 관리</span>
+
+        <!-- 검색창 -->
+        <div class="admin_faqSearchWrap">
+            <select class="admin_faqSelect" name="" id="">
+                <option value="title">번호</option>
+                <option value="director">이름</option>
+                <option value="actor">이메일</option>
+            </select>
+            <!-- 검색 input 창 -->
+            <div class="admin_faqInputWrap">
+                <input type="text" name="" id="" class="admin_faqInput">
+            </div>
+            <!-- 검색 버튼 -->
+            <div class="admin_faqBtnWrap">
+                <button type="button" class="admin_faqBtn"></button>
+            </div>
+            <!-- 목록 count -->
+            <div class="admin_faqList">
+                <span>목록</span>
+                <span>( 총</span>
+                <span class="admin_faqCount">0</span>
+                <span>개)</span>
+
+            </div>
+            <!-- 게시판 -->
+            <div class="admin_faqBoardWrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll"></th>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                        <th>등록인</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="" id="" class="admin_faqCheckbox"></td>
+                        <td>1</td>
+                        <td>지갑을 잃어버렸어요</td>
+                        <td>2023.06.01</td>
+                        <td>typoon</td>
+                   
+                    </tr>
+                </tbody>
+
+                </table>
+
+                <!-- 페이지 네이션 -->
+
+                <!-- 등록,수정,삭제 버튼 -->
+                <button class="admin_faqRegister">등록</button>
+                <button class="admin_faqModify">수정</button>
+                <button class="admin_faqDelete">삭제</button>
+        
+            
+
+            </div>
+
+        </div>
+
+
+
+    </div>    
+
+
+</body>
+</html>
