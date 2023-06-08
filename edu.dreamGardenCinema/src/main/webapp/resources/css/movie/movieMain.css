@@ -38,7 +38,10 @@ body {
     height: 300px;
 }
 
-
+.movieList--more{
+    background-color: aquamarine;
+    height: 50px;
+}
 
 
 
