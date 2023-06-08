@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/Ticketing/Ticketing2.css">
+</head>
+<body>
+    <div class="main">
+        <div class="ticketingBox">
+            <ul class="ticketingNav">
+                <li class="pass"><a href="">01<br>상영시간</a></li>
+                <li class="active"><a href="">02<br>인원/좌석</a></li>
+                <li><a href="">03<br>결제</a></li>
+                <li><a href="">04<br>결제완료</a></li>
+            </ul>
+            <form action="" method="POST">
+                <div class="choiceHeader">인원/좌석 선택</div>
+                <div class="choiceCount">
+                    <div class="movie_info">
+                        <div class="poster">
+                            <img src="/포스터/범죄도시.jpg" alt="">
+                        </div>
+                        <div class="content">
+                            <div class="title">
+                                <img src="/15세.png" alt="">
+                                <strong>범죄도시3</strong>
+                            </div>
+                            <div class="date">
+                                <span class="date_info">
+                                    23.06.07(수)
+                                </span>
+                                <span class="time_info">
+                                    23:30~25:17
+                                </span>
+                            </div>
+                            <div class="theater_info">
+                                <span>1관</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>인원</span>
+                            <div class="calc">
+                                <div id="minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
+                                </div>
+                                <div id="btn1">0</div>
+                                <div id="plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Seat_info">
+                    <div class="screen">S C R E E N</div>
+                    <div class="movieSeat">
+                        <!-- 
+                            <div class="seatLine col0">
+                                <span>A</span>
+                                <a class="seat">
+                                    <span>1</span>
+                                </a>
+                                <a class="seat">
+                                    <span>2</span>
+                                </a>
+                                ...
+                            </div>
+                        -->
+                    </div>
+                    <div class="seatBtm">
+                        <div class="seat_ex ex1">
+                        </div>
+                        <span>선택좌석</span>
+                        <div class="seat_ex ex2">
+                        </div>
+                        <span>선택가능</span>
+                        <div class="seat_ex ex3">
+                        </div>
+                        <span>예매완료</span>
+                    </div>
+                </div>
+                <div class="liquidate">
+
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="/Ticketing/Ticketing2.js"></script>
+</body>
+</html>
