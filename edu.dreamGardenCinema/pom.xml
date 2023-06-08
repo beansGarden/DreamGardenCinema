@@ -4,7 +4,7 @@
    <modelVersion>4.0.0</modelVersion> <!-- Maven 2 버전 이후 POM의 경우 항상 4.0.0 -->
    <groupId>edu.kh</groupId> <!-- 최상위 패키지 1, 2레벨 -->
    <artifactId>project</artifactId> <!-- 최상위 패키지 3레벨 == context-path -->
-   <name>boardProject</name> <!-- 프로젝트 명 -->
+   <name>dreamGardenCinema</name> <!-- 프로젝트 명 -->
    <packaging>war</packaging>  <!-- 배포 형식 -->
    <version>1.0.0--BUILD-SNAPSHOT</version>
    
