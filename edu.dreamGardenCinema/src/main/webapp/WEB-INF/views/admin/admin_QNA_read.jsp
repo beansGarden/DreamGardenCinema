@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qna</title>
+    <link rel="stylesheet" href="/resources/css/admin/admin_QNA_read.css">
+</head>
+<body>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_qnaWrap">
+
+            <!-- 게시판 제목 -->
+          <span id="admin_qnaTitle">1:1문의 관리</span>
+
+            <!-- 게시판 -->
+            <div class="admin_qnaBoardWrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                                <td>1</td>
+                        </tr>
+                        <tr>
+                            <th>카테고리</th>
+                                <td>[예매/결제]</td>
+                        </tr>
+                        <th>등록인</th>
+                        <td>2023.05.31</td>
+                    </tr>
+                        <tr>
+                            <th>제목</th>
+                                <td>인터넷 예매 후 현장에서 취소 가능한가요?</td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                                <td>    <!-- 내용 -->
+                                    <div class="admin_qnaContent">
+                                       취소되게 해주세요
+                                    </div></td>
+                        </tr>
+                    
+                </thead> 
+             </table>
+
+         
+ 
+                <!-- 페이지 네이션 -->
+
+          <!-- 등록,수정,삭제 버튼 -->
+          <div class="admin_qnaBtn">
+            <button class="admin_qnaEndBtn">등록</button>
+            <button class="admin_qnaEndBtn">수정</button>
+            <button class="admin_qnaEndBtn">삭제</button>
+        </div>
+        
+            
+
+            </div>
+
+        </div>
+
+
+
+    </div>    
+
+
+</body>
+</html>
