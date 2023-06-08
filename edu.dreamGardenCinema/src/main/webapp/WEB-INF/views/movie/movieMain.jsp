@@ -17,6 +17,8 @@
 
     <section class="movie--mid__List">
 
+        
+
     </section>
 
     <section class="movie--bot__banner">

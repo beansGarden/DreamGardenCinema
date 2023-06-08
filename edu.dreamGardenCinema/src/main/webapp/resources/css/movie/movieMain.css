@@ -1,0 +1,19 @@
+body{
+    margin: 0;
+}
+
+.movie--Top__banner{
+    display: flex;
+    justify-content: center;
+}
+
+
+.movie--mid__List{
+    
+}
+
+
+.movie--bot__banner{
+    display: flex;
+    justify-content: center;
+}
