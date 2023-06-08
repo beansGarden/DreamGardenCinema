@@ -16,8 +16,42 @@
     </section>
 
     <section class="movie--mid__List">
+        <div class="movieList--nav">
+            <div>
+            
+            </div>
 
-        
+            <div>
+
+            </div>
+        </div>
+
+        <div class="movieList--items">
+
+            <div class="movieItem">
+
+            </div>
+
+            <div class="movieItem">
+
+            </div>
+
+            <div class="movieItem">
+
+            </div>
+
+            <div class="movieItem">
+
+            </div>
+            <div class="movieItem">
+
+            </div>
+            <div class="movieItem">
+
+            </div>
+
+
+        </div>
 
     </section>
 
