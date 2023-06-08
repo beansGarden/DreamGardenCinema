@@ -36,6 +36,6 @@ sampleBtn.addEventListener("click", function() {
 
     nullInputIconBox.innerHTML = svgCode;
 
-    const headerSearchModContainer = document.getElementById("memberIdErrIcon");
+    const headerSearchModContainer = document.getElementById("userIdErrIcon");
     headerSearchModContainer.appendChild(nullInputIconBox);
 });

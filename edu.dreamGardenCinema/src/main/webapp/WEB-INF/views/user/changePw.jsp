@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/member/accountFind.css">
-    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/user/accountFind.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 <body>
     <div class="account-find-logo">
@@ -62,16 +64,16 @@
             <div class="change-pw-text">비밀번호 변경</div>
             <div class="change-pw-line"></div>
 
-            <form action="/member/changePw" id="changePwFrmBox">
+            <form action="/user/changePw" id="changePwFrmBox">
                 <div class="input-wrapper">
                     <label>
-                        <input type="password" name="memberPw" id="memberPw" placeholder="8글자 이상의 영어, 숫자를 포함해 주세요." class="">
+                        <input type="password" name="userPw" id="userPw" placeholder="8글자 이상의 영어, 숫자를 포함해 주세요." class="">
                         <span aria-hidden="true">변경할 비밀번호</span>
                     </label>
                 </div>
                 <div class="input-wrapper">
                     <label>
-                        <input type="password" name="memberRePw" id="memberRePw" class="">
+                        <input type="password" name="userRePw" id="userRePw" class="">
                         <span aria-hidden="true">비밀번호 확인</span>
                     </label>
                 </div>
@@ -81,7 +83,7 @@
         </div>
     </div>
 
-    <script src="/edu.dreamGardenCinema/src/main/webapp/resources/js/jquery.js"></script>
-    <script src="/edu.dreamGardenCinema/src/main/webapp/resources/js/member/accountFind.js"></script>
+    <script src="/resources/js/jquery.js"></script>
+    <script src="/resources/js/user/accountFind.js"></script>
 </body>
 </html>

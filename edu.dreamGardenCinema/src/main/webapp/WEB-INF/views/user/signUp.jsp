@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/member/signUp.css">
-    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/user/signUp.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 <body>
     <div id="sign-up-box">
@@ -56,15 +58,15 @@
                 </defs>
             </svg>
         </div>
-        <form action="/member/signUp" method="post" id="signUpFrmBox">
+        <form action="/user/signUp" method="post" id="signUpFrmBox">
 
             <div id="sampleBtn">경고 예시</div>
 
             <div class="input-wrapper">
                 <label>
-                    <input type="text" name="memberId" id="memberId" class="err-input-border">
+                    <input type="text" name="userId" id="userId" class="err-input-border">
                     <span aria-hidden="true">아이디</span>
-                    <div id="memberIdErrIcon">
+                    <div id="userIdErrIcon">
                         <svg class="null-input-icon" fill="#d7373f" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="m40-120 440-760 440 760H40Zm104-60h672L480-760 144-180Zm340.175-57q12.825 0 21.325-8.675 8.5-8.676 8.5-21.5 0-12.825-8.675-21.325-8.676-8.5-21.5-8.5-12.825 0-21.325 8.675-8.5 8.676-8.5 21.5 0 12.825 8.675 21.325 8.676 8.5 21.5 8.5ZM454-348h60v-224h-60v224Zm26-122Z"></path></svg>
                     </div>
                     <!-- 경고 아이콘 -->
@@ -73,13 +75,13 @@
             </div>
             <div class="input-wrapper">
                 <label>
-                    <input type="password" name="memberPw" id="memberPw" placeholder="8글자 이상의 영어, 숫자를 포함해 주세요." class="">
+                    <input type="password" name="userPw" id="userPw" placeholder="8글자 이상의 영어, 숫자를 포함해 주세요." class="">
                     <span aria-hidden="true">비밀번호</span>
                 </label>
             </div>
             <div class="input-wrapper">
                 <label>
-                    <input type="password" name="memberRePw" id="memberRePw" class="">
+                    <input type="password" name="userRePw" id="userRePw" class="">
                     <span aria-hidden="true">비밀번호 재입력</span>
                 </label>
             </div>
@@ -88,19 +90,19 @@
 
             <div class="input-wrapper">
                 <label>
-                    <input type="email" name="memberEmail" id="memberEmail" class="">
+                    <input type="email" name="userEmail" id="userEmail" class="">
                     <span aria-hidden="true">이메일</span>
                 </label>
             </div>
             <div class="input-wrapper">
                 <label>
-                    <input type="text" name="memberNickname" id="memberNickname" class="">
+                    <input type="text" name="userNickname" id="userNickname" class="">
                     <span aria-hidden="true">닉네임</span>
                 </label>
             </div>
             <div class="input-wrapper">
                 <label>
-                    <input type="number" name="memberDateBirth" id="memberDateBirth" class="">
+                    <input type="number" name="userDateBirth" id="userDateBirth" class="">
                     <span aria-hidden="true">생년월일</span>
                 </label>
             </div>
@@ -109,7 +111,7 @@
 
             <div class="input-wrapper">
                 <label>
-                    <input type="number" name="memberPhoneNmbr" id="memberPhoneNmbr" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
+                    <input type="number" name="userPhoneNmbr" id="userPhoneNmbr" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
                     <span aria-hidden="true">휴대폰 번호</span>
                 </label>
             </div>
@@ -125,6 +127,6 @@
             <button id="signBtn" class="display-none">회원가입</button><!-- 회원가입 및 인증번호 검사 -->
         </form>
     </div>
-    <script src="/edu.dreamGardenCinema/src/main/webapp/resources/js/member/signUp.js"></script>
+    <script src="/resources/js/user/signUp.js"></script>
 </body>
 </html>

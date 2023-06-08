@@ -81,7 +81,7 @@ ul.account-tabs li.current{
     border-bottom: 1px solid #80808050;
     position: relative;
 }
-#memberPhoneNmbr{
+#userPhoneNmbr{
     width: 380px;
     margin-right: 20px;
 }
@@ -187,7 +187,7 @@ input::placeholder {
 .authKey-green-text{color: #09aa5c;}
 .authKey-red-text{color: red;}
 
-#memberIdErrIcon{
+#userIdErrIcon{
     position: absolute;
     top: 60%;
     right: 10px;

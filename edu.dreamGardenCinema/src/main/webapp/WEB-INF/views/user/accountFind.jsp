@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/member/accountFind.css">
-    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/user/accountFind.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 <body>
     <div class="account-find-logo">
@@ -62,22 +64,22 @@
         </ul>
         
         <div id="idFind" class="tab-content current">
-            <form action="/member/idFind" method="post" id="accountFindFrmBox">
+            <form action="/user/idFind" method="post" id="accountFindFrmBox">
                 <div class="input-wrapper ">
                     <label>
-                        <input type="email" name="memberEmail" id="memberEmail" class="">
+                        <input type="email" name="userEmail" id="userEmail" class="">
                         <span aria-hidden="true">이메일</span>
                     </label>
                 </div>
                 <div class="input-wrapper ">
                     <label>
-                        <input type="number" name="memberDateBirth" id="memberDateBirth" class="">
+                        <input type="number" name="userDateBirth" id="userDateBirth" class="">
                         <span aria-hidden="true">생년월일</span>
                     </label>
                 </div>
                 <div class="input-wrapper ">
                     <label>
-                        <input type="number" name="memberPhoneNmbr" id="memberPhoneNmbr" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
+                        <input type="number" name="userPhoneNmbr" id="userPhoneNmbr" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
                         <span aria-hidden="true">휴대폰 번호</span>
                     </label>
                 </div>
@@ -91,16 +93,16 @@
         </div>
 
         <div id="pwFind" class="tab-content">
-            <form action="/member/idFind" method="post" id="accountFindFrmBox">
+            <form action="/user/idFind" method="post" id="accountFindFrmBox">
                 <div class="input-wrapper">
                     <label>
-                        <input type="text" name="memberId" id="memberId" class="">
+                        <input type="text" name="userId" id="userId" class="">
                         <span aria-hidden="true">아이디</span>
                     </label>
                 </div>
                 <div class="input-wrapper">
                     <label>
-                        <input type="number" name="memberPhoneNmbr" id="memberPhoneNmbr" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
+                        <input type="number" name="userPhoneNmbr" id="userPhoneNmbr" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
                         <span aria-hidden="true">휴대폰 번호</span>
                     </label>
                     <div id="sendAuthKeyBtn">인증번호 받기</div>
@@ -119,7 +121,7 @@
         
     </div>
 
-    <script src="/edu.dreamGardenCinema/src/main/webapp/resources/js/jquery.js"></script>
-    <script src="/edu.dreamGardenCinema/src/main/webapp/resources/js/member/accountFind.js"></script>
+    <script src="/resources/js/jquery.js"></script>
+    <script src="/resources/js/user/accountFind.js"></script>
 </body>
 </html>
