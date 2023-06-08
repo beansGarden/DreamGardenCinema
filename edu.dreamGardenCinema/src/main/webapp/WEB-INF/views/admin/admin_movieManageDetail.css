@@ -26,3 +26,13 @@ ul>li{
     width: 120px;
     margin: 10px 10px;
 }
+
+/* 등록버튼 */
+.admin_movieManageRegister{
+    margin-left: 90%;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #0F0954;
+    color: white;
+    
+}

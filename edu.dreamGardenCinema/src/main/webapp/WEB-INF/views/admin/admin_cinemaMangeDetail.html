@@ -20,16 +20,15 @@
         <div class="admin_cinemaManageDetaiPlList">
             <span class="admin_cinemaManagerSTitle">상영관  </span> <!-- s: small -->
             <!-- 상영관 선택 -->
-        
             <select class="admin_cinemaManageDetailSelect" name="" id=""> <!-- Place List -->
                 <option value="1">1관</option>
                 <option value="2">2관</option>
                 <option value="3">3관</option>
             </select>
-    
         </div>
+        <!--영화 선택  -->
         <div class="admin_cinemaManageDetail_Time">
-        <span class="admin_cinemaManagerSTitle">상영시간</span>
+        <span class="admin_cinemaManagerSTitle">상영 영화</span>
             <select class="admin_cinemaManageDetaiMlList" name="" id="" > <!-- Movie List -->
                 <option value="0">영화를 선택해주세요</option>
                 <option value="1">인어공주</option>
@@ -38,23 +37,24 @@
             </select>
                
          </div>
-
+         <!-- 상영 시작 날짜 -->
          <div class="admin_cinemaManageDetailStartDate">
             <span class="admin_cinemaManagerSTitle">상영 날짜  </span>
             <input type="date" name="" id="">
         </div>
 
+        <!-- 상영 종료 날짜-->
          <div class="admin_cinemaManageDetailEndDate">
             <span class="admin_cinemaManagerSTitle">종영 날짜  </span>
             <input type="date" name="" id="">
         </div>
  
-
+        <!-- 상영 시간 => 해시태그 -->
     <div class="admin_cinemaManageDetailDate">
         <span class="admin_cinemaManagerSTitle">상영 시간 </span>
         <div class="box">
-        <span class="innerBox"></span>
-       <input type="text" name="" id="">
+             <span class="innerBox"></span> <!-- 해시태그 등록되는 칸 -->
+               <input type="text" name="" id=""> <!-- 입력칸 -->
     </div>
     </div>
 

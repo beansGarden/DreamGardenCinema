@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="../admin/admin_dashboard.css">
 </head>
 <body>
+    <!-- 전체 감싸는 div -->
     <div class="admin_dashboardWrap">
         <div class="admin_dashboardSalesforMovie">
             <span>영화별 총 매출</span>
+            <div class="admin_dashboardSalesforMovie-in">
             <select>
                 <option value="">범죄도시3</option>
                 <option value="">바비</option>
@@ -21,31 +23,61 @@
             </select>
             <span>￦5,000,000</span>
         </div>
+        </div>
 
         <div class="admin_dashboardSalesforQuater">
             <span>1분기 총 매출</span>
+            <div class="admin_dashboardSalesforQuater-in">
             <span>￦50,000,000</span>
         </div>
+    </div>
 
+        <!-- 1:1 문의 List -->
         <div class="admin_dashboardQnaList">    
+            <span>1:1 문의 리스트</span>
+            <div class="admin_dashboardQnaList-in">
             <table>
-                <tr>
-                    <th>제목</th>
-                    <td>지갑 잃어버렸어요</td>
-                    <td>할인 쿠폰 어떻게 적용하죠?</td>
-                    <th>회원</th>
-                    <td>유저일</td>
-                    <td>유저이</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>제목</th>
+                        <th>회원</th>
+                    </tr>
+                    <tr>
+                            <td>지갑 잃어버렸어요</td>
+                            <td>유저일</td>
+                     </tr>
+                     <tr>
+                            <td>할인 쿠폰 어떻게 적용하죠?</td>
+                            <td>유저이</td>
+                    </tr>
+                     <tr>
+                            <td>할인 쿠폰 어떻게 적용하죠?</td>
+                            <td>유저이</td>
+                    </tr>
+                     <tr>
+                            <td>할인 쿠폰 어떻게 적용하죠?</td>
+                            <td>유저이</td>
+                    </tr>
+                     <tr>
+                            <td>할인 쿠폰 어떻게 적용하죠?</td>
+                            <td>유저이</td>
+                    </tr>
+                     <tr>
+                            <td>할인 쿠폰 어떻게 적용하죠?</td>
+                            <td>유저이</td>
+                    </tr>
+            </tbody>
             </table>
+            </div>
         </div>
 
+        
         <div class="admin_dashboardSalesforLastweek">
+            <span>지난주 요일별 매출</span>
+            <div class="admin_dashboardSalesforLastweek-in">
             그래프
         </div>
-
-
-
+     </div>
     </div>
 
 

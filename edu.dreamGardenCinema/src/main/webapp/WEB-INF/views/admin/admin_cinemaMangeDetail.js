@@ -8,9 +8,9 @@ function initHandler(){ // 초기화
     let repo = localStorage.tagsList;
 
     if(repo == ''){
-        localStorage.tagsList = `["테스트", "해보세요", "저장은됩니다", "다만", "이블로그는", "개발자도구가", "금지되어있습니다"]`;
+        localStorage.tagsList = `["12:30"]`;
     } else if(repo == '[]'){
-        localStorage.tagsList = `["테스트", "해보세요", "저장은됩니다", "다만", "이블로그는", "개발자도구가", "금지되어있습니다"]`;
+        localStorage.tagsList = `["12:10"]`;
     }
     // Events
     box.addEventListener('click', ()=>{ input.focus() });
