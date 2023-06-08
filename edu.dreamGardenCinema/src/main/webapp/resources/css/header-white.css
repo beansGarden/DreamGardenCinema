@@ -1,16 +1,22 @@
 * {
     box-sizing: border-box;
     margin: 0;
+}
 
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 /* 헤더 전체 영역 */
 header {
     width: 100%;
-    height: 190px;
+    height: 150px;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-
+    min-width: 800px;
     position: sticky !important;
     z-index: 200px;
 
@@ -20,9 +26,9 @@ header {
 .dg-menu {
     display: flex;
     width: 100%;
-    height: 190px;
-
-    background: linear-gradient(black, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    height: 120px;
+    background-color: white;
+    border-bottom: 1px solid #0F0954;
     /* background-color: rgba(0, 0, 0, 0.2); */
 }
 
@@ -34,33 +40,49 @@ header {
     justify-content: space-evenly;
 
     list-style: none;
+    padding-left: 30px;
 }
 
-.dg-menu-L>li a {
+/* 영화 */
+.dg-menu-L>.dg-menu-L1>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
     text-decoration: none;
-    color: white;
+    color: black;
+}
+.dg-menu-L>.dg-menu-L2>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black;
+}
+.dg-menu-L>.dg-menu-L3>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black;
 }
 
 /* 상단 메뉴 호버시, 라인 생성(영화탭) */
 .dg-movie-link {
     height: 25px;
     width: 36px;
-
-    text-align: center;
-
 }
 
 .dg-movie-link::after {
 
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -9vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -69,20 +91,18 @@ header {
 .dg-movie-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -4.8vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 
 }
-
-
 
 .dg-movie-link:hover::before {
     transform-origin: left;
@@ -99,11 +119,11 @@ header {
 .dg-menu-drop-movie {
     display: flex;
     list-style: none;
-    margin-top: 15px;
+    margin-top: 13px;
     position: absolute;
-    margin-left: -120px;
+    margin-left: -70px;
     padding-left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(180, 180, 180, 0.7);
 
     height: 35px;
     align-items: center;
@@ -116,8 +136,6 @@ header {
 .dg-menu-drop-movie li {
     text-align: center;
     display: none;
-
-    margin-right: 7px;
 }
 
 
@@ -163,32 +181,56 @@ header {
 
 /* 홈 */
 .dg-menu-drop-movie>li:nth-child(1) {
-
-    width: 30px;
+    width: 25px;
 }
 
+.dg-menu-drop-movie>li:nth-child(1)>a {
+    color: black;
+    text-decoration: none;
+}
+
+.dg-menu-drop-movie>li:nth-child(1)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
 
 /* 상영 예정작 */
 .dg-menu-drop-movie>li:nth-child(2) {
-
     width: 98px;
+}
+
+.dg-menu-drop-movie>li:nth-child(2)>a {
+    color: black;
+    text-decoration: none;
+}
+
+.dg-menu-drop-movie>li:nth-child(2)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
 }
 
 /* 현재 상영작  */
 .dg-menu-drop-movie>li:nth-child(3) {
-
     width: 98px;
 }
 
+.dg-menu-drop-movie>li:nth-child(3)>a {
+    color: black;
+    text-decoration: none;
+}
+.dg-menu-drop-movie>li:nth-child(3)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
 
 /* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(예약) */
 .dg-menu-drop-reservation {
     display: flex;
     list-style: none;
     position: absolute;
-    margin-top: 15px;
-    margin-left: -70px;
-    background-color: rgba(0, 0, 0, 0.7);
+    margin-top: 13px;
+    margin-left: -60px;
+    background-color: rgba(180, 180, 180, 0.7);
     padding-left: 0;
 
     height: 35px;
@@ -214,11 +256,8 @@ header {
 .dg-menu-drop-reservation>li {
     display: none;
     right: 39px;
-
     margin-right: 7px;
-
     text-align: center;
-
 }
 
 /* 예매하기 */
@@ -226,11 +265,31 @@ header {
     width: 80px;
 }
 
-/* 상영 시간표 */
-.dg-menu-drop-reservation>li:nth-child(2) {
-    width: 90px;
+.dg-menu-drop-reservation>li:nth-child(1)>a {
+    color: black;
+    text-decoration: none;
 }
 
+.dg-menu-drop-reservation>li:nth-child(1)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+/* 상영 시간표 */
+.dg-menu-drop-reservation>li:nth-child(2) {
+    width: 100px;
+}
+
+.dg-menu-drop-reservation>li:nth-child(2)>a {
+    color: black;
+    text-decoration: none;
+}
+
+.dg-menu-drop-reservation>li:nth-child(2)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
 
 
 
@@ -246,13 +305,13 @@ header {
 .dg-reservation-link::after {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -9vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -261,19 +320,18 @@ header {
 .dg-reservation-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -34px;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 
 }
-
 
 
 .dg-reservation-link:hover::before {
@@ -292,9 +350,9 @@ header {
     display: flex;
     list-style: none;
     position: absolute;
-    margin-top: 15px;
-    margin-left: -105px;
-    background-color: rgba(0, 0, 0, 0.7);
+    margin-top: 13px;
+    margin-left: -70px;
+    background-color: rgba(180, 180, 180, 0.7);
     padding-left: 0;
 
     height: 35px;
@@ -332,11 +390,29 @@ header {
 
 }
 
-/* 나의 멤버십 */
-.dg-menu-drop-membership>li:nth-child(2) {
-    width: 90px;
+.dg-menu-drop-membership>li:nth-child(1)>a {
+    color: black;
+    text-decoration: none;
 }
 
+.dg-menu-drop-membership>li:nth-child(1)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* 나의 멤버십 */
+.dg-menu-drop-membership>li:nth-child(2) {
+    width: 100px;
+}
+.dg-menu-drop-membership>li:nth-child(2)>a {
+    color: black;
+    text-decoration: none;
+}
+
+.dg-menu-drop-membership>li:nth-child(2)>a:hover {
+    font-weight: bold;
+    font-size: 17px;
+}
 
 
 
@@ -349,16 +425,15 @@ header {
 }
 
 .dg-membership-link::after {
-
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -10vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -367,13 +442,13 @@ header {
 .dg-membership-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -3.6vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -411,12 +486,14 @@ header {
 
     list-style: none;
     text-decoration: none;
+    padding: 0px 30px 0px 0px;
+    
 
 }
 
 .dg-menu-R>li>a {
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 /* 고객센터 탭 영역 */
@@ -426,15 +503,25 @@ header {
     list-style: none;
     display: flex;
     position: absolute;
-    margin-top: 15px;
-    margin-left: -80px;
-    background-color: rgba(0, 0, 0, 0.7);
+    margin-top: 13px;
+    margin-left: -62px;
+    background-color: rgba(180, 180, 180, 0.7);
     border-radius: 7px;
 
     align-items: center;
 
     padding-left: 0;
+    
+}
 
+/* 상단바 R-R1 고객센터탭 */
+.dg-menu-R>.dg-menu-R1>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black;
+    width: 100%;
 }
 
 .dg-menu-R1:hover .dg-menu-customer-service li {
@@ -461,8 +548,12 @@ header {
 
 .dg-menu-customer-service>li>a {
     text-decoration: none;
-    color: white;
+    color: black;
     margin-top: 10px;
+}
+.dg-menu-customer-service>li>a:hover {
+    font-weight: bold;
+    font-size: 17px;
 }
 
 .dg-menu-customer-service>li:nth-child(1) {
@@ -490,16 +581,15 @@ header {
 }
 
 .dg-Service-link::after {
-
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -11vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -508,20 +598,17 @@ header {
 .dg-Service-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -2.5vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
-
 }
-
-
 
 .dg-Service-link:hover::before {
     transform-origin: left;
@@ -534,33 +621,39 @@ header {
 }
 
 
-
 /* 로그인 */
 .dg-menu-login {
     display: flex;
     /* position: absolute; */
 }
 
+.dg-menu-login>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black;
+}
+
 /* 상단 메뉴 호버시, 라인 생성(로그인 탭) */
 
 .dg-login-link {
     height: 25px;
-    width: 60px;
+    width: 100px;
 
     text-align: center;
 }
 
 .dg-login-link::after {
-
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -10vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -569,20 +662,17 @@ header {
 .dg-login-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -3.5vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
-
 }
-
-
 
 .dg-login-link:hover::before {
     transform-origin: left;
@@ -600,6 +690,14 @@ header {
     display: none;
 }
 
+.dg-menu-logout>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black;
+}
+
 /* 상단 메뉴 호버시, 라인 생성(로그아웃 탭) */
 
 .dg-logout-link {
@@ -610,16 +708,15 @@ header {
 }
 
 .dg-logout-link::after {
-
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -10vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -628,13 +725,13 @@ header {
 .dg-logout-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -3.5vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -658,26 +755,34 @@ header {
     display: flex;
 }
 
+.dg-menu-nonmember>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black;
+}
+
+
 /* 상단 메뉴 호버시, 라인 생성(회원가입 탭) */
 
 .dg-singup-link {
     height: 25px;
-    width: 70px;
+    width: 110px;
 
     text-align: center;
 }
 
 .dg-singup-link::after {
-
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -11vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -686,20 +791,18 @@ header {
 .dg-singup-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -2.5vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
 
 }
-
-
 
 .dg-singup-link:hover::before {
     transform-origin: left;
@@ -717,6 +820,14 @@ header {
     display: none;
 }
 
+.dg-menu-member>a {
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    position: relative;
+    text-decoration: none;
+    color: black
+}
+
 /* 상단 메뉴 호버시, 라인 생성(마이페이지 탭) */
 
 .dg-mypage-link {
@@ -727,16 +838,15 @@ header {
 }
 
 .dg-mypage-link::after {
-
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    top: 80px;
-    margin-left: -11vh;
+    top: 25px;
+    left: 0;
     transform-origin: left;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -745,13 +855,13 @@ header {
 .dg-mypage-link::before {
     content: '';
     position: absolute;
-    width: 100px;
+    width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #0F0954;
 
-    bottom: 80px;
-    margin-left: -2.5vh;
+    bottom: 28px;
+    left: 0;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s ease-in-out;
@@ -768,20 +878,4 @@ header {
     transform: scaleX(1);
 }
 
-hr {
 
-    margin-block-start: -4.5em;
-    margin-block-end: 4.5em;
-    overflow: visible;
-
-}
-
-
-#test {
-    width: 100%;
-    height: 700px;
-    position: relative;
-    display: flex;
-    top: -184px;
-    z-index: -993;
-}
