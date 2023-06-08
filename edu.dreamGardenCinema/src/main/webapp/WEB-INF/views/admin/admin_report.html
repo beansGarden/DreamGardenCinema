@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>report</title>
+
+    <link rel="stylesheet" href="../admin/style.css">
+    <link rel="stylesheet" href="../admin/admin_report.css">
 </head>
 <body>
     <!-- 전체 감싸는 div -->
@@ -12,21 +15,27 @@
         
             <!-- 게시판 제목 -->
             <span id="admin_reportTitle">신고 관리</span>
+            
         <!-- 검색창 -->
+        
         <div class="admin_reportSearchWrap">
+                  <!-- select랑 검색창만 감싸는 div -->
+                  <div  class="admin_reportSearchWrap2"> 
             <select class="admin_reportSelect" name="" id="">
                 <option value="title">번호</option>
                 <option value="director">이름</option>
                 <option value="actor">이메일</option>
             </select>
+        
             <!-- 검색 input 창 -->
-            <div class="admin_reportInputWrap">
                 <input type="text" name="" id="" class="admin_reportInput">
             </div>
             <!-- 검색 버튼 -->
             <div class="admin_reportBtnWrap">
-                <button type="button" class="admin_reportBtn"></button>
+                <button type="button" class="admin_reportSearchBtn">검색</button>
             </div>
+        
+        </div>
             <!-- 목록 count -->
             <div class="admin_reportList">
                 <span>목록</span>
@@ -58,23 +67,25 @@
                 </tbody>
 
                 </table>
-
+            </div>
                 <!-- 페이지 네이션 -->
 
                 <!-- 등록,수정,삭제 버튼 -->
-                <button class="admin_reportRegister">등록</button>
-                <button class="admin_reportModify">수정</button>
-                <button class="admin_reportDelete">삭제</button>
-        
-            
+            <div class="admin_reportBtn">
+                <button class="admin_reportEndBtn">등록</button>
+                <button class="admin_reportEndBtn">수정</button>
+                <button class="admin_reportEndBtn">삭제</button>
+            </div>
 
             </div>
 
-        </div>
+
+           
+        
 
 
 
-    </div>    
+        
 
 
 </body>

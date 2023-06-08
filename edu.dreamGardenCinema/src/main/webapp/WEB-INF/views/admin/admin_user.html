@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user</title>
     <link rel="stylesheet" href="../admin/style.css">
-    <link rel="stylesheet" href="../admin/admin_sideBar.css">
+    <link rel="stylesheet" href="../admin/admin_user.css">
 
 </head>
 <body>
@@ -16,19 +16,23 @@
             <span id="admin_userTitle">회원 관리</span>
         <!-- 검색창 -->
         <div class="admin_userSearchWrap">
+            <!-- select랑 검색창만 감싸는 div -->
+            <div  class="admin_userSearchWrap2"> 
             <select class="admin_userSelect" name="" id="">
                 <option value="title">번호</option>
                 <option value="director">이름</option>
                 <option value="actor">이메일</option>
             </select>
             <!-- 검색 input 창 -->
-            <div class="admin_userInputWrap">
+        
                 <input type="text" name="" id="" class="admin_userInput">
             </div>
+    
             <!-- 검색 버튼 -->
             <div class="admin_userBtnWrap">
-                <button type="button" class="admin_userBtn"></button>
+                <button type="button" class="admin_userBtn">검색</button>
             </div>
+        </div>
             <!-- 목록 count -->
             <div class="admin_userList">
                 <span>목록</span>
@@ -41,7 +45,7 @@
             <div class="admin_userBoardWrap">
                 <table>
                     <thead>
-                    <tr>
+                    <tr><!-- F : first -->
                         <th><input type="checkbox" name="" id="" class="admin_userCheckboxAll"></th>
                         <th>번호</th>
                         <th>아이디</th>
@@ -58,14 +62,35 @@
                         <td>1</td>
                         <td>typoon</td>
                         <td>ty@email.com</td>
-                        <td>태풍이형</td>
+                        <td>태풍이</td>
                         <td>2023.06.01</td>
+                        <td>실버</td>
+                        <td>정상</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="" id="" class="admin_userCheckbox"></td>
+                        <td>2</td>
+                        <td>ty</td>
+                        <td>ty@email.com</td>
+                        <td>태풍</td>
+                        <td>2023.05.01</td>
+                        <td>실버</td>
+                        <td>정상</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="" id="" class="admin_userCheckbox"></td>
+                        <td>3</td>
+                        <td>ty</td>
+                        <td>ty@email.com</td>
+                        <td>태풍</td>
+                        <td>2023.05.01</td>
                         <td>실버</td>
                         <td>정상</td>
                     </tr>
                 </tbody>
 
                 </table>
+            </div>
 
                 <!-- 페이지 네이션 -->
 
@@ -74,9 +99,9 @@
   
             
 
-            </div>
+         
 
-        </div>
+       
 
 
 
