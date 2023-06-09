@@ -155,8 +155,8 @@
     flex-direction: column;
     margin: 50px;
     border-radius: 15px;
-    background-color: #0F0954;
-    background-image: linear-gradient(19deg, #0F0954 0%, #b721ff 100%);
+    background-color: #0f095400;
+    background-image: linear-gradient(19deg, #0f095485 0%, #b721ff38 81%);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
     
 }
