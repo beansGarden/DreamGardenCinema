@@ -1,5 +1,5 @@
 /* 전체 감싸는 div */
-.admin_qnaWrap{
+.admin_noticeWrap{
     width: 1000px;
     display: block;
     margin: 100px auto;
@@ -7,7 +7,7 @@
 }
 
 /* 게시판 제목 */
-#admin_qnaTitle{
+#admin_noticeTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
@@ -15,7 +15,7 @@
 
 }
 /* 유저검색 창 */
-.admin_qnaSearchWrap{
+.admin_noticeSearchWrap{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@
 }
 
 /* 검색창 감싸는 div */
-.admin_userSearchWrap2{
+.admin_noticeSearchWrap2{
     border: 1px solid black;
     width: 70%;
     padding: 10px;
@@ -34,14 +34,14 @@
 }
 
 /* select 선택창 */
-.admin_qnaSelect{
+.admin_noticeSelect{
     border: none;
     outline: none;
 
 }
 
 /* 검색창 */
-.admin_qnaInput{
+.admin_noticeInput{
     width: 400px;
     border: none;
     outline: none;
@@ -50,7 +50,7 @@
 
 
 /* 검색버튼 */
-.admin_qnaSearchBtn{
+.admin_noticeSearchBtn{
    margin: 0px 10px;
    padding: 5px 15px;
    border-radius: 5px;
@@ -62,7 +62,7 @@
 
 
 /* 게시판 테이블 감싸는 div */
-.admin_qnaBoardWrap {
+.admin_noticeBoardWrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +72,7 @@
 }
 
 /* 게시판 테이블 */
-.admin_qnaBoardWrap > table{
+.admin_noticeBoardWrap > table{
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
     width: 1000px;
@@ -81,7 +81,7 @@
 }
 
 /* 테이블 th,td 칸 */
-.admin_qnaBoardWrap > table >th,td{
+.admin_noticeBoardWrap > table >th,td{
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
@@ -90,20 +90,38 @@
 }
 
 
-
 /* 등록,수정,삭제 감싸는 div */
-.admin_qnaBtn{
+.admin_noticeBtn{
     display: flex;
     margin-left: 75%;
     
 }
 
 /* 등록버튼 */
-.admin_qnaEndBtn{
+.admin_noticeEndBtn{
     margin: 50px 10px;
     padding: 5px 15px;
     border-radius: 5px;
     background-color: #0F0954;
     color: white;
     
+}
+
+/* 페이지네이션 */
+.pagination{
+    display: flex;
+    justify-content: center;
+
+}
+
+.pagination li{
+    display: inline;
+    padding: 50px 5px;
+    color: rgba(255, 55, 55, 0.76);
+}
+
+.pagination li:hover{
+    color: #0F0954;
+    font-weight: bold;
+    text-decoration: underline;
 }
