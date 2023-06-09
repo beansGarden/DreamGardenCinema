@@ -1,0 +1,235 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+.my-page-nav-list a{
+    color: #000000;
+}
+.my-page-nav-list>:nth-child(3){
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.my-page-container{
+    width: 100%;
+    display: grid;
+    
+}
+
+.my-page-category{
+    display: grid;
+    height: 240px;
+    width: 100%;
+    grid-auto-flow: column;
+    grid-template-columns: 1.25fr 0.5fr 1.25fr;
+}
+
+.my-page-nickname{
+    width: 100%;
+    height: 100px;
+    background-color: #0F0954;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-page-nickname>p{
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+.my-page-L{
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-L a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.my-page-membership-grade{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #0F0954;
+    align-items: center;
+    width: 100%;
+}
+
+.my-page-membership-grade>img{
+    height: 215px;
+    margin-bottom: 20px;
+}
+
+.my-page-R{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-R a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+
+}
+
+.my-page-empty-space{
+    width: 100px;
+    height: 16px;
+}
+.my-page-myinfo img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myinfo>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-myprofile img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myprofile>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-customer-service img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-customer-service>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-membership img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-membership>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+
+/* 예매내역 ,취소내역, 나의 문의내역 , 회원탈퇴 탭*/
+.my-page-nav{
+    border-bottom: 1px solid #ccc;
+}
+.my-page-nav-list{
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+    list-style: none;
+}
+.my-page-nav-list>li>a:hover{
+    border-top: 2px solid  #0F0954;
+    border-bottom: 2px solid #0F0954;
+    font-weight: bold;
+}
+
+.my-page-nav-list a{
+    text-decoration: none;
+}
+.my-page-contents-container{
+    height: 100%;
+}
+/* 문의 내역이 없을 경우 */
+.my-page-contents-box{
+    /* display: flex; */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+.my-page-contents{
+    display: flex;
+    flex-direction: column;
+}
+
+.my-page-contents>img{
+    width: 150px;
+    height: 150px;
+    margin: 15px;
+    align-self: center;
+}
+
+.my-page-contents>p{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* 문의 내역이 있을 경우 */
+.my-page-inquiry-title{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 0.5fr 1.5fr 0.5fr 0.5fr 0.25fr;
+    margin: 50px 50px 0px 50px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 10px;
+}
+.my-page-inquiry-content{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 0.6fr 2fr 0.53fr 0.6fr 0.35fr;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-bottom: 1px solid #B2B2B2;
+    padding: 18px;
+}
+#file{
+    
+}
+/* 처리중 and 답변 완료 */
+#ing{
+    width: 70px;
+    border-radius: 50px;
+    border: 1px solid black;
+    text-align: center;
+}
+/* 페이지 네이션 */
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin: 20px 80px;
+    position: relative;
+}
+.pagination ol{
+    width : 400px;
+    height: 30px;
+    text-align: center;
+}
+#paginationNumbers li{
+    display: inline-block;
+}
+#paginationNumbers li a{
+    padding: 3px;
+    color: #92B4EC;
+    margin: 0 6px;
+    width: 20px;
+}
+#paginationNumbers li a.active{
+    font-weight: bold;
+    color: #5286DC;
+}
+.pagination i{
+    color: #FFD24C;
+    line-height: 30px;
+}
