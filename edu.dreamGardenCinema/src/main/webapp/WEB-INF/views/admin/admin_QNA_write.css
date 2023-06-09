@@ -1,0 +1,50 @@
+
+/* 전체 감싸는 div */
+.admin_qnaWrap{
+    width: 1000px;
+    display: block;
+    margin: 100px auto;
+    height: auto;
+}
+
+/* 게시판 제목 */
+#admin_qnaTitle{
+    color:#0F0954;
+    font-size: 30px;
+    font-weight: bold;
+   
+}
+
+/* 제목 입력하는 칸 */
+.admin_qnaTableInput{
+    width: 900px;
+    margin: 20px;
+    outline: none;
+    border:none;
+    
+}
+
+
+.admin_qnaContentWrap{
+    margin: 20px;
+
+}
+
+/* 글쓰기 textarea */
+#summernote{
+    width: 1000px;
+    margin: 20px 10px;
+    border: none;
+    padding:0px
+
+}
+
+/* 등록버튼 */
+.admin_qnaRegister{
+    margin-left: 90%;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #0F0954;
+    color: white;
+    
+}

@@ -1,0 +1,148 @@
+html, body {
+    height:100%;
+    background-color: rgba(199, 198, 198, 0.068);
+}
+
+
+/* 전체 감싸는 div */
+.admin_dashboardWrap{
+    position:relative;
+    width:1000px; /* wrap에 속한 div의 넓이+margin값을 더한 넓이와 높이값 */
+/*      height:0px; */
+    top:150px;
+    left:70%;
+    transform: translate(-50%, -50%); /* 중앙정렬 */
+ 
+}
+
+/* 영화 총 매출 */
+.admin_dashboardSalesforMovie{
+    width:350px;
+    height:200px;
+    float:left;
+    margin: 50px 10px;
+    box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+}
+
+.admin_dashboardSalesforMovie>span{
+    border:1px solid #333;
+    border-radius: 15px;
+    padding: 5px;
+    background-color:  #0F0954;
+    color: white;
+}
+    /* 영화 총 매출 내부 div */
+.admin_dashboardSalesforMovie-in{
+    margin: 20px;
+    padding: 30px 10px;
+    text-align: right;
+    border: 1px solid rgba(148, 148, 148, 0.452);
+    background-color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color:  #0F0954;;
+}
+
+/* 영화 총 매출 select */
+.admin_dashboardSalesforMovie-in>select{
+    border: none;
+    outline: none;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(148, 148, 148, 0);
+    font-size: 15px;
+
+}
+
+/* 영화 분기 매출 */
+.admin_dashboardSalesforQuater{
+    width:350px;
+    height:200px;
+    float:left;
+    margin: 50px 10px;
+    box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+}
+
+.admin_dashboardSalesforQuater>span{
+    border:1px solid #333;
+    border-radius: 15px;
+    padding: 5px;
+    background-color:  #0F0954;
+    color: white;
+}
+
+
+
+/* 영화 분기 매출 내부 div */
+.admin_dashboardSalesforQuater-in{
+    margin: 20px;
+    padding: 30px 10px;
+    text-align: right;
+    border: 1px solid rgba(148, 148, 148, 0.452);
+    border-radius: 10px;
+    background-color: white;
+    font-size: 20px;
+    font-weight: bold;
+    color:  #0F0954;;
+      
+}
+
+/* 1:1 문의 사항 리스트*/
+.admin_dashboardQnaList{
+    width:400px;
+    height:500px;
+    float:left;
+    margin: 50px 10px;
+    box-sizing:border-box; //* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+
+}
+
+.admin_dashboardQnaList>span{
+    border:1px solid #333;
+    border-radius: 15px;
+    padding: 5px;
+    background-color:  #0F0954;
+    color: white;
+}
+
+.admin_dashboardQnaList-in{
+    margin: 20px;
+    padding: 40px 40px;
+    border: 1px solid rgba(148, 148, 148, 0.452);
+    border-radius: 10px;
+    background-color: white;
+}
+
+th,td{
+    border-bottom: 1px solid rgba(136, 136, 136, 0.411);
+    text-align: center;
+    padding: 6px;
+}
+
+
+/* 그래프 */
+.admin_dashboardSalesforLastweek{
+    width:350px;
+    height:200px;
+    float:left;
+    margin: 50px 10px;
+    box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+}
+
+
+.admin_dashboardSalesforLastweek>span{
+    border:1px solid #333;
+    border-radius: 15px;
+    padding: 5px;
+    background-color:  #0F0954;
+    color: white;
+}
+
+.admin_dashboardSalesforLastweek-in{
+    margin: 20px;
+    padding: 40px 40px;
+
+    border-radius: 10px;
+    background-color: white;
+}
