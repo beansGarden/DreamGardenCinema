@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/Ticketing/Ticketing1.css">
+</head>
+<body>
+    <div class="main">
+        <div class="ticketingBox">
+            <ul class="ticketingNav">
+                <li class="active"><a href="">01<br>상영시간</a></li>
+                <li><a href="">02<br>인원/좌석</a></li>
+                <li><a href="">03<br>결제</a></li>
+                <li><a href="">04<br>결제완료</a></li>
+            </ul>
+            <form action="" method="POST"></form>
+                <div class="choiceMovie">
+                    <div class="hiddenRadio" style="display: none;">
+                        <!-- 데이터 삽입 예 -->
+                        <!-- 
+                            <input type="radio" name="movieNo" id="${movieNo}" value="${movieNo}">
+                        -->
+                        <input type="radio" name="movieTitle" id="1" value="1">
+                        <input type="radio" name="movieTitle" id="2" value="2">
+                        <input type="radio" name="movieTitle" id="3" value="3">
+                        <input type="radio" name="movieTitle" id="4" value="4">
+                    </div>
+                    <div class="choiceHeader">영화 선택</div>
+                    <div>
+                        <select>  <!-- AJAX 옵션 -->
+                            <option value="">예매순</option>
+                            <option value="">별점순</option>
+                        </select>
+                        <div>
+                            <img class="hamburgerBtn" src="/Ticketing/hambuger.png" alt="">
+                            <img class="pizzaBtn" src="/Ticketing/pizza.png" alt="">
+                        </div>
+                    </div>
+                    <div class="MovieList hamburger" style="display: none;">
+
+                        <!-- 데이터 삽입 예 -->
+                        <!-- 
+                            <label>
+                                <img src="${영화등급}">
+                                <span>${영화 제목}</span>
+                            </label> 
+                        -->
+                        <label for="1">
+                            <img src="/15세.png" alt="">
+                            <span>범죄도시3</span>
+                        </label>
+                        <label for="2">
+                            <img src="/12세.png" alt="">
+                            <span>트랜스포머: 비스트의 서막</span>
+                        </label>
+                        <label for="3">
+                            <img src="/12세.png" alt="">
+                            <span>플래시</span>
+                        </label>
+                        <label for="4">
+                            <img src="/ALL.png" alt="">
+                            <span>엘리멘탈</span>
+                        </label>
+                    </div>
+                    <div class="MovieList pizza">
+                        <!-- 데이터 삽입 예 -->
+                        <!-- 
+                            <label for="1">
+                                <div class="poster">
+                                    <img src="포스터 이미지" alt="">
+                                </div>
+                                <div class="content">
+                                    <div class="title">
+                                        <img src="영화등급" alt="">
+                                        <strong>영화제목</strong>
+                                    </div>
+                                    <div class="rate">
+                                        <span class="rate_info">
+                                            예매율
+                                            <em>예매율</em>
+                                        </span>
+                                        <span class="star_info">
+                                            <img src="/포스터/Star 3.png" alt="">
+                                            9.2
+                                        </span>
+                                    </div>
+                                    <div class="date">
+                                        <span class="rate_info">
+                                            개봉일
+                                            <span>영화개봉일</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                        -->
+                        <label for="1">
+                            <div class="poster">
+                                <img src="/포스터/범죄도시.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <img src="/15세.png" alt="">
+                                    <strong>범죄도시3</strong>
+                                </div>
+                                <div class="rate">
+                                    <span class="rate_info">
+                                        예매율
+                                        <em>68.6%</em>
+                                    </span>
+                                    <span class="star_info">
+                                        <img src="/포스터/Star 3.png" alt="">
+                                        9.2
+                                    </span>
+                                </div>
+                                <div class="date">
+                                    <span class="rate_info">
+                                        개봉일
+                                        <span>2023.05.31</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </label>
+                        <label for="2">
+                            <div class="poster">
+                                <img src="/포스터/범죄도시.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <img src="/15세.png" alt="">
+                                    <strong>범죄도시3</strong>
+                                </div>
+                                <div class="rate">
+                                    <span class="rate_info">
+                                        예매율
+                                        <em>68.6%</em>
+                                    </span>
+                                    <span class="star_info">
+                                        <img src="/포스터/Star 3.png" alt="">
+                                        9.2
+                                    </span>
+                                </div>
+                                <div class="date">
+                                    <span class="rate_info">
+                                        개봉일
+                                        <span>2023.05.31</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </label>
+                        <label for="3">
+                            <div class="poster">
+                                <img src="/포스터/분노의질주.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <img src="/15세.png" alt="">
+                                    <strong>범죄도시3</strong>
+                                </div>
+                                <div class="rate">
+                                    <span class="rate_info">
+                                        예매율
+                                        <em>68.6%</em>
+                                    </span>
+                                    <span class="star_info">
+                                        <img src="/포스터/Star 3.png" alt="">
+                                        9.2
+                                    </span>
+                                </div>
+                                <div class="date">
+                                    <span class="rate_info">
+                                        개봉일
+                                        <span>2023.05.31</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </label>
+                        <label for="4">
+                            <div class="poster">
+                                <img src="/포스터/범죄도시.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <img src="/15세.png" alt="">
+                                    <strong>범죄도시3</strong>
+                                </div>
+                                <div class="rate">
+                                    <span class="rate_info">
+                                        예매율
+                                        <em>68.6%</em>
+                                    </span>
+                                    <span class="star_info">
+                                        <img src="/포스터/Star 3.png" alt="">
+                                        9.2
+                                    </span>
+                                </div>
+                                <div class="date">
+                                    <span class="rate_info">
+                                        개봉일
+                                        <span>2023.05.31</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="choiceTime">
+                    <div class="choiceHeader">2023-06-07(오늘)</div>
+
+                    <section class="sub_slide">
+                        <div class="inner">
+                            <div class="swiper-container">
+                                <ul class="swiper-wrapper">
+                                    <!-- 데이터 삽입 예 -->
+                                    <!--
+                                        <li class="swiper-slide">
+                                        <strong>6월</strong> 맨 처음엔 현재 달 보여주기  달이 바뀌면 또 보여주기
+                                        <a href="">
+                                            <label for="Date0">
+                                                <input type="radio" id="Date0" name="radioDate" value="20230607">
+                                                <strong>7</strong>
+                                                <em>오늘</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    --> 
+                                    <li class="swiper-slide">
+                                        <strong>6월</strong>
+                                        <a href="">
+                                            <label for="Date0">
+                                                <input type="radio" id="Date0" name="radioDate" value="20230607">
+                                                <strong>7</strong>
+                                                <em>오늘</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date1">
+                                                <input type="radio" id="Date1" name="radioDate" value="20230608">
+                                                <strong>8</strong>
+                                                <em>목</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date2">
+                                                <input type="radio" id="Date2" name="radioDate" value="20230609">
+                                                <strong>9</strong>
+                                                <em>금</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date3">
+                                                <input type="radio" id="Date3" name="radioDate" value="20230610">
+                                                <strong>10</strong>
+                                                <em>토</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date4">
+                                                <input type="radio" id="Date4" name="radioDate" value="20230611">
+                                                <strong>11</strong>
+                                                <em>일</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date5">
+                                                <input type="radio" id="Date5" name="radioDate" value="20230612">
+                                                <strong>12</strong>
+                                                <em>월</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date6">
+                                                <input type="radio" id="Date6" name="radioDate" value="20230613">
+                                                <strong>13</strong>
+                                                <em>화</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date7">
+                                                <input type="radio" id="Date7" name="radioDate" value="20230614">
+                                                <strong>14</strong>
+                                                <em>수</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date8">
+                                                <input type="radio" id="Date8" name="radioDate" value="20230615">
+                                                <strong>15</strong>
+                                                <em>목</em>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <strong></strong>
+                                        <a href="">
+                                            <label for="Date9">
+                                                <input type="radio" id="Date9" name="radioDate" value="20230616">
+                                                <strong>16</strong>
+                                                <em>금</em>
+                                            </label>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sub_slide_btn">
+                            <div class="swiper-prev">
+                                <div class="material-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="39" viewBox="0 -960 960 960" width="37"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
+                                </div>
+                            </div>    
+                            <div class="swiper-next">
+                                <div class="material-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="39" viewBox="0 -960 960 960" width="37"><path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div style="display:none">
+                        날짜를 선택해주세요
+                    </div>
+
+                    <div class="movieChoiceTitle">
+                        <img src="/15세.png" alt="">
+                        <span>범죄도시3</span>
+                    </div>
+
+                    <div class="timeSelect">
+                        <ul class="timelist">
+                            <li>
+                                <a href="">14:45</a>
+                            </li>
+                            <li>
+                                <a href="">15:10</a>
+                            </li>
+                            <li>
+                                <a href="">15:10</a>
+                            </li>
+                            <li>
+                                <a href="">15:10</a>
+                            </li>
+                            <li>
+                                <a href="">15:10</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="/Ticketing/Ticketing1.js"></script>
+</body>
+</html>
