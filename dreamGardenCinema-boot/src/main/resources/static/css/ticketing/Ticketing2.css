@@ -1,0 +1,235 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    background-color: #918FAC;
+}
+.main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ticketingBox{
+    width: 1280px;
+    height: 870px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+}
+.choiceMovie{
+    border-right: 1px solid #666666;
+}
+.ticketingNav{
+    width: 80px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-collapse : collapse;
+}
+.ticketingNav li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #666666;
+    border-top: none;
+    
+}
+.ticketingNav li.pass{
+    background-color: #3B3B3B;
+    color : white;
+}
+.ticketingNav li.active{
+    background-color: #0E0753;
+    color : white;
+    font-weight: bold;
+}
+.ticketingNav li a{
+    color: inherit;
+    text-decoration: none;
+}
+
+.ticketingNav li:first-child{
+    height: 25%;
+    border-top-left-radius: 15px;
+}
+.ticketingNav li:nth-child(2){
+    height: 25%;
+}
+.ticketingNav li:nth-child(3){
+    height: 25%;
+}
+.ticketingNav li:last-child{
+    height: 25%;
+    border-bottom-left-radius: 15px;
+}
+.ticketingBox>form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.choiceHeader{
+    height: 50px;
+    background-color: #3B3B3B;
+    color : #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border-top-right-radius: 15px;
+}
+.movie_info{
+    height: 100px;
+    border-bottom: 1px solid #666666;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.poster img{
+    width: 50px;
+    border-radius: 4px;
+}
+.content{
+    padding-left: 10px;
+}
+.title{
+    display: flex;
+    align-items: center;
+}
+.title img{
+    width: 22px;
+    height: 22px;
+}
+.title strong{
+    padding-left: 4px;
+    font-size: 20px;
+    padding-bottom: 4px;
+}
+.date{
+    display: flex;
+    padding-top: 4px;
+}
+.date span{
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 8px;
+}
+.theater_info{
+    font-size: 16px;
+    font-weight: bold;
+}
+.movie_info>div:last-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 570px;
+}
+.movie_info>div:last-child span{
+    height: 40px;
+    font-size: 26px;
+    font-weight: bold;
+}
+.calc{
+    position: relative;
+    margin-left: 20px;
+    display: flex;
+    height: 50px;
+    width: 150px;
+    border: 1px solid #666666;
+}
+.calc div{
+    position: relative;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    border: none;
+    font-size: 32px;
+}
+.calc div svg{
+    position: absolute;
+    left: 15px;
+}
+.calc #btn1{
+    height: 44px;
+}
+
+.Seat_info{
+    height: 100%;
+    width: 100%;
+    background-image: url("/좌석.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.screen{
+    background-color: #3B3B3B;
+    color: white;
+    font-size: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 15px;
+}
+.movieSeat{
+    height: 400px;
+    width: 600px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.seatLine{
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.seatLine>span{
+    position: relative;
+    left : -20px;
+    color: white;
+    width: 0px;
+}
+.seatLine>a{  /* 좌석 */
+    background-color: #D9D9D9;
+    width: 26px;
+    height: 26px;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.choiceSeat{  /* 선택 좌석 */
+    background-color: #5250BE !important;
+}
+
+.seatBtm{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    display: flex;
+    background-color: #ffffff;
+    height: 100px;
+}
+
+
+.liquidate{
+    height: 80px;
+}
