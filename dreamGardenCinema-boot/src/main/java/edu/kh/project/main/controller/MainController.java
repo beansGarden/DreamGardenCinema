@@ -9,7 +9,7 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String mainForward(Model model) {
-		return "common/main";
+		return "common/main1";
 	}
 	
 }
