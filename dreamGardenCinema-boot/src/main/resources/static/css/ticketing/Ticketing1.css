@@ -80,7 +80,7 @@ body{
 
 .choiceHeader{
     height: 50px;
-    background-color: #3B3B3B;
+    background-color: #000000;
     color : #ffffff;
     display: flex;
     align-items: center;
