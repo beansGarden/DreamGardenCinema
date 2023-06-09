@@ -27,6 +27,6 @@
     <h1>Hello, World!</h1> 
     <h1>Hello, World!</h1>
     <button class="fhrmdls"><a href="/user/login">로그인</a></button>
-    <button class="ghldnjsrkdlq">회원가입</button>
+    <button class="ghldnjsrkdlq"><a href="/user/signUp">회원가입</a></button>
 </body>
 </html>

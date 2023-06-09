@@ -14,19 +14,24 @@ public class UserServiceImpl implements UserService {
 	private UserDAO dao;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 	
 =======
 //	@Autowired
 //	private BCryptPasswordEncoder bcrypt;
+=======
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+>>>>>>> origin/GEUN-TAE
 
 >>>>>>> origin/sub-main
 	@Override
 	public User login(User inputMember) {
 
 		User loginUser = dao.login(inputMember);
-//		System.out.println("암호화 확인 : " + bcrypt.encode(inputMember.getUserPw()));
+		System.out.println("암호화 확인 : " + bcrypt.encode(inputMember.getUserPw()));
 
 //		if (loginMember != null) {
 //

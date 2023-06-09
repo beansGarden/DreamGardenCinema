@@ -57,11 +57,10 @@ public class UserController {
 		String path = "redirect:";
 		
 		if(inputUser != null) { 
-			
+			System.out.println(loginUser.getUserId() + "  로그인 성공");
 //			if(inputUser.getUserRole().toUpperCase().equals("A")) { // 관리자 로그인 시 관리자페이지 이동
 //				path += "/manager";
 //			}
-			
 			path += "/";
 			model.addAttribute("inputUser", inputUser);
 			Cookie cookie = new Cookie("saveId", inputUser.getUserEmail());
