@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>notice</title>
-    <link rel="stylesheet" href="\resources\css/admin/admin_notice_read.css">
+    <link rel="stylesheet" href="/resources/css/admin/admin_notice_read.css">
 </head>
 <body>
     <!-- 전체 감싸는 div -->

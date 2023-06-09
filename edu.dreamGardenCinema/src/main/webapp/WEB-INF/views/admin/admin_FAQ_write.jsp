@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="../admin/style.css">
     <link rel="stylesheet" href="\resources\css\admin\admin_FAQ_write.css">
-    edu.dreamGardenCinema\src\main\webapp
+
     
     <script src="../admin/summernote-ko-KR.js"></script>
     <script src="../admin/summernote-lite.js"></script>
