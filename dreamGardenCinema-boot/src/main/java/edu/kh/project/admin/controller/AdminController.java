@@ -190,6 +190,12 @@ public class AdminController {
 						
 		return "admin/admin_report";
 		}
+		@RequestMapping("/adminMain")//
+		public String main() {
+					
+						
+		return "admin/admin_main";
+		}
 		
 		//8-1. 신고하기 게시글 조회
 						
