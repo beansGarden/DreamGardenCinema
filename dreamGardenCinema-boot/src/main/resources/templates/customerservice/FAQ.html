@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터-FAQ</title>
+
+    <link rel="stylesheet" href="/dreamGardenCinema-boot/src/main/resources/static/css/customerservice/FAQ.css">
+</head>
+
+<body>
+
+
+
+    <div class="customer-service-box">
+
+        <div class="service-notice">
+            <p class="notice-title">고객센터</p>
+        </div>
+        <div class="service-empty-line"></div>
+
+        <div class="service-list">
+            <ul class="service-list-choose">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">1:1문의</a></li>
+            </ul>
+        </div>
+
+        <div class="service-search-area">
+
+            <form action="#" method="GET" class="sevice-search-smt">
+
+                <!-- FAQ 카테고리  -->
+
+                <div class="FAQ-category-box">
+                    <!-- 상영관 관련 -->
+                    <div class="FAQ-cinemas">
+                        <a href="#"><img
+                                src="/dreamGardenCinema-boot/src/main/resources/static/images/customerservice/상영관 아이콘.png">
+                            <p>상영관 이용</p>
+                        </a>
+                    </div>
+                    <!-- 회원 관련 -->
+                    <div class="FAQ-member">
+                        <a href="#"><img
+                                src="/dreamGardenCinema-boot/src/main/resources/static/images/customerservice/회원 아이콘.png">
+                            <p>회원</p>
+                        </a>
+                    </div>
+                    <!-- 멤버십 관련 -->
+                    <div class="FAQ-membership">
+                        <a href="#"><img
+                                src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/멤버십 아이콘.png">
+                            <p>멤버십</p>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- 검색 영역 -->
+                <div class="FAQ-search-box">
+                    <div class="notice-search-area">
+                        <input type="search" placeholder="검색어를 입력해주세요" id="search-query">
+                    </div>
+
+                    <!-- 검색 버튼 -->
+                    <div class="service-search-btn">검색</div>
+                </div>
+
+            </form>
+            
+        </div>
+
+        
+        <div class="FAQ-list-area">
+            <div class="FAQ-list-contents">
+
+                <!-- 공지사항  내용-->
+                <div class="FAQ-title">
+                    <span>구분</span> <span>질문</span> 
+                </div>
+
+                <a href="#" class="FAQ-contents-container">
+                    <div class="FAQ-inquiry-content">
+                        <span>상영관 이용</span> <span>상영관은 몇 개인가요?</span>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- 페이지 번호 -->
+            <div class="FAQ-pagination">
+                <i class="fa-solid fa-arrow-left"></i>
+                <ol id="FAQ-paginationNumbers">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ol>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
