@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.project.movie.model.dao.MovieMapper">
+	
+	<resultMap id="movie_rm" type="Movie">
+		<id property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="poster" column="POSTER"/>
+		<result property="synopsis" column="SYNOPSIS"/>
+		<result property="runningTime" column="RUNNING_TIME"/>
+		<result property="rating" column="RATING"/>
+		<result property="releaseDate" column="RELEASE_DATE"/>
+		<result property="producer" column="PRODUCER"/>
+		<result property="moviePrice" column="MOVIE_PRICE"/>		
+	</resultMap>
+	
+	<select id="movie" resultType="map">
+		SELECT MOVIE_NO, MOVIE_TITLE, POSTER, SYNOPSIS, RUNNING_TIME, RATING, RELEASE_DATE, (SELECT COUNT(MOVIE_NO)
+		FROM TICKETING_INFO WHERE MOVIE.MOVIE_NO = TICKETING_INFO.MOVIE_NO) MOVIE_COUNT 
+		FROM MOVIE
+		WHERE SCREENING = 'Y'
+	</select>
+</mapper>

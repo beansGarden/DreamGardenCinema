@@ -40,6 +40,32 @@
         <div class="inner">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
+
+                    <div class="swiper-slide" th:each="movie : ${application.movieList}">
+                        <div class="top_info">
+                            <span class="poster_info">
+                                <!-- <img src="/포스터/범죄도시.jpg" alt=""> -->
+                                <img th:src="${movie.poster}" alt="">
+                                <em>1</em>
+                                <span>
+                                    <img src="/" alt="">
+                                </span>
+                            </span>
+                        </div>
+                        <div class="btm_info">
+                            <strong class="tit_info">${movie.movieTitle}</strong>
+                            <span class="rate_info">
+                                예매율
+                                <em>68.6%</em>
+                            </span>
+                            <span class="star_info">
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
+                                9.2
+                            </span>
+                        </div>
+                    </div>
+
+
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
@@ -242,7 +268,7 @@
         </article>
     </div>
 
-
+    <h1 th:text="${movieList}"></h1>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script th:src="@{/js/common/main.js}"></script>
