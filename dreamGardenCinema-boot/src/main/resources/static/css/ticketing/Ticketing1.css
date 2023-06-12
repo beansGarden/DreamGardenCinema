@@ -21,8 +21,12 @@ body{
     flex-direction: row;
     border-radius: 15px;
 }
+.ticketingBox>form{
+    display: flex;
+}
 .choiceMovie{
     border-right: 1px solid #666666;
+    width: 400px;
 }
 .ticketingNav{
     width: 80px;
@@ -340,16 +344,25 @@ body{
     align-items: center;
     justify-content: center;
 }
-.timelist a{
+.timelist .btn{
     width: 155px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
     font-size: 20px;
     font-weight: bold;
     color : black;
     border: 1px solid #666666;
     border-radius: 15px;
+    cursor: pointer;
+}
+.timelist .btn:hover{
+    background-color: #0E0753;
+    color: white;
+}
+
+.dateActive>a>label>strong{
+    background-color: #0E0753;
+    color : white;
 }

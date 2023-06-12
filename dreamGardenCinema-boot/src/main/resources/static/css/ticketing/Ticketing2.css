@@ -166,7 +166,7 @@ body{
 .Seat_info{
     height: 660px;
     width: 100%;
-    background-image: url("/resources/image-dg/main/좌석.png");
+    background-image: url("/images/common/main/좌석.png");
     display: flex;
     justify-content: center;
     align-items: center;

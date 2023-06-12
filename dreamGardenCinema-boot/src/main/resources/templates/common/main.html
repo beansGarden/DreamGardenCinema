@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DreamGardenMovieTheater</title>
     <link rel="stylesheet" th:href="@{/css/common/main.css}">
 </head>
 <body>
 
+    <!-- <th:block th:replace="~{common/header-black}"></th:block> -->
+    <a th:href="@{/ticketing/date}" th:text="예매페이지">예매 페이지</a>
     <div class="slide slide_wrap">  <!-- 메인 슬라이드 구역 -->
         <div class="slide_item item1">
             <img th:src="@{/images/common/main/메인슬라이드/라방.png}" alt="">
@@ -22,7 +24,6 @@
         <div class="slide_item item4">
             <img th:src="@{/images/common/main/메인슬라이드/플래시.jpg}" alt="">
         </div>
-        <!-- <div class="slide_item item5">5</div> -->
         <div class="slide_prev_button slide_button">  <!-- 메인 슬라이드 이전버튼 -->
             <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
         </div>
@@ -57,7 +58,7 @@
                                 <em>68.6%</em>
                             </span>
                             <span class="star_info">
-                                <img th:src="@{/images/common/main/포스터/Star 3.png}" alt="">
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                 9.2
                             </span>
                         </div>
@@ -84,7 +85,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/images/common/main/포스터/포켓몬스터.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/포켓몬스터.jpg}" alt="">
                                 <em>3</em>
                                 <span>등급</span>
                             </span>
@@ -96,7 +97,7 @@
                                 <em>3.6%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/images/common/main/포스터/Star 3.png" alt="">
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                 9.4
                             </span>
                         </div>
@@ -104,7 +105,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/images/common/main/포스터/가오갤.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/가오갤.jpg}" alt="">
                                 <em>4</em>
                                 <span>등급</span>
                             </span>
@@ -116,7 +117,7 @@
                                 <em>2.3%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/images/common/main/포스터/Star 3.png" alt="">
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                 9.6
                             </span>
                         </div>
@@ -124,7 +125,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/images/common/main/포스터/엘리멘탈.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/엘리멘탈.jpg}" alt="">
                                 <em>5</em>
                                 <span>등급</span>
                             </span>
@@ -143,7 +144,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/images/common/main/포스터/플래시.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/플래시.jpg}" alt="">
                                 <em>6</em>
                                 <span>등급</span>
                             </span>
@@ -162,7 +163,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/images/common/main/포스터/분노의질주.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/분노의질주.jpg}" alt="">
                                 <em>7</em>
                                 <span>등급</span>
                             </span>
@@ -174,7 +175,7 @@
                                 <em>1.4%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/images/common/main/포스터/Star 3.png" alt="">
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                 9.1
                             </span>
                         </div>
@@ -182,7 +183,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/images/common/main/포스터/인어공주.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/인어공주.jpg}" alt="">
                                 <em>8</em>
                                 <span>등급</span>
                             </span>
@@ -194,7 +195,7 @@
                                 <em>1.3%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/images/common/main/포스터/Star 3.png" alt="">
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                 8
                             </span>
                         </div>
@@ -244,7 +245,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script th:src="@{/js/common/main.js}"></script>
 </body>
 </html>
 

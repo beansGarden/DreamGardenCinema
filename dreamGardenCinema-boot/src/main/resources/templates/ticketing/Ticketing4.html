@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/resources/css/ticketing/Ticketing4.css">
+    <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing4.css}">
 </head>
 <body>
     <div class="main">
         <div class="ticketingBox">
             <ul class="ticketingNav">
-                <li class="pass"><a href="">01<br>상영시간</a></li>
-                <li class="pass"><a href="">02<br>인원/좌석</a></li>
-                <li class="pass"><a href="">03<br>결제</a></li>
-                <li class="active"><a href="">04<br>결제완료</a></li>
+                <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
+                <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
+                <li class="pass"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
+                <li class="pass"><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
+                <li class="active"><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
             </ul>
             <form action="" method="POST">
                 <div class="choiceHeader">예매완료</div>
@@ -22,7 +23,7 @@
                     <div>예매가 완료 되었습니다</div>
                     <div class="ticket_info">
                         <div class="poster">
-                            <img src="/resources/image-dg/main/포스터/범죄도시.jpg" alt="">
+                            <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
                         </div>
                         <div class="content">
                             <div>
@@ -59,6 +60,8 @@
             </form>
         </div>
     </div>
-    <script src="/resources/js/ticketing/Ticketing4.js"></script>
+
+    <h1 th:text="${ticket}"></h1>
+    <script th:src="@{/js/ticketing/Ticketing4.js}"></script>
 </body>
 </html>
