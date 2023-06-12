@@ -166,3 +166,53 @@ my_page_change_nickname_update_btn2.addEventListener("click",()=>{
 
 })
 
+
+/* 회원 탈퇴 모달 영역 */
+const my_page_secession_btn = document.querySelector("#my-page-secession");
+const my_page_secession_area = document.querySelector(".my-page-secession-area");
+const my_page_secession_pwcheck_btn2 = document.querySelector(".my-page-secession-pwcheck-btn>:nth-child(2)")
+/* 회원 탈퇴 nav 클릭 시 */
+my_page_secession_btn.addEventListener("click",()=>{
+
+    my_page_secession_area.style.display = "flex";
+
+    document.body.style.overflow='hidden';
+})
+
+my_page_secession_pwcheck_btn2.addEventListener("click",()=>{
+
+    my_page_secession_area.style.display = "none";
+
+    document.body.style.overflow='auto';
+
+})
+
+/* 회원 탈퇴 다음 버튼 클릭 시 화면 */
+/* 탈퇴 버튼 */
+const my_page_secession_pwcheck_btn = document.querySelector(".my-page-secession-pwcheck-btn>:nth-child(1)");
+/* 취소 버튼 */
+const my_page_secession_btn2 = document.querySelector(".my-page-secession-btn>:nth-child(2)");
+
+const my_page_secession_pwcheck_container = document.querySelector(".my-page-secession-pwcheck-container");
+const my_page_secession_info_bg = document.querySelector(".my-page-secession-info-bg");
+
+my_page_secession_pwcheck_btn.addEventListener("click",()=>{
+    my_page_secession_pwcheck_container.style.display="none";
+
+    my_page_secession_info_bg.style.display = "flex";
+
+    document.body.style.overflow='hidden';
+
+})
+/* 취소 버튼 클릭 시 */
+my_page_secession_btn2.addEventListener("click",()=>{
+
+    my_page_secession_area.style.display = "none";
+
+    my_page_secession_pwcheck_container.style.display="none";
+
+    my_page_secession_info_bg.style.display = "none";
+
+    document.body.style.overflow='auto';
+
+})
