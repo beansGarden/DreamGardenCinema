@@ -118,7 +118,7 @@ my_page_secession_btn2.addEventListener("click",()=>{
 
     my_page_secession_area.style.display = "none";
 
-    my_page_secession_pwcheck_container.style.display="none";
+    my_page_secession_pwcheck_container.style.display="flex";
 
     my_page_secession_info_bg.style.display = "none";
 
