@@ -1,6 +1,6 @@
 
 /* 전체 감싸는 div */
-.admin_faqWrap{
+.admin_qnaWrap{
     width: 1000px;
     display: block;
     margin: 100px auto;
@@ -8,7 +8,7 @@
 }
 
 /* 게시판 제목 */
-#admin_faqTitle{
+#admin_qnaTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
@@ -16,7 +16,7 @@
 }
 
 /* 제목 입력하는 칸 */
-.admin_faqTableInput{
+.admin_qnaTableInput{
     width: 900px;
     margin: 20px;
     outline: none;
@@ -25,7 +25,7 @@
 }
 
 
-.admin_faqContentWrap{
+.admin_qnaContentWrap{
     margin: 20px;
 
 }
@@ -40,11 +40,15 @@
 }
 
 /* 등록버튼 */
-.admin_faqRegister{
+.admin_qnaRegister{
     margin-left: 90%;
     padding: 5px 15px;
     border-radius: 5px;
     background-color: #0F0954;
+
+}
+
+.admin_qnaRegister a{
     color: white;
     
 }

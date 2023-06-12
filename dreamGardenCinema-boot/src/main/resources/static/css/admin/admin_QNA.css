@@ -1,5 +1,5 @@
 /* 전체 감싸는 div */
-.admin_cinemaManageWrap{
+.admin_qnaWrap{
     width: 1000px;
     display: block;
     margin: 100px auto;
@@ -7,34 +7,15 @@
 }
 
 /* 게시판 제목 */
-#admin_cinemaManageTitle{
+#admin_qnaTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
 
+
 }
-
-/* 상영관별 보이기 */
-.admin_cinemaManageAll{
-    display: flex;
-    padding: 10px 30px;
-    margin: 10px 10px;
-}
-
-
-/* 1관,2관,3관 */
-.admin_cinemaOne{
-    padding: 10px;
-    border-bottom: 1px solid black;
-}
-
-/* 상영 날짜 */
-.admin_cinemaManageDate{
-    margin-left: 70%;
-}
-
 /* 유저검색 창 */
-.admin_cinemaManageSearchWrap{
+.admin_qnaSearchWrap{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +26,7 @@
 }
 
 /* 검색창 감싸는 div */
-.admin_cinemaSearchWrap2{
+.admin_userSearchWrap2{
     border: 1px solid black;
     width: 70%;
     padding: 10px;
@@ -53,14 +34,14 @@
 }
 
 /* select 선택창 */
-.admin_cinemaManageSelect{
+.admin_qnaSelect{
     border: none;
     outline: none;
 
 }
 
 /* 검색창 */
-.admin_cinemaManageInput{
+.admin_qnaInput{
     width: 400px;
     border: none;
     outline: none;
@@ -69,7 +50,7 @@
 
 
 /* 검색버튼 */
-.admin_cinemaManageSearchBtn{
+.admin_qnaSearchBtn{
    margin: 0px 10px;
    padding: 5px 15px;
    border-radius: 5px;
@@ -81,7 +62,7 @@
 
 
 /* 게시판 테이블 감싸는 div */
-.admin_cinemaManageBoardWrap {
+.admin_qnaBoardWrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,7 +72,7 @@
 }
 
 /* 게시판 테이블 */
-.admin_cinemaManageBoardWrap > table{
+.admin_qnaBoardWrap > table{
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
     width: 1000px;
@@ -100,7 +81,7 @@
 }
 
 /* 테이블 th,td 칸 */
-.admin_cinemaManageBoardWrap > table >th,td{
+.admin_qnaBoardWrap > table >th,td{
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
@@ -109,19 +90,24 @@
 }
 
 
+
 /* 등록,수정,삭제 감싸는 div */
-.admin_cinemaManageBtn{
+.admin_qnaBtn{
     display: flex;
     margin-left: 75%;
     
 }
 
 /* 등록버튼 */
-.admin_cinemaManageEndBtn{
+.admin_qnaEndBtn{
     margin: 50px 10px;
     padding: 5px 15px;
     border-radius: 5px;
     background-color: #0F0954;
+    
+}
+
+.admin_qnaEndBtn a{
     color: white;
     
 }

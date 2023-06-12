@@ -76,6 +76,11 @@ input{
     padding: 5px 15px;
     border-radius: 5px;
     background-color: #0F0954;
+
+    
+}
+
+.admin_reportRegister a{
     color: white;
     
 }

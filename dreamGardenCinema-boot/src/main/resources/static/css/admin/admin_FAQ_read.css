@@ -1,44 +1,50 @@
 /* 전체 감싸는 div */
-.admin_qnaWrap{
+.admin_faqWrap{
     width: 1000px;
       display: block;
     margin: 100px auto;
     height: auto;
 }
 /* 게시판 제목 */
-#admin_qnaTitle{
+#admin_faqTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
    
 }
 
-.admin_qnaBoardWrap > table>tr,th,td{
+.admin_faqBoardWrap > table>tr,th,td{
     border-bottom: 1px solid black;
 }
-body > div.admin_qnaWrap > div > table > thead > tr:nth-child(4) > td{
+body > div.admin_faqWrap > div > table > thead > tr:nth-child(4) > td{
     width: 800px;
 
 }
 
 /* 내용 칸 */
-.admin_qnaContent{
+.admin_faqContent{
     height: 500px;
 }
 
 
 /* 등록버튼 감싸는 div */
-.admin_qnaBtn{
+.admin_faqBtn{
     margin-left: 60%;
 
 }
 
 /* 등록버튼 */
-.admin_qnaEndBtn{
+.admin_faqEndBtn{
     margin: 50px 10px;
     padding: 5px 15px;
     border-radius: 5px;
     background-color: #0F0954;
+
+    
+}
+
+.admin_faqEndBtn a{
+
     color: white;
     
 }

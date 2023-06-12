@@ -1,4 +1,8 @@
 /* 사이드바 */
+html{
+    width: 300px;
+    
+}
 
 /* 사이드바 전체 */
 .admin_sideBarWrap{
