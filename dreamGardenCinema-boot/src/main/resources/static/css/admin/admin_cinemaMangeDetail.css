@@ -3,6 +3,9 @@
     width: 1000px;
     margin: 100px auto;
     height: auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
 }
 
 /* 제목 */

@@ -1,6 +1,6 @@
 var context = document
 .getElementById('myChart')
-.getContext('2d');
+.getContext("2d");
 var myChart = new Chart(context, {
 type: 'line', // 차트의 형태
 data: { // 차트에 들어갈 데이터
@@ -13,7 +13,7 @@ data: { // 차트에 들어갈 데이터
             label: '요일별 매출', //차트 제목
             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
             data: [
-                21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                21,19,25,20,23,40,25 //x축 label에 대응되는 데이터 값
             ],
             backgroundColor: [
                 //색상

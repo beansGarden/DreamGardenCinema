@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace를 Mapper 인터페이스로 지정 -->
+<mapper namespace="edu.kh.project.admin.model.dao.AdminMapper">
+	
+
+<!--회원 리스트 조회-->
+<!--<select id="adminUserList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
+		FROM USER_INFO
+		WHERE USER_CLOSE ='N'
+	</select>-->
+	
+	<!--QNA(1:1)문의 리스트 조회-->
+	<select id="adminQnaList" resultType="edu.kh.project.qna.model.dto.Qna">
+		SELECT QNA_NO,QNA_CATEGORY,QNA_CONTENT,USER_NICKNAME 
+		FROM QNA
+		JOIN USER_INFO
+		ON USER_NO=USER_NO2
+	</select>
+
+
+</mapper>

@@ -3,6 +3,9 @@
     width: 1000px;
     display: block;
     margin: 100px auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
 }
 
 /* 게시판 제목 */

@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/css/admin/admin_QNA.css">
 </head>
 <body>
+       <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_qnaWrap">
         
@@ -57,12 +59,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="list : ${adminQnaList}">
                         <td><input type="checkbox" name="" id="" class="admin_qnaCheckbox"></td>
-                        <td>1</td>
-                        <td>지갑을 잃어버렸어요</td>
-                        <td>2023.06.01</td>
-                        <td>typoon</td>
+                        <td th:text="${list.QNA_NO()}"></td>
+                        <td th:text="${list.QNA_CATEGORY()}"></td>
+                        <td th:text="${list.QNA_CONTENT()}"></td>
+                        <td th:text="${list.USER_NICKNAME()}"></td>
                    
                     </tr>
                     

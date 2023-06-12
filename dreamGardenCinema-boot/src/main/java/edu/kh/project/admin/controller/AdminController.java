@@ -1,17 +1,26 @@
 package edu.kh.project.admin.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import edu.kh.project.admin.model.service.AdminService;
+import edu.kh.project.qna.model.dto.Qna;
 
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	private AdminService service;
 
 	//1.관리자 메인 대시보드
-	@RequestMapping("/admin")//
+	@RequestMapping("/admin")
 	public String dashboard() {
 	
-		
 		return "admin/admin_dashboard";
 	}
 	
@@ -104,9 +113,16 @@ public class AdminController {
 		
 		//6. 1:1 문의사항 리스트 조회
 		@RequestMapping("/adminQna")//
-		public String qnaList() {
+		public String qnaList(Model model) {
+		
+		List<Qna> adminQnaList = service.adminQnaList();
 					
+		System.out.println(adminQnaList);
+	
+		
+		model.addAttribute("adminQnaList", adminQnaList);
 						
+		
 		return "admin/admin_QNA";
 		}
 		
