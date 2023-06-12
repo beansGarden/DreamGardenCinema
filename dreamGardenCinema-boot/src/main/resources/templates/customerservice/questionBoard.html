@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터-1:1문의</title>
+
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/customerservice/questionBoard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+
+    <div class="customer-service-box">
+
+        <div class="service-notice">
+            <p class="notice-title">고객센터</p>
+        </div>
+        <div class="service-empty-line"></div>
+
+        <div class="service-list">
+            <ul class="service-list-choose">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">1:1문의</a></li>
+            </ul>
+        </div>
+
+
+        <!-- 문의글 작성 영역의 전체를 감싸는 div 태그 -->
+        <div class="customer-service-QA">
+
+            <!-- 안내문구 -->
+            <div class="QA-comment-box">
+                <img src="/src/main/resources/static/images/customerservice/문의 아이콘.png">
+                <div class="QA-top-notice">
+                    <pre>
+                    FAQ를 이용하시면 궁금증을 더 빠르게 해결하실 수 있습니다.
+                </pre>
+                    <ul class="QA-list">
+                        <li>▶1:1 문의글 답변 운영시간 10:00 ~ 19:00</li>
+                        <li>▶접수 후 48시간 안에 답변 드리겠습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 문의시 주의사항 -->
+            <div class="QA-notice-contents">
+                <pre>
+                    고객님의 문의에 답변하는 <span style="color: #5250BE;">직원은 고객 여러분의 가족 중 한 사람일 수 있습니다.</span>
+                    고객의 언어폭력(비하, 욕설, 반말, 성희롱 등)으로부터 직원을 보호하기 위해 관련 법에 따라 수사기관에 필요한 조치를 요구할 수 있으며, 형법에 의해 처벌 대상이 될 수 있습니다.
+                </pre>
+            </div>
+
+            <form action="#" method="POST">
+                <!-- 문의내용 -->
+
+                <!-- 분류 행 -->
+                <div class="QA-divide">
+                    <span>분류</span><span style="color: red;">*</span>
+                    <select name="" id="QASelection">분류선택
+                        <option value="">상영관</option>
+                        <option value="">영화</option>
+                        <option value="">멤버십</option>
+                        <option value="">예매/결제</option>
+                        <option value="">홈페이지</option>
+                        <option value="">계정</option>
+                    </select>
+                </div>
+
+                <!-- 종류 행 -->
+                <div>
+                    <span>종류</span><span style="color: red;">*</span>
+                    <input type="radio" name="customerQuestionService" id="customerserviceMovie">영화관 문의
+                    <input type="radio" name="customerQuestionService" id="customerserviceMovieETC">기타 문의
+                </div>
+
+                <!-- 제목 행 -->
+                <div>
+                    <span>제목</span><span style="color: red;">*</span>
+                    <input type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요.">
+                    <span>0/50자</span>
+
+                </div>
+
+                <!-- 내용 -->
+                <div>
+                    <span>내용</span><span style="color: red;">*</span>
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <span>0/2000자</span>
+
+                </div>
+
+                <!-- 첨부파일 -->
+                <div>
+                    <span>첨부파일</span>
+                    <input type="file" name="" id="">
+                    <span><img src="/src/main/resources/static/images/customerservice/경고.png">첨부 파일형식 : jpg / jpeg / png
+                        /
+                        bmp / gif / pdf (5MB X 1개)</span>
+                </div>
+
+                <!-- 비회원 여부 체크  -->
+                <div>
+                    <span>비회원 여부 체크</span>
+                    <input type="checkbox" name="" id="">이메일로 답변 받기
+                    <span>
+                        <img src="/src/main/resources/static/images/customerservice/경고.png">
+                        비회원 문의 시 이메일로 답변 내용이 발송되므로 이메일로 답변 알림 받기는 필수입니다.</span>
+                </div>
+
+                <!-- 고객정보 -->
+                <!-- 성명 -->
+                <div>
+                    <span>성명</span><span style="color: red;">*</span>
+                    <input type="text">
+                </div>
+
+                <!-- 연락처 -->
+                <div>
+                    <span>연락처</span><span style="color: red;">*</span>
+                    <select name="" id="">
+                        <option value="">선택</option>
+                        <option value="">010</option>
+                        <option value="">011</option>
+                        <option value="">016</option>
+                        <option value="">017</option>
+                        <option value="">018</option>
+                        <option value="">019</option>
+                    </select>
+
+                    <input type="text"><input type="text">
+                </div>
+
+                <div>
+                    <span>이메일</span><span style="color: red;">*</span>
+                    <input type="text" id="">
+                    <span>@</span>
+                    <input type="text" id="">
+                </div>
+
+                <!-- 개인정보 수집 동의 -->
+                <div>
+                    <span>개인정보 수집 동의에 대한 동의</span>
+                    <span>문의를 통해 아래의 개인정보를 수집합니다. 수집된 개인정보는 문의 외 목적으로 사용하지 않습니다.</span>
+                </div>
+
+                <div>
+                    개인정보의 수집목적 및 항목
+                    ① 수집 목적 : 원활한 고객 상담, 불편사항 및 문의사항 관련 의사소통 경로 확보
+                    ② 수집 항목
+                    *필수입력사항
+                    - 이용자 식별을 위한 항목 : 성명, 연락처, 이메일, 아이디(로그인 시 수집)
+
+                    개인정보의 보유 및 이용기간
+                    입력하신 개인정보는 소비자 보호에 관한 법률 등 관계 법률에 의해 다음과 같이 보유합니다.
+                    보유기간 : 문의접수 후 처리 완료시점으로 부터 3년
+
+                    ※ 1:1문의 서비스 제공을 위한 최소한의 개인정보이며 거부할 수 있습니다. 다만, 수집에 동의하지 않을 경우 서비스 이용이 제한됩니다.
+                </div>
+
+                <div>
+                    <input type="radio" name="" id="">동의
+                    <input type="radio" name="" id="">비동의
+                </div>
+
+                <button>확인</button>
+                <button>취소</button>
+
+            </form>
+        </div>
+
+    </div>
+
+    <script src="/src/main/resources/static/js/customerservice/questionBoard.js"></script>
+
+</body>
+
+</html>

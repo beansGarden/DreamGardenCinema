@@ -155,3 +155,33 @@ pre {
     background-color: #A8A7DE;
     color: white;
 }
+
+/* 페이지 네이션 */
+.service-pagination{
+    display: flex;
+    justify-content: center;
+    margin: 20px 80px;
+    position: relative;
+}
+.service-pagination ol{
+    width : 400px;
+    height: 30px;
+    text-align: center;
+}
+#service-paginationNumbers li{
+    display: inline-block;
+}
+#service-paginationNumbers li a{
+    padding: 3px;
+    color: #A8A7DE;
+    margin: 0 6px;
+    width: 20px;
+}
+#service-paginationNumbers li a.active{
+    font-weight: bold;
+    color: #0F0954;
+}
+.service-pagination i{
+    color: #ccc;
+    line-height: 30px;
+}

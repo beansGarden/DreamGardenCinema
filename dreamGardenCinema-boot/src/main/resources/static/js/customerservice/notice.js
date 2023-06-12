@@ -1,4 +1,4 @@
-/* ***** 페이지 네이션 부분 ***** */
+/* ***** 페이지 네이션 개수부분 ***** */
 const rowsPerPage = 10;  // 보여줄 행의 갯수
 const maxPageNum = 10;  // 페이지그룹 개수
 
@@ -6,7 +6,7 @@ const rows = document.getElementsByClassName("customer-service-inquiry-content")
 console.log(rows);
 const rowsCount = rows.length;  // 100/8  12.5 -> 13                // 총 행의 개수
 const pageCount = Math.ceil(rowsCount/rowsPerPage); // 올림처리     // 총 페이지 개수
-const paginationNumbers = document.querySelector('#paginationNumbers');  // 전체 페이지 리스트
+const servicePaginationNumbers = document.querySelector('#service-paginationNumbers');  // 전체 페이지 리스트
 const arrowLeftBtn = document.querySelector(".fa-arrow-left");  // 왼쪽화살표
 const arrowRightBtn = document.querySelector(".fa-arrow-right");  // 오른쪽화살표
 let pageActiveIdx = 0; // 현재 보고있는 페이지그룹 번호
@@ -14,9 +14,9 @@ let currentPageNum = 0; // 현재 보고 있는 페이지네이션 번호
 
 //페이지네이션 생성
 for(let i=1;i<=pageCount;i++){
-  paginationNumbers.innerHTML += `<li><a href="">${i}</a></li>`;  // 페이지수 나타낼 HTML 추가
+  servicePaginationNumbers.innerHTML += `<li><a href="">${i}</a></li>`;  // 페이지수 나타낼 HTML 추가
 }
-const paginationNumberBtn = paginationNumbers.querySelectorAll('a');  // 페이지네이션 숫자들(a태그)
+const paginationNumberBtn = servicePaginationNumbers.querySelectorAll('a');  // 페이지네이션 숫자들(a태그)
 
 for(nb of paginationNumberBtn){  // 페이지네이션 번호 감추기
     nb.style.display = 'none';

@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+
+}
+
+/* 공지사항 전체 영역 */
+.customer-service-box {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notice-title {
+    font-size: 2rem;
+    font-weight: bolder;
+
+    margin-top: 15px;
+    margin-bottom: 12px;
+}
+
+.service-list {
+    display: flex;
+    margin: 30px 0 30px 0;
+
+}
+
+/* 공지사항 메뉴 리스트 (FAQ, 공지사항, */
+.service-list-choose {
+    width: 70vw;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 70px;
+    margin-top: 70px;
+    padding-bottom: 15px;
+}
+
+.service-list-choose>li>a:hover {
+    border-top: 2px solid #0F0954;
+    border-bottom: 2px solid #0F0954;
+
+    font-weight: bold;
+}
+
+.service-list-choose:nth-child(1) {
+    border-bottom: 2px solid #ccc;
+}
+
+.service-list-choose:nth-child(2) {
+    border-bottom: 2px solid #ccc;
+
+}
+
+.service-list-choose:nth-child(3) {
+    border-bottom: 2px solid #ccc;
+}
+
+.service-list-choose>li:nth-child(3) {
+    border-top: 2px solid #0F0954;
+    border-bottom: 2px solid #0F0954;
+    font-weight: bold;
+}
+
+.service-empty-line {
+    width: 200px;
+    height: 0px;
+    border-bottom: 3px solid #ccc;
+}
+
+/* 문의글 작성 전체 div */
+.customer-service-QA{
+    width: 70vw;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+/* 안내문구 영역 */
+.QA-comment-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-self: center; */
+    text-align-last: center;
+}
+
+.QA-comment-box>img{
+    width: 50px;
+    position: absolute;
+    height: 50px;
+    margin-left: -415px;
+    top: 305px;
+
+}
+
+.QA-top-notice{
+    display: flex;
+    flex-direction: column;
+}
+
+.QA-comment-box>pre{
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.QA-list{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin-left: 100px;
+    margin-bottom: 100px;
+}
+
+/* 문의시 주의사항 */
+.QA-notice-contents{
+    width: 70vw;
+    border-bottom: 1.5px solid #ccc;
+
+    margin-bottom: 10px;
+}
+
+/* 분류 행 */
+.QA-divide{
+    width: 70vw;
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+
+    display: flex;
+    align-items: center;
+    
+}
