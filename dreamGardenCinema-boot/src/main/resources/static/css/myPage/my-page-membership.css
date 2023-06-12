@@ -155,8 +155,8 @@
     flex-direction: column;
     margin: 50px;
     border-radius: 15px;
-    background-color: #0F0954;
-    background-image: linear-gradient(19deg, #0F0954 0%, #b721ff 100%);
+    background-color: #0f095400;
+    background-image: linear-gradient(19deg, #0f095485 0%, #b721ff38 81%);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
     
 }
@@ -331,4 +331,107 @@
     height: 200px;
     margin-top: 60px;
     margin-bottom: 30px;
+}
+
+/* 닉네임 변경 모달 영역 */
+.my-page-change-nickname-area{
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+}
+.my-page-change-nickname-content{
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.my-page-change-nickname-content>:nth-child(1){
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+}
+.my-page-change-nickname-content input{
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+.my-page-change-nickname-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-change-nickname-content i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* 닉네임 변경 수정 / 취소 버튼 */
+
+.my-page-change-nickname-update-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-change-nickname-update-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-change-nickname-update-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+.my-page-change-nickname-update-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
 }
