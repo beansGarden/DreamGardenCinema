@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace를 Mapper 인터페이스로 지정 -->
+<mapper namespace="edu.kh.project.user.model.dao.UserMapper">
+	
+	<resultMap type="User" id="user_rm">
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userTel" column="USER_TEL" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userRegiNum" column="USER_REGINUM" />
+		<result property="userEnrollDate" column="USER_ENROLL_DT" />
+		<result property="userAmount" column="USER_AMOUNT" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userRating" column="USER_RATING" />
+		<result property="userClose" column="USER_CLOSE" />
+	</resultMap>
+	<!-- 로그인 -->
+	<select id="login" resultMap="user_rm">
+		SELECT USER_NO, USER_ID, USER_PW, USER_NICKNAME, USER_TEL, USER_EMAIL, 
+			TO_CHAR(USER_ENROLL_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"')
+			USER_ENROLL_DT, USER_AMOUNT, USER_ROLE, USER_RATING, USER_CLOSE, USER_REGINUM
+		FROM "USER_INFO"
+		WHERE USER_CLOSE = 'N'
+		AND USER_ID = #{userId}
+	</select>
+	<!-- 회원 가입 -->
+	<insert id="signUp">
+		INSERT INTO "MEMBER"
+		VALUES(SEQ_MEMBER_NO.NEXTVAL
+		, #{memberEmail}
+		, #{memberPw}
+		, '${memberNickname}'
+		, #{memberTel}
+		, #{memberAddress}
+		, NULL, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+</mapper>

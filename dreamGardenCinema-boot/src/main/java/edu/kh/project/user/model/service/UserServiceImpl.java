@@ -3,7 +3,7 @@ package edu.kh.project.user.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.kh.project.user.model.dao.UserDAO;
+import edu.kh.project.user.model.dao.UserMapper;
 import edu.kh.project.user.model.dto.User;
 
 
@@ -11,15 +11,15 @@ import edu.kh.project.user.model.dto.User;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserDAO dao;
+	private UserMapper mapper;
 
 //	@Autowired
 //	private BCryptPasswordEncoder bcrypt;
 
 	@Override
-	public User login(User inputMember) {
-
-		User loginUser = dao.login(inputMember);
+	public User login(User inputUser) {
+		
+		User loginUser = mapper.login(inputUser);
 //		System.out.println("암호화 확인 : " + bcrypt.encode(inputMember.getUserPw()));
 
 //		if (loginMember != null) {

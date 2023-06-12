@@ -42,9 +42,9 @@ public class DBConfig {
       sessionFactoryBean.setDataSource(dataSource);
       
       //매퍼 파일이 모여있는 경로 지정
-//      sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
+      sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
       
-//      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.member.model.dto");
+      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.user.model.dto");
       
       //마이바티스 설정 파일 경로 지정
       sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
