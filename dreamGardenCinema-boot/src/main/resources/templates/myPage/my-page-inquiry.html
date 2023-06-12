@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-page-inquiry</title>
+
+    <link rel="stylesheet" href="/css/my-page-inquiry.css">
+</head>
+
+<body>
+
+    <div class="my-page-container">
+        <div class="my-page-nickname">
+            <p>ㅇㅇㅇ님 환영합니다!</p>
+        </div>
+
+
+        <div class="my-page-category">
+            <ul class="my-page-L">
+                <li class="my-page-myinfo">
+                    <a href="#"><img src="/my-pageIMG/내 정보 아이콘.png"></a>
+                    <a href="#">내정보 변경</a>
+                </li>
+
+                <li class="my-page-myprofile">
+                    <a href="#"><img src="/my-pageIMG/프로필 변경 아이콘.png"></a>
+                    <a href="#">프로필 변경</a>
+                </li>
+            </ul>
+
+            <a href="#" class="my-page-membership-grade">
+                <img src="/my-pageIMG/브론즈.png">
+            </a>
+
+            <ul class="my-page-R">
+                <li class="my-page-customer-service">
+                    <a href="#"><img src="/my-pageIMG/1TO1문의.png"></a>
+                    <a href="#">1:1문의</a>
+                </li>
+
+                <li class="my-page-membership">
+                    <a href="/my-page-membership.html"><img src="/my-pageIMG/멤버십 아이콘.png"></a>
+                    <a href="/my-page-membership.html">멤버십</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="my-page-empty-space"></div>
+
+    <div class="my-page-nav">
+        <ul class="my-page-nav-list">
+            <li>
+                <a href="/my-page-reservation.html">예매 내역</a>
+            </li>
+
+            <li>
+                <a href="#">취소 내역</a>
+            </li>
+
+            <li>
+                <a href="/my-page-inquiry.html">나의 문의 내역</a>
+            </li>
+
+            <li>
+                <a href="#">회원탈퇴</a>
+            </li>
+        </ul>
+    </div>
+    <div class="my-page-contents-container">
+
+        <!-- 예매 내역이 있을 경우 -->
+        <div class="my-page-inquiry-title">
+            <span>번호</span> <span>분류</span> <span>첨부파일</span> <span>작성일</span> <span>상태</span>
+        </div>
+        
+        <div class="my-page-inquiry-content">
+            <span>1</span> <span>[멤버십]</span> <span id="file">O</span> <span>2023.06.07</span> <span id="ing">처리중</span>
+        </div>
+        
+        <!-- 문의 내역이 없을 경우 -->
+        <div class="my-page-contents-box">
+            <div class="my-page-contents">
+                <img src="/my-pageIMG/느낌표.png">
+                <p>문의 내역이 존재하지 않습니다.</p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="pagination">
+        <i class="fa-solid fa-arrow-left"></i>
+        <ol id="paginationNumbers">
+            <!-- <li><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li> -->
+        </ol>
+        <i class="fa-solid fa-arrow-right"></i>
+    </div>
+
+    <script src="/js/my-page-inquiry.js"></script>
+</body>
+
+</html>
