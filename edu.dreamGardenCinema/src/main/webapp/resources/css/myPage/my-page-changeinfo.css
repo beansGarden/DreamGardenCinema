@@ -1,0 +1,383 @@
+body{
+    overflow: auto;
+}
+
+.my-page-changeinfo-modal-area{
+    background-color: rgba(0, 0, 0, 0.168);
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    overflow: scroll;
+}
+.my-page-changeinfo-border{
+    position: absolute;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:10px 0 10px 0;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 400px;
+}
+.my-page-changeinfo-contentbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-page-changeinfo-top{
+    margin: 30px;
+    text-align: center;
+}
+.my-page-changeinfo-top>:nth-child(1){
+    font-size: 40px;
+    font-weight: bold;
+}
+.my-page-changeinfo-top>:nth-child(2){
+    font-size: 30px;
+}
+.my-page-changeinfo-back{
+    height: 170px;
+    margin-left: 30px;
+    border-radius: 10px;
+    background-color: #36335661;
+    background-image: linear-gradient(13deg, #c5bfff47 0%, #bd52f094 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    width: 680px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.my-page-changeinfo-container{
+    text-align: center;
+}
+.my-page-changeinfo-container>:nth-child(1){
+    font-size: 20px;
+    color: #666666;
+}
+/* 작은 가이드 텍스트 */
+.my-page-changeinfo-guide-text{
+    color: #FF243E;
+    font-size: 11px;
+}
+.my-page-changeinfo-container>:nth-child(2){
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 390px;
+    align-items: center;
+}
+.my-page-changeinfo-name{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 20px;
+}
+.my-page-changeinfo-name span{
+    color: #fff;
+    font-size: 15px;
+    margin-left: 5px
+}
+.my-page-changeinfo-name>span{
+    margin-left: 100px;
+    font-weight: bold;
+}
+.my-page-changeinfo-id{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 20px;
+}
+.my-page-changeinfo-id span{
+    color: #fff;
+    font-size: 15px;
+    margin-left: 5px
+}
+.my-page-changeinfo-id>span{
+    margin-left: 84px;
+    font-weight: bold;
+}
+.my-page-changeinfo-hp{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 20px;
+}
+.my-page-changeinfo-hp span{
+    color: #fff;
+    font-size: 15px;
+    margin-left: 5px
+}
+.my-page-changeinfo-hp>input{
+    margin-left: 50px;
+    font-weight: bold;
+    background: transparent;
+    width: 300px;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+    border-bottom: 2px solid #fff;
+}
+.my-page-changeinfo-email{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+.my-page-changeinfo-email span{
+    color: #fff;
+    font-size: 15px;
+    margin-left: 5px
+}
+.my-page-changeinfo-email>input{
+    margin-left: 94px;
+    font-weight: bold;
+    background: transparent;
+    width: 300px;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+    border-bottom: 2px solid #fff;
+}
+
+@keyframes animate{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+/* 비밀번호 변경 */
+.my-page-changeinfo-pw-container{
+    margin-top: 20px;
+    width: 680px;
+    margin-left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 35vh;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 10px;
+    padding-left: 20px;
+    background-color: #36335661;
+    background-image: linear-gradient(13deg, #c5bfff47 0%, #bd52f094 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+.my-page-changeinfo-pw{
+    position: relative;
+    width: 250px;
+}
+.my-page-changeinfo-pw input{
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+.my-page-changeinfo-pw span{
+    position: absolute;
+    left:0;
+    padding: 10px 0 5px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+    transition: 0.5s;
+}
+.my-page-changeinfo-pw input:valid ~ span,
+.my-page-changeinfo-pw input:focus ~ span{
+    color: #2196f3;
+    transform: translateY(-16px);
+    font-size: 0.65em;
+}
+.my-page-changeinfo-pw i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.my-page-changeinfo-pw i:before{
+    content: "";
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#ff1b69,#ff0,#2196f3,#9c27b0,#ff1b69);
+    animation: animate 2s linear infinite;
+    transition: 0.1s;
+}
+
+.my-page-changeinfo-pw input:valid ~ i::before,
+.my-page-changeinfo-pw input:focus ~ i::before{
+    left: 0;
+}
+
+@keyframes animate{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+/* 주소 변경 */
+.my-page-changeinfo-address-container{
+    margin-top: 20px;
+    width: 680px;
+    margin-left: 30px;
+    display: flex;
+    min-height: 20vh;
+    gap: 30px;
+    border-radius: 10px;
+    padding-left: 20px;
+    background-color: #36335661;
+    background-image: linear-gradient(13deg, #c5bfff47 0%, #bd52f094 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+.my-page-changeinfo-address-container>:nth-child(1){
+    margin-top: 5px;
+}
+.my-page-changeinfo-address-container span{
+    color: #fff;
+    font-size: 15px;
+    margin-left: 5px
+}
+.my-page-changeinfo-address-inputbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.my-page-changeinfo-address-inputbox>:nth-child(3){
+    padding-bottom: 10px;
+}
+#postcode{
+    width: 80px;  
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+    border-bottom: 2px solid #fff;
+    font-weight: bold;
+}
+#postcode::placeholder{
+    color: #fff;
+}
+#address{
+    width: 300px;  
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+    border-bottom: 2px solid #fff;
+    font-weight: bold;
+}
+#address::placeholder{
+    color: #fff;
+}
+#detailAddress{
+    width: 300px;  
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+    border-bottom: 2px solid #fff;
+    font-weight: bold;
+}
+#detailAddress::placeholder{
+    color: #fff;
+}
+#postcode-box{
+    display: flex;
+    align-items: center;
+}
+.my-page-changeinfo-address-inputbox img{
+    padding: 2px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+/* 수정 - 취소 버튼 */
+.my-page-changeinfo-update-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-changeinfo-update-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-changeinfo-update-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-changeinfo-update-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+.my-page-changeinfo-update-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-changeinfo-update-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}

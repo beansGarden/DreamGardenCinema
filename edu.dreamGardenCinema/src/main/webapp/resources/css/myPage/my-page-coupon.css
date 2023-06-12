@@ -14,7 +14,7 @@ ul{
     position: relative;
     transform-style: preserve-3d;
     perspective: 500px;
-    display: flex;
+    display: flex; /* display: flex */
     flex-direction: column;
     gap: 0;
     transition: 0.5s;
@@ -79,3 +79,19 @@ ul li .coupon-text span{
 /* #bronze{
     background-color: rgba(147, 129, 129, 0.667);
 } */
+
+/* 쿠폰이 없을 경우 */
+#coupon-null{
+    display: none;
+}
+#coupon-null-container{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-weight: bold;
+    font-size: 20px;
+}
+#coupon-null-container>span{
+    margin-bottom: 10px;
+    color: white;
+}
