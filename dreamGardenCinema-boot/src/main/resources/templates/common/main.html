@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" th:href="@{/css/common/main.css}">
 </head>
 <body>
 
     <div class="slide slide_wrap">  <!-- 메인 슬라이드 구역 -->
         <div class="slide_item item1">
-            <img src="/resources/image-dg/main/라방.png" alt="">
+            <img th:src="@{/images/common/main/메인슬라이드/라방.png}" alt="">
         </div>
         <div class="slide_item item2">
-            <img src="/resources/image-dg/main/사소.jpg" alt="">
+            <img th:src="@{/images/common/main/메인슬라이드/사소.jpg}" alt="">
         </div>
         <div class="slide_item item3">
-            <img src="/resources/image-dg/main/트랜스포머.jpg" alt="">
+            <img th:src="@{/images/common/main/메인슬라이드/트랜스포머.jpg}" alt="">
         </div>
         <div class="slide_item item4">
-            <img src="/resources/image-dg/main/플래시.jpg" alt="">
+            <img th:src="@{/images/common/main/메인슬라이드/플래시.jpg}" alt="">
         </div>
         <!-- <div class="slide_item item5">5</div> -->
         <div class="slide_prev_button slide_button">  <!-- 메인 슬라이드 이전버튼 -->
@@ -43,9 +43,11 @@
                         <div class="top_info">
                             <span class="poster_info">
                                 <!-- <img src="/포스터/범죄도시.jpg" alt=""> -->
-                                <img src="/resources/image-dg/main/포스터/범죄도시.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
                                 <em>1</em>
-                                <span>등급</span>
+                                <span>
+                                    <img src="/" alt="">
+                                </span>
                             </span>
                         </div>
                         <div class="btm_info">
@@ -55,7 +57,7 @@
                                 <em>68.6%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/resources/image-dg/main/포스터/Star 3.png" alt="">
+                                <img th:src="@{/images/common/main/포스터/Star 3.png}" alt="">
                                 9.2
                             </span>
                         </div>
@@ -63,7 +65,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/트랜스포머.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/트랜스포머.jpg}" alt="">
                                 <em>2</em>
                                 <span>등급</span>
                             </span>
@@ -82,7 +84,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/포켓몬스터.jpg" alt="">
+                                <img src="/images/common/main/포스터/포켓몬스터.jpg" alt="">
                                 <em>3</em>
                                 <span>등급</span>
                             </span>
@@ -94,7 +96,7 @@
                                 <em>3.6%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/resources/image-dg/main/포스터/Star 3.png" alt="">
+                                <img src="/images/common/main/포스터/Star 3.png" alt="">
                                 9.4
                             </span>
                         </div>
@@ -102,7 +104,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/가오갤.jpg" alt="">
+                                <img src="/images/common/main/포스터/가오갤.jpg" alt="">
                                 <em>4</em>
                                 <span>등급</span>
                             </span>
@@ -114,7 +116,7 @@
                                 <em>2.3%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/resources/image-dg/main/포스터/Star 3.png" alt="">
+                                <img src="/images/common/main/포스터/Star 3.png" alt="">
                                 9.6
                             </span>
                         </div>
@@ -122,7 +124,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/엘리멘탈.jpg" alt="">
+                                <img src="/images/common/main/포스터/엘리멘탈.jpg" alt="">
                                 <em>5</em>
                                 <span>등급</span>
                             </span>
@@ -141,7 +143,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/플래시.jpg" alt="">
+                                <img src="/images/common/main/포스터/플래시.jpg" alt="">
                                 <em>6</em>
                                 <span>등급</span>
                             </span>
@@ -160,7 +162,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/분노의질주.jpg" alt="">
+                                <img src="/images/common/main/포스터/분노의질주.jpg" alt="">
                                 <em>7</em>
                                 <span>등급</span>
                             </span>
@@ -172,7 +174,7 @@
                                 <em>1.4%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/resources/image-dg/main/포스터/Star 3.png" alt="">
+                                <img src="/images/common/main/포스터/Star 3.png" alt="">
                                 9.1
                             </span>
                         </div>
@@ -180,7 +182,7 @@
                     <div class="swiper-slide">
                         <div class="top_info">
                             <span class="poster_info">
-                                <img src="/resources/image-dg/main/포스터/인어공주.jpg" alt="">
+                                <img src="/images/common/main/포스터/인어공주.jpg" alt="">
                                 <em>8</em>
                                 <span>등급</span>
                             </span>
@@ -192,7 +194,7 @@
                                 <em>1.3%</em>
                             </span>
                             <span class="star_info">
-                                <img src="/resources/image-dg/main/포스터/Star 3.png" alt="">
+                                <img src="/images/common/main/포스터/Star 3.png" alt="">
                                 8
                             </span>
                         </div>
@@ -242,7 +244,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="/resources/js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
 
