@@ -82,19 +82,19 @@ a {
 }
 
 /* 문의글 작성 전체 div */
-.customer-service-QA{
+.customer-service-QA {
     width: 70vw;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 
 }
 
 /* 안내문구 영역 */
-.QA-comment-box{
+.QA-comment-box {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -102,7 +102,7 @@ a {
     text-align-last: center;
 }
 
-.QA-comment-box>img{
+.QA-comment-box>img {
     width: 50px;
     position: absolute;
     height: 50px;
@@ -111,18 +111,18 @@ a {
 
 }
 
-.QA-top-notice{
+.QA-top-notice {
     display: flex;
     flex-direction: column;
 }
 
-.QA-comment-box>pre{
+.QA-comment-box>pre {
     margin-right: 50px;
     display: flex;
     align-items: center;
 }
 
-.QA-list{
+.QA-list {
     display: flex;
     flex-direction: column;
     width: 50vw;
@@ -131,7 +131,7 @@ a {
 }
 
 /* 문의시 주의사항 */
-.QA-notice-contents{
+.QA-notice-contents {
     width: 70vw;
     border-bottom: 1.5px solid #ccc;
 
@@ -139,12 +139,234 @@ a {
 }
 
 /* 분류 행 */
-.QA-divide{
+.QA-divide {
     width: 70vw;
-    height: 50px;
+    height: 40px;
+    font-size: 17px;
     border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
 
+.QA-divide>span:nth-child(1) {
+    margin-right: 5px;
+    display: inline-block;
+    align-items: center;
+}
+
+.QA-divide>span:nth-child(2) {
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+#QASelection {
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px #a8a7de71;
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+/* 종류 */
+.QA-divide>span:nth-child(4){
+    margin-left: 30px;
+}
+.QA-divide>span:nth-child(5){
+    margin-top: 8px;
+    margin-left: 5px;
+
+}
+
+/* 종류 input */
+.QA-divide>input:nth-child(6){
+    margin: 5px 5px 0px 15px;
+
+}
+
+.QA-divide>input:nth-child(7){
+    margin: 5px 5px 0px 15px;
+}
+
+/* 제목 행 */
+.QA-title{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+
+}
+
+.QA-title>span:nth-child(1){
+    margin-right: 5px;
+    display: inline-block;
+    align-items: center;
+}
+.QA-title>span:nth-child(2){
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+
+#customerQuestionTitle{
+    height: 30px;
+    width: 600px;
+    font-size: 15px;
+    border-radius: 3px;
+
+    border: 1px solid #ccc;
+    margin-right: 50px;
+    padding-left: 10px;
+}
+
+input:focus{
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px #a8a7de71;
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+.QA-title>input:nth-child(3){
+    margin-right: 10px;
+}
+
+/* 내용 */
+.QA-contents{
+    width: 70vw;
+    height: 40vh;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.QA-contents>span:nth-child(1){
+    margin-right: 5px;
+    display: inline-block;
+    align-items: center;
+}
+
+.QA-contents>span:nth-child(2){
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+#QADetailContents{
+    resize: none;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+
+    font-size: 15px;
+}
+
+.QA-span-container{
+    margin: 195px 0 0 40px;
+}
+
+textarea:focus{
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px #a8a7de71;
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+/* 첨부파일 */
+.QA-upload-file{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
     display: flex;
     align-items: center;
     
 }
+
+.QA-upload-file>span:nth-child(1){
+    margin-right: 17px;
+    display: inline-block;
+    align-items: center;
+    width: 100px;
+}
+
+#QAInsertFile{
+    display: flex;
+    width: 13vw;
+    align-items: center;
+}
+
+
+.QA-upload-file>span:nth-child(3){
+    font-size: 10px;
+    width: 55vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.QA-upload-file>span:nth-child(3)>img{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+/* 비회원 여부 체크 */
+.QA-member-check{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.QA-member-check>span:nth-child(1){
+    margin-right: 17px;
+    display: flex;
+    align-items: center;
+    width: 8vw;
+}
+
+.QA-member-check>span:nth-child(3)>img{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+/* 스크롤바 */
+/* #secession-notice-detail::-webkit-scrollbar {
+    width: 10px;
+}
+#secession-notice-detail::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+} */
