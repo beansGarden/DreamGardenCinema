@@ -23,23 +23,23 @@
                     <thead>
                         <tr>
                             <th>번호</th>
-                                <td>1</td>
+                                <td th:text="${Qna.qnaNo}">1</td>
                         </tr>
                         <tr>
                             <th>카테고리</th>
-                                <td>[예매/결제]</td>
+                                <td th:text="${Qna.qnaCategory}">[예매/결제]</td>
                         </tr>
                         <th>등록인</th>
-                        <td>2023.05.31</td>
+                        <td th:text="${Qna.qnaEnrollDate}">2023.05.31</td>
                     </tr>
                         <tr>
                             <th>제목</th>
-                                <td>인터넷 예매 후 현장에서 취소 가능한가요?</td>
+                                <td th:text="${Qna.qnaTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</td>
                         </tr>
                         <tr>
                             <th>내용</th>
                                 <td>    <!-- 내용 -->
-                                    <div class="admin_qnaContent">
+                                    <div class="admin_qnaContent"  th:text="${Qna.qnaContent}">
                                        취소되게 해주세요
                                     </div></td>
                         </tr>

@@ -15,12 +15,18 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO dao;
 	
+	//1:1문의 게시판 조회
 	@Override
 	public List<Qna> adminQnaList() {
-	
-		
-		
+
 		return dao.adminQnaList();
+	}
+
+	//1:1문의 게시글 읽기 조회
+	@Override
+	public Qna selectQnaOne(int qnaNo) {
+		
+		return dao.selectQnaOne(qnaNo);
 	}
 
 }

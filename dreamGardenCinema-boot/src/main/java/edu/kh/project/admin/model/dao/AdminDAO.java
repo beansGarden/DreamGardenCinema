@@ -13,12 +13,21 @@ public class AdminDAO {
 	@Autowired
 	private AdminMapper mapper;
 	
-	/**1:1¹®ÀÇ (QNA)¸®½ºÆ® ºÒ·¯¿À±â
+	/**1:1ë¬¸ì˜ì‚¬í•­ (QNA) ê²Œì‹œê¸€ ì¡°íšŒ ë¦¬ìŠ¤íŠ¸
 	 * @return
 	 */
 	public List<Qna> adminQnaList() {
 		
 		return mapper.adminQnaList();
+	}
+
+	/**1:1 ë¬¸ì˜ì‚¬í•­ (QNA) ê²Œì‹œê¸€ ì½ê¸° ì¡°íšŒ
+	 * @param qnaNo
+	 * @return
+	 */
+	public Qna selectQnaOne(int qnaNo) {
+
+		return mapper.selectQnaOne(qnaNo);
 	}
 	
 }

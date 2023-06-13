@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.kh.project.admin.model.service.AdminService;
 import edu.kh.project.qna.model.dto.Qna;
@@ -18,14 +22,14 @@ public class AdminController {
 	private AdminService service;
 
 	//1.관리자 메인 대시보드
-	@RequestMapping("/admin")
+	@GetMapping("/admin")
 	public String dashboard() {
 	
 		return "admin/admin_dashboard";
 	}
 	
 	//2.관리자 회원 관리
-	@RequestMapping("/adminUser")//
+	@GetMapping("/adminUser")//
 	public String adminUser() {
 	
 		
@@ -34,7 +38,7 @@ public class AdminController {
 	
 	
 	//3.관리자 영화 관리
-	@RequestMapping("/adminMovieManage")//
+	@GetMapping("/adminMovieManage")//
 	public String movieManage() {
 	
 		
@@ -42,7 +46,7 @@ public class AdminController {
 	}
 	
 	//3-1.관리자 영화 등록
-		@RequestMapping("/adminMovieRegister")//
+	 @GetMapping("/adminMovieRegister")//
 		public String movieRegister() {
 		
 			
@@ -51,7 +55,7 @@ public class AdminController {
 		
 	
 	//4.관리자 상영 관리
-		@RequestMapping("/adminCinemaManage")//
+		@GetMapping("/adminCinemaManage")//
 		public String cinemaManage() {
 		
 			
@@ -59,7 +63,7 @@ public class AdminController {
 		}
 		
 		//4-1.관리자 상영 시간 등록
-				@RequestMapping("/adminCinemaRegister")//
+		@GetMapping("/adminCinemaRegister")//
 				public String cinemaRegister() {
 				
 					
@@ -67,7 +71,7 @@ public class AdminController {
 				}
 				
 		//5.관리자 공지사항 리스트 조회
-		@RequestMapping("/adminNotice")//
+		@GetMapping("/adminNotice")//
 		public String notice() {
 					
 						
@@ -75,7 +79,7 @@ public class AdminController {
 		}
 		
 		//5-1.공지사항 게시글 조회
-		@RequestMapping("/adminNoticeRead")//
+		@GetMapping("/adminNoticeRead")//
 		public String noticeRead() {
 					
 						
@@ -85,7 +89,7 @@ public class AdminController {
 		
 		
 		//5-2. 공지사항 게시글 쓰기
-		@RequestMapping("/adminNoticeWrite")//
+		@GetMapping("/adminNoticeWrite")//
 		public String noticeWrite() {
 					
 						
@@ -94,7 +98,7 @@ public class AdminController {
 		
 		
 		//5-3. 공지사항 게시글 수정
-		@RequestMapping("/adminNoticeUpate")//
+		@GetMapping("/adminNoticeUpate")//
 		public String noticeUpdate() {
 					
 						
@@ -103,7 +107,7 @@ public class AdminController {
 		
 		
 		//5-4. 공지사항 게시글 삭제  --- 페이지 없음
-		@RequestMapping("/adminNoticeDelete")//
+		@GetMapping("/adminNoticeDelete")//
 		public String noticeDelete() {
 					
 						
@@ -111,31 +115,35 @@ public class AdminController {
 		}
 		
 		
-		//6. 1:1 문의사항 리스트 조회
-		@RequestMapping("/adminQna")//
+		//6. 1:1 문의사항 리스트 조회 230613
+		@GetMapping("/adminQna")//
 		public String qnaList(Model model) {
 		
 		List<Qna> adminQnaList = service.adminQnaList();
-					
-		System.out.println(adminQnaList);
-	
-		
+				
 		model.addAttribute("adminQnaList", adminQnaList);
-						
-		
+					
 		return "admin/admin_QNA";
 		}
 		
+		
+		
 		//6-1. 1:1 문의사항 게시글 조회
-		@RequestMapping("/adminQnaRead")//
-		public String qnaRead() {
+		@GetMapping(value = "/adminQnaRead")//
+		public String qnaRead(Model model,@PathVariable(value="qnaNo",required=false) int qnaNo) {
 					
-						
+			Qna qna = service.selectQnaOne(qnaNo);
+			
+			System.out.println(qnaNo);
+			
+			qna.setQnaNo(qnaNo);
+			model.addAttribute("Qna", qna);
+			
 		return "admin/admin_QNA_read";
 		}
 		
 		//6-2. 1:1 문의사항 게시글 쓰기
-		@RequestMapping("/adminQnaWrite")//
+		@GetMapping("/adminQnaWrite")//
 		public String qnaWrite() {
 					
 						
@@ -144,7 +152,7 @@ public class AdminController {
 		
 		
 		//6-2. 1:1 문의사항 게시글 수정
-		@RequestMapping("/adminQnaUpdate")//
+		@GetMapping("/adminQnaUpdate")//
 		public String qnaUpdate() {
 					
 						
@@ -152,7 +160,7 @@ public class AdminController {
 		}
 		
 		//6-3. 1:1 문의사항 게시글 삭제
-		@RequestMapping("/adminQnaDelete")//
+		@GetMapping("/adminQnaDelete")//
 		public String qnaDelete() {
 					
 						
@@ -160,7 +168,7 @@ public class AdminController {
 		}
 		
 		//7. FAQ 리스트 조회
-		@RequestMapping("/adminFaq")//
+		@GetMapping("/adminFaq")//
 		public String faqList() {
 					
 						
@@ -168,7 +176,7 @@ public class AdminController {
 		}
 		
 		//7-1. FAQ 게시글 조회
-		@RequestMapping("/adminFaqRead")//
+		@GetMapping("/adminFaqRead")//
 		public String faqRead() {
 					
 						
@@ -176,7 +184,7 @@ public class AdminController {
 		}
 				
 		//7-2. FAQ 게시글 쓰기
-		@RequestMapping("/adminFawWrite")//
+		@GetMapping("/adminFawWrite")//
 		public String faqWrite() {
 					
 						
@@ -184,7 +192,7 @@ public class AdminController {
 		}
 				
 		//7-2. FAQ게시글 수정
-		@RequestMapping("/adminFaqUpdate")//
+		@GetMapping("/adminFaqUpdate")//
 		public String faqUpdate() {
 					
 						
@@ -192,7 +200,7 @@ public class AdminController {
 		}
 				
 		//7-3. FAQ 게시글 삭제
-		@RequestMapping("/adminFaqDelete")//
+		@GetMapping("/adminFaqDelete")//
 		public String faqDelete() {
 					
 						
@@ -200,13 +208,13 @@ public class AdminController {
 		}
 	
 		//8. 신고하기 리스트 조회
-		@RequestMapping("/adminReport")//
+		@GetMapping("/adminReport")//
 		public String report() {
 					
 						
 		return "admin/admin_report";
 		}
-		@RequestMapping("/adminMain")//
+		@GetMapping("/adminMain")//
 		public String main() {
 					
 						
