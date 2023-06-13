@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>report</title>
 
-    <link rel="stylesheet" href="../admin/style.css">
-    <link rel="stylesheet" href="../admin/admin_report.css">
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_report.css">
 </head>
 <body>
+       <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_reportWrap">
         
@@ -72,9 +74,9 @@
 
                 <!-- 등록,수정,삭제 버튼 -->
             <div class="admin_reportBtn">
-                <button class="admin_reportEndBtn">등록</button>
-                <button class="admin_reportEndBtn">수정</button>
-                <button class="admin_reportEndBtn">삭제</button>
+                <button class="admin_reportEndBtn"><a href="">등록</a></button>
+                <button class="admin_reportEndBtn"><a href="">수정</a></button>
+                <button class="admin_reportEndBtn"><a href="">삭제</a></button>
             </div>
 
             </div>

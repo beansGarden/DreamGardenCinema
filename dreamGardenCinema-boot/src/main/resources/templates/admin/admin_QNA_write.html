@@ -19,14 +19,16 @@
 
 
 
-    <link rel="stylesheet" href="../admin/style.css">
-    <link rel="stylesheet" href="../admin/admin_QNA_write.css">
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_QNA_write.css">
     
     <script src="../admin/summernote-ko-KR.js"></script>
     <script src="../admin/summernote-lite.js"></script>
     <link rel="stylesheet" href="../admin/summernote-lite.css">
 </head>
 <body>
+       <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_qnaWrap">
         
@@ -53,7 +55,7 @@
      
 
                 <!-- 등록 버튼 -->
-                <button class="admin_qnaRegister">등록</button>
+                <button class="admin_qnaRegister"><a href="">등록</a></button>
 
         
             
