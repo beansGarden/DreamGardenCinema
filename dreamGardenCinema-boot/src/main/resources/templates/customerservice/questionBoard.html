@@ -16,7 +16,6 @@
 
 <body>
 
-
     <div class="customer-service-box">
 
         <div class="service-notice">
@@ -60,7 +59,11 @@
             </div>
 
             <form action="#" method="POST">
+
                 <!-- 문의내용 -->
+                <div class="QA-main-title">
+                    <span>문의내용</span>
+                </div>
 
                 <!-- 분류 및 종류 행 -->
                 <div class="QA-divide">
@@ -83,49 +86,60 @@
                 <!-- 제목 행 -->
                 <div class="QA-title">
                     <span>제목</span><span style="color: red;">*</span>
-                    <input type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요." minlength="0" maxlength="49">
-                    <span id="QATitleCount">0</span>/
-                    <span>50</span>자
+                    <input type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요." minlength="0"
+                        maxlength="49">
+                    <div class="QA-title-count-box">
+                        <span id="QATitleCount">0</span>/
+                        <span>50</span>자
+                    </div>
                 </div>
 
                 <!-- 내용 -->
                 <div class="QA-contents">
                     <span>내용</span><span style="color: red;">*</span>
-                    <textarea name="" id="QADetailContents" cols="100" rows="10" 
-                                minlength="0" maxlength="1999" placeholder="내용을 입력 해주세요."></textarea>
+                    <textarea name="" id="QADetailContents" cols="100" rows="10" minlength="0" maxlength="1999"
+                        placeholder="내용을 입력 해주세요."></textarea>
                     <div class="QA-span-container">
-                    <span id="QAContentsCount">0</span>/
-                    <span>2000</span>자
-                    </div>  
+                        <span id="QAContentsCount">0</span>/
+                        <span>2000</span>자
+                    </div>
                 </div>
 
                 <!-- 첨부파일 -->
                 <div class="QA-upload-file">
                     <span>첨부파일</span>
                     <input type="file" name="" id="QAInsertFile">
-                    <span><img src="/src/main/resources/static/images/customerservice/경고.png">첨부 파일형식 : jpg / jpeg / png/ bmp / gif / pdf (5MB X 1개)</span>
+                    <span><img src="/src/main/resources/static/images/customerservice/경고.png">첨부 파일형식 : jpg / jpeg /
+                        png/ bmp / gif / pdf (5MB X 1개)</span>
                 </div>
 
-                <!-- 비회원 여부 체크  -->
+                <!-- 회원 여부 체크  -->
                 <div class="QA-member-check">
                     <span>비회원 여부 체크</span>
-                    <input type="checkbox" name="" id="QAmemChkBox">이메일로 답변 받기
+                    <input type="checkbox" name="" id="QAmemChkBox">
+                    <span>이메일로 답변 받기</span>
                     <span>
                         <img src="/src/main/resources/static/images/customerservice/경고.png">
                         비회원 문의 시 이메일로 답변 내용이 발송되므로 이메일로 답변 알림 받기는 필수입니다.</span>
                 </div>
 
                 <!-- 고객정보 -->
+
+                <div class="QA-customer-info-title">
+                    <span>고객정보</span>
+                </div>
+
+
                 <!-- 성명 -->
-                <div>
+                <div class="QA-customer-name">
                     <span>성명</span><span style="color: red;">*</span>
-                    <input type="text">
+                    <input type="text" placeholder="성함을 입력해 주세요.">
                 </div>
 
                 <!-- 연락처 -->
-                <div>
+                <div class="QA-customer-tel">
                     <span>연락처</span><span style="color: red;">*</span>
-                    <select name="" id="">
+                    <select name="" id="QASelectNum">
                         <option value="">선택</option>
                         <option value="">010</option>
                         <option value="">011</option>
@@ -135,49 +149,54 @@
                         <option value="">019</option>
                     </select>
 
-                    <input type="text"><input type="text">
+                    <input type="tel" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요.">
+
                 </div>
 
-                <div>
+                <div class="QA-customer-email">
                     <span>이메일</span><span style="color: red;">*</span>
-                    <input type="text" id="">
-                    <span>@</span>
-                    <input type="text" id="">
+                    <input type="email" id="QAEmail">
+                    <span>
+                        <img src="/src/main/resources/static/images/customerservice/경고.png">답변 등록시 해당 이메일로 자동 발송 됩니다.
+                    </span>
                 </div>
 
                 <!-- 개인정보 수집 동의 -->
-                <div>
+                <div class="QA-personal-agree-title">
                     <span>개인정보 수집 동의에 대한 동의</span>
                     <span>문의를 통해 아래의 개인정보를 수집합니다. 수집된 개인정보는 문의 외 목적으로 사용하지 않습니다.</span>
                 </div>
 
-                <div>
+                <div class="QA-pesonal-info-agree">
+                    <pre class="QA-personal-notice">
                     개인정보의 수집목적 및 항목
                     ① 수집 목적 : 원활한 고객 상담, 불편사항 및 문의사항 관련 의사소통 경로 확보
                     ② 수집 항목
                     *필수입력사항
                     - 이용자 식별을 위한 항목 : 성명, 연락처, 이메일, 아이디(로그인 시 수집)
-
+                    <h3 style="color: #5250BE;">
                     개인정보의 보유 및 이용기간
                     입력하신 개인정보는 소비자 보호에 관한 법률 등 관계 법률에 의해 다음과 같이 보유합니다.
                     보유기간 : 문의접수 후 처리 완료시점으로 부터 3년
-
+                    
+                </h3>
                     ※ 1:1문의 서비스 제공을 위한 최소한의 개인정보이며 거부할 수 있습니다. 다만, 수집에 동의하지 않을 경우 서비스 이용이 제한됩니다.
+                </pre>
                 </div>
 
-                <div>
-                    <input type="radio" name="" id="">동의
-                    <input type="radio" name="" id="">비동의
+                <div class="QA-personal-agree-chk">
+                    <input type="radio" name="QAAgree" id="">동의
+                    <input type="radio" name="QAAgree" id="">비동의
                 </div>
 
-                <button>확인</button>
-                <button>취소</button>
-
+                <div class="QA-final-confirm">
+                    <button class="QA-conf-btn">확인</button>
+                    <button class="QA-del-btn">취소</button>
+                </div>
             </form>
         </div>
 
     </div>
-
     <script src="/src/main/resources/static/js/customerservice/questionBoard.js"></script>
 
 </body>
