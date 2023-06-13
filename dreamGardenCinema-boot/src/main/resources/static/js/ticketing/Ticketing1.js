@@ -11,6 +11,7 @@ pizzaBtn.addEventListener("click", ()=>{  /* 피자 버튼 누르면 포스터 �
     hamburger.style.display = "none";
 })
 
+// 영화 선택 이벤트
 const checkMovie = document.querySelectorAll(".MovieList>label");
 let sameLabel;
 for(let i=0;i<checkMovie.length;i++){
@@ -27,19 +28,74 @@ for(let i=0;i<checkMovie.length;i++){
     })
 }
 
-const choiceDate = document.querySelectorAll(".swiper-slide");
-for(let i=0;i<choiceDate.length;i++){
-    choiceDate[i].addEventListener("click", e=>{
-        for(let j=0;j<choiceDate.length;j++){
-            choiceDate[j].querySelector("a strong").style.backgroundColor = '';
-            choiceDate[j].querySelector("a strong").style.color = "black";
-        }
-        sameLabel = e.currentTarget.querySelector("a label").getAttribute("for");
-        for(let j=0;j<choiceDate.length;j++){
-            if(choiceDate[j].querySelector("a label").getAttribute("for") == sameLabel){
-                choiceDate[j].querySelector("a strong").style.backgroundColor = "#0E0753";
-                choiceDate[j].querySelector("a strong").style.color = "white";
+// 날짜 설정
+const swiperWrapper = document.querySelector(".swiper-wrapper");
+let today = new Date();
+for(let i=0;i<10;i++){
+    let month = today.getMonth()+1;
+    let date = today.getDate();
+    let day = today.getDay();
+    switch(day) {
+        case 1: day = "월"; break; 
+        case 2: day = "화"; break;
+        case 3: day = "수"; break;
+        case 4: day = "목"; break;
+        case 5: day = "금"; break;
+        case 6: day = "토"; break;
+        case 0: day = "일"; break;
+    }
+    const li = document.createElement("li");
+    li.classList.add("swiper-slide");
+    li.onclick = dateSet;
+    const strong = document.createElement("strong");
+    if(i==0||date==1){
+        strong.innerText = month+"월";
+    }
+    const a = document.createElement("a");
+    const label = document.createElement("label");
+    label.setAttribute("for", `Date${i}`);
+    const innerStrong = document.createElement("strong");
+    innerStrong.innerText = date;
+    const em = document.createElement("em");
+    if(i==0) {
+        li.classList.add("dateActive");
+        em.innerText = "오늘";
+    } else {
+        em.innerText = day;
+    }
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.id = `Date${i}`;
+    input.name = "movieTime";
+    if(month<10){
+        month = "0"+month;
+    }
+    if(date<10){
+        date = "0"+date;
+    }
+    input.value = `${today.getFullYear()}${month}${date}`;
+    label.append(input, innerStrong, em);
+    a.append(label);
+    li.append(strong, a);
+    swiperWrapper.append(li);
+    today.setDate(today.getDate()+1);
+}
+
+// 날짜 선택 이벤트
+const headerDate = document.querySelector(".headerDate");
+function dateSet(){
+    const choiceDate = document.querySelectorAll(".swiper-slide");
+    for(let i=0;i<choiceDate.length;i++){
+        choiceDate[i].addEventListener("click", e=>{
+            for(let j=0;j<choiceDate.length;j++){
+                choiceDate[j].classList.remove("dateActive");
             }
-        }
-    })
+            e.currentTarget.classList.add("dateActive");
+
+            // 날짜 헤더 변경
+            let date = e.currentTarget.querySelector("a>label>input").value;
+            let day = e.currentTarget.querySelector("a>label>em").innerText;
+            headerDate.innerText = `${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}(${day})`;
+        })
+    }
 }

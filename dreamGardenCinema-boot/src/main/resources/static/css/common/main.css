@@ -177,6 +177,7 @@ ul, li
 .poster_info em{ /* 순위 */
     position: absolute;
     bottom: 4px;
+    left: -5px;
     font-size: 26px;
     font-weight: bold;
     display: block;
@@ -187,8 +188,13 @@ ul, li
 .poster_info span{ /* 등급 */
     position: absolute;
     top: 4px;
-    right: 4px;
+    right: -3px;
 }
+.poster_info span img{
+    width: 30px;
+    height: 30px;
+}
+
 .btm_info{
     text-align: center;
     font-weight: bold;
