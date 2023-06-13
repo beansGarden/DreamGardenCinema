@@ -12,5 +12,8 @@ public interface AdminService {
 	//1:1 문의 게시글 읽기 조회
 	Qna selectQnaOne(int qnaNo);
 
+	//1:1 문의 게시글 수정하기
+	Qna updateQna(int qnaNo);
+
 	
 }

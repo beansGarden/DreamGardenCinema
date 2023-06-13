@@ -38,8 +38,17 @@
 	SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME 
 	FROM QNA
 	JOIN "USER_INFO" ON USER_NO=USER_NO2
-	WHERE QNA_NO ='1'
+	WHERE QNA_NO = #{qnaNo}
 	</select>
+	
+	<update id="updateQna">
+		UPDATE "QNA"
+		SET 
+		QNA_TITLE = #{qnaTitle}
+		QNA_CONTENT = #{qnaContent}
+		WHERE QNA_NO = #{qnaNo}
+		
+	</update>
 
 
 </mapper>
