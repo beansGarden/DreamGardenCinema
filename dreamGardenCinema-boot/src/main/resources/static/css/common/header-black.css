@@ -18,8 +18,8 @@ header {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
 
-    position: sticky !important;
-    z-index: 200px;
+    position: absolute;
+    z-index: 1;
 
 }
 

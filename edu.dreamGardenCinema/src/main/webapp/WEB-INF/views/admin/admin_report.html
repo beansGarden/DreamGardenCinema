@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,7 +10,7 @@
     <title>report</title>
 
     <link rel="stylesheet" href="../admin/style.css">
-    <link rel="stylesheet" href="../admin/admin_report.css">
+    <link rel="stylesheet" href="../admin/admin/admin_report.css">
 </head>
 <body>
     <!-- 전체 감싸는 div -->
@@ -68,7 +71,22 @@
 
                 </table>
             </div>
-                <!-- 페이지 네이션 -->
+              
+                  <!-- 페이지 네이션 -->
+                  <div class="pagination">
+                    <li><a href="#"><<</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li><a href="#">7</a></li>
+                    <li><a href="#">8</a></li>
+                    <li><a href="#">9</a></li>
+                    <li><a href="#">10</a></li>
+                    <li><a href="#">>></a></li>
+                </div>
 
                 <!-- 등록,수정,삭제 버튼 -->
             <div class="admin_reportBtn">

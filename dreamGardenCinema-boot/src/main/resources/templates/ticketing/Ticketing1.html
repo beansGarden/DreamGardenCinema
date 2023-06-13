@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/Ticketing/Ticketing1.css">
+    <title>예매페이지</title>
+    <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing1.css}">
+    <script th:inline="javascript">
+        let day = new Date();
+    </script>
 </head>
 <body>
     <div class="main">
         <div class="ticketingBox">
             <ul class="ticketingNav">
-                <li class="active"><a href="">01<br>상영시간</a></li>
-                <li><a href="">02<br>인원/좌석</a></li>
-                <li><a href="">03<br>결제</a></li>
-                <li><a href="">04<br>결제완료</a></li>
+                <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
+                <li class="active"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
+                <li><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
+                <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
+                <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
             </ul>
-            <form action="" method="POST"></form>
+            <form th:action="@{/ticketing/date}" method="POST">
                 <div class="choiceMovie">
                     <div class="hiddenRadio" style="display: none;">
                         <!-- 데이터 삽입 예 -->
                         <!-- 
                             <input type="radio" name="movieNo" id="${movieNo}" value="${movieNo}">
                         -->
-                        <input type="radio" name="movieTitle" id="1" value="1">
-                        <input type="radio" name="movieTitle" id="2" value="2">
-                        <input type="radio" name="movieTitle" id="3" value="3">
-                        <input type="radio" name="movieTitle" id="4" value="4">
+                        <input type="radio" name="movieNo" id="1" value="1">
+                        <input type="radio" name="movieNo" id="2" value="2">
+                        <input type="radio" name="movieNo" id="3" value="3">
+                        <input type="radio" name="movieNo" id="4" value="4">
                     </div>
                     <div class="choiceHeader">영화 선택</div>
                     <div>
-                        <select>  <!-- AJAX 옵션 -->
+                        <select>
                             <option value="">예매순</option>
                             <option value="">별점순</option>
                         </select>
                         <div>
-                            <img class="hamburgerBtn" src="/Ticketing/hambuger.png" alt="">
-                            <img class="pizzaBtn" src="/Ticketing/pizza.png" alt="">
+                            <img class="hamburgerBtn" th:src="@{/images/ticketing/hambuger.png}" alt="">
+                            <img class="pizzaBtn" th:src="@{/images/ticketing/pizza.png}" alt="">
                         </div>
                     </div>
-                    <div class="MovieList hamburger" style="display: none;">
+                    <div class="MovieList hamburger">
 
                         <!-- 데이터 삽입 예 -->
                         <!-- 
@@ -49,23 +53,23 @@
                             </label> 
                         -->
                         <label for="1">
-                            <img src="/15세.png" alt="">
+                            <img th:src="@{/images/common/main/15세.png}" alt="">
                             <span>범죄도시3</span>
                         </label>
                         <label for="2">
-                            <img src="/12세.png" alt="">
+                            <img th:src="@{/images/common/main/12세.png}" alt="">
                             <span>트랜스포머: 비스트의 서막</span>
                         </label>
                         <label for="3">
-                            <img src="/12세.png" alt="">
+                            <img th:src="@{/images/common/main/12세.png}" alt="">
                             <span>플래시</span>
                         </label>
                         <label for="4">
-                            <img src="/ALL.png" alt="">
+                            <img th:src="@{/images/common/main/ALL.png}" alt="">
                             <span>엘리멘탈</span>
                         </label>
                     </div>
-                    <div class="MovieList pizza">
+                    <div class="MovieList pizza" style="display: none;">
                         <!-- 데이터 삽입 예 -->
                         <!-- 
                             <label for="1">
@@ -83,7 +87,7 @@
                                             <em>예매율</em>
                                         </span>
                                         <span class="star_info">
-                                            <img src="/포스터/Star 3.png" alt="">
+                                            <img src="/포스터/Star 3.png}" alt="">
                                             9.2
                                         </span>
                                     </div>
@@ -98,11 +102,11 @@
                         -->
                         <label for="1">
                             <div class="poster">
-                                <img src="/포스터/범죄도시.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
                             </div>
                             <div class="content">
                                 <div class="title">
-                                    <img src="/15세.png" alt="">
+                                    <img th:src="@{/images/common/main/15세.png}" alt="">
                                     <strong>범죄도시3</strong>
                                 </div>
                                 <div class="rate">
@@ -111,7 +115,7 @@
                                         <em>68.6%</em>
                                     </span>
                                     <span class="star_info">
-                                        <img src="/포스터/Star 3.png" alt="">
+                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                         9.2
                                     </span>
                                 </div>
@@ -125,11 +129,11 @@
                         </label>
                         <label for="2">
                             <div class="poster">
-                                <img src="/포스터/범죄도시.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
                             </div>
                             <div class="content">
                                 <div class="title">
-                                    <img src="/15세.png" alt="">
+                                    <img th:src="@{/images/common/main/15세.png}" alt="">
                                     <strong>범죄도시3</strong>
                                 </div>
                                 <div class="rate">
@@ -138,7 +142,7 @@
                                         <em>68.6%</em>
                                     </span>
                                     <span class="star_info">
-                                        <img src="/포스터/Star 3.png" alt="">
+                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                         9.2
                                     </span>
                                 </div>
@@ -152,11 +156,11 @@
                         </label>
                         <label for="3">
                             <div class="poster">
-                                <img src="/포스터/분노의질주.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/분노의질주.jpg}" alt="">
                             </div>
                             <div class="content">
                                 <div class="title">
-                                    <img src="/15세.png" alt="">
+                                    <img th:src="@{/images/common/main/15세.png}" alt="">
                                     <strong>범죄도시3</strong>
                                 </div>
                                 <div class="rate">
@@ -165,7 +169,7 @@
                                         <em>68.6%</em>
                                     </span>
                                     <span class="star_info">
-                                        <img src="/포스터/Star 3.png" alt="">
+                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                         9.2
                                     </span>
                                 </div>
@@ -179,11 +183,11 @@
                         </label>
                         <label for="4">
                             <div class="poster">
-                                <img src="/포스터/범죄도시.jpg" alt="">
+                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
                             </div>
                             <div class="content">
                                 <div class="title">
-                                    <img src="/15세.png" alt="">
+                                    <img th:src="@{/images/common/main/15세.png}" alt="">
                                     <strong>범죄도시3</strong>
                                 </div>
                                 <div class="rate">
@@ -192,7 +196,7 @@
                                         <em>68.6%</em>
                                     </span>
                                     <span class="star_info">
-                                        <img src="/포스터/Star 3.png" alt="">
+                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
                                         9.2
                                     </span>
                                 </div>
@@ -207,126 +211,24 @@
                     </div>
                 </div>
                 <div class="choiceTime">
-                    <div class="choiceHeader">2023-06-07(오늘)</div>
-
+                    <div class="choiceHeader headerDate">2023-06-07(오늘)</div>
                     <section class="sub_slide">
                         <div class="inner">
                             <div class="swiper-container">
                                 <ul class="swiper-wrapper">
                                     <!-- 데이터 삽입 예 -->
                                     <!--
-                                        <li class="swiper-slide">
+                                    <li class="swiper-slide">
                                         <strong>6월</strong> 맨 처음엔 현재 달 보여주기  달이 바뀌면 또 보여주기
                                         <a href="">
                                             <label for="Date0">
                                                 <input type="radio" id="Date0" name="radioDate" value="20230607">
                                                 <strong>7</strong>
-                                                <em>오늘</em>
+                                                <em>오늘 또는 요일</em>
                                             </label>
                                         </a>
                                     </li>
                                     --> 
-                                    <li class="swiper-slide">
-                                        <strong>6월</strong>
-                                        <a href="">
-                                            <label for="Date0">
-                                                <input type="radio" id="Date0" name="radioDate" value="20230607">
-                                                <strong>7</strong>
-                                                <em>오늘</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date1">
-                                                <input type="radio" id="Date1" name="radioDate" value="20230608">
-                                                <strong>8</strong>
-                                                <em>목</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date2">
-                                                <input type="radio" id="Date2" name="radioDate" value="20230609">
-                                                <strong>9</strong>
-                                                <em>금</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date3">
-                                                <input type="radio" id="Date3" name="radioDate" value="20230610">
-                                                <strong>10</strong>
-                                                <em>토</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date4">
-                                                <input type="radio" id="Date4" name="radioDate" value="20230611">
-                                                <strong>11</strong>
-                                                <em>일</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date5">
-                                                <input type="radio" id="Date5" name="radioDate" value="20230612">
-                                                <strong>12</strong>
-                                                <em>월</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date6">
-                                                <input type="radio" id="Date6" name="radioDate" value="20230613">
-                                                <strong>13</strong>
-                                                <em>화</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date7">
-                                                <input type="radio" id="Date7" name="radioDate" value="20230614">
-                                                <strong>14</strong>
-                                                <em>수</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date8">
-                                                <input type="radio" id="Date8" name="radioDate" value="20230615">
-                                                <strong>15</strong>
-                                                <em>목</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <strong></strong>
-                                        <a href="">
-                                            <label for="Date9">
-                                                <input type="radio" id="Date9" name="radioDate" value="20230616">
-                                                <strong>16</strong>
-                                                <em>금</em>
-                                            </label>
-                                        </a>
-                                    </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -349,26 +251,23 @@
                     </div>
 
                     <div class="movieChoiceTitle">
-                        <img src="/15세.png" alt="">
+                        <img th:src="@{/images/common/main/15세.png}" alt="">
                         <span>범죄도시3</span>
                     </div>
 
                     <div class="timeSelect">
                         <ul class="timelist">
+                            <!--  
+                            ***** 데이터 삽입 예 *****
                             <li>
-                                <a href="">14:45</a>
+                                <button class="btn">14:45</button>
+                            </li>
+                            -->
+                            <li>
+                                <button class="btn">14:45</button>
                             </li>
                             <li>
-                                <a href="">15:10</a>
-                            </li>
-                            <li>
-                                <a href="">15:10</a>
-                            </li>
-                            <li>
-                                <a href="">15:10</a>
-                            </li>
-                            <li>
-                                <a href="">15:10</a>
+                                <button class="btn">15:10</button>
                             </li>
 
                         </ul>
@@ -378,8 +277,10 @@
             </form>
         </div>
     </div>
+
+    <h1 th:text="${ticket}"></h1>
     
+    <script th:src="@{/js/ticketing/Ticketing1.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="/Ticketing/Ticketing1.js"></script>
 </body>
 </html>

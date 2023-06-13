@@ -147,6 +147,11 @@
 }
 .my-page-contents-container{
     height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 /* 문의 내역이 없을 경우 */
 .my-page-contents-box{
@@ -174,28 +179,45 @@
 }
 
 /* 문의 내역이 있을 경우 */
-.my-page-inquiry-title{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 0.5fr 1.5fr 0.5fr 0.5fr 0.25fr;
-    margin: 50px 50px 0px 50px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+.my-page-inquiry-table{
+    text-align: center;
+    width: 70vw;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 12px 12px 0 0;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0px 12px 5px rgba(32, 32, 32, 0.3);
+}
+th{
+    background-color: #0f0954b7;
+    color: #fff;
+}
+th,td{
+    padding: 10px 15px;
+}
+tr:nth-child(odd){
+    background-color: #eeeeee;
+}
+table img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+#my-page-inquiry-title{
+    font-size: 15px;
     font-weight: bold;
-    font-size: 17px;
-    padding: 10px;
+    text-align: left;
 }
-.my-page-inquiry-content{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 0.6fr 2fr 0.53fr 0.6fr 0.35fr;
-    margin-left: 50px;
-    margin-right: 50px;
-    border-bottom: 1px solid #B2B2B2;
-    padding: 18px;
+#my-page-inquiry-content{
+    font-size: 15px;
+    text-align: left;
+    height: 200px;
+    font-weight: bold;
 }
-#file{
-    
+.my-page-inquiry-table-display{
+    display: none;
+    width: 100%;
 }
 /* 처리중 and 답변 완료 */
 #ing{
@@ -232,4 +254,334 @@
 .pagination i{
     color: #FFD24C;
     line-height: 30px;
+}
+
+/* 닉네임 변경 모달 영역 */
+.my-page-change-nickname-area{
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+}
+.my-page-change-nickname-content{
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.my-page-change-nickname-content>:nth-child(1){
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+}
+.my-page-change-nickname-content input{
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+.my-page-change-nickname-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-change-nickname-content i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* 닉네임 변경 수정 / 취소 버튼 */
+
+.my-page-change-nickname-update-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-change-nickname-update-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-change-nickname-update-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+.my-page-change-nickname-update-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+/* 회원 탈퇴 모달 영역*/
+.my-page-secession-area{
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+    /* 다음 버튼 클릭시 display none */
+}
+.my-page-secession-pwcheck-container{
+
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.my-page-secession-pwcheck-container>:nth-child(1){
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+.my-page-secession-pwcheck-container>:nth-child(2){
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.my-page-secession-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-secession-pwcheck-container input {
+
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+
+.my-page-secession-pwcheck-container i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+/* 비밀번호 확인 창 버튼 */
+.my-page-secession-pwcheck-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+
+.my-page-secession-pwcheck-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+
+.my-page-secession-pwcheck-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-secession-pwcheck-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.my-page-secession-pwcheck-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-secession-pwcheck-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/* 탈퇴 모달에서 다음 눌렀을 때 */
+.my-page-secession-info-bg{
+    display: none;
+    width: 70vw;
+    height: 70vh;
+    top: 0px;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    /* 다음버튼 클릭시 display flex */
+}
+
+#secession-title{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px;
+}
+.my-page-secession-info-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#secession-info{
+    font-size: 20px;
+}
+#secession-info>span{
+    color: #ED4C6B;
+    font-size: 25px;
+    font-weight: bold;
+}
+#secession-notice{
+    display: flex;
+    margin-top: 10px;
+    width: 60vw;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+#secession-notice-detail{
+    margin-top: 10px;
+    width: 60vw;
+    height: 25vh;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    overflow-y: scroll;
+}
+/* 스크롤바 css 작업 */
+#secession-notice-detail::-webkit-scrollbar {
+    width: 10px;
+}
+#secession-notice-detail::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+#secession-notice-detail>span{
+    font-weight: bold;
+}
+.my-page-secession-checkbox{
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+/* 탈퇴 / 취소 버튼 */
+.my-page-secession-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-secession-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-secession-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-secession-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.my-page-secession-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-secession-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
 }

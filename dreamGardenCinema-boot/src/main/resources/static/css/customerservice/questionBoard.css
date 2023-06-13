@@ -1,0 +1,631 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul,li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+
+}
+
+/* 공지사항 전체 영역 */
+.customer-service-box {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notice-title {
+    font-size: 2rem;
+    font-weight: bolder;
+
+    margin-top: 15px;
+    margin-bottom: 12px;
+}
+
+.service-list {
+    display: flex;
+    margin: 30px 0 30px 0;
+
+}
+
+/* 공지사항 메뉴 리스트 (FAQ, 공지사항, */
+.service-list-choose {
+    width: 70vw;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 70px;
+    margin-top: 70px;
+    padding-bottom: 15px;
+}
+
+.service-list-choose>li>a:hover {
+    border-top: 2px solid #0F0954;
+    border-bottom: 2px solid #0F0954;
+
+    font-weight: bold;
+}
+
+.service-list-choose:nth-child(1) {
+    border-bottom: 2px solid #ccc;
+}
+
+.service-list-choose:nth-child(2) {
+    border-bottom: 2px solid #ccc;
+
+}
+
+.service-list-choose:nth-child(3) {
+    border-bottom: 2px solid #ccc;
+}
+
+.service-list-choose>li:nth-child(3) {
+    border-top: 2px solid #0F0954;
+    border-bottom: 2px solid #0F0954;
+    font-weight: bold;
+}
+
+.service-empty-line {
+    width: 200px;
+    height: 0px;
+    border-bottom: 3px solid #ccc;
+}
+
+/* 문의글 작성 전체 div */
+.customer-service-QA {
+    width: 70vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+/* 안내문구 영역 */
+.QA-comment-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-self: center; */
+    text-align-last: center;
+}
+
+.QA-comment-box>img {
+    width: 50px;
+    position: absolute;
+    height: 50px;
+    margin-left: -415px;
+    top: 305px;
+
+}
+
+.QA-top-notice {
+    display: flex;
+    flex-direction: column;
+}
+
+.QA-comment-box>pre {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.QA-list {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin-left: 100px;
+    margin-bottom: 100px;
+}
+
+/* 문의시 주의사항 */
+.QA-notice-contents {
+    width: 70vw;
+    border-bottom: 1.5px solid #ccc;
+
+    margin-bottom: 10px;
+}
+
+/* 문의내용 큰제목 */
+.QA-main-title{
+    width: 100px;
+    margin: 50px 0 10px 10px;
+    font-weight: bold;
+    font-size: 25px;
+
+}
+
+/* 분류 행 */
+.QA-divide {
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.QA-divide>span:nth-child(1) {
+    margin-right: 5px;
+    display: inline-block;
+    align-items: center;
+}
+
+.QA-divide>span:nth-child(2) {
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+#QASelection {
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px #a8a7de71;
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+/* 종류 */
+.QA-divide>span:nth-child(4){
+    margin-left: 30px;
+}
+.QA-divide>span:nth-child(5){
+    margin-top: 8px;
+    margin-left: 5px;
+
+}
+
+/* 종류 input */
+.QA-divide>input:nth-child(6){
+    margin: 5px 5px 0px 15px;
+
+}
+
+.QA-divide>input:nth-child(7){
+    margin: 5px 5px 0px 15px;
+}
+
+/* 제목 행 */
+.QA-title{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+
+}
+
+/* 제목 글자 */
+.QA-title>span:nth-child(1){
+    margin-right: 5px;
+    display: inline-block;
+    align-items: center;
+}
+
+/* *표시 */
+.QA-title>span:nth-child(2){
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+/* 제목 입력 란 */
+#customerQuestionTitle{
+    height: 30px;
+    width: 600px;
+    font-size: 15px;
+    border-radius: 3px;
+
+    border: 1px solid #ccc;
+    margin-right: 50px;
+    padding-left: 10px;
+}
+
+input:focus{
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px #a8a7de71;
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+.QA-title>input:nth-child(3){
+    margin-right: 10px;
+}
+
+.QA-title-count-box{
+
+    font-size: 14px;
+}
+
+
+
+
+/* --------------------------------------------------------------------------- */
+/* 내용 */
+.QA-contents{
+    width: 70vw;
+    height: 30vh;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* 내용 글자 */
+.QA-contents>span:nth-child(1){
+    
+    margin-right: 5px;
+    display: inline-block;
+    align-items: center;
+}
+
+/* *표시 */
+.QA-contents>span:nth-child(2){
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+/* 내용 입력 창 */
+#QADetailContents{
+    resize: none;
+    padding: 5px 0 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+
+    font-size: 15px;
+}
+
+/* 글자 수세기 창 */
+.QA-span-container{
+    margin: 195px 0 0 40px;
+    font-size: 14px;
+}
+
+/* 내용입력창 클릭 시, 보더 효과 */
+textarea:focus{
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px #a8a7de71;
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+/* --------------------------------------------------------------------------- */
+
+/* 첨부파일 */
+.QA-upload-file{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.QA-upload-file>span:nth-child(1){
+    margin-right: 17px;
+    display: inline-block;
+    align-items: center;
+    width: 100px;
+}
+
+#QAInsertFile{
+    display: flex;
+    width: 13vw;
+    align-items: center;
+
+    margin-left: 50px;
+    
+}
+
+
+.QA-upload-file>span:nth-child(3){
+    font-size: 10px;
+    width: 55vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.QA-upload-file>span:nth-child(3)>img{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+
+/* 회원 여부 체크 */
+.QA-member-check{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* 회원 여부 체크 박스 */
+#QAmemChkBox{
+    margin-left: -17px;
+}
+
+.QA-member-check > span:nth-child(3){
+    margin-left: 5px;
+    width: 200px;
+    font-size: 15px;
+}
+
+.QA-member-check>span:nth-child(1){
+    margin-right: 17px;
+    display: flex;
+    align-items: center;
+    width: 180px;
+}
+
+.QA-member-check>span:nth-child(4)>img{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+.QA-member-check>span:nth-child(4){
+    font-size: 10px;
+    width: 53vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* 고객정보 큰제목 */
+.QA-customer-info-title{
+    width: 100%;
+    margin: 65px 0 10px 10px;
+
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/*  성명 */
+.QA-customer-name{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* *표시 */
+.QA-customer-name>span:nth-child(2){
+    margin: 8px 25px 0 5px;
+}
+
+/* 이름 입력란 */
+.QA-customer-name>input{
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding-left: 5px;
+}
+
+
+/* ------------------------------------------------------------------------------ */
+/* 연락처 */
+.QA-customer-tel{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* *표시 */
+.QA-customer-tel>span:nth-child(2){
+    margin: 8px 10px 0 5px;
+
+}
+
+/* 연락처 선택 select */
+#QASelectNum{
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 6px;
+}
+
+/* 연락처 input 란 */
+.QA-customer-tel>input:nth-child(4){
+    height: 30px;
+    width: 200px;
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding-left: 5px;
+}
+/* ------------------------------------------------------------------------------ */
+/* 이메일 */
+.QA-customer-email{
+    width: 70vw;
+    height: 40px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* *표시 */
+.QA-customer-email>span:nth-child(2){
+    margin: 8px 10px 0 5px;
+}
+
+/* 고객정보 이메일 입력란 */
+#QAEmail{
+    height: 30px;
+    width: 200px;
+    padding-left: 5px;
+    font-size: 15px;
+    
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 6px;
+}
+
+/* 이메일 경고 문구 */
+.QA-customer-email>span:nth-child(4){
+    font-size: 10px;
+    width: 53vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* 이메일 경고 문구  이미지*/
+.QA-customer-email>span:nth-child(4)>img{
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+/* ------------------------------------------------------------------------------ */
+
+/* 개인정보 수집 동의 안내문 타이틀 */
+.QA-personal-agree-title{
+    display: flex;
+    justify-content: space-between;
+    width: 70vw;
+    margin-top: 50px;
+    align-items: center;
+}
+
+.QA-personal-agree-title>span:nth-child(1){
+    font-size: 20px;
+}
+.QA-personal-agree-title>span:nth-child(2){
+    font-size: 11px;
+    color: #606060;
+}
+
+
+/* 개인정보 약관 내용 */
+.QA-pesonal-info-agree{
+    padding-top: 10px;
+    margin-top: 20px;
+    font-size: 15px;
+    width: 70vw;
+    height: 150px;
+    overflow: auto;
+    
+    border: 1px solid #ccc;
+    
+}
+
+/* ------------------------------------------------------------------------------ */
+/* 스크롤바 */
+.QA-pesonal-info-agree::-webkit-scrollbar {
+    width: 10px;
+}
+.QA-pesonal-info-agree::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+/* ------------------------------------------------------------------------------ */
+
+
+/* 동의, 비동의 라디오 체크박스 */
+.QA-personal-agree-chk{
+    display: flex;
+    justify-content: end;
+    width: 70vw;
+    gap: 10px;
+}
+
+/* 확인,취소 버튼 */
+.QA-final-confirm{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    
+    gap: 10px;
+}
+
+/* 확인 버튼 */
+.QA-conf-btn{
+    font-size: 16px;
+    width: 5vw;
+    height: 5vh;
+    border: 1px solid #0F0954;
+    border-radius: 5px;
+}
+.QA-conf-btn:hover{
+    background-color: #0f095491;
+    color: white;
+    font-weight: bold;
+}
+
+/* 취소버튼 */
+.QA-del-btn{
+    font-size: 16px;
+    width: 5vw;
+    height: 5vh;
+    border: 1px solid #0F0954;
+    border-radius: 5px;
+}
+
+.QA-del-btn:hover{
+    background-color: #73080867;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+

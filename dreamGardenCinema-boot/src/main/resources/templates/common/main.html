@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/main.css">
+    <title>DreamGardenMovieTheater</title>
+    <link rel="stylesheet" th:href="@{/css/common/main.css}">
 </head>
 <body>
+
+    <th:block th:replace="~{common/header-black}"></th:block>
+    <!-- <a th:href="@{/ticketing/date}" th:text="예매페이지">예매 페이지</a> -->
     <div class="slide slide_wrap">  <!-- 메인 슬라이드 구역 -->
-        <div class="slide_item item1">
-            <img src="/라방.png" alt="">
-        </div>
-        <div class="slide_item item2">
-            <img src="/사소.jpg" alt="">
-        </div>
-        <div class="slide_item item3">
-            <img src="/트랜스포머.jpg" alt="">
-        </div>
-        <div class="slide_item item4">
-            <img src="/플래시.jpg" alt="">
-        </div>
-        <!-- <div class="slide_item item5">5</div> -->
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(메인 슬라이드 포스터) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+        <th:block th:each="movie, movieStat : ${movieList}">                                                            <!-- ◆◆◆◆◆◆ -->
+            <div th:if="${movie.MAIN_POSTER != 'null'}" class="slide_item" th:classappend="item+${movieStat.count}">    <!-- ◆◆◆◆◆◆ -->
+                <img th:src="${movie.MAIN_POSTER}">                                                                     <!-- ◆◆◆◆◆◆ -->
+            </div>                                                                                                      <!-- ◆◆◆◆◆◆ -->
+        </th:block>                                                                                                     <!-- ◆◆◆◆◆◆ -->
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+
         <div class="slide_prev_button slide_button">  <!-- 메인 슬라이드 이전버튼 -->
             <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
         </div>
@@ -38,163 +36,30 @@
         <div class="inner">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/범죄도시.jpg" alt="">
-                                <em>1</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">범죄도시3</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>68.6%</em>
-                            </span>
-                            <span class="star_info">
-                                <img src="/포스터/Star 3.png" alt="">
-                                9.2
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/트랜스포머.jpg" alt="">
-                                <em>2</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">트랜스포머:비스트의 서막</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>16.3%</em>
-                            </span>
-                            <span class="star_info">
-                                D-1
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/포켓몬스터.jpg" alt="">
-                                <em>3</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">포켓 몬스터 DP:아르세우스 초극의 시공으로</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>3.6%</em>
-                            </span>
-                            <span class="star_info">
-                                <img src="/포스터/Star 3.png" alt="">
-                                9.4
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/가오갤.jpg" alt="">
-                                <em>4</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">가디언즈 오브 갤럭시:Volume3</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>2.3%</em>
-                            </span>
-                            <span class="star_info">
-                                <img src="/포스터/Star 3.png" alt="">
-                                9.6
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/엘리멘탈.jpg" alt="">
-                                <em>5</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">엘리멘탈</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>1.9%</em>
-                            </span>
-                            <span class="star_info">
-                                D-9
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/플래시.jpg" alt="">
-                                <em>6</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">가디언즈 오브 갤럭시:Volume3</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>1.5%</em>
-                            </span>
-                            <span class="star_info">
-                                D-9
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/분노의질주.jpg" alt="">
-                                <em>7</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">분노의 질주:라이드 오어 다이</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>1.4%</em>
-                            </span>
-                            <span class="star_info">
-                                <img src="/포스터/Star 3.png" alt="">
-                                9.1
-                            </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="top_info">
-                            <span class="poster_info">
-                                <img src="/포스터/인어공주.jpg" alt="">
-                                <em>8</em>
-                                <span>등급</span>
-                            </span>
-                        </div>
-                        <div class="btm_info">
-                            <strong class="tit_info">인어공주</strong>
-                            <span class="rate_info">
-                                예매율
-                                <em>1.3%</em>
-                            </span>
-                            <span class="star_info">
-                                <img src="/포스터/Star 3.png" alt="">
-                                8
-                            </span>
-                        </div>
-                    </div>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(서브 슬라이드 포스터 부분) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                    <div class="swiper-slide" th:each="movie : ${movieList}">                                           <!-- ◆◆◆◆◆◆ -->
+                        <div class="top_info">                                                                          <!-- ◆◆◆◆◆◆ -->
+                            <span class="poster_info">                                                                  <!-- ◆◆◆◆◆◆ -->
+                                <img th:src="${movie.POSTER}">                                                          <!-- ◆◆◆◆◆◆ -->
+                                <em th:text="${movie.ROWNUM}">순위</em>                                                 <!-- ◆◆◆◆◆◆ -->
+                                <span>                                                                                  <!-- ◆◆◆◆◆◆ -->
+                                    <img th:src="${movie.RATING}">                                                      <!-- ◆◆◆◆◆◆ -->
+                                </span>                                                                                 <!-- ◆◆◆◆◆◆ -->
+                            </span>                                                                                     <!-- ◆◆◆◆◆◆ -->
+                        </div>                                                                                          <!-- ◆◆◆◆◆◆ -->
+                        <div class="btm_info">                                                                          <!-- ◆◆◆◆◆◆ -->
+                            <strong class="tit_info" th:text="${movie.MOVIE_TITLE}"></strong>                           <!-- ◆◆◆◆◆◆ -->
+                            <span class="rate_info">                                                                    <!-- ◆◆◆◆◆◆ -->
+                                예매율                                                                                  <!-- ◆◆◆◆◆◆ -->
+                                <em th:text="${movie.RATIO}+'%'"></em>                                                  <!-- ◆◆◆◆◆◆ -->
+                            </span>                                                                                     <!-- ◆◆◆◆◆◆ -->
+                            <span class="star_info">                                                                    <!-- ◆◆◆◆◆◆ -->
+                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">                           <!-- ◆◆◆◆◆◆ -->
+                                9.2                               <!-- 수정해야 됨 -->
+                            </span>                                                                                     <!-- ◆◆◆◆◆◆ -->
+                        </div>                                                                                          <!-- ◆◆◆◆◆◆ -->
+                    </div>                                                                                              <!-- ◆◆◆◆◆◆ -->
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                 </div>
             </div>
         </div>
@@ -237,32 +102,9 @@
         </article>
     </div>
 
-
+    <th:block th:replace="~{common/footer}"></th:block>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="/main.js"></script>
+    <script th:src="@{/js/common/main.js}"></script>
 </body>
 </html>
-
-
-
-<!-- <div class="item">
-    <div class="top_info">
-        <span class="poster_info">
-            <img src="/포스터/플래시.jpg" alt="">
-            <em>1</em>
-            <span>등급</span>
-        </span>
-    </div>
-    <div class="btm_info">
-        <strong class="tit_info">플래시</strong>
-        <span class="rate_info">
-            예매율&nbsp;
-            <em>71.8%</em>
-        </span>
-        <span class="star_info">
-            <img src="/포스터/Star 3.png" alt="">
-            9.2
-        </span>
-    </div>
-</div> -->

@@ -1,0 +1,58 @@
+
+/* 전체 감싸는 div */
+.admin_noticeWrap{
+    width: 1000px;
+    display: block;
+    margin: 100px auto;
+    height: auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
+}
+
+/* 게시판 제목 */
+#admin_noticeTitle{
+    color:#0F0954;
+    font-size: 30px;
+    font-weight: bold;
+   
+}
+
+/* 제목 입력하는 칸 */
+.admin_noticeTableInput{
+    width: 900px;
+    margin: 20px;
+    outline: none;
+    border:none;
+    
+}
+
+
+.admin_noticeContentWrap{
+    margin: 20px;
+
+}
+
+/* 글쓰기 textarea */
+#summernote{
+    width: 1000px;
+    margin: 20px 10px;
+    border: none;
+    padding:0px
+
+}
+
+/* 등록버튼 */
+.admin_noticeRegister{
+    margin-left: 90%;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #0F0954;
+    
+}
+
+.admin_noticeRegister a{
+    color: white;
+    
+}
+

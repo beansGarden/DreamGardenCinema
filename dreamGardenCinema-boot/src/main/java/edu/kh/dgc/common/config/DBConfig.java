@@ -20,8 +20,8 @@ import com.zaxxer.hikari.HikariDataSource;
 @PropertySource("classpath:/application.properties")
 public class DBConfig {
 
-    @Autowired
-    private ApplicationContext applicationContext; 
+   @Autowired
+   private ApplicationContext applicationContext; 
 
    @Bean
    @ConfigurationProperties(prefix = "spring.datasource.hikari")
@@ -42,25 +42,28 @@ public class DBConfig {
       sessionFactoryBean.setDataSource(dataSource);
       
       //매퍼 파일이 모여있는 경로 지정
-//      sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
+      sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
       
-//      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.member.model.dto");
+      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.user.model.dto");
+      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.movie.model.dto");
+//      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.ticketing.model.dto");
+
       
-      //마이바티스 설정 파일 경로 지정
+      //留덉씠諛뷀떚�뒪 �꽕�젙 �뙆�씪 寃쎈줈 吏��젙
       sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
       
-      //SqlSession 객체 반환
+      //SqlSession 媛앹껜 諛섑솚
       return sessionFactoryBean.getObject();
    }
 
    
-   //SqlSessionTemplate : 기본 SQL 실행 + 트랜잭션 처리
+   //SqlSessionTemplate : 湲곕낯 SQL �떎�뻾 + �듃�옖�옲�뀡 泥섎━
    @Bean
    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sessionFactory) {
       return new SqlSessionTemplate(sessionFactory);
    }
 
-   //DataSourceTransactionManager : 트랜잭션 매니저
+   //DataSourceTransactionManager : �듃�옖�옲�뀡 留ㅻ땲��
    @Bean
    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
       return new DataSourceTransactionManager(dataSource);

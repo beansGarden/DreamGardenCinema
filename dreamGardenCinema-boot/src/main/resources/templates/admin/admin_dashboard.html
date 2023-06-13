@@ -1,20 +1,28 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> -->
+
 
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="mainHeader">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin_DashBoard</title>
-    <link rel="stylesheet" href="../admin/admin_dashboard.css">
+
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_dashboard.css">
+
+
+   
 </head>
 <body>
+   <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
-    <div class="admin_dashboardWrap">
+    <div class="admin_dashboardWrap" layout:fragment="content">
+
         <div class="admin_dashboardSalesforMovie">
-            <span>영화별 총 매출</span>
+        <div  class="admin_dashboardSalesforMovie_title"><span>영화별 총 매출</span></div>
             <div class="admin_dashboardSalesforMovie-in">
             <select>
                 <option value="">범죄도시3</option>
@@ -26,7 +34,7 @@
         </div>
 
         <div class="admin_dashboardSalesforQuater">
-            <span>1분기 총 매출</span>
+            <div class="admin_dashboardSalesforQuater_title"><span>1분기 총 매출</span></div>
             <div class="admin_dashboardSalesforQuater-in">
             <span>￦50,000,000</span>
         </div>
@@ -34,7 +42,7 @@
 
         <!-- 1:1 문의 List -->
         <div class="admin_dashboardQnaList">    
-            <span>1:1 문의 리스트</span>
+            <div class="admin_dashboardQnaList_title"><span>1:1 문의 리스트</span></div>
             <div class="admin_dashboardQnaList-in">
             <table>
                 <tbody>
@@ -73,14 +81,20 @@
 
         
         <div class="admin_dashboardSalesforLastweek">
-            <span>지난주 요일별 매출</span>
+            <div class="admin_dashboardSalesforLastweek_title"><span>지난주 요일별 매출</span></div>
             <div class="admin_dashboardSalesforLastweek-in">
-            그래프
+                <div>
+                    <!--차트가 그려질 부분-->
+                    <canvas id="myChart" style="width: 400px;"></canvas>
+                </div>
         </div>
      </div>
     </div>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="\js\admin\admin_dashborad.js"></script>
+  
 
 </body>
 </html>
