@@ -1,4 +1,4 @@
-package edu.kh.project.moive.dto;
+package edu.kh.dgc.movie.dto.crawling;
 /* Java 샘플 코드 */
 
 import java.io.InputStreamReader;

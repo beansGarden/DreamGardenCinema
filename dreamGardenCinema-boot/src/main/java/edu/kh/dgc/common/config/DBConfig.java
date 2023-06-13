@@ -1,4 +1,4 @@
-package edu.kh.project.common.config;
+package edu.kh.dgc.common.config;
 
 import javax.sql.DataSource;
 

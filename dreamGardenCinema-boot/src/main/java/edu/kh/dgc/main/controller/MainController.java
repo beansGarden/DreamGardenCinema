@@ -1,4 +1,4 @@
-package edu.kh.project.main.controller;
+package edu.kh.dgc.main.controller;
 
 import java.util.List;
 
