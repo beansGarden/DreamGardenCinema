@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.kh.project.main.model.dao.MainMapper">
+<mapper namespace="edu.kh.dgc.main.model.dao.MainMapper">
 	
 	<select id="selectMovieList" resultType="map">
 		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, PRODUCER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0) AS RATIO, NVL(MAIN_POSTER, 'null') MAIN_POSTER

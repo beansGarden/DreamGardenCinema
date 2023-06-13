@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.kh.project.main.model.service.MainService;
-import edu.kh.project.movie.model.dto.Movie;
+import edu.kh.dgc.main.model.service.MainService;
+import edu.kh.dgc.movie.model.dto.Movie;
 
 @Controller
 public class MainController {
