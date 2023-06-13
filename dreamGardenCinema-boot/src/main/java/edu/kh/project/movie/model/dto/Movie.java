@@ -20,4 +20,6 @@ public class Movie {
 	private String releaseDate;
 	private String producer;
 	private int moviePrice;
+	private String ratio;
+	private String mainPoster;
 }

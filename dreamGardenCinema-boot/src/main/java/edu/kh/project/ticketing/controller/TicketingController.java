@@ -32,8 +32,6 @@ public class TicketingController {
 					, RedirectAttributes ra) {
 		
 		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-		System.out.println(ra.getAttribute("ticket"));
-		
 		
 		return "ticketing/Ticketing2";
 	}
@@ -64,11 +62,9 @@ public class TicketingController {
 		
 		
 //		ticket.setUserNo(loginMember.getMemberNo);  // 티켓정보에 로그인 회원번호 추가
-		System.out.println(ticket.getMovieNo());
-		System.out.println(ticket);
 		model.addAttribute("ticket",ticket);
 		
 		
-		return "ticketing/seat";
+		return "ticketing/Ticketing2";
 	}
 }
