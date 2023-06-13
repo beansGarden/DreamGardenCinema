@@ -23,14 +23,11 @@
             <form th:action="@{/ticketing/date}" method="POST">
                 <div class="choiceMovie">
                     <div class="hiddenRadio" style="display: none;">
-                        <!-- 데이터 삽입 예 -->
-                        <!-- 
-                            <input type="radio" name="movieNo" id="${movieNo}" value="${movieNo}">
-                        -->
-                        <input type="radio" name="movieNo" id="1" value="1">
-                        <input type="radio" name="movieNo" id="2" value="2">
-                        <input type="radio" name="movieNo" id="3" value="3">
-                        <input type="radio" name="movieNo" id="4" value="4">
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(input radio 영화번호 선택) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                        <th:block th:each="movie : ${session.movieList}">
+                            <input type="radio" name="movieNo" th:id="${movie.MOVIE_NO}" th:value="${movie.MOVIE_NO}">
+                        </th:block>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                     </div>
                     <div class="choiceHeader">영화 선택</div>
                     <div>
@@ -44,30 +41,14 @@
                         </div>
                     </div>
                     <div class="MovieList hamburger">
-
-                        <!-- 데이터 삽입 예 -->
-                        <!-- 
-                            <label>
-                                <img src="${영화등급}">
-                                <span>${영화 제목}</span>
-                            </label> 
-                        -->
-                        <label for="1">
-                            <img th:src="@{/images/common/main/15세.png}" alt="">
-                            <span>범죄도시3</span>
-                        </label>
-                        <label for="2">
-                            <img th:src="@{/images/common/main/12세.png}" alt="">
-                            <span>트랜스포머: 비스트의 서막</span>
-                        </label>
-                        <label for="3">
-                            <img th:src="@{/images/common/main/12세.png}" alt="">
-                            <span>플래시</span>
-                        </label>
-                        <label for="4">
-                            <img th:src="@{/images/common/main/ALL.png}" alt="">
-                            <span>엘리멘탈</span>
-                        </label>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                        <th:block th:each="movie : ${session.movieList}">
+                            <label th:for="${movie.MOVIE_NO}">
+                                <img th:src="${movie.RATING}">
+                                <span th:text="${movie.MOVIE_TITLE}"></span>
+                            </label>
+                        </th:block>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                     </div>
                     <div class="MovieList pizza" style="display: none;">
                         <!-- 데이터 삽입 예 -->
@@ -100,114 +81,37 @@
                                 </div>
                             </label>
                         -->
-                        <label for="1">
-                            <div class="poster">
-                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
-                            </div>
-                            <div class="content">
-                                <div class="title">
-                                    <img th:src="@{/images/common/main/15세.png}" alt="">
-                                    <strong>범죄도시3</strong>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                        <th:block th:each="movie : ${session.movieList}">
+                            <label th:for="${movie.MOVIE_NO}">
+                                <div class="poster">
+                                    <img th:src="${movie.POSTER}">
                                 </div>
-                                <div class="rate">
-                                    <span class="rate_info">
-                                        예매율
-                                        <em>68.6%</em>
-                                    </span>
-                                    <span class="star_info">
-                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
-                                        9.2
-                                    </span>
+                                <div class="content">
+                                    <div class="title">
+                                        <img th:src="${movie.RATING}">
+                                        <strong th:text="${movie.MOVIE_TITLE}"></strong>
+                                    </div>
+                                    <div class="rate">
+                                        <span class="rate_info">
+                                            예매율
+                                            <em th:text="${movie.RATIO}+'%'"></em>
+                                        </span>
+                                        <span class="star_info">
+                                            <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
+                                            9.2
+                                        </span>
+                                    </div>
+                                    <div class="date">
+                                        <span class="rate_info">
+                                            개봉일
+                                            <span th:text="${movie.RELEASE_DATE}"></span>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="date">
-                                    <span class="rate_info">
-                                        개봉일
-                                        <span>2023.05.31</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </label>
-                        <label for="2">
-                            <div class="poster">
-                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
-                            </div>
-                            <div class="content">
-                                <div class="title">
-                                    <img th:src="@{/images/common/main/15세.png}" alt="">
-                                    <strong>범죄도시3</strong>
-                                </div>
-                                <div class="rate">
-                                    <span class="rate_info">
-                                        예매율
-                                        <em>68.6%</em>
-                                    </span>
-                                    <span class="star_info">
-                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
-                                        9.2
-                                    </span>
-                                </div>
-                                <div class="date">
-                                    <span class="rate_info">
-                                        개봉일
-                                        <span>2023.05.31</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </label>
-                        <label for="3">
-                            <div class="poster">
-                                <img th:src="@{/images/common/main/포스터/분노의질주.jpg}" alt="">
-                            </div>
-                            <div class="content">
-                                <div class="title">
-                                    <img th:src="@{/images/common/main/15세.png}" alt="">
-                                    <strong>범죄도시3</strong>
-                                </div>
-                                <div class="rate">
-                                    <span class="rate_info">
-                                        예매율
-                                        <em>68.6%</em>
-                                    </span>
-                                    <span class="star_info">
-                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
-                                        9.2
-                                    </span>
-                                </div>
-                                <div class="date">
-                                    <span class="rate_info">
-                                        개봉일
-                                        <span>2023.05.31</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </label>
-                        <label for="4">
-                            <div class="poster">
-                                <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
-                            </div>
-                            <div class="content">
-                                <div class="title">
-                                    <img th:src="@{/images/common/main/15세.png}" alt="">
-                                    <strong>범죄도시3</strong>
-                                </div>
-                                <div class="rate">
-                                    <span class="rate_info">
-                                        예매율
-                                        <em>68.6%</em>
-                                    </span>
-                                    <span class="star_info">
-                                        <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
-                                        9.2
-                                    </span>
-                                </div>
-                                <div class="date">
-                                    <span class="rate_info">
-                                        개봉일
-                                        <span>2023.05.31</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </label>
+                            </label>
+                        </th:block>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                     </div>
                 </div>
                 <div class="choiceTime">
@@ -216,7 +120,7 @@
                         <div class="inner">
                             <div class="swiper-container">
                                 <ul class="swiper-wrapper">
-                                    <!-- 데이터 삽입 예 -->
+                                    <!-- 데이터 삽입(javascript에서 생성) -->
                                     <!--
                                     <li class="swiper-slide">
                                         <strong>6월</strong> 맨 처음엔 현재 달 보여주기  달이 바뀌면 또 보여주기
@@ -257,12 +161,7 @@
 
                     <div class="timeSelect">
                         <ul class="timelist">
-                            <!--  
-                            ***** 데이터 삽입 예 *****
-                            <li>
-                                <button class="btn">14:45</button>
-                            </li>
-                            -->
+                            <!-- 영화관 / 시간 삽입 필요 -->
                             <li>
                                 <button class="btn">14:45</button>
                             </li>

@@ -1,14 +1,16 @@
 package edu.kh.dgc.main.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.kh.dgc.main.model.service.MainService;
 import edu.kh.dgc.movie.model.dto.Movie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -17,10 +19,14 @@ public class MainController {
 	private MainService service;
 	
 	@RequestMapping("/")
-	public String mainForward(Model model) {
-		List<Movie> movieList = service.selectMovieList();
-		System.out.println(movieList);
-		model.addAttribute("movieList", movieList);
+	public String mainForward(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		Map<String, Object> map = service.selectMovieList();
+		
+		session.setAttribute("movieList", map.get("movieList"));
+		session.setAttribute("noticeList", map.get("noticeList"));
 		return "common/main";
 	}
 	
