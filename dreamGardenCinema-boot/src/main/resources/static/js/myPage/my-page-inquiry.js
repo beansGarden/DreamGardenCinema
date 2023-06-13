@@ -223,14 +223,38 @@ const my_page_inquiry_content = document.querySelector("#my-page-inquiry-content
 
 
 
-  // for(let i =0;i<my_page_inquiry_table_display.length;i++){
+//   for(let i =0;i<my_page_inquiry_table_display.length;i++){
 
-  //   up_down_img.addEventListener("click",()=>{
+//     up_down_img.addEventListener("click",()=>{
 
-  //   my_page_inquiry_table_display[i].style.display="inline-block";
+//     my_page_inquiry_table_display[i].style.display="revert";
 
-  //   my_page_inquiry_content.getAttribute("colspan");
-  // })
+//     up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/upbtn.png"
 
-  // }
+    
+    
+//     for(let i =0;i<my_page_inquiry_table_display.length;i++){
 
+        
+//         up_down_img.addEventListener("click",()=>{
+          
+//           my_page_inquiry_table_display[i].style.display="none";
+          
+//           up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/downbtn.png"
+          
+//         })
+//     }
+//   })
+
+// }
+up_down_img.addEventListener("click",()=>{
+
+  if(my_page_inquiry_table_display[0].style.display="none"){
+
+    my_page_inquiry_table_display[0].style.display="revert";
+    my_page_inquiry_table_display[1].style.display="revert";
+
+    up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/upbtn.png"
+  }
+
+})
