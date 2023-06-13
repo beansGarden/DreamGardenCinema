@@ -62,7 +62,7 @@
                     <tr th:each="list : ${adminQnaList}">
                         <td><input type="checkbox" name="" id="" class="admin_qnaCheckbox"></td>
                         <td th:text="${list.qnaNo}"></td>
-                        <td><a th:href="@{adminQnaRead/{qnaNo}}" th:text="${list.qnaTitle}">게시글 번호</a></td>
+                        <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글 번호</a></td>
                         <td th:text="${list.qnaEnrollDate}"></td>
                         <td th:text="${list.userNickname}"></td>
                    

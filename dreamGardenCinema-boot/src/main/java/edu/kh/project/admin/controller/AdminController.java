@@ -129,7 +129,7 @@ public class AdminController {
 		
 		
 		//6-1. 1:1 문의사항 게시글 조회
-		@GetMapping(value = "/adminQnaRead")//
+		@GetMapping("/adminQnaRead/{qnaNo}")//
 		public String qnaRead(Model model,@PathVariable(value="qnaNo",required=false) int qnaNo) {
 					
 			Qna qna = service.selectQnaOne(qnaNo);
