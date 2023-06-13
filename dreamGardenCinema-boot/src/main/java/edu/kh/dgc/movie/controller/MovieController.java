@@ -9,9 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MovieController {
 
 	@GetMapping("")
-	public String selectBoardList() {
+	public String forwardMain() {
 		
 		return "movie/movieMain";
+	}
+	
+	@GetMapping("/current")
+	public String forwardCurrent() {
+		
+		return "movie/movieListCurrent";
+	}
+	
+	@GetMapping("/promise")
+	public String forwardPromise() {
+		
+		return "movie/movieListPromise";
 	}
 	
 	
