@@ -1,16 +1,15 @@
 *{
     box-sizing: border-box;
     padding: 0;
-
-}
-
-body{
     margin: 0;
+
 }
+
+
 
 /* footer 전체 박스 */
 .dg-footer-box{
-    height: 150px;
+    height: 200px;
 
     /* border: 1px solid black; */
 
@@ -19,7 +18,6 @@ body{
     align-items: center;
 
     font-size: 10px;
-
 }
 
 .dg-footer-logo{
@@ -28,8 +26,8 @@ body{
 
 /* footer 로고 이미지 */
 .dg-footer-logo>img{
-    width: 80px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 /* footer 정보 */
@@ -37,6 +35,9 @@ body{
     display: flex;
     list-style: none;
     justify-content: center;
+
+    font-size: 12px;
+    margin-bottom: 5px;
 
     
 }
@@ -66,7 +67,8 @@ body{
 /* footer 주소 */
 .dg-footer-addr{
     display: flex;
-    margin-bottom: -15px;
+    font-size: 12px;
+    margin-bottom: 5px;
 }
 
 /* footer 고객센터 link */
@@ -79,6 +81,9 @@ body{
 .dg-info-list{
     display: flex;
     list-style: none;
+    font-size: 12px;
+
+    margin-bottom: 5px;
 }
 
 /* 대표이사 */
@@ -116,6 +121,7 @@ body{
 .dg-copyright{
     text-align: center;
     font-weight: bold;
+    font-size: 13px;
 }
 
 

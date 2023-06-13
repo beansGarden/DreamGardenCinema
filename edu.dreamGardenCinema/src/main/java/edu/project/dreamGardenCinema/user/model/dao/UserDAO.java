@@ -13,7 +13,7 @@ public class UserDAO {
 	private SqlSessionTemplate sqlSession;
 
 	public User login(User inputMember) {
-		return sqlSession.selectOne("memberMapper.login", inputMember);
+		return sqlSession.selectOne("userMapper.login", inputMember);
 	}
 
 }
