@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" x>
+<html lang="ko" xmlns="https://thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,15 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객센터-FAQ</title>
 
-    <link rel="stylesheet" href="/src/main/resources/static/css/customerservice/FAQ.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    <link rel="stylesheet" th:href="@{/css/customerservice/FAQ.css}">
+    <link rel="stylesheet" th:href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
-
 
     <div class="customer-service-box">
 
@@ -26,34 +24,34 @@
 
         <div class="service-list">
             <ul class="service-list-choose">
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">1:1문의</a></li>
+                <li><a th:href="#">FAQ</a></li>
+                <li><a th:href="#">공지사항</a></li>
+                <li><a th:href="#">1:1문의</a></li>
             </ul>
         </div>
 
         <div class="service-search-area">
 
-            <form action="#" method="GET" class="sevice-search-smt">
+            <form th:action="#" method="GET" class="sevice-search-smt">
 
                 <!-- FAQ 카테고리  -->
 
                 <div class="FAQ-category-box">
                     <!-- 상영관 관련 -->
                     <div class="FAQ-cinemas">
-                        <a href="#"><img src="/src/main/resources/static/images/customerservice/상영관 아이콘.png">
+                        <a th:href="#"><img th:src="/images/customerservice/상영관 아이콘.png">
                             <p>상영관 이용</p>
                         </a>
                     </div>
                     <!-- 회원 관련 -->
                     <div class="FAQ-member">
-                        <a href="#"><img src="/src/main/resources/static/images/customerservice/회원 아이콘.png">
+                        <a th:href="#"><img th:src="/images/customerservice/회원 아이콘.png">
                             <p>회원</p>
                         </a>
                     </div>
                     <!-- 멤버십 관련 -->
                     <div class="FAQ-membership">
-                        <a href="#"><img src="/src/main/resources/static/images/myPage/멤버십 아이콘.png">
+                        <a th:href="#"><img th:src="/images/myPage/멤버십 아이콘.png">
                             <p>멤버십</p>
                         </a>
                     </div>
@@ -85,18 +83,18 @@
 
                 <div class="FAQ-inquiry-content">
                     <span>상영관 이용</span>
-                    <a href="#" class="FAQ-contents-container">
-                        <span><img src="/src/main/resources/static/images/customerservice/Q아이콘.png">상영관은 몇 개인가요?</span>
+                    <a th:href="#" class="FAQ-contents-container">
+                        <span><img th:src="/images/customerservice/Q아이콘.png">상영관은 몇 개인가요?</span>
                     </a>
                     <div class="FAQ-btn">
-                        <img src="/src/main/resources/static/images/customerservice/down화살표.png" id="downBtn">
-                        <img src="/src/main/resources/static/images/customerservice/up화살표.png" id="upBtn">
+                        <img th:src="/images/customerservice/down화살표.png" id="downBtn">
+                        <img th:src="/images/customerservice/up화살표.png" id="upBtn">
                     </div>
                 </div>
 
                 <div class="FAQ-answer-box">
                     <div class="FAQ-answer">
-                        <img src="/src/main/resources/static/images/customerservice/A아이콘.png">
+                        <img th:src="/images/customerservice/A아이콘.png">
                         <pre>상영관은 총 3개의 관으로 이루어져 있으며, 좌석은 동일하게 배치되어 있습니다.</pre>
                     </div>
                 </div>
@@ -107,15 +105,15 @@
             <div class="FAQ-pagination">
                 <i class="fa-solid fa-arrow-left"></i>
                 <ol id="FAQpaginationNumbers">
-                    <!-- <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li> -->
+                    <!-- <li><a th:href="#">1</a></li>
+                    <li><a th:href="#">2</a></li>
+                    <li><a th:href="#">3</a></li> -->
                 </ol>
                 <i class="fa-solid fa-arrow-right"></i>
             </div>
         </div>
 
-        <script src="/src/main/resources/static/js/customerservice/FAQ.js"></script>
+        <script th:src="/js/customerservice/FAQ.js"></script>
 
 
 </body>
