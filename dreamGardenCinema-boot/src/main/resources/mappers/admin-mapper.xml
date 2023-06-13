@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace를 Mapper 인터페이스로 지정 -->
-<mapper namespace="edu.kh.project.admin.model.dao.AdminMapper">
+<mapper namespace="edu.kh.dgc.admin.model.dao.AdminMapper">
 		
 		<resultMap type="Qna" id="qna_rm">
 	

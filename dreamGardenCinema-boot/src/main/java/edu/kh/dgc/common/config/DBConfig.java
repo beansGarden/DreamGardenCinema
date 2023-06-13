@@ -44,9 +44,8 @@ public class DBConfig {
       //매퍼 파일이 모여있는 경로 지정
       sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
       
-      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.user.model.dto");
-      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.movie.model.dto");
-//      sessionFactoryBean.setTypeAliasesPackage("edu.kh.project.ticketing.model.dto");
+      sessionFactoryBean.setTypeAliasesPackage("edu.kh.dgc.user.model.dto, edu.kh.dgc.movie.model.dto, "
+      		+ "edu.kh.dgc.qna.model.dto, edu.kh.dgc.admin.model.dto");
 
       
       //留덉씠諛뷀떚�뒪 �꽕�젙 �뙆�씪 寃쎈줈 吏��젙
