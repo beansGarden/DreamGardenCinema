@@ -1,4 +1,4 @@
-package edu.kh.project.main.controller;
+package edu.kh.dgc.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
