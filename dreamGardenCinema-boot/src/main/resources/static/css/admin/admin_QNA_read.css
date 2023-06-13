@@ -18,6 +18,7 @@
 
 .admin_qnaBoardWrap > table>tr,th,td{
     border-bottom: 1px solid black;
+    padding: 5px 10px;
 }
 body > div.admin_qnaWrap > div > table > thead > tr:nth-child(4) > td{
     width: 800px;
@@ -27,7 +28,9 @@ body > div.admin_qnaWrap > div > table > thead > tr:nth-child(4) > td{
 /* 내용 칸 */
 .admin_qnaContent{
     height: 500px;
+    padding: 20px 20px;
 }
+
 
 
 /* 등록버튼 감싸는 div */

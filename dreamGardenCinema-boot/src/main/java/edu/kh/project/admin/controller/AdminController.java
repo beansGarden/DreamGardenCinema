@@ -133,9 +133,7 @@ public class AdminController {
 		public String qnaRead(Model model,@PathVariable(value="qnaNo",required=false) int qnaNo) {
 					
 			Qna qna = service.selectQnaOne(qnaNo);
-			
-			System.out.println(qnaNo);
-			
+				
 			qna.setQnaNo(qnaNo);
 			model.addAttribute("Qna", qna);
 			
