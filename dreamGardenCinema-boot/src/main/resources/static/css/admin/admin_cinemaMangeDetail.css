@@ -1,0 +1,135 @@
+/* 전체 감싸는 div */
+.admin_cinemaManageDetailWrap{
+    width: 1000px;
+    margin: 100px auto;
+    height: auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
+}
+
+/* 제목 */
+.admin_cinemaManageTitle{
+    border: none !important;
+}
+
+/* 상영관 select, 날짜 감싸기 */
+.admin_cinemaManageDetailListWrap{
+    width: 300x;
+    margin: 30px 30px;
+    
+}
+
+
+/* span글자 조절 */
+.admin_cinemaManagerSTitle{
+    display: inline-block;
+    font-size: larger;
+    width: 130px;
+    margin: 10px 10px;
+}
+
+
+select{
+    border: none;
+    outline: none;
+}
+
+input{
+    border: none;
+    outline: none;
+}
+
+.admin_cinemaManageDetaiPlList{
+    border-bottom: 1px solid rgba(121, 121, 121, 0.479);
+}
+
+.admin_cinemaManageDetail_Time{
+    border-bottom: 1px solid rgba(121, 121, 121, 0.479);
+}
+.admin_cinemaManageDetailStartDate{
+    border-bottom: 1px solid rgba(121, 121, 121, 0.479);
+}
+.admin_cinemaManageDetailEndDate{
+    border-bottom: 1px solid rgba(121, 121, 121, 0.479);
+}
+
+.admin_cinemaManageDetailDate{
+    border-bottom: 1px solid rgba(121, 121, 121, 0.479);
+}
+
+/* 게시판 제목 */
+#admin_cinemaManageTitle{
+    color:#0F0954;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+/* 상영 시간 선택 */
+.admin_cinemaManageDetaiTlList{
+    -webkit-appearance:none; /* 크롬 화살표 없애기 */
+    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+    appearance:none; /* 화살표 없애기 */
+    width: 80px;
+}
+/* 등록버튼 */
+.admin_reportRegister{
+    margin-left: 50%;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #0F0954;
+
+    
+}
+
+.admin_reportRegister a{
+    color: white;
+    
+}
+
+
+.admin_cinemaManageDetailDate input{
+    border: none;
+    outline: none;
+ /*    padding: .3rem; */
+    font-size: 1rem;
+    background-color: transparent;
+}
+
+.admin_cinemaManageDetailDate>div{
+    width: 30rem;
+ 
+}
+
+.admin_cinemaManageDetailDate .box{
+    padding: .3rem;
+}
+
+.admin_cinemaManageDetailDate .tag{
+    display: inline-block;
+    text-align: center;
+    height: 2rem;
+    padding: 0.1rem .9rem;
+    margin: auto;
+    font-size: .9rem;
+    background-color:#0f0954a9;
+    color: white;
+    font-weight: 700;
+    border-radius: 0.3rem;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
+    margin: 0.2rem;
+    transition: .5s ease;
+    -webkit-transition: .5s ease;
+    -moz-transition: .5s ease;
+    -ms-transition: .5s ease;
+    -o-transition: .5s ease;
+}
+
+.admin_cinemaManageDetailDate .close{
+    cursor: pointer;
+}
+

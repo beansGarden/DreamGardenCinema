@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace를 Mapper 인터페이스로 지정 -->
+<mapper namespace="edu.kh.dgc.admin.model.dao.AdminMapper">
+		
+		<resultMap type="Qna" id="qna_rm">
+	
+		<id property="qnaNo" column="QNA_NO"/>
+		
+		<result property="qnaTitle" column="QNA_TITLE"/>
+		<result property="qnaContent" column="QNA_CONTENT"/>
+		<result property="qnaEnrollDate" column="QNA_ENROLL_DATE"/>
+		<result property="qnaDeleteFl" column="QNA_DELETE_FL"/>
+		<result property="qnaCheckFl" column="QNA_CHECK_FL"/>
+		<result property="qnaCategory" column="QNA_CATEGORY"/>
+		<result property="userNo" column="USER_NO2"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
+		</resultMap>
+	
+	
+	
+<!--회원 리스트 조회-->
+<!--<select id="adminUserList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
+		FROM USER_INFO
+		WHERE USER_CLOSE ='N'
+	</select>-->
+	
+	<!--QNA(1:1)문의 리스트 조회-->
+	<select id="adminQnaList" resultMap="qna_rm">
+		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME 
+		FROM QNA
+		JOIN "USER_INFO" 
+		ON USER_NO=USER_NO2
+	</select>
+	
+	<select id="selectQnaOne" resultMap="qna_rm">
+	SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT FROM QNA 
+	WHERE QNA_NO = #{qnaNo}
+	</select>
+
+
+</mapper>

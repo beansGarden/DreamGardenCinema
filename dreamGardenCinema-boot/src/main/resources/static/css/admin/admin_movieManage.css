@@ -1,0 +1,115 @@
+/* 전체 감싸는 div */
+.admin_movieManageWrap{
+    width: 1000px;
+    display: block;
+    margin: 100px auto;
+    height: auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
+}
+
+/* 게시판 제목 */
+#admin_movieManageTitle{
+    color:#0F0954;
+    font-size: 30px;
+    font-weight: bold;
+
+
+}
+/* 유저검색 창 */
+.admin_movieSearchWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    width: 100%;
+    padding: 0px;
+    height: 0px;
+}
+
+/* 검색창 감싸는 div */
+.admin_moiveSearchWrap2{
+    border: 1px solid black;
+    width: 70%;
+    padding: 10px;
+
+}
+
+/* select 선택창 */
+.admin_movieManageSelect{
+    border: none;
+    outline: none;
+
+}
+
+/* 검색창 */
+.admin_movieManageInput{
+    width: 400px;
+    border: none;
+    outline: none;
+}
+
+
+
+/* 검색버튼 */
+.admin_movieSearchBtn{
+   margin: 0px 10px;
+   padding: 5px 15px;
+   border-radius: 5px;
+   background-color: #0F0954;
+   color: white;
+}
+
+
+
+
+/* 게시판 테이블 감싸는 div */
+.admin_movieManageBoardWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  
+
+}
+
+/* 게시판 테이블 */
+.admin_movieManageBoardWrap > table{
+    border-bottom: 1px solid rgba(142, 142, 142, 0.431);
+    border-collapse: collapse;
+    width: 1000px;
+
+
+}
+
+/* 테이블 th,td 칸 */
+.admin_movieManageBoardWrap > table >th,td{
+    border-top: 1px solid rgba(128, 125, 125, 0.446);
+    padding: 10px 20px;
+    margin: 10px;
+    text-align: center;
+
+}
+
+
+/* 등록,수정,삭제 감싸는 div */
+.admin_movieBtn{
+    display: flex;
+    margin-left: 75%;
+    
+}
+
+/* 등록버튼 */
+.admin_movieEndBtn{
+    margin: 50px 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #0F0954;
+    
+}
+
+.admin_movieEndBtn a{
+    color: white;
+    
+}

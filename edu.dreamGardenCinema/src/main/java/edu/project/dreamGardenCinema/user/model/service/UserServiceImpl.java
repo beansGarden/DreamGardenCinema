@@ -13,20 +13,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO dao;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
-	
-=======
-//	@Autowired
-//	private BCryptPasswordEncoder bcrypt;
-=======
-	@Autowired
-	private BCryptPasswordEncoder bcrypt;
->>>>>>> origin/GEUN-TAE
 
->>>>>>> origin/sub-main
 	@Override
 	public User login(User inputMember) {
 
