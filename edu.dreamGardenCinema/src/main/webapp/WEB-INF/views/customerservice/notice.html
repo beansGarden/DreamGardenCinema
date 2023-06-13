@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터-공지사항</title>
+
+    <link rel="stylesheet" href="/edu.dreamGardenCinema/src/main/webapp/resources/css/customerservice/notice.css">
+</head>
+
+<body>
+
+
+    <div class="customer-service-box">
+
+        <div class="service-notice">
+            <p class="notice-title">고객센터</p>
+        </div>
+        <div class="service-empty-line"></div>
+
+        <div class="service-list">
+            <ul class="service-list-choose">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">1:1문의</a></li>
+            </ul>
+        </div>
+
+
+
+        <div class="service-search-area">
+
+            <form action="#" method="GET" class="sevice-search-smt">
+
+                <!-- 검색 종류 선택 -->
+                <div class="service-search-list">
+                    <select name="" id="service-search-select">
+                        <option value="">제목</option>
+                        <option value="">제목+내용</option>
+                        <option value="">번호</option>
+                    </select>
+                </div>
+
+                <!-- 검색 영역 -->
+                <div class="notice-search-area">
+                    <input type="search" placeholder="검색어를 입력해주세요" id="search-query">
+                </div>
+
+                <!-- 검색 버튼 -->
+                <div class="service-search-btn">검색</div>
+            </form>
+
+        </div>
+
+
+        <!-- 공지사항 목록 영역-->
+
+        <div class="service-notice-area">
+            <div class="notice-contents">
+
+                <!-- 공지사항  내용-->
+                <div class="service-notice-title">
+                    <span>번호</span> <span>제목</span> <span>등록일</span>
+                </div>
+
+                <a href="#" class="service-notice-list">
+                <div class="my-page-inquiry-content">
+                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023.06.07</span>
+                </div>
+            </a>
+
+            </div>
+
+            <!-- 페이지 번호 -->
+            <div class="service-pagination">
+                <i class="fa-solid fa-arrow-left"></i>
+                <ol id="service-paginationNumbers">
+                    <li><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                </ol>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
