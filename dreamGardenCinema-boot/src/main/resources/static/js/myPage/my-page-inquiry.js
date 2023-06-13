@@ -216,3 +216,21 @@ my_page_secession_btn2.addEventListener("click",()=>{
     document.body.style.overflow='auto';
 
 })
+/* 문의 목록 UP/DOWN */
+const up_down_img = document.querySelector("#up-down-img");
+let my_page_inquiry_table_display = document.querySelectorAll(".my-page-inquiry-table-display");
+const my_page_inquiry_content = document.querySelector("#my-page-inquiry-content");
+
+
+
+  // for(let i =0;i<my_page_inquiry_table_display.length;i++){
+
+  //   up_down_img.addEventListener("click",()=>{
+
+  //   my_page_inquiry_table_display[i].style.display="inline-block";
+
+  //   my_page_inquiry_content.getAttribute("colspan");
+  // })
+
+  // }
+

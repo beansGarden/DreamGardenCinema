@@ -75,14 +75,34 @@
     </div>
     <div class="my-page-contents-container">
 
-        <!-- 예매 내역이 있을 경우 -->
-        <div class="my-page-inquiry-title">
-            <span>번호</span> <span>분류</span> <span>첨부파일</span> <span>작성일</span> <span>상태</span>
-        </div>
-        
-        <div class="my-page-inquiry-content">
-            <span>1</span> <span>[멤버십]</span> <span id="file">O</span> <span>2023.06.07</span> <span id="ing">처리중</span>
-        </div>
+        <!-- 문의 내역이 있을 경우 -->
+
+        <table class="my-page-inquiry-table">
+            <tr>
+                <th>번호</th>
+                <th>분류</th>
+                <th>첨부파일</th>
+                <th>작성일</th>
+                <th>상태</th>
+                <th></th>
+            </tr>
+            <!-- each 로 반복 구간 -->
+            <tr class="my-page-inquiry-content"><!-- 증가에 따라 페이지네이션 기능 구현 -->
+                <td>1</td>
+                <td>[멤버십]</td>
+                <td>O</td>
+                <td>2023.06.07</td>
+                <td><span id="result">처리중</span></td>
+                <td><img id="up-down-img" src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/downbtn.png"></td>
+            </tr>
+            <tr class="my-page-inquiry-table-display">
+                <td colspan="6" id="my-page-inquiry-title">문의 하신 제목: <span>파이널 파이팅~</span></td>
+            </tr>
+            <tr class="my-page-inquiry-table-display">
+                <td colspan="6" id="my-page-inquiry-content">답변 내용: <span>쓰잘대기 없는 얘기하시면 탈퇴처리 됩니다</span></td>
+            </tr>
+            <!-- each 로 반복 구간 -->
+        </table>
         
         <!-- 문의 내역이 없을 경우 -->
         <div class="my-page-contents-box">
@@ -243,6 +263,7 @@
                 <div class="my-page-changeinfo-hp">
                     <p class="my-page-changeinfo-guide-text">*  <span>핸드폰 번호</span></p>
                     <input type="text">
+                    <span>"-" 빼고 입력해주세요</span>
                 </div>
                 <div class="my-page-changeinfo-email">
                     <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>

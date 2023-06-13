@@ -147,6 +147,11 @@
 }
 .my-page-contents-container{
     height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 /* 문의 내역이 없을 경우 */
 .my-page-contents-box{
@@ -174,25 +179,45 @@
 }
 
 /* 문의 내역이 있을 경우 */
-.my-page-inquiry-title{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 0.5fr 1.5fr 0.5fr 0.5fr 0.25fr;
-    margin: 50px 50px 0px 50px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    font-weight: bold;
-    font-size: 17px;
-    padding: 10px;
+.my-page-inquiry-table{
+    text-align: center;
+    width: 70vw;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 12px 12px 0 0;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0px 12px 5px rgba(32, 32, 32, 0.3);
 }
-.my-page-inquiry-content{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 0.6fr 2fr 0.53fr 0.6fr 0.35fr;
-    margin-left: 50px;
-    margin-right: 50px;
-    border-bottom: 1px solid #B2B2B2;
-    padding: 18px;
+th{
+    background-color: #0f0954b7;
+    color: #fff;
+}
+th,td{
+    padding: 10px 15px;
+}
+tr:nth-child(odd){
+    background-color: #eeeeee;
+}
+table img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+#my-page-inquiry-title{
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+#my-page-inquiry-content{
+    font-size: 15px;
+    text-align: left;
+    height: 200px;
+    font-weight: bold;
+}
+.my-page-inquiry-table-display{
+    display: none;
+    width: 100%;
 }
 /* 처리중 and 답변 완료 */
 #ing{
