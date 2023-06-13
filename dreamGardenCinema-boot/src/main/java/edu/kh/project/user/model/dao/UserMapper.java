@@ -13,5 +13,5 @@ public interface UserMapper {
 	User login(User inputUser);
 	// 메서드 이름 login -> 연결된 mapper.xml에서 id가 login인 sql이 수행
 
-	int signUp(User inputUser);
+	int signup(User inputUser);
 }

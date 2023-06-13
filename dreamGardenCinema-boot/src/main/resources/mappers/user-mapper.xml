@@ -10,7 +10,8 @@
 		<result property="userNickname" column="USER_NICKNAME" />
 		<result property="userTel" column="USER_TEL" />
 		<result property="userEmail" column="USER_EMAIL" />
-		<result property="userRegiNum" column="USER_REGINUM" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userGender" column="USER_GENDER" />
 		<result property="userEnrollDate" column="USER_ENROLL_DT" />
 		<result property="userAmount" column="USER_AMOUNT" />
 		<result property="userRole" column="USER_ROLE" />
@@ -21,20 +22,26 @@
 	<select id="login" resultMap="user_rm">
 		SELECT USER_NO, USER_ID, USER_PW, USER_NICKNAME, USER_TEL, USER_EMAIL, 
 			TO_CHAR(USER_ENROLL_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"')
-			USER_ENROLL_DT, USER_AMOUNT, USER_ROLE, USER_RATING, USER_CLOSE, USER_REGINUM
+			USER_ENROLL_DT, USER_AMOUNT, USER_ROLE, USER_RATING, USER_CLOSE, USER_BIRTH, USER_GENDER
 		FROM "USER_INFO"
 		WHERE USER_CLOSE = 'N'
 		AND USER_ID = #{userId}
 	</select>
 	<!-- 회원 가입 -->
-	<insert id="signUp">
-		INSERT INTO "MEMBER"
-		VALUES(SEQ_MEMBER_NO.NEXTVAL
-		, #{memberEmail}
-		, #{memberPw}
-		, '${memberNickname}'
-		, #{memberTel}
-		, #{memberAddress}
-		, NULL, DEFAULT, DEFAULT, DEFAULT)
+	<insert id="signup">
+		INSERT INTO "USER_INFO"
+		VALUES(SEQ_USER_NO.NEXTVAL
+			, #{userId}
+			, #{userPw}
+			, #{userNickname}
+			, #{userTel}
+			, #{userEmail}
+			, SYSDATE
+			, DEFAULT
+			, DEFAULT
+			, DEFAULT
+			, DEFAULT
+			, #{userBirth}
+			, #{userGender})
 	</insert>
 </mapper>

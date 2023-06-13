@@ -1,3 +1,4 @@
+// 탭
 $(document).ready(function(){
 
     $('ul.account-tabs li').click(function(){

@@ -1,6 +1,9 @@
 package edu.kh.project.user.controller;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import edu.kh.project.user.model.dto.User;
 import edu.kh.project.user.model.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -79,6 +83,32 @@ public class UserController {
 			path += referer;
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
+		return path;
+	}
+	
+	@PostMapping("/signUp")
+	public String signup(
+			HttpSession session, RedirectAttributes ra, User inputUser, Model model) {
+		
+		String path = "redirect:";
+		String message = null;
+		
+		inputUser.setUserBirth(LocalDate.parse(inputUser.getUserBirth1(), DateTimeFormatter.ofPattern("yyyyMMdd")));
+		
+		int result = service.signup(inputUser);
+		
+		if (result > 0) {
+			path += "/user/login";
+			
+			message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";
+
+		} else {
+			path += "signUp"; 
+			message = "회원 가입 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
+
 		return path;
 	}
 	
