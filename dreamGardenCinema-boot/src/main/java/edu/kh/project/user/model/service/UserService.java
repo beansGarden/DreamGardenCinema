@@ -6,4 +6,6 @@ public interface UserService {
 	
 	User login(User inputMember);
 
+	int signup(User inputUser);
+
 }

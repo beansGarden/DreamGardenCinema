@@ -1,5 +1,7 @@
 package edu.kh.project.user.model.dto;
 
+import java.time.LocalDate;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,11 +19,13 @@ public class User {
 	private String userNickname;
 	private String userTel;
 	private String userEmail;
-	private String userRegiNum;
+	private String userBirth1;
+	private LocalDate userBirth;
+	private String userGender;
 	private String userEnrollDate;
 	private int userAmount;
 	private String userRole;
 	private int userRating;
 	private String userClose;
-
+	
 }
