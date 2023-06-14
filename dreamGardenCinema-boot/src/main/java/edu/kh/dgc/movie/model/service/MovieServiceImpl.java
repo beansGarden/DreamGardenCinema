@@ -17,14 +17,14 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public List<Movie> selectMovieListCurrentMain() {
-		RowBounds rowBounds = new RowBounds(0, 4);
+		RowBounds rowBounds = new RowBounds(0, 5);
 		
 		return mapper.selectMovieListCurrent(null, rowBounds);
 	}
 	
 	@Override
 	public List<Movie> selectMovieListPromiseMain() {
-		RowBounds rowBounds = new RowBounds(0, 4);
+		RowBounds rowBounds = new RowBounds(0, 5);
 		
 		return mapper.selectMovieListPromise(null, rowBounds);
 	}

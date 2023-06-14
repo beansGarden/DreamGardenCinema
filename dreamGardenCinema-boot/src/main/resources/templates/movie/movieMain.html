@@ -20,9 +20,13 @@
 
         <div class="movieList--nav">
 
-            <div></div>
+            <div class="font1">
+                현재 상영작
+            </div>
 
-            <div></div>
+            <span>
+                더보기
+            </span>
 
         </div>
 
@@ -30,31 +34,39 @@
         <div class="movieList--items" >
 
             <div class="movieItem" th:each="movie : ${MovieListMainC}">
+
                 <img th:src="${movie.poster}" >
-                <div th:text="${movie.movieTitle}">영화 제목</div>
+
+                <div class="font5" th:text="${movie.movieTitle}">영화 제목</div>
+
             </div>
 
         </div>
 
     </section>
 
-    <div style="margin: 40px;"></div>
-
     <section class="movie--mid__List promise">
 
         <div class="movieList--nav">
 
-            <div></div>
+            <div class="font1">
+                상영 예정작
+            </div>
 
-            <div></div>
+            <span>
+                더보기
+            </span>
 
         </div>
 
         <div class="movieList--items" >
 
             <div class="movieItem" th:each="movie : ${MovieListMainP}">
+
                 <img th:src="${movie.poster}">
-                <pre th:text="${movie.movieTitle}">영화 제목</pre>
+
+                <div class="font5" th:text="${movie.movieTitle}">영화 제목</div>
+
             </div>
 
         </div>
