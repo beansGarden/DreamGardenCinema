@@ -9,6 +9,12 @@ public class AjaxServiceImpl implements AjaxService{
 
 	@Autowired
 	private AjaxMapper mapper;
+	
+	// 아이디 중복 검사
+	@Override
+	public int checkId(String id) {
+		return mapper.checkId(id);
+	}
 
 	// 이메일 중복 검사
 	@Override
@@ -22,10 +28,8 @@ public class AjaxServiceImpl implements AjaxService{
 		return mapper.checkNickname(nickname);
 	}
 
-	@Override
-	public int checkUrl(String URL) {
-		return 0;
-	}
+	
+
 
 	
 }

@@ -11,6 +11,12 @@ public class AjaxController {
 	
 	@Autowired
 	private AjaxService service;
+	// 아이디 중복 검사
+	@GetMapping("/dupCheck/id")
+	@ResponseBody
+	public int checkId(String id) {
+		return service.checkId(id); 
+	}
 	
 	// 이메일 중복 검사
 	@GetMapping("/dupCheck/email")
