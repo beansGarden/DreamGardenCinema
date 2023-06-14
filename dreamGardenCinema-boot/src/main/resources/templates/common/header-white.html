@@ -5,58 +5,54 @@
         <div class="dg-menu">
 
             <ul class="dg-menu-L">
-                <li class="dg-menu-L1"><a href="#" class="dg-movie-link">영화</a>
+                <li class="dg-menu-L1"><a th:href="@{/movie}" class="dg-movie-link">영화</a>
                     <ul class="dg-menu-drop-movie">
-                        <li><a href="#">홈</a></li>
-                        <li><a href="#">상영 예정작</a></li>
-                        <li><a href="#">현재 상영작</a></li>
+                        <li><a th:href="@{/movie}">홈</a></li>
+                        <li><a th:href="@{#}">상영 예정작</a></li>
+                        <li><a th:href="@{#}">현재 상영작</a></li>
                     </ul>
                 </li>
 
-                <li class="dg-menu-L2"><a href="#" class="dg-reservation-link">예매</a>
+                <li class="dg-menu-L2"><a th:href="@{/ticketing/date}" class="dg-reservation-link">예매</a>
                     <ul class="dg-menu-drop-reservation">
-                        <li><a href="#">예매하기</a></li>
-                        <li><a href="#">상영 시간표</a></li>
+                        <li><a th:href="@{/ticketing/date}">예매하기</a></li>
                     </ul>
                 </li>
 
-                <li class="dg-menu-L3"><a href="#" class="dg-membership-link">멤버십</a>
+                <li class="dg-menu-L3"><a th:href="@{/myPage-membership}" class="dg-membership-link">멤버십</a>
                     <ul class="dg-menu-drop-membership">
-                        <li><a href="#">멤버십 이용약관</a></li>
-                        <li><a href="#">나의 멤버십</a></li>
+                        <li><a th:href="@{#}">멤버십 이용약관</a></li>
+                        <li><a th:href="@{/myPage-membership}">나의 멤버십</a></li>
                     </ul>
                 </li>
             </ul>
 
-            <span class="dg-logo"><a href="#"><img src="/edu.dreamGardenCinema/src/main/webapp/resources/image-dg/흰배경 로고.svg"></a></span>
+            <span class="dg-logo"><a th:href="@{#}"><img th:src="@{/images/common/logo/흰배경 로고.svg}"></a></span>
 
             <ul class="dg-menu-R">
-                <li class="dg-menu-R1"><a href="#" class="dg-Service-link">고객센터</a>
+                <li class="dg-menu-R1"><a th:href="@{#}" class="dg-Service-link">고객센터</a>
                     <ul class="dg-menu-customer-service">
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">1:1 문의</a></li>
+                        <li><a th:href="@{#}">FAQ</a></li>
+                        <li><a th:href="@{#}">공지사항</a></li>
+                        <li><a th:href="@{#}">1:1 문의</a></li>
                     </ul>
                 </li>
 
                 <!-- 로그인한 회원이 없을 경우 -->
-                <li class="dg-menu-login"><a href="#" class="dg-login-link">로그인</a></li>
+                <li class="dg-menu-login"  th:unless="${session.loginUser}"><a th:href="@{/user/login}" class="dg-login-link">로그인</a></li>
                 <!-- 로그인한 회원이 있을 경우 -->
-                <li class="dg-menu-logout"><a href="#" class="dg-logout-link">로그아웃</a></li>
+                <li class="dg-menu-logout"  th:if="${session.loginUser}"><a th:href="@{#}" class="dg-logout-link">로그아웃</a></li>
 
                 <!-- 비회원일 경우 -->
-                <li class="dg-menu-nonmember"><a href="#" class="dg-singup-link">회원가입</a></li>
+                <li class="dg-menu-nonmember" th:unless="${session.loginUser}"><a th:href="@{/user/signUp}" class="dg-singup-link">회원가입</a></li>
                 <!-- 회원일 경우 -->
-                <li class="dg-menu-member"><a href="#" class="dg-mypage-link">마이 페이지</a></li>
+                <li class="dg-menu-member"  th:if="${session.loginUser}"><a th:href="@{/myPage}" class="dg-mypage-link">마이 페이지</a></li>
             </ul>
+            
+            <!-- th:if="${session.loginUser.userRole == 'A'}" -->
+            <div class="admin-control-space"  th:if="${session.loginUser != null and  session.loginUser.userRole == 'A'}">
+                <a th:href="@{/admin}"><img th:src="@{/images/common/logo/관리자 아이콘-white.png}" title="관리자"></a>
+            </div>
         </div>
-        
-
     </header>
-
-  
-
-
-
-
 </html>
