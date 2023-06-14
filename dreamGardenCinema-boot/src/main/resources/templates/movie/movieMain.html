@@ -16,46 +16,28 @@
         <img src="https://dummyimage.com/1920x420/000/fff&text=slide">
     </section>
 
-    <section class="movie--mid__List">
-        <div class="movieList--nav">
-            <div>
-            
+    <section class="movie--mid__List current">
+
+        <div class="movieList--items" >
+
+            <div class="movieItem" th:each="movie : ${MovieListMainC}">
+                <img th:src="${movie.poster}" >
             </div>
-
-            <div>
-
-            </div>
-        </div>
-
-        <div class="movieList--items">
-
-            <div class="movieItem">
-
-            </div>
-
-            <div class="movieItem">
-
-            </div>
-
-            <div class="movieItem">
-
-            </div>
-
-            <div class="movieItem">
-
-            </div>
-            <div class="movieItem">
-
-            </div>
-            <div class="movieItem">
-
-            </div>
-
 
         </div>
 
-        <div class="movieList--more">
-            
+    </section>
+
+    <div style="margin: 40px;"></div>
+
+    <section class="movie--mid__List promise">
+
+        <div class="movieList--items" >
+
+            <div class="movieItem" th:each="movie : ${MovieListMainP}">
+                <img th:src="${movie.poster}" >
+            </div>
+
         </div>
 
     </section>

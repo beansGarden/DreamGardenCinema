@@ -34,8 +34,11 @@ body {
 
 
 .movieItem {
-    background-color: aqua;
     height: 300px;
+}
+
+.movieItem img{
+    height: 100%;
 }
 
 .movieList--more{

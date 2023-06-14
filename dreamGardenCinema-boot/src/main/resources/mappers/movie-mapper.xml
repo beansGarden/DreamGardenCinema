@@ -21,4 +21,18 @@
 		SELECT * 
 		FROM MOVIE
 	</select>
+	
+	<select id="selectMovieListCurrent" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
+		WHERE SCREENING = 'C'
+	</select>
+	
+	<select id="selectMovieListPromise" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
+		WHERE SCREENING = 'P'
+	</select>
+	
+	
 </mapper>
