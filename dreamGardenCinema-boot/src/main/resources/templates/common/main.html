@@ -13,7 +13,7 @@
     <!-- <a th:href="@{/ticketing/date}" th:text="예매페이지">예매 페이지</a> -->
     <div class="slide slide_wrap">  <!-- 메인 슬라이드 구역 -->
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(메인 슬라이드 포스터) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-        <th:block th:each="movie, movieStat : ${session.movieList}">                                                            <!-- ◆◆◆◆◆◆ -->
+        <th:block th:each="movie, movieStat : ${session.movieList}">                                                    <!-- ◆◆◆◆◆◆ -->
             <div th:if="${movie.MAIN_POSTER != 'null'}" class="slide_item" th:classappend="item+${movieStat.count}">    <!-- ◆◆◆◆◆◆ -->
                 <img th:src="${movie.MAIN_POSTER}">                                                                     <!-- ◆◆◆◆◆◆ -->
             </div>                                                                                                      <!-- ◆◆◆◆◆◆ -->
