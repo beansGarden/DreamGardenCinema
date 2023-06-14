@@ -18,10 +18,20 @@
 
     <section class="movie--mid__List current">
 
+        <div class="movieList--nav">
+
+            <div></div>
+
+            <div></div>
+
+        </div>
+
+
         <div class="movieList--items" >
 
             <div class="movieItem" th:each="movie : ${MovieListMainC}">
                 <img th:src="${movie.poster}" >
+                <div th:text="${movie.movieTitle}">영화 제목</div>
             </div>
 
         </div>
@@ -32,10 +42,19 @@
 
     <section class="movie--mid__List promise">
 
+        <div class="movieList--nav">
+
+            <div></div>
+
+            <div></div>
+
+        </div>
+
         <div class="movieList--items" >
 
             <div class="movieItem" th:each="movie : ${MovieListMainP}">
-                <img th:src="${movie.poster}" >
+                <img th:src="${movie.poster}">
+                <pre th:text="${movie.movieTitle}">영화 제목</pre>
             </div>
 
         </div>
