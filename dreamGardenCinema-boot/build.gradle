@@ -21,7 +21,7 @@ repositories {
 dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //레이아웃을 위한 Dependency추가 유민 230611
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

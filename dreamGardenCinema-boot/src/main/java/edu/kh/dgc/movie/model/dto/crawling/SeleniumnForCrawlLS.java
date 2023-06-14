@@ -11,9 +11,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
- 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
+
+import edu.kh.dgc.DreamGardenCinemaBootApplication;
+import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.service.CrawlingService;
+import edu.kh.dgc.movie.model.service.CrawlingServiceImpl;
+
+@Component
 public class SeleniumnForCrawlLS {
-    
+	
+	
     public static void main(String[] args) {
         
         // 현재 package의 workspace 경로, Windows는 [ chromedriver.exe ]
@@ -96,14 +107,33 @@ public class SeleniumnForCrawlLS {
         
 //    	private String runningTime;
         String runningTime = driver.findElement(By.xpath("//*[@id=\"contents\"]/div/ul[2]/li[1]/strong/em[3]")).getText();
+        
+        runningTime = runningTime.replaceAll("분", "");
+        
         System.out.println( runningTime );            
         
 //    	private String rating;
+//        /images/common/main/12세.png
+        
         String rating = driver.findElement(By.xpath("//*[@id=\"contents\"]/div/div[2]/span")).getText();
+        // 전체관람가, 만12세이상관람가, 만15세이상관람가, 청소년관람불가
+        if(rating.equals("전체관람가")) rating = "/images/common/main/ALL.png";
+        else if(rating.equals("만12세이상관람가")) rating = "/images/common/main/12세.png";
+        else if(rating.equals("만15세이상관람가")) rating = "/images/common/main/15세.png";
+    	else if(rating.equals("청소년관람불가")) rating = "/images/common/main/18세.png";
+        
+        
         System.out.println( rating );            
+        
+        
         
 //    	private String releaseDate;
         String releaseDate = driver.findElement(By.xpath("//*[@id=\"contents\"]/div/ul[2]/li[1]/strong/em[2]")).getText();
+        
+        releaseDate = releaseDate.replaceAll("[.]", "-");
+        releaseDate = releaseDate.replaceAll(" 개봉", "");
+        
+        
         System.out.println( releaseDate );            
         
 //    	private String producer;
@@ -136,8 +166,29 @@ public class SeleniumnForCrawlLS {
         }
         
         
+        // DB insert 과정
+        // DB 들어갈 movie 정보를 세팅하기
+        Movie movie = new Movie();
         
+        movie.setMovieTitle(movieTitle);
+        movie.setPoster(poster);
+        movie.setSynopsis(syhopsis);
+        movie.setRunningTime(runningTime);
+        movie.setRating(rating);
+        movie.setReleaseDate(releaseDate);
+        movie.setGenre(genre);
+        movie.setMoviePrice(12000);
+        movie.setScreening("C");
         
+        System.out.println(movie);
+        
+//        ApplicationContext context = new AnnotationConfigApplicationContext(DreamGardenCinemaBootApplication.class);
+//        SeleniumnForCrawlLS instance = context.getBean(SeleniumnForCrawlLS.class);
+//        CrawlingService service = context.getBean(CrawlingServiceImpl.class);
+//        
+//        
+//        service.insertMovieInfo(movie);
         
     }
+    
 }

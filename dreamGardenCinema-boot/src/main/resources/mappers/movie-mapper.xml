@@ -12,6 +12,9 @@
 		<result property="releaseDate" column="RELEASE_DATE"/>
 		<result property="producer" column="PRODUCER"/>
 		<result property="moviePrice" column="MOVIE_PRICE"/>		
+		<result property="mainPoster" column="MAIN_POSEER"/>		
+		<result property="genre" column="GENRE"/>		
+		<result property="screening" column="SCREENING"/>		
 	</resultMap>
 	
 	<select id="selectMovieList" resultMap="movie_rm">
