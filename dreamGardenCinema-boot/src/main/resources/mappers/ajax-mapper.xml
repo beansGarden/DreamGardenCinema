@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.dgc.user.model.dao.AjaxMapper">
+	
+	<resultMap type="User" id="user_rm">
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userTel" column="USER_TEL" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userGender" column="USER_GENDER" />
+		<result property="userEnrollDate" column="USER_ENROLL_DT" />
+		<result property="userAmount" column="USER_AMOUNT" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userRating" column="USER_RATING" />
+		<result property="userClose" column="USER_CLOSE" />
+	</resultMap>
+
+	<!-- 아이디 중복 검사 -->
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_ID  = #{userId}
+		AND USER_CLOSE = 'N'
+	</select>
+	
+	<!-- 이메일 중복 검사 -->
+	<select id="checkEmail" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_EMAIL  = #{userEmail}
+		AND USER_CLOSE = 'N'
+	</select>
+
+	<!-- 닉네임 중복 검사 -->
+	<select id="checkNickname" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_NICKNAME  = #{userNickname}
+		AND USER_CLOSE = 'N'
+	</select>
+
+
+
+</mapper>
