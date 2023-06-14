@@ -11,5 +11,4 @@ public interface TicketingService {
 
 	Schedule mainMovieTime(int movieNo);
 
-
 }

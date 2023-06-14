@@ -1,5 +1,6 @@
 package edu.kh.dgc.ticketing.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,10 @@ public class TicketingController {
 	@GetMapping("/date")
 	public String date(Model model, HttpSession session) {
 		
-		List<Movie> movieList = (List<Movie>) session.getAttribute("movieList");
-		System.out.println(movieList.get(0));
+		List<Map<String, Object>> movieList = (List<Map<String, Object>>) session.getAttribute("movieList"); 
+		
+		System.out.println(movieList.get(0).get("MOVIE_NO"));
+		
 		// 페이지 보여질 때 영화 정보들(포스터, 제목, 등급, 순위, 별점, 개봉일, 예매율) 가져와야 함 + 영화별 상영 날짜/시간
 		
 		
