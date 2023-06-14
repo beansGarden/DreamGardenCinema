@@ -45,7 +45,7 @@ public class DBConfig {
 		sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
 
 		sessionFactoryBean.setTypeAliasesPackage("edu.kh.dgc.user.model.dto, edu.kh.dgc.movie.model.dto, "
-				+ "edu.kh.dgc.qna.model.dto, edu.kh.dgc.admin.model.dto");
+				+ "edu.kh.dgc.qna.model.dto, edu.kh.dgc.admin.model.dto, edu.kh.dgc.notice.model.dto, edu.kh.dgc.ticketing.model.dto");
 
 		// 마이바티스 설정 파일 경로 지정
 		sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
