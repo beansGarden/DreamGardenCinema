@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.movie.model.dao.CrawlingMapper;
 import edu.kh.dgc.movie.model.dto.Movie;
-import jakarta.transaction.Transactional;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService {
