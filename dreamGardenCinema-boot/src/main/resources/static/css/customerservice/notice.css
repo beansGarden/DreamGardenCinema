@@ -208,20 +208,31 @@ a {
 /* 페이지 네이션 */
 .service-pagination{
     display: flex;
-    
-    
-}
-
-#service-paginationNumbers{
-    display: flex;
     justify-content: center;
-    width: 70vw;
-    margin-top: 60px;
+    margin: 20px 80px;
+    position: relative;
 }
-
-#service-paginationNumbers>li{
-    margin-right: 15px;
-    font-size: 20px;
+.service-pagination ol{
+    width : 400px;
+    height: 30px;
+    text-align: center;
+}
+#service-paginationNumbers li{
+    display: inline-block;
+}
+#service-paginationNumbers li a{
+    padding: 3px;
+    color: #92B4EC;
+    margin: 0 6px;
+    width: 20px;
+}
+#service-paginationNumbers li a.active{
+    font-weight: bold;
+    color: #5286DC;
+}
+.service-pagination i{
+    color: #FFD24C;
+    line-height: 30px;
 }
 
 

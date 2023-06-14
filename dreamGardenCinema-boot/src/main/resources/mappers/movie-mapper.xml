@@ -12,10 +12,27 @@
 		<result property="releaseDate" column="RELEASE_DATE"/>
 		<result property="producer" column="PRODUCER"/>
 		<result property="moviePrice" column="MOVIE_PRICE"/>		
+		<result property="mainPoster" column="MAIN_POSEER"/>		
+		<result property="genre" column="GENRE"/>		
+		<result property="screening" column="SCREENING"/>		
 	</resultMap>
 	
 	<select id="selectMovieList" resultMap="movie_rm">
 		SELECT * 
 		FROM MOVIE
 	</select>
+	
+	<select id="selectMovieListCurrent" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
+		WHERE SCREENING = 'C'
+	</select>
+	
+	<select id="selectMovieListPromise" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
+		WHERE SCREENING = 'P'
+	</select>
+	
+	
 </mapper>
