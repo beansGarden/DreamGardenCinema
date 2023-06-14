@@ -1,5 +1,5 @@
 package edu.kh.dgc.customerservice.model.dao;
 
-public class CustomerServiceDAO {
+public class CustomerServiceMapper {
 
 }

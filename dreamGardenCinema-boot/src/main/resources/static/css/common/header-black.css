@@ -899,3 +899,7 @@ hr {
     width: 30px;
     height: 30px;
 }
+
+.dg-membership-link{
+    cursor: default;
+}
