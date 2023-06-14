@@ -15,7 +15,7 @@
 
             <li class="dg-menu-L2"><a href="#" class="dg-reservation-link">예매</a>
                 <ul class="dg-menu-drop-reservation">
-                    <li><a href="#">예매하기</a></li>
+                    <li><a th:href="@{/ticketing/date}">예매하기</a></li>
                     <li><a href="#">상영 시간표</a></li>
                 </ul>
             </li>
@@ -40,12 +40,12 @@
             </li>
 
             <!-- 로그인한 회원이 없을 경우 -->
-            <li class="dg-menu-login"><a href="#" class="dg-login-link">로그인</a></li>
+            <li class="dg-menu-login"><a href="/user/login" class="dg-login-link">로그인</a></li>
             <!-- 로그인한 회원이 있을 경우 -->
             <li class="dg-menu-logout"><a href="#" class="dg-logout-link">로그아웃</a></li>
 
             <!-- 비회원일 경우 -->
-            <li class="dg-menu-nonmember"><a href="#" class="dg-singup-link">회원가입</a></li>
+            <li class="dg-menu-nonmember"><a href="/user/signUp" class="dg-singup-link">회원가입</a></li>
             <!-- 회원일 경우 -->
             <li class="dg-menu-member"><a href="#" class="dg-mypage-link">마이 페이지</a></li>
         </ul>

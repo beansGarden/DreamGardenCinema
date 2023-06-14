@@ -299,14 +299,22 @@
     border: 3px solid #0F0954;
     border-radius: 50px;
     width: 120px;
-    text-align: center;
     background-color: #0F0954;
-    color: white;
-    font-weight: bold;
     margin-bottom: 15px;
     margin-top: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
     font-size: 20px;
     cursor: pointer;
+}
+.my-page-coupon-btn>a{
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }
 /* 등급 혜택 구역 */
 .my-page-benefit-container{
@@ -341,6 +349,7 @@
     background-color: rgba(0, 0, 0, 0.3);
     position: absolute;
     top: 0px;
+    z-index: 1000;
     justify-content: center;
     align-items: center;
 }
@@ -442,6 +451,7 @@
     display: none;
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
+    z-index: 1000;
     top: 0px;
     justify-content: center;
     align-items: center;

@@ -125,7 +125,7 @@ header {
 .dg-menu-drop-movie {
     display: flex;
     list-style: none;
-    margin-top: 15px;
+    margin-top: 10px;
     position: absolute;
     margin-left: -95px;
     padding-left: 0;
@@ -237,8 +237,8 @@ header {
     display: flex;
     list-style: none;
     position: absolute;
-    margin-top: 15px;
-    margin-left: -60px;
+    margin-top: 10px;
+    margin-left: -5px;
     background-color: rgba(0, 0, 0, 0.7);
     padding-left: 0;
 
@@ -358,7 +358,7 @@ header {
     display: flex;
     list-style: none;
     position: absolute;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: -70px;
     background-color: rgba(0, 0, 0, 0.7);
     padding-left: 0;
@@ -506,7 +506,7 @@ header {
     list-style: none;
     display: flex;
     position: absolute;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: -62px;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 7px;
@@ -688,9 +688,9 @@ header {
 
 
 /* 로그아웃 (로그인 상태에서 보임) */
-.dg-menu-logout {
+/* .dg-menu-logout {
     display: none;
-}
+} */
 
 .dg-menu-logout>a {
     letter-spacing: 0.5px;
@@ -817,9 +817,9 @@ header {
 
 
 /* 회원일 경우(로그인 상태에서 보임) */
-.dg-menu-member {
+/* .dg-menu-member {
     display: none;
-}
+} */
 
 .dg-menu-member>a {
     letter-spacing: 0.5px;
@@ -885,4 +885,17 @@ hr {
     margin-block-end: 4.5em;
     overflow: visible;
 
+}
+
+/* 관리자 아이콘 */
+.admin-control-space{
+    position: absolute;
+    margin-top: 80px;
+    right: 100px;
+    }
+
+.admin-control-space>a>img{
+    position: absolute;
+    width: 30px;
+    height: 30px;
 }

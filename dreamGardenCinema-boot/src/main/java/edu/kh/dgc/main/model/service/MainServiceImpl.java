@@ -1,12 +1,15 @@
 package edu.kh.dgc.main.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.main.model.dao.MainMapper;
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.notice.model.dto.Notice;
 
 @Service
 public class MainServiceImpl implements MainService{
@@ -15,8 +18,15 @@ public class MainServiceImpl implements MainService{
 	private MainMapper mapper;
 	
 	@Override
-	public List<Movie> selectMovieList() {
-		return mapper.selectMovieList();
+	public Map<String, Object> selectMovieList() {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<Movie> movieList = mapper.selectMovieList();
+		List<Notice> noticeList = mapper.selectNoticeList();
+		map.put("movieList", movieList);
+		map.put("noticeList", noticeList);
+		return map;
 	}
 
 }

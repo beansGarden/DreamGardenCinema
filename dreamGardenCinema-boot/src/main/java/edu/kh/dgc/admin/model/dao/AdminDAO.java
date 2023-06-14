@@ -29,5 +29,15 @@ public class AdminDAO {
 
 		return mapper.selectQnaOne(qnaNo);
 	}
+
+	
+	/**1:1 문의사항 (QNA) 게시글 수정
+	 * @param qnaNo
+	 * @return
+	 */
+	public Qna updateQna(int qnaNo) {
+	
+		return mapper.updateQna(qnaNo);
+	}
 	
 }

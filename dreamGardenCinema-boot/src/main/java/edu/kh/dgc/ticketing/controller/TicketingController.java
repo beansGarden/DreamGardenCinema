@@ -1,15 +1,23 @@
 package edu.kh.dgc.ticketing.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/ticketing")
 @Controller
@@ -19,10 +27,12 @@ public class TicketingController {
 	private TicketingService service;
 	
 	@GetMapping("/date")
-	public String date(Model model) {
+	public String date(Model model, HttpSession session) {
 		
+		List<Movie> movieList = (List<Movie>) session.getAttribute("movieList");
+		System.out.println(movieList.get(0));
 		// 페이지 보여질 때 영화 정보들(포스터, 제목, 등급, 순위, 별점, 개봉일, 예매율) 가져와야 함 + 영화별 상영 날짜/시간
-//		service.date();
+		
 		
 		return "ticketing/Ticketing1";
 	}
@@ -67,4 +77,12 @@ public class TicketingController {
 		
 		return "ticketing/Ticketing2";
 	}
+	
+	@PostMapping("/time")
+	@ResponseBody
+	public List<Schedule> movieTime(@RequestBody Map<String, Integer> paramMap){
+		return service.movieTime(paramMap);
+	}
+	
+	
 }

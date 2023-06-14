@@ -221,16 +221,17 @@ const up_down_img = document.querySelector("#up-down-img");
 let my_page_inquiry_table_display = document.querySelectorAll(".my-page-inquiry-table-display");
 const my_page_inquiry_content = document.querySelector("#my-page-inquiry-content");
 
+up_down_img.addEventListener("click",()=>{
 
+  my_page_inquiry_table_display[0].classList.toggle("my-page-inquiry-table-display");
+  my_page_inquiry_table_display[1].classList.toggle("my-page-inquiry-table-display");
 
-  // for(let i =0;i<my_page_inquiry_table_display.length;i++){
+  if (up_down_img.src.includes("upbtn.png")) {
+    up_down_img.src = "/images/myPage/downbtn.png";
+  } else {
+    up_down_img.src = "/images/myPage/upbtn.png";
+  }
 
-  //   up_down_img.addEventListener("click",()=>{
+})
 
-  //   my_page_inquiry_table_display[i].style.display="inline-block";
-
-  //   my_page_inquiry_content.getAttribute("colspan");
-  // })
-
-  // }
 
