@@ -32,6 +32,8 @@
 		FROM QNA
 		JOIN "USER_INFO" 
 		ON USER_NO=USER_NO2
+		WHERE QNA_DELETE_FL = 'N'
+		ORDER BY QNA_NO DESC
 	</select>
 	
 	<select id="selectQnaOne" resultMap="qna_rm">
@@ -41,14 +43,22 @@
 	WHERE QNA_NO = #{qnaNo}
 	</select>
 	
-	<update id="updateQna">
-		UPDATE "QNA"
-		SET 
-		QNA_TITLE = #{qnaTitle}
-		QNA_CONTENT = #{qnaContent}
-		WHERE QNA_NO = #{qnaNo}
-		
+	<update id="qnaUpdate">
+			UPDATE "QNA"
+			SET QNA_TITLE = #{qnaTitle},
+			    QNA_CONTENT = #{qnaContent}
+			WHERE QNA_NO =#{qnaNo}
 	</update>
 
+	<update id="qnaDelete">
+		UPDATE "QNA"
+		SET QNA_DELETE_FL = 'Y'
+		WHERE QNA_NO =#{qnaNo}
+	</update>
+	
+	<insert id="qnaInsert">
+		INSERT INTO "QNA"
+		VALUES (SEQ_QNA_NO.NEXTVAL,#{qnaTitle},#{qnaContent},SYSDATE,DEFAULT,DEFAULT,#{qnaCategory},#{qnaNo})
+	</insert>
 
 </mapper>

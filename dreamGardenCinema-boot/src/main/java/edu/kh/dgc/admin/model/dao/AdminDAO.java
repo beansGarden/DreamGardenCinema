@@ -32,12 +32,29 @@ public class AdminDAO {
 
 	
 	/**1:1 문의사항 (QNA) 게시글 수정
-	 * @param qnaNo
+	 * @param qna
 	 * @return
 	 */
-	public Qna updateQna(int qnaNo) {
-	
-		return mapper.updateQna(qnaNo);
+	public int qnaUpdate(Qna qna) {
+		
+		return mapper.qnaUpdate(qna);
 	}
+
+	
+	/**1:1 문의사항 (QNA) 게시글 삭제
+	 * @param qna
+	 * @return
+	 */
+	public int qnaDelete(int qnaNo) {
+		
+		return mapper.qnaDelete(qnaNo);
+	}
+
+	public int qnaInsert(Qna qna) {
+		return mapper.qnaInsert(qna);
+	}
+
+	
+
 	
 }

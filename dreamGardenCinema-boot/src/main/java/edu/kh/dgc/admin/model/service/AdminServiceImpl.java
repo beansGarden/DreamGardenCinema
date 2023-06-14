@@ -28,11 +28,25 @@ public class AdminServiceImpl implements AdminService {
 		return dao.selectQnaOne(qnaNo);
 	}
 
-	//1:1 문의 게시글 수정하기
+	//1:1문의 게시글 수정
 	@Override
-	public Qna updateQna(int qnaNo) {
-	
-		return dao.updateQna(qnaNo);
+	public int qnaUpdate(Qna qna) {
+		return dao.qnaUpdate(qna);
 	}
+
+	//1:1문의 게시글 삭제
+	@Override
+	public int qnaDelete(int qnaNo) {
+			return dao.qnaDelete(qnaNo);
+	}
+
+	//1:1 문의 게시글 삽입
+	@Override
+	public int qnaInsert(Qna qna) {
+		
+		return dao.qnaInsert(qna);
+	}
+
+	
 
 }

@@ -16,6 +16,13 @@ public interface AdminMapper {
 	Qna selectQnaOne(int qnaNo);
 
 	//1:1문의 게시글 수정
-	Qna updateQna(int qnaNo);
+	int qnaUpdate(Qna qna);
+
+	//1:1문의 게시글 삭제
+	int qnaDelete(int qnaNo);
+
+	//1:1문의 게시글 삽입
+	int qnaInsert(Qna qna);
+
 
 }

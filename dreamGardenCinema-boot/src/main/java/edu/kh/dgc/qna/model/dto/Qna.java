@@ -8,7 +8,7 @@ import lombok.ToString;
 @NoArgsConstructor//생성자
 @Getter
 @Setter
-@ToString
+@ToString 
 public class Qna {
 	
 	private int qnaNo;

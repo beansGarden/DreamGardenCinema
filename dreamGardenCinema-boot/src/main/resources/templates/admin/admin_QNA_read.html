@@ -58,9 +58,9 @@
 
           <!-- 등록,수정,삭제 버튼 -->
           <div class="admin_qnaBtn">
-            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaWrite}">등록</a></button>
-            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
-            <button class="admin_qnaEndBtn"><a href="">삭제</a></button>
+            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
+            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
+
         </div>
         
             
