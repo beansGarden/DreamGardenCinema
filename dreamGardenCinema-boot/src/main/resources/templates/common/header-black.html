@@ -7,9 +7,9 @@
         <ul class="dg-menu-L">
             <li class="dg-menu-L1"><a href="#" class="dg-movie-link">영화</a>
                 <ul class="dg-menu-drop-movie">
-                    <li><a href="#">홈</a></li>
-                    <li><a href="#">상영 예정작</a></li>
-                    <li><a href="#">현재 상영작</a></li>
+                    <li><a th:href="@{/movie}">홈</a></li>
+                    <li><a th:href="@{/movie/current}">현재 상영작</a></li>
+                    <li><a th:href="@{/movie/promise}">상영 예정작</a></li>
                 </ul>
             </li>
 
@@ -28,7 +28,7 @@
             </li>
         </ul>
 
-        <span class="dg-logo"><a href="#"><img th:src="@{/images/common/logo/검은배경 로고.svg}"></a></span>
+        <span class="dg-logo"><a th:href="@{/}"><img th:src="@{/images/common/logo/검은배경 로고.svg}"></a></span>
 
         <ul class="dg-menu-R">
             <li class="dg-menu-R1"><a href="#" class="dg-Service-link">고객센터</a>
