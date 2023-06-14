@@ -227,35 +227,11 @@ up_down_img.addEventListener("click",()=>{
   my_page_inquiry_table_display[1].classList.toggle("my-page-inquiry-table-display");
 
   if (up_down_img.src.includes("upbtn.png")) {
-    up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/downbtn.png";
+    up_down_img.src = "/images/myPage/downbtn.png";
   } else {
-    up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/upbtn.png";
+    up_down_img.src = "/images/myPage/upbtn.png";
   }
 
 })
 
-//   for(let i =0;i<my_page_inquiry_table_display.length;i++){
-
-//     up_down_img.addEventListener("click",()=>{
-
-//     my_page_inquiry_table_display[i].style.display="revert";
-
-//     up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/upbtn.png"
-
-    
-    
-//     for(let i =0;i<my_page_inquiry_table_display.length;i++){
-
-        
-//         up_down_img.addEventListener("click",()=>{
-          
-//           my_page_inquiry_table_display[i].style.display="none";
-          
-//           up_down_img.src = "/dreamGardenCinema-boot/src/main/resources/static/images/myPage/downbtn.png"
-          
-//         })
-//     }
-//   })
-
-// }
 

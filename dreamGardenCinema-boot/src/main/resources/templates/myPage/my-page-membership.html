@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,12 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my-page-membership</title>
     
-    <link rel="stylesheet" href="/dreamGardenCinema-boot/src/main/resources/static/css/myPage/my-page-membership.css">
-    <link rel="stylesheet" href="/dreamGardenCinema-boot/src/main/resources/static/css/myPage/my-page-changeinfo.css">
+    <link rel="stylesheet" th:href="@{/css/myPage/my-page-membership.css}">
+    <link rel="stylesheet" th:href="@{/css/myPage/my-page-changeinfo.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header-white.css}">
 </head>
 
 <body>
     
+    <th:block th:replace="~{common/header-white}"></th:block>
+
     <div class="my-page-container">
         <div class="my-page-nickname">
             <p>ㅇㅇㅇ님 환영합니다!</p>
@@ -22,29 +25,29 @@
         <div class="my-page-category">
             <ul class="my-page-L">
                 <li class="my-page-myinfo">
-                    <a href="#"><img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/내 정보 아이콘.png"></a>
-                    <a href="#">내정보 변경</a>
+                    <a th:href="@{#}"><img th:src="@{/images/myPage/내 정보 아이콘.png}"></a>
+                    <a th:href="@{#}">내정보 변경</a>
                 </li>
 
                 <li class="my-page-myprofile">
-                    <a href="#"><img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/프로필 변경 아이콘.png"></a>
-                    <a href="#">닉네임 변경</a>
+                    <a th:href="@{#}"><img th:src="@{/images/myPage/프로필 변경 아이콘.png}"></a>
+                    <a th:href="@{#}">닉네임 변경</a>
                 </li>
             </ul>
 
-            <a href="#" class="my-page-membership-grade">
-                <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/브론즈.png">
+            <a th:href="@{#}" class="my-page-membership-grade">
+                <img th:src="@{/images/myPage/브론즈.png}">
             </a>
 
             <ul class="my-page-R">
                 <li class="my-page-customer-service">
-                    <a href="#"><img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/1TO1문의.png"></a>
-                    <a href="#">1:1문의</a>
+                    <a th:href="@{#}"><img th:src="@{/images/myPage/1TO1문의.png}"></a>
+                    <a th:href="@{#}">1:1문의</a>
                 </li>
 
                 <li class="my-page-membership">
-                    <a href="/dreamGardenCinema-boot/src/main/resources/templates/myPage/my-page-membership.html"><img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/멤버십 아이콘.png"></a>
-                    <a href="/dreamGardenCinema-boot/src/main/resources/templates/myPage/my-page-membership.html">멤버십</a>
+                    <a th:href="@{/myPage/my-page-membership}"><img th:src="@{/images/myPage/멤버십 아이콘.png}"></a>
+                    <a th:href="@{/myPage/my-page-membership}">멤버십</a>
                 </li>
             </ul>
         </div>
@@ -56,19 +59,19 @@
     <div class="my-page-nav">
         <ul class="my-page-nav-list">
             <li>
-                <a href="/dreamGardenCinema-boot/src/main/resources/templates/myPage/my-page-reservation.html">예매 내역</a>
+                <a th:href="@{/myPage/}">예매 내역</a>
             </li>
 
             <li>
-                <a href="#">취소 내역</a>
+                <a th:href="@{#}">취소 내역</a>
             </li>
 
             <li>
-                <a href="/dreamGardenCinema-boot/src/main/resources/templates/myPage/my-page-inquiry.html">나의 문의 내역</a>
+                <a th:href="@{/myPage/my-page-inquiry}">나의 문의 내역</a>
             </li>
 
             <li>
-                <a href="#" id="my-page-secession">회원탈퇴</a>
+                <a th:href="@{#}" id="my-page-secession">회원탈퇴</a>
             </li>
         </ul>
     </div>
@@ -77,10 +80,10 @@
         <div class="my-page-back-ground-color">
             
         <div class="my-page-img-box">
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/브론즈.png">
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/실버 1.png"> 
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/골드 1.png"> 
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/플래티넘 1.png">
+            <img th:src="@{/images/myPage/브론즈.png}">
+            <img th:src="@{/images/myPage/실버 1.png}"> 
+            <img th:src="@{/images/myPage/골드 1.png}"> 
+            <img th:src="@{/images/myPage/플래티넘 1.png}">
         </div>
         <!-- 프로그래스 바 -->
 
@@ -118,10 +121,10 @@
     <div class="my-page-benefit-container">
         <span>등급 혜택</span>
         <div class="my-page-benefit">
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/benefit(bronze).png">
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/benefit(silver).png">
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/benefit(gold).png">
-            <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/benefit(platinum).png">
+            <img th:src="@{/images/myPage/benefit(bronze).png}">
+            <img th:src="@{/images/myPage/benefit(silver).png}">
+            <img th:src="@{/images/myPage/benefit(gold).png}">
+            <img th:src="@{/images/myPage/benefit(platinum).png}">
         </div>
     </div>
 
@@ -275,7 +278,7 @@
             <div class="my-page-changeinfo-pw-container">
                 
                 <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
+                    <input type="password" required="required">
                     <span>현재 비밀번호</span>
                     <i></i>
                 </div>
@@ -303,7 +306,7 @@
                     <div id="postcode-box">
                         <input type="text" placeholder="우편번호" id="postcode">
                         <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
-                        <img src="/dreamGardenCinema-boot/src/main/resources/static/images/myPage/주소 검색 아이콘.png" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
+                        <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
                     </div>
                     <div>
                         <input type="text" placeholder="도로명/지번 주소" id="address">
@@ -324,8 +327,10 @@
     
     </div>
     
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
-    <script src="/dreamGardenCinema-boot/src/main/resources/static/js/myPage/my-page-membership.js"></script>
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script> 
+    <script th:src="@{/js/myPage/my-page-membership.js}"></script>
 </body>
 
 </html>
