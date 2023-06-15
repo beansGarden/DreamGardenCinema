@@ -11,7 +11,6 @@
         let day = new Date();
 
         const mainTimeList = /*[[${timeList}]]*/ "첫 영화 시간";
-        console.log(mainTimeList);
     </script>
 </head>
 <body>
@@ -52,9 +51,8 @@
                     <div class="MovieList hamburger">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                         <th:block th:each="movie : ${session.movieList}">
-                            
-                            <label th:for="${movie.MOVIE_NO}" class="checkBtn hmbgr" th:classappend="${movie.MOVIE_NO == saveTicket?.saveMovieNo} ? saveMovie">
-                                <img class="rating" th:src="${movie.RATING}">
+                            <label th:for="${movie.MOVIE_NO}" class="checkBtn hmbgr" th:classappend="${movie.MOVIE_NO == checkNo} ? 'saveMovie'">
+                                <img class="rating" th:src="${movie.RATING}">                          
                                 <span class="movieTitle" th:text="${movie.MOVIE_TITLE}"></span>
                             </label>
                         </th:block>
@@ -62,8 +60,8 @@
                     </div>
                     <div class="MovieList pizza" style="display: none;">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie : ${session.movieList}">
-                            <label th:for="${movie.MOVIE_NO}" class="checkBtn pzz" th:classappend="${movie.MOVIE_NO == saveTicket?.saveMovieNo} ? saveMovie">
+                        <th:block th:each="movie, movieStat : ${session.movieList}">
+                            <label th:for="${movie.MOVIE_NO}" class="checkBtn pzz" th:classappend="${movie.MOVIE_NO == checkNo} ? 'saveMovie'">
                                 <div class="poster">
                                     <img th:src="${movie.POSTER}">
                                 </div>
@@ -130,21 +128,18 @@
                         </div>
                     </section>
 
-                    <div style="display:none">
-                        날짜를 선택해주세요
-                    </div>
-
+                    
+                    
                     <div class="movieChoiceTitle">
-                        <img th:src="@{/images/common/main/15세.png}" alt="">
-                        <span>범죄도시3</span>
+                        <img th:src="${movieList[0].RATING}">
+                        <span th:text="${movieList[0].MOVIE_TITLE}"></span>
                     </div>
-
                     <div class="timeSelect">
-                        <ul class="timelist">
+                        <div class="timeSelect" th:if="${#lists.size(timeList) == 0}">
+                            상영중인 정보가 없습니다.
+                        </div>
+                        <ul class="timelist" th:unless="${#lists.size(timeList) == 0}">
                             <li th:each="time : ${timeList}">                                                              
-                                <!-- <h1 th:text="${time.CHECK_TIME}"></h1>
-                                <h1 th:text="${saveTicket?.saveMovieTime}"></h1> -->
-                                <!--  th:classappend="${time.CHECK_TIME == saveTicket?.saveMovieTime} ? saveMovie" -->
                                 <label class="btn" onclick="movieTimeSub()" th:for="|${time.MOVIE_THEATER},${time.MOVIE_TIME}|">
                                     <input type="radio" name="movieTime" th:id="|${time.MOVIE_THEATER},${time.MOVIE_TIME}|" th:value="|${time.MOVIE_THEATER},${time.MOVIE_TIME}|">
                                     <div>
@@ -161,10 +156,8 @@
                 </div>
             </form>
         </div>
-    </div>
 
-    <h1 th:text="${ticket}"></h1>
-    <h1 th:text="${saveTicket?.saveMovieNo}"></h1>
+    </div>
     <script th:inline="javascript">
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
         const timetime = /*[[${timeList}]]*/ "시간";

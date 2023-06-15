@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 
@@ -23,6 +24,11 @@ public class TicketingServiceImpl implements TicketingService{
 	@Override
 	public List<Schedule> selectTimeList(Object movieNo) {
 		return mapper.selectTimeList(movieNo);
+	}
+
+	@Override
+	public List<Schedule> selectSaveTimeList(Map<String, Object> saveTicket) {
+		return mapper.selectSaveTimeList(saveTicket);
 	}
 
 

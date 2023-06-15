@@ -306,6 +306,7 @@ body{
 }
 .movieChoiceTitle{
     height: 60px;
+    width: 100%;
     display: flex;
     margin-left: 30px;
     align-items: center;

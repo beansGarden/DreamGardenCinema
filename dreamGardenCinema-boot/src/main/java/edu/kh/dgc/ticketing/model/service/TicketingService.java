@@ -11,4 +11,6 @@ public interface TicketingService {
 
 	List<Schedule> selectTimeList(Object movieNo);
 
+	List<Schedule> selectSaveTimeList(Map<String, Object> saveTicket);
+
 }

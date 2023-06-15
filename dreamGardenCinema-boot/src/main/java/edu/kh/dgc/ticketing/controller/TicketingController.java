@@ -41,19 +41,29 @@ public class TicketingController {
 			, @RequestParam(value="movieTime", required=false, defaultValue="null") String saveMovieTime
 			) { 
 
+		List<Schedule> timeList = null;
+		
 		if(saveMovieNo != 0 && saveMovieTheater != 0 && !saveMovieTime.equals("null")) {
 			Map<String, Object> saveTicket = new HashMap<>();
 			saveTicket.put("saveMovieNo", saveMovieNo);
 			saveTicket.put("saveMovieTheater", saveMovieTheater);
 			saveTicket.put("saveMovieTime", saveMovieTime);
 			model.addAttribute("saveTicket", saveTicket);
+			
+			saveTicket.put("movieTime", saveMovieTime.split(" ")[0]);
+			
+			timeList = service.selectSaveTimeList(saveTicket);
+			
+			model.addAttribute("checkNo", saveMovieNo);
+		} else {
+			Object movieNo = movieList.get(0).get("MOVIE_NO");
+			timeList = service.selectTimeList(movieNo);
+			model.addAttribute("checkNo", movieNo);
 		}
 		
 		
-		Object movieNo = movieList.get(0).get("MOVIE_NO");
 		
 		
-		List<Schedule> timeList = service.selectTimeList(movieNo);
 		// 페이지 보여질 때 영화 정보들(포스터, 제목, 등급, 순위, 별점, 개봉일, 예매율) 가져와야 함 + 영화별 상영 날짜/시간
 		model.addAttribute("timeList",timeList);
 		

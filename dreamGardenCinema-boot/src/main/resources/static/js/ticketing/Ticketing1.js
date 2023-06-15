@@ -142,8 +142,6 @@ function dateSet(){
 
 // 상영시간 / 상영관 AJAX
 const checkBtn = document.querySelectorAll(".checkBtn");
-let ratingImage;
-let movieTitle;
 for(let i=0;i<checkBtn.length;i++){
     checkBtn[i].addEventListener("click", e => {
         let movieNo;
@@ -152,8 +150,6 @@ for(let i=0;i<checkBtn.length;i++){
         if(e.currentTarget.nodeName == 'LABEL'){
             movieNo = e.currentTarget.getAttribute('for');
             date = document.querySelector("input[name=date]:checked").value;
-            ratingImage = e.currentTarget.querySelector(".rating").getAttribute('src');
-            movieTitle = e.currentTarget.querySelector(".movieTitle").innerText;
         }
         if(e.currentTarget.nodeName == 'LI'){
             movieNo = document.querySelector("input[name=movieNo]:checked").value;
@@ -172,9 +168,12 @@ for(let i=0;i<checkBtn.length;i++){
 
             // 기존 정보 삭제
             const movieChoiceTitle = document.querySelector(".movieChoiceTitle");
-            const timelist = document.querySelector(".timelist");
+            const timeSelect = document.querySelector(".timeSelect");
+            timeSelect.innerHTML = '';
             movieChoiceTitle.innerHTML = '';
-            timelist.innerHTML = '';
+
+            const ul = document.createElement("ul");
+            ul.classList.add("timeList");
 
             for(let i=0;i<timeList.length;i++){
                 // 영화관, 시간 버튼 생성
@@ -196,17 +195,18 @@ for(let i=0;i<checkBtn.length;i++){
                 lastDiv.innerText = timeList[i].MOVIE_TIME;
                 label.append(input, firstDiv, lastDiv);
                 li.append(label);
-                timelist.append(li);
+                ul.append(li);
             }
+            timeSelect.append(ul);
 
             // 영화 등급, 제목 바꾸기
-            if(timeList.length>0){
-                const img = document.createElement("img");
-                img.setAttribute("src", ratingImage);
-                const span = document.createElement("span");
-                span.innerText = movieTitle;
-                movieChoiceTitle.append(img, span);
-            }
+           
+            const img = document.createElement("img");
+            img.setAttribute("src", ratingImage);
+            const span = document.createElement("span");
+            span.innerText = movieTitle;
+            movieChoiceTitle.append(img, span);
+            
         })
         .catch(err => {
             console.log("예외 발생");
@@ -224,3 +224,4 @@ function movieTimeSub(){
     }
     document.getElementById('timeFrm').submit();
 }
+
