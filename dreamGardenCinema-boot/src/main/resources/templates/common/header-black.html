@@ -7,9 +7,9 @@
         <ul class="dg-menu-L">
             <li class="dg-menu-L1"><a href="#" class="dg-movie-link">영화</a>
                 <ul class="dg-menu-drop-movie">
-                    <li><a href="#">홈</a></li>
-                    <li><a href="#">상영 예정작</a></li>
-                    <li><a href="#">현재 상영작</a></li>
+                    <li><a th:href="@{/movie}">홈</a></li>
+                    <li><a th:href="@{/movie/current}">현재 상영작</a></li>
+                    <li><a th:href="@{/movie/promise}">상영 예정작</a></li>
                 </ul>
             </li>
 
@@ -28,7 +28,7 @@
             </li>
         </ul>
 
-        <span class="dg-logo"><a href="#"><img th:src="@{/images/common/logo/검은배경 로고.svg}"></a></span>
+        <span class="dg-logo"><a th:href="@{/}"><img th:src="@{/images/common/logo/검은배경 로고.svg}"></a></span>
 
         <ul class="dg-menu-R">
             <li class="dg-menu-R1"><a href="#" class="dg-Service-link">고객센터</a>
@@ -40,12 +40,12 @@
             </li>
 
             <!-- 로그인한 회원이 없을 경우 -->
-            <li class="dg-menu-login"><a href="#" class="dg-login-link">로그인</a></li>
+            <li class="dg-menu-login"><a href="/user/login" class="dg-login-link">로그인</a></li>
             <!-- 로그인한 회원이 있을 경우 -->
             <li class="dg-menu-logout"><a href="#" class="dg-logout-link">로그아웃</a></li>
 
             <!-- 비회원일 경우 -->
-            <li class="dg-menu-nonmember"><a href="#" class="dg-singup-link">회원가입</a></li>
+            <li class="dg-menu-nonmember"><a href="/user/signUp" class="dg-singup-link">회원가입</a></li>
             <!-- 회원일 경우 -->
             <li class="dg-menu-member"><a href="#" class="dg-mypage-link">마이 페이지</a></li>
         </ul>

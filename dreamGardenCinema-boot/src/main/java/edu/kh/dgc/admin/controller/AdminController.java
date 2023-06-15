@@ -125,21 +125,19 @@ public class AdminController {
 		
 		
 		
-		//6-1. 1:1 문의사항 게시글 조회
-		@GetMapping(value = "/adminQnaRead")//
+		//6-1. 1:1 문의사항 게시글 조회 230613
+		@GetMapping("/adminQnaRead/{qnaNo}")//
 		public String qnaRead(Model model,@PathVariable(value="qnaNo",required=false) int qnaNo) {
 					
 			Qna qna = service.selectQnaOne(qnaNo);
-			
-			System.out.println(qnaNo);
-			
+				
 			qna.setQnaNo(qnaNo);
 			model.addAttribute("Qna", qna);
 			
 		return "admin/admin_QNA_read";
 		}
 		
-		//6-2. 1:1 문의사항 게시글 쓰기
+		//6-2. 1:1 문의사항 게시글 쓰기 230613
 		@GetMapping("/adminQnaWrite")//
 		public String qnaWrite() {
 					
@@ -148,11 +146,17 @@ public class AdminController {
 		}
 		
 		
-		//6-2. 1:1 문의사항 게시글 수정
-		@GetMapping("/adminQnaUpdate")//
-		public String qnaUpdate() {
-					
-						
+		//6-2. 1:1 문의사항 게시글 수정화면 전환 230613
+		@GetMapping("/adminQnaUpdate/{qnaNo}")//
+		public String qnaUpdate(Model model,@PathVariable(value="qnaNo",required=false) int qnaNo) {
+			
+		Qna qna = service.updateQna(qnaNo);
+			
+		qna.setQnaNo(qnaNo);
+		model.addAttribute("Qna", qna);
+		
+		System.out.println(qna);
+							
 		return "admin/admin_QNA_update";
 		}
 		

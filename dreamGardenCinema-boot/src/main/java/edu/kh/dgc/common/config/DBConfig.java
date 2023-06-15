@@ -16,56 +16,54 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration 
+@Configuration
 @PropertySource("classpath:/application.properties")
 public class DBConfig {
 
-   @Autowired
-   private ApplicationContext applicationContext; 
+	@Autowired
+	private ApplicationContext applicationContext;
 
-   @Bean
-   @ConfigurationProperties(prefix = "spring.datasource.hikari")
-   public HikariConfig hikariConfig() {
-      return new HikariConfig();
-   }
+	@Bean
+	@ConfigurationProperties(prefix = "spring.datasource.hikari")
+	public HikariConfig hikariConfig() {
+		return new HikariConfig();
+	}
 
-   @Bean
-   public DataSource dataSource(HikariConfig config) {
-      DataSource dataSource = new HikariDataSource(config);
-      return dataSource;
-   }
+	@Bean
+	public DataSource dataSource(HikariConfig config) {
+		DataSource dataSource = new HikariDataSource(config);
+		return dataSource;
+	}
 
-   @Bean
-   public SqlSessionFactory sessionFactory(DataSource dataSource) throws Exception {
-      
-      SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-      sessionFactoryBean.setDataSource(dataSource);
-      
-      //매퍼 파일이 모여있는 경로 지정
-      sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
-      
-      sessionFactoryBean.setTypeAliasesPackage("edu.kh.dgc.user.model.dto, edu.kh.dgc.movie.model.dto, "
-      		+ "edu.kh.dgc.qna.model.dto, edu.kh.dgc.admin.model.dto, edu.kh.dgc.notice.model.dto, edu.kh.dgc.ticketing.model.dto");
+	@Bean
+	public SqlSessionFactory sessionFactory(DataSource dataSource) throws Exception {
 
-      
-      //留덉씠諛뷀떚�뒪 �꽕�젙 �뙆�씪 寃쎈줈 吏��젙
-      sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
-      
-      //SqlSession 媛앹껜 諛섑솚
-      return sessionFactoryBean.getObject();
-   }
+		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
+		sessionFactoryBean.setDataSource(dataSource);
 
-   
-   //SqlSessionTemplate : 湲곕낯 SQL �떎�뻾 + �듃�옖�옲�뀡 泥섎━
-   @Bean
-   public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sessionFactory) {
-      return new SqlSessionTemplate(sessionFactory);
-   }
+		// 매퍼 파일이 모여있는 경로 지정
+		sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
 
-   //DataSourceTransactionManager : �듃�옖�옲�뀡 留ㅻ땲��
-   @Bean
-   public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
-      return new DataSourceTransactionManager(dataSource);
-   }
+		sessionFactoryBean.setTypeAliasesPackage("edu.kh.dgc.user.model.dto, edu.kh.dgc.movie.model.dto, "
+				+ "edu.kh.dgc.qna.model.dto, edu.kh.dgc.admin.model.dto, edu.kh.dgc.notice.model.dto, edu.kh.dgc.ticketing.model.dto");
+
+		// 마이바티스 설정 파일 경로 지정
+		sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
+
+		// SqlSession 객체 반환
+		return sessionFactoryBean.getObject();
+	}
+
+	// SqlSessionTemplate : 기본 SQL 실행 + 트랜잭션 처리
+	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sessionFactory) {
+		return new SqlSessionTemplate(sessionFactory);
+	}
+
+	// SqlSessionTemplate : 기본 SQL 실행 + 트랜잭션 처리
+	@Bean
+	public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
 
 }

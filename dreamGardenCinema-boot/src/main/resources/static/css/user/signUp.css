@@ -141,15 +141,6 @@ input::placeholder {
 
 .authKey-green-text{color: #09aa5c;}
 .authKey-red-text{color: red;}
-
-#sampleBtn{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50px;
-    height: 50px;
-    background-color: #d7373f;
-}
 .userErrIcon{
     position: absolute;
     top: 60%;
