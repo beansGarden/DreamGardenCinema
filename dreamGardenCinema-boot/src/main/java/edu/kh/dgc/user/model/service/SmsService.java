@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,6 +50,9 @@ public class SmsService {
 
 	@Value("${naver-cloud-sms.senderPhone}")
 	private String phone;
+	
+	// 현재시간
+    String time = Long.toString(System.currentTimeMillis());
 
 	public String makeSignature(Long time)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
@@ -75,7 +79,12 @@ public class SmsService {
 		return encodeBase64String;
 	}
 	
-	public SmsResponseDTO sendSms(MessageDTO messageDto) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+	public SmsResponseDTO sendSms(MessageDTO messageDto, String userTel) 
+			throws JsonProcessingException, RestClientException, URISyntaxException
+			, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+		
+		String smsConfirmNum = createSmsKey();
+		
 		Long time = System.currentTimeMillis();
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -83,6 +92,8 @@ public class SmsService {
 		headers.set("x-ncp-apigw-timestamp", time.toString());
 		headers.set("x-ncp-iam-access-key", accessKey);
 		headers.set("x-ncp-apigw-signature-v2", makeSignature(time));
+		
+		messageDto.setTo(userTel);// 여기 변경
 		
 		List<MessageDTO> messages = new ArrayList<>();
 		messages.add(messageDto);
@@ -92,7 +103,7 @@ public class SmsService {
 				.contentType("COMM")
 				.countryCode("82")
 				.from(phone)
-				.content(messageDto.getContent())
+				.content("[DGCinema] 인증번호 [" + smsConfirmNum + "]를 입력해주세요")
 				.messages(messages)
 				.build();
 		
@@ -104,17 +115,12 @@ public class SmsService {
 	    restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 	    SmsResponseDTO response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponseDTO.class);
  
-	    return response;	
+	    return response;
 	}
-
-//5자리의 난수를 조합을 통해 인증코드 만들기
+	// 6자리 난수
 	public static String createSmsKey() {
-		StringBuffer key = new StringBuffer();
-		Random rnd = new Random();
-
-		for (int i = 0; i < 5; i++) { // 인증코드 5자리
-			key.append((rnd.nextInt(10)));
-		}
-		return key.toString();
+		SecureRandom secureRandom = new SecureRandom();
+        int randomNumber = secureRandom.nextInt(900000) + 100000;
+        return String.valueOf(randomNumber);
 	}
 }

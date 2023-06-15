@@ -11,8 +11,8 @@ function addClass(event) {
     const input = event.target;
     const span = input.nextElementSibling;
     if (span.tagName.toLowerCase() === "span") {
-    span.classList.remove('output-font-size-ani');
-    span.classList.add('input-font-size-ani');
+        span.classList.remove('output-font-size-ani');
+        span.classList.add('input-font-size-ani');
     }
 }
 
@@ -89,14 +89,14 @@ const userErrIcon = document.getElementById("userErrIcon");
 const userId = document.getElementById("userId");
 
 if (userId != null) {
-    
+
     userId.addEventListener("input", () => {
-        
+
         if (userId.value.trim().length == 0) {
             userId.value = "";
 
             userId.classList.add("err-input-border");
-            if(checkUserErrIcon(classUserId) == false){addUserErrIcon("userId");}
+            if (checkUserErrIcon(classUserId) == false) { addUserErrIcon("userId"); }
             checkObj.userId = false;
             return;
         }
@@ -116,7 +116,7 @@ if (userId != null) {
                     } else {
                         userId.classList.add("err-input-border");
                         userId.classList.remove("check-input-border");
-                        if(checkUserErrIcon(classUserId) == false){addUserErrIcon("userId");}
+                        if (checkUserErrIcon(classUserId) == false) { addUserErrIcon("userId"); }
 
                         checkObj.userId = false;
                     }
@@ -125,7 +125,7 @@ if (userId != null) {
         } else { // 유효하지 않은 경우(무효인 경우)
             userId.classList.add("err-input-border");
             userId.classList.remove("check-input-border");
-            if(checkUserErrIcon(classUserId) == false){addUserErrIcon("userId");}
+            if (checkUserErrIcon(classUserId) == false) { addUserErrIcon("userId"); }
             checkObj.userId = false;
         }
     });
@@ -135,15 +135,15 @@ if (userId != null) {
 const userEmail = document.getElementById("userEmail");
 
 if (userEmail != null) {
-    
+
     userEmail.addEventListener("input", () => {
-        
+
         if (userEmail.value.trim().length == 0) {
             userEmail.value = "";
 
             userEmail.classList.add("err-input-border");
-            if(checkUserErrIcon(classUserEmail) == false){addUserErrIcon("userEmail");}
-            checkObj.userEmail = false; 
+            if (checkUserErrIcon(classUserEmail) == false) { addUserErrIcon("userEmail"); }
+            checkObj.userEmail = false;
             return;
         }
 
@@ -163,7 +163,7 @@ if (userEmail != null) {
                     } else {
                         userEmail.classList.add("err-input-border");
                         userEmail.classList.remove("check-input-border");
-                        if(checkUserErrIcon(classUserEmail) == false){addUserErrIcon("userEmail");}
+                        if (checkUserErrIcon(classUserEmail) == false) { addUserErrIcon("userEmail"); }
 
                         checkObj.userEmail = false;
                     }
@@ -172,7 +172,7 @@ if (userEmail != null) {
         } else { // 유효하지 않은 경우(무효인 경우)
             userEmail.classList.add("err-input-border");
             userEmail.classList.remove("check-input-border");
-            if(checkUserErrIcon(classUserEmail) == false){addUserErrIcon("userEmail");}
+            if (checkUserErrIcon(classUserEmail) == false) { addUserErrIcon("userEmail"); }
             checkObj.userEmail = false;
         }
     });
@@ -189,13 +189,13 @@ if (userPw != null || userRePw != null) {
             userPw.value = "";
 
             userPw.classList.add("err-input-border");
-            if(checkUserErrIcon(classUserPw) == false){addUserErrIcon("userPw");}
+            if (checkUserErrIcon(classUserPw) == false) { addUserErrIcon("userPw"); }
             checkObj.userPw = false;
             return;
         }
         const regEx = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-z\d$@$!%*#?&]{8,}$/;
         // 8~ 영문 소문자, 최소 1개의 숫자 혹은 특수 문자 포함
-        
+
         if (regEx.test(userPw.value)) {
             checkObj.userPw = true;
 
@@ -218,14 +218,14 @@ if (userPw != null || userRePw != null) {
                 } else { // 다를 경우
                     userRePw.classList.add("err-input-border");
                     userRePw.classList.remove("check-input-border");
-                    if(checkUserErrIcon(classUserRePw) == false){addUserErrIcon("userRePw");}
+                    if (checkUserErrIcon(classUserRePw) == false) { addUserErrIcon("userRePw"); }
                     checkObj.userRePw = false;
                 }
             }
         } else { // 유효하지 않은 경우
             userPw.classList.add("err-input-border");
             userPw.classList.remove("check-input-border");
-            if(checkUserErrIcon(classUserPw) == false){addUserErrIcon("userPw");}
+            if (checkUserErrIcon(classUserPw) == false) { addUserErrIcon("userPw"); }
             checkObj.userPw = false;
         }
     });
@@ -244,7 +244,7 @@ if (userPw != null || userRePw != null) {
             } else { // 다를 경우
                 userRePw.classList.add("err-input-border");
                 userRePw.classList.remove("check-input-border");
-                if(checkUserErrIcon(classUserRePw) == false){addUserErrIcon("userRePw");}
+                if (checkUserErrIcon(classUserRePw) == false) { addUserErrIcon("userRePw"); }
                 checkObj.userRePw = false;
             }
 
@@ -266,7 +266,7 @@ if (userPw != null || userRePw != null) {
             } else { // 다를 경우
                 userRePw.classList.add("err-input-border");
                 userRePw.classList.remove("check-input-border");
-                if(checkUserErrIcon(classUserRePw) == false){addUserErrIcon("userRePw");}
+                if (checkUserErrIcon(classUserRePw) == false) { addUserErrIcon("userRePw"); }
                 checkObj.userRePw = false;
             }
 
@@ -309,7 +309,7 @@ if (userNickname != null) {
                     } else {
                         userNickname.classList.add("err-input-border");
                         userNickname.classList.remove("check-input-border");
-                        if(checkUserErrIcon(classUserNickname) == false){addUserErrIcon("userNickname");}
+                        if (checkUserErrIcon(classUserNickname) == false) { addUserErrIcon("userNickname"); }
                         checkObj.userNickname = false; // 유효 X
                     }
                 })
@@ -318,7 +318,7 @@ if (userNickname != null) {
         } else { // 무효
             userNickname.classList.add("err-input-border");
             userNickname.classList.remove("check-input-border");
-            if(checkUserErrIcon(classUserNickname) == false){addUserErrIcon("userNickname");}
+            if (checkUserErrIcon(classUserNickname) == false) { addUserErrIcon("userNickname"); }
             checkObj.userNickname = false;
         }
     });
@@ -362,7 +362,7 @@ if (userBirth1 != null) {
 
             userBirth1.classList.add("err-input-border");
             userBirth1.classList.remove("check-input-border");
-            if (checkUserErrIcon(classUserBirth) == false) { addUserErrIcon("userBirth1");}
+            if (checkUserErrIcon(classUserBirth) == false) { addUserErrIcon("userBirth1"); }
             return;
         }
         if (validateDateOfBirth(userBirth1.value)) { // 유효
@@ -374,12 +374,12 @@ if (userBirth1 != null) {
         } else { // 무효
             userBirth1.classList.add("err-input-border");
             userBirth1.classList.remove("check-input-border");
-            if (checkUserErrIcon(classUserBirth) == false) { addUserErrIcon("userBirth1");}
+            if (checkUserErrIcon(classUserBirth) == false) { addUserErrIcon("userBirth1"); }
             checkObj.userBirth1 = false;
         }
     });
 }
-userBirth1.addEventListener("input", function() {
+userBirth1.addEventListener("input", function () {
     this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
 });
 
@@ -401,7 +401,7 @@ if (userTel != null) {
 
             userTel.classList.add("err-input-border");
             userTel.classList.remove("check-input-border");
-            if (checkUserErrIcon(classUserTel) == false) { addUserErrIcon("userTel");}
+            if (checkUserErrIcon(classUserTel) == false) { addUserErrIcon("userTel"); }
             return;
         }
         const regEx = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
@@ -413,19 +413,19 @@ if (userTel != null) {
         } else {
             userTel.classList.add("err-input-border");
             userTel.classList.remove("check-input-border");
-            if (checkUserErrIcon(classUserTel) == false) { addUserErrIcon("userTel");}
+            if (checkUserErrIcon(classUserTel) == false) { addUserErrIcon("userTel"); }
             checkObj.userTel = false;
         }
     });
 }
-userTel.addEventListener("input", function() {
+userTel.addEventListener("input", function () {
     this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
 });
 // ----------------------------------------------- 휴대폰 번호 유효성 검사 끝 -----------------------------------------------
 // ----------------------------------------------- 성별 체크 검사 -----------------------------------------------
 const radioButtons = document.getElementsByClassName('userGender');
 for (var i = 0; i < radioButtons.length; i++) {
-    radioButtons[i].addEventListener('change', function() {
+    radioButtons[i].addEventListener('change', function () {
         if (this.checked) {
             checkObj.userGender = true;
         }
@@ -433,113 +433,126 @@ for (var i = 0; i < radioButtons.length; i++) {
 }
 // ----------------------------------------------- 성별 체크 검사 -----------------------------------------------
 
-// ----------------------------------------------- 이메일 인증 -----------------------------------------------
-// // 인증번호 발송
-// const sendAuthKeyBtn = document.getElementById("sendAuthKeyBtn");
-// const authKeyMessage = document.getElementById("authKeyMessage");
-// let authTimer;
-// let authMin = 4;
-// let authSec = 59;
+// ----------------------------------------------- 휴대폰 인증 -----------------------------------------------
+// 인증번호 발송
+const sendAuthKeyBtn = document.getElementById("sendAuthKeyBtn");
 
-// // 인증번호를 발송한 이메일 저장
-// let tempEmail;
-// if (sendAuthKeyBtn != null) {
-//     sendAuthKeyBtn.addEventListener("click", function (e) {
-//         authMin = 4;
-//         authSec = 59;
-//         checkObj.authKey = false;
+let authTimer;
+let authMin = 4;
+let authSec = 59;
 
-//         if (checkObj.userEmail) { // 중복이 아닌 이메일인 경우
+// 인증번호를 발송한 이메일 저장
+let tempEmail;
+if (sendAuthKeyBtn != null) {
+    sendAuthKeyBtn.addEventListener("click", function (e) {
 
-//             sendAuthKeyBtn.setAttribute("disabled", "disabled") // 재전송 방지
+        sessionStorage.setItem("userTel", userTel.value); // userTel session 저장
 
-//             /* fetch() API 방식 ajax */
-//             fetch("/sendEmail/signUp?email=" + userEmail.value)
-//                 .then(resp => resp.text())
-//                 .then(result => {
-//                     if (result > 0) {
-//                         console.log("인증 번호가 발송되었습니다.")
-//                         tempEmail = userEmail.value;
-//                         emailMessage.classList.add("class-hidden");
-//                     } else {
-//                         console.log("인증번호 발송 실패")
-//                     }
-//                 })
-//                 .catch(err => {
-//                     console.log("이메일 발송 중 에러 발생");
-//                     console.log(err);
-//                 });
+        authMin = 4;
+        authSec = 59;
+        // checkObj.authKey = false;
 
-//             alert("인증번호가 발송 되었습니다.");
+        if (checkObj.userTel) {
 
-//             sendAuthKeyBtn.innerText = "05:00";
-//             sendAuthKeyBtn.classList.remove("confirm");
-//             sendAuthKeyBtn.classList.remove("class-hidden");
-//             // authKeyMessage.innerText = "05:00";
-//             // authKeyMessage.classList.remove("confirm");
-//             // authKeyMessage.classList.add("error");
-//             // authKeyMessage.classList.remove("class-hidden");
+            sendAuthKeyBtn.setAttribute("disabled", "disabled") // 재전송 방지
 
-//             authTimer = window.setInterval(() => {
-//                 sendAuthKeyBtn.innerText = "0" + authMin + ":" + (authSec < 10 ? "0" + authSec : authSec);
-//                 // 남은 시간이 0분 0초인 경우
-//                 if (authMin == 0 && authSec == 0) {
-//                     checkObj.authKey = false;
-//                     clearInterval(authTimer);
-//                     sendAuthKeyBtn.classList.add("error");
-//                     return;
-//                 }
-//                 // 0초인 경우
-//                 if (authSec == 0) {
-//                     authSec = 60;
-//                     authMin--;
-//                 }
+            let data = {
+                userTel: userTel.value // userTel 값을 객체에 담기
+            };
 
-//                 authSec--; // 1초 감소
+            /* fetch() API 방식 ajax */
+            fetch("/user/sms/send?userTel=" + userTel.value, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
+            })
 
-//             }, 1000)
+                .then(resp => resp.json())
+                .then(result => {
+                    if (result.statusCode == 202) {
+                        console.log("인증번호 발송 성공")
+                        console.log(result);
+                    } else {
+                        console.log("인증번호 발송 실패")
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log("이메일 발송 중 에러 발생");
+                    console.log(err);
+                });
 
-//         } else {
-//             alert("중복되지 않은 이메일을 작성해주세요.");
-//             userEmail.focus();
-//         }
+            alert("인증번호가 발송 되었습니다.");
 
-//     });
+            sendAuthKeyBtn.innerText = "05:00";
+            sendAuthKeyBtn.classList.remove("confirm");
+            sendAuthKeyBtn.classList.remove("class-hidden");
+            // authKeyMessage.innerText = "05:00";
+            // authKeyMessage.classList.remove("confirm");
+            // authKeyMessage.classList.add("error");
+            // authKeyMessage.classList.remove("class-hidden");
 
-//     // 인증 확인
-//     const authKey = document.getElementById("authKey");
-//     const checkAuthKeyBtn = document.getElementById("checkAuthKeyBtn");
+            authTimer = window.setInterval(() => {
+                sendAuthKeyBtn.innerText = "0" + authMin + ":" + (authSec < 10 ? "0" + authSec : authSec);
+                // 남은 시간이 0분 0초인 경우
+                if (authMin == 0 && authSec == 0) {
+                    checkObj.authKey = false;
+                    clearInterval(authTimer);
+                    sendAuthKeyBtn.classList.add("error");
+                    return;
+                }
+                // 0초인 경우
+                if (authSec == 0) {
+                    authSec = 60;
+                    authMin--;
+                }
 
-//     checkAuthKeyBtn.addEventListener("click", function () {
-//         if (authMin > 0 || authSec > 0) { // 시간 제한이 지나지 않은 경우에만 인증번호 검사 진행
-//             /* fetch API */
-//             const obj = { "inputKey": authKey.value, "email": tempEmail }
-//             const query = new URLSearchParams(obj).toString()
-//             fetch("/sendEmail/checkAuthKey?" + query)
-//                 .then(resp => resp.text())
-//                 .then(result => {
-//                     if (result > 0) {
-//                         clearInterval(authTimer);
-//                         authKeyMessage.innerText = "인증되었습니다.";
-//                         authKeyMessage.classList.remove("error");
-//                         authKeyMessage.classList.add("confirm");
-//                         checkObj.authKey = true;
+                authSec--; // 1초 감소
 
-//                     } else {
-//                         alert("인증번호가 일치하지 않습니다.")
-//                         checkObj.authKey = false;
-//                     }
-//                 })
-//                 .catch(err => console.log(err));
+            }, 1000)
+
+        } else {
+            alert("중복되지 않은 이메일을 작성해주세요.");
+            userEmail.focus();
+        }
+
+    });
+
+    // 인증 확인
+    const authKey = document.getElementById("authKey");
+    const checkAuthKeyBtn = document.getElementById("checkAuthKeyBtn");
+
+    // checkAuthKeyBtn.addEventListener("click", function () {
+    //     if (authMin > 0 || authSec > 0) { // 시간 제한이 지나지 않은 경우에만 인증번호 검사 진행
+    //         /* fetch API */
+    //         const obj = { "inputKey": authKey.value, "email": tempEmail }
+    //         const query = new URLSearchParams(obj).toString()
+    //         fetch("/sendEmail/checkAuthKey?" + query)
+    //             .then(resp => resp.text())
+    //             .then(result => {
+    //                 if (result > 0) {
+    //                     clearInterval(authTimer);
+    //                     authKeyMessage.classList.remove("error");
+    //                     authKeyMessage.classList.add("confirm");
+    //                     checkObj.authKey = true;
+
+    //                 } else {
+    //                     alert("인증번호가 일치하지 않습니다.")
+    //                     checkObj.authKey = false;
+    //                 }
+    //             })
+    //             .catch(err => console.log(err));
 
 
-//         } else {
-//             alert("인증 시간이 만료되었습니다. 다시 시도해주세요.")
-//         }
+    //     } else {
+    //         alert("인증 시간이 만료되었습니다. 다시 시도해주세요.")
+    //     }
 
-//     });
-// }
-// ----------------------------------------------- 이메일 인증 끝 -----------------------------------------------
+    // });
+}
+// ----------------------------------------------- 휴대폰 인증 끝 -----------------------------------------------
 
 /* 약관 */
 // const checkTerms = document.getElementById("checkTerms");

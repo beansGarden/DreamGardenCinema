@@ -45,6 +45,9 @@ public class User {
 	@NotBlank
 	private LocalDate userBirth;
 	
+	@NotBlank
+	private int authKey;
+	
 	private String userEnrollDate;
 	
 	private int userAmount;

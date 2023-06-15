@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
  
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,12 +34,13 @@ public class SmsController {
 		return "user/sendSms";
 	}
 	
+	@ResponseBody
 	@PostMapping("/sms/send")
-	public String sendSms(MessageDTO messageDto, Model model) throws JsonProcessingException, RestClientException
+	public SmsResponseDTO sendSms(MessageDTO messageDto, Model model, String userTel) throws JsonProcessingException, RestClientException
 	, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		SmsResponseDTO response = smsService.sendSms(messageDto);
-		model.addAttribute("response", response);
-		return "user/result";
+		SmsResponseDTO response = smsService.sendSms(messageDto, userTel);
+		//model.addAttribute("response", response);
+		return response;
 	}
  
 	
