@@ -23,16 +23,24 @@
                 <ul class="dg-menu-drop-reservation">
                     <li><a th:href="@{/ticketing/date}">예매하기</a></li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     <li><a href="#">상영 시간표</a></li>
 >>>>>>> 4d23f082957a5cdba22d110c137d879b47cb0b9f
+=======
+>>>>>>> origin/poodle
                 </ul>
             </li>
 
             <li class="dg-menu-L3"><a th:href="@{#}" class="dg-membership-link">멤버십</a>
                 <ul class="dg-menu-drop-membership">
+<<<<<<< HEAD
                     <li><a th:href="@{#}">멤버십 이용약관</a></li>
                     <li><a th:href="@{#}">나의 멤버십</a></li>
+=======
+                    <li><a th:href="@{/customerservice/terms}">멤버십 이용약관</a></li>
+                    <li><a th:href="@{/myPage/my-page-membership}">나의 멤버십</a></li>
+>>>>>>> origin/poodle
                 </ul>
             </li>
         </ul>
@@ -42,13 +50,20 @@
         <ul class="dg-menu-R">
             <li class="dg-menu-R1"><a th:href="@{/customerservice/}" class="dg-Service-link">고객센터</a>
                 <ul class="dg-menu-customer-service">
+<<<<<<< HEAD
                     <li><a th:href="@{#}">FAQ</a></li>
                     <li><a th:href="@{#}">공지사항</a></li>
                     <li><a th:href="@{#}">1:1 문의</a></li>
+=======
+                    <li><a th:href="@{/customerservice/FAQ}">FAQ</a></li>
+                    <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                    <li><a th:href="@{/customerservice/service}">1:1 문의</a></li>
+>>>>>>> origin/poodle
                 </ul>
             </li>
 
             <!-- 로그인한 회원이 없을 경우 -->
+<<<<<<< HEAD
 <<<<<<< HEAD
             <!-- th:unless="${session.loginUser}" -->
             <li class="dg-menu-login"  th:unless="${session.loginUser}" ><a th:href="@{/user/login}" class="dg-login-link">로그인</a></li>
@@ -70,6 +85,23 @@
             <!-- th:if="${session.loginUser}" -->
             <li class="dg-menu-member" th:if="${session.loginUser}"><a th:href="@{/myPage}" class="dg-mypage-link">마이 페이지</a></li>
         </ul>
+=======
+            <li class="dg-menu-login" th:unless="${session.loginUser}"><a th:href="@{/user/login}" class="dg-login-link">로그인</a></li>
+            <!-- 로그인한 회원이 있을 경우 -->
+            <li class="dg-menu-logout" th:if="${session.loginUser}"><a th:href="@{#}" class="dg-logout-link">로그아웃</a></li>
+
+            <!-- 비회원일 경우 -->
+            <li class="dg-menu-nonmember" th:unless="${session.loginUser}"><a th:href="@{/user/signUp}" class="dg-singup-link">회원가입</a></li>
+            <!-- 회원일 경우 -->
+            <li class="dg-menu-member" th:if="${session.loginUser}"><a th:href="@{/myPage/}" class="dg-mypage-link">마이 페이지</a></li>
+        </ul>
+
+        <div class="admin-control-space"  th:if="${session.loginUser != null and  session.loginUser.userRole == 'A'}">
+            <a th:href="@{/admin}"><img th:src="@{/images/common/logo/관리자 아이콘-white.png}" title="관리자"></a>
+        </div>
+
+    </div>
+>>>>>>> origin/poodle
 
         <!-- th:if="${session.loginUser.userRole == 'A'}" -->
         <div class="admin-control-space" th:if="${session.loginUser != null and  session.loginUser.userRole == 'A'}">
@@ -80,4 +112,6 @@
     </div>
     <hr>
     
+</header>
+
 </header>

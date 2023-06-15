@@ -19,22 +19,22 @@
                     </ul>
                 </li>
 
-                <li class="dg-menu-L3"><a th:href="@{/myPage-membership}" class="dg-membership-link">멤버십</a>
+                <li class="dg-menu-L3"><a th:href="@{#}" class="dg-membership-link">멤버십</a>
                     <ul class="dg-menu-drop-membership">
-                        <li><a th:href="@{#}">멤버십 이용약관</a></li>
-                        <li><a th:href="@{/myPage-membership}">나의 멤버십</a></li>
+                        <li><a th:href="@{/customerservice/terms}">멤버십 이용약관</a></li>
+                        <li><a th:href="@{/myPage/my-page-membership}">나의 멤버십</a></li>
                     </ul>
                 </li>
             </ul>
 
-            <span class="dg-logo"><a th:href="@{#}"><img th:src="@{/images/common/logo/흰배경 로고.svg}"></a></span>
+            <span class="dg-logo"><a th:href="@{/}"><img th:src="@{/images/common/logo/흰배경 로고.svg}"></a></span>
 
             <ul class="dg-menu-R">
                 <li class="dg-menu-R1"><a th:href="@{#}" class="dg-Service-link">고객센터</a>
                     <ul class="dg-menu-customer-service">
-                        <li><a th:href="@{#}">FAQ</a></li>
-                        <li><a th:href="@{#}">공지사항</a></li>
-                        <li><a th:href="@{#}">1:1 문의</a></li>
+                        <li><a th:href="@{/customerservice/FAQ}">FAQ</a></li>
+                        <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                        <li><a th:href="@{/customerservice/service}">1:1 문의</a></li>
                     </ul>
                 </li>
 
@@ -46,7 +46,7 @@
                 <!-- 비회원일 경우 -->
                 <li class="dg-menu-nonmember" th:unless="${session.loginUser}"><a th:href="@{/user/signUp}" class="dg-singup-link">회원가입</a></li>
                 <!-- 회원일 경우 -->
-                <li class="dg-menu-member"  th:if="${session.loginUser}"><a th:href="@{/myPage}" class="dg-mypage-link">마이 페이지</a></li>
+                <li class="dg-menu-member"  th:if="${session.loginUser}"><a th:href="@{/myPage/}" class="dg-mypage-link">마이 페이지</a></li>
             </ul>
             
             <!-- th:if="${session.loginUser.userRole == 'A'}" -->
