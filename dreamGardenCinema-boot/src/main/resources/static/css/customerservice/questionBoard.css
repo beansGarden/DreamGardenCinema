@@ -99,6 +99,7 @@ a {
     justify-content: center;
     /* align-self: center; */
     text-align-last: center;
+    position: relative;
 }
 
 .QA-comment-box>img {
@@ -106,7 +107,7 @@ a {
     position: absolute;
     height: 50px;
     margin-left: -415px;
-    top: 305px;
+    top: -20px;
 
 }
 
@@ -585,12 +586,13 @@ textarea:focus{
 /* 확인,취소 버튼 */
 .QA-final-confirm{
     display: flex;
-    width: 100%;
+    width: 70vw;
     height: 100px;
     justify-content: center;
     align-items: center;
     
     gap: 10px;
+    
 }
 
 /* 확인 버튼 */

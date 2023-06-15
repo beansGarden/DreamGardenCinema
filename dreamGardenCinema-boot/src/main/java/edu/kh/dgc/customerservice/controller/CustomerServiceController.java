@@ -17,7 +17,7 @@ public class CustomerServiceController {
 	
 	// 고객센터 메인 페이지(FAQ 화면)
 	@GetMapping("/")
-	public String FAQ() {
+	public String Main() {
 		
 		return "customerservice/FAQ";
 	}
@@ -28,6 +28,25 @@ public class CustomerServiceController {
 		
 		return "customerservice/membership-info";
 	}
+	
+	@GetMapping("/FAQ")
+	public String FAQ() {
+		
+		return "customerservice/FAQ";
+	}
+	
+	@GetMapping("/notice")
+	public String notice() {
+		
+		return "customerservice/notice";
+	}
+	
+	@GetMapping("/service")
+	public String service1() {
+		
+		return "customerservice/questionBoard";
+	}
+	
 	
 	
 }

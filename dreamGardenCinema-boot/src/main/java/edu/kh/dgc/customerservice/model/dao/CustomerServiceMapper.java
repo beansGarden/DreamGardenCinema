@@ -1,5 +1,10 @@
 package edu.kh.dgc.customerservice.model.dao;
 
-public class CustomerServiceMapper {
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface CustomerServiceMapper {
+	
+	
 
 }
