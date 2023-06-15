@@ -42,6 +42,7 @@ public class User {
 	@NotBlank
 	private String userGender;
 	
+	@NotBlank
 	private LocalDate userBirth;
 	
 	private String userEnrollDate;
