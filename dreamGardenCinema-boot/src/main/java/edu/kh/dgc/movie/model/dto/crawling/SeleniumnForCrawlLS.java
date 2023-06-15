@@ -11,15 +11,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-import edu.kh.dgc.DreamGardenCinemaBootApplication;
 import edu.kh.dgc.movie.model.dto.Movie;
-import edu.kh.dgc.movie.model.service.CrawlingService;
-import edu.kh.dgc.movie.model.service.CrawlingServiceImpl;
 
 @Component
 public class SeleniumnForCrawlLS {

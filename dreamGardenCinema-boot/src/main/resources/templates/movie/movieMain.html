@@ -7,6 +7,7 @@
     <title>영화 - dream garden cinema</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/movie/movieMain.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
 </head>
 <body>
 
@@ -24,9 +25,11 @@
                 현재 상영작
             </div>
 
-            <span>
-                더보기
-            </span>
+            <div>
+                <a th:href="@{/movie/current}" class="font4 nav--more">
+                    더보기 <span class="material-symbols-outlined font4"> arrow_forward_ios </span>
+                </a>
+            </div>
 
         </div>
 
@@ -53,9 +56,11 @@
                 상영 예정작
             </div>
 
-            <span>
-                더보기
-            </span>
+            <div>
+                <a th:href="@{/movie/promise}" class="font4 nav--more">
+                    더보기 <span class="material-symbols-outlined font4"> arrow_forward_ios </span>
+                </a>
+            </div>
 
         </div>
 
