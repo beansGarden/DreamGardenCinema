@@ -13,7 +13,7 @@
     <!-- <a th:href="@{/ticketing/date}" th:text="예매페이지">예매 페이지</a> -->
     <div class="slide slide_wrap">  <!-- 메인 슬라이드 구역 -->
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(메인 슬라이드 포스터) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-        <th:block th:each="movie, movieStat : ${movieList}">                                                            <!-- ◆◆◆◆◆◆ -->
+        <th:block th:each="movie, movieStat : ${session.movieList}">                                                    <!-- ◆◆◆◆◆◆ -->
             <div th:if="${movie.MAIN_POSTER != 'null'}" class="slide_item" th:classappend="item+${movieStat.count}">    <!-- ◆◆◆◆◆◆ -->
                 <img th:src="${movie.MAIN_POSTER}">                                                                     <!-- ◆◆◆◆◆◆ -->
             </div>                                                                                                      <!-- ◆◆◆◆◆◆ -->
@@ -37,7 +37,7 @@
             <div class="swiper-container">
                 <div class="swiper-wrapper">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(서브 슬라이드 포스터 부분) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                    <div class="swiper-slide" th:each="movie : ${movieList}">                                           <!-- ◆◆◆◆◆◆ -->
+                    <div class="swiper-slide" th:each="movie : ${session.movieList}">                                           <!-- ◆◆◆◆◆◆ -->
                         <div class="top_info">                                                                          <!-- ◆◆◆◆◆◆ -->
                             <span class="poster_info">                                                                  <!-- ◆◆◆◆◆◆ -->
                                 <img th:src="${movie.POSTER}">                                                          <!-- ◆◆◆◆◆◆ -->
@@ -86,17 +86,9 @@
                 <span>일자</span>
             </div>
             <div class="announContent">
-                <div>
-                    <span>개인정보처리방침 안내</span>
-                    <span>2023-05-23</span>
-                </div>
-                <div>
-                    <span>개인정보처리방침 안내</span>
-                    <span>2023-05-23</span>
-                </div>
-                <div>
-                    <span>개인정보처리방침 안내</span>
-                    <span>2023-05-23</span>
+                <div th:each="notice : ${session.noticeList}">
+                    <span th:text="${notice.NOTICE_TITLE}"></span>
+                    <span th:text="${notice.NOTICE_ENROLL_DATE}"></span>
                 </div>
             </div>
         </article>

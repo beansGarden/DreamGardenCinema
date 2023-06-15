@@ -62,7 +62,7 @@
                     <tr th:each="list : ${adminQnaList}">
                         <td><input type="checkbox" name="" id="" class="admin_qnaCheckbox"></td>
                         <td th:text="${list.qnaNo}"></td>
-                        <td><a th:href="@{adminQnaRead/{qnaNo}}" th:text="${list.qnaTitle}">게시글 번호</a></td>
+                        <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글 번호</a></td>
                         <td th:text="${list.qnaEnrollDate}"></td>
                         <td th:text="${list.userNickname}"></td>
                    
@@ -77,8 +77,7 @@
 
                 <!-- 등록,수정,삭제 버튼 -->
                 <div class="admin_qnaBtn">
-                    <button class="admin_qnaEndBtn"><a href="">등록</a></button>
-                    <button class="admin_qnaEndBtn"><a href="">수정</a></button>
+                    <button class="admin_qnaEndBtn"><a th:href="@{adminQnaWrite}">등록</a></button>
                     <button class="admin_qnaEndBtn"><a href="">삭제</a></button>
                 </div>
                 

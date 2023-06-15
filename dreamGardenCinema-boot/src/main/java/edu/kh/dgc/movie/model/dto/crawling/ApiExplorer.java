@@ -1,5 +1,4 @@
 package edu.kh.dgc.movie.model.dto.crawling;
-/* Java 샘플 코드 */
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -28,7 +27,7 @@ public class ApiExplorer {
 		urlBuilder.append("&detail=" + "Y");
 		
 		/* 검색할 영화 */
-		urlBuilder.append("&" + "query=" + URLEncoder.encode("해리포터와비밀의방","UTF-8"));
+		urlBuilder.append("&" + "query=" + URLEncoder.encode("플래시","UTF-8"));
 			
 		/* 상영년도 */ 
 		/*

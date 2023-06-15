@@ -216,8 +216,8 @@ table img{
     font-weight: bold;
 }
 .my-page-inquiry-table-display{
-    display: none;
     width: 100%;
+    display: none;
 }
 /* 처리중 and 답변 완료 */
 #ing{

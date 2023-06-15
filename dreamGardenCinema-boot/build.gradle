@@ -21,7 +21,7 @@ repositories {
 dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //레이아웃을 위한 Dependency추가 유민 230611
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -56,6 +56,17 @@ dependencies {
 	
 	// 유효성 검사
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	// jsoup HTML parser library @ https://jsoup.org/
+	// 자바 크롤링 라이브러리
+	// jsoup
+	implementation 'org.jsoup:jsoup:1.16.1'
+	
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+	// selenium
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.10.0'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {

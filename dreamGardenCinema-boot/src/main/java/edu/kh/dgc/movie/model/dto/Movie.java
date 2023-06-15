@@ -22,4 +22,7 @@ public class Movie {
 	private int moviePrice;
 	private String ratio;
 	private String mainPoster;
+	private String genre;
+	private String screening;
+	
 }

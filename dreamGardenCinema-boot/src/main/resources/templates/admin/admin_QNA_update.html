@@ -39,14 +39,14 @@
         <table>
             <tr   >
                 <th>제목</th>
-                <td><input type="text" name="" id="" class="admin_qnaTableInput"></td>
+                <td><input type="text" name="" id="" class="admin_qnaTableInput"  th:text="${Qna.qnaTitle}"></td>
             </tr>
         </table>
     </div>
     <!-- 내용 쓰는 칸 -->
         <div class="admin_qnaContentWrap">
             <form method="post">
-                <textarea id="summernote" name="editordata"></textarea>
+                <textarea id="summernote" name="editordata" th:text="${Qna.qnaContent}"></textarea>
    
               </form>
           
