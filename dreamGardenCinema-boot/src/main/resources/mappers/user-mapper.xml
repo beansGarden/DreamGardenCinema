@@ -44,4 +44,19 @@
 			, #{userBirth}
 			, #{userGender})
 	</insert>
+	
+	<select id="checkOverlapId" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_ID  = #{userId}
+		AND USER_CLOSE = 'N'
+	</select>
+	
+	<select id="checkOverlapEmail" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_EMAIL  = #{userEmail}
+		AND USER_CLOSE = 'N'
+	</select>
+	
 </mapper>

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.dgc.user.model.dao.AjaxMapper;
 import edu.kh.dgc.user.model.dao.UserMapper;
 import edu.kh.dgc.user.model.dto.User;
+import jakarta.validation.Valid;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,18 +39,27 @@ public class UserServiceImpl implements UserService {
 
 	// 회원 가입 서비스
 	@Transactional(rollbackFor = { Exception.class })
-	// 예외 발생 시 rollback
-	// 발생 안하면 서비스 종료 시 commit
 
 	@Override
 	public int signup(User inputUser) {
 //		String encPw = bcrypt.encode(inputMember.getMemberPw());
 //		inputMember.setMemberPw(encPw);
 
-		// DAO 호출
 		int result = mapper.signup(inputUser);
 
 		return result;
+	}
+
+	@Override
+	public boolean checkOverlap(@Valid User inputUser) {
+		int idreSult = mapper.checkOverlapId(inputUser);
+		int emailreSult = mapper.checkOverlapEmail(inputUser);
+
+		if (idreSult != 0 || emailreSult != 0) {
+			return false;
+		}
+		return true;
+
 	}
 
 }

@@ -101,7 +101,7 @@ if (userId != null) {
             return;
         }
 
-        const regEx = /^[A-Za-z]+[A-Za-z0-9]{4,19}$/g;
+        const regEx = /^[A-Za-z]+[A-Za-z0-9]{4,19}$/;
         // 영문자로 시작하는 영문자 또는 숫자 5~20자 
         if (regEx.test(userId.value)) {
             fetch('/dupCheck/id?id=' + userId.value)// 중복 체크

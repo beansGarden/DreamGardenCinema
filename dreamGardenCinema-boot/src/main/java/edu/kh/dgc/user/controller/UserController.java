@@ -20,6 +20,7 @@ import edu.kh.dgc.user.model.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -87,16 +88,17 @@ public class UserController {
 	
 	@PostMapping("/signUp")
 	public String signup(
-			HttpSession session, RedirectAttributes ra, User inputUser, Model model) {
+			HttpSession session, RedirectAttributes ra, @Valid User inputUser, Model model) {
 		
 		String path = "redirect:";
 		String message = null;
 		
 		inputUser.setUserBirth(LocalDate.parse(inputUser.getUserBirth1(), DateTimeFormatter.ofPattern("yyyyMMdd")));
+		boolean result1 = service.checkOverlap(inputUser);
 		
 		int result = service.signup(inputUser);
 		
-		if (result > 0) {
+		if (result > 0 && result1 == true) {
 			path += "/user/login";
 			
 			message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";
