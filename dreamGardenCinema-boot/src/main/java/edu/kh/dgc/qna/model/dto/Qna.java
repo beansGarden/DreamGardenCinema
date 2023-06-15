@@ -21,6 +21,17 @@ public class Qna {
 	private String qnaCategory;
 	private String userNickname;
 	
+	//JOIN QNA_COMMENT
+	
+	private int qnaCommentNo;
+	private String qnaCommentDate;
+	private String qnaCommentFl;
+	private String qnaComment;
+	
+	//JOIN USER_INFO
+	
+	private int userRating;
+	
 }
 
 

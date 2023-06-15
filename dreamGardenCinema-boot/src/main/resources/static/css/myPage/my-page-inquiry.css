@@ -156,7 +156,7 @@
 /* 문의 내역이 없을 경우 */
 .my-page-contents-box{
     /* display: flex; */
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 600px;

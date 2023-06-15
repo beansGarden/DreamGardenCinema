@@ -18,7 +18,7 @@
 
     <div class="my-page-container">
         <div class="my-page-nickname">
-            <p>ㅇㅇㅇ님 환영합니다!</p>
+            <p><span th:text="${session.loginUser.userNickname}"></span>님 환영합니다!</p>
         </div>
 
 
@@ -36,8 +36,19 @@
             </ul>
 
             <!-- 멤버십 등급에 따라 이미지 변경 브론즈-실버-골드-플래티넘 -->
-            <a th:href="@{#}" class="my-page-membership-grade">
-                <img th:src="@{/images/myPage/브론즈.png}">
+            <a th:href="@{/myPage/my-page-membership}" class="my-page-membership-grade">
+                    <th:block th:if="${session.loginUser.userRating==1}">
+                        <img th:src="@{/images/myPage/브론즈.png}">
+                    </th:block>
+                    <th:block th:if="${session.loginUser.userRating==2}">
+                        <img th:src="@{/images/myPage/실버.png}">
+                    </th:block>
+                    <th:block th:if="${session.loginUser.userRating==3}">
+                        <img th:src="@{/images/myPage/골드.png}">
+                    </th:block>
+                    <th:block th:if="${session.loginUser.userRating==4}">
+                        <img th:src="@{/images/myPage/플래티넘.png}">
+                    </th:block>
             </a>
 
             <ul class="my-page-R">
@@ -47,7 +58,9 @@
                 </li>
 
                 <li class="my-page-membership">
-                    <a th:href="@{/myPage/my-page-membership}"><img th:src="@{/images/myPage/멤버십 아이콘.png}"></a>
+                    <a th:href="@{/myPage/my-page-membership}">
+                        <img th:src="@{/images/myPage/멤버십 아이콘.png}">
+                    </a>
                     <a th:href="@{/myPage/my-page-membership}">멤버십</a>
                 </li>
             </ul>
@@ -80,44 +93,50 @@
 
         <!-- 문의 내역이 있을 경우 -->
 
-        <table class="my-page-inquiry-table">
+        <table class="my-page-inquiry-table" th:unless="${#lists.size(myQnaList)==0}">
             <tr>
                 <th>번호</th>
                 <th>분류</th>
-                <th>첨부파일</th>
                 <th>작성일</th>
                 <th>상태</th>
                 <th></th>
             </tr>
             <!-- each 로 반복 구간 -->
-            <tr class="my-page-inquiry-content"><!-- 증가에 따라 페이지네이션 기능 구현 -->
-                <td>1</td>
-                <td>[멤버십]</td>
-                <td>O</td>
-                <td>2023.06.07</td>
-                <td><span id="result">처리중</span></td>
-                <td><img id="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
-            </tr>
-                <tr class="my-page-inquiry-table-display">
-                    <td colspan="6" id="my-page-inquiry-title">문의 하신 제목: <span>파이널 파이팅~</span></td>
+            <th:block th:each="list:${myQnaList}">
+
+                <tr class="my-page-inquiry-content"><!-- 증가에 따라 페이지네이션 기능 구현 -->
+                    <td th:text="${list.qnaNo}">문의 번호</td>
+                    <td th:text="|[${list.qnaCategory}]|"></td>
+                    <td th:text="${list.qnaEnrollDate}"></td>
+                    <td th:if="${list.qnaCheckFl=='Y'}"><span id="result">처리완료</span></td>
+                    <td th:if="${list.qnaCheckFl=='N'}"><span id="result">처리중</span></td>
+                    <td><img id="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
                 </tr>
                 <tr class="my-page-inquiry-table-display">
-                    <td colspan="6" id="my-page-inquiry-content">답변 내용: <span>쓰잘대기 없는 얘기하시면 탈퇴처리 됩니다</span></td>
+                    <td colspan="6" id="my-page-inquiry-title" th:text="${list.qnaTitle}">문의 하신 제목: <span>파이널 파이팅~</span></td>
                 </tr>
+                <tr class="my-page-inquiry-table-display" >
+                    <td colspan="6" id="my-page-inquiry-content">답변 내용: 
+                        <span th:if="${list.qnaComment != null}" th:text="${list.qnaComment}"></span>
+                        <span th:unless="${list.qnaComment != null}">현재 처리중 입니다</span>
+                    </td>
+                </tr>
+            </th:block>
             <!-- each 로 반복 구간 -->
         </table>
         
         <!-- 문의 내역이 없을 경우 -->
-        <div class="my-page-contents-box">
-            <div class="my-page-contents">
-                <img th:src="@{/images/myPage/느낌표.png}">
-                <p>문의 내역이 존재하지 않습니다.</p>
+
+            <div class="my-page-contents-box" th:if="${#lists.size(myQnaList)==0}">
+                <div class="my-page-contents">
+                    <img th:src="@{/images/myPage/느낌표.png}">
+                    <p>문의 내역이 존재하지 않습니다.</p>
+                </div>
             </div>
-        </div>
-        
+            
     </div>
     
-    <div class="pagination">
+    <div class="pagination" th:unless="${#lists.size(myQnaList)==0}">
         <i class="fa-solid fa-arrow-left"></i>
         <ol id="paginationNumbers">
             <!-- <li><a th:href="">1</a></li>
