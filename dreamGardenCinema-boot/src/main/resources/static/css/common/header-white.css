@@ -52,6 +52,7 @@ header {
     text-decoration: none;
     color: black;
 }
+
 .dg-menu-L>.dg-menu-L2>a {
     letter-spacing: 0.5px;
     padding: 0 20px;
@@ -59,6 +60,7 @@ header {
     text-decoration: none;
     color: black;
 }
+
 .dg-menu-L>.dg-menu-L3>a {
     letter-spacing: 0.5px;
     padding: 0 20px;
@@ -219,6 +221,7 @@ header {
     color: black;
     text-decoration: none;
 }
+
 .dg-menu-drop-movie>li:nth-child(3)>a:hover {
     font-weight: bold;
     font-size: 17px;
@@ -405,6 +408,7 @@ header {
 .dg-menu-drop-membership>li:nth-child(2) {
     width: 100px;
 }
+
 .dg-menu-drop-membership>li:nth-child(2)>a {
     color: black;
     text-decoration: none;
@@ -486,7 +490,7 @@ header {
     list-style: none;
     text-decoration: none;
     padding: 0px 30px 0px 0px;
-    
+
 
 }
 
@@ -510,7 +514,7 @@ header {
     align-items: center;
 
     padding-left: 0;
-    
+
 }
 
 /* 상단바 R-R1 고객센터탭 */
@@ -550,6 +554,7 @@ header {
     color: black;
     margin-top: 10px;
 }
+
 .dg-menu-customer-service>li>a:hover {
     font-weight: bold;
     font-size: 17px;
@@ -879,14 +884,20 @@ header {
 }
 
 /* 관리자 아이콘 */
-.admin-control-space{
+.admin-control-space {
     position: absolute;
     margin-top: 80px;
     right: 100px;
-    }
+}
 
-.admin-control-space>a>img{
+.admin-control-space>a>img {
     position: absolute;
     width: 30px;
     height: 30px;
+}
+
+/* 드래그 방지 */
+
+.dg-membership-link{
+    cursor: default;
 }
