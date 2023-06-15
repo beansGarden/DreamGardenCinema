@@ -21,9 +21,10 @@ public class TicketingServiceImpl implements TicketingService{
 	}
 
 	@Override
-	public Schedule mainMovieTime(int movieNo) {
-		return mapper.mainMovieTime(movieNo);
+	public List<Schedule> selectTimeList(Object movieNo) {
+		return mapper.selectTimeList(movieNo);
 	}
+
 
 
 }

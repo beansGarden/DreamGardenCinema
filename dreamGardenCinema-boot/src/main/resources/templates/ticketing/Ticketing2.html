@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing2.css}">
 </head>
 <body>
-    <div class="main">
+    <div class="main" th:object="${ticket}">
         <div class="ticketingBox">
             <ul class="ticketingNav">
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
-                <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
+                <li class="pass"><a th:href="@{/ticketing/date(movieNo=${ticket.movieNo}, movieTheater=${ticket.movieTheater}, movieTime=${ticket.movieTime})}">01<br>상영시간</a></li>
                 <li class="active"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
                 <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
                 <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
@@ -27,7 +28,7 @@
                         <div class="content">
                             <div class="title">
                                 <img th:src="@{/images/common/main/15세.png}" alt="">
-                                <strong>범죄도시3</strong>
+                                <strong></strong>
                             </div>
                             <div class="date">
                                 <span class="date_info">

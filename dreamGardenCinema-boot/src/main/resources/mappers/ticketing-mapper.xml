@@ -2,21 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.dgc.ticketing.model.dao.TicketingMapper">
 	
-	<select id="mainMovieTime" resultType="map">
-		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER
+	<select id="selectTimeList" resultType="map">
+		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
-		WHERE MOVIE_TIME = SYSDATE 
+		WHERE 
+		<![CDATA[
+		TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD') 
+		]]>
 		AND MOVIE_NO = ${movieNo}
-		ORDER BY MOVIE_TIME
+		ORDER BY MOVIE_TIME, MOVIE_THEATER
 	</select>
 	
 	<select id="movieTime" resultType="map">
-		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER
+		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
 		<![CDATA[
 		WHERE MOVIE_TIME > SYSDATE 
 		]]>
 		AND MOVIE_NO = ${movieNo} AND TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${date}
-		ORDER BY MOVIE_TIME
+		ORDER BY MOVIE_TIME, MOVIE_THEATER
 	</select>
 </mapper>
