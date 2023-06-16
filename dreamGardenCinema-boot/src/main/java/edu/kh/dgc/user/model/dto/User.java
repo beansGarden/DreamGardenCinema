@@ -48,6 +48,9 @@ public class User {
 	@NotBlank
 	private int authKey;
 	
+	private int userInputAuthKey;
+	
+	
 	private String userEnrollDate;
 	
 	private int userAmount;

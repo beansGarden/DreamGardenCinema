@@ -27,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.kh.dgc.common.utility.RedisUtil;
 import edu.kh.dgc.user.model.dto.MessageDTO;
 import edu.kh.dgc.user.model.dto.SmsRequestDTO;
 import edu.kh.dgc.user.model.dto.SmsResponseDTO;
@@ -34,7 +35,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @PropertySource("classpath:config.properties")
-@PropertySource("classpath:application.properties")
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -53,6 +53,8 @@ public class SmsService {
 	
 	// 현재시간
     String time = Long.toString(System.currentTimeMillis());
+    
+    private final RedisUtil redisUtil;
 
 	public String makeSignature(Long time)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
@@ -114,7 +116,11 @@ public class SmsService {
 		RestTemplate restTemplate = new RestTemplate();
 	    restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 	    SmsResponseDTO response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponseDTO.class);
- 
+	    redisUtil.setDataExpire(smsConfirmNum, messageDto.getTo(), 60 * 5L); // 유효시간 5분
+	    
+//	    System.out.println("smsConfirmNum : " + smsConfirmNum); // redis 인증번호 key
+//	    System.out.println("messageDto.getTo() : " + messageDto.getTo()); // redis 인증번호 value
+	    
 	    return response;
 	}
 	// 6자리 난수
