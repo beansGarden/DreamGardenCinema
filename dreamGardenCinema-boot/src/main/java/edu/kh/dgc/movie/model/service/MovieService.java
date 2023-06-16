@@ -33,6 +33,11 @@ public interface MovieService {
 	 */
 	List<Movie> selectMovieListPromise();
 
+	/** 광고 포스터 조회(랜덤하게 하나)
+	 * @return
+	 */
+	Map<String, String> selectAdvertisePoster();
+
 	
 
 

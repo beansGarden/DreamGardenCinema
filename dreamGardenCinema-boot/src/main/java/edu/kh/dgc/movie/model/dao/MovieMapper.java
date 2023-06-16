@@ -20,6 +20,8 @@ public interface MovieMapper {
 	public List<Movie> selectMovieListCurrent();
 
 	public List<Movie> selectMovieListPromise();
+	
+	public Map<String, String> selectAdvertisePoster();
 
 	
 
