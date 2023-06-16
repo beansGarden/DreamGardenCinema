@@ -7,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객센터-공지사항</title>
 
-    <link rel="stylesheet" th:href="/src/main/resources/static/css/customerservice/notice.css">
-    <link rel="stylesheet" th:href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/customerservice/notice.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
 
     <th:block th:replace="~{common/header-white}"></th:block>
 
@@ -70,11 +69,11 @@
                     <span>번호</span> <span>제목</span> <span>등록일</span>
                 </div>
 
-                <a th:href="#" class="service-notice-list">
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <!-- <div class="customer-service-inquiry-content">
+                <a th:href="@{#}" class="service-notice-list">
+                    <div class="customer-service-inquiry-content">
+                        <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
+                    </div>
+                    <!-- <div class="customer-service-inquiry-content">
                     <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
                 </div>
                 <div class="customer-service-inquiry-content">
@@ -158,7 +157,7 @@
                 <div class="customer-service-inquiry-content">
                     <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
                 </div> -->
-            </a>
+                </a>
 
             </div>
 
@@ -178,7 +177,7 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <script th:src="/src/main/resources/static/js/customerservice/notice.js"></script>
+    <script th:src="@{/js/customerservice/notice.js}"></script>
 
 </body>
 

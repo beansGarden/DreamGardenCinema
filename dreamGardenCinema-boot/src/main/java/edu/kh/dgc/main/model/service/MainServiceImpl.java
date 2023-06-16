@@ -22,11 +22,17 @@ public class MainServiceImpl implements MainService{
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		List<Movie> movieList = mapper.selectMovieList();
+		/* List<Movie> movieList = mapper.selectMovieList(); */
 		List<Notice> noticeList = mapper.selectNoticeList();
-		map.put("movieList", movieList);
+		/* map.put("movieList", movieList); */
 		map.put("noticeList", noticeList);
 		return map;
+	}	
+	
+	// 메인 슬라이더 이미지 얻어오기
+	@Override
+	public List<Map<String, String>> selectMainSlideImgList() {
+		return mapper.selectMainSlideImgList();
 	}
 
 }

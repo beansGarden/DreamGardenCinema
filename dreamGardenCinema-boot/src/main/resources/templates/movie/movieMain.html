@@ -5,24 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>영화 - dream garden cinema</title>
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/movie/movieMain.css}">
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!-- swiper css custom -->
+    <link rel="stylesheet" th:href="@{/css/movie/silder.css}">
+
+    <!-- google material icon '>' -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+
 </head>
 <body>
 
     <th:block th:replace="~{common/header-white}"></th:block>
 
     <section class="movie--Top__banner">
-        <img src="https://dummyimage.com/1920x420/000/fff&text=slide">
+        <div class="swiper movie--main--slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" th:each="slideImg : ${movieMainSlideImgList}"><img th:src="${slideImg.MOVIE_IMG_PATH}"></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
     </section>
 
     <section class="movie--mid__List current">
 
         <div class="movieList--nav">
 
-            <div></div>
+            <div class="font1">
+                현재 상영작
+            </div>
 
-            <div></div>
+            <div>
+                <a th:href="@{/movie/current}" class="font4 nav--more">
+                    더보기 <span class="material-symbols-outlined font4"> arrow_forward_ios </span>
+                </a>
+            </div>
 
         </div>
 
@@ -30,31 +53,41 @@
         <div class="movieList--items" >
 
             <div class="movieItem" th:each="movie : ${MovieListMainC}">
+
                 <img th:src="${movie.poster}" >
-                <div th:text="${movie.movieTitle}">영화 제목</div>
+
+                <div class="font5" th:text="${movie.movieTitle}">영화 제목</div>
+
             </div>
 
         </div>
 
     </section>
 
-    <div style="margin: 40px;"></div>
-
     <section class="movie--mid__List promise">
 
         <div class="movieList--nav">
 
-            <div></div>
+            <div class="font1">
+                상영 예정작
+            </div>
 
-            <div></div>
+            <div>
+                <a th:href="@{/movie/promise}" class="font4 nav--more">
+                    더보기 <span class="material-symbols-outlined font4"> arrow_forward_ios </span>
+                </a>
+            </div>
 
         </div>
 
         <div class="movieList--items" >
 
             <div class="movieItem" th:each="movie : ${MovieListMainP}">
+
                 <img th:src="${movie.poster}">
-                <pre th:text="${movie.movieTitle}">영화 제목</pre>
+
+                <div class="font5" th:text="${movie.movieTitle}">영화 제목</div>
+
             </div>
 
         </div>
@@ -62,10 +95,34 @@
     </section>
 
     <section class="movie--bot__banner">
-        <img src="https://dummyimage.com/980x180/000/fff&text=poster">
+        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
     </section>
 
     <th:block th:replace="~{common/footer}"></th:block>
+
+    <!-- swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- swiper.js 초기화 -->
+    <script>
+        var swiper = new Swiper(".movie--main--slider", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
 
 </body>
 </html>
