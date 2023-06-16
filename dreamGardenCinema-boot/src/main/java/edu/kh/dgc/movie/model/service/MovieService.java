@@ -6,7 +6,12 @@ import java.util.Map;
 import edu.kh.dgc.movie.model.dto.Movie;
 
 public interface MovieService {
-
+	
+	/** 사이트 메인 페이지 슬라이드 이미지 조회
+	 * @return
+	 */
+	List<Map<String, String>> selectMainSlideImgList();
+	
 	/** 영화 메인페이지에 슬라이드에 쓰일 이미지 조회
 	 * @return Map<String, String>
 	 */
@@ -37,6 +42,10 @@ public interface MovieService {
 	 * @return
 	 */
 	Map<String, String> selectAdvertisePoster();
+
+	
+
+	
 
 	
 

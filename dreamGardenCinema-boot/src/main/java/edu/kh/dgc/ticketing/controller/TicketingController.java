@@ -1,6 +1,5 @@
 package edu.kh.dgc.ticketing.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +22,6 @@ import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
 import edu.kh.dgc.user.model.dto.User;
-import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/ticketing")
 @SessionAttributes({ "loginUser", "movieList" })

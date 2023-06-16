@@ -31,7 +31,6 @@ import edu.kh.dgc.common.utility.RedisUtil;
 import edu.kh.dgc.user.model.dto.MessageDTO;
 import edu.kh.dgc.user.model.dto.SmsRequestDTO;
 import edu.kh.dgc.user.model.dto.SmsResponseDTO;
-import edu.kh.dgc.user.model.dto.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

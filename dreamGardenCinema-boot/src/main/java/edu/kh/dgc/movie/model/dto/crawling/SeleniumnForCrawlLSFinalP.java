@@ -183,7 +183,7 @@ public class SeleniumnForCrawlLSFinalP {
         
         @SuppressWarnings("resource")
 		ApplicationContext context = new AnnotationConfigApplicationContext(DreamGardenCinemaBootApplication.class);
-        SeleniumnForCrawlLS instance = context.getBean(SeleniumnForCrawlLS.class);
+        context.getBean(SeleniumnForCrawlLS.class);
         CrawlingService service = context.getBean(CrawlingServiceImpl.class);
         
         service.insertMovieInfo(movie);

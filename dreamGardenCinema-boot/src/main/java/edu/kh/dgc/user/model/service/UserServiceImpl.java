@@ -1,7 +1,6 @@
 package edu.kh.dgc.user.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +13,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper mapper;
-
-	@Autowired
-	private BCryptPasswordEncoder bcrypt;
 
 	@Override
 	public User login(User inputUser) {

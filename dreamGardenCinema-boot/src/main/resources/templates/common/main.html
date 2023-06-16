@@ -36,7 +36,7 @@
         <div class="sub-slide__silder">
             <div class="swiper main--sub-slider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" th:each="movieInfo : ${session.movieList}"><img th:src="${movieInfo.poster}"></div>
+                    <div class="swiper-slide" th:each="movieInfo : ${movieList}"><img th:src="${movieInfo.poster}"></div>
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
