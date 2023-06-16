@@ -16,9 +16,8 @@ public class CustomerFAQController {
 	
 	@Autowired
 	private CustomerFAQService service;
-//	
-//	@GetMapping("/")
-//	public  
+	
+	  
 	
 	
 

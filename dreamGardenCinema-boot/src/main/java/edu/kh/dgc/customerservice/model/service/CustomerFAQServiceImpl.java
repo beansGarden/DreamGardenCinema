@@ -10,6 +10,8 @@ public class CustomerFAQServiceImpl implements CustomerFAQService {
 
 	@Autowired
 	private CustomerServiceMapper mapper;
+	
+	
 
 
 
