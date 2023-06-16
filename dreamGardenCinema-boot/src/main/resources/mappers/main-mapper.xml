@@ -34,4 +34,12 @@
 			WHERE ROWNUM <= 5
 		]]>
 	</select>
+	
+	<!-- 메인 슬라이더 이미지 얻어오기-->
+		<select id="selectMainSlideImgList" resultType="map">
+		SELECT *
+		FROM MOVIE_IMG
+		WHERE MOVIE_IMG_ROLE='메인슬라이드'
+	</select>
+	
 </mapper>

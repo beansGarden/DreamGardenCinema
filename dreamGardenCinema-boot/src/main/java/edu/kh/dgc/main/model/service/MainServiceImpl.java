@@ -27,6 +27,12 @@ public class MainServiceImpl implements MainService{
 		/* map.put("movieList", movieList); */
 		map.put("noticeList", noticeList);
 		return map;
+	}	
+	
+	// 메인 슬라이더 이미지 얻어오기
+	@Override
+	public List<Map<String, String>> selectMainSlideImgList() {
+		return mapper.selectMainSlideImgList();
 	}
 
 }
