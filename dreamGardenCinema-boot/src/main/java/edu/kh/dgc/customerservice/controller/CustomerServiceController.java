@@ -21,11 +21,13 @@ public class CustomerServiceController {
 	
 	// 고객센터 메인 페이지(FAQ 화면)
 	@GetMapping("/")
-	public String Main(Model model, FAQ faq) {
+	public String main(Model model, FAQ faq) {
 		
-		List<FAQ> FAQList = service.Main(faq);
+		List<FAQ> FAQList = service.main(faq);
 		
 		model.addAttribute("FAQList", FAQList);
+		
+//		System.out.println(FAQList);
 		
 		return "customerservice/FAQ";
 	}

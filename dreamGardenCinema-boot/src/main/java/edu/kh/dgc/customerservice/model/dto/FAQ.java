@@ -17,4 +17,7 @@ public class FAQ {
 	private String FAQDeleteFl;
 	private String FAQCategory;
 	
+	// FAQ_CATEGORY 테이블 조인
+	private String categoryTitle;
+	
 }

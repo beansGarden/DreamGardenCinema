@@ -309,7 +309,7 @@ a {
 
 }
 
-#upBtn{
+.upBtn{
     position: absolute;
     width: 18px;
     height: 18px;
@@ -319,12 +319,12 @@ a {
     cursor: pointer;
 }
 
-#upBtn:hover{
+.upBtn:hover{
     width: 20px;
     height: 20px;
 }
 
-#downBtn{
+.downBtn{
     position: absolute;
     width: 18px;
     height: 18px;
@@ -333,7 +333,7 @@ a {
 
 }
 
-#downBtn:hover{
+.downBtn:hover{
     width: 20px;
     height: 20px;
 }
