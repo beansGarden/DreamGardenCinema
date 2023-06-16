@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="/css/admin/admin_QNA.css">
 </head>
 <body>
+    <!--타임리프 변수 선언  -->
+  <!--   <main th:with="pagination=${map.pagination}, boardList=${map.boardList}"></main> -->
+
        <!-- 사이드바 -->
  <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
@@ -50,7 +53,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll"></th>
+                        <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll" onclick='userSelectAll(this)'></th>
                         <th>번호</th>
                         <th>제목</th>
                         <th>등록일</th>
@@ -61,7 +64,7 @@
                 <tbody>
                     <tr th:each="list : ${adminQnaList}">
                         <td><input type="checkbox" name="" id="" class="admin_qnaCheckbox"></td>
-                        <td th:text="${list.qnaNo}"></td>
+                        <td th:text="${list.qnaNo}" class="admin_qna_checkbox_no"></td>
                         <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글 번호</a></td>
                         <td th:text="${list.qnaEnrollDate}"></td>
                         <td th:text="${list.userNickname}"></td>
@@ -74,17 +77,33 @@
             </div>
 
                 <!-- 페이지 네이션 -->
+               <ul class="pagination">
+                <li><a href="#"><</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">></a></li>
+            </ul>
+                    
+
+                </div>
+
 
                 <!-- 등록,수정,삭제 버튼 -->
                 <div class="admin_qnaBtn">
                     <button class="admin_qnaEndBtn"><a th:href="@{adminQnaWrite}">글쓰기</a></button>
-                    <button class="admin_qnaEndBtn"><a href="">삭제</a></button>
+                    <button class="admin_qnaEndBtn" id="deleteBtn"><a href="">삭제</a></button>
                 </div>
                 
+    </div> 
+    
+    
 
-            
-    </div>    
-
-
+   <script src="\js\admin\admin_QNA.js"></script>
 </body>
 </html>

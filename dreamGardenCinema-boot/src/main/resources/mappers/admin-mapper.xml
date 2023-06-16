@@ -16,8 +16,46 @@
 		<result property="userNo" column="USER_NO2"/>
 		<result property="userNickname" column="USER_NICKNAME"/>
 		</resultMap>
+		
+		<resultMap type="QnaComment" id="qnaComment_rm">
+		<id property="qnaCommentNo" column="QNA_COMMENT_NO"/>
+		
+		<result property="userNo" column="USER_NO"/>
+		<result property="qnaNo" column="QNA_NO"/>
+		<result property="qnaCommentDate" column="QNA_COMMENT_DATE"/>
+		<result property="qnaCommentFl" column="QNA_COMMENT_FL"/>
+		<result property="qnaComment" column="QNA_COMMENT"/>
+		</resultMap>
 	
+		<resultMap type="User" id="user_rm">
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userTel" column="USER_TEL" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userGender" column="USER_GENDER" />
+		<result property="userEnrollDate" column="USER_ENROLL_DT" />
+		<result property="userAmount" column="USER_AMOUNT" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userRating" column="USER_RATING" />
+		<result property="userClose" column="USER_CLOSE" />
+	</resultMap>
 	
+	<resultMap type="Notice" id="notice_rm">
+	
+		<id property="noticeNo" column="NOTICE_NO"/>
+		
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="enrollDate" column="NOTICE_ENROLL_DATE"/>
+		<result property="noticeViewpoint" column="NOTICE_VIEWPOINT"/>
+		<result property="noticeFL" column="NOTICE_FL"/>
+
+		</resultMap>
+		
+		
 	
 <!--회원 리스트 조회-->
 <!--<select id="adminUserList" resultMap="user_rm">
@@ -36,6 +74,7 @@
 		ORDER BY QNA_NO DESC
 	</select>
 	
+	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
 	SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME 
 	FROM QNA
@@ -43,6 +82,7 @@
 	WHERE QNA_NO = #{qnaNo}
 	</select>
 	
+	<!--QNA 글 업데이트-->
 	<update id="qnaUpdate">
 			UPDATE "QNA"
 			SET QNA_TITLE = #{qnaTitle},
@@ -50,15 +90,108 @@
 			WHERE QNA_NO =#{qnaNo}
 	</update>
 
+	<!--QNA 글 삭제-->
 	<update id="qnaDelete">
 		UPDATE "QNA"
 		SET QNA_DELETE_FL = 'Y'
 		WHERE QNA_NO =#{qnaNo}
 	</update>
 	
+	<!--QNA 글 삽입-->
 	<insert id="qnaInsert">
 		INSERT INTO "QNA"
 		VALUES (SEQ_QNA_NO.NEXTVAL,#{qnaTitle},#{qnaContent},SYSDATE,DEFAULT,DEFAULT,#{qnaCategory},#{qnaNo})
 	</insert>
+
+	<!--글 답변 삽입-->
+		<insert id="qnaAnswerInsert">
+		INSERT INTO "QNA _COMMENT"
+		VALUES (SEQ_QNACOMMENT_NO.NEXTVAL,DEFAULT,DEFAULT,
+		(SELECT USER_NO FROM "QNA _COMMENT"
+		WHERE QNA_NO =#{qnaNo}),
+		#{qnaNo},#{qnaComment})
+	</insert>
+	
+	<!--글 답변 수정-->
+	<update id="qnaAnswerUpdate">
+		UPDATE "QNA _COMMENT"
+		SET QNA_COMMENT = #{qnaComment}
+		WHERE QNA_COMMENT_NO =#{qnaCommentNo}	
+	</update>
+	
+	<!--글 답변 수정 시 QNA에서 답변 된 거 확인-->
+	<update id="updateAnswer">
+		UPDATE "QNA"
+		SET QNA_CHECK_FL = 'Y'
+		WHERE QNA_NO = #{qnaNo}
+	</update>
+
+	<!--답변 불러오기-->
+	<select id="selectQnaCommentList" resultMap="qnaComment_rm">
+		SELECT QNA_COMMENT_NO,QNA_COMMENT_DATE,QNA_COMMENT_FL,USER_NO,QNA_NO,QNA_COMMENT
+		 FROM "QNA _COMMENT"
+		 WHERE QNA_NO = #{qnaNo}
+	</select>
+	
+	<!-- //////////회원///////// -->
+	 <select id="adminUserList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
+		FROM USER_INFO
+		ORDER BY USER_NO DESC		 
+	 </select>
+	 
+	 <!--회원 선택 삭제-->
+	 <update id="userDelete">
+		UPDATE "USER_INFO"
+		SET USER_CLOSE ='Y'
+		WHERE USER_NO = #{userNo}
+	 </update>
+	 
+	 
+	 <!--////////////영화////////////-->
+	 <select id="adminMovieList" resultType="Movie">
+		SELECT MOVIE_NO,MOVIE_TITLE,PRODUCER,RELEASE_DATE,MOVIE_PRICE 
+		FROM MOVIE
+		ORDER BY MOVIE_NO DESC
+	 </select>
+	 
+	<!--////////////공지사항////////////-->	
+	<!--공지사항 게시판 리스트 조회-->
+	<select id="adminNoticeList" resultMap="notice_rm">
+		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_ENROLL_DATE,NOTICE_FL
+		FROM NOTICE
+		ORDER BY NOTICE_NO DESC
+	</select>
+
+	<!--공지사항 게시글 읽기-->
+	<select id="adminNoticeOne" resultMap="notice_rm">
+		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_ENROLL_DATE
+		FROM NOTICE
+		WHERE NOTICE_NO = #{noticeNo}
+	</select>
+
+	<!--공지사항 글쓰기-->
+	<insert id="noticeWriteInsert">
+		INSERT INTO NOTICE 
+		VALUES (SEQ_NOTICE_NO.NEXTVAL,#{noticeTitle},#{noticeContent},SYSDATE,DEFAULT,DEFAULT)
+	</insert>
+
+	<!-- 공지사항 게시글 수정-->
+	<!--<update id="noticeDelete">
+		UPDATE NOTICE 
+		SET 
+		NOTICE_TITLE = #{noticeTitle}
+		NOTICE_CONTENT = #{noticeContent}
+		WHERE 
+		NOTICE_NO =#{notice}
+	</update>-->
+
+	<!--공지사항 게시글 삭제-->
+		<update id="noticeDelete">
+		UPDATE NOTICE 
+		SET NOTICE_FL = 'Y'
+		WHERE NOTICE_NO = #{notice}
+	</update>
+	
 
 </mapper>

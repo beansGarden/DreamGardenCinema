@@ -8,11 +8,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.admin.model.service.AdminService;
+import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.user.model.dto.User;
 import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
@@ -30,15 +37,35 @@ public class AdminController {
 
 	// 2.관리자 회원 관리
 	@GetMapping("/adminUser") //
-	public String adminUser() {
+	public String adminUser(Model model) {
 
+		List<User> adminUserList = service.adminUserList();
+
+		model.addAttribute("adminUserList", adminUserList);
+
+		
 		return "admin/admin_user";
 	}
+	
+	//2-1.관리자 회원 탈퇴 시키기
+	@PostMapping(value = "/adminUser/deleteUserList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int deleteUserList(@RequestBody User user) {
+		
+	   return service.userDelete(user.getUserNo());
+	}
+	
 
 	// 3.관리자 영화 관리
 	@GetMapping("/adminMovieManage") //
-	public String movieManage() {
+	public String movieManage(Model model) {
 
+		List<Movie> adminMovieList = service.adminMovieList();
+
+		model.addAttribute("adminMovieList", adminMovieList);
+
+		System.out.println(adminMovieList);
+		
 		return "admin/admin_movieManage";
 	}
 
@@ -65,38 +92,92 @@ public class AdminController {
 
 	// 5.관리자 공지사항 리스트 조회
 	@GetMapping("/adminNotice") //
-	public String notice() {
+	public String notice(Model model) {
+		
+		List<Notice> adminNoticeList = service.adminNoticeList();
 
+		model.addAttribute("adminNoticeList", adminNoticeList);
+		
+		
 		return "admin/admin_notice";
 	}
 
 	// 5-1.공지사항 게시글 조회
-	@GetMapping("/adminNoticeRead") //
-	public String noticeRead() {
+	@GetMapping("/adminNoticeRead/{noticeNo}") //
+	public String noticeRead(Model model, @PathVariable(value = "noticeNo", required = false) int noticeNo,Notice notice) {
 
+		
+		List<Notice> adminNoticeOne = service.adminNoticeOne(notice);
+
+		model.addAttribute("adminNoticeOne", adminNoticeOne);
+		
+		
 		return "admin/admin_notice_read";
 	}
 
 	// 5-2. 공지사항 게시글 쓰기
-	@GetMapping("/adminNoticeWrite") //
+	@GetMapping("/adminNoticeWrite") 
 	public String noticeWrite() {
 
 		return "admin/admin_notice_write";
 	}
+	
+	// 5-2. 공지사항 게시글 쓰기 - 삽입------------------------------------------------아직 안 함------
+	@PostMapping("/adminNoticeWriteInsert") 
+	public String noticeWriteInsert(Model model,Notice notice,RedirectAttributes ra) {
 
+		int noticeList = service.noticeWriteInsert(notice);
+		
+		if(noticeList > 0) {
+			ra.addFlashAttribute("message","성공");
+		}else {
+			ra.addFlashAttribute("message","실패");
+		}
+		
+		
+		model.addAttribute("noticeList",noticeList);
+		
+		return "redirect:/admin/adminNotice";
+	}
+
+	
 	// 5-3. 공지사항 게시글 수정
-	@GetMapping("/adminNoticeUpate") //
+	@GetMapping("/adminNoticeUpate") 
 	public String noticeUpdate() {
 
 		return "admin/admin_notice_update";
 	}
 
 	// 5-4. 공지사항 게시글 삭제 --- 페이지 없음
-	@GetMapping("/adminNoticeDelete") //
-	public String noticeDelete() {
+	@GetMapping("/adminNoticeRead/{noticeNo}/delete") //
+	public String noticeDelete(@PathVariable("noticeNo") int noticeNo, RedirectAttributes ra) {
+		int noticeNoCheck = service.noticeDelete(noticeNo);
 
-		return "admin/admin_notice";
+		// 삽입 성공 시
+		String message = null;
+		String path = "redirect:/adminNotice";
+		if (noticeNoCheck > 0) { // 성공시
+			message = "게시글이 삭제되었습니다.";
+		} else {
+			message = "게시글 삭제 실패";
+		}
+
+		ra.addFlashAttribute("message", message);
+		return path;	
+		
 	}
+	
+	//5-5 공지사항 게시글 선택 삭제
+	
+		@PostMapping(value = "/adminNotice/deleteQnaList", produces = "application/json; charset=UTF-8")
+		@ResponseBody
+		public int deleteNoticeList(@RequestBody Notice notice) {
+			
+		   return service.noticeDelete(notice.getNoticeNo());
+		}
+	
+	
+
 
 	// 6. 1:1 문의사항 리스트 조회 230613
 	@GetMapping("/adminQna") //
@@ -111,12 +192,16 @@ public class AdminController {
 
 	// 6-1. 1:1 문의사항 게시글 조회 230613
 	@GetMapping("/adminQnaRead/{qnaNo}") //
-	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo) {
+	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,QnaComment qnaComment) {
+		
 
-		Qna qna = service.selectQnaOne(qnaNo);
+			Qna qna = service.selectQnaOne(qnaNo);
+			QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
 
-		qna.setQnaNo(qnaNo);
-		model.addAttribute("Qna", qna);
+			qna.setQnaNo(qnaNo);
+			model.addAttribute("Qna", qna);
+			model.addAttribute("QnaComment", qnaCommentList);
+	
 
 		return "admin/admin_QNA_read";
 	}
@@ -139,6 +224,41 @@ public class AdminController {
 		  model.addAttribute("Qna",qna);
 	  
 		  return "admin/admin_QNA_write"; 
+	  }
+	  //6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615
+	  
+	  @PostMapping("/adminQnaAnswer/{qnaNo}")
+	  public String qnaAnswerInsert(Qna qna,Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo, QnaComment qnaComment,RedirectAttributes ra) {
+		
+		  
+		  if((qnaComment.getQnaComment()) != null) {
+			  
+			  int qnaUpdateResult = service.qnaAnswerUpdate(qnaComment);		  
+			  
+
+			  if(qnaUpdateResult > 0) {
+				  ra.addFlashAttribute("message","성공");
+				
+			  }else {
+				  ra.addFlashAttribute("message","실패");
+			  }
+		  }else {
+			
+			  qnaComment.setQnaNo(qnaNo);
+				qnaComment.setQnaComment(qnaComment.getQnaComment());
+				
+				  int qnaResult = service.qnaAnswerInsert(qnaComment);
+				  
+				  QnaComment qnaFlUpdate = service.updateAnswer(qnaNo);
+
+				  if(qnaResult > 0) {
+					  ra.addFlashAttribute("message","성공");
+					
+				  }else {
+					  ra.addFlashAttribute("message","실패");
+				  }
+		  }
+		  return "redirect:" + qnaNo; 
 	  }
 
 	// 6-2. 1:1 문의사항 게시글 수정화면 전환 230614
@@ -199,6 +319,15 @@ public class AdminController {
 
 		ra.addFlashAttribute("message", message);
 		return path;
+	}
+	
+	//6-4 1:1 문의 게시글 선택 삭제
+	
+	@PostMapping(value = "/adminQna/deleteQnaList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int deleteQnaList(@RequestBody Qna qna) {
+		
+	   return service.qnaDelete(qna.getQnaNo());
 	}
 
 	// 7. FAQ 리스트 조회

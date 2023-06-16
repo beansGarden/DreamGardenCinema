@@ -9,20 +9,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString 
-public class Qna {
+public class QnaComment {
 	
-	private int qnaNo;
+	private int qnaCommentNo;
 	private int userNo;
-	private String qnaTitle;
-	private String qnaContent;
-	private String qnaEnrollDate;
-	private String qnaDeleteFl;
-	private String qnaCheckFl;
-	private String qnaCategory;
-	private String userNickname;
-	
+	private int qnaNo;
+	private String qnaCommentDate;
+	private String qnaCommentFl;
 	private String qnaComment;
-	
 }
 
 

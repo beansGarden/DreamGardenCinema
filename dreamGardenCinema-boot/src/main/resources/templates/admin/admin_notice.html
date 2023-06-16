@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,11 +54,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="list : ${adminNoticeList}">
                         <td><input type="checkbox" name="" id="" class="admin_noticeCheckbox"></td>
-                        <td>1</td>
-                        <td>예매 정책</td>
-                        <td>2023.05.01</td>
+                        <td th:text="${list.noticeNo}">1</td>
+                        <td th:text="${list.noticeTitle}">예매 정책</td>
+                        <td th:text="${list.enrollDate}">2023.05.01</td>
              
                
                     </tr>
