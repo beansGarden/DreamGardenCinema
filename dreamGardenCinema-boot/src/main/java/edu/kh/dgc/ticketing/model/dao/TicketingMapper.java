@@ -7,14 +7,22 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
+import edu.kh.dgc.ticketing.model.dto.Seat;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 
 @Mapper
 public interface TicketingMapper {
 
-	List<Schedule> movieTime(Map<String, Integer> paramMap);
+	List<Schedule> movieTime(Map<String, Object> paramMap);
 
 	List<Schedule> selectTimeList(Object movieNo);
 
 	List<Schedule> selectSaveTimeList(Map<String, Object> saveTicket);
+
+	List<Movie> selectMovieList();
+
+	Map<String, Object> selectMovie(Ticket ticket);
+
+	List<Seat> selectSeatList(Ticket ticket);
 
 }

@@ -55,7 +55,7 @@
                 <span>일자</span>
             </div>
             <div class="announContent">
-                <div th:each="notice : ${session.noticeList}">
+                <div th:each="notice : ${noticeList}">
                     <span th:text="${notice.NOTICE_TITLE}"></span>
                     <span th:text="${notice.NOTICE_ENROLL_DATE}"></span>
                 </div>
