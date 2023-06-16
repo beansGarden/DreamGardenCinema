@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +16,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.dgc.common.utility.RedisUtil;
 import edu.kh.dgc.user.model.dto.User;
+import edu.kh.dgc.user.model.service.SmsService;
 import edu.kh.dgc.user.model.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/user")
 @SessionAttributes({ "loginUser" })
+@RequiredArgsConstructor
 public class UserController {
-
+	
+    private final RedisUtil redisUtil;
+	
 	@Autowired
 	private UserService service;
 
@@ -87,16 +94,26 @@ public class UserController {
 	
 	@PostMapping("/signUp")
 	public String signup(
-			HttpSession session, RedirectAttributes ra, User inputUser, Model model) {
+			HttpSession session, RedirectAttributes ra, @Valid User inputUser, Model model) {
 		
 		String path = "redirect:";
 		String message = null;
 		
+		
 		inputUser.setUserBirth(LocalDate.parse(inputUser.getUserBirth1(), DateTimeFormatter.ofPattern("yyyyMMdd")));
+		boolean result1 = service.checkOverlap(inputUser); // 중복체크
 		
-		int result = service.signup(inputUser);
+		if(redisUtil.getData(inputUser.getAuthKey()) == null) {
+			System.out.println("인증 실패");
+			path += "signUp"; 
+			message = "회원 가입 실패";
+			ra.addFlashAttribute("message", message);
+			return path;
+		}
 		
-		if (result > 0) {
+		int result = service.signup(inputUser); // DB insert
+		
+		if (result > 0 && result1 == true) {
 			path += "/user/login";
 			
 			message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";

@@ -128,8 +128,9 @@ input::placeholder {
     text-align: center;
     position: absolute;
     top: 10px;
-    right: 0;
+    right: 15px;
     font-size: 16px;
+    letter-spacing: 2px;
 }
 /* 입력되지 않았을 때 input 빨간줄 */
 .err-input-border{

@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
 @Builder
-public class SmsRequestDto {
-    private String type;
-    private String contentType;
-    private String countryCode;
-    private String from;
-    private String content;
-    private List<MessageDto> messages;
+public class SmsRequestDTO {
+	String type;
+	String contentType;
+	String countryCode;
+	String from;
+	String content;
+	List<MessageDTO> messages;
+	
 }
