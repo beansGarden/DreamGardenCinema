@@ -17,4 +17,6 @@ public interface TicketingMapper {
 
 	List<Schedule> selectSaveTimeList(Map<String, Object> saveTicket);
 
+	List<Movie> selectMovieList();
+
 }

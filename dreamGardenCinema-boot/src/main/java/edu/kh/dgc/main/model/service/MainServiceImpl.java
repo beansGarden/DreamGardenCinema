@@ -22,9 +22,9 @@ public class MainServiceImpl implements MainService{
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		/* List<Movie> movieList = mapper.selectMovieList(); */
+		List<Movie> movieList = mapper.selectMovieList();
 		List<Notice> noticeList = mapper.selectNoticeList();
-		/* map.put("movieList", movieList); */
+		map.put("movieList", movieList);
 		map.put("noticeList", noticeList);
 		return map;
 	}

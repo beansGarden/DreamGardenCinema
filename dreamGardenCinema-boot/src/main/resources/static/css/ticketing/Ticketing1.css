@@ -131,10 +131,13 @@ body{
     justify-content: center;
 }
 .hamburger>label>span{
-    width: 100%;
+    width: 240px;
     font-size: 18px;
     font-weight: bold;
     padding-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .pizza>label{
     height: 140px;
@@ -170,8 +173,13 @@ body{
     height: 22px;
 }
 .title strong{
-    margin-left: 10px;
+    width: 240px;
     font-size: 18px;
+    font-weight: bold;
+    padding-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .rate{
     margin-bottom: 4px;

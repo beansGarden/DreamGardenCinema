@@ -23,7 +23,7 @@ public class MainController {
 		
 		Map<String, Object> map = service.selectMovieList();
 		
-		/* session.setAttribute("movieList", map.get("movieList")); */
+		session.setAttribute("movieList", map.get("movieList"));
 		session.setAttribute("noticeList", map.get("noticeList"));
 		return "common/main";
 	}

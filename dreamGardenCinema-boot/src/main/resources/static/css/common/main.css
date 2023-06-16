@@ -132,7 +132,7 @@ ul, li
     position: relative;
 }
 .sub_slide .swiper-container {
-    width: 980px;
+    width: 1020px;
     height: 40px;
 }
 
@@ -158,10 +158,10 @@ ul, li
     fill: rgb(94, 94, 94);
 }
 .sub_slide .swiper-prev {  /* 이전 버튼 위치 */
-    left: 250px;
+    top : 140px;
 }
 .sub_slide .swiper-next {  /* 다음 버튼 위치 */
-    right: 240px;
+    top : 140px;
 }
 .sub_slide .swiper-prev>.material-icons>*:hover,
 .sub_slide .swiper-next>.material-icons>*:hover {  /* 마우스 올렸을 때 흰색 */
@@ -188,7 +188,7 @@ ul, li
 .poster_info span{ /* 등급 */
     position: absolute;
     top: 4px;
-    right: -3px;
+    right: 4px;
 }
 .poster_info span img{
     width: 30px;

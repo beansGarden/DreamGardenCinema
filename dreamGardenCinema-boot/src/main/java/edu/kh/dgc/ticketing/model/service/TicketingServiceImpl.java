@@ -31,6 +31,11 @@ public class TicketingServiceImpl implements TicketingService{
 		return mapper.selectSaveTimeList(saveTicket);
 	}
 
+	@Override
+	public List<Movie> selectMovieList() {
+		return mapper.selectMovieList();
+	}
+
 
 
 }
