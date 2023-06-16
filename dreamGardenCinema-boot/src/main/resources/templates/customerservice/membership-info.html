@@ -6,331 +6,120 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my-page-membership</title>
-    
-    <link rel="stylesheet" th:href="@{/css/myPage/my-page-membership.css}">
-    <link rel="stylesheet" th:href="@{/css/myPage/my-page-changeinfo.css}">
+
+    <link rel="stylesheet" th:href="@{/css/customerservice/membership-info.css}">
     <link rel="stylesheet" th:href="@{/css/common/header-white.css}">
 </head>
 
 <body>
-    
+
     <th:block th:replace="~{common/header-white}"></th:block>
 
     <div class="my-page-container">
-        <div class="my-page-nickname">
-            <p>ㅇㅇㅇ님 환영합니다!</p>
+        <div class="membership-tos">
+            <h1>멤버십 이용약관</h1>
         </div>
 
+        <div class="my-page-empty-space1"></div>
 
-        <div class="my-page-category">
-            <ul class="my-page-L">
-                <li class="my-page-myinfo">
-                    <a th:href="@{#}"><img th:src="@{/images/myPage/내 정보 아이콘.png}"></a>
-                    <a th:href="@{#}">내정보 변경</a>
-                </li>
+        <div class="membership-guide">
 
-                <li class="my-page-myprofile">
-                    <a th:href="@{#}"><img th:src="@{/images/myPage/프로필 변경 아이콘.png}"></a>
-                    <a th:href="@{#}">닉네임 변경</a>
-                </li>
-            </ul>
+        
+            <pre><h3>회원가입 하시고</h3><span>등급별 혜택을 만나보세요.</span></pre>
 
-            <a th:href="@{#}" class="my-page-membership-grade">
-                <img th:src="@{/images/myPage/브론즈.png}">
-            </a>
+            
+            <div class="membership-guide-login">
+                <a th:href="@{/user/login}">로그인</a>
+            </div>
 
-            <ul class="my-page-R">
-                <li class="my-page-customer-service">
-                    <a th:href="@{#}"><img th:src="@{/images/myPage/1TO1문의.png}"></a>
-                    <a th:href="@{#}">1:1문의</a>
-                </li>
-
-                <li class="my-page-membership">
-                    <a th:href="@{/myPage/my-page-membership}"><img th:src="@{/images/myPage/멤버십 아이콘.png}"></a>
-                    <a th:href="@{/myPage/my-page-membership}">멤버십</a>
-                </li>
-            </ul>
+            <div class="membership-guide-signUp">
+                <a th:href="@{/user/signUp}">회원가입</a>
+            </div>
         </div>
 
-    </div>
-
-    <div class="my-page-empty-space"></div>
-
-    <div class="my-page-nav">
-        <ul class="my-page-nav-list">
-            <li>
-                <a th:href="@{/myPage/}">예매 내역</a>
-            </li>
-
-            <li>
-                <a th:href="@{#}">취소 내역</a>
-            </li>
-
-            <li>
-                <a th:href="@{/myPage/my-page-inquiry}">나의 문의 내역</a>
-            </li>
-
-            <li>
-                <a th:href="@{#}" id="my-page-secession">회원탈퇴</a>
-            </li>
-        </ul>
-    </div>
-    
+        <div class="my-page-empty-space2"></div>
 
         <div class="my-page-back-ground-color">
-            
-        <div class="my-page-img-box">
-            <img th:src="@{/images/myPage/브론즈.png}">
-            <img th:src="@{/images/myPage/실버 1.png}"> 
-            <img th:src="@{/images/myPage/골드 1.png}"> 
-            <img th:src="@{/images/myPage/플래티넘 1.png}">
-        </div>
-        <!-- 프로그래스 바 -->
 
-        <!-- js에서 current-item classList.add / remove로 등급 자동 조정 하게 변경 예정 -->
-        <section class="setp-wizard">
-            <ul class="step-wizard-list">
-                <li class="step-wizard-item ">
-                    <span class="progress-count">bronze</span>
-                    <span class="progress-label">0</span>
-                </li>
-                <li class="step-wizard-item current-item">
-                    <span class="progress-count">silver</span>
-                    <span class="progress-label">4만원</span>
-                </li>
-                <li class="step-wizard-item ">
-                    <span class="progress-count">gold</span>
-                    <span class="progress-label">10만원</span>
-                </li>
-                <li class="step-wizard-item ">
-                    <span class="progress-count">platinum</span>
-                    <span class="progress-label">20만원</span>
-                </li>
-            </ul>
-        </section>
-        
-    </div>
-                <!-- text-color 등급에 맞게 innerText, color 변경  -->
+            <div class="my-page-img-box">
+                <img th:src="@{/images/myPage/브론즈.png}">
+                <img th:src="@{/images/myPage/실버 1.png}">
+                <img th:src="@{/images/myPage/골드 1.png}">
+                <img th:src="@{/images/myPage/플래티넘 1.png}">
+            </div>
+
+
+            <!-- js에서 current-item classList.add / remove로 등급 자동 조정 하게 변경 예정 -->
+            <section class="setp-wizard">
+                <ul class="step-wizard-list">
+                    <li class="step-wizard-item ">
+                        <span>bronze</span>
+                        <span class="progress-label">0</span>
+                    </li>
+                    <li class="step-wizard-item current-item">
+                        <span>silver</span>
+                        <span class="progress-label">4만원</span>
+                    </li>
+                    <li class="step-wizard-item ">
+                        <span>gold</span>
+                        <span class="progress-label">10만원</span>
+                    </li>
+                    <li class="step-wizard-item ">
+                        <span>platinum</span>
+                        <span class="progress-label">20만원</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+        <!-- text-color 등급에 맞게 innerText, color 변경  -->
         <div class="my-page-coupon">
-            <div>
-                <span>현재 </span><span id="text-color">[BRONZE]</span><span> 등급</span>
-            </div>
-        <div class="my-page-coupon-btn">나의 쿠폰</div>
-    </div>
 
-    <div class="my-page-benefit-container">
-        <span>등급 혜택</span>
-        <div class="my-page-benefit">
-            <img th:src="@{/images/myPage/benefit(bronze).png}">
-            <img th:src="@{/images/myPage/benefit(silver).png}">
-            <img th:src="@{/images/myPage/benefit(gold).png}">
-            <img th:src="@{/images/myPage/benefit(platinum).png}">
         </div>
-    </div>
 
-    <!-- 닉네임 변경 모달 영역 -->
-
-    <div class="my-page-change-nickname-area">
-
-        <div class="my-page-change-nickname-content">
-            <div>
-                닉네임 변경
-            </div>
-            <div class="my-page-change-nickname-inputbox">
-                <input type="text" id="nickname-input">
-                <i id="nickname-i"></i>
-            </div>
-            <div class="my-page-change-nickname-update-btn">
-                <button>수정</button>
-                <button>취소</button>
+        <div class="my-page-benefit-container">
+            <span>등급 혜택</span>
+            <div class="my-page-benefit">
+                <img th:src="@{/images/myPage/benefit(bronze).png}">
+                <img th:src="@{/images/myPage/benefit(silver).png}">
+                <img th:src="@{/images/myPage/benefit(gold).png}">
+                <img th:src="@{/images/myPage/benefit(platinum).png}">
             </div>
         </div>
 
-    </div>
 
-        <!-- 회원 탈퇴 모달 영역 -->
-        <div class="my-page-secession-area">
-            <div class="my-page-secession-pwcheck-container">
-                <div>
-                    회원 탈퇴
+        <!-- 승급 안내 문구 -->
+        <div class="DGmembership-upgrade">
+            <div class="DGmembership-upgrade-box">
+                <div class="DGmembership-upgrade-title">
+                    <h3>DGmembership 승급안내</h3>
                 </div>
-                <div>
-                    비밀 번호 확인
-                </div>
-                <div class="my-page-secession-inputbox">
-                    <input type="text">
-                    <i></i>
-                </div>
-                <div class="my-page-secession-pwcheck-btn">
-                    <button>다음</button>
-                    <button>취소</button>
-                </div>
-            </div>
-    
-            <div class="my-page-secession-info-bg">
-                <div class="my-page-secession-info-content">
-    
-                    <span id="secession-title">회원 탈퇴</span>
-                    <p id="secession-info">회원 탈퇴 전<br>
-                        <span>유의 사항</span>
-                        을 확인해 주세요.
-                    </p>
-                </div>
-                <div id="secession-notice">
-                    <span>유의사항</span>
-                </div>
-                <p id="secession-notice-detail">
-                    <span>제 1 조 ( 계약 해지)</span> <br>
-                    회원이 서비스 이용 계약을 해지 하고자 할 때는 개인정보수정의 '회원탈퇴' 메뉴에서 
-                    회원탈퇴를 신청하시면 됩니다. 탈퇴를 신청하시면 즉시 탈퇴처리가 완료되며, 탈퇴 후
-                    회사에 다시 가입하실 수 없습니다.
-                    <br>
-                    <br>
-                    <span>제 2조 (탈퇴 회원의 개인정보 이용)</span> 
-                    <br>
-                    1.회사는 회원정보를 회원이 탈퇴하는 시점으로부터 1년까지 보유할 수 있습니다. 
-                    <br>
-                    2.회사가 보관하고 있는 탈퇴 회원의 정보는 회원의 가입이력관리와 지적재산권 관리,
-                    개인정보보호를 위해서만 활용할 수 있습니다. <br>
-                    3.단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 아래와 같이 관계법령에서 
-                    정한 일정한 기간 동안 회원정보를 보관합니다. <br>
+
+                <pre class="DGmembership-upgrade-comment">
+                    ▷ 티켓 누적 금액 기준으로 DGmembership 등급이 선정되며, 금액을 합산하여 등급이 반영됩니다.
+                    ▷ PLATINUM회원의 경우 DGmembership 승급에 해당되지 않습니다.
+                    ▷ 회원에 한하여DGmembership승급이 가능합니다.(비회원의 경우 회원가입을 진행해 주세요.)
                     
-                    -표시/광고에 관한 기록 : 6개월
-                    <br>
-                    -계약 또는 청약철회 등에 관한 기록 : 5년
-                    <br>
-                    -대금결제 및 재화 등의 공급에 관한 기록 : 5년
-                    <br>
-                    <br>
-                    <span>제 3조 (자격 상실)</span><br>
-    
-                    다음 각 항의 사유에 해당하는 경우 회사는 사전 통보 없이,<br>
-                    이용계약을 해지하거나 기간을 정하여 서비스 이용을 중지 <br> 
-                    또는 이용계약 해지 후 무기한 가입제한 할 수 있습니다.
-                    <br>
-                    1.가입시 또는 정보변경시 제6조 3항의 회원정보를 누락시키거나 허위 기재한 경우<br>
-                    2.미풍양속을 저해하는 비속한 아이디, 필명, 별명을 사용한 경우<br>
-                    3.타인의 아이디와 비밀번호, 주민등록번호 등 회원정보를 수집, 저장, 도용한 경우<br>
-                    4.회사 임직원, 운영자 등을 포함한 타인을 사칭하는 행위<br>
-                    5.회사, 다른 회원 또는 제3자의 지적재산권을 침해하는 경우<br>
-                    6.사회의 안녕과 질서, 미풍양속을 해치는 행위를 하는 경우<br>
-                    7.타인의 명예를 훼손, 모욕, 스톡 등 괴롭히거나 불이익을 주는 행위를 한 경우<br>
-                    8.정보통신망에 장애를 일으킬 수 있는 행위를 하는 경우<br>
-                    9.회사의 허락 없이 회사의 서비스를 이용해 영리행위를 하는 경우<br>
-                    10.회사가 허락하지 않은 방법으로 회사가 운영, 관리하는 포인트를 취득한 경우<br>
-                    11.전기통신기본법, 전기통신사업법, 정보통신 윤리강령, <br>
-                    정보통신 윤리위원회 심의규정, 프로그램 보호법 및 기타관련 법령과 약관이 금지하는 행위를 한 경우
-                </p>
-                <div class="my-page-secession-checkbox">
-                    <input type="checkbox"><span>위 유의사항을 모두 확인하였고 회원 탈퇴에 동의합니다</span>
-                </div>
-                <div class="my-page-secession-btn">
-                    <button>탈퇴</button>
-                    <button>취소</button>
-                </div>
+                </pre>
             </div>
-    
-        </div>
 
+            <div class="DGmembership-cp">
+                <div class="DGmembership-cp-title">
+                    <h3>DGmembership  쿠폰 사용 시 유의사항</h3>
+                </div>
 
-    <!-- 내 정보 변경 모달 영역 -->
-    <div class="my-page-changeinfo-modal-area">
-
-        <div class="my-page-changeinfo-border">
-
-
-        <div class="my-page-changeinfo-top">
-            <span>회원 정보변경</span> 
-            <p>회원 정보를<br>
-                <span>정확하게 입력해 주세요.</span>
-            </p>
-        </div>
-        <div class="my-page-changeinfo-container">
-            <span>Dream Garden Cinema</span>
-    
-            <p>회원 정보 입력<span class="my-page-changeinfo-guide-text"> *는 필수입력 항목입니다</span></p>
-        </div>
-    
-        <div class="my-page-changeinfo-contentbox">
-    
-            <div class="my-page-changeinfo-back">
-                
-                <div class="my-page-changeinfo-name">
-                    <p class="my-page-changeinfo-guide-text">*  <span>이름</span></p>
-                    <span>나카무라윤</span>
-                </div>
-                <div class="my-page-changeinfo-id">
-                    <p class="my-page-changeinfo-guide-text">*  <span>아이디</span></p>
-                    <span>dokdoiskorea@naver.com</span>
-                </div>
-                <div class="my-page-changeinfo-hp">
-                    <p class="my-page-changeinfo-guide-text">*  <span>핸드폰 번호</span></p>
-                    <input type="text">
-                    <span>"-" 빼고 입력해주세요</span>
-                </div>
-                <div class="my-page-changeinfo-email">
-                    <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>
-                    <input type="email">
-                </div>
-                
-            </div>
-            
-            <div class="my-page-changeinfo-pw-container">
-                
-                <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required">
-                    <span>현재 비밀번호</span>
-                    <i></i>
-                </div>
-                <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
-                    <span>새 비밀번호</span>
-                    <i></i>
-                </div>
-                <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
-                    <span>새 비밀번호 확인</span>
-                    <i></i>
-                </div>
-                <p class="my-page-changeinfo-guide-text">* 8-15 자리의 영문/숫자/특수문자를 함께 입력해주세요</p>
-                
-            </div>
-            
-            <div class="my-page-changeinfo-address-container">
-                <div>
-                    <p class="my-page-changeinfo-guide-text">* <span>주소</span></p>
-                </div>
-                
-                <div class="my-page-changeinfo-address-inputbox">
-                    
-                    <div id="postcode-box">
-                        <input type="text" placeholder="우편번호" id="postcode">
-                        <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
-                        <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
-                    </div>
-                    <div>
-                        <input type="text" placeholder="도로명/지번 주소" id="address">
-                    </div>
-                    <div>
-                        <input type="text" placeholder="상세 주소" id="detailAddress">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="my-page-changeinfo-update-btn">
-                    <button>수정</button>
-                    <button>취소</button>
+                <pre>
+                    ▷ 관람권은 주중/주말 사용 가능합니다.
+                    ▷ 영화 한 편당 한 개의 쿠폰만 사용 가능합니다.
+                </pre>
             </div>
         </div>
 
     </div>
-    
-    </div>
-    
+
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script> 
-    <script th:src="@{/js/myPage/my-page-membership.js}"></script>
+    
 </body>
 
 </html>

@@ -23,6 +23,7 @@
 .my-page-nickname{
     width: 100%;
     height: 100px;
+    margin-top: 5px;
     background-color: #0F0954;
     display: flex;
     justify-content: center;

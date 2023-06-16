@@ -21,8 +21,8 @@
 
                 <li class="dg-menu-L3"><a th:href="@{#}" class="dg-membership-link">멤버십</a>
                     <ul class="dg-menu-drop-membership">
-                        <li><a th:href="@{/customerservice/terms}">멤버십 이용약관</a></li>
-                        <li><a th:href="@{/myPage/my-page-membership}">나의 멤버십</a></li>
+                        <li th:unless="${session.loginUser}"><a th:href="@{/customerservice/terms}">멤버십 이용약관</a></li>
+                        <li th:if="${session.loginUser}"><a th:href="@{/myPage/my-page-membership}">나의 멤버십</a></li>
                     </ul>
                 </li>
             </ul>
