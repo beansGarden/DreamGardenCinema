@@ -1,6 +1,7 @@
 package edu.kh.dgc.movie.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,13 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	private MovieMapper mapper;
 	
+	// 영화 메인페이지에 슬라이드에 쓰일 이미지 조회
+	@Override
+	public List<Map<String, String>> selectMovieMainSlideImgList() {
+		return mapper.selectMovieMainSlideImgList() ;
+	}
+	
+	// 영화 메인페이지에 쓰일 현재 상영작 조회 5개
 	@Override
 	public List<Movie> selectMovieListCurrentMain() {
 		RowBounds rowBounds = new RowBounds(0, 5);
@@ -22,6 +30,7 @@ public class MovieServiceImpl implements MovieService{
 		return mapper.selectMovieListCurrent(null, rowBounds);
 	}
 	
+	// 영화 메인페이지에 쓰일 상영 예정작 조회 5개
 	@Override
 	public List<Movie> selectMovieListPromiseMain() {
 		RowBounds rowBounds = new RowBounds(0, 5);
@@ -29,15 +38,19 @@ public class MovieServiceImpl implements MovieService{
 		return mapper.selectMovieListPromise(null, rowBounds);
 	}
 	
+	// 현재 상영작 조회
 	@Override
 	public List<Movie> selectMovieListCurrent() {
 		return mapper.selectMovieListCurrent();
 	}
-
+	
+	// 상영 예정작 조회
 	@Override
 	public List<Movie> selectMovieListPromise() {
 		return mapper.selectMovieListPromise();
 	}
+
+	
 
 	
 	
