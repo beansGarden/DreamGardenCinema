@@ -1,6 +1,7 @@
 package edu.kh.dgc.user.model.service;
 
 import java.io.UnsupportedEncodingException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -8,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -31,6 +31,7 @@ import edu.kh.dgc.common.utility.RedisUtil;
 import edu.kh.dgc.user.model.dto.MessageDTO;
 import edu.kh.dgc.user.model.dto.SmsRequestDTO;
 import edu.kh.dgc.user.model.dto.SmsResponseDTO;
+import edu.kh.dgc.user.model.dto.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class SmsService {
+	
 	@Value("${naver-cloud-sms.accessKey}")
 	private String accessKey;
 
@@ -116,17 +118,20 @@ public class SmsService {
 		RestTemplate restTemplate = new RestTemplate();
 	    restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 	    SmsResponseDTO response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponseDTO.class);
+	    
 	    redisUtil.setDataExpire(smsConfirmNum, messageDto.getTo(), 60 * 5L); // 유효시간 5분
 	    
-//	    System.out.println("smsConfirmNum : " + smsConfirmNum); // redis 인증번호 key
-//	    System.out.println("messageDto.getTo() : " + messageDto.getTo()); // redis 인증번호 value
+	    System.out.println("smsConfirmNum1 : " + smsConfirmNum); // redis 인증번호 key
+	    System.out.println("messageDto.getTo() : " + messageDto.getTo()); // redis 인증번호 value
 	    
 	    return response;
 	}
+
 	// 6자리 난수
 	public static String createSmsKey() {
 		SecureRandom secureRandom = new SecureRandom();
         int randomNumber = secureRandom.nextInt(900000) + 100000;
         return String.valueOf(randomNumber);
 	}
+
 }

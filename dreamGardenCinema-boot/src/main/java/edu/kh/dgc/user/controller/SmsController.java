@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import edu.kh.dgc.user.model.dto.MessageDTO;
 import edu.kh.dgc.user.model.dto.SmsResponseDTO;
+import edu.kh.dgc.user.model.dto.User;
 import edu.kh.dgc.user.model.service.SmsService;
 import lombok.RequiredArgsConstructor;
  

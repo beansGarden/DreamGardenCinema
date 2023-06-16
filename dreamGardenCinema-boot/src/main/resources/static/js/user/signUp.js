@@ -437,6 +437,12 @@ for (var i = 0; i < radioButtons.length; i++) {
 // 인증번호 발송
 const sendAuthKeyBtn = document.getElementById("sendAuthKeyBtn");
 
+const authKey = document.getElementById("authKey");
+
+authKey.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
+});
+
 let authTimer;
 let authMin = 4;
 let authSec = 59;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,14 +43,13 @@ public class User {
 	@NotBlank
 	private String userGender;
 	
-	@NotBlank
+	@Past
 	private LocalDate userBirth;
 	
 	@NotBlank
-	private int authKey;
+	private String authKey;
 	
-	private int userInputAuthKey;
-	
+	private String smsConfirmNum;
 	
 	private String userEnrollDate;
 	
