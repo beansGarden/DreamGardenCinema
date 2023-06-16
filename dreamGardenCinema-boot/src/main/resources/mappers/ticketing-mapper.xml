@@ -20,7 +20,7 @@
 		<![CDATA[
 		AND MOVIE_TIME > SYSDATE 
 		]]>
-		AND MOVIE_NO = ${saveMovieNo}
+		AND MOVIE_NO = ${movieNo}
 		ORDER BY MOVIE_TIME, MOVIE_THEATER
 	</select>
 	
@@ -45,5 +45,17 @@
 				 ON(P.MOVIE_NO = I.MOVIE_NO)
 			WHERE SCREENING = 'C'
 			ORDER BY TICKET_COUNT DESC, RELEASE_DATE)
+	</select>
+	
+	<select id="selectMovie" resultType="map">
+		SELECT MOVIE_NO, MOVIE_TITLE, POSTER, RUNNING_TIME, RATING, RELEASE_DATE, MOVIE_PRICE, GENRE
+		FROM MOVIE
+		WHERE MOVIE_NO = ${movieNo}
+	</select>
+	
+	<select id="selectSeatList" resultType="map">
+		SELECT SEAT_NO, MOVIE_THEATER
+		FROM SEAT
+		WHERE MOVIE_THEATER = ${movieTheater}
 	</select>
 </mapper>

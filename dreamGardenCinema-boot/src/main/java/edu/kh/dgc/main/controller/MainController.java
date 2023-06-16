@@ -1,30 +1,34 @@
 package edu.kh.dgc.main.controller;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.kh.dgc.main.model.service.MainService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.notice.model.dto.Notice;
+import edu.kh.dgc.notice.model.service.NoticeService;
+import edu.kh.dgc.ticketing.model.service.TicketingService;
 
 @Controller
 public class MainController {
 	
 	@Autowired
-	private MainService service;
+	private TicketingService ticketingService;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	@RequestMapping("/")
-	public String mainForward(HttpServletRequest request) {
+	public String mainForward(Model model) {
 		
-		HttpSession session = request.getSession();
+		List<Movie> movieList = ticketingService.selectMovieList();
+		List<Notice> noticeList = noticeService.selectNoticeList();
 		
-		Map<String, Object> map = service.selectMovieList();
-		
-		session.setAttribute("movieList", map.get("movieList"));
-		session.setAttribute("noticeList", map.get("noticeList"));
+		model.addAttribute("movieList", movieList);
+		model.addAttribute("noticeList", noticeList);
 		return "common/main";
 	}
 	

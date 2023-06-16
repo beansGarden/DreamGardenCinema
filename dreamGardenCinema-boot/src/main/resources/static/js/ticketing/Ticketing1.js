@@ -96,7 +96,7 @@ for(let i=0;i<10;i++){
     em.innerText = day;
 
 
-    input.value = `${today.getFullYear()}${month}${date}`;
+    input.value = `${today.getFullYear()}${month}${date} ${day}`;  /*  ${day} */
     label.append(input, innerStrong, em);
     a.append(label);
     li.append(strong, a);

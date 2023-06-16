@@ -23,11 +23,11 @@
                 <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
                 <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
             </ul>
-            <form th:action="@{/ticketing/date}" method="POST" id="timeFrm">
+            <form th:action="@{/ticketing/seat}" method="POST" id="timeFrm">
                 <div class="choiceMovie">
                     <div class="hiddenRadio" style="display: none;">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(input radio 영화번호 선택) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie, movieStat : ${session.movieList}">
+                        <th:block th:each="movie, movieStat : ${movieList}">
                             <th:block th:if="${movieStat.index==0}">
                                 <input type="radio" name="movieNo" th:id="${movie.MOVIE_NO}" th:value="${movie.MOVIE_NO}" checked="true">
                             </th:block>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="MovieList hamburger">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie : ${session.movieList}">
+                        <th:block th:each="movie : ${movieList}">
                             <label th:for="${movie.MOVIE_NO}" class="checkBtn hmbgr" th:classappend="${movie.MOVIE_NO == checkNo} ? 'saveMovie'">
                                 <img class="rating" th:src="${movie.RATING}">                          
                                 <span class="movieTitle" th:text="${movie.MOVIE_TITLE}"></span>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="MovieList pizza" style="display: none;">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie, movieStat : ${session.movieList}">
+                        <th:block th:each="movie, movieStat : ${movieList}">
                             <label th:for="${movie.MOVIE_NO}" class="checkBtn pzz" th:classappend="${movie.MOVIE_NO == checkNo} ? 'saveMovie'">
                                 <div class="poster">
                                     <img th:src="${movie.POSTER}">
@@ -161,7 +161,7 @@
     <script th:inline="javascript">
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
         const timetime = /*[[${timeList}]]*/ "시간";
-        const saveDay = /*[[${saveTicket?.saveMovieTime}]]*/ "저장된시간";
+        const saveDay = /*[[${saveTicket?.movieTime}]]*/ "저장된시간";
     </script>
     <script th:src="@{/js/ticketing/Ticketing1.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
