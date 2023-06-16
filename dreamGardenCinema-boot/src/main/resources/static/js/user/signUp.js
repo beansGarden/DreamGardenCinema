@@ -436,127 +436,93 @@ for (var i = 0; i < radioButtons.length; i++) {
 // ----------------------------------------------- 휴대폰 인증 -----------------------------------------------
 // 인증번호 발송
 const sendAuthKeyBtn = document.getElementById("sendAuthKeyBtn");
-
-const authKey = document.getElementById("authKey");
+const signBtn = document.getElementById("signBtn");
+const authKeyLifeTime = document.getElementById("authKeyLifeTime");
 
 authKey.addEventListener("input", function () {
     this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
 });
 
-let authTimer;
-let authMin = 4;
-let authSec = 59;
+let timeRemaining = 5 * 60;
+let buttonClicked = false;
+let interval;
 
-// 인증번호를 발송한 이메일 저장
-let tempEmail;
 if (sendAuthKeyBtn != null) {
     sendAuthKeyBtn.addEventListener("click", function (e) {
-
-        sessionStorage.setItem("userTel", userTel.value); // userTel session 저장
-
-        authMin = 4;
-        authSec = 59;
-        // checkObj.authKey = false;
+        
+        if (interval) {
+            clearInterval(interval);
+            interval = null;
+        }
 
         if (checkObj.userTel) {
 
-            sendAuthKeyBtn.setAttribute("disabled", "disabled") // 재전송 방지
-
+            authKeyLifeTime.classList.add("authKey-green-text");
+            authKeyLifeTime.classList.remove("authKey-red-text");
+            sendAuthKeyBtn.classList.add("display-none");
+            signBtn.classList.remove("display-none");
             let data = {
                 userTel: userTel.value // userTel 값을 객체에 담기
             };
 
             /* fetch() API 방식 ajax */
-            fetch("/user/sms/send?userTel=" + userTel.value, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
-            })
+            // fetch("/user/sms/send?userTel=" + userTel.value, {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
+            // })
 
-                .then(resp => resp.json())
-                .then(result => {
-                    if (result.statusCode == 202) {
-                        console.log("인증번호 발송 성공")
-                        console.log(result);
-                    } else {
-                        console.log("인증번호 발송 실패")
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log("이메일 발송 중 에러 발생");
-                    console.log(err);
-                });
+            //     .then(resp => resp.json())
+            //     .then(result => {
+            //         if (result.statusCode == 202) {
+            //             console.log("인증번호 발송 성공")
+            //             console.log(result);
+            //         } else {
+            //             console.log("인증번호 발송 실패")
+            //             console.log(result);
+            //         }
+            //     })
+            //     .catch(err => {
+            //         console.log("이메일 발송 중 에러 발생");
+            //         console.log(err);
+            //     });
 
             alert("인증번호가 발송 되었습니다.");
+            timeRemaining = 5 * 60;
+            startCountdown();
 
-            sendAuthKeyBtn.innerText = "05:00";
-            sendAuthKeyBtn.classList.remove("confirm");
-            sendAuthKeyBtn.classList.remove("class-hidden");
-            // authKeyMessage.innerText = "05:00";
-            // authKeyMessage.classList.remove("confirm");
-            // authKeyMessage.classList.add("error");
-            // authKeyMessage.classList.remove("class-hidden");
-
-            authTimer = window.setInterval(() => {
-                sendAuthKeyBtn.innerText = "0" + authMin + ":" + (authSec < 10 ? "0" + authSec : authSec);
-                // 남은 시간이 0분 0초인 경우
-                if (authMin == 0 && authSec == 0) {
-                    checkObj.authKey = false;
-                    clearInterval(authTimer);
-                    sendAuthKeyBtn.classList.add("error");
-                    return;
-                }
-                // 0초인 경우
-                if (authSec == 0) {
-                    authSec = 60;
-                    authMin--;
-                }
-
-                authSec--; // 1초 감소
-
-            }, 1000)
 
         } else {
-            alert("중복되지 않은 이메일을 작성해주세요.");
-            userEmail.focus();
+            alert("휴대폰 번호를 작성해주세요.");
+            userTel.focus();
         }
 
     });
 
-    // 인증 확인
-    const authKey = document.getElementById("authKey");
-    const checkAuthKeyBtn = document.getElementById("checkAuthKeyBtn");
+}
+function startCountdown() {
+    interval = setInterval(function () {
+        // 분과 초 계산
+        const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        const seconds = (timeRemaining % 60).toString().padStart(2, '0');
 
-    // checkAuthKeyBtn.addEventListener("click", function () {
-    //     if (authMin > 0 || authSec > 0) { // 시간 제한이 지나지 않은 경우에만 인증번호 검사 진행
-    //         /* fetch API */
-    //         const obj = { "inputKey": authKey.value, "email": tempEmail }
-    //         const query = new URLSearchParams(obj).toString()
-    //         fetch("/sendEmail/checkAuthKey?" + query)
-    //             .then(resp => resp.text())
-    //             .then(result => {
-    //                 if (result > 0) {
-    //                     clearInterval(authTimer);
-    //                     authKeyMessage.classList.remove("error");
-    //                     authKeyMessage.classList.add("confirm");
-    //                     checkObj.authKey = true;
+        // 텍스트 업데이트
+        authKeyLifeTime.innerText = `${minutes}:${seconds}`;
 
-    //                 } else {
-    //                     alert("인증번호가 일치하지 않습니다.")
-    //                     checkObj.authKey = false;
-    //                 }
-    //             })
-    //             .catch(err => console.log(err));
+        // 시간 감소
+        timeRemaining--;
 
-
-    //     } else {
-    //         alert("인증 시간이 만료되었습니다. 다시 시도해주세요.")
-    //     }
-
-    // });
+        // 시간이 0보다 작거나 같으면 인터벌 종료
+        if (timeRemaining < 0) {
+            clearInterval(interval);
+            authKeyLifeTime.innerText = "00:00";
+            authKeyLifeTime.classList.remove("authKey-green-text");
+            authKeyLifeTime.classList.add("authKey-red-text");
+            interval = null;
+        }
+    }, 1000);
 }
 // ----------------------------------------------- 휴대폰 인증 끝 -----------------------------------------------
 

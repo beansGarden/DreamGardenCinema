@@ -1,10 +1,10 @@
 package edu.kh.dgc.user.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.kh.dgc.user.model.dao.AjaxMapper;
 import edu.kh.dgc.user.model.dao.UserMapper;
 import edu.kh.dgc.user.model.dto.User;
 import jakarta.validation.Valid;
@@ -15,23 +15,23 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 
-//	@Autowired
-//	private BCryptPasswordEncoder bcrypt;
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 
 	@Override
 	public User login(User inputUser) {
 
 		User loginUser = mapper.login(inputUser);
-//		System.out.println("암호화 확인 : " + bcrypt.encode(inputMember.getUserPw()));
-
-//		if (loginMember != null) {
+//		System.out.println("암호화 확인 : " + bcrypt.encode(inputUser.getUserPw()));
 //
-//			if (bcrypt.matches(inputMember.getUserPw(), loginMember.getUserPw())) {
+//		if (inputUser != null) {
 //
-//				loginMember.setUserPw(null);
+//			if (bcrypt.matches(inputUser.getUserPw(), inputUser.getUserPw())) {
+//
+//				inputUser.setUserPw(null);
 //
 //			} else { // 다를 경우
-//				loginMember = null;
+//				inputUser = null;
 //			}
 //		}
 		return loginUser;
