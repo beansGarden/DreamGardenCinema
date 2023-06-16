@@ -67,7 +67,7 @@ public class UserController {
 //				path += "/manager";
 //			}
 			path += "/";
-			model.addAttribute("inputUser", loginUser);
+			model.addAttribute("loginUser", loginUser);
 			Cookie cookie = new Cookie("saveId", loginUser.getUserEmail());
 			
 			if(saveId != null) {

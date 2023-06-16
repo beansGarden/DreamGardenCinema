@@ -9,7 +9,8 @@ public interface TicketingService {
 
 	List<Schedule> movieTime(Map<String, Integer> paramMap);
 
-	Schedule mainMovieTime(int movieNo);
+	List<Schedule> selectTimeList(Object movieNo);
 
+	List<Schedule> selectSaveTimeList(Map<String, Object> saveTicket);
 
 }
