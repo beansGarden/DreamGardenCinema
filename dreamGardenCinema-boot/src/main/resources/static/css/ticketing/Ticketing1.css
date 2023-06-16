@@ -327,6 +327,7 @@ body{
     border-bottom-right-radius: 15px;
     display: flex;
     justify-content: center;
+    overflow-y: auto;
 }
 .timelist{
     width: 700px;
@@ -380,4 +381,10 @@ body{
 .saveMovie{
     background-color: #0F0954;
     color : white;
+}
+
+.nonelist{
+    height: 200px;
+    font-size: 30px;
+    font-weight: bold;
 }

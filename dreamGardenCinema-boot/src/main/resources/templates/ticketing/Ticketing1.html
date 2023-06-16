@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="choiceTime">
-                    <div class="choiceHeader headerDate">2023-06-07(오늘)</div>
+                    <div class="choiceHeader headerDate"></div>
                     <section class="sub_slide">
                         <div class="inner">
                             <div class="swiper-container">
@@ -135,8 +135,8 @@
                         <span th:text="${movieList[0].MOVIE_TITLE}"></span>
                     </div>
                     <div class="timeSelect">
-                        <div class="timeSelect" th:if="${#lists.size(timeList) == 0}">
-                            상영중인 정보가 없습니다.
+                        <div class="nonelist" th:if="${#lists.size(timeList) == 0}">
+                            상영 중인 정보가 없습니다
                         </div>
                         <ul class="timelist" th:unless="${#lists.size(timeList) == 0}">
                             <li th:each="time : ${timeList}">                                                              

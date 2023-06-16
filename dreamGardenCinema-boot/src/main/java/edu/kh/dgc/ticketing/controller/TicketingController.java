@@ -61,9 +61,6 @@ public class TicketingController {
 			model.addAttribute("checkNo", movieNo);
 		}
 		
-		
-		
-		
 		// 페이지 보여질 때 영화 정보들(포스터, 제목, 등급, 순위, 별점, 개봉일, 예매율) 가져와야 함 + 영화별 상영 날짜/시간
 		model.addAttribute("timeList",timeList);
 		
