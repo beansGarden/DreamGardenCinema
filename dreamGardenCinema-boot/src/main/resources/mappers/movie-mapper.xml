@@ -34,5 +34,11 @@
 		WHERE SCREENING = 'P'
 	</select>
 	
+	<select id="selectMovieMainSlideImgList" resultType="map">
+		SELECT *
+		FROM MOVIE_IMG
+		WHERE MOVIE_IMG_ROLE='영화슬라이드'
+	</select>
+	
 	
 </mapper>
