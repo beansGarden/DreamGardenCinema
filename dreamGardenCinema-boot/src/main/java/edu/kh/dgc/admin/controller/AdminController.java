@@ -114,6 +114,28 @@ public class AdminController {
 		
 		return "admin/admin_notice_read";
 	}
+	
+	//5-1.공지사항 게시글 검색
+	@GetMapping("/searchNotice")
+	public String searchNotice(@RequestParam("keyword") String keyword, @RequestParam("option") String option, Model model) {
+	    List<Notice> searchResults;
+
+	    if (option.equals("title")) {
+	        // 번호 열에서 키워드 검색 쿼리를 실행
+	        searchResults = service.searchNotice(keyword);
+	    } else {
+	        // 다른 옵션에 대한 검색 로직 추가
+	        // ...
+	        // 예를 들어, 이름 열 또는 이메일 열에 대한 검색 쿼리를 실행할 수 있습니다.
+	        searchResults = service.searchByTitleOrEmail(keyword, option);
+	    }
+
+	    model.addAttribute("searchResults", searchResults);
+	    return "searchResults"; // 검색 결과를 표시할 뷰의 이름을 반환합니다.
+	}
+
+
+	
 
 	// 5-2. 공지사항 게시글 쓰기
 	@GetMapping("/adminNoticeWrite") 

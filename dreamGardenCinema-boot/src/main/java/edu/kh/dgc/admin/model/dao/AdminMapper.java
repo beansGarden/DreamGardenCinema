@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -83,6 +84,19 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int noticeDelete(int noticeNo);
+
+	/**공지사항 검색
+	 * @param keyword
+	 * @return
+	 */
+	List<Notice> searchNotice(String keyword);
+
+	/**공지사항 검색
+	 * @param keyword
+	 * @param option
+	 * @return
+	 */
+	List<Notice> searchByTitleOrEmail(Map<String, Object> paramMap);
 
 
 

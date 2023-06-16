@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -148,6 +149,20 @@ public class AdminDAO {
 	public int noticeDelete(int noticeNo) {
 		
 		return mapper.noticeDelete(noticeNo);
+	}
+
+	/**공지사항 검색
+	 * @param keyword
+	 * @return
+	 */
+	public List<Notice> searchNotice(String keyword) {
+		
+		return mapper.searchNotice(keyword);
+	}
+
+	public List<Notice> searchByTitleOrEmail(Map<String, Object> paramMap) {
+		
+		return mapper.searchByTitleOrEmail(paramMap);
 	}
 
 	
