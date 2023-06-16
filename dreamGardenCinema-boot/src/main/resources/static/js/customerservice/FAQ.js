@@ -99,26 +99,69 @@ arrowLeftBtn.addEventListener("click",()=>{
 /******* 답변 창 부분 ********/
 
 const answerBox = document.getElementsByClassName("FAQ-answer-box")[0];
-const downBtn = document.getElementById("downBtn");
-const upBtn = document.getElementById("upBtn");
+const downBtn = document.querySelectorAll(".downBtn");
+const upBtn = document.querySelectorAll(".upBtn");
 
-downBtn.addEventListener("click", () => {
+// downBtn.addEventListener("click", () => {
         
-    if(answerBox.style.display = "none"){
-        answerBox.style.display = "block";
-        downBtn.style.display = "none";
-        upBtn.style.display = "block";
-    }
+//     if(answerBox.style.display = "none"){
+//         answerBox.style.display = "block";
+//         downBtn.style.display = "none";
+//         upBtn.style.display = "block";
+//     }
 
-});
+// });
 
-upBtn.addEventListener("click", () => {
+// upBtn.addEventListener("click", () => {
         
-    if(answerBox.style.display = "block"){
-        answerBox.style.display = "none";
-        downBtn.style.display = "block";
-        upBtn.style.display = "none";
-    }
+//     if(answerBox.style.display = "block"){
+//         answerBox.style.display = "none";
+//         downBtn.style.display = "block";
+//         upBtn.style.display = "none";
+//     }
 
-});
+// });
+
+const theater = document.getElementsByClassName("faq-theater-list")[i];
+
+// FAQ 특정 게시판 게시글 불러오기(상영관 관련)
+
+theater.addEventListener("click", ()=>{
+  
+  fetch("/customerservice/theaterFAQ?=")
+  .then(resp => resp.json())
+  .then(theaterFAQ =>{
+    console.log(theaterFAQ);
+    
+
+        // for(let ){
+
+
+        // }
+          
+
+
+
+
+      })
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
