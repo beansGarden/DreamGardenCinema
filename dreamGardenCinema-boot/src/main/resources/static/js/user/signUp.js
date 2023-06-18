@@ -466,28 +466,28 @@ if (sendAuthKeyBtn != null) {
             };
 
             /* fetch() API 방식 ajax */
-            // fetch("/user/sms/send?userTel=" + userTel.value, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
-            // })
+            fetch("/user/sms/send?userTel=" + userTel.value, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
+            })
 
-            //     .then(resp => resp.json())
-            //     .then(result => {
-            //         if (result.statusCode == 202) {
-            //             console.log("인증번호 발송 성공")
-            //             console.log(result);
-            //         } else {
-            //             console.log("인증번호 발송 실패")
-            //             console.log(result);
-            //         }
-            //     })
-            //     .catch(err => {
-            //         console.log("이메일 발송 중 에러 발생");
-            //         console.log(err);
-            //     });
+                .then(resp => resp.json())
+                .then(result => {
+                    if (result.statusCode == 202) {
+                        console.log("인증번호 발송 성공")
+                        console.log(result);
+                    } else {
+                        console.log("인증번호 발송 실패")
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log("이메일 발송 중 에러 발생");
+                    console.log(err);
+                });
 
             alert("인증번호가 발송 되었습니다.");
             timeRemaining = 5 * 60;

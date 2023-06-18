@@ -1,6 +1,5 @@
 package edu.kh.dgc.user.controller;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -29,9 +28,9 @@ import lombok.RequiredArgsConstructor;
 @SessionAttributes({ "loginUser" })
 @RequiredArgsConstructor
 public class UserController {
-	
-    private final RedisUtil redisUtil;
-	
+
+	private final RedisUtil redisUtil;
+
 	@Autowired
 	private UserService service;
 
@@ -39,34 +38,32 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
-	
+
 	@RequestMapping("/signUp")
 	public String signup() {
 
 		return "user/signUp";
 	}
-	
+
 	@GetMapping("/accountFind")
 	public String pwSearch() {
 
 		return "user/accountFind";
 	}
-	
+
 	@PostMapping("/login")
-	public String login(User inputUser, Model model
-						, @RequestHeader(value = "referer") String referer
-						, @RequestParam(value = "saveId", required = false) String saveId
-						, HttpServletResponse resp
-						, RedirectAttributes ra) {
-		
+	public String login(User inputUser, Model model, @RequestHeader(value = "referer") String referer,
+			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp,
+			RedirectAttributes ra) {
+
 		User loginUser = service.login(inputUser);
-		
+
 //		Member inputUser = new Member();
 //		inputUser.setMemberEmail("pingpong@kh.or.kr");
 //		inputUser.setMemberNo(1);
 		String path = "redirect:";
-		
-		if(loginUser != null) { 
+
+		if (loginUser != null) {
 			System.out.println(loginUser.getUserId() + "  로그인 성공");
 //			if(inputUser.getUserRole().toUpperCase().equals("A")) { // 관리자 로그인 시 관리자페이지 이동
 //				path += "/manager";
@@ -74,56 +71,65 @@ public class UserController {
 			path += "/";
 			model.addAttribute("loginUser", loginUser);
 			Cookie cookie = new Cookie("saveId", loginUser.getUserEmail());
-			
-			if(saveId != null) {
-				cookie.setMaxAge(60*60*24*30);
-			}else {
+
+			if (saveId != null) {
+				cookie.setMaxAge(60 * 60 * 24 * 30);
+			} else {
 				cookie.setMaxAge(0);
 			}
-					
-			cookie.setPath("/"); 
+
+			cookie.setPath("/");
 			resp.addCookie(cookie);
-		}else {
+		} else {
 			path += referer;
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
 		return path;
 	}
-	
+
 	@PostMapping("/signUp")
-	public String signup(
-			HttpSession session, RedirectAttributes ra, @Valid User inputUser, Model model) {
-		
+	public String signup(HttpSession session, RedirectAttributes ra, @Valid User inputUser, Model model) {
+
 		String path = "redirect:";
 		String message = null;
-		
-		
+		String redisKey = "smsConfirmNum";
+
 		inputUser.setUserBirth(LocalDate.parse(inputUser.getUserBirth1(), DateTimeFormatter.ofPattern("yyyyMMdd")));
 		boolean result1 = service.checkOverlap(inputUser); // 중복체크
-		
-		if(redisUtil.getData(inputUser.getAuthKey()) == null) {
-			System.out.println("인증 실패");
-			path += "signUp"; 
-			message = "회원 가입 실패";
+
+		if (redisUtil.getData(inputUser.getUserTel()) == null) {
+			System.out.println("인증번호 == null");
+			path += "signUp";
+			message = "인증번호가 다릅니다.";
 			ra.addFlashAttribute("message", message);
 			return path;
+		} else {
+			if (!redisUtil.getData(inputUser.getUserTel()).equals(inputUser.getAuthKey())) {
+				System.out.println("인증번호 != 폰번호");
+				path += "signUp";
+				message = "인증번호가 다릅니다.";
+				ra.addFlashAttribute("message", message);
+				return path;
+			}
+			System.out.println("인증번호 같음");
+			redisUtil.deleteData(inputUser.getUserTel());
 		}
-		
+
 		int result = service.signup(inputUser); // DB insert
-		
+
 		if (result > 0 && result1 == true) {
 			path += "/user/login";
-			
+
 			message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";
 
 		} else {
-			path += "signUp"; 
+			path += "signUp";
 			message = "회원 가입 실패";
 		}
-		
+
 		ra.addFlashAttribute("message", message);
 
 		return path;
 	}
-	
+
 }
