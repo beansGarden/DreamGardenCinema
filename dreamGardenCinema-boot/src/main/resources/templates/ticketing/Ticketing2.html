@@ -31,15 +31,13 @@
                                 <strong th:text="*{MOVIE_TITLE}"></strong>
                             </div>
                             <div class="date">
-                                <span class="date_info">
-                                    23.06.07(수)
+                                <span class="date_info" th:text="${saveday}">
                                 </span>
-                                <span class="time_info">
-                                    23:30~25:17
+                                <span class="time_info" th:text="${runningTime}">
                                 </span>
                             </div>
                             <div class="theater_info">
-                                <span>1관</span>
+                                <span th:text="${ticket.movieTheater}+'관'"></span>
                             </div>
                         </div>
                         <div>

@@ -107,14 +107,27 @@ public class TicketingController {
 		ticket.setUserNo(loginUser.getUserNo());  // 티켓정보에 로그인 회원번호 추가
 		ticket.setMovieTheater(movieTheater);
 		ticket.setMovieTime(date+" "+movieTime);
-		
 		String changeMovieTime = date.substring(0, 4) + "." + date.substring(4,6) + "." + date.substring(6,8) + "(" + date.substring(9)+")";
-		System.out.println(changeMovieTime);  
 		Map<String, Object> map = service.seatInfo(ticket);
+		
+		int hour = Integer.parseInt(movieTime.substring(0,2));
+		int minute = Integer.parseInt(movieTime.substring(3,5));
+		HashMap<String, Object> movie = (HashMap<String, Object>) map.get("movie");
+		int runTime = Integer.parseInt((String) movie.get("RUNNING_TIME"));
+		
+				
+		System.out.println((minute + runTime)/60);
+		
+		hour = hour+ ((minute+runTime)/60);
+		minute = (minute+runTime)%60;
+		
+		String runningTime = movieTime + "~" + hour +":"+minute;
+		System.out.println(runningTime);
 		
 		model.addAttribute("map", map);
 		model.addAttribute("ticket",ticket);
-			
+		model.addAttribute("saveday", changeMovieTime);
+		model.addAttribute("runningTime", runningTime);	
 		return "ticketing/Ticketing2";
 	}
 	
