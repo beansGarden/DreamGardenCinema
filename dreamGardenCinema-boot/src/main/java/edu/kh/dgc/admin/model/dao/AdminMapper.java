@@ -41,6 +41,9 @@ public interface AdminMapper {
 	//1:1문의 게시글 답변 수정 (update)
 	int qnaAnswerUpdate(QnaComment qnaComment);
 
+	//1:1문의 게시글 
+	List<Qna> getSearchList(Qna qnaList);
+	
 	//회원관리*****************************************************
 	
 	/**회원관리 조회
@@ -85,18 +88,8 @@ public interface AdminMapper {
 	 */
 	int noticeDelete(int noticeNo);
 
-	/**공지사항 검색
-	 * @param keyword
-	 * @return
-	 */
-	List<Notice> searchNotice(String keyword);
 
-	/**공지사항 검색
-	 * @param keyword
-	 * @param option
-	 * @return
-	 */
-	List<Notice> searchByTitleOrEmail(Map<String, Object> paramMap);
+
 
 
 

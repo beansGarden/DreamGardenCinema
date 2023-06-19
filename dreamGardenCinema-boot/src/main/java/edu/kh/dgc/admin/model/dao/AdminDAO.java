@@ -82,6 +82,15 @@ public class AdminDAO {
 		
 	return mapper.qnaAnswerUpdate(qnaComment);
 	}
+	
+	/**1:1문의 게시글 검색
+	 * @param qnaList
+	 * @return
+	 */
+	public List<Qna> getSearchList(Qna qnaList) {
+
+		return mapper.getSearchList(qnaList);
+	}
 
 	//회원*******************************************************
 	
@@ -151,19 +160,7 @@ public class AdminDAO {
 		return mapper.noticeDelete(noticeNo);
 	}
 
-	/**공지사항 검색
-	 * @param keyword
-	 * @return
-	 */
-	public List<Notice> searchNotice(String keyword) {
-		
-		return mapper.searchNotice(keyword);
-	}
 
-	public List<Notice> searchByTitleOrEmail(Map<String, Object> paramMap) {
-		
-		return mapper.searchByTitleOrEmail(paramMap);
-	}
 
 	
 

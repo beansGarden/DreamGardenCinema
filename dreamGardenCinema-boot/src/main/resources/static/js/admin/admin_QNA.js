@@ -8,7 +8,7 @@ function userSelectAll(userSelectAll)  {
     })
   }
 
-  /* 삭제 버튼 선택 삭제ㄴ하기 */
+  /* 삭제 버튼 선택 삭제하기 */
   const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
   const checkbox = document.getElementsByClassName("admin_qnaCheckbox"); //check박스
   const checkboxNo = document.getElementsByClassName("admin_qna_checkbox_no"); //번호
@@ -44,4 +44,30 @@ function qnaDelete(qnaNo){
 
   }).catch(err=> console.log(err));
 
+}
+
+
+//검색 리스트 불러오기
+function getSearchList(){
+	$.ajax({
+		type: 'GET',
+		url : "/getSearchList",
+		data : $("form[name=search-form]").serialize(),
+		success : function(result){
+			//테이블 초기화
+			$('#boardTable > tbody').empty();
+			if(result.length>=1){
+				result.forEach(function(item){
+					str='<tr>'
+					str += "<td>"+item.idx+"</td>";
+					str+="<td>"+item.writer+"</td>";
+					str+="<td><a href = '/qna/detail?idx=" + item.idx + "'>" + item.title + "</a></td>";
+					str+="<td>"+item.date+"</td>";
+					str+="<td>"+item.hit+"</td>";
+					str+="</tr>"
+					$('#boardTable').append(str);
+        		})				 
+			}
+		}
+	})
 }

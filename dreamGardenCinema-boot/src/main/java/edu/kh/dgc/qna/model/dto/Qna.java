@@ -23,6 +23,10 @@ public class Qna {
 	
 	private String qnaComment;
 	
+	//검색필터
+	private  String type;
+	private String keyword;
+	
 }
 
 

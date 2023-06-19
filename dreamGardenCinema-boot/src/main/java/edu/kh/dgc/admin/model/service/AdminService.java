@@ -36,6 +36,9 @@ public interface AdminService {
 
 	//1:1문의 게시글 답변 수정 (update)
 	int qnaAnswerUpdate(QnaComment qnaComment);
+	
+	//1:1문의 게시글검색
+	List<Qna> getSearchList(Qna qnaList);
 
 	//회원*****************************************
 	
@@ -65,11 +68,7 @@ public interface AdminService {
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
 
-	//공지사항 검색
-	List<Notice> searchNotice(String keyword);
 
-	//공지사항 검색 by Number
-	List<Notice> searchByTitleOrEmail(String keyword, String option);
 
 	
 

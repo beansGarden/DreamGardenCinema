@@ -79,6 +79,14 @@ public class AdminServiceImpl implements AdminService {
 
 		return dao.qnaAnswerUpdate(qnaComment);
 	}
+	
+	//1:1 문의사항 검색
+		@Override
+		public List<Qna> getSearchList(Qna qnaList) {
+			
+			return dao.getSearchList(qnaList);
+		}
+
 
 	//회원****************************************************
 	
@@ -134,25 +142,12 @@ public class AdminServiceImpl implements AdminService {
 		return dao.noticeDelete(noticeNo);
 	}
 
-	//공지사항 검색
-	@Override
-	public List<Notice> searchNotice(String keyword) {
 	
-		return dao.searchNotice(keyword);
-	}
-	
+
 
 	
 
-//공지사항 검색 by Number
-	
-	@Override
-	public List<Notice> searchByTitleOrEmail(String keyword, String option) {
-	  Map<String, Object> paramMap = new HashMap<>();
-	  paramMap.put("keyword", keyword);
-	  paramMap.put("option", option);
-	  return dao.searchNotice(paramMap);
-	}
+
 }
 	
 	

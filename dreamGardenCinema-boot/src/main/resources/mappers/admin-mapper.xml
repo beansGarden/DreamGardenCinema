@@ -133,6 +133,24 @@
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
 	
+	<select id="selectSearchList" parameterType="Qna" resultType="Qna">
+		SELECT *
+		FROM QNA
+		WHERE QNA_DELETE_FL = 'N'
+		<choose>
+			<when test="type !=null and type.equals('title')">
+			AND title LIKE CONCAT ('%', #{keyword}, '%')
+			</when>
+			<when test="type !=null and type.equals('content')">
+			AND contact LIKE CONCAT ('%',#{keyword}, '%')
+			</when>
+			<when test="type !=null and type.equals('writer')">
+			AND writer = #{keyword}
+			</when>
+</choose>
+</select>
+	
+	
 	<!-- //////////회원///////// -->
 	 <select id="adminUserList" resultMap="user_rm">
 		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
@@ -192,27 +210,5 @@
 		SET NOTICE_FL = 'Y'
 		WHERE NOTICE_NO = #{notice}
 	</update>
-
-	<select id="searchNotice">
-		SELECT * FROM NOTICE 
-		WHERE NOTICE_NO LIKE '%${keyword}%'}
-	</select>
-
-	<select id="searchByTitleOrEmail" parameterType="map" resultMap="notice_rm">
-	  SELECT * FROM NOTICE
-	  WHERE
-	  <choose>
-	    <when test="option == 'title'">
-	      TITLE LIKE CONCAT('%', #{keyword}, '%')
-	    </when>
-	    <when test="option == 'director'">
-	      DIRECTOR LIKE CONCAT('%', #{keyword}, '%')
-	    </when>
-	    <when test="option == 'actor'">
-	      ACTOR LIKE CONCAT('%', #{keyword}, '%')
-	    </when>
-	  </choose>
-	</select>
-
 
 </mapper>

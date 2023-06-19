@@ -24,20 +24,23 @@
         <div class="admin_qnaSearchWrap">
                <!-- select랑 검색창만 감싸는 div -->
                <div  class="admin_userSearchWrap2">
-            <select class="admin_qnaSelect" name="" id="">
+                <form action="search-form" autocomplete="off">            
+                    <select class="admin_qnaSelect" name="type" id="">
                 <option value="title">번호</option>
-                <option value="director">이름</option>
-                <option value="actor">이메일</option>
+                <option value="content">내용</option>
+                <option value="writer">작성자</option>
             </select>
             <!-- 검색 input 창 -->
         
-                <input type="text" name="" id="" class="admin_qnaInput">
+                <input type="text" name="keyword" id="" class="admin_qnaInput">
      
             </div>
             <!-- 검색 버튼 -->
             <div class="admin_qnaBtnWrap">
-                <button type="button" class="admin_qnaSearchBtn">검색</button>
+                <button type="button" onclick="getSearchList()" class="admin_qnaSearchBtn" value="검색">검색</button>
             </div>
+        </form>
+
         </div>
             <!-- 목록 count -->
             <div class="admin_qnaList">
@@ -50,7 +53,7 @@
             
             <!-- 게시판 -->
             <div class="admin_qnaBoardWrap">
-                <table>
+                <table id="boardTable">
                     <thead>
                     <tr>
                         <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll" onclick='userSelectAll(this)'></th>
