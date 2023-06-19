@@ -2,6 +2,7 @@ package edu.kh.dgc.admin.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -339,14 +340,21 @@ public class AdminController {
 
 	//6-5 1:1 문의 게시글 검색
 	@GetMapping("/getSearchList")
-	@ResponseBody
-	private List<Qna> getSearchList(@RequestParam(value= "keyword") String type,@RequestParam("keyword") String keyword, Model model){
+	public String getSearchList(@Param("type") String type, @Param("keyword") String keyword,Model model){
+
 		
 		Qna qnaList = new Qna();
 		qnaList.setType(type);
 		qnaList.setKeyword(keyword);
 		
-		return service.getSearchList(qnaList);
+		model.addAttribute("qna", qnaList);
+		System.out.println(qnaList);
+	
+		
+		  List<Qna> qna = service.getSearchList(qnaList);
+		    model.addAttribute("adminQnaList", qna); // 수정: qna 변수를 모델에 추가
+
+		  return "admin/admin_QNA";
 		
 	}
 	

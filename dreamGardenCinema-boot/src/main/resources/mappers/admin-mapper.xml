@@ -66,17 +66,16 @@
 	
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList" resultMap="qna_rm">
-		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME 
+		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME ,QNA_DELETE_FL
 		FROM QNA
 		JOIN "USER_INFO" 
 		ON USER_NO=USER_NO2
-		WHERE QNA_DELETE_FL = 'N'
 		ORDER BY QNA_NO DESC
 	</select>
 	
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-	SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME 
+	SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME,QNA_DELETE_FL
 	FROM QNA
 	JOIN "USER_INFO" ON USER_NO=USER_NO2
 	WHERE QNA_NO = #{qnaNo}
@@ -100,7 +99,7 @@
 	<!--QNA 글 삽입-->
 	<insert id="qnaInsert">
 		INSERT INTO "QNA"
-		VALUES (SEQ_QNA_NO.NEXTVAL,#{qnaTitle},#{qnaContent},SYSDATE,DEFAULT,DEFAULT,#{qnaCategory},#{qnaNo})
+		VALUES (SEQ_QNA_NO.NEXTVAL,#{qnaTitle},#{qnaContent},SYSDATE,DEFAULT,DEFAULT,#{qnaCategory},#{userNo})
 	</insert>
 
 	<!--글 답변 삽입-->
@@ -132,23 +131,29 @@
 		 FROM "QNA _COMMENT"
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
-	
-	<select id="selectSearchList" parameterType="Qna" resultType="Qna">
-		SELECT *
-		FROM QNA
-		WHERE QNA_DELETE_FL = 'N'
-		<choose>
-			<when test="type !=null and type.equals('title')">
-			AND title LIKE CONCAT ('%', #{keyword}, '%')
-			</when>
-			<when test="type !=null and type.equals('content')">
-			AND contact LIKE CONCAT ('%',#{keyword}, '%')
-			</when>
-			<when test="type !=null and type.equals('writer')">
-			AND writer = #{keyword}
-			</when>
-</choose>
-</select>
+	<!--QNA 검색하기-->
+  <select id="getSearchList" parameterType="Qna" resultMap="qna_rm">
+    SELECT QNA.QNA_NO, QNA.QNA_TITLE, TO_CHAR(QNA.QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE, USER_INFO.USER_NICKNAME,QNA_DELETE_FL
+    FROM QNA
+    JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+    <choose>
+      <when test="type != null and type.equals('qnaNo')">
+        <bind name="formattedKeyword" value="'%' + keyword + '%'"/>
+        AND QNA.QNA_NO LIKE #{formattedKeyword}
+      </when>
+      <when test="type != null and type.equals('title')">
+        <bind name="formattedKeyword" value="'%' + keyword + '%'"/>
+        AND QNA.QNA_TITLE LIKE #{formattedKeyword}
+      </when>
+      <when test="type != null and type.equals('content')">
+        <bind name="formattedKeyword" value="'%' + keyword + '%'"/>
+        AND QNA.QNA_CONTENT LIKE #{formattedKeyword}
+      </when>
+      <when test="type != null and type.equals('writer')">
+        AND USER_INFO.USER_NICKNAME LIKE #{keyword}
+      </when>
+    </choose>
+  </select>
 	
 	
 	<!-- //////////회원///////// -->
