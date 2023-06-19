@@ -11,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -182,8 +181,9 @@ public class SeleniumnForCrawlLSFinalP {
         
         System.out.println(movie);
         
-        ApplicationContext context = new AnnotationConfigApplicationContext(DreamGardenCinemaBootApplication.class);
-        SeleniumnForCrawlLS instance = context.getBean(SeleniumnForCrawlLS.class);
+        @SuppressWarnings("resource")
+		ApplicationContext context = new AnnotationConfigApplicationContext(DreamGardenCinemaBootApplication.class);
+        context.getBean(SeleniumnForCrawlLS.class);
         CrawlingService service = context.getBean(CrawlingServiceImpl.class);
         
         service.insertMovieInfo(movie);

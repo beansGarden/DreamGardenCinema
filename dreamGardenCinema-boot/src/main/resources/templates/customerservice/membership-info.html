@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-page-membership</title>
+
+    <link rel="stylesheet" th:href="@{/css/customerservice/membership-info.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header-white.css}">
+</head>
+
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="my-page-container">
+        <div class="membership-tos">
+            <h1>멤버십 이용약관</h1>
+        </div>
+
+        <div class="my-page-empty-space1"></div>
+
+        <div class="membership-guide">
+
+        
+            <pre><h3>회원가입 하시고</h3><span>등급별 혜택을 만나보세요.</span></pre>
+
+            
+            <div class="membership-guide-login">
+                <a th:href="@{/user/login}">로그인</a>
+            </div>
+
+            <div class="membership-guide-signUp">
+                <a th:href="@{/user/signUp}">회원가입</a>
+            </div>
+        </div>
+
+        <div class="my-page-empty-space2"></div>
+
+        <div class="my-page-back-ground-color">
+
+            <div class="my-page-img-box">
+                <img th:src="@{/images/myPage/브론즈.png}">
+                <img th:src="@{/images/myPage/실버 1.png}">
+                <img th:src="@{/images/myPage/골드 1.png}">
+                <img th:src="@{/images/myPage/플래티넘 1.png}">
+            </div>
+
+
+            <!-- js에서 current-item classList.add / remove로 등급 자동 조정 하게 변경 예정 -->
+            <section class="setp-wizard">
+                <ul class="step-wizard-list">
+                    <li class="step-wizard-item ">
+                        <span>bronze</span>
+                        <span class="progress-label">0</span>
+                    </li>
+                    <li class="step-wizard-item current-item">
+                        <span>silver</span>
+                        <span class="progress-label">4만원</span>
+                    </li>
+                    <li class="step-wizard-item ">
+                        <span>gold</span>
+                        <span class="progress-label">10만원</span>
+                    </li>
+                    <li class="step-wizard-item ">
+                        <span>platinum</span>
+                        <span class="progress-label">20만원</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+        <!-- text-color 등급에 맞게 innerText, color 변경  -->
+        <div class="my-page-coupon">
+
+        </div>
+
+        <div class="my-page-benefit-container">
+            <span>등급 혜택</span>
+            <div class="my-page-benefit">
+                <img th:src="@{/images/myPage/benefit(bronze).png}">
+                <img th:src="@{/images/myPage/benefit(silver).png}">
+                <img th:src="@{/images/myPage/benefit(gold).png}">
+                <img th:src="@{/images/myPage/benefit(platinum).png}">
+            </div>
+        </div>
+
+
+        <!-- 승급 안내 문구 -->
+        <div class="DGmembership-upgrade">
+            <div class="DGmembership-upgrade-box">
+                <div class="DGmembership-upgrade-title">
+                    <h3>DGmembership 승급안내</h3>
+                </div>
+
+                <pre class="DGmembership-upgrade-comment">
+                    ▷ 티켓 누적 금액 기준으로 DGmembership 등급이 선정되며, 금액을 합산하여 등급이 반영됩니다.
+                    ▷ PLATINUM회원의 경우 DGmembership 승급에 해당되지 않습니다.
+                    ▷ 회원에 한하여DGmembership승급이 가능합니다.(비회원의 경우 회원가입을 진행해 주세요.)
+                    
+                </pre>
+            </div>
+
+            <div class="DGmembership-cp">
+                <div class="DGmembership-cp-title">
+                    <h3>DGmembership  쿠폰 사용 시 유의사항</h3>
+                </div>
+
+                <pre>
+                    ▷ 관람권은 주중/주말 사용 가능합니다.
+                    ▷ 영화 한 편당 한 개의 쿠폰만 사용 가능합니다.
+                </pre>
+            </div>
+        </div>
+
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    
+</body>
+
+</html>

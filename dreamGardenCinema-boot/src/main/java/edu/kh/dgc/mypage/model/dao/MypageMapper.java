@@ -3,7 +3,6 @@ package edu.kh.dgc.mypage.model.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.kh.dgc.qna.model.dto.Qna;
 

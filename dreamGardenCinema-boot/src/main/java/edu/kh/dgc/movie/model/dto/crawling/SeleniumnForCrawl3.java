@@ -1,7 +1,5 @@
 package edu.kh.dgc.movie.model.dto.crawling;
  
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
