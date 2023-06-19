@@ -49,9 +49,18 @@ public class MovieController {
 	@GetMapping("/current")
 	public String forwardCurrent(Model model) {
 		
+		// 영화 메인 페이지에 쓰일 imgList 불러오기
+		List<Map<String, String>> movieMainSlideImgList = service.selectMovieMainSlideImgList();
+		
+		// 영화 페이지 광고 포스터 영역에 쓰일 img 불러오기
+		Map<String, String> advertisePoster = service.selectAdvertisePoster();
+		
 		List<Movie> MovieListCurrent = service.selectMovieListCurrent();
 		
+		
+		model.addAttribute("movieMainSlideImgList", movieMainSlideImgList);
 		model.addAttribute("MovieListC", MovieListCurrent);
+		model.addAttribute("advertisePoster", advertisePoster);
 		
 		return "movie/movieListCurrent";
 	}
@@ -59,9 +68,18 @@ public class MovieController {
 	@GetMapping("/promise")
 	public String forwardPromise(Model model) {
 		
+		// 영화 메인 페이지에 쓰일 imgList 불러오기
+		List<Map<String, String>> movieMainSlideImgList = service.selectMovieMainSlideImgList();
+		
+		// 영화 페이지 광고 포스터 영역에 쓰일 img 불러오기
+		Map<String, String> advertisePoster = service.selectAdvertisePoster();
+		
 		List<Movie> MovieListPromise = service.selectMovieListPromise();
 		
+		
+		model.addAttribute("movieMainSlideImgList", movieMainSlideImgList);
 		model.addAttribute("MovieListP", MovieListPromise);
+		model.addAttribute("advertisePoster", advertisePoster);
 		
 		return "movie/movieListPromise";
 	}

@@ -5,66 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>영화 - dream garden cinema</title>
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/movie/movieMain.css}">
+    <link rel="stylesheet" th:href="@{/css/movie/movie.css}">
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!-- swiper css custom -->
+    <link rel="stylesheet" th:href="@{/css/movie/silder.css}">
+
 </head>
 <body>
 
     <th:block th:replace="~{common/header-white}"></th:block>
 
-    <section class="movie--Top__banner">
-        <img src="https://dummyimage.com/1920x420/000/fff&text=slide">
-    </section>
+    <section class="movie--mid__List promise">
 
-    <section class="movie--mid__List">
         <div class="movieList--nav">
-            <div>
-            
+
+            <div class="font1">
+                상영 예정작
             </div>
 
             <div>
-
+                <a href="#">개봉일순</a>
+                |
+                <a href="#">예매순</a>
+                |
+                <a href="#">보고싶어요순</a>
             </div>
-        </div>
-
-        <div class="movieList--items">
-
-            <div class="movieItem">
-
-            </div>
-
-            <div class="movieItem">
-
-            </div>
-
-            <div class="movieItem">
-
-            </div>
-
-            <div class="movieItem">
-
-            </div>
-            <div class="movieItem">
-
-            </div>
-            <div class="movieItem">
-
-            </div>
-
 
         </div>
 
-        <div class="movieList--more">
-            
+        <div class="movieList--items" >
+
+            <div class="movieItem" th:each="movie : ${MovieListP}">
+
+                <div class="movie-poster-container">
+                    <img class="movie-poster" th:src="${movie.poster}">
+                    <img class="movie-rating" th:src="${movie.rating}">
+                </div>
+
+                <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
+
+            </div>
+
         </div>
 
     </section>
 
     <section class="movie--bot__banner">
-        <img src="https://dummyimage.com/980x180/000/fff&text=poster">
+        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
     </section>
 
     <th:block th:replace="~{common/footer}"></th:block>
+
+    <!-- swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- swiper.js 초기화 -->
+    <script>
+        var swiper = new Swiper(".movie--main--slider", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
 
 </body>
 </html>
