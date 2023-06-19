@@ -13,7 +13,7 @@ public class Ticket {
 	private int ticketNo;
 	private String ticketingTime;
 	private int payAmount;
-	private String userNo;
+	private int userNo;
 	private int coupon;
 	private String movieTime;
 	private String movieTheater;

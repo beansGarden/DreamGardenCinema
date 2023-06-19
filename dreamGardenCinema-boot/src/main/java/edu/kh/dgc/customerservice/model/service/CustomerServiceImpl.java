@@ -16,8 +16,8 @@ public class CustomerServiceImpl implements CustomerService{
 	
 
 	@Override
-	public List<FAQ> Main(FAQ faq) {
-		return mapper.Main(faq);
+	public List<FAQ> main(FAQ faq) {
+		return mapper.main(faq);
 	}
 
 	

@@ -17,6 +17,13 @@
 		<result property="screening" column="SCREENING"/>		
 	</resultMap>
 	
+	<select id="selectMainSlideImgList">
+		SELECT *
+		FROM MOVIE_IMG
+		WHERE MOVIE_IMG_ROLE='메인슬라이드'
+	</select>
+	
+	
 	<select id="selectMovieList" resultMap="movie_rm">
 		SELECT * 
 		FROM MOVIE

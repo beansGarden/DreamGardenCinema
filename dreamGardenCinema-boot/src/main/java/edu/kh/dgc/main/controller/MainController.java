@@ -8,44 +8,40 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.kh.dgc.main.model.service.MainService;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.movie.model.service.MovieService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import edu.kh.dgc.notice.model.dto.Notice;
+import edu.kh.dgc.notice.model.service.NoticeService;
+import edu.kh.dgc.ticketing.model.service.TicketingService;
 
 @Controller
 public class MainController {
 	
 	@Autowired
-	private MainService service;
+	private NoticeService noticeService;
 	
 	@Autowired
-	private MovieService service2;
+	private MovieService movieService;
 	
 	@RequestMapping("/")
-	public String mainForward(HttpServletRequest request, Model model) {
+	public String mainForward(Model model) {
 		
-		HttpSession session = request.getSession();
+		// 현재 상영작 정보 얻어오기
+		List<Movie> movieList = movieService.selectMovieListCurrent();
 		
-		Map<String, Object> map = service.selectMovieList();
+		List<Notice> noticeList = noticeService.selectNoticeList();
 		
 		// 메인슬라이더 이미지 얻어오기
-		List<Map<String, String>> MainSlideImgList = service.selectMainSlideImgList();
-		
-		// 서브슬라이더에 반영될 영화 정보 얻어오기
-		List<Movie> MovieListCurrent = service2.selectMovieListCurrent();
+		List<Map<String, String>> MainSlideImgList = movieService.selectMainSlideImgList();
 		
 		// 광고용 포스터 이미지 얻어오기
-		Map<String, String> advertisePoster = service2.selectAdvertisePoster();
-		
-		session.setAttribute("movieList", MovieListCurrent);
-		session.setAttribute("noticeList", map.get("noticeList"));
-		
-		// 이미지 및 영화정보 프론트로 정보 보내기
+		Map<String, String> advertisePoster = movieService.selectAdvertisePoster();
+
+		model.addAttribute("movieList", movieList);
+		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("movieMainSlideImgList", MainSlideImgList);
 		model.addAttribute("advertisePoster", advertisePoster);
-		
+
 		return "common/main";
 	}
 	

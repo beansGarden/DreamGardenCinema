@@ -66,7 +66,11 @@ dependencies {
 	// selenium
 	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.10.0'
 	
+	implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.2.1'
+	
+	// redis 인증번호 저장 및 유효기간
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	
 }
 
 tasks.named('test') {
