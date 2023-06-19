@@ -13,6 +13,6 @@ public interface CustomerServiceMapper {
 	List<FAQ> main(FAQ faq);
 	
 	// FAQ(상영관 이용 관련) 목록 조회
-	List<FAQ> theaterList(FAQ faq);
+	List<FAQ> theaterList(String fAQCategory);
 
 }

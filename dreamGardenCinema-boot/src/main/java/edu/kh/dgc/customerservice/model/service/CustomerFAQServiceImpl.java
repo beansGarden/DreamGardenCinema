@@ -15,9 +15,10 @@ public class CustomerFAQServiceImpl implements CustomerFAQService {
 	private CustomerServiceMapper mapper;
 
 	// FAQ(상영관 이용 관련) 목록 조회
+
 	@Override
-	public List<FAQ> theaterList(FAQ faq) {
-		return mapper.theaterList(faq);
+	public List<FAQ> theaterList(String fAQCategory) {
+		return mapper.theaterList(fAQCategory);
 	}
 	
 	

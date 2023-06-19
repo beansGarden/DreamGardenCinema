@@ -3,7 +3,7 @@
 <!-- namespace를 Mapper 인터페이스로 지정 -->
 <mapper namespace="edu.kh.dgc.customerservice.model.dao.CustomerServiceMapper">
 
-	<!--	<resultMap type="FAQ" id="faq_rm">
+	<resultMap type="FAQ" id="faq_rm">
 
 		<id property="FAQNo" column="FAQ_NO" />
 		<result property="FAQTitle" column="FAQ_TITLE" />
@@ -15,7 +15,7 @@
 		<result property="categoryTitle" column="CATEGORY_TITLE" />
 
 	</resultMap>
--->
+
 
 	<!-- FAQ 전체목록 조회 -->
 	<select id="main" resultType="map">

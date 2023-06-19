@@ -122,31 +122,59 @@ const upBtn = document.querySelectorAll(".upBtn");
 
 // });
 
-const theater = document.getElementsByClassName("faq-theater-list")[i];
+const theater = document.querySelector(".faq-theater-list");
+// const faqList = document.getElementById("faqList");
+const FAQContent = document.querySelector(".FAQ-inquiry-content");
+const firstBox = document.querySelector(".FAQ-first-box");
+const FAQCategory = 'P';
 
-// FAQ 특정 게시판 게시글 불러오기(상영관 관련)
+function faqList(){
 
-theater.addEventListener("click", ()=>{
   
-  fetch("/customerservice/theaterFAQ?=")
-  .then(resp => resp.json())
-  .then(theaterFAQ =>{
-    console.log(theaterFAQ);
-    
 
-        // for(let ){
+  
+  fetch("/customerservice/theaterFAQ?FAQCategory=" + FAQCategory)
+    .then(resp => resp.json())
+    .then(theaterList => {
+      console.log(/*[[${theaterList}]]*/ "상영관관련 목록");
+
+      if(theaterList !=null){
+
+        firstBox.innerHTML = "";
+
+        for( let list of theaterList){
 
 
-        // }
+          const span = document.createElement("span");
+          span.classList.add("categoryTitle");
+          // span.setAttribute("title",list.CATEGORY_TITLE);
+          // title.innerHTML = list.CATEGORY_TITLE();
+
+          const title = list.CATEGORY_TITLE;
+          span.innerHTML = title;
+
+
+          FAQContent.appendChild(span);
+
+          
+          // location.href = "/customerservice/";
           
 
+        }
+
+      }
+
+      
+      
+    })
+    .catch(error => {
+      console.error("An error occurred while fetching theater FAQs:", error);
+    });
+
+  }
 
 
 
-      })
-
-
-})
 
 
 
