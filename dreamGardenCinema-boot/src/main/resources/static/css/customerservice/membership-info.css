@@ -1,0 +1,332 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.my-page-container{
+    width: 100%;
+    display: grid;
+    
+}
+
+/* 멤버십 이용약관 문구 */
+.membership-tos{
+    margin-top: 5px;
+    font-size: 25px;
+    width: 100vw;
+    height: 20vh;
+    color: white;
+    background-color: #0F0954;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+
+}
+
+
+.membership-guide{
+    width: 80vw;
+    height: 27vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 17px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+
+    margin-left: 16vh;
+
+    gap: 5px;
+}
+
+.membership-guide-login{
+    width: 100px;
+    border-radius: 10px;
+    background-color: #0f095453;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    height: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+
+
+.membership-guide-login>a:hover{
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.membership-guide-signUp{
+    width: 100px;
+    border-radius: 10px;
+    background-color: #0f09542d;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    height: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    
+}
+
+.membership-guide-signUp>a:hover{
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+.my-page-category{
+    display: grid;
+    height: 240px;
+    width: 100%;
+    grid-auto-flow: column;
+    grid-template-columns: 1.25fr 0.5fr 1.25fr;
+}
+
+
+
+.my-page-L{
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-L a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.my-page-membership-grade{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #0F0954;
+    align-items: center;
+    width: 100%;
+}
+
+.my-page-membership-grade>img{
+    height: 215px;
+    margin-bottom: 20px;
+}
+
+.my-page-R{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-R a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+
+}
+
+.my-page-empty-space1{
+    width: 100px;
+    height: 6vh;
+}
+.my-page-empty-space2{
+    width: 100px;
+    height: 4vh;
+}
+
+
+.my-page-myinfo img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myinfo>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-myprofile img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myprofile>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-customer-service img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-customer-service>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-membership img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-membership>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-membership>a:nth-child(2){
+    border-bottom: 2px solid white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* 배경 색 */
+.my-page-back-ground-color{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    border-radius: 15px;
+    background-color: #0f095400;
+    background-image: linear-gradient(19deg, #0f095485 0%, #b721ff38 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    
+}
+/* 등급 이미지 */
+.my-page-img-box{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 40px;
+    margin: 0 80px 0 80px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.my-page-img-box>img{
+    width: 140px;
+    height: 140px;
+}
+
+/* 프로그래스 바 */
+.setp-wizard{
+    /* background-color: #0F0954;
+    background-image: linear-gradient(19deg, #695dea 0%, #b721ff 100%); */
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.step-wizard-list{
+    background-color: #fff;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    color: black;
+    list-style-type: none;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px 10px;
+    position: relative;
+    z-index: 10;
+    width: 80%
+}
+.step-wizard-item{
+    padding: 0 20px;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow:1;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 280px;
+    position: relative;
+}
+.step-wizard-item + .step-wizard-item:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 25px;
+    background: #0F0954;
+    width: 30vw;
+    height: 2px;
+    transform: translateX(-50%);
+    z-index: -10;
+}
+
+.progress-label{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    color: black;
+}
+
+.current-item .progress-count:after{
+    background: #fff;
+    border: 2px solid #0F0954;
+}
+.current-item .progress-count{
+    color: #0F0954;
+}
+
+/* 등급 혜택 구역 */
+.my-page-benefit-container{
+    display: flex;
+    flex-direction: column;
+    margin: 100px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.my-page-benefit-container>span{
+    font-weight: bold;
+    font-size: 30px;
+    padding: 30px
+}
+
+.my-page-benefit{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.my-page-benefit-container img{
+    width: 300px;
+    height: 200px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+/* 승급 안내 문구 영역 */
+.DGmembership-upgrade{
+    width: 90vw;
+    height: 37vh;
+
+    display: flex;
+    flex-direction: column;
+    margin: 100px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    
+    justify-content: center;
+
+    padding-left: 70px;
+}
+
+.DGmembership-upgrade-title>h3{
+    margin-bottom: 10px;
+}
+
+.DGmembership-cp-title>h3{
+    margin-bottom: 10px;
+}
+

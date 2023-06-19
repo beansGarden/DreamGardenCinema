@@ -13,4 +13,5 @@ public class Schedule {
 	private String movieTime;
 	private String movieTheater;
 	private int movieNo;
+	private String checkTime;
 }

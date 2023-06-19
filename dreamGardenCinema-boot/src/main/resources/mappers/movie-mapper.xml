@@ -17,6 +17,13 @@
 		<result property="screening" column="SCREENING"/>		
 	</resultMap>
 	
+	<select id="selectMainSlideImgList">
+		SELECT *
+		FROM MOVIE_IMG
+		WHERE MOVIE_IMG_ROLE='메인슬라이드'
+	</select>
+	
+	
 	<select id="selectMovieList" resultMap="movie_rm">
 		SELECT * 
 		FROM MOVIE
@@ -34,5 +41,23 @@
 		WHERE SCREENING = 'P'
 	</select>
 	
+	<!-- 영화 슬라이드 이미지 리스트 뽑아오기 --> 
+	<select id="selectMovieMainSlideImgList" resultType="map">
+		SELECT *
+		FROM MOVIE_IMG
+		WHERE MOVIE_IMG_ROLE='영화슬라이드'
+	</select>
+	
+	<!-- -->
+	<select id="selectAdvertisePoster" resultType="map">
+		SELECT *
+		FROM(
+			SELECT *
+			FROM MOVIE_IMG
+			WHERE MOVIE_IMG_ROLE = '광고'
+			ORDER BY DBMS_RANDOM.RANDOM
+			)
+		WHERE rownum = 1
+	</select>
 	
 </mapper>

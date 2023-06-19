@@ -121,6 +121,7 @@ body{
     align-items: center;
     box-sizing: border-box;
     cursor: pointer;
+    padding-left: 20px;
 }
 .hamburger>label>img{
     width: 22px;
@@ -128,13 +129,15 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 20px;
 }
 .hamburger>label>span{
-    width: 100%;
+    width: 240px;
     font-size: 18px;
     font-weight: bold;
     padding-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .pizza>label{
     height: 140px;
@@ -170,8 +173,13 @@ body{
     height: 22px;
 }
 .title strong{
-    margin-left: 10px;
+    width: 240px;
     font-size: 18px;
+    font-weight: bold;
+    padding-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .rate{
     margin-bottom: 4px;
@@ -306,6 +314,7 @@ body{
 }
 .movieChoiceTitle{
     height: 60px;
+    width: 100%;
     display: flex;
     margin-left: 30px;
     align-items: center;
@@ -326,6 +335,7 @@ body{
     border-bottom-right-radius: 15px;
     display: flex;
     justify-content: center;
+    overflow-y: auto;
 }
 .timelist{
     width: 700px;
@@ -362,6 +372,11 @@ body{
     background-color: #0E0753;
     color: white;
 }
+
+.timelist .btn input{
+    display: none;
+}
+
 .timelist .btn div:first-child{
     margin-bottom: 4px;
 }
@@ -369,4 +384,15 @@ body{
 .dateActive>a>label>strong{
     background-color: #0E0753;
     color : white;
+}
+
+.saveMovie{
+    background-color: #0F0954;
+    color : white;
+}
+
+.nonelist{
+    height: 200px;
+    font-size: 30px;
+    font-weight: bold;
 }
