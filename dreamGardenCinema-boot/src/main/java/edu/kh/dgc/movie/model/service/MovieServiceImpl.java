@@ -47,13 +47,15 @@ public class MovieServiceImpl implements MovieService{
 	// 현재 상영작 조회
 	@Override
 	public List<Movie> selectMovieListCurrent() {
-		return mapper.selectMovieListCurrent();
+		RowBounds rowBounds = new RowBounds(0, 10);
+		return mapper.selectMovieListCurrent(null, rowBounds);
 	}
 	
 	// 상영 예정작 조회
 	@Override
 	public List<Movie> selectMovieListPromise() {
-		return mapper.selectMovieListPromise();
+		RowBounds rowBounds = new RowBounds(0, 10);
+		return mapper.selectMovieListPromise(null, rowBounds);
 	}
 	
 	// 광고 포스터 조회(랜덤하게 하나)

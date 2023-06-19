@@ -19,10 +19,6 @@ public interface MovieMapper {
 	
 	public List<Movie> selectMovieListPromise(Object object, RowBounds rowBounds);
 
-	public List<Movie> selectMovieListCurrent();
-
-	public List<Movie> selectMovieListPromise();
-	
 	public Map<String, String> selectAdvertisePoster();
 
 	
