@@ -1,82 +1,50 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>DreamGardenMovieTheater</title>
+    
+    <!-- swiper css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/common/main.css}">
+
 </head>
 <body>
 
     <th:block th:replace="~{common/header-black}"></th:block>
-    <!-- <a th:href="@{/ticketing/date}" th:text="예매페이지">예매 페이지</a> -->
-    <div class="slide slide_wrap">  <!-- 메인 슬라이드 구역 -->
-<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(메인 슬라이드 포스터) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-        <th:block th:each="movie, movieStat : ${session.movieList}">                                                    <!-- ◆◆◆◆◆◆ -->
-            <div th:if="${movie.MAIN_POSTER != 'null'}" class="slide_item" th:classappend="item+${movieStat.count}">    <!-- ◆◆◆◆◆◆ -->
-                <img th:src="${movie.MAIN_POSTER}">                                                                     <!-- ◆◆◆◆◆◆ -->
-            </div>                                                                                                      <!-- ◆◆◆◆◆◆ -->
-        </th:block>                                                                                                     <!-- ◆◆◆◆◆◆ -->
-<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
 
-        <div class="slide_prev_button slide_button">  <!-- 메인 슬라이드 이전버튼 -->
-            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
-        </div>
-        <div class="slide_next_button slide_button">  <!-- 메인 슬라이드 다음버튼 -->
-            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z"/></svg>
-        </div>
-        <ul class="slide_pagination"></ul>  <!-- 메인 슬라이드 페이지네이션 -->
-        <div class="gradation">
-
-        </div>
-    </div>
-
-    <section class="sub_slide">
-        <div class="inner">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(서브 슬라이드 포스터 부분) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                    <div class="swiper-slide" th:each="movie : ${session.movieList}">                                           <!-- ◆◆◆◆◆◆ -->
-                        <div class="top_info">                                                                          <!-- ◆◆◆◆◆◆ -->
-                            <span class="poster_info">                                                                  <!-- ◆◆◆◆◆◆ -->
-                                <img th:src="${movie.POSTER}">                                                          <!-- ◆◆◆◆◆◆ -->
-                                <em th:text="${movie.ROWNUM}">순위</em>                                                 <!-- ◆◆◆◆◆◆ -->
-                                <span>                                                                                  <!-- ◆◆◆◆◆◆ -->
-                                    <img th:src="${movie.RATING}">                                                      <!-- ◆◆◆◆◆◆ -->
-                                </span>                                                                                 <!-- ◆◆◆◆◆◆ -->
-                            </span>                                                                                     <!-- ◆◆◆◆◆◆ -->
-                        </div>                                                                                          <!-- ◆◆◆◆◆◆ -->
-                        <div class="btm_info">                                                                          <!-- ◆◆◆◆◆◆ -->
-                            <strong class="tit_info" th:text="${movie.MOVIE_TITLE}"></strong>                           <!-- ◆◆◆◆◆◆ -->
-                            <span class="rate_info">                                                                    <!-- ◆◆◆◆◆◆ -->
-                                예매율                                                                                  <!-- ◆◆◆◆◆◆ -->
-                                <em th:text="${movie.RATIO}+'%'"></em>                                                  <!-- ◆◆◆◆◆◆ -->
-                            </span>                                                                                     <!-- ◆◆◆◆◆◆ -->
-                            <span class="star_info">                                                                    <!-- ◆◆◆◆◆◆ -->
-                                <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">                           <!-- ◆◆◆◆◆◆ -->
-                                9.2                               <!-- 수정해야 됨 -->
-                            </span>                                                                                     <!-- ◆◆◆◆◆◆ -->
-                        </div>                                                                                          <!-- ◆◆◆◆◆◆ -->
-                    </div>                                                                                              <!-- ◆◆◆◆◆◆ -->
-<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                </div>
+    <!-- 메인 슬라이드 구역 -->
+    <section class="main-slide">
+        <div class="swiper main--movie-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" th:each="slideImg : ${movieMainSlideImgList}"><img th:src="${slideImg.MOVIE_IMG_PATH}"></div>
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="sub_slide_btn">
-            <div class="swiper-prev">
-                <div class="material-icons">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
+    </section>
+    
+    <!-- 서브 슬라이드 구역 : 현재 상영작  -->
+    <section class="sub-slide">
+        <div class="sub-slide__silder">
+            <div class="swiper main--sub-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" th:each="movieInfo : ${movieList}"><img th:src="${movieInfo.poster}"></div>
                 </div>
-            </div>    
-            <div class="swiper-next">
-                <div class="material-icons">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z"/></svg>
-                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </section>
+
+
 
     <div class="announcement">
         <article>
@@ -87,7 +55,7 @@
                 <span>일자</span>
             </div>
             <div class="announContent">
-                <div th:each="notice : ${session.noticeList}">
+                <div th:each="notice : ${noticeList}">
                     <span th:text="${notice.NOTICE_TITLE}"></span>
                     <span th:text="${notice.NOTICE_ENROLL_DATE}"></span>
                 </div>
@@ -96,9 +64,48 @@
 
     </div>
 
+    <section class="movie--banner">
+        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+    </section>
+
+
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script th:src="@{/js/common/main.js}"></script>
+
+    <!-- swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- swiper.js 초기화 -->
+    <script>
+        var swiper = new Swiper(".main--movie-slider", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+        var swiper2 = new Swiper(".main--sub-slider", {
+            slidesPerView: 5,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+
 </body>
 </html>

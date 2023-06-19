@@ -11,6 +11,8 @@ import edu.kh.dgc.movie.model.dto.Movie;
 @Mapper
 public interface MovieMapper {
 	
+	public List<Map<String, String>> selectMainSlideImgList();
+	
 	public List<Map<String, String>> selectMovieMainSlideImgList();
 	
 	public List<Movie> selectMovieListCurrent(Object object, RowBounds rowBounds);
@@ -20,6 +22,12 @@ public interface MovieMapper {
 	public List<Movie> selectMovieListCurrent();
 
 	public List<Movie> selectMovieListPromise();
+	
+	public Map<String, String> selectAdvertisePoster();
+
+	
+
+	
 
 	
 

@@ -18,7 +18,7 @@ header {
     grid-template-rows: 1fr 1fr 1fr;
     min-width: 800px;
     position: sticky !important;
-    z-index: 200px;
+    z-index: 2;
 
 }
 

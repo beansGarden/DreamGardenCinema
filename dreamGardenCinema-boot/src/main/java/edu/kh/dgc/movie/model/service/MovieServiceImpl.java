@@ -16,6 +16,12 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	private MovieMapper mapper;
 	
+	// 사이트 메인 슬라이드 이미지 조회
+	@Override
+	public List<Map<String, String>> selectMainSlideImgList() {
+		return mapper.selectMainSlideImgList();
+	}
+
 	// 영화 메인페이지에 슬라이드에 쓰일 이미지 조회
 	@Override
 	public List<Map<String, String>> selectMovieMainSlideImgList() {
@@ -49,6 +55,14 @@ public class MovieServiceImpl implements MovieService{
 	public List<Movie> selectMovieListPromise() {
 		return mapper.selectMovieListPromise();
 	}
+	
+	// 광고 포스터 조회(랜덤하게 하나)
+	@Override
+	public Map<String, String> selectAdvertisePoster() {
+		return mapper.selectAdvertisePoster();
+	}
+
+	
 
 	
 

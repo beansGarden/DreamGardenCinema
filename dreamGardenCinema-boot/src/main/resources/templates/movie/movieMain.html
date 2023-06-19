@@ -23,9 +23,9 @@
     <th:block th:replace="~{common/header-white}"></th:block>
 
     <section class="movie--Top__banner">
-        <div class="swiper mySwiper">
+        <div class="swiper movie--main--slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" th:each="slideImg : ${imgList}"><img th:src="${slideImg.MOVIE_IMG_PATH}"></div>
+                <div class="swiper-slide" th:each="slideImg : ${movieMainSlideImgList}"><img th:src="${slideImg.MOVIE_IMG_PATH}"></div>
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
@@ -95,7 +95,7 @@
     </section>
 
     <section class="movie--bot__banner">
-        <img src="https://dummyimage.com/980x180/000/fff&text=poster">
+        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
     </section>
 
     <th:block th:replace="~{common/footer}"></th:block>
@@ -105,9 +105,10 @@
 
     <!-- swiper.js 초기화 -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
+        var swiper = new Swiper(".movie--main--slider", {
             spaceBetween: 30,
             centeredSlides: true,
+            loop: true,
             autoplay: {
                 delay: 7000,
                 disableOnInteraction: false,
