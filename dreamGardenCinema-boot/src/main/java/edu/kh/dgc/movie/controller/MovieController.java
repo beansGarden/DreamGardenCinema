@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -18,6 +19,8 @@ public class MovieController {
 
 	@Autowired
 	private MovieService service;
+	
+	private int currentPage = 0;
 	
 	@GetMapping("")
 	public String forwardMain(Model model) {
@@ -55,7 +58,7 @@ public class MovieController {
 		// 영화 페이지 광고 포스터 영역에 쓰일 img 불러오기
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
-		List<Movie> MovieListCurrent = service.selectMovieListCurrent();
+		List<Movie> MovieListCurrent = service.selectMovieListCurrent(currentPage);
 		
 		
 		model.addAttribute("movieMainSlideImgList", movieMainSlideImgList);
@@ -74,7 +77,7 @@ public class MovieController {
 		// 영화 페이지 광고 포스터 영역에 쓰일 img 불러오기
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
-		List<Movie> MovieListPromise = service.selectMovieListPromise();
+		List<Movie> MovieListPromise = service.selectMovieListPromise(currentPage);
 		
 		
 		model.addAttribute("movieMainSlideImgList", movieMainSlideImgList);
@@ -83,6 +86,8 @@ public class MovieController {
 		
 		return "movie/movieListPromise";
 	}
+	
+	
 	
 	
 }

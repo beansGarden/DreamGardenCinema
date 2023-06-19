@@ -31,12 +31,12 @@ public interface MovieService {
 	/** 현재 상영작 조회
 	 * @return List<Movie>
 	 */
-	List<Movie> selectMovieListCurrent();
+	List<Movie> selectMovieListCurrent(int currentPage);
 
 	/** 상영 예정작 조회
 	 * @return List<Movie>
 	 */
-	List<Movie> selectMovieListPromise();
+	List<Movie> selectMovieListPromise(int currentPage);
 
 	/** 광고 포스터 조회(랜덤하게 하나)
 	 * @return

@@ -46,15 +46,15 @@ public class MovieServiceImpl implements MovieService{
 	
 	// 현재 상영작 조회
 	@Override
-	public List<Movie> selectMovieListCurrent() {
-		RowBounds rowBounds = new RowBounds(0, 10);
+	public List<Movie> selectMovieListCurrent(int currentPage) {
+		RowBounds rowBounds = new RowBounds(currentPage, 15);
 		return mapper.selectMovieListCurrent(null, rowBounds);
 	}
 	
 	// 상영 예정작 조회
 	@Override
-	public List<Movie> selectMovieListPromise() {
-		RowBounds rowBounds = new RowBounds(0, 10);
+	public List<Movie> selectMovieListPromise(int currentPage) {
+		RowBounds rowBounds = new RowBounds(currentPage, 15);
 		return mapper.selectMovieListPromise(null, rowBounds);
 	}
 	
