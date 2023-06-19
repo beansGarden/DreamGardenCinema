@@ -41,9 +41,7 @@ public class UserServiceImpl implements UserService {
 //		String encPw = bcrypt.encode(inputMember.getMemberPw());
 //		inputMember.setMemberPw(encPw);
 
-		int result = mapper.signup(inputUser);
-
-		return result;
+		return mapper.signup(inputUser);
 	}
 
 	@Override
@@ -57,5 +55,6 @@ public class UserServiceImpl implements UserService {
 		return true;
 
 	}
+
 
 }

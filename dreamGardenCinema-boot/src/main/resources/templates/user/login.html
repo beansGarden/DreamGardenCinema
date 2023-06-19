@@ -5,19 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DGCinema</title>
-    <link rel="stylesheet" href="/css/user/login.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     <div id="login-box-modal">
-        <form action="/user/login" method="post">
+        <form th:action="@{/user/login}" method="post">
             <p class="login-text">로그인</p>
 
             <span class="first-Visit-text">처음 방문하셧나요?</span>
 
-            <a href="/user/signUp" class="sign-up-text">계정 만들기</a>
+            <a th:href="@{/user/signUp}" class="sign-up-text">계정 만들기</a>
 
-            <input type="text" placeholder="ID" id="userId" name="userId">
+            <input type="text" placeholder="ID" id="userId" name="userId" required>
 
             <input type="password" placeholder="PW" id="userPw" name="userPw">
 
@@ -30,8 +30,10 @@
 
             <button class="login-btn">로그인</button>
             
-            <a href="/user/accountFind" class="find-user-text">ID/PW 찾기</a>
+            <a th:href="@{/user/accountFind}" class="find-user-text">ID/PW 찾기</a>
         </form>
     </div>
+
+    <script th:src="@{/js/user/login.js}"></script>
 </body>
 </html>

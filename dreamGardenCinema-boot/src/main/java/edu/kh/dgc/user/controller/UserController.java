@@ -6,12 +6,14 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.common.utility.RedisUtil;
@@ -50,10 +52,19 @@ public class UserController {
 
 		return "user/accountFind";
 	}
+	
+	@GetMapping("/changePw")
+	public String changePw() {
+
+		return "user/changePw";
+	}
+
 
 	@PostMapping("/login")
-	public String login(User inputUser, Model model, @RequestHeader(value = "referer") String referer,
-			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp,
+	public String login(User inputUser, Model model, 
+			@RequestHeader(value = "referer") String referer,
+			@RequestParam(value = "saveId", required = false) String saveId,
+			HttpServletResponse resp,
 			RedirectAttributes ra) {
 
 		User loginUser = service.login(inputUser);
@@ -70,7 +81,7 @@ public class UserController {
 //			}
 			path += "/";
 			model.addAttribute("loginUser", loginUser);
-			Cookie cookie = new Cookie("saveId", loginUser.getUserEmail());
+			Cookie cookie = new Cookie("saveId", loginUser.getUserId());
 
 			if (saveId != null) {
 				cookie.setMaxAge(60 * 60 * 24 * 30);
@@ -96,6 +107,13 @@ public class UserController {
 
 		inputUser.setUserBirth(LocalDate.parse(inputUser.getUserBirth1(), DateTimeFormatter.ofPattern("yyyyMMdd")));
 		boolean result1 = service.checkOverlap(inputUser); // 중복체크
+		
+		if(!inputUser.getUserPw().equals(inputUser.getUserRePw())) {
+			path += "signUp";
+			message = "회원 가입 실패";
+			ra.addFlashAttribute("message", message);
+			return path;
+		}
 
 		if (redisUtil.getData(inputUser.getUserTel()) == null) {
 			System.out.println("인증번호 == null");
@@ -131,5 +149,22 @@ public class UserController {
 
 		return path;
 	}
+	
+	@GetMapping("/logout")
+	public String logout(SessionStatus status, HttpSession session) {
+		status.setComplete();
+		return "redirect:/";
+	}
+	
+	@PostMapping("/findPassword")
+	public String findPassword(User inputUser) {
+		
+		String path = "redirect:";
+		String message = null;
+
+		return path;
+	}
+	
+
 
 }
