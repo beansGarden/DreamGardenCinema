@@ -263,6 +263,7 @@ table img{
     display: none;
     background-color: rgba(0, 0, 0, 0.3);
     position: absolute;
+    z-index: 1000;
     top: 0px;
     justify-content: center;
     align-items: center;

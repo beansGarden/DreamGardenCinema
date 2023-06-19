@@ -31,18 +31,29 @@
 
                 <li class="my-page-myprofile">
                     <a th:href="@{#}"><img th:src="@{/images/myPage/프로필 변경 아이콘.png}"></a>
-                    <a th:href="@{#}">프로필 변경</a>
+                    <a th:href="@{#}">닉네임 변경</a>
                 </li>
             </ul>
 
             <a th:href="@{#}" class="my-page-membership-grade">
-                <img th:src="@{/images/myPage/브론즈.png}">
-            </a>
+                <th:block th:if="${session.loginUser.userRating==1}">
+                    <img th:src="@{/images/myPage/브론즈.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==2}">
+                    <img th:src="@{/images/myPage/실버.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==3}">
+                    <img th:src="@{/images/myPage/골드.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==4}">
+                    <img th:src="@{/images/myPage/플래티넘.png}">
+                </th:block>
+        </a>
 
             <ul class="my-page-R">
                 <li class="my-page-customer-service">
-                    <a th:href="@{#}"><img src="/images/myPage/1TO1문의.png"></a>
-                    <a href="#">1:1문의</a>
+                    <a th:href="@{/customerservice/service}"><img src="/images/myPage/1TO1문의.png"></a>
+                    <a th:href="@{/customerservice/service}">1:1문의</a>
                 </li>
 
                 <li class="my-page-membership">
@@ -142,24 +153,26 @@
 
 
     <!-- 닉네임 변경 모달 영역 -->
+    <form th:action="@{/myPage/change-nickname}" method="post" id="change-nickname-form">
+        <div class="my-page-change-nickname-area">
 
-    <div class="my-page-change-nickname-area">
+            <div class="my-page-change-nickname-content">
+                <div>
+                    닉네임 변경
+                </div>
+                <div class="my-page-change-nickname-inputbox">
+                    <input type="text" id="nickname-input" name="userNickname">
+                    <input type="hidden" name="redirectUrl" value="/myPage/"><!-- 여러 폼태그로 하나의 매핑쓰기 위해 -->
+                    <i id="nickname-i"></i>
+                </div>
+                <div class="my-page-change-nickname-update-btn">
+                    <button type="button" id="changeBtn">수정</button>
+                    <button type="button">취소</button>
+                </div>
+            </div>
 
-        <div class="my-page-change-nickname-content">
-            <div>
-                닉네임 변경
-            </div>
-            <div class="my-page-change-nickname-inputbox">
-                <input type="text" id="nickname-input">
-                <i id="nickname-i"></i>
-            </div>
-            <div class="my-page-change-nickname-update-btn">
-                <button>수정</button>
-                <button>취소</button>
-            </div>
         </div>
-
-    </div>
+    </form>
 
 
     <!-- 회원 탈퇴 모달 영역 -->
@@ -269,12 +282,12 @@
             <div class="my-page-changeinfo-back">
                 
                 <div class="my-page-changeinfo-name">
-                    <p class="my-page-changeinfo-guide-text">*  <span>이름</span></p>
-                    <span>나카무라윤</span>
+                    <p class="my-page-changeinfo-guide-text">*  <span>닉네임</span></p>
+                    <span th:text="${session.loginUser.userNickname}"></span>
                 </div>
                 <div class="my-page-changeinfo-id">
                     <p class="my-page-changeinfo-guide-text">*  <span>아이디</span></p>
-                    <span>dokdoiskorea@naver.com</span>
+                    <span th:text="${session.loginUser.userId}"></span>
                 </div>
                 <div class="my-page-changeinfo-hp">
                     <p class="my-page-changeinfo-guide-text">*  <span>핸드폰 번호</span></p>
@@ -291,19 +304,19 @@
             <div class="my-page-changeinfo-pw-container">
                 
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15">
+                    <input type="password" required="required" maxlength="15" name="userPw" id="userPw">
                     <span>현재 비밀번호</span>
-                    <i></i>
+                    <i id="line1" class="line1"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
+                    <input type="password" required="required">
                     <span>새 비밀번호</span>
-                    <i></i>
+                    <i id="line2" class="line2"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
+                    <input type="password" required="required">
                     <span>새 비밀번호 확인</span>
-                    <i></i>
+                    <i id="line2" class="line2"></i>
                 </div>
                 <p class="my-page-changeinfo-guide-text">* 8-15 자리의 영문/숫자/특수문자를 함께 입력해주세요</p>
                 
@@ -339,10 +352,14 @@
     
     </div>
 
+    <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}">
+
+
     <th:block th:replace="~{common/footer}"></th:block>
 
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>   
     <script th:src="@{/js/myPage/my-page-reservation.js}"></script>
+
 </body>
 
 </html>

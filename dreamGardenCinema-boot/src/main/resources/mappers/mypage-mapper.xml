@@ -25,6 +25,22 @@
 		
 	</resultMap>
 	
+	<resultMap type="User" id="user_rm">
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userTel" column="USER_TEL" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userGender" column="USER_GENDER" />
+		<result property="userEnrollDate" column="USER_ENROLL_DT" />
+		<result property="userAmount" column="USER_AMOUNT" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userRating" column="USER_RATING" />
+		<result property="userClose" column="USER_CLOSE" />
+	</resultMap>
+	
 	<!--나의 1:1 문의 내역 조회-->
 	<select id="myQnaList" resultMap="qna_rm">
 		SELECT Q.QNA_NO,QNA_TITLE,QNA_CONTENT,QNA_CHECK_FL,QNA_CATEGORY,QNA_ENROLL_DATE,QNA_COMMENT,USER_RATING
@@ -33,4 +49,10 @@
 		LEFT JOIN "QNA _COMMENT" C ON (Q.QNA_NO = C.QNA_NO)
 		WHERE USER_NO2 = #{userNo}
 	</select>
+	
+	<update id="changeNickName" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_NICKNAME = #{userNickname}
+		WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

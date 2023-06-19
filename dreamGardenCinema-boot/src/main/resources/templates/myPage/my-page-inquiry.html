@@ -53,8 +53,8 @@
 
             <ul class="my-page-R">
                 <li class="my-page-customer-service">
-                    <a th:href="@{#}"><img th:src="@{/images/myPage/1TO1문의.png}"></a>
-                    <a th:href="@{#}">1:1문의</a>
+                    <a th:href="@{/customerservice/service}"><img th:src="@{/images/myPage/1TO1문의.png}"></a>
+                    <a th:href="@{/customerservice/service}">1:1문의</a>
                 </li>
 
                 <li class="my-page-membership">
@@ -147,24 +147,26 @@
     </div>
 
     <!-- 닉네임 변경 모달 영역 -->
+    <form th:action="@{/myPage/change-nickname}" method="post" id="change-nickname-form">
+        <div class="my-page-change-nickname-area">
 
-    <div class="my-page-change-nickname-area">
+            <div class="my-page-change-nickname-content">
+                <div>
+                    닉네임 변경
+                </div>
+                <div class="my-page-change-nickname-inputbox">
+                    <input type="text" id="nickname-input" name="userNickname">
+                    <input type="hidden" name="redirectUrl" value="/myPage/my-page-inquiry"><!-- 여러 폼태그로 하나의 매핑쓰기 위해 -->
+                    <i id="nickname-i"></i>
+                </div>
+                <div class="my-page-change-nickname-update-btn">
+                    <button type="button" id="changeBtn">수정</button>
+                    <button type="button">취소</button>
+                </div>
+            </div>
 
-        <div class="my-page-change-nickname-content">
-            <div>
-                닉네임 변경
-            </div>
-            <div class="my-page-change-nickname-inputbox">
-                <input type="text" id="nickname-input">
-                <i id="nickname-i"></i>
-            </div>
-            <div class="my-page-change-nickname-update-btn">
-                <button>수정</button>
-                <button>취소</button>
-            </div>
         </div>
-
-    </div>
+    </form>
 
     <!-- 회원 탈퇴 모달 영역 -->
     <div class="my-page-secession-area">
@@ -275,21 +277,17 @@
             <div class="my-page-changeinfo-back">
                 
                 <div class="my-page-changeinfo-name">
-                    <p class="my-page-changeinfo-guide-text">*  <span>이름</span></p>
-                    <span>나카무라윤</span>
+                    <p class="my-page-changeinfo-guide-text">*  <span>닉네임</span></p>
+                    <span th:text="${session.loginUser.userNickname}"></span>
                 </div>
                 <div class="my-page-changeinfo-id">
                     <p class="my-page-changeinfo-guide-text">*  <span>아이디</span></p>
-                    <span>dokdoiskorea@naver.com</span>
+                    <span th:text="${session.loginUser.userId}"></span>
                 </div>
                 <div class="my-page-changeinfo-hp">
                     <p class="my-page-changeinfo-guide-text">*  <span>핸드폰 번호</span></p>
                     <input type="text">
                     <span>"-" 빼고 입력해주세요</span>
-                </div>
-                <div class="my-page-changeinfo-email">
-                    <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>
-                    <input type="email">
                 </div>
                 
             </div>

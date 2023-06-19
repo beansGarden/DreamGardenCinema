@@ -2,7 +2,7 @@ const couponbtn = document.querySelector(".my-page-coupon-btn");
 
 couponbtn.addEventListener("click",()=>{
     window.open("my-page-coupon","_blank",
-    "width=850,height=600,top=100,left=100");
+    "width=800,height=500,top=100,left=100");
 })
 
 /* 내정보 변경 */
@@ -125,3 +125,19 @@ my_page_secession_btn2.addEventListener("click",()=>{
     document.body.style.overflow='auto';
 
 })
+
+/* 닉네임 수정 창에서 수정 버튼 클릭 시 */
+const changeBtn = document.querySelector("#changeBtn")
+const change_nickname_form = document.querySelector("#change-nickname-form")
+
+changeBtn.addEventListener("click",()=>{
+    if(confirm("닉네임을 변경하시겠습니까?")){
+        change_nickname_form.submit()
+
+        alert("닉네임이 변경되었습니다")
+
+    }else{
+        alert("취소되었습니다")
+    }
+})
+
