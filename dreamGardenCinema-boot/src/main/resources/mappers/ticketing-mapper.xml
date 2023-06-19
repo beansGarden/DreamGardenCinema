@@ -101,13 +101,21 @@
 		WHERE MOVIE_NO = ${movieNo}
 	</select>
 	
-	<select id="selectSeatList" resultMap="seat_rm">
-		SELECT SEAT_NO, MOVIE_THEATER
-		FROM SEAT
-		WHERE MOVIE_THEATER = ${movieTheater}
-	</select>
+	<!-- <select id="selectChkSeatList" resultMap="seatcheck_rm">
+
+		작성해야될 부분
+		
+	</select> -->
 	
 	<insert id="insertSeat">
 		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo})
 	</insert>
+	
+	<delete id="deleteSeat">
+		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo}
+	</delete>
+	
+	<delete id="deleteEndSeat">
+		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo}
+	</delete>
 </mapper>

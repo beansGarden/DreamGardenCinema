@@ -24,8 +24,12 @@ public interface TicketingMapper {
 
 	Movie selectMovie(Ticket ticket);
 
-	List<Seat> selectSeatList(Ticket ticket);
-
 	int insertSeat(SeatCheck seatCheck);
+
+	int deleteSeat(SeatCheck seatCheck);
+
+	void deleteEndSeat(int userNo);
+
+	List<Ticket> selectChkSeatList(Ticket ticket);
 
 }

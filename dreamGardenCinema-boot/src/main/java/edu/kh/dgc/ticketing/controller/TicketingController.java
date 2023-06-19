@@ -100,7 +100,6 @@ public class TicketingController {
 					, RedirectAttributes ra
 					, @SessionAttribute("loginUser") User loginUser) {
 		
-		
 		String movieTheater = ticket.getMovieTime().split(",")[0];
 		String movieTime = ticket.getMovieTime().split(",")[1];
 		

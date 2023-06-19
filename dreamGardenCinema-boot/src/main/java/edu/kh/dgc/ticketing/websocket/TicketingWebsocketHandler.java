@@ -1,8 +1,9 @@
 package edu.kh.dgc.ticketing.websocket;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+import org.thymeleaf.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,12 +28,20 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 	@Autowired
 	private TicketingService service;
 
-	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
+	private List<WebSocketSession> sessions = new ArrayList<>();
+	
+	private Map<String, WebSocketSession> userSessionMap = new HashMap<>();
 
+	int userNo = 0;
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		log.info("Socket 연결");
 		sessions.add(session);
+		System.out.println(sessions);
+		log.info(sendPushUsername(session));				//현재 접속한 사람의 username이 출력됨
+		String senderId = sendPushUsername(session);
+		userSessionMap.put(senderId, session);
 	}
 
 	@Override
@@ -39,18 +49,51 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		// 가져온 메시지를 객체로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
 		SeatCheck seatCheck = objectMapper.readValue(message.getPayload(), SeatCheck.class);
+		userNo = seatCheck.getUserNo();
 		System.out.println(seatCheck);
+		String seatResult = service.seatCheck(seatCheck);
+		System.out.println(seatResult);
+		
+		TextMessage sendMsg = null;
+		for(WebSocketSession single : sessions) {
+			
+			System.out.println(single);
+			if(seatResult.equals("예매성공")) {
+				sendMsg = new TextMessage(seatCheck.getSeatNo()+" alreadyChk");
+				single.sendMessage(sendMsg);
+			} else if(seatResult.equals("예매취소성공")) {
+				sendMsg = new TextMessage(seatCheck.getSeatNo()+" cancelChk");
+				single.sendMessage(sendMsg);
+			} else {
+				sendMsg = new TextMessage("fail");
+				single.sendMessage(sendMsg);
+			}
+			
+		}
 		
 		
-		int result = service.seatCheck(seatCheck);
-		
-		System.out.println(12);
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		// TODO Auto-generated method stub
-		super.afterConnectionClosed(session, status);
+		log.info("Socket 연결 해제");
+		if(userNo != 0) {
+			service.deleteSeat(userNo);
+			userNo = 0;
+		}
+		sessions.remove(session);
+		userSessionMap.remove(sendPushUsername(session), session);
+	}
+	
+	private String sendPushUsername(WebSocketSession session) {
+		String loginUsername;
+		
+		if (session.getPrincipal() == null) {
+			loginUsername = null;
+		} else {
+			loginUsername = session.getPrincipal().getName();
+		}
+		return loginUsername;
 	}
 	
 }

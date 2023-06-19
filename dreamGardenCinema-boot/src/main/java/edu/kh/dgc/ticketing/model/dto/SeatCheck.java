@@ -16,4 +16,5 @@ public class SeatCheck {
 	private int movieNo;
 	private String seatNo;
 	private int userNo;
+	private String checked;
 }

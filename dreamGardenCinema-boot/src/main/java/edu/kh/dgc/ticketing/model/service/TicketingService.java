@@ -20,6 +20,7 @@ public interface TicketingService {
 
 	Map<String, Object> seatInfo(Ticket ticket);
 
-	int seatCheck(SeatCheck seatCheck);
+	String seatCheck(SeatCheck seatCheck);
 
+	void deleteSeat(int userNo);
 }

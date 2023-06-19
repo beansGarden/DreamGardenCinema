@@ -47,25 +47,46 @@ public class TicketingServiceImpl implements TicketingService{
 		Map<String, Object> map = new HashMap<>();
 		
 		Movie movie = mapper.selectMovie(ticket);
-		
-		List<Seat> seatList = mapper.selectSeatList(ticket); 
+		List<Ticket> chkSeatList = mapper.selectChkSeatList(ticket); 
 		
 		map.put("movie", movie);
-		map.put("seatList", seatList);
+		map.put("chkSeatList", chkSeatList);
 		
 		return map;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int seatCheck(SeatCheck seatCheck) {
+	public String seatCheck(SeatCheck seatCheck) {
 		
 		seatCheck.setMovieTime(seatCheck.getMovieTime().split(" ")[0] + seatCheck.getMovieTime().split(" ")[2]);
 		
-		int result = mapper.insertSeat(seatCheck);
+		String seatResult = null;
+		if(seatCheck.getChecked().equals("N")) {
+			int result = mapper.insertSeat(seatCheck);
+			if(result == 1) {
+				seatResult = "예매성공";
+			} else {
+				seatResult = "예매실패";
+			}
+		} else {
+			int result = mapper.deleteSeat(seatCheck);
+			if(result == 1) {
+				seatResult = "예매취소성공";
+			} else {
+				seatResult = "예매취소실패";
+			}
+		}
 		
-		return 0;
+		return seatResult;
 	}
+
+	@Override
+	public void deleteSeat(int userNo) {
+		mapper.deleteEndSeat(userNo);
+	}
+
+
 
 
 
