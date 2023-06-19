@@ -56,6 +56,9 @@ let alpha = 'A';
     }
 })()
 
+let socket = new SockJS("/click");
+
+// 좌석 선택
 function seatClick(e){
     let choiceSeat = document.querySelectorAll(".choiceSeat");
     if(choiceSeat.length==btn1.innerText){
@@ -66,5 +69,27 @@ function seatClick(e){
         return;
     }
 
+    const seatNo = e.getAttribute("seatno");
+
+
+    var data = {};
+
+    data.userNo = loginUser.userNo;
+    data.movieNo = movie.movieNo;
+    data.movieTheater = ticket.movieTheater;
+    data.movieTime = ticket.movieTime;
+    data.seatNo = seatNo;
+    console.log(data);
+
+    socket.send(JSON.stringify(data));
+
+
+
+
     e.classList.toggle("choiceSeat");
+}
+
+function sendMessage(seatNo){
+
+
 }

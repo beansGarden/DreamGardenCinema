@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing2.css}">
 </head>
@@ -23,12 +24,12 @@
                 <div class="choiceCount">
                     <div class="movie_info" th:object="${map.movie}">
                         <div class="poster">
-                            <img th:src="*{POSTER}">
+                            <img th:src="*{poster}">
                         </div>
                         <div class="content">
                             <div class="title">
-                                <img th:src="*{RATING}" alt="">
-                                <strong th:text="*{MOVIE_TITLE}"></strong>
+                                <img th:src="*{rating}" alt="">
+                                <strong th:text="*{movieTitle}"></strong>
                             </div>
                             <div class="date">
                                 <span class="date_info" th:text="${saveday}">
@@ -60,10 +61,10 @@
                         <!-- 
                             <div class="seatLine col0">
                                 <span>A</span>
-                                <a class="seat">
+                                <a class="seat" seatno="A1" onclick="seatClick(this)">
                                     <span>1</span>
                                 </a>
-                                <a class="seat">
+                                <a class="seat choiceSeat" seatno="A2" onclick="seatClick(this)">
                                     <span>2</span>
                                 </a>
                                 ...
@@ -89,11 +90,13 @@
             </form>
         </div>
     </div>
-    <h1 th:text="${ticket}"></h1>
-    <h1 th:text="${map.movie}"></h1>
-    <h1 th:text="${map.seatList}"></h1>
 
-    
+    <script th:inline="javascript">
+        const loginUser = /*[[${loginUser}]]*/ "로그인회원";
+        const movie = /*[[${map.movie}]]*/ "영화";
+        const ticket = /*[[${ticket}]]*/ "티켓정보";
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script th:src="@{/js/ticketing/Ticketing2.js}"></script>
 </body>

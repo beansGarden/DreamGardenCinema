@@ -56,8 +56,8 @@ public class TicketingController {
 			
 			model.addAttribute("checkNo", saveTicket.get("movieNo"));
 		} else {
-			Map<String, Object> firstMovie = (Map<String, Object>) movieList.get(0);
-			Object movieNo = firstMovie.get("MOVIE_NO");
+			Movie firstMovie = movieList.get(0);
+			int movieNo = firstMovie.getMovieNo();
 			timeList = service.selectTimeList(movieNo);
 			model.addAttribute("checkNo", movieNo);
 		}
@@ -112,8 +112,8 @@ public class TicketingController {
 		
 		int hour = Integer.parseInt(movieTime.substring(0,2));
 		int minute = Integer.parseInt(movieTime.substring(3,5));
-		HashMap<String, Object> movie = (HashMap<String, Object>) map.get("movie");
-		int runTime = Integer.parseInt((String) movie.get("RUNNING_TIME"));
+		Movie movie = (Movie) map.get("movie");
+		int runTime = Integer.parseInt(movie.getRunningTime());
 		
 				
 		System.out.println((minute + runTime)/60);

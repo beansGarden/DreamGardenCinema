@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Seat;
+import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
 @Service
@@ -44,7 +46,7 @@ public class TicketingServiceImpl implements TicketingService{
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		Map<String, Object> movie = mapper.selectMovie(ticket);
+		Movie movie = mapper.selectMovie(ticket);
 		
 		List<Seat> seatList = mapper.selectSeatList(ticket); 
 		
@@ -52,6 +54,17 @@ public class TicketingServiceImpl implements TicketingService{
 		map.put("seatList", seatList);
 		
 		return map;
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int seatCheck(SeatCheck seatCheck) {
+		
+		seatCheck.setMovieTime(seatCheck.getMovieTime().split(" ")[0] + seatCheck.getMovieTime().split(" ")[2]);
+		
+		int result = mapper.insertSeat(seatCheck);
+		
+		return 0;
 	}
 
 

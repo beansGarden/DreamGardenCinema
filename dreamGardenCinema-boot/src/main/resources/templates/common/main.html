@@ -36,11 +36,33 @@
         <div class="sub-slide__silder">
             <div class="swiper main--sub-slider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" th:each="movieInfo : ${movieList}"><img th:src="${movieInfo.poster}"></div>
+                    <div class="swiper-slide" th:each="movieInfo : ${movieList}">
+                        <div>
+                            <span class="poster">
+                                <img th:src="${movieInfo.poster}" alt="포스터">
+                                <em th:text="${movieInfo.rank}">순위</em>
+                                <img class="rating" th:src="${movieInfo.rating}" alt="등급">
+                            </span>
+                        </div>
+                        <div class="btm-info">
+                            <strong class="title" th:text="${movieInfo.movieTitle}">제목</strong>
+                            <div>
+                                <span class="ratio">
+                                    예매율
+                                    <em th:text="${movieInfo.ratio}+'%'">예매율</em>
+                                </span>
+                                <span class="star">
+                                    <img th:src="@{/images/common/main/포스터/star3.png}">
+                                    <em>9.2</em>
+                                </span>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </section>
 
