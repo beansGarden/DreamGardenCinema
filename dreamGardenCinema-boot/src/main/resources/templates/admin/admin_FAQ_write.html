@@ -33,13 +33,16 @@
     <div class="admin_faqWrap">
         
             <!-- 게시판 제목 -->
+
+        <form th:action="@{/adminFaqWriteInsert}" method="POST">
             <span id="admin_faqTitle">FAQ 관리</span>
         <!-- 테이블 감싸는 div -->
         <div class="admin_faqTableWrap "style="border-bottom: 1px solid black">
         <table>
             <tr>
                 <th>제목</th>
-                <td><input type="text" name="FAQTitle" id="" class="admin_faqTableInput">
+                <td><input type="text" name="FAQTitle" id="" class="admin_faqTableInput"></td>                
+                    
                 </td>
             </tr>
             <tr>
@@ -60,19 +63,18 @@
     </div>
     <!-- 내용 쓰는 칸 -->
         <div class="admin_faqContentWrap">
-            <form method="post">
-                <textarea id="summernote" name="FQAContent"></textarea>
+                <textarea id="summernote" name="FAQContent"></textarea>
    
-              </form>
+          
           
         </div>
 
      
 
                 <!-- 등록 버튼 -->
-                <button class="admin_faqRegister"><a href="">등록</a></button>
+                <button class="admin_faqRegister" type="submit">등록</button>
 
-        
+            </form>
             
 
             </div>
@@ -94,6 +96,7 @@
         });
     </script>
     
+    <script src="\js\admin\admin_FAQ_write.js"></script>
 </body>
 
 </html>

@@ -122,6 +122,13 @@ public interface AdminMapper {
 	int deleteFaq(FAQ faq);
 
 
+	/**FAQ (자주 찾는 질문) 글 삽입
+	 * @param faq
+	 * @return
+	 */
+	int faqInsert(FAQ faq);
+
+
 
 
 

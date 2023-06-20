@@ -271,6 +271,11 @@
 		FAQ_DELETE_FL = 'Y'
 		WHERE FAQ_NO = #{FAQNo}
 	</update>
+	
+	<insert id="faqInsert">
+		INSERT INTO "FAQ"
+		VALUES (SEQ_FAQ_NO.NEXTVAL,#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
+	</insert>
 
 
 </mapper>

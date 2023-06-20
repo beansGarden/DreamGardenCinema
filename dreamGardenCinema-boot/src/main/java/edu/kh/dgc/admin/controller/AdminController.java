@@ -389,7 +389,7 @@ public class AdminController {
 }
 	// 7-2-1. 1:1 문의사항 게시글 쓰기 - 삽입 230614
 
-	@GetMapping("/adminFaqWriteInsert")
+	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
 
 		int FAQNo = service.faqInsert(faq);
@@ -461,7 +461,7 @@ public class AdminController {
 		if (faqNoCheck > 0) { // 성공시
 
 			message = "게시글이 등록 되었습니다.";
-			path += "/adminFaqRead";
+			path += "/adminFaq";
 
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";
