@@ -291,8 +291,24 @@
 .my-page-coupon span{
     font-weight: bold;
 }
-#text-color{
+/* 등급에 따른 등급 text 변경 */
+#text-bronze{
     color: #8B4B4B;
+    font-weight: bold;
+    font-size: 40px;
+}
+#text-silver{
+    color: #8E8E8E;
+    font-weight: bold;
+    font-size: 40px;
+}
+#text-gold{
+    color: #DDA03C;
+    font-weight: bold;
+    font-size: 40px;
+}
+#text-platinum{
+    color: #6771AC;
     font-weight: bold;
     font-size: 40px;
 }
@@ -673,3 +689,4 @@
         background-position: 400%;
     }
 }
+
