@@ -60,8 +60,6 @@ public class TicketingServiceImpl implements TicketingService{
 	@Override
 	public String seatCheck(SeatCheck seatCheck) {
 		
-		seatCheck.setMovieTime(seatCheck.getMovieTime().split(" ")[0] + seatCheck.getMovieTime().split(" ")[2]);
-		
 		String seatResult = null;
 		if(seatCheck.getChecked().equals("N")) {
 			int result = mapper.insertSeat(seatCheck);

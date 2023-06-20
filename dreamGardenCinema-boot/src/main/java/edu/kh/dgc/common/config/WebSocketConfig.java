@@ -6,20 +6,28 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import edu.kh.dgc.ticketing.websocket.TicketingWebsocketHandler;
-import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSocket
-@RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer{
 
 	private final TicketingWebsocketHandler ticketSock;
+	
+	public WebSocketConfig(TicketingWebsocketHandler ticketSock) {
+        this.ticketSock = ticketSock;
+    }
 
 	@Override
-	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		
-		registry.addHandler(ticketSock, "/click").withSockJS();
-		
-	}
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(ticketSock, "/click").setAllowedOrigins("*");
+    }
+	
+//	@Override
+//	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+//		
+//		registry.addHandler(ticketSock, "/click").withSockJS();
+//		registry.addHandler(ticketSock, "/ws/click").setAllowedOrigins("http://localhost:80").withSockJS();
+//		
+//	}
 	
 }

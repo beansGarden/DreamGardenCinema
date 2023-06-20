@@ -59,6 +59,7 @@ if(ticket.movieTheater == 1){
 }
 
 let socket = new SockJS("/click");
+// let socket = new WebSocket("ws://localhost:80/click");
 
 // 좌석 선택
 function seatClick(e){
@@ -90,24 +91,29 @@ function seatClick(e){
     e.classList.toggle("choiceSeat");
 }
 
-socket.onmessage = function(event) {
-
-    let result = event.data;
-    let resultList = result.split(" ");
-    const seat = document.querySelectorAll(".seat");
-    for(let i=0;i<seat.length;i++){
-        if(resultList[1] == "alreadyChk"){
-            if(seat[i].getAttribute("seatno")==resultList[0]){
-                seat[i].classList.add("alreadyChk");
-            }
-        }
-        if(resultList[1] == "cancelChk"){
-            if(seat[i].getAttribute("seatno")==resultList[0]){
-                seat[i].classList.remove("alreadyChk");
-            }
-        }
-        if(resultList[1] == "fail"){
-            alert("이미 선택된 좌석입니다.");
-        }
-    }
+socket.onmessage = function (event) {
+    console.log(event.data);
 }
+
+// socket.onmessage = function(event) {
+
+//     let result = event.data;
+//     let resultList = result.split(" ");
+//     const seat = document.querySelectorAll(".seat");
+//     console.log(result);
+//     for(let i=0;i<seat.length;i++){
+//         if(resultList[1] == "alreadyChk"){
+//             if(seat[i].getAttribute("seatno")==resultList[0]){
+//                 seat[i].classList.add("alreadyChk");
+//             }
+//         }
+//         if(resultList[1] == "cancelChk"){
+//             if(seat[i].getAttribute("seatno")==resultList[0]){
+//                 seat[i].classList.remove("alreadyChk");
+//             }
+//         }
+//         if(resultList[1] == "fail"){
+//             alert("이미 선택된 좌석입니다.");
+//         }
+//     }
+// }
