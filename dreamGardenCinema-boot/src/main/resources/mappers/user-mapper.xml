@@ -59,4 +59,20 @@
 		AND USER_CLOSE = 'N'
 	</select>
 	
+	<select id="idFind" resultType="string">
+		SELECT USER_ID 
+		FROM "USER_INFO"
+		WHERE USER_BIRTH  = #{userBirth}
+		AND USER_TEL  = #{userTel}
+		AND USER_CLOSE = 'N';
+	</select>
+	
+	<update id="changePw" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_PW  = #{userPw}
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	
+	
 </mapper>

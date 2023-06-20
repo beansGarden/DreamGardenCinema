@@ -45,7 +45,7 @@
             <!-- 로그인한 회원이 있을 경우 -->
 
             <!-- th:if="${session.loginUser}" -->
-            <li class="dg-menu-logout"  th:if="${session.loginUser}" ><a th:href="@{#}" class="dg-logout-link">로그아웃</a></li>
+            <li class="dg-menu-logout"  th:if="${session.loginUser}" ><a th:href="@{/user/logout}" class="dg-logout-link">로그아웃</a></li>
 
             <!-- 비회원일 경우 -->
 
