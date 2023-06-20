@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
+import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
 public interface TicketingService {
@@ -18,5 +19,7 @@ public interface TicketingService {
 	List<Movie> selectMovieList();
 
 	Map<String, Object> seatInfo(Ticket ticket);
+
+	String seatCheck(SeatCheck seatCheck);
 
 }

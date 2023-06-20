@@ -2,7 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.dgc.ticketing.model.dao.TicketingMapper">
 	
-	<select id="selectTimeList" resultType="map">
+	<resultMap type="Movie" id="movie_rm">
+		<id property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="poster" column="POSTER"/>
+		<result property="synopsis" column="SYNOPSIS"/>
+		<result property="runningTime" column="RUNNING_TIME"/>
+		<result property="rating" column="RATING"/>
+		<result property="releaseDate" column="RELEASE_DATE"/>
+		<result property="producer" column="PRODUCER"/>
+		<result property="moviePrice" column="MOVIE_PRICE"/>		
+		<result property="mainPoster" column="MAIN_POSEER"/>		
+		<result property="genre" column="GENRE"/>		
+		<result property="screening" column="SCREENING"/>		
+	</resultMap>
+	
+	<resultMap type="Schedule" id="schedule_rm">
+		<id property="movieTime" column="MOVIE_TIME"/>
+		<id property="movieTheater" column="MOVIE_THEATER"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="checkTime" column="CHECK_TIME"/>
+	</resultMap>
+	
+	<resultMap type="Seat" id="seat_rm">
+		<id property="seatNo" column="SEAT_NO"/>
+		<result property="movieTheater" column="MOVIE_THEATER"/>
+	</resultMap>
+	
+	<resultMap type="Ticket" id="ticket_rm">
+		<id property="ticketNo" column="TICKET_NO"/>
+		<result property="ticketingTime" column="TICKETING_TIME"/>
+		<result property="payAmount" column="PAY_AMOUNT"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="coupon" column="COUPON"/>
+		<result property="movieTime" column="MOVIE_TIME"/>
+		<result property="movieTheater" column="MOVIE_THEATER"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="ticketCancle" column="TICKET_CANCLE"/>
+	</resultMap>
+	
+	<resultMap type="SeatCheck" id="seatcheck_rm">
+		<id property="movieTime" column="MOVIE_TIME"/>
+		<id property="movieTheater" column="MOVIE_THEATER"/>
+		<id property="movieNo" column="MOVIE_NO"/>
+		<id property="seatNo" column="SEAT_NO"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	
+	
+	<select id="selectTimeList" resultMap="schedule_rm">
 		SELECT MOVIE_NO, TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
 		WHERE TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
@@ -13,7 +61,7 @@
 		ORDER BY MOVIE_TIME, MOVIE_THEATER
 	</select>
 	
-	<select id="selectSaveTimeList" resultType="map">
+	<select id="selectSaveTimeList" resultMap="schedule_rm">
 		SELECT MOVIE_NO, TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
 		WHERE TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${movieTime}
@@ -24,7 +72,7 @@
 		ORDER BY MOVIE_TIME, MOVIE_THEATER
 	</select>
 	
-	<select id="movieTime" resultType="map">
+	<select id="movieTime" resultMap="schedule_rm">
 		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
 		<![CDATA[
@@ -34,7 +82,7 @@
 		ORDER BY MOVIE_TIME, MOVIE_THEATER
 	</select>
 
-	<select id="selectMovieList" resultType="map">
+	<select id="selectMovieList" resultMap="movie_rm">
 		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER
 		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
 				(SELECT COUNT(TICKET_NO)
@@ -47,15 +95,40 @@
 			ORDER BY TICKET_COUNT DESC, RELEASE_DATE)
 	</select>
 	
-	<select id="selectMovie" resultType="map">
+	<select id="selectMovie" resultMap="movie_rm">
 		SELECT MOVIE_NO, MOVIE_TITLE, POSTER, RUNNING_TIME, RATING, RELEASE_DATE, MOVIE_PRICE, GENRE
 		FROM MOVIE
 		WHERE MOVIE_NO = ${movieNo}
 	</select>
 	
-	<select id="selectSeatList" resultType="map">
-		SELECT SEAT_NO, MOVIE_THEATER
-		FROM SEAT
-		WHERE MOVIE_THEATER = ${movieTheater}
+	<select id="selectChkSeatList" resultMap="seatcheck_rm">
+		SELECT SEAT_NO
+		FROM TICKETING_INFO
+		WHERE MOVIE_NO = ${movieNo}
+		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
+		AND MOVIE_THEATER = ${movieTheater}
+		
+		UNION
+				
+		SELECT SEAT_NO
+		FROM SEAT_CHECK
+		WHERE MOVIE_NO = ${movieNo}
+		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
+		AND MOVIE_THEATER = ${movieTheater}
 	</select>
+	
+	<insert id="insertSeat">
+		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo})
+	</insert>
+	
+	<delete id="deleteSeat">
+		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo}
+	</delete>
+	
+	<select id="selectSeat" resultType="int">
+		SELECT COUNT(*)
+		FROM SEAT_CHECK
+		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo}
+	</select>
+	
 </mapper>

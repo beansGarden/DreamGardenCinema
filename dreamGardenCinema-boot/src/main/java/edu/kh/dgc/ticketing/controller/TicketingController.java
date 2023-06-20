@@ -56,8 +56,8 @@ public class TicketingController {
 			
 			model.addAttribute("checkNo", saveTicket.get("movieNo"));
 		} else {
-			Map<String, Object> firstMovie = (Map<String, Object>) movieList.get(0);
-			Object movieNo = firstMovie.get("MOVIE_NO");
+			Movie firstMovie = movieList.get(0);
+			int movieNo = firstMovie.getMovieNo();
 			timeList = service.selectTimeList(movieNo);
 			model.addAttribute("checkNo", movieNo);
 		}
@@ -100,21 +100,33 @@ public class TicketingController {
 					, RedirectAttributes ra
 					, @SessionAttribute("loginUser") User loginUser) {
 		
-		
 		String movieTheater = ticket.getMovieTime().split(",")[0];
 		String movieTime = ticket.getMovieTime().split(",")[1];
 		
 		ticket.setUserNo(loginUser.getUserNo());  // 티켓정보에 로그인 회원번호 추가
 		ticket.setMovieTheater(movieTheater);
 		ticket.setMovieTime(date+" "+movieTime);
-		
 		String changeMovieTime = date.substring(0, 4) + "." + date.substring(4,6) + "." + date.substring(6,8) + "(" + date.substring(9)+")";
-		System.out.println(changeMovieTime);  
 		Map<String, Object> map = service.seatInfo(ticket);
+		
+		int hour = Integer.parseInt(movieTime.substring(0,2));
+		int minute = Integer.parseInt(movieTime.substring(3,5));
+		Movie movie = (Movie) map.get("movie");
+		int runTime = Integer.parseInt(movie.getRunningTime());
+		
+				
+		System.out.println((minute + runTime)/60);
+		
+		hour = hour+ ((minute+runTime)/60);
+		minute = (minute+runTime)%60;
+		
+		String runningTime = movieTime + "~" + hour +":"+minute;
+		System.out.println(runningTime);
 		
 		model.addAttribute("map", map);
 		model.addAttribute("ticket",ticket);
-			
+		model.addAttribute("saveday", changeMovieTime);
+		model.addAttribute("runningTime", runningTime);	
 		return "ticketing/Ticketing2";
 	}
 	
