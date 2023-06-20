@@ -27,7 +27,7 @@ public class CustomerServiceController {
 		
 		model.addAttribute("FAQList", FAQList);
 		
-//		System.out.println(FAQList);
+		System.out.println(FAQList);
 		
 		return "customerservice/FAQ";
 	}

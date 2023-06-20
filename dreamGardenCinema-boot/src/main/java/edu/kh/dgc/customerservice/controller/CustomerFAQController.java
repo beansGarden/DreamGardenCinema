@@ -29,8 +29,25 @@ public class CustomerFAQController {
 		return FAQservice.theaterList(FAQCategory);
 		
 	}
-//	public String theaterList(FAQ FAQcategory) {
-//		List<FAQ> theaterList = FAQservice.theaterList(FAQcategory);
+	
+	// FAQ(회원 관련) 목록 조회
+	@GetMapping(value="/customerFAQ", produces = "application/json; charset=UTF-8")
+	public List<FAQ> customList(String FAQCategory){
+		
+		return FAQservice.customList(FAQCategory);
+		
+	}
+	
+	// FAQ(멤버십 관련) 목록 조회
+	@GetMapping(value="/membershipFAQ", produces = "application/json; charset=UTF-8")
+	public List<FAQ> membList(String FAQCategory){
+		
+		return FAQservice.membList(FAQCategory);
+		
+	}
+	
+	
+
 		
 		
 	}

@@ -173,9 +173,8 @@ a {
     margin: 20px 0 30px 0;
 }
 
-
 /* 검색 영역 */
-#search-query {
+#query {
     width: 30vw;
     height: 40px;
 
