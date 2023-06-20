@@ -141,3 +141,76 @@ changeBtn.addEventListener("click",()=>{
     }
 })
 
+/* 내 정보 변경 비밀번호 일치 여부 */
+const userPw = document.querySelector("#userPw")
+const line1 = document.querySelector("#line1")
+const loginUserPw = document.querySelector("#loginUserPw").value
+
+/* 현재 비밀번호 확인 영역 */
+userPw.addEventListener("blur",()=>{
+    if(userPw.value == loginUserPw){
+        line1.classList.add("clear")
+        line1.classList.remove("line1")
+    }else{
+        line1.classList.add("error")
+        line1.classList.remove("line1")
+    }
+})
+userPw.addEventListener("focus", () => {
+    line1.classList.remove("error");
+    line1.classList.remove("clear");
+    line1.classList.add("line1");
+});
+
+const line2 = document.querySelectorAll("#line2")
+const newPw = document.querySelector("#newPw")
+const checkPw = document.querySelector("#checkPw")
+/* 새 비밀번호 확인 영역 */
+
+checkPw.addEventListener("blur", () => {
+    const newPwValue = newPw.value;
+    const checkPwValue = checkPw.value;
+
+    if (newPwValue === checkPwValue) {
+        line2.forEach((element) => {
+            element.classList.add("clear");
+            element.classList.remove("line2");
+        });
+    }else{
+        line2.forEach((element) => {
+            element.classList.add("error");
+            element.classList.remove("line2");
+        });
+    }
+});
+newPw.addEventListener("blur", () => {
+    const newPwValue = newPw.value;
+    const checkPwValue = checkPw.value;
+
+    if (newPwValue === checkPwValue) {
+        line2.forEach((element) => {
+            element.classList.add("clear");
+            element.classList.remove("line2");
+        });
+    }else{
+        line2.forEach((element) => {
+            element.classList.add("error");
+            element.classList.remove("line2");
+        });
+    }
+});
+
+newPw.addEventListener("focus",()=>{
+    line2.forEach((element) => {
+        element.classList.remove("error");
+        element.classList.remove("clear");
+        element.classList.add("line2");
+    });
+})
+checkPw.addEventListener("focus",()=>{
+    line2.forEach((element) => {
+        element.classList.remove("error");
+        element.classList.remove("clear");
+        element.classList.add("line2");
+    });
+})

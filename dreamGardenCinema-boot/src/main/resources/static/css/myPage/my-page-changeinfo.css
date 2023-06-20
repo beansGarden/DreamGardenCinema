@@ -210,14 +210,14 @@ body{
 }
 .my-page-changeinfo-pw input:valid ~ span,
 .my-page-changeinfo-pw input:focus ~ span{
-    color: #c9ff9a;
+    color: #0f0954;
     transform: translateY(-16px);
     font-size: 0.65em;
     font-weight: bold;
 }
 /* 에러 클래스 */
 .error{
-    background: red;
+    background: #c52b2b;
     width: 100%;
     height: 2px;
     position: absolute;
@@ -226,7 +226,7 @@ body{
     overflow: hidden;
 }
 .clear{
-    background: rgb(154 255 154);
+    background: rgb(86 79 191);
     width: 100%;
     height: 2px;
     position: absolute;

@@ -17,6 +17,7 @@
 		<result property="userRole" column="USER_ROLE" />
 		<result property="userRating" column="USER_RATING" />
 		<result property="userClose" column="USER_CLOSE" />
+		<result property="userAddress" column="USER_ADDRESS" />
 	</resultMap>
 	<!-- 로그인 -->
 	<select id="login" resultMap="user_rm">
@@ -42,7 +43,8 @@
 			, DEFAULT
 			, DEFAULT
 			, #{userBirth}
-			, #{userGender})
+			, #{userGender}
+			, DEFAULT)
 	</insert>
 	
 	<select id="checkOverlapId" resultType="int">

@@ -60,6 +60,6 @@ public class User {
 	
 	private String userClose;
 	
-	
+	private String userAddress;
 	
 }

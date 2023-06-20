@@ -298,19 +298,19 @@
             <div class="my-page-changeinfo-pw-container">
                 
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required">
+                    <input type="password" required="required" maxlength="15" name="userPw" id="userPw">
                     <span>현재 비밀번호</span>
-                    <i></i>
+                    <i id="line1" class="line1"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
+                    <input type="password" required="required" maxlength="15" name="newPw" id="newPw">
                     <span>새 비밀번호</span>
-                    <i></i>
+                    <i id="line2" class="line2"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="text" required="required">
+                    <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw">
                     <span>새 비밀번호 확인</span>
-                    <i></i>
+                    <i id="line2" class="line2"></i>
                 </div>
                 <p class="my-page-changeinfo-guide-text">* 8-15 자리의 영문/숫자/특수문자를 함께 입력해주세요</p>
                 
@@ -348,6 +348,8 @@
     </div>
     
     <th:block th:replace="~{common/footer}"></th:block>
+
+    <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}"><!-- js에서 사용하기 (로그인한 회원 비밀번호) -->
 
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script> 
     <script th:src="@{/js/myPage/my-page-membership.js}"></script>

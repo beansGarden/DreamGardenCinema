@@ -309,12 +309,12 @@
                     <i id="line1" class="line1"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required">
+                    <input type="password" required="required" maxlength="15" name="newPw" id="newPw">
                     <span>새 비밀번호</span>
                     <i id="line2" class="line2"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required">
+                    <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw">
                     <span>새 비밀번호 확인</span>
                     <i id="line2" class="line2"></i>
                 </div>
@@ -352,7 +352,7 @@
     
     </div>
 
-    <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}">
+    <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}"><!-- js에서 사용하기 (로그인한 회원 비밀번호) -->
 
 
     <th:block th:replace="~{common/footer}"></th:block>
