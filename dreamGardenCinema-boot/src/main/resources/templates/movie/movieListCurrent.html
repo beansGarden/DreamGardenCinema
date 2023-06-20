@@ -39,20 +39,22 @@
 
             <ul class="font1 movie-type">
 
-                <li><a class="active" th:href="@{/movie/current}">현재 상영작</a></li>
+                <li><button id="typeCurrent" class="font1 active" th:href="@{/movie/current}">현재 상영작</button></li>
 
-                <li><a class="non-active" th:href="@{/movie/promise}">상영 예정작</a></li>
+                <li><button id="typePromise" class="font1 non-active" th:href="@{/movie/promise}">상영 예정작</button></li>
 
             </ul>
 
             <div class="font3">
-                <a href="#">예매순</a>
+
+                <button>예매순</button>
                 |
-                <a href="#">평점순</a>
+                <button>평점순</button>
                 |
-                <a href="#">관람평 많은순</a>
+                <button>관람평 많은순</button>
                 |
-                <a href="#">보고싶어요순</a>
+                <button>보고싶어요순</button>
+
             </div>
 
         </div>

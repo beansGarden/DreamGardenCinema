@@ -15,11 +15,14 @@ public interface MovieMapper {
 	
 	public List<Map<String, String>> selectMovieMainSlideImgList();
 	
+	public List<Movie> selectMovieListCurrent();
+	
 	public List<Movie> selectMovieListCurrent(Object object, RowBounds rowBounds);
 	
 	public List<Movie> selectMovieListPromise(Object object, RowBounds rowBounds);
 
 	public Map<String, String> selectAdvertisePoster();
+
 
 	
 

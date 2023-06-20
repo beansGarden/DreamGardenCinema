@@ -18,6 +18,8 @@ body {
 
 /* movie-type -> 상영작, 예정작 */
 
+
+
 .movie-type{
     display: flex;
     justify-content: space-between;
@@ -31,6 +33,10 @@ body {
 
 .movie-type .non-active{
     opacity: 0.3;
+}
+
+.movieList--nav button{
+    background-color: white;
 }
 
 
