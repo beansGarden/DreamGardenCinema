@@ -101,11 +101,21 @@
 		WHERE MOVIE_NO = ${movieNo}
 	</select>
 	
-	<!-- <select id="selectChkSeatList" resultMap="seatcheck_rm">
-
-		작성해야될 부분
+	<select id="selectChkSeatList" resultMap="seatcheck_rm">
+		SELECT SEAT_NO
+		FROM TICKETING_INFO
+		WHERE MOVIE_NO = ${movieNo}
+		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
+		AND MOVIE_THEATER = ${movieTheater}
 		
-	</select> -->
+		UNION
+				
+		SELECT SEAT_NO
+		FROM SEAT_CHECK
+		WHERE MOVIE_NO = ${movieNo}
+		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
+		AND MOVIE_THEATER = ${movieTheater}
+	</select>
 	
 	<insert id="insertSeat">
 		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo})

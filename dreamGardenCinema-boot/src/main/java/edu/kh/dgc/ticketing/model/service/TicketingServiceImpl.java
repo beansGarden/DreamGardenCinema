@@ -47,6 +47,7 @@ public class TicketingServiceImpl implements TicketingService{
 		Map<String, Object> map = new HashMap<>();
 		
 		Movie movie = mapper.selectMovie(ticket);
+		ticket.setMovieTime(ticket.getMovieTime().split(" ")[0] + ticket.getMovieTime().split(" ")[2]);
 		List<Ticket> chkSeatList = mapper.selectChkSeatList(ticket); 
 		
 		map.put("movie", movie);
