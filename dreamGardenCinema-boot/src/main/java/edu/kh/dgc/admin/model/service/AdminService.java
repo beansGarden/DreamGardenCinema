@@ -2,6 +2,7 @@ package edu.kh.dgc.admin.model.service;
 
 import java.util.List;
 
+import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
@@ -10,6 +11,9 @@ import edu.kh.dgc.user.model.dto.User;
 
 public interface AdminService {
 
+	//관리자 사이드바 로그인 보여주기
+	List<User> getAdminDetails();
+	
 	//1:1문의 게시판 조회
 	List<Qna> adminQnaList();
 
@@ -67,6 +71,25 @@ public interface AdminService {
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
+
+	
+	//FAQ (자주 찾는 질문) 관리*****************************
+	
+	//FAQ (자주 찾는 질문) List 조회
+	List<FAQ> adminFaqList();
+
+	//FAQ (자주 찾는 질문) 게시글 조회
+	List<FAQ> adminFaqOne(FAQ faq);
+
+	//FAQ (자주 찾는 질문) 게시글 수정
+	int updateFaq(FAQ faq);
+
+	//FAQ (자주 찾는 질문) 게시글 삭제
+	int deleteFaq(FAQ faq);
+
+
+
+
 
 
 

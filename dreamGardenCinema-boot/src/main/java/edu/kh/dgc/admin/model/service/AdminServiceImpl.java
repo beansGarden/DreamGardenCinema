@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.admin.model.dao.AdminDAO;
+import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
@@ -19,6 +20,14 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private AdminDAO dao;
+	
+	//관리자 사이드바 로그인 보여주기
+	@Override
+	public List<User> getAdminDetails() {
+		
+		return dao.getAdminDetails();
+	}
+	
 	
 	//1:1문의 게시판 조회
 	@Override
@@ -143,6 +152,40 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	
+	//FAQ (자주 찾는 질문) List 조회*****************************
+	
+	//FAQ 게시판 List 조회
+	@Override
+	public List<FAQ> adminFaqList() {
+	
+		return dao.adminFaqList();
+	}
+
+	//FAQ (자주 찾는 질문) 게시글 조회
+	@Override
+	public List<FAQ> adminFaqOne(FAQ faq) {
+
+		return  dao.adminFaqOne(faq);
+	}
+ 
+	//FAQ (자주 찾는 질문) 글 수정
+	@Override
+	public int updateFaq(FAQ faq) {
+		
+		return dao.updateFaq(faq);
+	}
+
+	//FAQ (자주 찾는 질문) 글 삭제
+	@Override
+	public int deleteFaq(FAQ faq) {
+		
+		return dao.deleteFaq(faq);
+	}
+
+	
+
+
+
 
 
 	

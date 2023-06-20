@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace를 Mapper 인터페이스로 지정 -->
 <mapper namespace="edu.kh.dgc.admin.model.dao.AdminMapper">
-		
+		<!--Qna 1:1 문의-->
 		<resultMap type="Qna" id="qna_rm">
 	
 		<id property="qnaNo" column="QNA_NO"/>
@@ -17,6 +17,7 @@
 		<result property="userNickname" column="USER_NICKNAME"/>
 		</resultMap>
 		
+		<!--Qna Comment-->
 		<resultMap type="QnaComment" id="qnaComment_rm">
 		<id property="qnaCommentNo" column="QNA_COMMENT_NO"/>
 		
@@ -27,6 +28,7 @@
 		<result property="qnaComment" column="QNA_COMMENT"/>
 		</resultMap>
 	
+		<!--회원-->
 		<resultMap type="User" id="user_rm">
 		<id property="userNo" column="USER_NO" />
 		<result property="userId" column="USER_ID" />
@@ -43,6 +45,7 @@
 		<result property="userClose" column="USER_CLOSE" />
 	</resultMap>
 	
+	<!--공지사항-->
 	<resultMap type="Notice" id="notice_rm">
 	
 		<id property="noticeNo" column="NOTICE_NO"/>
@@ -54,6 +57,26 @@
 		<result property="noticeFL" column="NOTICE_FL"/>
 
 		</resultMap>
+		
+		<!--FAQ-->
+	<resultMap type="FAQ" id="faq_rm">
+	
+		<id property="FAQNo" column="FAQ_NO"/>
+		
+		<result property="FAQTitle" column="FAQ_TITLE"/>
+		<result property="FAQContent" column="FAQ_CONTENT"/>
+		<result property="FAQDeleteFl" column="FAQ_DELETE_FL"/>
+		<result property="FAQCategory" column="FAQ_CATEGORY"/>
+
+		</resultMap>
+		
+	<!--관리자 로그인 보여주기-->
+<!--	<select id="getAdminDetails" resultMap="user_rm">
+		SELECT USER_ID,USER_NICKNAME
+		FROM USER_INFO
+		WHERE USER_ROLE = 'A'
+	</select>-->
+	
 		
 		
 	
@@ -75,10 +98,10 @@
 	
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-	SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME,QNA_DELETE_FL
-	FROM QNA
-	JOIN "USER_INFO" ON USER_NO=USER_NO2
-	WHERE QNA_NO = #{qnaNo}
+		SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME,QNA_DELETE_FL
+		FROM QNA
+		JOIN "USER_INFO" ON USER_NO=USER_NO2
+		WHERE QNA_NO = #{qnaNo}
 	</select>
 	
 	<!--QNA 글 업데이트-->
@@ -215,5 +238,39 @@
 		SET NOTICE_FL = 'Y'
 		WHERE NOTICE_NO = #{notice}
 	</update>
+	
+	
+	
+	
+	<!--/////////FAQ//////////-->
+	
+	<!--FAQ 리스트 조회-->
+	<select id="adminFaqList" resultMap="faq_rm">
+		SELECT FAQ_NO,FAQ_TITLE,FAQ_CONTENT,FAQ_DELETE_FL,FAQ_CATEGORY
+		FROM "FAQ"
+	</select>
+	
+	<!--FAQ 게시글 읽기 조회-->
+		<select id="adminFaqOne" resultMap="faq_rm">
+		SELECT FAQ_NO,FAQ_TITLE,FAQ_CONTENT,FAQ_DELETE_FL,FAQ_CATEGORY
+		FROM "FAQ"
+		WHERE FAQ_NO = #{FAQNo}
+	</select>
+	
+	<update id="updateFaq">
+		UPDATE "FAQ"
+		SET
+		FAQ_TITLE = #{FAQTitle},
+		FAQ_CONTENT = #{FAQContent}
+		WHERE FAQ_NO = #{FAQNo}
+	</update>
+	
+		<update id="deleteFaq">
+		UPDATE "FAQ"
+		SET
+		FAQ_DELETE_FL = 'Y'
+		WHERE FAQ_NO = #{FAQNo}
+	</update>
+
 
 </mapper>

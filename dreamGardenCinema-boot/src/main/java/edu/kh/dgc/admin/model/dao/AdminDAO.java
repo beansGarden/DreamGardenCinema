@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
@@ -17,6 +18,17 @@ public class AdminDAO {
 		
 	@Autowired
 	private AdminMapper mapper;
+	
+	
+	/** 관리자 사이드바 로그인 보여주기
+	 * @return
+	 */
+	public List<User> getAdminDetails() {
+		
+		return mapper.getAdminDetails();
+	}
+
+	
 	
 	/**1:1문의사항 (QNA) 게시글 조회 리스트
 	 * @return
@@ -160,6 +172,49 @@ public class AdminDAO {
 		return mapper.noticeDelete(noticeNo);
 	}
 
+	//FAQ (자주 찾는 질문) List 조회*****************************
+	
+	
+	/**FAQ 게시판 List 조회
+	 * @return
+	 */
+	public List<FAQ> adminFaqList() {
+	
+		return mapper.adminFaqList();
+	}
+
+	
+	/**FAQ (자주 찾는 질문) 게시글 조회
+	 * @param faq
+	 * @return
+	 */
+	public List<FAQ> adminFaqOne(FAQ faq) {
+		
+		return mapper.adminFaqOne(faq);
+	}
+
+	
+	/**FAQ (자주 찾는 질문) 게시글 수정 조회
+	 * @param fAQNo
+	 * @return
+	 */
+	public int updateFaq(FAQ faq) {
+		
+		return mapper.updateFaq(faq);
+	}
+
+	/**FAQ (자주 찾는 질문) 게시글 삭제(update)
+	 * @param faq
+	 * @return
+	 */
+	public int deleteFaq(FAQ faq) {
+		
+		return mapper.deleteFaq(faq);
+	}
+
+	
+
+	
 
 
 	
