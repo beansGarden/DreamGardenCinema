@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.user.model.dao.AjaxMapper;
+import edu.kh.dgc.user.model.dto.User;
 @Service
 public class AjaxServiceImpl implements AjaxService{
 
@@ -26,6 +27,11 @@ public class AjaxServiceImpl implements AjaxService{
 	@Override
 	public int checkNickname(String nickname) {
 		return mapper.checkNickname(nickname);
+	}
+
+	@Override
+	public String idFind(User inputUser) {
+		return mapper.idFind(inputUser);
 	}
 
 	

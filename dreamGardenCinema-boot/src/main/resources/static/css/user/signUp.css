@@ -102,10 +102,19 @@ input::placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 80px;
+    margin-bottom: 100px;
     border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.15);
-    margin-bottom: 100px;
+}
+.authKeyResend{
+    position: absolute;
+    color: #80808099;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 13px;
+    right: 10px;
+    top: 60px;
 }
 .display-none{
     display: none !important;
@@ -114,12 +123,12 @@ input::placeholder {
     width: 400px;
     height: 60px;
     background-color: #5250BE;
-    margin-top: 20px;
+    margin-top: 80px;
+    margin-bottom: 100px;
     border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.15);
     color: white;
     font-size: 24px;
-    margin-bottom: 100px;
 }
 #authKeyLifeTime{
     width: 45px;

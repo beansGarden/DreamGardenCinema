@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Seat;
+import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
 @Mapper
@@ -21,8 +22,16 @@ public interface TicketingMapper {
 
 	List<Movie> selectMovieList();
 
-	Map<String, Object> selectMovie(Ticket ticket);
+	Movie selectMovie(Ticket ticket);
 
-	List<Seat> selectSeatList(Ticket ticket);
+	int insertSeat(SeatCheck seatCheck);
+
+	int deleteSeat(SeatCheck seatCheck);
+
+	void deleteEndSeat(int userNo);
+
+	List<Ticket> selectChkSeatList(Ticket ticket);
+
+	int selectSeat(SeatCheck seatCheck);
 
 }

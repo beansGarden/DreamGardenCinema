@@ -11,4 +11,6 @@ public interface UserService {
 
 	boolean checkOverlap(@Valid User inputUser);
 
+	int changePw(String userPw, String userRePw, String userId);
+
 }

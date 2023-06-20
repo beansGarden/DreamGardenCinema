@@ -27,8 +27,8 @@
         <div class="service-list">
             <ul class="service-list-choose">
                 <li><a th:href="@{/customerservice/}">FAQ</a></li>
-                <li><a th:href="@{#}">공지사항</a></li>
-                <li><a th:href="@{#}">1:1문의</a></li>
+                <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                <li><a th:href="@{/customerservice/service}">1:1문의</a></li>
             </ul>
         </div>
 
@@ -41,19 +41,20 @@
                 <div class="FAQ-category-box">
                     <!-- 상영관 관련 -->
                     <div class="FAQ-cinemas">
-                        <a th:href="@{/customerservice/theaterFAQ}" class="faq-theater-list"><img th:src="@{/images/customerservice/상영관 아이콘.png}">
+                        <a class="faq-theater-list">
+                            <img th:src="@{/images/customerservice/상영관 아이콘.png}" th:onclick="theList()">
                             <p>상영관 이용</p>
                         </a>
                     </div>
                     <!-- 회원 관련 -->
                     <div class="FAQ-member">
-                        <a th:href="@{#}"><img th:src="@{/images/customerservice/회원 아이콘.png}">
+                        <a class="faq-theater-list"><img th:src="@{/images/customerservice/회원 아이콘.png}" th:onclick="cusList()">
                             <p>회원</p>
                         </a>
                     </div>
                     <!-- 멤버십 관련 -->
                     <div class="FAQ-membership">
-                        <a th:href="@{#}"><img th:src="@{/images/myPage/멤버십 아이콘.png}">
+                        <a class="faq-theater-list"><img th:src="@{/images/myPage/멤버십 아이콘.png}" th:onclick="memList()" >
                             <p>멤버십</p>
                         </a>
                     </div>
@@ -63,7 +64,7 @@
                 <!-- 검색 영역 -->
                 <div class="FAQ-search-box">
                     <div class="notice-search-area">
-                        <input type="search" placeholder="검색어를 입력해주세요" id="search-query">
+                        <input type="search" placeholder="검색어를 입력해주세요" id="query">
                     </div>
 
                     <!-- 검색 버튼 -->
@@ -78,33 +79,37 @@
         <div class="FAQ-list-area">
             <div class="FAQ-list-contents">
 
-                <!-- 공지사항  내용-->
+                <!-- 공지사항  전체 목록 -->
                 <div class="FAQ-title">
                     <span>구분</span> <span>질문</span>
                 </div>
 
-                <th:block th:each=" faq : ${FAQList}">
-                    <div class="FAQ-inquiry-content">
+                <th:block th:each="faq : ${FAQList}">
+                    <div class="FAQ-first-box">
+                        <div class="FAQ-inquiry-content">
 
-                        <!-- <h1 th:text="${faq}"></h1> -->
-                        <span th:text="${faq.CATEGORY_TITLE}">FAQ구분</span>
-                        <a th:href="@{/customerservice/theater}" class="FAQ-contents-container">
-                            <span th:text="${faq.FAQ_TITLE}"><img th:src="@{/images/customerservice/Q아이콘.png}">제목</span>
-                        </a>
+                            <!-- <h1 th:text="${faq}"></h1> -->
+                            <span th:text="${faq.categoryTitle}">FAQ구분</span>
+                            <a class="FAQ-contents-container">
+                                <img th:src="@{/images/customerservice/Q아이콘.png}" class="Qicon">
+                                <span th:text="${faq.FAQTitle}">제목</span>
+                            </a>
 
-                        <div class="FAQ-btn">
-                            <img th:src="@{/images/customerservice/down화살표.png}" class="downBtn">
-                            <img th:src="@{/images/customerservice/up화살표.png}" class="upBtn">
+                            <div class="FAQ-btn">
+                                <img th:src="@{/images/customerservice/down화살표.png}" class="downBtn">
+                                <img th:src="@{/images/customerservice/up화살표.png}" class="upBtn">
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div class="FAQ-answer-box">
-                        <div class="FAQ-answer">
-                            <img th:src="@{/images/customerservice/A아이콘.png}">
-                            <pre th:text="${faq.FAQ_CONTENT}">내용</pre>
+                        <div class="FAQ-answer-box">
+                            <div class="FAQ-answer">
+                                <img th:src="@{/images/customerservice/A아이콘.png}">
+                                <pre th:text="${faq.FAQContent}">내용</pre>
+                            </div>
                         </div>
                     </div>
+
                 </th:block>
 
             </div>
@@ -123,16 +128,18 @@
 
 
         <th:block th:replace="~{common/footer}"></th:block>
-        <script th:src="@{/js/customerservice/FAQ.js}"></script>
 
         <script th:inline="javascript">
+
+
             console.log(/*[[${FAQList}]]*/ "FAQList 객체");
 
-            
+            /******* 답변 창 부분 ********/
             const faqleng = /*[[${#lists.size(FAQList)}]]*/ "게시글 길이";
 
             for (i = 0; i < faqleng; i++) {
 
+                const FAQContents = document.querySelectorAll(".FAQ-contents-container")[i];
                 const answerBox = document.getElementsByClassName("FAQ-answer-box")[i];
                 const downBtn = document.querySelectorAll(".downBtn")[i];
                 const upBtn = document.querySelectorAll(".upBtn")[i];
@@ -154,14 +161,11 @@
                         downBtn.style.display = "block";
                         upBtn.style.display = "none";
                     }
-
-                });
-
+                })
             }
 
-
         </script>
-
+        <script th:src="@{/js/customerservice/FAQ.js}"></script>
 
 </body>
 

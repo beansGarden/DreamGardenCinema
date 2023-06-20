@@ -39,11 +39,12 @@ public class User {
 	@Pattern(regexp = "^(19\\d{2}|20\\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$")
 	private String userBirth1;
 	
+	@Past
+	private LocalDate userBirth;
+	
 	@NotBlank
 	private String userGender;
 	
-	@Past
-	private LocalDate userBirth;
 	
 	@NotBlank
 	private String authKey;
@@ -60,6 +61,6 @@ public class User {
 	
 	private String userClose;
 	
-	
+	private String userAddress;
 	
 }

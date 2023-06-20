@@ -172,18 +172,18 @@ for(let i=0;i<checkBtn.length;i++){
                     const label = document.createElement("label");
                     label.classList.add("btn");
                     label.setAttribute("onclick", "movieTimeSub()");
-                    label.setAttribute("for", `${timeList[i].MOVIE_THEATER},${timeList[i].MOVIE_TIME}`);
+                    label.setAttribute("for", `${timeList[i].movieTheater},${timeList[i].movieTime}`);
     
                     const input = document.createElement("input");
                     input.type = "radio";
                     input.name = "movieTime";
-                    input.id = `${timeList[i].MOVIE_THEATER},${timeList[i].MOVIE_TIME}`;
-                    input.value = `${timeList[i].MOVIE_THEATER},${timeList[i].MOVIE_TIME}`;
+                    input.id = `${timeList[i].movieTheater},${timeList[i].movieTime}`;
+                    input.value = `${timeList[i].movieTheater},${timeList[i].movieTime}`;
     
                     const firstDiv = document.createElement("div");
-                    firstDiv.innerText = timeList[i].MOVIE_THEATER + '관';
+                    firstDiv.innerText = timeList[i].movieTheater + '관';
                     const lastDiv = document.createElement("div");
-                    lastDiv.innerText = timeList[i].MOVIE_TIME;
+                    lastDiv.innerText = timeList[i].movieTime;
                     label.append(input, firstDiv, lastDiv);
                     li.append(label);
                     ul.append(li);
