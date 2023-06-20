@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,13 +56,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="list : ${adminMovieList}">
                         <td><input type="checkbox" name="" id="" class="admin_movieCheckbox"></td>
-                        <td>1</td>
-                        <td>범죄도시3</td>
-                        <td>이상용</td>
-                        <td>2023.05.31</td>
-                        <td>10,000,000</td>
+                        <td th:text="${list.movieNo}">1</td>
+                        <td th:text="${list.movieTitle}">범죄도시3</td>
+                        <td th:text="${list.producer}">이상용</td>
+                        <td th:text="${list.releaseDate}">2023.05.31</td>
+                        <td th:text="${list.moviePrice}">10,000,000</td>
                     </tr>
                 </tbody>
 
@@ -73,7 +73,7 @@
 
                 <!-- 등록,수정,삭제 버튼 -->
                 <div class="admin_movieBtn">
-                    <button class="admin_movieEndBtn"><a href="">등록</a></button>
+                    <button class="admin_movieEndBtn"><a th:href="@{/adminMovieRegister}">등록</a></button>
                     <button class="admin_movieEndBtn"><a href="">수정</a></button>
                     <button class="admin_movieEndBtn"><a href="">삭제</a></button>
                 </div>

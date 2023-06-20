@@ -173,9 +173,8 @@ a {
     margin: 20px 0 30px 0;
 }
 
-
 /* 검색 영역 */
-#search-query {
+#query {
     width: 30vw;
     height: 40px;
 
@@ -244,7 +243,7 @@ a {
 
 
 /* 질문 제목 */
-.FAQ-contents-container>span>img {
+.Qicon {
     width: 20px;
     height: 20px;
 
@@ -258,18 +257,7 @@ a {
 
 .FAQ-contents-container>span{
     display: flex;
-    justify-content: center;
-    width: 100%;
 }
-.FAQ-contents-container>span:hover{
-    
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    font-weight: bold;
-}
-
-
 
 /* 페이지 네이션 */
 .FAQ-pagination{
@@ -339,10 +327,8 @@ a {
 }
 
 .FAQ-contents-container{
-    
     display: flex;
-    justify-content: space-between;
-
+    justify-content: center;
 }
 
 /* FAQ 답변 창 */

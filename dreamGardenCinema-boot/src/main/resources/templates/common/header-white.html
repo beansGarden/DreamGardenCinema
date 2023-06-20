@@ -8,8 +8,8 @@
                 <li class="dg-menu-L1"><a th:href="@{/movie}" class="dg-movie-link">영화</a>
                     <ul class="dg-menu-drop-movie">
                         <li><a th:href="@{/movie}">홈</a></li>
-                        <li><a th:href="@{/movie/current}">상영 예정작</a></li>
-                        <li><a th:href="@{/movie/promise}">현재 상영작</a></li>
+                        <li><a th:href="@{/movie/current}">현재 상영작</a></li>
+                        <li><a th:href="@{/movie/promise}">상영 예정작</a></li>
                     </ul>
                 </li>
 
@@ -41,7 +41,7 @@
                 <!-- 로그인한 회원이 없을 경우 -->
                 <li class="dg-menu-login"  th:unless="${session.loginUser}"><a th:href="@{/user/login}" class="dg-login-link">로그인</a></li>
                 <!-- 로그인한 회원이 있을 경우 -->
-                <li class="dg-menu-logout"  th:if="${session.loginUser}"><a th:href="@{#}" class="dg-logout-link">로그아웃</a></li>
+                <li class="dg-menu-logout"  th:if="${session.loginUser}"><a th:href="@{/user/logout}" class="dg-logout-link">로그아웃</a></li>
 
                 <!-- 비회원일 경우 -->
                 <li class="dg-menu-nonmember" th:unless="${session.loginUser}"><a th:href="@{/user/signUp}" class="dg-singup-link">회원가입</a></li>

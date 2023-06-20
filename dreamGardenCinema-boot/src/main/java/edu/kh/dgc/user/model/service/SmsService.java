@@ -96,7 +96,7 @@ public class SmsService {
 		headers.set("x-ncp-iam-access-key", accessKey);
 		headers.set("x-ncp-apigw-signature-v2", makeSignature(time));
 		
-		messageDto.setTo(userTel);// 여기 변경
+		messageDto.setTo(userTel);
 		
 		List<MessageDTO> messages = new ArrayList<>();
 		messages.add(messageDto);
@@ -118,10 +118,11 @@ public class SmsService {
 	    restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 	    SmsResponseDTO response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponseDTO.class);
 	    
-	    redisUtil.setDataExpire(smsConfirmNum, messageDto.getTo(), 60 * 5L); // 유효시간 5분
+	    redisUtil.setDataExpire(messageDto.getTo(), smsConfirmNum, 60 * 5L); // 유효시간 5분
+//	    redisUtil.hset("smsConfirmNum", smsConfirmNum, messageDto.getTo());
 	    
-	    System.out.println("smsConfirmNum1 : " + smsConfirmNum); // redis 인증번호 key
 	    System.out.println("messageDto.getTo() : " + messageDto.getTo()); // redis 인증번호 value
+	    System.out.println("smsConfirmNum1 : " + smsConfirmNum); // redis 인증번호 key
 	    
 	    return response;
 	}

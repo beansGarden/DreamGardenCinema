@@ -1,5 +1,7 @@
 package edu.kh.dgc.user.model.service;
 
+import edu.kh.dgc.user.model.dto.User;
+
 public interface AjaxService {
 
 	/** 아이디 중복 검사
@@ -19,6 +21,9 @@ public interface AjaxService {
 	 * @return result
 	 */
 	int checkNickname(String nickname);
+
+	
+	String idFind(User inputUser);
 
 
 

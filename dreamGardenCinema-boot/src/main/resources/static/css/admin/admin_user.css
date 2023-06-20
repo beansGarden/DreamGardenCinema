@@ -95,7 +95,7 @@
 
 
 /* 등록버튼 */
-.admin_userRegister{
+#admin_userSignOut{
     display: flex;
     margin-left: 90%;
     margin-top: 50px;
@@ -105,7 +105,7 @@
     
 }
 
-.admin_userRegister a{
+#admin_userSignOut a{
     color: white;
     
 }

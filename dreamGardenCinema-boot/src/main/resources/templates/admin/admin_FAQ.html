@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,18 +22,21 @@
         <!-- 검색창 -->
         <div class="admin_faqSearchWrap">
             <div  class="admin_faqSearchWrap2"> 
-            <select class="admin_faqSelect" name="" id="">
-                <option value="title">번호</option>
-                <option value="director">이름</option>
-                <option value="actor">이메일</option>
+            <form action="search-form" autocomplete="off">
+            <select class="admin_faqSelect" name="type" id="">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="writer">작성자</option>
             </select>
             <!-- 검색 input 창 -->
                 <input type="text" name="" id="" class="admin_faqInput">
         </div>
             <!-- 검색 버튼 -->
             <div class="admin_faqBtnWrap">
-                <button type="button" class="admin_faqSearchBtn">검색</button>
+                <button type="button" onclick="getSearchList()" class="admin_faqSearchBtn" value="검색">검색</button>
             </div>
+
+        </form>
         </div>
             <!-- 목록 count -->
             <div class="admin_faqList">
@@ -52,18 +55,27 @@
                         <th>번호</th>
                         <th>카테고리</th>
                         <th>제목</th>
-                        <th>등록인</th>
+                        <th>삭제여부</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="list : ${adminFaqList}">
                         <td><input type="checkbox" name="" id="" class="admin_faqCheckbox"></td>
-                        <td>1</td>
-                        <td>[예매/결제]</td>
-                        <td>인터넷 예매 후 현장에서 취소 가능한가요?</td>
-                        <td>2023.05.31</td>
-
+                        <td th:text="${list.FAQNo}">1</td>
+                        <td>
+                            <span th:if="${list.FAQCategory == 'P'}">영화관</span>
+                            <span th:if="${list.FAQCategory == 'M'}">영화</span>
+                            <span th:if="${list.FAQCategory == 'U'}">멤버쉽</span>
+                            <span th:if="${list.FAQCategory == 'B'}">예매/결제</span>
+                            <span th:if="${list.FAQCategory == 'H'}">홈페이지</span>
+                            <span th:if="${list.FAQCategory == 'A'}">계정</span>
+                        </td>
+                        <td>
+                            <a th:href="@{adminFaqRead/{FAQNo}(FAQNo=${list.FAQNo})}" th:text="${list.FAQTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</a>
+                        </td>
+                        <td th:text="${list.FAQDeleteFl}">Y</td>
                     </tr>
+                    
                 </tbody>
 
                 </table>
@@ -72,14 +84,14 @@
                 <!-- 페이지 네이션 -->
 
                  <!-- 등록,수정,삭제 버튼 -->
-                 <div class="admin_faqBtn">
-                    <button class="admin_faqEndBtn"><a href="">등록</a></button>
-                    <button class="admin_faqEndBtn"><a href="">수정</a></button>
+                 <div class="admin_faqBtn">        
+                    <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
+                    <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button>
                     <button class="admin_faqEndBtn"><a href="">삭제</a></button>
                 </div>
 
     </div>    
 
-
+    <script src="\js\admin\admin_FAQ.js"></script>
 </body>
 </html>

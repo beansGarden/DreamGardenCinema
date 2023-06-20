@@ -2,7 +2,7 @@ const couponbtn = document.querySelector(".my-page-coupon-btn");
 
 couponbtn.addEventListener("click",()=>{
     window.open("my-page-coupon","_blank",
-    "width=850,height=600,top=100,left=100");
+    "width=800,height=500,top=100,left=100");
 })
 
 /* 내정보 변경 */
@@ -124,4 +124,93 @@ my_page_secession_btn2.addEventListener("click",()=>{
 
     document.body.style.overflow='auto';
 
+})
+
+/* 닉네임 수정 창에서 수정 버튼 클릭 시 */
+const changeBtn = document.querySelector("#changeBtn")
+const change_nickname_form = document.querySelector("#change-nickname-form")
+
+changeBtn.addEventListener("click",()=>{
+    if(confirm("닉네임을 변경하시겠습니까?")){
+        change_nickname_form.submit()
+
+        alert("닉네임이 변경되었습니다")
+
+    }else{
+        alert("취소되었습니다")
+    }
+})
+
+/* 내 정보 변경 비밀번호 일치 여부 */
+const userPw = document.querySelector("#userPw")
+const line1 = document.querySelector("#line1")
+const loginUserPw = document.querySelector("#loginUserPw").value
+
+/* 현재 비밀번호 확인 영역 */
+userPw.addEventListener("blur",()=>{
+    if(userPw.value == loginUserPw){
+        line1.classList.add("clear")
+        line1.classList.remove("line1")
+    }else{
+        line1.classList.add("error")
+        line1.classList.remove("line1")
+    }
+})
+userPw.addEventListener("focus", () => {
+    line1.classList.remove("error");
+    line1.classList.remove("clear");
+    line1.classList.add("line1");
+});
+
+const line2 = document.querySelectorAll("#line2")
+const newPw = document.querySelector("#newPw")
+const checkPw = document.querySelector("#checkPw")
+/* 새 비밀번호 확인 영역 */
+
+checkPw.addEventListener("blur", () => {
+    const newPwValue = newPw.value;
+    const checkPwValue = checkPw.value;
+
+    if (newPwValue === checkPwValue) {
+        line2.forEach((element) => {
+            element.classList.add("clear");
+            element.classList.remove("line2");
+        });
+    }else{
+        line2.forEach((element) => {
+            element.classList.add("error");
+            element.classList.remove("line2");
+        });
+    }
+});
+newPw.addEventListener("blur", () => {
+    const newPwValue = newPw.value;
+    const checkPwValue = checkPw.value;
+
+    if (newPwValue === checkPwValue) {
+        line2.forEach((element) => {
+            element.classList.add("clear");
+            element.classList.remove("line2");
+        });
+    }else{
+        line2.forEach((element) => {
+            element.classList.add("error");
+            element.classList.remove("line2");
+        });
+    }
+});
+
+newPw.addEventListener("focus",()=>{
+    line2.forEach((element) => {
+        element.classList.remove("error");
+        element.classList.remove("clear");
+        element.classList.add("line2");
+    });
+})
+checkPw.addEventListener("focus",()=>{
+    line2.forEach((element) => {
+        element.classList.remove("error");
+        element.classList.remove("clear");
+        element.classList.add("line2");
+    });
 })

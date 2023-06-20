@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.movie.model.service.MovieService;
@@ -18,6 +21,8 @@ public class MovieController {
 
 	@Autowired
 	private MovieService service;
+	
+	private int currentPage = 0;
 	
 	@GetMapping("")
 	public String forwardMain(Model model) {
@@ -49,9 +54,18 @@ public class MovieController {
 	@GetMapping("/current")
 	public String forwardCurrent(Model model) {
 		
-		List<Movie> MovieListCurrent = service.selectMovieListCurrent();
+		// 영화 메인 페이지에 쓰일 imgList 불러오기
+		List<Map<String, String>> movieMainSlideImgList = service.selectMovieMainSlideImgList();
 		
+		// 영화 페이지 광고 포스터 영역에 쓰일 img 불러오기
+		Map<String, String> advertisePoster = service.selectAdvertisePoster();
+		
+		List<Movie> MovieListCurrent = service.selectMovieListCurrent(currentPage);
+		
+		
+		model.addAttribute("movieMainSlideImgList", movieMainSlideImgList);
 		model.addAttribute("MovieListC", MovieListCurrent);
+		model.addAttribute("advertisePoster", advertisePoster);
 		
 		return "movie/movieListCurrent";
 	}
@@ -59,11 +73,32 @@ public class MovieController {
 	@GetMapping("/promise")
 	public String forwardPromise(Model model) {
 		
-		List<Movie> MovieListPromise = service.selectMovieListPromise();
+		// 영화 메인 페이지에 쓰일 imgList 불러오기
+		List<Map<String, String>> movieMainSlideImgList = service.selectMovieMainSlideImgList();
 		
+		// 영화 페이지 광고 포스터 영역에 쓰일 img 불러오기
+		Map<String, String> advertisePoster = service.selectAdvertisePoster();
+		
+		List<Movie> MovieListPromise = service.selectMovieListPromise(currentPage);
+		
+		
+		model.addAttribute("movieMainSlideImgList", movieMainSlideImgList);
 		model.addAttribute("MovieListP", MovieListPromise);
+		model.addAttribute("advertisePoster", advertisePoster);
 		
 		return "movie/movieListPromise";
+	}
+	
+	@PostMapping("/list")
+	@ResponseBody
+	public List<Movie> ajaxList(@RequestBody Map<String,String> data) {
+		
+		int currentPage = Integer.parseInt(data.get("currentPage"));
+		String movieType = data.get("movieType");
+		
+//		System.out.println(currentPage + " + " +  movieType + " + " + buttonType);
+		
+		return service.selectMovieList(currentPage, movieType);
 	}
 	
 	

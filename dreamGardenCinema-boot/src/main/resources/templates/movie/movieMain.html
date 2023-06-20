@@ -7,7 +7,7 @@
     <title>영화 - dream garden cinema</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/movie/movieMain.css}">
+    <link rel="stylesheet" th:href="@{/css/movie/movie.css}">
 
     <!-- swiper css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -33,7 +33,9 @@
         </div>
     </section>
 
-    <section class="movie--mid__List current">
+
+    <!-- 현재 상영작 -->
+    <section class="movie--mid__List">
 
         <div class="movieList--nav">
 
@@ -54,9 +56,13 @@
 
             <div class="movieItem" th:each="movie : ${MovieListMainC}">
 
-                <img th:src="${movie.poster}" >
+                <div class="movie-poster-container">
+                    <img class="movie-poster" th:src="${movie.poster}">
+                    <img class="movie-rating" th:src="${movie.rating}">
+                </div>
+                
 
-                <div class="font5" th:text="${movie.movieTitle}">영화 제목</div>
+                <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
 
             </div>
 
@@ -64,7 +70,9 @@
 
     </section>
 
-    <section class="movie--mid__List promise">
+
+    <!-- 상영예정작 -->
+    <section class="movie--mid__List">
 
         <div class="movieList--nav">
 
@@ -84,9 +92,12 @@
 
             <div class="movieItem" th:each="movie : ${MovieListMainP}">
 
-                <img th:src="${movie.poster}">
+                <div class="movie-poster-container">
+                    <img class="movie-poster" th:src="${movie.poster}">
+                    <img class="movie-rating" th:src="${movie.rating}">
+                </div>
 
-                <div class="font5" th:text="${movie.movieTitle}">영화 제목</div>
+                <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
 
             </div>
 
@@ -123,6 +134,8 @@
             },
         });
     </script>
+
+    <script th:src="@{/js/movie/movie.js}"></script>
 
 </body>
 </html>
