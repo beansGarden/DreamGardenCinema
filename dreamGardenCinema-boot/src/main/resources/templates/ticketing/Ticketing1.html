@@ -29,10 +29,10 @@
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(input radio 영화번호 선택) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                         <th:block th:each="movie, movieStat : ${movieList}">
                             <th:block th:if="${movieStat.index==0}">
-                                <input type="radio" name="movieNo" th:id="${movie.MOVIE_NO}" th:value="${movie.MOVIE_NO}" checked="true">
+                                <input type="radio" name="movieNo" th:id="${movie.movieNo}" th:value="${movie.movieNo}" checked="true">
                             </th:block>
                             <th:block th:unless="${movieStat.index==0}">
-                                <input type="radio" name="movieNo" th:id="${movie.MOVIE_NO}" th:value="${movie.MOVIE_NO}">
+                                <input type="radio" name="movieNo" th:id="${movie.movieNo}" th:value="${movie.movieNo}">
                             </th:block>
                         </th:block>
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
@@ -51,9 +51,9 @@
                     <div class="MovieList hamburger">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                         <th:block th:each="movie : ${movieList}">
-                            <label th:for="${movie.MOVIE_NO}" class="checkBtn hmbgr" th:classappend="${movie.MOVIE_NO == checkNo} ? 'saveMovie'">
-                                <img class="rating" th:src="${movie.RATING}">                          
-                                <span class="movieTitle" th:text="${movie.MOVIE_TITLE}"></span>
+                            <label th:for="${movie.movieNo}" class="checkBtn hmbgr" th:classappend="${movie.movieNo == checkNo} ? 'saveMovie'">
+                                <img class="rating" th:src="${movie.rating}">                          
+                                <span class="movieTitle" th:text="${movie.movieTitle}"></span>
                             </label>
                         </th:block>
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
@@ -61,19 +61,19 @@
                     <div class="MovieList pizza" style="display: none;">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                         <th:block th:each="movie, movieStat : ${movieList}">
-                            <label th:for="${movie.MOVIE_NO}" class="checkBtn pzz" th:classappend="${movie.MOVIE_NO == checkNo} ? 'saveMovie'">
+                            <label th:for="${movie.movieNo}" class="checkBtn pzz" th:classappend="${movie.movieNo == checkNo} ? 'saveMovie'">
                                 <div class="poster">
-                                    <img th:src="${movie.POSTER}">
+                                    <img th:src="${movie.poster}">
                                 </div>
                                 <div class="content">
                                     <div class="title">
-                                        <img class="rating" th:src="${movie.RATING}">
-                                        <strong class="movieTitle" th:text="${movie.MOVIE_TITLE}"></strong>
+                                        <img class="rating" th:src="${movie.rating}">
+                                        <strong class="movieTitle" th:text="${movie.movieTitle}"></strong>
                                     </div>
                                     <div class="rate">
                                         <span class="rate_info">
                                             예매율
-                                            <em th:text="${movie.RATIO}+'%'"></em>
+                                            <em th:text="${movie.ratio}+'%'"></em>
                                         </span>
                                         <span class="star_info">
                                             <img th:src="@{/images/common/main/포스터/Star3.png}" alt="">
@@ -83,7 +83,7 @@
                                     <div class="date">
                                         <span class="rate_info">
                                             개봉일
-                                            <span th:text="${movie.RELEASE_DATE}"></span>
+                                            <span th:text="${movie.releaseDate}"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -131,8 +131,8 @@
                     
                     
                     <div class="movieChoiceTitle">
-                        <img th:src="${movieList[0].RATING}">
-                        <span th:text="${movieList[0].MOVIE_TITLE}"></span>
+                        <img th:src="${movieList[0].rating}">
+                        <span th:text="${movieList[0].movieTitle}"></span>
                     </div>
                     <div class="timeSelect">
                         <div class="nonelist" th:if="${#lists.size(timeList) == 0}">
@@ -140,13 +140,13 @@
                         </div>
                         <ul class="timelist" th:unless="${#lists.size(timeList) == 0}">
                             <li th:each="time : ${timeList}">                                                              
-                                <label class="btn" onclick="movieTimeSub()" th:for="|${time.MOVIE_THEATER},${time.MOVIE_TIME}|">
-                                    <input type="radio" name="movieTime" th:id="|${time.MOVIE_THEATER},${time.MOVIE_TIME}|" th:value="|${time.MOVIE_THEATER},${time.MOVIE_TIME}|">
+                                <label class="btn" onclick="movieTimeSub()" th:for="|${time.movieTheater},${time.movieTime}|">
+                                    <input type="radio" name="movieTime" th:id="|${time.movieTheater},${time.movieTime}|" th:value="|${time.movieTheater},${time.movieTime}|">
                                     <div>
-                                        [[${time.MOVIE_THEATER}]]관
+                                        [[${time.movieTheater}]]관
                                     </div>
                                     <div>
-                                        [[${time.MOVIE_TIME}]]
+                                        [[${time.movieTime}]]
                                     </div>
                                 </label>
                             </li>

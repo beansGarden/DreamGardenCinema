@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
     <div class="admin_sideBarWrap">
         <!-- 로고 -->
         <div class="admin_sideBarLogoWrap">
-        <a href=""><img src="../img/logo.png" alt="" class="admin_sideBarLogo"></a>    
+        <a href="/"><img src="../img/logo.png" alt="" class="admin_sideBarLogo"></a>    
     </div>
 
 <!-- Admin 유저 탭 -->
@@ -26,14 +26,16 @@
         </div>
 
         <div class="admin_sideBarUserTitle">
-            <span>Admin</span>
-            <p>김유민</p>
+            <span id="admin_Id">Admin</span>
+            <p id="admin_Nickname" >김유민</p>
         </div>
 
         <div class="admin_sideBarLogOut">
-            <button class="admin_sideBarLogOutBtn"><span class="material-symbols-outlined">
+            <button class="admin_sideBarLogOutBtn">
+                <span class="material-symbols-outlined">
                 logout
-                </span></button>
+                </span>
+            </button>
         </div>
     </div>
     

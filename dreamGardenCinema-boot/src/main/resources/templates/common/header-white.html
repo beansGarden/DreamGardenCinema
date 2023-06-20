@@ -41,7 +41,7 @@
                 <!-- 로그인한 회원이 없을 경우 -->
                 <li class="dg-menu-login"  th:unless="${session.loginUser}"><a th:href="@{/user/login}" class="dg-login-link">로그인</a></li>
                 <!-- 로그인한 회원이 있을 경우 -->
-                <li class="dg-menu-logout"  th:if="${session.loginUser}"><a th:href="@{#}" class="dg-logout-link">로그아웃</a></li>
+                <li class="dg-menu-logout"  th:if="${session.loginUser}"><a th:href="@{/user/logout}" class="dg-logout-link">로그아웃</a></li>
 
                 <!-- 비회원일 경우 -->
                 <li class="dg-menu-nonmember" th:unless="${session.loginUser}"><a th:href="@{/user/signUp}" class="dg-singup-link">회원가입</a></li>

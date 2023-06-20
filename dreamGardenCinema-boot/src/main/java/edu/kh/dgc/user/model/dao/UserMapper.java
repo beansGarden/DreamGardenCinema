@@ -20,4 +20,7 @@ public interface UserMapper {
 	int checkOverlapId(@Valid User inputUser);
 
 	int checkOverlapEmail(@Valid User inputUser);
+
+	int changePw(User user);
+
 }

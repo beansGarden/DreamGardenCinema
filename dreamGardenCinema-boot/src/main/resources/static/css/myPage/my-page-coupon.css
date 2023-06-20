@@ -36,19 +36,35 @@ ul li{
     transition-delay: calc(var(--i) * 0.05s);
 }
 ul li:nth-child(1){
-    transform: translateZ(-75px) translateY(20px);
+    transform: translateZ(-200px) translateY(-50px);
     opacity: 0.6;
 }
+ul li:nth-child(2){
+    transform: translateZ(-140px) translateY(-80px);
+    background: #eee;
+}
 ul li:nth-child(3){
-    transform: translateZ(75px) translateY(-30px);
+    transform: translateZ(-100px) translateY(-120px);
     background: #eee;
 }
 ul li:nth-child(4){
-    transform: translateZ(150px) translateY(-75px);
+    transform: translateZ(-70px) translateY(-170px);
     background: #fff;
 }
 ul li:nth-child(5){
-    transform: translateZ(220px) translateY(-120px);
+    transform: translateZ(-40px) translateY(-220px);
+    background: white;
+}
+ul li:nth-child(6){
+    transform: translateZ(-10px) translateY(-270px);
+    background: white;
+}
+ul li:nth-child(7){
+    transform: translateZ(20px) translateY(-320px);
+    background: white;
+}
+ul li:nth-child(8){
+    transform: translateZ(60px) translateY(-360px);
     background: white;
 }
 ul:hover{
@@ -79,6 +95,18 @@ ul li .coupon-text span{
 /* #bronze{
     background-color: rgba(147, 129, 129, 0.667);
 } */
+
+
+/* 스크롤 바  */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
 
 /* 쿠폰이 없을 경우 */
 #coupon-null{

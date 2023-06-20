@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qna</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_QNA_read.css">
+</head>
+<body>
+       <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_qnaWrap">
+
+            <!-- 게시판 제목 -->
+          <span id="admin_qnaTitle">1:1문의 관리</span>
+
+            <!-- 게시판 -->
+            <div class="admin_qnaBoardWrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                                <td th:text="${Qna.qnaNo}">1</td>
+                        </tr>
+                        <tr>
+                            <th>카테고리</th>
+                                <td th:text="${Qna.qnaCategory}">[예매/결제]</td>
+                        </tr>
+                    <tr>
+                        <th>등록일</th>
+                        <td th:text="${Qna.qnaEnrollDate}">2023.05.31</td>
+                    </tr>
+                    <tr>
+                        <th>등록인</th>
+                        <td th:text="${Qna.userNickname}">2023.05.31</td>
+                    </tr>
+                        <tr>
+                            <th>제목</th>
+                                <td th:text="${Qna.qnaTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                                <td>    <!-- 내용 -->
+                                    <div class="admin_qnaContent"  th:text="${Qna.qnaContent}">
+                                       취소되게 해주세요
+                                    </div></td>
+                        </tr>
+                        <tr>
+                            <th>답변</th>
+                                <td>    <!-- 내용 -->
+                                    <div class="admin_qnaComment" th:text="${QnaComment.qnaComment}">
+                                     처리 확인 하였습니다.
+                                    </div></td>
+                        </tr>
+                    
+                </thead> 
+             </table>
+
+         
+ 
+                <!-- 페이지 네이션 -->
+
+          <!-- 등록,수정,삭제 버튼 -->
+          <div class="admin_qnaBtn">
+            
+            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaAnswer/{qnaNo}(qnaNo=${Qna.qnaNo})}">답변 등록하기</a></button>
+    
+
+        </div>
+        
+            
+
+            </div>
+
+        </div>
+
+
+
+    </div>    
+
+
+</body>
+</html>

@@ -22,49 +22,97 @@ minusBtn.addEventListener("click", ()=>{
 })
 
 
-// 좌석 만들기
-const movieSeat = document.querySelector(".movieSeat");
-let alpha = 'A';
-// String.fromCharCode(alpha.charCodeAt())
-(function () {
-    for(let i=0;i<10;i++){
-        const lineDiv = document.createElement("div");
-        lineDiv.classList.add("seatLine");
-        lineDiv.classList.add(`col${i}`);
-        
-        for(let j=0;j<15;j++){
-            if(j==0){
-                const span = document.createElement('span');
-                span.innerText = alpha;
-                lineDiv.append(span);
-                alpha = String.fromCharCode(alpha.charCodeAt() + 1);
-            } else{
-                const seatNo = document.createElement("a");
-                seatNo.classList.add("seat");
-                const seatSpan = document.createElement('span');
-                seatSpan.innerText = j;
-                if(j==3 | j==13){
-                    seatNo.style.marginLeft = "30px"
+// 좌석 만들기(1관)
+if(ticket.movieTheater == 1){
+    const movieSeat = document.querySelector(".movieSeat");
+    let alpha = 'A';
+    (function () {
+        for(let i=0;i<10;i++){
+            const lineDiv = document.createElement("div");
+            lineDiv.classList.add("seatLine");
+            lineDiv.classList.add(`col${i}`);
+            
+            for(let j=0;j<15;j++){
+                if(j==0){
+                    const span = document.createElement('span');
+                    span.innerText = alpha;
+                    lineDiv.append(span);
+                    alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                } else{
+                    const seatNo = document.createElement("a");
+                    seatNo.classList.add("seat");
+                    // 예매된 좌석이 있으면 클래스 추가("alreadyChk")
+                    const seatSpan = document.createElement('span');
+                    seatSpan.innerText = j;
+                    if(j==3 | j==13){
+                        seatNo.style.marginLeft = "30px"
+                    }
+                    seatNo.setAttribute("seatNo", alpha+j);
+                    seatNo.setAttribute("onclick",'seatClick(this)');
+                    seatNo.append(seatSpan);
+                    lineDiv.append(seatNo);
                 }
-                seatNo.setAttribute("seatNo", alpha+j);
-                seatNo.setAttribute("onclick",'seatClick(this)');
-                seatNo.append(seatSpan);
-                lineDiv.append(seatNo);
             }
+            movieSeat.append(lineDiv);
         }
-        movieSeat.append(lineDiv);
-    }
-})()
+    })()
+}
 
+let socket = new SockJS("/click");
+
+// 좌석 선택
 function seatClick(e){
-    let choiceSeat = document.querySelectorAll(".choiceSeat");
-    if(choiceSeat.length==btn1.innerText){
-        if(!e.classList.contains("choiceSeat")){
-            alert("인원 수 만큼 선택해주세요");
-        }
-        e.classList.remove("choiceSeat");
+
+    if(e.classList.contains("alreadyChk")){  // 예약된 좌석 막기
+        alert("이미 예약된 좌석입니다.");
         return;
     }
 
+    let choiceSeat = document.querySelectorAll(".choiceSeat");
+    
+    var data = {};
+    data.userNo = loginUser.userNo;
+    data.movieNo = movie.movieNo;
+    data.movieTheater = ticket.movieTheater;
+    data.movieTime = ticket.movieTime;
+    data.seatNo = e.getAttribute("seatno");
+    if(e.classList.contains("choiceSeat")){  // 내가 선택한지 좌석인지 확인
+        data.checked = 'Y';
+    } else {
+        data.checked = 'N';
+        if(choiceSeat.length==btn1.innerText){
+            alert("인원 수 만큼 선택해주세요");
+            return;
+        }
+    }
+
+    socket.send(JSON.stringify(data));
+
     e.classList.toggle("choiceSeat");
+}
+
+
+socket.onmessage = function(event) {
+
+    let result = event.data;
+    let resultList = result.split(" ");
+    const seat = document.querySelectorAll(".seat");
+    console.log(result);
+    for(let i=0;i<seat.length;i++){
+        console.log(resultList[1]);
+        console.log(resultList[1] == "alreadyChk");
+        if(resultList[1] == "alreadyChk"){
+            if(seat[i].getAttribute("seatno")==resultList[0]){
+                seat[i].classList.add("alreadyChk");
+            }
+        }
+        if(resultList[1] == "cancelChk"){
+            if(seat[i].getAttribute("seatno")==resultList[0]){
+                seat[i].classList.remove("alreadyChk");
+            }
+        }
+        if(resultList[1] == "fail"){
+            alert("이미 선택된 좌석입니다.");
+        }
+    }
 }

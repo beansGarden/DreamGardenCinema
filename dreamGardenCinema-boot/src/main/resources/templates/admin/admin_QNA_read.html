@@ -7,6 +7,10 @@
     <title>qna</title>
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="/css/admin/admin_QNA_read.css">
+
+    <!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 </head>
 <body>
        <!-- 사이드바 -->
@@ -48,6 +52,16 @@
                                        취소되게 해주세요
                                     </div></td>
                         </tr>
+                        <tr>
+                            <th>답변</th>
+                                <td>   
+                                    <!-- 답변 쓰는 칸 -->
+                            <div class="admin_qnaContentWrap" >
+                                <form th:action="@{/adminQnaAnswer/{qnaNo}(qnaNo=${Qna.qnaNo})}" method="post" id="qnaSubmit">
+                                     <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px;" th:text="${QnaComment.qnaComment}">답변 내용</textarea>
+                                </form>
+                            </div>
+                        </tr>
                     
                 </thead> 
              </table>
@@ -58,11 +72,13 @@
 
           <!-- 등록,수정,삭제 버튼 -->
           <div class="admin_qnaBtn">
-            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaWrite}">등록</a></button>
-            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
-            <button class="admin_qnaEndBtn"><a href="">삭제</a></button>
+            
+            <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록하기</a></button>
+            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
+            <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
+
         </div>
-        
+   
             
 
             </div>
@@ -72,7 +88,16 @@
 
 
     </div>    
-
-
+    <script src="\js\admin\admin_QNA_read.js"></script>
+    <script>
+        // 메인화면 페이지 로드 함수
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                placeholder: '내용을 작성하세요',
+                height: 400,
+                maxHeight: 400
+            });
+        });
+    </script>
 </body>
 </html>

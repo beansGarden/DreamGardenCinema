@@ -118,7 +118,7 @@
 
             <div class="input-wrapper user-tel">
                 <label>
-                    <input type="number" name="userTel" id="userTel" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.' maxlength="11">
+                    <input type="text" name="userTel" id="userTel" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.' maxlength="11">
                     <span aria-hidden="true">휴대폰 번호</span>
                 </label>
             </div>
@@ -127,7 +127,8 @@
                     <input type="text" name="authKey" id="authKey" class="">
                     <span aria-hidden="true">인증번호</span>
                 </label>
-                <div id="authKeyLifeTime" class="authKey-green-text">05:00</div>
+                <div id="authKeyLifeTime" class="authKey-green-text display-none">05:00</div>
+                <div id="" class="authKeyResend display-none">재요청</div>
             </div>
 
             <div id="sendAuthKeyBtn" class="">인증 요청</div>
