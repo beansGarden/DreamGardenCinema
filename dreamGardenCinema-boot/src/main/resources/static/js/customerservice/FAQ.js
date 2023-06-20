@@ -1,4 +1,3 @@
-/* ***** 페이지 네이션 부분 ***** */
 const rowsPerPage = 10;  // 보여줄 행의 갯수
 const maxPageNum = 10;  // 페이지그룹 개수
 
@@ -96,82 +95,91 @@ arrowLeftBtn.addEventListener("click",()=>{
 });  // https://www.youtube.com/watch?v=drXZCq3Y9d8&list=PL-qMANrofLyvzqz2yYzNectJnYo5ZifE7&index=74&ab_channel=Rock%27sEasyweb
 
 
-/******* 답변 창 부분 ********/
+/************** 상영관 관련 게시글 목록 출력하기 **************/
+function faqList() {
+  let FAQlistContents = document.querySelector(".FAQ-list-contents");
 
-const answerBox = document.getElementsByClassName("FAQ-answer-box")[0];
-const downBtn = document.querySelectorAll(".downBtn");
-const upBtn = document.querySelectorAll(".upBtn");
+  // Remove existing FAQ items
+  const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
+  existingFAQItems.forEach((item) => {
+    item.remove();
+  });
 
-// downBtn.addEventListener("click", () => {
-        
-//     if(answerBox.style.display = "none"){
-//         answerBox.style.display = "block";
-//         downBtn.style.display = "none";
-//         upBtn.style.display = "block";
-//     }
+  const FAQCategory = 'P'; // p인 카테고리 타이틀
 
-// });
-
-// upBtn.addEventListener("click", () => {
-        
-//     if(answerBox.style.display = "block"){
-//         answerBox.style.display = "none";
-//         downBtn.style.display = "block";
-//         upBtn.style.display = "none";
-//     }
-
-// });
-
-const theater = document.querySelector(".faq-theater-list");
-// const faqList = document.getElementById("faqList");
-const FAQContent = document.querySelector(".FAQ-inquiry-content");
-const firstBox = document.querySelector(".FAQ-first-box");
-const FAQCategory = 'P';
-
-function faqList(){
-
-  
-
-  
   fetch("/customerservice/theaterFAQ?FAQCategory=" + FAQCategory)
-    .then(resp => resp.json())
-    .then(theaterList => {
-      console.log(/*[[${theaterList}]]*/ "상영관관련 목록");
+    .then((resp) => resp.json())
+    .then((theaterList) => {
+      console.log(theaterList);
 
-      if(theaterList !=null){
+      for (let list of theaterList) {
+        const firstBox = document.createElement("div");
+        firstBox.classList.add("FAQ-first-box");
 
-        firstBox.innerHTML = "";
+        const inquiryContent = document.createElement("div");
+        inquiryContent.classList.add("FAQ-inquiry-content");
 
-        for( let list of theaterList){
+        const categoryTitle = document.createElement("span");
+        categoryTitle.classList.add("categoryTitle");
+        categoryTitle.innerHTML = list.CATEGORY_TITLE;
+        inquiryContent.appendChild(categoryTitle);
 
+        const contentsContainer = document.createElement("a");
+        contentsContainer.classList.add("FAQ-contents-container");
 
-          const span = document.createElement("span");
-          span.classList.add("categoryTitle");
-          // span.setAttribute("title",list.CATEGORY_TITLE);
-          // title.innerHTML = list.CATEGORY_TITLE();
+        const Qicon = document.createElement("img");
+        Qicon.classList.add("Qicon");
+        Qicon.src = "/images/customerservice/Q아이콘.png";
+        contentsContainer.appendChild(Qicon);
 
-          const title = list.CATEGORY_TITLE;
-          span.innerHTML = title;
+        const faqTitle = document.createElement("span");
+        faqTitle.innerHTML = list.FAQ_TITLE;
+        contentsContainer.appendChild(faqTitle);
 
+        inquiryContent.appendChild(contentsContainer);
 
-          FAQContent.appendChild(span);
+        const FAQBtn = document.createElement("div");
+        FAQBtn.classList.add("FAQ-btn");
 
-          
-          // location.href = "/customerservice/";
-          
+        const downBtn = document.createElement("img");
+        downBtn.classList.add("downBtn");
+        downBtn.src = "/images/customerservice/down화살표.png";
+        FAQBtn.appendChild(downBtn);
 
-        }
+        const upBtn = document.createElement("img");
+        upBtn.classList.add("upBtn");
+        upBtn.src = "/images/customerservice/up화살표.png";
+        FAQBtn.appendChild(upBtn);
 
+        inquiryContent.appendChild(FAQBtn);
+        firstBox.appendChild(inquiryContent);
+
+        const answerBox = document.createElement("div");
+        answerBox.classList.add("FAQ-answer-box");
+
+        const answer = document.createElement("div");
+        answer.classList.add("FAQ-answer");
+
+        const Aicon = document.createElement("img");
+        Aicon.src = "/images/customerservice/A아이콘.png";
+        answer.appendChild(Aicon);
+
+        const pre = document.createElement("pre");
+        pre.innerHTML = list.FAQ_CONTENT;
+        answer.appendChild(pre);
+
+        answerBox.appendChild(answer);
+        firstBox.appendChild(answerBox);
+
+        FAQlistContents.appendChild(firstBox);
       }
-
-      
-      
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("An error occurred while fetching theater FAQs:", error);
     });
+}
 
-  }
+
 
 
 

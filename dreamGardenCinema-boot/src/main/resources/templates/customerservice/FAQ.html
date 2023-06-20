@@ -41,8 +41,8 @@
                 <div class="FAQ-category-box">
                     <!-- 상영관 관련 -->
                     <div class="FAQ-cinemas">
-                        <a class="faq-theater-list" th:onclick="faqList()" id="faqList"><img
-                                th:src="@{/images/customerservice/상영관 아이콘.png}">
+                        <a class="faq-theater-list" th:onclick="faqList()">
+                            <img th:src="@{/images/customerservice/상영관 아이콘.png}">
                             <p>상영관 이용</p>
                         </a>
                     </div>
@@ -90,9 +90,8 @@
 
                             <!-- <h1 th:text="${faq}"></h1> -->
                             <span th:text="${faq.CATEGORY_TITLE}">FAQ구분</span>
-                            <a th:href="@{/customerservice/}" class="FAQ-contents-container">
-                                <span th:text="${faq.FAQ_TITLE}"><img
-                                        th:src="@{/images/customerservice/Q아이콘.png}">제목</span>
+                            <a  class="FAQ-contents-container">
+                                <img th:src="@{/images/customerservice/Q아이콘.png}" class="Qicon"><span th:text="${faq.FAQ_TITLE}">제목</span>
                             </a>
 
                             <div class="FAQ-btn">
@@ -130,17 +129,22 @@
         <th:block th:replace="~{common/footer}"></th:block>
 
         <script th:inline="javascript">
+
+
             console.log(/*[[${FAQList}]]*/ "FAQList 객체");
 
-
+            /******* 답변 창 부분 ********/
             const faqleng = /*[[${#lists.size(FAQList)}]]*/ "게시글 길이";
+            const theaterleng = /*[[${#lists.size(theaterList)}]]*/ "상영관 관련 길이";
 
-            for (i = 0; i < faqleng; i++) {
-
-                const answerBox = document.getElementsByClassName("FAQ-answer-box")[i];
-                const downBtn = document.querySelectorAll(".downBtn")[i];
-                const upBtn = document.querySelectorAll(".upBtn")[i];
-
+            for (i = 0; i < faqleng; i++ ) {
+                
+                // const FAQContents = document.querySelectorAll(".FAQ-contents-container")[i];
+                let answerBox = document.getElementsByClassName("FAQ-answer-box")[i];
+                let downBtn = document.querySelectorAll(".downBtn")[i];
+                let upBtn = document.querySelectorAll(".upBtn")[i];
+                
+                
                 downBtn.addEventListener("click", () => {
 
                     if (answerBox.style.display = "none") {
@@ -162,6 +166,36 @@
                 });
 
             }
+
+            // for (i = 0; i < theaterleng; i++ ) {
+                
+            //     // const FAQContents = document.querySelectorAll(".FAQ-contents-container")[i];
+            //     let answerBox = document.getElementsByClassName("FAQ-answer-box")[i];
+            //     let downBtn = document.querySelectorAll(".downBtn")[i];
+            //     let upBtn = document.querySelectorAll(".upBtn")[i];
+                
+                
+            //     downBtn.addEventListener("click", () => {
+
+            //         if (answerBox.style.display = "none") {
+            //             answerBox.style.display = "block";
+            //             downBtn.style.display = "none";
+            //             upBtn.style.display = "block";
+            //         }
+
+            //     });
+
+            //     upBtn.addEventListener("click", () => {
+
+            //         if (answerBox.style.display = "block") {
+            //             answerBox.style.display = "none";
+            //             downBtn.style.display = "block";
+            //             upBtn.style.display = "none";
+            //         }
+
+            //     });
+
+            // }
 
 
         </script>
