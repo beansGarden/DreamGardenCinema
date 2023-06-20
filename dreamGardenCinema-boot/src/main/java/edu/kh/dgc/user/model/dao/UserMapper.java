@@ -21,4 +21,6 @@ public interface UserMapper {
 
 	int checkOverlapEmail(@Valid User inputUser);
 
+	int changePw(User user);
+
 }

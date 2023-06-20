@@ -147,27 +147,34 @@ function validateDateOfBirth(dateStr) {
     }
     return day <= daysInMonth;
 }
-userTel.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
-});
-userBirth1.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
-});
-
+if(userTel != null){
+    userTel.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
+    });
+}
+if(userBirth1 != null){
+    userBirth1.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
+    });
+}
 // ----------------------------------------------- 비밀번호 찾기 -----------------------------------------------
 const sendAuthKeyBtn = document.getElementById("sendAuthKeyBtn");
 const pwFindBtn = document.getElementById("pwFindBtn");
+const userTel2 = document.getElementById("userTel2");
 
 const authKeyLifeTime = document.getElementById("authKeyLifeTime");
 const authKey = document.getElementById("authKey");
 const authKeyResend = document.querySelector(".authKeyResend");
-
-authKey.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
-});
-userTel.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
-});
+if(userTel != null){
+    authKey.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
+    });
+}
+if(userTel != null){
+    userTel2.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
+    });
+}
 let timeRemaining = 5 * 60;
 let buttonClicked = false;
 let interval;
@@ -175,55 +182,48 @@ let interval;
 if (sendAuthKeyBtn != null) {
     sendAuthKeyBtn.addEventListener("click", function (e) {
         sendAuthKeyButtonClick(sendAuthKeyBtn);
+        sendAuthKeyBtn.innerText = "재전송";
     });
 }
-if (authKeyResend != null) {
-    authKeyResend.addEventListener("click", function (e) {
-        sendAuthKeyButtonClick(authKeyResend);
-        authKeyResend.classList.remove("display-none");
-    });
-}
+
 
 function sendAuthKeyButtonClick(sendAuthKeyBtn) {
     if (interval) {
         clearInterval(interval);
         interval = null;
     }
-console.log(userTel.value);
-    if (userTel.value) {
+console.log(userTel2.value);
+    if (userTel2.value) {
         authKeyLifeTime.classList.remove("display-none");
         authKeyLifeTime.classList.add("authKey-green-text");
         authKeyLifeTime.classList.remove("authKey-red-text");
-        authKeyResend.classList.remove("display-none");
 
-        sendAuthKeyBtn.classList.add("display-none");
-        signBtn.classList.remove("display-none");
         let data = {
-            userTel: userTel.value // userTel 값을 객체에 담기
+            userTel: userTel2.value // userTel 값을 객체에 담기
         };
 
         /* fetch() API 방식 ajax */
-        // fetch("/user/sms/send?userTel=" + userTel.value, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
-        // })
-        //     .then(resp => resp.json())
-        //     .then(result => {
-        //         if (result.statusCode == 202) {
-        //             console.log("인증번호 발송 성공");
-        //             console.log(result);
-        //         } else {
-        //             console.log("인증번호 발송 실패");
-        //             console.log(result);
-        //         }
-        //     })
-        //     .catch(err => {
-        //         console.log("이메일 발송 중 에러 발생");
-        //         console.log(err);
-        //     });
+        fetch("/user/sms/send?userTel=" + userTel2.value, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data) // JSON 형식으로 변환하여 body에 담기
+        })
+            .then(resp => resp.json())
+            .then(result => {
+                if (result.statusCode == 202) {
+                    console.log("인증번호 발송 성공");
+                    console.log(result);
+                } else {
+                    console.log("인증번호 발송 실패");
+                    console.log(result);
+                }
+            })
+            .catch(err => {
+                console.log("이메일 발송 중 에러 발생");
+                console.log(err);
+            });
 
         alert("인증번호가 발송 되었습니다.");
         timeRemaining = 5 * 60;

@@ -53,9 +53,13 @@ public class UserController {
 		return "user/accountFind";
 	}
 	
-	@GetMapping("/changePw")
-	public String changePw() {
 
+	@GetMapping("/changePw")
+	public String changePw(HttpSession session) {
+		
+		if(session.getAttribute("cngPwUserId") == null) {
+			return "common/error";
+		}
 		return "user/changePw";
 	}
 
@@ -109,7 +113,7 @@ public class UserController {
 		boolean result1 = service.checkOverlap(inputUser); // 중복체크
 		
 		if(!inputUser.getUserPw().equals(inputUser.getUserRePw())) {
-			path += "signUp";
+			path = "user/signUp";
 			message = "회원 가입 실패";
 			ra.addFlashAttribute("message", message);
 			return path;
@@ -117,14 +121,14 @@ public class UserController {
 
 		if (redisUtil.getData(inputUser.getUserTel()) == null) {
 			System.out.println("인증번호 == null");
-			path += "signUp";
+			path = "user/signUp";
 			message = "인증번호가 다릅니다.";
 			ra.addFlashAttribute("message", message);
 			return path;
 		} else {
 			if (!redisUtil.getData(inputUser.getUserTel()).equals(inputUser.getAuthKey())) {
 				System.out.println("인증번호 != 폰번호");
-				path += "signUp";
+				path = "user/signUp";
 				message = "인증번호가 다릅니다.";
 				ra.addFlashAttribute("message", message);
 				return path;
@@ -141,7 +145,7 @@ public class UserController {
 			message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";
 
 		} else {
-			path += "signUp";
+			path = "user/signUp";
 			message = "회원 가입 실패";
 		}
 
@@ -157,11 +161,62 @@ public class UserController {
 	}
 	
 	@PostMapping("/findPassword")
-	public String findPassword(User inputUser) {
+	public String findPassword(User inputUser, String userTel2, 
+			RedirectAttributes ra,
+			HttpSession session) {
+		
+		inputUser.setUserTel(userTel2);
 		
 		String path = "redirect:";
 		String message = null;
+		
+		if (redisUtil.getData(inputUser.getUserTel()) == null) {
+			System.out.println("인증번호 == null");
+			path = "user/accountFind";
+			message = "인증번호가 다릅니다.";
+			ra.addFlashAttribute("message", message);
+			return path;
+		} else {
+			if (!redisUtil.getData(inputUser.getUserTel()).equals(inputUser.getAuthKey())) {
+				System.out.println("인증번호 != 폰번호");
+				path += "user/accountFind";
+				message = "인증번호가 다릅니다.";
+				ra.addFlashAttribute("message", message);
+				return path;
+			}
+			System.out.println("인증번호 같음");
+			session.setAttribute("cngPwUserId", inputUser.getUserId());
+			redisUtil.deleteData(inputUser.getUserTel());
+			path += "/user/changePw";
+		}
 
+		return path;
+	}
+	
+	@PostMapping("/changePassword")
+	public String changePassword(User inputUser, 
+			RedirectAttributes ra,
+			HttpSession session) {
+		
+		inputUser.setUserId((String)session.getAttribute("cngPwUserId"));
+		
+		String path = "redirect:";
+		String message = null;
+		
+		int result = service.changePw(inputUser.getUserPw(), inputUser.getUserRePw(), inputUser.getUserId());
+		
+		if(result > 0) {
+			session.removeAttribute("cngPwUserId");
+			System.out.println("성공");
+			message = "비밀번호 변경에 성공했습니다.";
+			ra.addFlashAttribute("message", message);
+			path += "login";
+		}else {
+			message = "비밀번호 변경에 실패했습니다.";
+			System.out.println("실패");
+			ra.addFlashAttribute("message", message);
+			path = "user/changePw";
+		}
 		return path;
 	}
 	

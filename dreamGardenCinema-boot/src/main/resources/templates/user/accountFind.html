@@ -92,7 +92,7 @@
                         <span aria-hidden="true" id="userBirth1Span">생년월일</span>
                     </label>
                 </div>
-                <div class="input-wrapper ">
+                <div class="input-wrapper userTel-input-wrapper">
                     <label>
                         <input type="text" name="userTel" id="userTel" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.' maxlength="11">
                         <span aria-hidden="true" id="userTelSpan">휴대폰 번호</span>
@@ -109,7 +109,7 @@
         </div>
 
         <div id="pwFind" class="tab-content">
-            <form th:action="@{/user/findPassword}" id="changePwFrmBox">
+            <form th:action="@{/user/findPassword}" id="changePwFrmBox" method="post">
                 <div class="input-wrapper">
                     <label>
                         <input type="text" name="userId" id="userId" class="">
@@ -118,19 +118,18 @@
                 </div>
                 <div class="input-wrapper">
                     <label>
-                        <input type="text" name="userTel" id="userTel" class=""
-                            placeholder='"-" 를 제외한 숫자만 입력해 주세요.'>
+                        <input type="text" name="userTel2" id="userTel2" class=""
+                            placeholder='"-" 를 제외한 숫자만 입력해 주세요.' maxlength="11">
                         <span aria-hidden="true">휴대폰 번호</span>
                     </label>
                     <div id="sendAuthKeyBtn">인증번호 받기</div>
-                    <span class="authKeyResend">재전송</span>
                 </div>
                 <div class="input-wrapper">
                     <label>
                         <input type="number" name="authKey" id="authKey" class="">
                         <span aria-hidden="true">인증번호</span>
                     </label>
-                    <div id="authKeyLifeTime" class="authKey-green-text">05:00</div>
+                    <div id="authKeyLifeTime" class="authKey-green-text"></div>
                 </div>
 
                 <button id="pwFindBtn" class="">비밀번호 찾기</button>

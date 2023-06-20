@@ -67,6 +67,12 @@
 		AND USER_CLOSE = 'N';
 	</select>
 	
+	<update id="changePw" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_PW  = #{userPw}
+		WHERE USER_ID = #{userId}
+	</update>
+	
 	
 	
 </mapper>
