@@ -22,5 +22,4 @@ public interface TicketingService {
 
 	String seatCheck(SeatCheck seatCheck);
 
-	void deleteSeat(int userNo);
 }

@@ -59,22 +59,24 @@ if(ticket.movieTheater == 1){
 }
 
 let socket = new SockJS("/click");
-// let socket = new WebSocket("ws://localhost:80/click");
 
 // 좌석 선택
 function seatClick(e){
 
+    if(e.classList.contains("alreadyChk")){  // 예약된 좌석 막기
+        alert("이미 예약된 좌석입니다.");
+        return;
+    }
+
     let choiceSeat = document.querySelectorAll(".choiceSeat");
     
-    const seatNo = e.getAttribute("seatno");
     var data = {};
-    
     data.userNo = loginUser.userNo;
     data.movieNo = movie.movieNo;
     data.movieTheater = ticket.movieTheater;
     data.movieTime = ticket.movieTime;
-    data.seatNo = seatNo;
-    if(e.classList.contains("choiceSeat")){
+    data.seatNo = e.getAttribute("seatno");
+    if(e.classList.contains("choiceSeat")){  // 내가 선택한지 좌석인지 확인
         data.checked = 'Y';
     } else {
         data.checked = 'N';
@@ -84,36 +86,33 @@ function seatClick(e){
         }
     }
 
-    console.log(data);
-
     socket.send(JSON.stringify(data));
 
     e.classList.toggle("choiceSeat");
 }
 
-socket.onmessage = function (event) {
-    console.log(event.data);
+
+socket.onmessage = function(event) {
+
+    let result = event.data;
+    let resultList = result.split(" ");
+    const seat = document.querySelectorAll(".seat");
+    console.log(result);
+    for(let i=0;i<seat.length;i++){
+        console.log(resultList[1]);
+        console.log(resultList[1] == "alreadyChk");
+        if(resultList[1] == "alreadyChk"){
+            if(seat[i].getAttribute("seatno")==resultList[0]){
+                seat[i].classList.add("alreadyChk");
+            }
+        }
+        if(resultList[1] == "cancelChk"){
+            if(seat[i].getAttribute("seatno")==resultList[0]){
+                seat[i].classList.remove("alreadyChk");
+            }
+        }
+        if(resultList[1] == "fail"){
+            alert("이미 선택된 좌석입니다.");
+        }
+    }
 }
-
-// socket.onmessage = function(event) {
-
-//     let result = event.data;
-//     let resultList = result.split(" ");
-//     const seat = document.querySelectorAll(".seat");
-//     console.log(result);
-//     for(let i=0;i<seat.length;i++){
-//         if(resultList[1] == "alreadyChk"){
-//             if(seat[i].getAttribute("seatno")==resultList[0]){
-//                 seat[i].classList.add("alreadyChk");
-//             }
-//         }
-//         if(resultList[1] == "cancelChk"){
-//             if(seat[i].getAttribute("seatno")==resultList[0]){
-//                 seat[i].classList.remove("alreadyChk");
-//             }
-//         }
-//         if(resultList[1] == "fail"){
-//             alert("이미 선택된 좌석입니다.");
-//         }
-//     }
-// }

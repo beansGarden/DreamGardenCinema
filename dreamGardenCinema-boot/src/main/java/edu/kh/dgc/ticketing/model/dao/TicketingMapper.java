@@ -32,4 +32,6 @@ public interface TicketingMapper {
 
 	List<Ticket> selectChkSeatList(Ticket ticket);
 
+	int selectSeat(SeatCheck seatCheck);
+
 }

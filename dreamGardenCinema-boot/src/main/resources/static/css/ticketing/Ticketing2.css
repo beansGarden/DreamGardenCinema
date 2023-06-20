@@ -273,6 +273,7 @@ body{
     width: 10%;
     text-decoration: none;
 }
-#alreadyChk{
+.alreadyChk{
     background-color: #3B3B3B;
+    color : white;
 }

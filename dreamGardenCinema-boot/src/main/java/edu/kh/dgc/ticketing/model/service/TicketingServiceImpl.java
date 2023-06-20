@@ -60,16 +60,21 @@ public class TicketingServiceImpl implements TicketingService{
 	@Override
 	public String seatCheck(SeatCheck seatCheck) {
 		
+		int selectResult = mapper.selectSeat(seatCheck);
+		
 		String seatResult = null;
-		if(seatCheck.getChecked().equals("N")) {
-			int result = mapper.insertSeat(seatCheck);
+		if(selectResult > 0) {
+			return "이미선택";
+		}
+		if(seatCheck.getChecked().equals("N")) {  // 선택하지 않았으면  
+			int result = mapper.insertSeat(seatCheck);  // 좌석 INSERT
 			if(result == 1) {
 				seatResult = "예매성공";
 			} else {
 				seatResult = "예매실패";
 			}
-		} else {
-			int result = mapper.deleteSeat(seatCheck);
+		} else {  // 선택한 좌석이면
+			int result = mapper.deleteSeat(seatCheck);  // 좌석 DELETE
 			if(result == 1) {
 				seatResult = "예매취소성공";
 			} else {
@@ -80,10 +85,6 @@ public class TicketingServiceImpl implements TicketingService{
 		return seatResult;
 	}
 
-	@Override
-	public void deleteSeat(int userNo) {
-		mapper.deleteEndSeat(userNo);
-	}
 
 
 
