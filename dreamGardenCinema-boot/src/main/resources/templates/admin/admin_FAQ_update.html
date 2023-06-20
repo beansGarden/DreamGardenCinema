@@ -19,8 +19,8 @@
 
 
 
-<link rel="stylesheet" href="\css\style.css">
-<link rel="stylesheet" href="\css\admin\admin_FAQ_write.css">
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="\css\admin\admin_FAQ_write.css">
     
     <script src="../admin/summernote-ko-KR.js"></script>
     <script src="../admin/summernote-lite.js"></script>
@@ -30,44 +30,39 @@
        <!-- 사이드바 -->
  <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
+    <form th:each="faq : ${Faq}" th:action="@{/adminFaqUpdate/{FAQNo}(FAQNo=${faq.FAQNo})}" method="POST">
+
+    
     <div class="admin_faqWrap">
         
             <!-- 게시판 제목 -->
             <span id="admin_faqTitle">FAQ 관리</span>
         <!-- 테이블 감싸는 div -->
         <div class="admin_faqTableWrap "style="border-bottom: 1px solid black">
-        <table>
-            <tr   >
+        <table >
+            <tr th:each="faq : ${Faq}">
+                <th >번호</th>
+                <td  th:text="${faq.FAQNo}" name="FAQNo">번호</td>
+            </tr>
+            <tr th:each="faq : ${Faq}">
                 <th>제목</th>
-                <td><input type="text" name="" id="" class="admin_faqTableInput"></td>
+                <td><input type="text" id="" class="admin_faqTableInput"  th:value="${faq.FAQTitle}" name="FAQTitle"></td>
             </tr>
         </table>
     </div>
     <!-- 내용 쓰는 칸 -->
-        <div class="admin_faqContentWrap">
-            <form method="post">
-                <textarea id="summernote" name="editordata"></textarea>
-   
-              </form>
-          
-        </div>
+        <div class="admin_faqContentWrap" th:each="faq : ${Faq}" >
 
-     
-
-                <!-- 등록 버튼 -->
-                <button class="admin_faqRegister"><a href="">등록</a></button>
-
-        
+                <textarea id="summernote" name="FAQContent" th:text="${faq.FAQContent}">글내용</textarea>
             
-
-            </div>
- 
         </div>
-
-
-
+        <!-- 등록 버튼 -->
+                <button  type="submit" class="admin_faqRegister">등록</a></button>
+            </div>
+        </div>
     </div>    
-
+    </form>
+<!-- </form> -->
     <script>
         // 메인화면 페이지 로드 함수
         $(document).ready(function () {

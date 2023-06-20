@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,18 +35,36 @@
             <!-- 게시판 제목 -->
             <span id="admin_qnaTitle">1:1문의 관리</span>
         <!-- 테이블 감싸는 div -->
-        <div class="admin_qnaTableWrap "style="border-bottom: 1px solid black">
+        <div class="admin_qnaTableWrap">
         <table>
-            <tr   >
+            <tr>
                 <th>제목</th>
-                <td><input type="text" name="" id="" class="admin_qnaTableInput"></td>
+                <td><input type="text" name="qnaTitle" id="" class="admin_qnaTableInput" style="border-bottom: 1px solid black" ></td>
+            </tr>
+            <tr>
+                <th>카테고리</th>
+                <td  class="admin_qnaTableInput" style="border-bottom: 1px solid black">
+                    <select name="qnaCategory" id="">
+                        <option value="P">영화관</option>
+                        <option value="M">영화</option>
+                        <option value="U">멤버쉽</option>
+                        <option value="B">예매/결제</option>
+                        <option value="H">홈페이지</option>
+                        <option value="A">계정</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    글쓴이
+                </td>
             </tr>
         </table>
     </div>
     <!-- 내용 쓰는 칸 -->
         <div class="admin_qnaContentWrap">
             <form method="post">
-                <textarea id="summernote" name="editordata"></textarea>
+                <textarea id="summernote" name="qnaContent"></textarea>
    
               </form>
           
@@ -55,7 +73,7 @@
      
 
                 <!-- 등록 버튼 -->
-                <button class="admin_qnaRegister"><a href="">등록</a></button>
+                <button class="admin_qnaRegister"><a th:href="@{/adminQnaWriteInsert}">등록</a></button>
 
         
             

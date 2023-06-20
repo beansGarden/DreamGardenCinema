@@ -30,6 +30,8 @@
        <!-- 사이드바 -->
  <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
+  <form th:action="${qnaNo}" method="POST" >
+    
     <div class="admin_qnaWrap">
         
             <!-- 게시판 제목 -->
@@ -37,37 +39,28 @@
         <!-- 테이블 감싸는 div -->
         <div class="admin_qnaTableWrap "style="border-bottom: 1px solid black">
         <table>
-            <tr   >
+            <tr>
+                <th>번호</th>
+                <td  th:text="${Qna.qnaNo}" name="qnaNo">번호</td>
+            </tr>
+            <tr>
                 <th>제목</th>
-                <td><input type="text" name="" id="" class="admin_qnaTableInput"  th:text="${Qna.qnaTitle}"></td>
+                <td><input type="text" id="" class="admin_qnaTableInput"  th:value="${Qna.qnaTitle}" name="qnaTitle"></td>
             </tr>
         </table>
     </div>
     <!-- 내용 쓰는 칸 -->
-        <div class="admin_qnaContentWrap">
+        <div class="admin_qnaContentWrap" >
             <form method="post">
-                <textarea id="summernote" name="editordata" th:text="${Qna.qnaContent}"></textarea>
-   
+                <textarea id="summernote" name="qnaContent" th:text="${Qna.qnaContent}">글내용</textarea>
               </form>
-          
         </div>
-
-     
-
-                <!-- 등록 버튼 -->
-                <button class="admin_qnaRegister"><a href="">등록</a></button>
-
-        
-            
-
+        <!-- 등록 버튼 -->
+                <button  type="submit" class="admin_qnaRegister">등록</a></button>
             </div>
- 
         </div>
-
-
-
     </div>    
-
+</form>
     <script>
         // 메인화면 페이지 로드 함수
         $(document).ready(function () {

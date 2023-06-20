@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,46 +48,26 @@
                 <table>
                     <thead>
                     <tr><!-- F : first -->
-                        <th><input type="checkbox" name="" id="" class="admin_userCheckboxAll"></th>
+                        <th><input type="checkbox" name="" id="" class="admin_userCheckboxAll" onclick='userSelectAll(this)'></th>
                         <th>번호</th>
                         <th>아이디</th>
                         <th>이메일</th>
                         <th>닉네임</th>
                         <th>가입일</th>
                         <th>등급</th>
-                        <th>상태</th>
+                        <th>탈퇴</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="list : ${adminUserList}">
                         <td><input type="checkbox" name="" id="" class="admin_userCheckbox"></td>
-                        <td>1</td>
-                        <td>typoon</td>
-                        <td>ty@email.com</td>
-                        <td>태풍이</td>
-                        <td>2023.06.01</td>
-                        <td>실버</td>
-                        <td>정상</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="" id="" class="admin_userCheckbox"></td>
-                        <td>2</td>
-                        <td>ty</td>
-                        <td>ty@email.com</td>
-                        <td>태풍</td>
-                        <td>2023.05.01</td>
-                        <td>실버</td>
-                        <td>정상</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="" id="" class="admin_userCheckbox"></td>
-                        <td>3</td>
-                        <td>ty</td>
-                        <td>ty@email.com</td>
-                        <td>태풍</td>
-                        <td>2023.05.01</td>
-                        <td>실버</td>
-                        <td>정상</td>
+                        <td th:text="${list.userNo}" class="admin_user_checkbox_no">1</td>
+                        <td th:text="${list.userId}">typoon</td>
+                        <td th:text="${list.userEmail}">ty@email.com</td>
+                        <td th:text="${list.userNickname}">태풍이</td>
+                        <td th:text="${list.userEnrollDate}">2023.06.01</td>
+                        <td th:text="${list.userRating}">실버</td>
+                        <td th:text="${list.userClose}">정상</td>
                     </tr>
                 </tbody>
 
@@ -97,7 +77,7 @@
                 <!-- 페이지 네이션 -->
 
                 <!-- 등록,수정,삭제 버튼 -->
-                <button class="admin_userRegister"><a href="">탈퇴</a></button>
+                <button id="admin_userSignOut"><a href="">탈퇴</a></button>
   
             
 
@@ -109,6 +89,6 @@
 
     </div>    
 
-
+    <script src="\js\user\admin_user.js"></script>
 </body>
 </html>

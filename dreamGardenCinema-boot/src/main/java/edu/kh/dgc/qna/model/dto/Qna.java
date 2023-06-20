@@ -8,7 +8,7 @@ import lombok.ToString;
 @NoArgsConstructor//생성자
 @Getter
 @Setter
-@ToString
+@ToString 
 public class Qna {
 	
 	private int qnaNo;
@@ -31,6 +31,11 @@ public class Qna {
 	//JOIN USER_INFO
 	
 	private int userRating;
+	private String qnaComment;
+	
+	//검색필터
+	private  String type;
+	private String keyword;
 	
 }
 
