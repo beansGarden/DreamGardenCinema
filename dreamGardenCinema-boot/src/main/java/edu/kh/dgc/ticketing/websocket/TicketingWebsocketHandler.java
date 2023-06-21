@@ -16,6 +16,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
+import edu.kh.dgc.user.model.dto.User;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,78 +31,81 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 
 	private List<WebSocketSession> sessions = new ArrayList<>();
 	
-	private Map<String, WebSocketSession> userSessionMap = new HashMap<>();
-	
+	private List<Map<String, Object>> sessionList = new ArrayList<>();
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		log.info("Socket 연결");
 		sessions.add(session);
-		System.out.println(sessions);
-		log.info(sendPushUsername(session));				//현재 접속한 사람의 username이 출력됨
-		String senderId = sendPushUsername(session);
-		userSessionMap.put(senderId, session);
+		sessionList.add(session.getAttributes());  // 로그인 정보, 세션아이디, 유저세션(세션)
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
-		String id = session.getId();  //메시지를 보낸 아이디
-		log.info(id);
-		
-		
+		// 가져온 메시지를 seatCheck 객체로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
-		SeatCheck seatCheck = objectMapper.readValue(message.getPayload(), SeatCheck.class);  // 가져온 메시지를 객체로 변환
-		System.out.println(seatCheck);
-	
-		String seatResult = service.seatCheck(seatCheck);  // INSERT, DELETE 결과
+		SeatCheck seatCheck = objectMapper.readValue(message.getPayload(), SeatCheck.class);  // room, movieTime, movieTheater, movieNo, seatNo, userNo, checked
 		
+		String seatResult = service.seatCheck(seatCheck);  // INSERT, DELETE 결과를 가져오는 서비스
 		
-		TextMessage sendMsg = null;
-		for(WebSocketSession single : sessions) {
+		for(int i=0;i<sessions.size();i++){  // List 하나씩 꺼내기
 			
-			if(seatResult.equals("이미선택")) {
-				sendMsg = new TextMessage(seatCheck.getSeatNo()+" abc");
-				single.sendMessage(sendMsg);
-			}
+			String room = (String) sessionList.get(i).get("room");  // 접속유저들의 방번호
 			
-			if(!single.getId().equals(id)) {
+			if(!sessionList.get(i).get("userSession").equals(session.getAttributes().get("userSession")) && seatCheck.getRoom().equals(room)) {  // 세션 아이디가 같지 않으면  &&  메세지 전달한 사람과 룸번호가 같으면
 				
-				System.out.println(single);
+				WebSocketSession sess = sessions.get(i);
+				
+				TextMessage sendMsg = null;
+				System.out.println(seatResult);
 				if(seatResult.equals("예매성공")) {
 					sendMsg = new TextMessage(seatCheck.getSeatNo()+" alreadyChk");
-					single.sendMessage(sendMsg);
+					sess.sendMessage(sendMsg);
 				} else if(seatResult.equals("예매취소성공")) {
 					sendMsg = new TextMessage(seatCheck.getSeatNo()+" cancelChk");
-					single.sendMessage(sendMsg);
+					sess.sendMessage(sendMsg);
 				} else {
 					sendMsg = new TextMessage("fail");
-					single.sendMessage(sendMsg);
+					sess.sendMessage(sendMsg);
 				}
+					
 			}
-			
+				
 		}
-		
-		
 	}
 
+	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		log.info("Socket 연결 해제");
 		
-		sessions.remove(session);
-		userSessionMap.remove(sendPushUsername(session), session);
+		int userNo = ((User)session.getAttributes().get("loginUser")).getUserNo();
+		System.out.println(userNo);
+		Map<String, Object> resultMap = service.seatDelete(userNo);
+		String seatResult = (String) resultMap.get("seatResult");
+		List<SeatCheck> seatCheckList = (List<SeatCheck>) resultMap.get("seatCheckList");
+		int idx = -1;
+		if(seatResult.equals("예매취소성공")) {
+			for(int i=0;i<sessions.size();i++){
+				
+				WebSocketSession sess = sessions.get(i);
+				
+				if(!sessionList.get(i).get("userSession").equals(session.getAttributes().get("userSession"))) {  // 세션 아이디가 다른 접속자
+					TextMessage sendMsg = null;
+						for(SeatCheck seatCheck : seatCheckList) {
+							sendMsg = new TextMessage(seatCheck.getSeatNo()+" cancelChk");
+							sess.sendMessage(sendMsg);					
+						}
+				} else {
+					idx = i;
+				}
+			}
+		}
+		sessionList.remove(idx);
+		sessions.remove(idx);
+		
 	}
 	
-	private String sendPushUsername(WebSocketSession session) {
-		String loginUsername;
-		
-		if (session.getPrincipal() == null) {
-			loginUsername = null;
-		} else {
-			loginUsername = session.getPrincipal().getName();
-		}
-		return loginUsername;
-	}
 	
 }

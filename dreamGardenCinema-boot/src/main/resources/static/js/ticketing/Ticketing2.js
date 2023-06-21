@@ -42,14 +42,27 @@ if(ticket.movieTheater == 1){
                     const seatNo = document.createElement("a");
                     seatNo.classList.add("seat");
                     // 예매된 좌석이 있으면 클래스 추가("alreadyChk")
+                    for(let x=0;x<chkSeatList.length;x++){
+                        if(chkSeatList[x].seatNo == alpha+j){
+                            seatNo.classList.add("alreadyChk");
+                        }
+                    }
                     const seatSpan = document.createElement('span');
                     seatSpan.innerText = j;
                     if(j==3 | j==13){
                         seatNo.style.marginLeft = "30px"
                     }
+
+                    const inputcb = document.createElement("input");
+                    inputcb.type = 'checkbox';
+                    inputcb.name = 'seatList';
+                    inputcb.value = alpha+j;
+
+
+
                     seatNo.setAttribute("seatNo", alpha+j);
                     seatNo.setAttribute("onclick",'seatClick(this)');
-                    seatNo.append(seatSpan);
+                    seatNo.append(seatSpan, inputcb);
                     lineDiv.append(seatNo);
                 }
             }
@@ -71,6 +84,7 @@ function seatClick(e){
     let choiceSeat = document.querySelectorAll(".choiceSeat");
     
     var data = {};
+    data.room = movie.movieNo + "/" + ticket.movieTheater + "/" + ticket.movieTime;
     data.userNo = loginUser.userNo;
     data.movieNo = movie.movieNo;
     data.movieTheater = ticket.movieTheater;
@@ -88,10 +102,12 @@ function seatClick(e){
 
     socket.send(JSON.stringify(data));
 
+    e.querySelector("[name=seatList]").checked = 'true';
+
     e.classList.toggle("choiceSeat");
 }
 
-
+// 웹소켓 메시지
 socket.onmessage = function(event) {
 
     let result = event.data;

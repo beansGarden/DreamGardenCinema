@@ -28,10 +28,12 @@ public interface TicketingMapper {
 
 	int deleteSeat(SeatCheck seatCheck);
 
-	void deleteEndSeat(int userNo);
+	int deleteEndSeat(int userNo);
 
-	List<Ticket> selectChkSeatList(Ticket ticket);
+	List<SeatCheck> selectChkSeatList(Ticket ticket);
 
 	int selectSeat(SeatCheck seatCheck);
+
+	List<SeatCheck> selectEndSeat(int userNo);
 
 }

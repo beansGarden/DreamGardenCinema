@@ -180,3 +180,28 @@ body{
     justify-content: center;
     margin-top: 40px;
 }
+
+
+
+.effect{
+    position: absolute;
+    border: 2px solid #fff;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: animate 2s linear infinite;
+    z-index: 10;
+}
+
+@keyframes animate{
+    0%
+    {
+        width: 0;
+        height: 0;
+    }
+    100%
+    {
+        width: 350px;
+        height: 350px;
+    }
+}

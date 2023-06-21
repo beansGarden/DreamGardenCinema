@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 public class SeatCheck {
 
+	private String room;
 	private String movieTime;
 	private String movieTheater;
 	private int movieNo;
