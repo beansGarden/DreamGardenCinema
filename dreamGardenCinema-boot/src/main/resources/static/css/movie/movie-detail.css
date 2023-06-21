@@ -38,6 +38,7 @@ body {
     margin-top: 20px;
 }
 
+/* 상단 정보란 */
 .movie--detail__basic{
     width: 100%;
     height: 300px;
@@ -119,6 +120,60 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+
+/* 하단 정보란 */
+.outer-info{
+
+}
+
+.info-type-select{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.info-type-select button{
+    background-color: white;
+    font-size: 20px;
+    width: 49%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.bar-type{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+}
+
+
+.info-type-select button:focus{
+    outline: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+
+.select-active{
+    font-weight: bold;
+}
+
+.selecter-bar{
+    display: flex;
+    margin: 15px 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.selected-bar{
+    background-color: black;
+}
+
+
+
 
 
 /* 아랫단 봇 배너 */

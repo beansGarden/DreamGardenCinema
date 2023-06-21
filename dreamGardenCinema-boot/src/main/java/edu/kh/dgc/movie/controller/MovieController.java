@@ -110,6 +110,12 @@ public class MovieController {
 		
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
+		String story = movieInfo.getSynopsis();
+		
+		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		
+		
+		
 		model.addAttribute("movie", movieInfo);
 		model.addAttribute("advertisePoster", advertisePoster);
 		

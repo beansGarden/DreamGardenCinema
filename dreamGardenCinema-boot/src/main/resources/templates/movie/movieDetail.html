@@ -97,20 +97,30 @@
         <section class="outer-info">
 
             <div class="info-type-select">
-                <button>영화정보</button>
+                <button class="info-type-info select-active" id="infoBtn">영화정보</button>
 
-                <button>평점 및 관람평</button>
+                <button class="info-type-comment" id="commentBtn">평점 및 관람평</button>
+                
+                <div class="selecter-bar">
+                    <div class="bar-type selected-bar" id="infoBar"></div>
+                    <div class="bar-type" id="commentBar"></div>
+                </div>
             </div>
+            
 
 
             <!-- 영화 정보 -->
-            <div>
+            <div class="outer-info__type-info" th:object="${movie}">
+
+                <strong style="font-size: 20px;">시놉시스</strong>
+
+                <div th:utext="*{synopsis}" style="margin-top: 10px;"></div>
 
             </div>
 
 
             <!-- comment(평점 및 관람평) -->
-            <div>
+            <div class="outer-info__type-comment">
 
             </div>
 
@@ -152,7 +162,7 @@
         });
     </script>
 
-    <script th:src="@{/js/common/main-detail.js}"></script>
+    <script th:src="@{/js/movie/movie-detail.js}"></script>
 
 
 </body>
