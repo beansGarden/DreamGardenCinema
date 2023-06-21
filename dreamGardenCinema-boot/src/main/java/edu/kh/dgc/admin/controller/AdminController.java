@@ -392,7 +392,7 @@ public class AdminController {
 	@GetMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
 
-		int FAQNo = service.faqInsert(faq);
+		/* int FAQNo = service.faqInsert(faq); */
 
 		model.addAttribute("Faq", faq);
 

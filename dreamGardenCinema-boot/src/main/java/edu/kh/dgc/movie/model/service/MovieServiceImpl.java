@@ -87,8 +87,15 @@ public class MovieServiceImpl implements MovieService{
 		
 	}
 
-	
 
+	// 영화 상세 정보 불러오기
+	@Override
+	public Movie selectMovieDetail(int movieNo) {
+		return mapper.selectMovieDetail(movieNo);
+	}
+
+	
+	
 	
 
 	
