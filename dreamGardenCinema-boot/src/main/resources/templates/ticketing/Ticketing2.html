@@ -10,6 +10,9 @@
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing2.css}">
 </head>
 <body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
     <div class="main" th:object="${ticket}">
         <div class="ticketingBox">
             <ul class="ticketingNav">
@@ -20,7 +23,7 @@
                 <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
                 <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
             </ul>
-            <form action="" method="POST">
+            <form th:action="@{/ticketing/pay}" method="POST">
                 <div class="choiceHeader">인원/좌석 선택</div>
                 <div class="choiceCount">
                     <div class="movie_info" th:object="${map.movie}">
@@ -86,18 +89,19 @@
                 </div>
                 <div class="liquidate">
                     <div>총 합계 <span class="pay">0</span>원</div>
-                    <a href="">결제하기</a>
+                    <a th:href="@{/ticketing/pay}">결제하기</a>
                 </div>
             </form>
         </div>
     </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
 
     <script th:inline="javascript">
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
         const movie = /*[[${map.movie}]]*/ "영화";
         const ticket = /*[[${ticket}]]*/ "티켓정보";
         const chkSeatList = /*[[${map.chkSeatList}]]*/ "예약된좌석";
-        console.log(chkSeatList);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script th:src="@{/js/ticketing/Ticketing2.js}"></script>
