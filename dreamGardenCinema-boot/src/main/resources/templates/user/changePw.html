@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DGCinema</title>
-    <link rel="stylesheet" href="/css/user/accountFind.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/user/accountFind.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
@@ -64,14 +64,14 @@
 
             <div class="change-pw-text">비밀번호 변경</div>
 
-            <form action="/user/changePassword" id="changePwFrmBox" method="post">
-                <div class="input-wrapper">
+            <form th:action="@{/user/changePassword}" id="changePwFrmBox" method="post">
+                <div class="input-wrapper user-pw">
                     <label>
-                        <input type="password" name="userPw" id="userPw" placeholder="8글자 이상의 영어, 숫자를 포함해 주세요." class="">
+                        <input type="password" name="userPw" id="userPw" placeholder="8글자 이상   영어, 숫자, 특수문자를 포함해 주세요." class="">
                         <span aria-hidden="true">변경할 비밀번호</span>
                     </label>
                 </div>
-                <div class="input-wrapper">
+                <div class="input-wrapper user-re-pw">
                     <label>
                         <input type="password" name="userRePw" id="userRePw" class="">
                         <span aria-hidden="true">비밀번호 확인</span>
@@ -85,5 +85,12 @@
 
     <script th:src="@{/js/lib/jquery/jquery.js}"></script>
     <script th:src="@{/js/user/accountFind.js}"></script>
+
+    <script th:inline="javascript">
+        let message = /*[[${message}]]*/ "전달 받은 message";
+        if(message != null){
+            alert(message);
+        }
+    </script>
 </body>
 </html>

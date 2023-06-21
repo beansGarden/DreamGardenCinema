@@ -184,12 +184,20 @@ input::placeholder {
 }
 /* 입력되지 않았을 때 input 빨간줄 */
 .err-input-border{
-    border-bottom: 1px #d7373f solid !important;
+    border-bottom: 2px #d7373f solid !important;
+}
+.check-input-border{
+    border-bottom: 2px #09aa5c solid !important;
 }
 
 .authKey-green-text{color: #09aa5c;}
 .authKey-red-text{color: red;}
-
+.userErrIcon{
+    position: absolute;
+    top: 60%;
+    right: 10px;
+    transform: translateY(-50%);
+}
 #userIdErrIcon{
     position: absolute;
     top: 60%;

@@ -72,10 +72,6 @@ public class UserController {
 			RedirectAttributes ra) {
 
 		User loginUser = service.login(inputUser);
-
-//		Member inputUser = new Member();
-//		inputUser.setMemberEmail("pingpong@kh.or.kr");
-//		inputUser.setMemberNo(1);
 		String path = "redirect:";
 
 		if (loginUser != null) {
@@ -120,14 +116,14 @@ public class UserController {
 		}
 
 		if (redisUtil.getData(inputUser.getUserTel()) == null) {
-			System.out.println("인증번호 == null");
+//			System.out.println("인증번호 == null");
 			path = "user/signUp";
 			message = "인증번호가 다릅니다.";
 			ra.addFlashAttribute("message", message);
 			return path;
 		} else {
 			if (!redisUtil.getData(inputUser.getUserTel()).equals(inputUser.getAuthKey())) {
-				System.out.println("인증번호 != 폰번호");
+//				System.out.println("인증번호 != 폰번호");
 				path = "user/signUp";
 				message = "인증번호가 다릅니다.";
 				ra.addFlashAttribute("message", message);
@@ -171,20 +167,20 @@ public class UserController {
 		String message = null;
 		
 		if (redisUtil.getData(inputUser.getUserTel()) == null) {
-			System.out.println("인증번호 == null");
+//			System.out.println("인증번호 == null");
 			path = "user/accountFind";
 			message = "인증번호가 다릅니다.";
 			ra.addFlashAttribute("message", message);
 			return path;
 		} else {
 			if (!redisUtil.getData(inputUser.getUserTel()).equals(inputUser.getAuthKey())) {
-				System.out.println("인증번호 != 폰번호");
+//				System.out.println("인증번호 != 폰번호");
 				path += "user/accountFind";
 				message = "인증번호가 다릅니다.";
 				ra.addFlashAttribute("message", message);
 				return path;
 			}
-			System.out.println("인증번호 같음");
+//			System.out.println("인증번호 같음");
 			session.setAttribute("cngPwUserId", inputUser.getUserId());
 			redisUtil.deleteData(inputUser.getUserTel());
 			path += "/user/changePw";
@@ -207,15 +203,13 @@ public class UserController {
 		
 		if(result > 0) {
 			session.removeAttribute("cngPwUserId");
-			System.out.println("성공");
 			message = "비밀번호 변경에 성공했습니다.";
 			ra.addFlashAttribute("message", message);
-			path += "login";
+			path += "/login";
 		}else {
 			message = "비밀번호 변경에 실패했습니다.";
-			System.out.println("실패");
 			ra.addFlashAttribute("message", message);
-			path = "user/changePw";
+			path += "/user/changePw";
 		}
 		return path;
 	}
