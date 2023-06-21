@@ -92,6 +92,12 @@ public class TicketingController {
 		return "ticketing/Ticketing4";
 	}
 	
+	@GetMapping("/PaymentPage")
+	public String PaymentPage(Model model) {
+		
+		return "ticketing/PaymentPage";
+	}
+	
 	
 	@PostMapping("/seat")
 	public String seat(Ticket ticket
