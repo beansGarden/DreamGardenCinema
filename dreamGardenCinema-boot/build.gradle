@@ -16,6 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -73,6 +74,9 @@ dependencies {
 	
 	// 웹소켓
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    
+    // portone 결제 
+    implementation 'com.github.iamport:iamport-rest-client-java:0.2.23'
 	
 }
 

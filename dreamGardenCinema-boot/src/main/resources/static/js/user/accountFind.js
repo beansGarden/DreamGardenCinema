@@ -1,14 +1,14 @@
 // 탭
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $('ul.account-tabs li').click(function(){
-    var tab_id = $(this).attr('data-tab');
+    $('ul.account-tabs li').click(function () {
+        var tab_id = $(this).attr('data-tab');
 
-    $('ul.account-tabs li').removeClass('current');
-    $('.tab-content').removeClass('current');
+        $('ul.account-tabs li').removeClass('current');
+        $('.tab-content').removeClass('current');
 
-    $(this).addClass('current');
-    $("#"+tab_id).addClass('current');
+        $(this).addClass('current');
+        $("#" + tab_id).addClass('current');
     })
 
 })
@@ -39,8 +39,8 @@ function addClass(event) {
     const input = event.target;
     const span = input.nextElementSibling;
     if (span.tagName.toLowerCase() === "span") {
-    span.classList.remove('output-font-size-ani');
-    span.classList.add('input-font-size-ani');
+        span.classList.remove('output-font-size-ani');
+        span.classList.add('input-font-size-ani');
     }
 }
 
@@ -50,6 +50,37 @@ function removeClass(event) {
     if (input.value.trim() === '' && span.tagName.toLowerCase() === "span") {
         span.classList.remove('input-font-size-ani');
         span.classList.add('output-font-size-ani');
+    }
+}
+// 에러아이콘 추가 함수
+function addUserErrIcon(parentElementClass) {
+    const nullInputIconBox = document.createElement("div");
+    nullInputIconBox.classList.add("userErrIcon");
+    const svgCode = '<svg class="null-input-icon" fill="#d7373f" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="m40-120 440-760 440 760H40Zm104-60h672L480-760 144-180Zm340.175-57q12.825 0 21.325-8.675 8.5-8.676 8.5-21.5 0-12.825-8.675-21.325-8.676-8.5-21.5-8.5-12.825 0-21.325 8.675-8.5 8.676-8.5 21.5 0 12.825 8.675 21.325 8.676 8.5 21.5 8.5ZM454-348h60v-224h-60v224Zm26-122Z"/></svg>';
+    nullInputIconBox.innerHTML = svgCode;
+    const headerSearchModContainer = document.getElementById(parentElementClass);
+    headerSearchModContainer.parentNode.insertBefore(nullInputIconBox, headerSearchModContainer.nextSibling);
+}
+// 에러아이콘 제거 함수
+function removeUserErrIcon(parentQuerySelector) {
+    let inputWrapper = document.querySelector(parentQuerySelector);
+    if (inputWrapper) {
+        let errIcon = inputWrapper.querySelector('.userErrIcon');
+        if (errIcon) {
+            errIcon.parentNode.removeChild(errIcon);
+        }
+    }
+}
+// input container 에러아이콘 유무 체크 함수
+function checkUserErrIcon(classUserInput) {
+    // checkUserErrIcon(classUserEmail); // 사용 예시
+    const checkUserErrIcon = classUserInput.querySelector('.userErrIcon');
+    if (checkUserErrIcon != null) {
+        // console.log("에러아이콘 있음");
+        return true;
+    } else {
+        // console.log("에러아이콘 없음");
+        return false;
     }
 }
 // ----------------------------------------------- 아이디 찾기 -----------------------------------------------
@@ -66,11 +97,11 @@ const idFindMove = document.getElementById("idFindMove");
 if (idFindBtn != null) {
     idFindBtn.addEventListener("click", function (e) {
 
-        if (userBirth1.value.trim().length == 0 ) {
+        if (userBirth1.value.trim().length == 0) {
             userBirth1.value = "";
             return;
         }
-        if (userTel.value.trim().length == 0 ) {
+        if (userTel.value.trim().length == 0) {
             userTel.value = "";
             return;
         }
@@ -88,15 +119,15 @@ if (idFindBtn != null) {
                 .then(response => response.text())
                 .then(userId => {
                     if (userId != "") {
-                        resultId.innerText = 
-                        "회원님의 아이디는\u00a0\u00a0\u00a0\u00a0" + userId + "\u00a0\u00a0\u00a0\u00a0입니다.";
+                        resultId.innerText =
+                            "회원님의 아이디는\u00a0\u00a0\u00a0\u00a0" + userId + "\u00a0\u00a0\u00a0\u00a0입니다.";
                         console.log(userId);
                         userBirth1.classList.add("display-none")
                         userTel.classList.add("display-none")
                         userTelSpan.classList.add("display-none")
                         userBirth1Span.classList.add("display-none")
                         idFindBtn.classList.add("display-none")
-                        
+
                         resultId.classList.remove("display-none")
                         moveLogin.classList.remove("display-none")
                         movePwFind.classList.remove("display-none")
@@ -108,7 +139,7 @@ if (idFindBtn != null) {
                         userTelSpan.classList.add("display-none")
                         userBirth1Span.classList.add("display-none")
                         idFindBtn.classList.add("display-none")
-                        
+
                         resultId.classList.remove("display-none")
                         idFindMove.classList.remove("display-none")
                     }
@@ -147,12 +178,12 @@ function validateDateOfBirth(dateStr) {
     }
     return day <= daysInMonth;
 }
-if(userTel != null){
+if (userTel != null) {
     userTel.addEventListener("input", function () {
         this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
     });
 }
-if(userBirth1 != null){
+if (userBirth1 != null) {
     userBirth1.addEventListener("input", function () {
         this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
     });
@@ -165,12 +196,12 @@ const userTel2 = document.getElementById("userTel2");
 const authKeyLifeTime = document.getElementById("authKeyLifeTime");
 const authKey = document.getElementById("authKey");
 const authKeyResend = document.querySelector(".authKeyResend");
-if(userTel != null){
+if (userTel != null) {
     authKey.addEventListener("input", function () {
         this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
     });
 }
-if(userTel != null){
+if (userTel != null) {
     userTel2.addEventListener("input", function () {
         this.value = this.value.replace(/\D/g, ""); // 숫자 이외의 값 제거
     });
@@ -192,7 +223,7 @@ function sendAuthKeyButtonClick(sendAuthKeyBtn) {
         clearInterval(interval);
         interval = null;
     }
-console.log(userTel2.value);
+    console.log(userTel2.value);
     if (userTel2.value) {
         authKeyLifeTime.classList.remove("display-none");
         authKeyLifeTime.classList.add("authKey-green-text");
@@ -254,4 +285,126 @@ function startCountdown() {
             interval = null;
         }
     }, 1000);
+}
+
+// ----------------------------------------------- 비밀번호 유효성 검사 -----------------------------------------------
+const userPw = document.getElementById("userPw");
+const userRePw = document.getElementById("userRePw");
+const classUserPw = document.querySelector('.user-pw');
+const classUserRePw = document.querySelector('.user-re-pw');
+
+const checkObj = {
+    "userPw": false,
+    "userRePw": false
+};
+
+if (userPw != null || userRePw != null) {
+    userPw.addEventListener("input", (e) => {
+
+        if (userPw.value.trim().length == 0) {
+            userPw.value = "";
+
+            userPw.classList.add("err-input-border");
+            if (checkUserErrIcon(classUserPw) == false) { addUserErrIcon("userPw"); }
+            checkObj.userPw = false;
+            return;
+        }
+        const regEx = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-z\d$@$!%*#?&]{8,}$/;
+        // 8~ 영문 소문자, 최소 1개의 숫자 혹은 특수 문자 포함
+
+        if (regEx.test(userPw.value)) {
+            checkObj.userPw = true;
+
+            // 비밀번호가 유효하게 작성된 상태에서
+            // 비밀번호 확인이 입력되지 않았을 때
+            if (userRePw.value.trim().length == 0 || userRePw.value.trim().length != 0) {
+                userPw.classList.add("check-input-border");
+                userPw.classList.remove("err-input-border");
+                removeUserErrIcon(".user-pw");
+            } else {
+                // 비밀번호가 유효하게 작성된 상태에서
+                // 비밀번호 확인이 입력되어 있을 때
+                // 비밀번호 == 비밀번호 확인  (같을 경우)
+                if (userPw.value == userRePw.value) {
+                    userRePw.classList.add("check-input-border");
+                    userRePw.classList.remove("err-input-border");
+                    removeUserErrIcon(".user-re-pw");
+                    checkObj.userRePw = true;
+
+                } else { // 다를 경우
+                    userRePw.classList.add("err-input-border");
+                    userRePw.classList.remove("check-input-border");
+                    if (checkUserErrIcon(classUserRePw) == false) { addUserErrIcon("userRePw"); }
+                    checkObj.userRePw = false;
+                }
+            }
+        } else { // 유효하지 않은 경우
+            userPw.classList.add("err-input-border");
+            userPw.classList.remove("check-input-border");
+            if (checkUserErrIcon(classUserPw) == false) { addUserErrIcon("userPw"); }
+            checkObj.userPw = false;
+        }
+    });
+
+    userPw.addEventListener("input", (e) => {
+        // 비밀번호 확인 유효성 검사
+        if (checkObj.userPw) { // 비밀번호가 유효하게 작성된 경우에
+
+            // 비밀번호 == 비밀번호 확인  (같을 경우)
+            if (userPw.value == userRePw.value) {
+                userRePw.classList.add("check-input-border");
+                userRePw.classList.remove("err-input-border");
+                removeUserErrIcon(".user-re-pw");
+                checkObj.userRePw = true;
+
+            } else { // 다를 경우
+                userRePw.classList.add("err-input-border");
+                userRePw.classList.remove("check-input-border");
+                if (checkUserErrIcon(classUserRePw) == false) { addUserErrIcon("userRePw"); }
+                checkObj.userRePw = false;
+            }
+
+        } else { // 비밀번호가 유효하지 않은 경우
+            checkObj.userRePw = false;
+        }
+    });
+    userRePw.addEventListener('input', () => {
+
+        if (checkObj.userPw) { // 비밀번호가 유효하게 작성된 경우에
+
+            // 비밀번호 == 비밀번호 확인  (같을 경우)
+            if (userPw.value == userRePw.value) {
+                userRePw.classList.add("check-input-border");
+                userRePw.classList.remove("err-input-border");
+                removeUserErrIcon(".user-re-pw");
+                checkObj.userRePw = true;
+
+            } else { // 다를 경우
+                userRePw.classList.add("err-input-border");
+                userRePw.classList.remove("check-input-border");
+                if (checkUserErrIcon(classUserRePw) == false) { addUserErrIcon("userRePw"); }
+                checkObj.userRePw = false;
+            }
+
+        } else { // 비밀번호가 유효하지 않은 경우
+            checkObj.userRePw = false;
+        }
+    });
+}
+// ----------------------------------------------- 비밀번호 유효성 검사 끝 -----------------------------------------------
+if (document.getElementById("changePwFrmBox") != null) {
+    document.getElementById("changePwFrmBox").addEventListener("submit", e => {
+        for (let key in checkObj) {
+            if (!checkObj[key]) {
+                switch (key) {
+                    case "userPw":
+                        alert("비밀번호가 유효하지 않습니다"); break;
+                    case "userRePw":
+                        alert("비밀번호가 확인되지 않았습니다"); break;
+                }
+                e.preventDefault();
+                return;
+            }
+        }
+    });
 }
