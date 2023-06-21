@@ -6,20 +6,132 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DreamGardenMovieTheater</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{/css/movie/movie-detail.css}">
+
+    
 </head>
 
 <body>
 
     <th:block th:replace="~{common/header-white}"></th:block>
 
+    <section class="movie--Top__banner">
+        <div class="swiper movie--main--slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://dummyimage.com/800x560/6e2424/ebebeb&text=silder"></div>
+                <div class="swiper-slide"><img src="https://dummyimage.com/800x560/6e2424/ebebeb&text=silder"></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
 
+    <div class="info-wrapper">
+        <section class="movie--detail__basic" th:object="${movie}">
+
+            <div class="detail--movie-poster"><img th:src="@{|*{poster}|}"></div>
+            
+            <div class="detail--movie-info">
+
+                <div class="movie--title font0">
+                    <span><img th:src="@{|*{rating}|}"></span>
+                    <span th:text="*{movieTitle}">영화 제목</span>
+                </div>
+
+                <div class="movie--audience-info font2">
+                    <span th:text="|관람객 평점|">관람객 평점</span>
+                    <span th:text="|예매율|">예매율</span>
+                    <span th:text="|누적관객수|">누적 관객수</span>
+                </div>
+
+                <hr>
+
+                <div class="movie--simple-info">
+
+                    <div class="movie-info">
+
+                        <ul>
+
+                            <li class="info-line1">
+                                장르 <span th:text="*{genre}">장르</span> 
+                                |
+                                <span th:text="|*{releaseDate} 개봉|">개봉일</span>
+                                |
+                                <span th:text="|*{runningTime}분|">상영길이</span>
+                            </li>
+
+                            <li>
+                                감독
+                            </li>
+
+                            <li>
+                                출연
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="movie-ticket font2">
+
+                        <a href="#">예매하기</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                
+            </div>
+            
+            
+        </section>
+
+
+        <section class="movie--bot__banner">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </section>
+
+
+    </div>
 
 
     <th:block th:replace="~{common/footer}"></th:block>
 
+    <!-- swiper js -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script th:src="@{/js/common/main.js}"></script>
+
+    <!-- swiper js 초기화 -->
+    <script>
+        var swiper = new Swiper(".movie--main--slider", {
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+    <script th:src="@{/js/common/main-detail.js}"></script>
+
+
 </body>
 
 </html>

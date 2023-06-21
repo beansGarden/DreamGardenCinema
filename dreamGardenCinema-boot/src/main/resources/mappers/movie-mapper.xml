@@ -12,7 +12,6 @@
 		<result property="releaseDate" column="RELEASE_DATE"/>
 		<result property="producer" column="PRODUCER"/>
 		<result property="moviePrice" column="MOVIE_PRICE"/>		
-		<result property="mainPoster" column="MAIN_POSEER"/>		
 		<result property="genre" column="GENRE"/>		
 		<result property="screening" column="SCREENING"/>
 		<result property="rank" column="ROWNUM"/>
@@ -68,6 +67,12 @@
 			ORDER BY DBMS_RANDOM.RANDOM
 			)
 		WHERE rownum = 1
+	</select>
+	
+	<select id="selectMovieDetail" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIE_NO = #{movieNo}
 	</select>
 	
 </mapper>

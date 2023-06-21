@@ -48,6 +48,13 @@ public interface MovieService {
 	 * @return
 	 */
 	List<Movie> selectMovieList(int currentPage, String movieType);
+	
+	
+	/** 영화 상세 정보 불러오기
+	 * @param movieNo
+	 * @return
+	 */
+	Movie selectMovieDetail(int movieNo);
 
 	
 
