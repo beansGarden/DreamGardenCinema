@@ -213,7 +213,7 @@ function theList() {
 
 
 /************** 회원 관련 게시글 목록 출력하기 ****************/
-function cusList(){
+function cusList() {
 
   const FAQlistContents = document.querySelector(".FAQ-list-contents");
   const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
@@ -329,7 +329,7 @@ function cusList(){
 
 
 /************** 멤버십 관련 게시글 목록 출력하기 **************/
-function memList(){
+function memList() {
 
   const FAQlistContents = document.querySelector(".FAQ-list-contents");
   const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
@@ -443,6 +443,153 @@ function memList(){
 
 
 /************** 검색어가 FAQ 제목과 일치하는 목록 출력하기 **************/
+
+
+const searchArea = document.querySelector(".notice-search-area");
+const FAQlistContents = document.querySelector(".FAQ-list-contents");
+const searchBtn = document.querySelector(".service-search-btn");
+
+searchBtn.addEventListener("click", () => {
+  const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
+  existingFAQItems.forEach((item) => {
+    item.remove();
+  });
+
+  const query = document.getElementById("query").value.trim();
+
+  fetch("/customerservice/searchFAQ?searchQuery=" + query)
+    .then(resp => resp.json())
+    .then(searchFAQList => {
+
+      console.log(searchFAQList);
+
+      if (searchFAQList.length == 0) {
+
+        const firstBox = document.createElement("div");
+        firstBox.classList.add("FAQ-first-box");
+
+
+        const noneContent = document.createElement("span");
+        noneContent.classList.add("divideFAQ");
+        noneContent.innerText = "일치하는 검색 결과가 없습니다.";
+        noneContent.style.fontSize = "17px";
+        noneContent.style.display = "flex";
+        noneContent.style.justifyContent = "center";
+        noneContent.style.padding="10px 0px 10px 160px";
+        noneContent.style.borderBottom="2px solid #ccc";
+        
+        
+
+        firstBox.appendChild(noneContent);
+        FAQlistContents.appendChild(firstBox);
+
+        // FAQlistContents.innerHTML="";
+
+      } else {
+
+        for (let sList of searchFAQList) {
+          const firstBox = document.createElement("div");
+          firstBox.classList.add("FAQ-first-box");
+
+          const inquiryContent = document.createElement("div");
+          inquiryContent.classList.add("FAQ-inquiry-content");
+
+          const categoryTitle = document.createElement("span");
+          categoryTitle.classList.add("categoryTitle");
+          categoryTitle.innerHTML = sList.categoryTitle;
+          inquiryContent.appendChild(categoryTitle);
+
+          const contentsContainer = document.createElement("a");
+          contentsContainer.classList.add("FAQ-contents-container");
+
+          const Qicon = document.createElement("img");
+          Qicon.classList.add("Qicon");
+          Qicon.src = "/images/customerservice/Q아이콘.png";
+          contentsContainer.appendChild(Qicon);
+
+          const faqTitle = document.createElement("span");
+          faqTitle.innerHTML = sList.faqtitle;
+          contentsContainer.appendChild(faqTitle);
+
+          inquiryContent.appendChild(contentsContainer);
+
+          const FAQBtn = document.createElement("div");
+          FAQBtn.classList.add("FAQ-btn");
+
+          const downBtn = document.createElement("img");
+          downBtn.classList.add("downBtn");
+          downBtn.src = "/images/customerservice/down화살표.png";
+          FAQBtn.appendChild(downBtn);
+
+          const upBtn = document.createElement("img");
+          upBtn.classList.add("upBtn");
+          upBtn.src = "/images/customerservice/up화살표.png";
+          FAQBtn.appendChild(upBtn);
+
+          inquiryContent.appendChild(FAQBtn);
+          firstBox.appendChild(inquiryContent);
+
+          const answerBox = document.createElement("div");
+          answerBox.classList.add("FAQ-answer-box");
+          answerBox.style.display = "none";
+
+          const answer = document.createElement("div");
+          answer.classList.add("FAQ-answer");
+
+          const Aicon = document.createElement("img");
+          Aicon.src = "/images/customerservice/A아이콘.png";
+          answer.appendChild(Aicon);
+
+          const pre = document.createElement("pre");
+          pre.innerHTML = sList.faqcontent;
+          answer.appendChild(pre);
+
+          answerBox.appendChild(answer);
+          firstBox.appendChild(answerBox);
+
+          FAQlistContents.appendChild(firstBox);
+        
+          
+        }
+
+        if (searchFAQList.length > 0) {
+
+          for (let i = 0; i < searchFAQList.length; i++) {
+            const answerBox = document.getElementsByClassName("FAQ-answer-box")[i];
+            const downBtn = document.querySelectorAll(".downBtn")[i];
+            const upBtn = document.querySelectorAll(".upBtn")[i];
+
+            console.log(answerBox);
+            downBtn.addEventListener("click", () => {
+              if (answerBox.style.display === "none") {
+                answerBox.style.display = "block";
+                downBtn.style.display = "none";
+                upBtn.style.display = "block";
+              }
+            });
+            upBtn.addEventListener("click", () => {
+              if (answerBox.style.display === "block") {
+                answerBox.style.display = "none";
+                downBtn.style.display = "block";
+                upBtn.style.display = "none";
+              }
+            });
+
+          }
+        }
+        
+        // FAQlistContents.innerHTML = "";
+
+      }
+
+    })
+
+})
+
+
+
+
+
 
 /************************************************************************/
 

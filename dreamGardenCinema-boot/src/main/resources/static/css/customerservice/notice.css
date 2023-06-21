@@ -159,19 +159,15 @@ a {
 
 /* 공지사항 목록 */
 
-.notice-contents-box{
-    border-top: 3px solid #ccc;
+
+
+.notice-list-box{
     width: 70vw;
     display: flex;
     flex-direction: column;
 
 }
 
-.service-notice-list{
-    display: inline-block;
-    width: 70vw;
-
-}
 
 .service-notice-title{
     padding-top: 10px;

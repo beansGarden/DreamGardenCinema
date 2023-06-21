@@ -34,7 +34,7 @@
 
         <div class="service-search-area">
 
-            <form th:action="@{#}" method="GET" class="sevice-search-smt">
+            <form th:action="@{/customerservice/searchFAQ}" method="GET" class="service-search-smt">
 
                 <!-- FAQ 카테고리  -->
 
@@ -89,7 +89,7 @@
                         <div class="FAQ-inquiry-content">
 
                             <!-- <h1 th:text="${faq}"></h1> -->
-                            <span th:text="${faq.categoryTitle}">FAQ구분</span>
+                            <span th:text="${faq.categoryTitle}" class="divideFAQ">FAQ구분</span>
                             <a class="FAQ-contents-container">
                                 <img th:src="@{/images/customerservice/Q아이콘.png}" class="Qicon">
                                 <span th:text="${faq.FAQTitle}">제목</span>

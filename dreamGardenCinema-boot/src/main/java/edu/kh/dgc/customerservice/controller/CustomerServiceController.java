@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.customerservice.model.service.CustomerService;
+import edu.kh.dgc.notice.model.dto.Notice;
 
 @RequestMapping("/customerservice")
 @Controller
@@ -30,7 +32,31 @@ public class CustomerServiceController {
 		System.out.println(FAQList);
 		
 		return "customerservice/FAQ";
+		
 	}
+	
+	// 공지사항 페이지 전체목록 출력
+		@GetMapping("/notice")
+		public String noticeList(Model model, Notice notice) {
+			
+			List<Notice> list = service.noticeList(notice);
+			
+			model.addAttribute("list", list);
+			
+			System.out.println(list);
+			
+			return "customerservice/notice";
+		}
+		
+		
+		// 공지사항 확인 페이지
+		@GetMapping("/noticeCon")
+		public String noticeCon() {
+			
+			return "customerservice/notice-con";
+		}
+	
+	
 	
 	// 멤버십 이용 약관 페이지
 	@GetMapping("/terms")
@@ -39,23 +65,25 @@ public class CustomerServiceController {
 		return "customerservice/membership-info";
 	}
 	
+	// 메인 페이지
 	@GetMapping("/FAQ")
 	public String FAQ() {
 		
 		return "customerservice/FAQ";
 	}
 	
-	@GetMapping("/notice")
-	public String notice() {
-		
-		return "customerservice/notice";
-	}
 	
+	
+	
+	// 1:1 문의 페이지
 	@GetMapping("/service")
 	public String service1() {
 		
 		return "customerservice/questionBoard";
 	}
+	
+	
+	
 	
 	
 	

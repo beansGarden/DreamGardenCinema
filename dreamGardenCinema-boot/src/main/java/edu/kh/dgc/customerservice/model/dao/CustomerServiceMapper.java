@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
+import edu.kh.dgc.notice.model.dto.Notice;
 
 @Mapper
 public interface CustomerServiceMapper {
@@ -20,5 +21,11 @@ public interface CustomerServiceMapper {
 	
 	// FAQ(멤버십 관련) 목록 조회
 	List<FAQ> membList(String FAQCategory);
+
+	// 검색어와 일치하는 FAQ 목록 조회
+	List<FAQ> searchFAQList(String searchQuery);
+
+	// 공지사항 전체목록 조회
+	List<Notice> noticeList(Notice notice);
 
 }

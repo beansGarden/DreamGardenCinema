@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객센터-공지사항 게시글 확인</title>
 
-    <link rel="stylesheet" href="/src/main/resources/static/css/customerservice/notice-con.css">
+    <link rel="stylesheet" th:href="@{/css/customerservice/notice-con.css}">
 </head>
 
 <body>
 
+    <th:block th:replace="~{common/header-white}"></th:block>
 
     <div class="customer-service-box">
 
@@ -22,9 +23,9 @@
 
         <div class="service-list">
             <ul class="service-list-choose">
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">1:1문의</a></li>
+                <li><a th:href="@{/customerservice/}">FAQ</a></li>
+                <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                <li><a th:href="@{/customerservice/service}">1:1문의</a></li>
             </ul>
         </div>
 
@@ -57,7 +58,7 @@
 
         <div class="notice-contents-empty-line"></div>
 
-        <a href="#" class="notice-list-btn"><button id="noticeListBtn">목록</button></a>
+        <a th:href="@{/customerservice/notice}" class="notice-list-btn"><button id="noticeListBtn">목록</button></a>
 
 
 

@@ -36,7 +36,7 @@
 
         <div class="service-search-area">
 
-            <form action="#" method="GET" class="sevice-search-smt">
+            <form th:action="@{#}" method="GET" class="sevice-search-smt">
 
                 <!-- 검색 종류 선택 -->
                 <div class="service-search-list">
@@ -69,96 +69,19 @@
                     <span>번호</span> <span>제목</span> <span>등록일</span>
                 </div>
 
-                <a th:href="@{#}" class="service-notice-list">
-                    <div class="customer-service-inquiry-content">
-                        <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                    </div>
-                    <!-- <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div>
-                <div class="customer-service-inquiry-content">
-                    <span>1</span> <span>Dream Garden Cinema 개인정보처리 방침</span> <span>2023-06-07</span>
-                </div> -->
-                </a>
+                <th:block th:each="i :${list}">
+                    <div class="notice-list-box">
 
+                        <div class="customer-service-inquiry-content">
+                            <span th:text="${i.noticeNo}">번호</span>
+                            <a th:href="@{/customerservice/noticeCon}" class="service-notice-list">
+                                <span th:text="${i.noticeTitle}">제목</span>
+                            </a>
+                            <span th:text="${i.enrollDate}">등록일</span>
+                        </div>
+
+                    </div>
+                </th:block>
             </div>
 
             <!-- 페이지 번호 -->
