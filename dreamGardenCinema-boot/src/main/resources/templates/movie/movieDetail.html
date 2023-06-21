@@ -80,7 +80,9 @@
 
                     <div class="movie-ticket font2">
 
-                        <a href="#">예매하기</a>
+                        <a class="ticket-active" th:if="*{screening == 'C'}" href="#">예매하기</a>
+
+                        <div class="ticket-non-active" th:unless="*{screening == 'C'}">상영예정</div>
 
                     </div>
 
@@ -88,17 +90,38 @@
 
             </div>
 
-            <div>
-                
-            </div>
             
             
         </section>
+        
+        <section class="outer-info">
 
+            <div class="info-type-select">
+                <button>영화정보</button>
+
+                <button>평점 및 관람평</button>
+            </div>
+
+
+            <!-- 영화 정보 -->
+            <div>
+
+            </div>
+
+
+            <!-- comment(평점 및 관람평) -->
+            <div>
+
+            </div>
+
+
+
+        </section>
 
         <section class="movie--bot__banner">
             <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
         </section>
+
 
 
     </div>
