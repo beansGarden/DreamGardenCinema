@@ -48,8 +48,8 @@ public class TicketingServiceImpl implements TicketingService{
 		
 		Movie movie = mapper.selectMovie(ticket);
 		ticket.setMovieTime(ticket.getMovieTime().split(" ")[0] + ticket.getMovieTime().split(" ")[2]);
-		List<Ticket> chkSeatList = mapper.selectChkSeatList(ticket); 
-		
+		List<SeatCheck> chkSeatList = mapper.selectChkSeatList(ticket); 
+		System.out.println(chkSeatList);
 		map.put("movie", movie);
 		map.put("chkSeatList", chkSeatList);
 		
@@ -83,6 +83,28 @@ public class TicketingServiceImpl implements TicketingService{
 		}
 		
 		return seatResult;
+	}
+
+	@Override
+	public Map<String, Object> seatDelete(int userNo) {
+		
+		Map<String, Object> seatResultMap = new HashMap<>();
+		
+		List<SeatCheck> seatCheckList = mapper.selectEndSeat(userNo);
+		
+		int result = mapper.deleteEndSeat(userNo);
+		
+		String seatResult = null;
+		if(result>0) {
+			seatResult = "예매취소성공";
+		} else {
+			seatResult = "예매취소실패";
+		}
+		
+		seatResultMap.put("seatCheckList", seatCheckList);
+		seatResultMap.put("seatResult", seatResult);
+		
+		return seatResultMap;
 	}
 
 

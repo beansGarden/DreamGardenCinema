@@ -24,7 +24,7 @@ import edu.kh.dgc.ticketing.model.service.TicketingService;
 import edu.kh.dgc.user.model.dto.User;
 
 @RequestMapping("/ticketing")
-@SessionAttributes({ "loginUser", "movieList" })
+@SessionAttributes({"loginUser", "room"})
 @Controller
 public class TicketingController {
 
@@ -92,6 +92,12 @@ public class TicketingController {
 		return "ticketing/Ticketing4";
 	}
 	
+	@GetMapping("/PaymentPage")
+	public String PaymentPage(Model model) {
+		
+		return "ticketing/PaymentPage";
+	}
+	
 	
 	@PostMapping("/seat")
 	public String seat(Ticket ticket
@@ -113,6 +119,10 @@ public class TicketingController {
 		int minute = Integer.parseInt(movieTime.substring(3,5));
 		Movie movie = (Movie) map.get("movie");
 		int runTime = Integer.parseInt(movie.getRunningTime());
+		
+		String room = ticket.getMovieNo() + "/" + movieTheater + "/" + date.substring(0, 8) + movieTime;
+		
+		model.addAttribute("room", room);
 		
 				
 		System.out.println((minute + runTime)/60);

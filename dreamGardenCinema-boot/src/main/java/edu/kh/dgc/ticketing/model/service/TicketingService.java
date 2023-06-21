@@ -22,4 +22,6 @@ public interface TicketingService {
 
 	String seatCheck(SeatCheck seatCheck);
 
+	Map<String, Object> seatDelete(int userNo);
+
 }
