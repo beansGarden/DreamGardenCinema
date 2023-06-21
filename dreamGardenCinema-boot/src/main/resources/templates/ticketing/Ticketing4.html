@@ -9,6 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing4.css}">
 </head>
 <body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
     <div class="main">
         <div class="ticketingBox">
             <ul class="ticketingNav">
@@ -61,6 +64,8 @@
             </form>
         </div>
     </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
 
     <h1 th:text="${ticket}"></h1>
     <script th:src="@{/js/ticketing/Ticketing4.js}"></script>

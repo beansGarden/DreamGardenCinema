@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    user-select: none;
+}
+
+/* 윗단 탑 슬라이드 */
+.movie--Top__banner {
+    width: 100%;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    background-color: black;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+}
+
+.swiper-button-next, .swiper-button-prev{
+    color: gray;
+}
+
+
+/* 영화 정보 */
+.info-wrapper{
+    width: 980px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.movie--detail__basic{
+    width: 100%;
+    height: 300px;
+    display: flex;
+}
+
+.detail--movie-poster{
+    position: relative;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.detail--movie-poster img{
+    width: 205px;
+    border-radius: 5px;
+    
+    position: relative;
+    top: -80px;
+    z-index: 3;
+}
+
+.detail--movie-info{
+    width: 75%;
+    padding: 20px;
+}
+
+.movie--audience-info{
+    margin: 20px 0;
+    display: flex;
+    gap: 20px;
+}
+
+/* 영화 단순 정보 */
+.movie--simple-info{
+    padding: 20px;
+    display: flex;
+
+}
+
+.movie-info{
+    width: 75%;
+}
+
+.info-line1 span{
+    padding: 0 5px;
+}
+
+
+.movie-info li{
+    margin: 5px 0;
+}
+
+.movie-ticket{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movie-ticket a{
+    width: 80%;
+    height: 50px;
+    background-color: red;
+    color: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* 아랫단 봇 배너 */
+.movie--bot__banner {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}

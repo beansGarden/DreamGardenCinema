@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,6 +100,20 @@ public class MovieController {
 //		System.out.println(currentPage + " + " +  movieType + " + " + buttonType);
 		
 		return service.selectMovieList(currentPage, movieType);
+	}
+	
+	@GetMapping("/movieDetail={movieNo}")
+	public String selectMovieDetail(@PathVariable("movieNo") int movieNo,
+									Model model) {
+		
+		Movie movieInfo = service.selectMovieDetail(movieNo);
+		
+		Map<String, String> advertisePoster = service.selectAdvertisePoster();
+		
+		model.addAttribute("movie", movieInfo);
+		model.addAttribute("advertisePoster", advertisePoster);
+		
+		return "movie/movieDetail";
 	}
 	
 	

@@ -26,10 +26,8 @@ public class Qna {
 	private int qnaCommentNo;
 	private String qnaCommentDate;
 	private String qnaCommentFl;
-	private String qnaComment;
 	
 	//JOIN USER_INFO
-	
 	private int userRating;
 	
 	//검색필터

@@ -20,7 +20,6 @@ public class Movie {
 	private String releaseDate;
 	private String producer;
 	private int moviePrice;
-	private String mainPoster;
 	private String genre;
 	private String screening;
 	private int rank;

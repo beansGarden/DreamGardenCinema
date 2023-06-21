@@ -109,7 +109,7 @@
         </div>
 
         <div id="pwFind" class="tab-content">
-            <form th:action="@{/user/findPassword}" id="changePwFrmBox" method="post">
+            <form th:action="@{/user/findPassword}" id="findPwFrmBox" method="post">
                 <div class="input-wrapper">
                     <label>
                         <input type="text" name="userId" id="userId" class="">
@@ -137,7 +137,7 @@
         </div>
 
     </div>
-
+    <th:block th:replace="~{common/footer}"></th:block>
     <script th:src="@{/js/lib/jquery/jquery.js}"></script>
     <script th:src="@{/js/user/accountFind.js}"></script>
 </body>

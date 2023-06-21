@@ -23,6 +23,8 @@ public interface MovieMapper {
 
 	public Map<String, String> selectAdvertisePoster();
 
+	public Movie selectMovieDetail(int movieNo);
+
 
 	
 

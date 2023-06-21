@@ -1,5 +1,7 @@
 package edu.kh.dgc.user.model.service;
 
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -60,11 +62,15 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	// 비번 변경
+	public boolean isPw(String str) {
+	    return Pattern.matches("^(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-z\\d$@$!%*#?&]{8,}$", str);
+	}
+	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int changePw(String userPw, String userRePw, String userId) {
-		if (userPw.equals(userRePw)) {
+		
+		if (userPw.equals(userRePw) && isPw(userPw) && isPw(userRePw)) {
 			User user = new User();
 			user.setUserPw(bcrypt.encode(userPw));
 			user.setUserId(userId);
