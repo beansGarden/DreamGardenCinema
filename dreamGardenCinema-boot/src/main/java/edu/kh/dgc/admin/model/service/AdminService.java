@@ -29,8 +29,6 @@ public interface AdminService {
 	//1:1 문의 게시글 쓰기(삽입)
 	int qnaInsert(Qna qna);
 
-	//1:1문의 게시글 답변 쓰기(삽입)
-	int qnaAnswerInsert(QnaComment qnaComment);
 
 	//1:1문의 게시글 답변 등록 확인(업데이트)
 	QnaComment updateAnswer(int qnaNo);
@@ -39,8 +37,11 @@ public interface AdminService {
 	QnaComment selectQnaCommentList(QnaComment qnaComment);
 
 	//1:1문의 게시글 답변 수정 (update)
-	int qnaAnswerUpdate(QnaComment qnaComment);
+	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 	
+	//1:1문의 게시글 답변 쓰기 (insert)
+	int qnaAnswerInsert(QnaComment qnaComment);
+
 	//1:1문의 게시글검색
 	List<Qna> getSearchList(Qna qnaList);
 
@@ -71,6 +72,11 @@ public interface AdminService {
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
+	
+	//공지사항 게시글 검색
+	List<Notice> getNoticeSearchList(Notice noticeList);
+
+
 
 	
 	//FAQ (자주 찾는 질문) 관리*****************************
@@ -94,8 +100,10 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 게시글 선택 삭제
 	int deleteFaq(int fAQNo);
 
+	//FAQ (자주 찾는 질문) 게시글 검색
+	List<FAQ> getFaqSearchList(FAQ faqList);
 
-
+	
 
 
 

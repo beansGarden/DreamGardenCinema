@@ -26,4 +26,8 @@ public class Movie {
 	private int rank;
 	private String ratio;
 	
+	//Movie schedule 조인 상영관
+	private String movieTheater;
+	private String movieTime;
+	
 }

@@ -126,12 +126,13 @@
 	</insert>
 
 	<!--글 답변 삽입-->
-		<insert id="qnaAnswerInsert">
+	<insert id="qnaAnswerInsert" parameterType="QnaComment" useGeneratedKeys="true">
+
+		<selectKey order = "BEFORE" resultType="_int" keyProperty = "qnaCommentNo">
+			SELECT SEQ_QNACOMMENT_NO.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO "QNA _COMMENT"
-		VALUES (SEQ_QNACOMMENT_NO.NEXTVAL,DEFAULT,DEFAULT,
-		(SELECT USER_NO FROM "QNA _COMMENT"
-		WHERE QNA_NO =#{qnaNo}),
-		#{qnaNo},#{qnaComment})
+		VALUES (#{qnaCommentNo},DEFAULT,DEFAULT,(SELECT USER_NO FROM "QNA _COMMENT" WHERE QNA_NO = #{qnaNo}),#{qnaNo},#{qnaComment})
 	</insert>
 	
 	<!--글 답변 수정-->
@@ -152,7 +153,7 @@
 	<select id="selectQnaCommentList" resultMap="qnaComment_rm">
 		SELECT QNA_COMMENT_NO,QNA_COMMENT_DATE,QNA_COMMENT_FL,USER_NO,QNA_NO,QNA_COMMENT
 		 FROM "QNA _COMMENT"
-		 WHERE QNA_NO = #{qnaNo}
+		 WHERE  QNA_NO = #{qnaNo}
 	</select>
 	<!--QNA 검색하기-->
   <select id="getSearchList" parameterType="Qna" resultMap="qna_rm">
@@ -172,9 +173,11 @@
         <bind name="formattedKeyword" value="'%' + keyword + '%'"/>
         AND QNA.QNA_CONTENT LIKE #{formattedKeyword}
       </when>
-      <when test="type != null and type.equals('writer')">
+       <when test="type != null and type.equals('writer')">
+        <bind name="formattedKeyword" value="'%' + keyword + '%'"/>
         AND USER_INFO.USER_NICKNAME LIKE #{keyword}
       </when>
+     
     </choose>
   </select>
 	
@@ -237,14 +240,38 @@
 	</update>-->
 
 	<!--공지사항 게시글 삭제-->
-		<update id="noticeDelete">
+	<update id="noticeDelete">
 		UPDATE NOTICE 
 		SET NOTICE_FL = 'Y'
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
-	
-	
+		<!--공지사항 검색하기-->
+		<select id="getNoticeSearchList" parameterType="Notice" resultMap="notice_rm">
+		  SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD') AS NOTICE_ENROLL_DATE, NOTICE_VIEWPOINT, NOTICE_FL
+		  FROM NOTICE
+		  <where>
+		    <choose>
+		      <when test="type != null and type.equals('number')">
+		        <if test="keyword != null and keyword != ''">
+		          AND NOTICE_NO LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('title')">
+		        <if test="keyword != null and keyword != ''">
+		          AND NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('content')">
+		        <if test="keyword != null and keyword != ''">
+		          AND NOTICE_CONTENT LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		    </choose>
+		  </where>
+		</select>
+
+  
 	
 	<!--/////////FAQ//////////-->
 	
@@ -271,7 +298,7 @@
 		WHERE FAQ_NO = #{FAQNo}
 	</update>
 	
-		<update id="deleteFaq">
+	<update id="deleteFaq">
 		UPDATE "FAQ"
 		SET
 		FAQ_DELETE_FL = 'Y'
@@ -282,6 +309,32 @@
 		INSERT INTO "FAQ"
 		VALUES (SEQ_FAQ_NO.NEXTVAL,#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
 	</insert>
+		
+	<select id="getFaqSearchList" parameterType="FAQ" resultMap="faq_rm">
+		  SELECT FAQ.FAQ_NO, FAQ.FAQ_TITLE, FAQ_CONTENT, FAQ_DELETE_FL, FAQ_CATEGORY
+	  	  FROM FAQ
+		  <where>
+		    <choose>
+		      <when test="type != null and type.equals('number')">
+		        <if test="keyword != null and keyword != ''">
+		          AND FAQ_NO LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('title')">
+		        <if test="keyword != null and keyword != ''">
+		         AND FAQ_TITLE LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('content')">
+		        <if test="keyword != null and keyword != ''">
+		          AND FAQ_CONTENT LIKE  '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		    </choose>
+		  </where>
+		</select>
+
+
 
 
 </mapper>

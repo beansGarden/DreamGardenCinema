@@ -46,9 +46,9 @@ public interface AdminMapper {
 	QnaComment selectQnaCommentList(QnaComment qnaCommentNo);
 	
 	//1:1문의 게시글 답변 수정 (update)
-	int qnaAnswerUpdate(QnaComment qnaComment);
+	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 
-	//1:1문의 게시글 
+	//1:1문의 게시글 검색
 	List<Qna> getSearchList(Qna qnaList);
 	
 	//회원관리*****************************************************
@@ -94,8 +94,14 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int noticeDelete(int noticeNo);
-
 	
+	/**FAQ (자주 찾는 질문) 게시글 검색
+	 * @param noticeList
+	 * @return
+	 */
+	List<Notice> getNoticeSearchList(Notice noticeList);
+
+
 	//FAQ (자주 찾는 질문) List 조회*****************************
 	
 	/**FAQ 게시판 List 조회
@@ -136,7 +142,15 @@ public interface AdminMapper {
 	int deleteFaq(int fAQNo);
 
 
+	/**FAQ 게시글 검색
+	 * @param faqList
+	 * @return
+	 */
+	List<FAQ> getFaqSearchList(FAQ faqList);
 
+
+
+	
 
 
 

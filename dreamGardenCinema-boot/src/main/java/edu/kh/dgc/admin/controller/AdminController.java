@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,21 +88,22 @@ public class AdminController {
 	}
 
 	// 3-1.관리자 영화 등록
-	@GetMapping("/adminMovieRegister") //
+	@GetMapping("/adminMovieRegister") 
 	public String movieRegister() {
 
 		return "admin/admin_movieManageDetail";
 	}
 
 	// 4.관리자 상영 관리
-	@GetMapping("/adminCinemaManage") //
+	@GetMapping("/adminCinemaManage") 
 	public String cinemaManage() {
+		
 
 		return "admin/admin_cinemaManage";
 	}
 
 	// 4-1.관리자 상영 시간 등록
-	@GetMapping("/adminCinemaRegister") //
+	@GetMapping("/adminCinemaRegister") 
 	public String cinemaRegister() {
 
 		return "admin/admin_cinemaMangeDetail";
@@ -131,6 +133,23 @@ public class AdminController {
 	}
 
 	// 5-1.공지사항 게시글 검색
+	@GetMapping("/getNoticeSearchList")
+	public String getNoticeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model) {
+
+		Notice noticeList = new Notice();
+		noticeList.setType(type);
+		noticeList.setKeyword(keyword);
+
+		List<Notice> adminNoticeList = service.getNoticeSearchList(noticeList);
+		model.addAttribute("adminNoticeList", adminNoticeList); 
+		
+		System.out.println(noticeList);
+		System.out.println(adminNoticeList);
+
+		return "admin/admin_notice";
+
+	}
+	
 
 	// 5-2. 공지사항 게시글 쓰기
 	@GetMapping("/adminNoticeWrite")
@@ -215,16 +234,25 @@ public class AdminController {
 
 	// 6-1. 1:1 문의사항 게시글 조회 230613
 	@GetMapping("/adminQnaRead/{qnaNo}") //
-	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,
+	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,Qna qna,
 			QnaComment qnaComment) {
 
-		Qna qna = service.selectQnaOne(qnaNo);
+		qna = service.selectQnaOne(qnaNo);
+		
 		QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
 
 		qna.setQnaNo(qnaNo);
 		model.addAttribute("Qna", qna);
-		model.addAttribute("QnaComment", qnaCommentList);
-
+	
+		if (qnaCommentList != null) {
+		    model.addAttribute("QnaComment", qnaCommentList);
+		} else {
+			
+		    // qnaCommentList가 null인 경우에 대한 처리 로직 추가
+		    // 예: 필요한 필드들을 초기화하거나 기본값으로 설정
+		    QnaComment emptyQnaComment = new QnaComment();
+		    model.addAttribute("QnaComment", emptyQnaComment);
+		}	
 		return "admin/admin_QNA_read";
 	}
 
@@ -246,39 +274,67 @@ public class AdminController {
 
 		return "admin/admin_QNA_read";
 	}
-	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615
+	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615------------------------------------------------진행중6/22
 
-	@PostMapping("/adminQnaAnswer/{qnaNo}")
-	public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,
-			QnaComment qnaComment, RedirectAttributes ra) {
+	@RequestMapping("/adminQnaAnswer/{qnaNo}")
+	public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
+	        @RequestParam(value = "qnaComment", required = false) String qnaComment,
+	        @RequestParam(value = "userNo", required = false) String userNo,
+	        @RequestParam(value = "qnaCommentNo", required = false) String qnaCommentNo,
+	        @ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
+		
+		System.out.println("qnaCommentNo : " + qnaCommentNo);
+		System.out.println("userNo : " + userNo);
+		System.out.println("qnaNo : " + qnaNo);
+		System.out.println("qnaComment : " + qnaComment);
+		
 
-		if ((qnaComment.getQnaComment()) != null) {
+	    if (qnaComment != null) {
+			System.out.println("	    if (qnaComment != null) 통과 ");
+	    	QnaComment qnaCommentObj = new QnaComment();
+	    	qnaCommentObj.setQnaNo(qnaNo);
+	    	qnaCommentObj.setQnaComment(qnaComment);
+	    	qnaCommentObj.setUserNo(qnaNo);
+//	    	qnaCommentObj.setQnaCommentNo(qnaCommentNo);
+	    	
+//	    	if (userNo < ) {
+//	    	    qnaCommentObj.setUserNo(userNo);
+//	    	}
+	    	
+	    	qnaCommentObj.setQnaCommentNo(qnaCommentAll.getQnaCommentNo());
+	        
+	        int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
 
-			int qnaUpdateResult = service.qnaAnswerUpdate(qnaComment);
+	        System.out.println(qnaUpdateResult);
+	        System.out.println(qnaCommentObj);
 
-			if (qnaUpdateResult > 0) {
-				ra.addFlashAttribute("message", "성공");
+	        if (qnaUpdateResult > 0) {
+	            ra.addFlashAttribute("message", "성공");
+	        } else {
+	            ra.addFlashAttribute("message", "실패");
+	        }
+	    } else {
+	      
+	        QnaComment qnaCommentObj = new QnaComment();
+	        qnaCommentObj.setQnaNo(qnaNo);
+	        qnaCommentObj.setQnaComment(qnaComment);
+	      
+	        // 결과값 (0,1)
+	        int qnaResult = service.qnaAnswerInsert(qnaCommentObj);
 
-			} else {
-				ra.addFlashAttribute("message", "실패");
-			}
-		} else {
+	        // 결과(update)
+	        // QnaComment qnaFlUpdate = service.updateAnswer(qnaComment);
 
-			qnaComment.setQnaNo(qnaNo);
-			qnaComment.setQnaComment(qnaComment.getQnaComment());
+	        System.out.println(qnaResult);
 
-			int qnaResult = service.qnaAnswerInsert(qnaComment);
+	        if (qnaResult > 0) {
+	            ra.addFlashAttribute("message", "성공");
+	        } else {
+	            ra.addFlashAttribute("message", "실패");
+	        }
+	    }
 
-			QnaComment qnaFlUpdate = service.updateAnswer(qnaNo);
-
-			if (qnaResult > 0) {
-				ra.addFlashAttribute("message", "성공");
-
-			} else {
-				ra.addFlashAttribute("message", "실패");
-			}
-		}
-		return "redirect:" + qnaNo;
+	    return "redirect:" + qnaNo;
 	}
 
 	// 6-2. 1:1 문의사항 게시글 수정화면 전환 230614
@@ -495,7 +551,23 @@ public class AdminController {
 	    return service.deleteFaq(FAQNo);
 	}
 
+	// 7-4.공지사항 게시글 검색
+	@GetMapping("/getFaqSearchList")
+	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model) {
 
+		FAQ FaqList = new FAQ();
+		FaqList.setType(type);
+		FaqList.setKeyword(keyword);
+
+		List<FAQ> adminFaqList = service.getFaqSearchList(FaqList);
+		model.addAttribute("adminFaqList", adminFaqList);
+		
+		System.out.println(FaqList);
+		System.out.println(adminFaqList);
+
+		return "admin/admin_faq";
+
+	}
 
 	// 8. 신고하기 리스트 조회
 	@GetMapping("/adminReport") //

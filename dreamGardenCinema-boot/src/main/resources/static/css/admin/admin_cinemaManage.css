@@ -27,9 +27,17 @@
 
 /* 1관,2관,3관 */
 .admin_cinemaOne{
-    padding: 10px;
-    border-bottom: 1px solid black;
+    font-size: 20px;
+    padding: 10px 1px;
+    border-bottom: 1px solid #01000c52;
 }
+.admin_cinemaOne:hover{
+    border-bottom: 5px solid #0F0954;
+}
+
+
+
+
 
 /* 상영 날짜 */
 .admin_cinemaManageDate{

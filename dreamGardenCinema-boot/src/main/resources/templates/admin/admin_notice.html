@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,81 +9,88 @@
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="/css/admin/admin_notice.css">
 </head>
+
 <body>
-       <!-- 사이드바 -->
- <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_noticeWrap">
         <!-- 게시판 제목 -->
         <span id="admin_noticeTitle">공지사항 관리</span>
 
         <!-- 검색창 -->
-        <div class="admin_noticeSearchWrap">
-            <div  class="admin_noticeSearchWrap2"> 
-            <select class="admin_noticeSelect" name="" id="">
-                <option value="title">번호</option>
-                <option value="director">이름</option>
-                <option value="actor">이메일</option>
-            </select>
-            <!-- 검색 input 창 -->
-                <input type="text" name="" id="" class="admin_noticeInput">
-        </div>
-            <!-- 검색 버튼 -->
-            <div class="admin_noticeBtnWrap">
-                <button type="button" class="admin_noticeBtn"></button>
+        <form th:action="@{/getNoticeSearchList}" autocomplete="off">
+            <div class="admin_noticeSearchWrap">
+                <div class="admin_noticeSearchWrap2">
+                    <select class="admin_noticeSelect" name="type" id="">
+                        <option value="number">번호</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <!-- 검색 input 창 -->
+                    <input type="text" name="keyword" id="" class="admin_noticeInput">
+                </div>
+                <!-- 검색 버튼 -->
+                <div class="admin_noticeBtnWrap">
+                    <button type="submit" class="admin_noticeSearchBtn" value="검색">검색</button>
+                </div>
             </div>
-        </div>
-            <!-- 목록 count -->
-            <div class="admin_noticeList">
-                <span>목록</span>
-                <span>( 총</span>
-                <span class="admin_noticeCount">0</span>
-                <span> / </span>
-                <span class="admin_noticeCountAll">0</span>
-                <span>개)</span>
 
-            </div>
-            <!-- 게시판 -->
-            <div class="admin_noticeBoardWrap">
-                <table>
-                    <thead>
+        </form>
+        <!-- 목록 count -->
+        <div class="admin_noticeList">
+            <span>목록</span>
+            <span>( 총</span>
+            <span class="admin_noticeCount">0</span>
+            <span> / </span>
+            <span class="admin_noticeCountAll">0</span>
+            <span>개)</span>
+
+        </div>
+        <!-- 게시판 -->
+        <div class="admin_noticeBoardWrap">
+            <table>
+                <thead>
                     <tr>
-                        <th><input type="checkbox" name="" id="" class="admin_noticeCheckboxAll" onclick='userSelectAll(this)'></th>
+                        <th><input type="checkbox" name="" id="" class="admin_noticeCheckboxAll"
+                                onclick='userSelectAll(this)'></th>
                         <th>번호</th>
                         <th>제목</th>
                         <th>등록일</th>
                         <th>삭제여부</th>
-                   
-             
+
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="list : ${adminNoticeList}">
                         <td><input type="checkbox" name="" id="" class="admin_noticeCheckbox"></td>
                         <td th:text="${list.noticeNo}" class="admin_notice_checkbox_no">1</td>
-                        <td ><a th:href="@{/adminNoticeRead/{noticeNo}(noticeNo=${list.noticeNo})}" th:text="${list.noticeTitle}">예매 정책</a></td>
+                        <td><a th:href="@{/adminNoticeRead/{noticeNo}(noticeNo=${list.noticeNo})}"
+                                th:text="${list.noticeTitle}">예매 정책</a></td>
                         <td th:text="${list.enrollDate}">2023.05.01</td>
                         <td th:text="${list.noticeFL}">Y</td>
-             
-               
+
+
                     </tr>
                 </tbody>
 
-                </table>
-            </div>
+            </table>
+        </div>
 
-                <!-- 페이지 네이션 -->
+        <!-- 페이지 네이션 -->
 
-                <!-- 등록,수정,삭제 버튼 -->
-                <div class="admin_noticeBtn">
-                    <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeWrite}">글쓰기</a></button>
-<!--                     <button class="admin_noticeEndBtn"><a href="">수정</a></button> -->
-                    <button class="admin_noticeEndBtn" id="deleteBtn"><a href="">삭제</a></button>
-                </div>
+        <!-- 등록,수정,삭제 버튼 -->
+        <div class="admin_noticeBtn">
+            <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeWrite}">글쓰기</a></button>
+            <!--                     <button class="admin_noticeEndBtn"><a href="">수정</a></button> -->
+            <button class="admin_noticeEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+        </div>
 
-        
-   </div>    
 
-   <script src="\js\admin\admin_notice.js"></script>
+    </div>
+
+    <script src="\js\admin\admin_notice.js"></script>
 </body>
+
 </html>

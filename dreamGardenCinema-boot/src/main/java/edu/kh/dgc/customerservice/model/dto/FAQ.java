@@ -20,4 +20,7 @@ public class FAQ {
 	// FAQ_CATEGORY 테이블 조인
 	private String categoryTitle;
 	
+	//검색필터
+	private  String type;
+	private String keyword;
 }

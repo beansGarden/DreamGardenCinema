@@ -84,9 +84,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 	//1:1문의 게시글 답변 수정 (update)
 	@Override
-	public int qnaAnswerUpdate(QnaComment qnaComment) {
+	public int qnaAnswerUpdate(QnaComment qnaCommentObj) {
 
-		return mapper.qnaAnswerUpdate(qnaComment);
+		return mapper.qnaAnswerUpdate(qnaCommentObj);
 	}
 	
 	//1:1 문의사항 검색
@@ -151,6 +151,13 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.noticeDelete(noticeNo);
 	}
 
+	//공지사항  게시글 검색
+	@Override
+	public List<Notice> getNoticeSearchList(Notice noticeList) {
+		
+		return mapper.getNoticeSearchList(noticeList);
+	}
+	
 	
 	//FAQ (자주 찾는 질문) List 조회*****************************
 	
@@ -193,9 +200,18 @@ public class AdminServiceImpl implements AdminService {
 	//FAQ (자주 찾는 질문) 글 선택 삭제
 	@Override
 	public int deleteFaq(int fAQNo) {
-		// TODO Auto-generated method stub
+		
 		return mapper.deleteFaq(fAQNo);
 	}
+
+	//FAQ 게시글 검색
+	@Override
+	public List<FAQ> getFaqSearchList(FAQ faqList) {
+		
+		return mapper.getFaqSearchList(faqList);
+	}
+
+	
 
 
 	
