@@ -45,7 +45,7 @@
 
             </ul>
 
-            <div class="font3">
+            <div class="font3 nav-menu">
 
                 <button>예매순</button>
                 |
@@ -67,6 +67,10 @@
                 <div class="movie-poster-container">
                     <img class="movie-poster" th:src="${movie.poster}">
                     <img class="movie-rating" th:src="${movie.rating}">
+                    <div class="movie-action">
+                        <a class="font4" href="#">예매하기</a>
+                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}|}">상세보기</a>
+                    </div>
                 </div>
                 
                 <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
@@ -119,6 +123,12 @@
     </script>
 
     <script th:src="@{/js/movie/movie.js}"></script>
+
+    <script th:inline="javascript">
+
+
+
+    </script>
 
 </body>
 </html>
