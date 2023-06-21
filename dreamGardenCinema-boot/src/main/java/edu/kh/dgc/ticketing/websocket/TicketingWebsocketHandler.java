@@ -29,17 +29,13 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 
 	private List<WebSocketSession> sessions = new ArrayList<>();
 	
-	private Map<String, WebSocketSession> userSessionMap = new HashMap<>();
+	private Map<String, Integer> userSessionMap = new HashMap<>();
 	
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		log.info("Socket 연결");
 		sessions.add(session);
-		System.out.println(sessions);
-		log.info(sendPushUsername(session));				//현재 접속한 사람의 username이 출력됨
-		String senderId = sendPushUsername(session);
-		userSessionMap.put(senderId, session);
 	}
 
 	@Override
@@ -54,6 +50,10 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		System.out.println(seatCheck);
 	
 		String seatResult = service.seatCheck(seatCheck);  // INSERT, DELETE 결과
+		
+		
+		String senderId = sendPushUsername(session);
+		userSessionMap.put(senderId, seatCheck.getUserNo());
 		
 		
 		TextMessage sendMsg = null;
@@ -87,9 +87,25 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		log.info("Socket 연결 해제");
-		
+		if(userSessionMap.get(sendPushUsername(session)) != null) {
+			
+			int userNo = userSessionMap.get(sendPushUsername(session));
+			Map<String, Object> seatResultMap = service.seatDelete(userNo);
+			String seatResult = (String) seatResultMap.get("seatResult");
+			List<SeatCheck> seatCheckList = (List<SeatCheck>) seatResultMap.get("seatCheckList");
+			
+			TextMessage sendMsg = null;
+			for(WebSocketSession single : sessions) {
+				if(seatResult.equals("예매취소성공")) {
+					for(SeatCheck seatCheck : seatCheckList) {
+						sendMsg = new TextMessage(seatCheck.getSeatNo()+" cancelChk");
+						single.sendMessage(sendMsg);					
+					}
+				} 
+			}
+			userSessionMap.remove(sendPushUsername(session), userNo);
+		}
 		sessions.remove(session);
-		userSessionMap.remove(sendPushUsername(session), session);
 	}
 	
 	private String sendPushUsername(WebSocketSession session) {
