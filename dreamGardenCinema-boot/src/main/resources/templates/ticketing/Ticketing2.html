@@ -14,7 +14,8 @@
         <div class="ticketingBox">
             <ul class="ticketingNav">
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
-                <li class="pass"><a th:href="@{/ticketing/date(movieNo=${ticket.movieNo}, movieTheater=${ticket.movieTheater}, movieTime=${ticket.movieTime}, saveTk=${ticket})}">01<br>상영시간</a></li>
+                <!-- <li class="pass"><a th:href="@{/ticketing/date(movieNo=${ticket.movieNo}, movieTheater=${ticket.movieTheater}, movieTime=${ticket.movieTime}, saveTk=${ticket})}">01<br>상영시간</a></li> -->
+                <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
                 <li class="active"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
                 <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
                 <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
@@ -95,7 +96,8 @@
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
         const movie = /*[[${map.movie}]]*/ "영화";
         const ticket = /*[[${ticket}]]*/ "티켓정보";
-
+        const chkSeatList = /*[[${map.chkSeatList}]]*/ "예약된좌석";
+        console.log(chkSeatList);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script th:src="@{/js/ticketing/Ticketing2.js}"></script>

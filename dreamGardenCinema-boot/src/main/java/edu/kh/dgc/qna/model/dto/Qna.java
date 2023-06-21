@@ -31,7 +31,6 @@ public class Qna {
 	//JOIN USER_INFO
 	
 	private int userRating;
-	private String qnaComment;
 	
 	//검색필터
 	private  String type;
