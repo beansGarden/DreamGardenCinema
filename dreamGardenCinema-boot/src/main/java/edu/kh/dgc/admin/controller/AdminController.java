@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,27 +139,33 @@ public class AdminController {
 		return "admin/admin_notice_write";
 	}
 
-	// 5-2. 공지사항 게시글 쓰기 - 삽입------------------------------------------------아직 안
-	// 함------
+	// 5-2. 공지사항 게시글 쓰기 - 삽입
+	
 	@PostMapping("/adminNoticeWriteInsert")
-	public String noticeWriteInsert(Model model, Notice notice, RedirectAttributes ra) {
+	public String noticeWriteInsert(Notice notice, Model model) {
+		
+		int result = service.noticeWriteInsert(notice);
+		
+		int noticeNo = notice.getNoticeNo();
+		
+		System.out.println(noticeNo);
 
-		int noticeList = service.noticeWriteInsert(notice);
+		model.addAttribute("notice", notice);
 
-		if (noticeList > 0) {
-			ra.addFlashAttribute("message", "성공");
-		} else {
-			ra.addFlashAttribute("message", "실패");
-		}
+		return "redirect:/adminNoticeRead" +"/" + noticeNo;
+}
 
-		model.addAttribute("noticeList", noticeList);
+	
 
-		return "redirect:/admin/adminNotice";
-	}
+	// 5-3. 공지사항 게시글 수정 화면 전환
+	@GetMapping("/adminNoticeUpdate/{noticeNo}")
+	public String noticeUpdate(Model model, @PathVariable(value = "noticeNo", required = false) int noticeNo,Notice notice) {
+		
+		List<Notice> adminNoticeList = service.adminNoticeOne(notice);
+		notice.setNoticeNo(noticeNo);
 
-	// 5-3. 공지사항 게시글 수정
-	@GetMapping("/adminNoticeUpate")
-	public String noticeUpdate() {
+		model.addAttribute("adminNoticeList", adminNoticeList);
+		System.out.println(adminNoticeList);
 
 		return "admin/admin_notice_update";
 	}
@@ -184,12 +191,16 @@ public class AdminController {
 
 	// 5-5 공지사항 게시글 선택 삭제
 
-	@PostMapping(value = "/adminNotice/deleteQnaList", produces = "application/json; charset=UTF-8")
+	@PostMapping(value = "/adminNotice/deleteNoticeList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public int deleteNoticeList(@RequestBody Notice notice) {
+	public int deleteNoticeList(@RequestBody Map<String, Integer> request) {
 
-		return service.noticeDelete(notice.getNoticeNo());
+		int noticeNo = request.get("noticeNo");
+		
+		return service.noticeDelete(noticeNo);
 	}
+
+	
 
 	// 6. 1:1 문의사항 리스트 조회 230613
 	@GetMapping("/adminQna") //
@@ -233,7 +244,7 @@ public class AdminController {
 
 		model.addAttribute("Qna", qna);
 
-		return "admin/admin_QNA_write";
+		return "admin/admin_QNA_read";
 	}
 	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615
 
@@ -396,7 +407,7 @@ public class AdminController {
 
 		model.addAttribute("Faq", faq);
 
-		return "admin/admin_FAQ_write";
+		return "admin/admin_FAQ_read";
 }
 	  
 	 
@@ -473,16 +484,18 @@ public class AdminController {
 
 	}
 
-	// 7-3-1 공지사항 게시글 선택 삭제
+	// 7-3-1 FAQ 게시글 선택 삭제
 
 	@PostMapping(value = "/adminFaq/deleteFaqList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public int deleteFaqList(FAQ faq, @RequestParam("FAQNo") int faqNo) {
+	public int deleteFaqList(@RequestBody Map<String, Integer> request) {
+	    int FAQNo = request.get("FAQNo");
+	    System.out.println(FAQNo);
 
-		System.out.println(faq);
-
-		return service.deleteFaq(faq);
+	    return service.deleteFaq(FAQNo);
 	}
+
+
 
 	// 8. 신고하기 리스트 조회
 	@GetMapping("/adminReport") //

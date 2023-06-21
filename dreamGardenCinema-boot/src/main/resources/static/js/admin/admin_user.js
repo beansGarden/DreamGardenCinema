@@ -42,3 +42,38 @@ function userDelete(userNo){
   }).catch(err=> console.log(err));
 
 }
+
+//체크박스 숫자 불러오기
+function userSelectAll(checkbox) {
+  var checkboxes = document.getElementsByClassName('admin_userCheckbox');
+  var count = document.getElementsByClassName('admin_userCount')[0];
+  var countAll = document.getElementsByClassName('admin_userCountAll')[0];
+  var checkedCount = 0;
+
+  if (checkbox.checked) {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = true;
+    }
+    checkedCount = checkboxes.length;
+  } else {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+    checkedCount = 0;
+  }
+
+  count.textContent = checkedCount.toString();
+}
+
+var checkboxes = document.getElementsByClassName('admin_userCheckbox');
+for (var i = 0; i < checkboxes.length; i++) {
+  checkboxes[i].addEventListener('change', function() {
+    var count = document.getElementsByClassName('admin_userCount')[0];
+    var checkedCount = document.querySelectorAll('.admin_userCheckbox:checked').length;
+    count.textContent = checkedCount.toString();
+  });
+}
+
+var countAll = document.getElementsByClassName('admin_userCountAll')[0];
+var totalItems = document.querySelectorAll('.admin_userCheckbox').length;
+countAll.textContent = totalItems.toString();

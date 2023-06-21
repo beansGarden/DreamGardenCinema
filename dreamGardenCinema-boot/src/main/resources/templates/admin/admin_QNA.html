@@ -47,7 +47,9 @@
             <div class="admin_qnaList">
                 <span>목록</span>
                 <span>( 총</span>
-                <span class="admin_qnaCount">0</span>
+                <span class="admin_qnaCount"> 0 </span>
+                <span> / </span>
+                <span class="admin_qnaCountAll">0</span>
                 <span>개)</span>
 
             </div>
@@ -62,6 +64,7 @@
                         <th>제목</th>
                         <th>등록일</th>
                         <th>등록인</th>
+                        <th>삭제여부</th>
                       
                     </tr>
                 </thead>
@@ -72,6 +75,7 @@
                         <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글 번호</a></td>
                         <td th:text="${list.qnaEnrollDate}"></td>
                         <td th:text="${list.userNickname}"></td>
+                        <td th:text="${list.qnaDeleteFl}"></td>
                    
                     </tr>
                     

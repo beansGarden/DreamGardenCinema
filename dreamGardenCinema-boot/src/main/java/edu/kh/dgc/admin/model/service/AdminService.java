@@ -86,9 +86,15 @@ public interface AdminService {
 
 	//FAQ (자주 찾는 질문) 게시글 삭제
 	int deleteFaq(FAQ faq);
+	
 
 	//FAQ (자주 찾는 질문) 게시글 삽입(insert)
 	int faqInsert(FAQ faq);
+
+	//FAQ (자주 찾는 질문) 게시글 선택 삭제
+	int deleteFaq(int fAQNo);
+
+
 
 
 

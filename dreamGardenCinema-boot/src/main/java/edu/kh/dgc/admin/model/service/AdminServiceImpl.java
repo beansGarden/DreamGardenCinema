@@ -189,6 +189,15 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.faqInsert(faq);
 	}
 
+
+	//FAQ (자주 찾는 질문) 글 선택 삭제
+	@Override
+	public int deleteFaq(int fAQNo) {
+		// TODO Auto-generated method stub
+		return mapper.deleteFaq(fAQNo);
+	}
+
+
 	
 
 

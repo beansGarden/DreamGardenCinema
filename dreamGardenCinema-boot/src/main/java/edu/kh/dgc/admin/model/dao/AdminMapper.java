@@ -129,6 +129,14 @@ public interface AdminMapper {
 	int faqInsert(FAQ faq);
 
 
+	/**FAQ (자주 찾는 질문) 게시글 선택 삭제(update)
+	 * @param fAQNo
+	 * @return
+	 */
+	int deleteFaq(int fAQNo);
+
+
+
 
 
 

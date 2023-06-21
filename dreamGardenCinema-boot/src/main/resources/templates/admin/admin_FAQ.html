@@ -42,7 +42,9 @@
             <div class="admin_faqList">
                 <span>목록</span>
                 <span>( 총</span>
-                <span class="admin_faqCount">0</span>
+                <span class="admin_faqCount"> 0 </span>
+                <span> / </span>
+                <span class="admin_faqCountAll">0</span>
                 <span>개)</span>
 
             </div>
@@ -51,7 +53,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll"></th>
+                        <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll" onclick='userSelectAll(this)'></th>
                         <th>번호</th>
                         <th>카테고리</th>
                         <th>제목</th>
@@ -61,7 +63,7 @@
                 <tbody>
                     <tr th:each="list : ${adminFaqList}">
                         <td><input type="checkbox" name="" id="" class="admin_faqCheckbox"></td>
-                        <td th:text="${list.FAQNo}">1</td>
+                        <td th:text="${list.FAQNo}" class="admin_faq_checkbox_no">1</td>
                         <td>
                             <span th:if="${list.FAQCategory == 'P'}">영화관</span>
                             <span th:if="${list.FAQCategory == 'M'}">영화</span>
@@ -69,6 +71,7 @@
                             <span th:if="${list.FAQCategory == 'B'}">예매/결제</span>
                             <span th:if="${list.FAQCategory == 'H'}">홈페이지</span>
                             <span th:if="${list.FAQCategory == 'A'}">계정</span>
+                            <span th:if="${list.FAQCategory == '*'}">기타</span>
                         </td>
                         <td>
                             <a th:href="@{adminFaqRead/{FAQNo}(FAQNo=${list.FAQNo})}" th:text="${list.FAQTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</a>
@@ -85,13 +88,14 @@
 
                  <!-- 등록,수정,삭제 버튼 -->
                  <div class="admin_faqBtn">        
-                    <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
-                    <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button>
-                    <button class="admin_faqEndBtn"><a href="">삭제</a></button>
+                    <button class="admin_faqEndBtn" ><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
+  <!--                   <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button> -->
+                    <button class="admin_faqEndBtn" id="deleteBtn"><a href="">삭제</a></button>
                 </div>
 
     </div>    
 
     <script src="\js\admin\admin_FAQ.js"></script>
+    
 </body>
 </html>
