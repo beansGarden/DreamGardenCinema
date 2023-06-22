@@ -159,11 +159,13 @@ public class TicketingController {
 		Movie movie = service.selectMovie(movieNo);
 		String saveday = (String)paramMap.get("saveday");
 		String runningTime = (String)paramMap.get("runningTime");
+		String movieTheater = (String) paramMap.get("movieTheater");
 		
 		model.addAttribute("movie", movie);
 		model.addAttribute("saveday", saveday);
 		model.addAttribute("runningTime", runningTime);
 		model.addAttribute("resultSeatList", resultSeatList);
+		model.addAttribute("movieTheater", movieTheater);
 		
 		return "ticketing/Ticketing3";
 	}
