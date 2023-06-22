@@ -23,7 +23,7 @@
                 <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
                 <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
             </ul>
-            <form th:action="@{/ticketing/pay}" method="POST">
+            <form th:action="@{/ticketing/pay(movieNo = ${map.movie.movieNo}, saveday = ${saveday}, runningTime = ${runningTime})}" method="POST">
                 <div class="choiceHeader">인원/좌석 선택</div>
                 <div class="choiceCount">
                     <div class="movie_info" th:object="${map.movie}">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="liquidate">
                     <div>총 합계 <span class="pay">0</span>원</div>
-                    <a th:href="@{/ticketing/pay}">결제하기</a>
+                    <button>결제하기</button>
                 </div>
             </form>
         </div>

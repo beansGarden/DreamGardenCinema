@@ -22,7 +22,7 @@ public interface TicketingMapper {
 
 	List<Movie> selectMovieList();
 
-	Movie selectMovie(Ticket ticket);
+	Movie selectMovie(int i);
 
 	int insertSeat(SeatCheck seatCheck);
 
@@ -35,5 +35,7 @@ public interface TicketingMapper {
 	int selectSeat(SeatCheck seatCheck);
 
 	List<SeatCheck> selectEndSeat(int userNo);
+
+	int beforePaySeat(int userNo);
 
 }

@@ -86,11 +86,9 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		String seatResult = (String) resultMap.get("seatResult");
 		List<SeatCheck> seatCheckList = (List<SeatCheck>) resultMap.get("seatCheckList");
 		int idx = -1;
-		if(seatResult.equals("예매취소성공")) {
-			for(int i=0;i<sessions.size();i++){
-				
-				WebSocketSession sess = sessions.get(i);
-				
+		for(int i=0;i<sessions.size();i++){
+			WebSocketSession sess = sessions.get(i);
+			if(seatResult.equals("예매취소성공")) {
 				if(!sessionList.get(i).get("userSession").equals(session.getAttributes().get("userSession"))) {  // 세션 아이디가 다른 접속자
 					TextMessage sendMsg = null;
 						for(SeatCheck seatCheck : seatCheckList) {
@@ -100,6 +98,8 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 				} else {
 					idx = i;
 				}
+			} else {
+				idx = i;
 			}
 		}
 		sessionList.remove(idx);

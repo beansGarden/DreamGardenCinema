@@ -72,7 +72,7 @@ if(ticket.movieTheater == 1){
 }
 
 let socket = new SockJS("/click");
-
+const pay = document.querySelector(".pay");
 // 좌석 선택
 function seatClick(e){
 
@@ -102,8 +102,14 @@ function seatClick(e){
 
     socket.send(JSON.stringify(data));
 
-    e.querySelector("[name=seatList]").checked = 'true';
+    if(e.querySelector("[name=seatList]").checked){
+        e.querySelector("[name=seatList]").checked = '';
+    } else {
+        e.querySelector("[name=seatList]").checked = 'true';
+    }
+    const chcSeat = document.querySelectorAll("[name=seatList]:checked");
 
+    pay.innerHTML = movie.moviePrice * chcSeat.length;
     e.classList.toggle("choiceSeat");
 }
 

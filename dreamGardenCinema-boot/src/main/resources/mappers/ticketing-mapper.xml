@@ -103,26 +103,19 @@
 	
 	<select id="selectChkSeatList" resultMap="seatcheck_rm">
 		SELECT SEAT_NO
-		FROM TICKETING_INFO
-		WHERE MOVIE_NO = ${movieNo}
-		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
-		AND MOVIE_THEATER = ${movieTheater}
-		
-		UNION
-				
-		SELECT SEAT_NO
 		FROM SEAT_CHECK
 		WHERE MOVIE_NO = ${movieNo}
 		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
 		AND MOVIE_THEATER = ${movieTheater}
+		AND STATE != 'N'
 	</select>
 	
 	<insert id="insertSeat">
-		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo})
+		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo}, DEFAULT)
 	</insert>
 	
 	<delete id="deleteSeat">
-		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo}
+		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo} AND STATE = 'Y'
 	</delete>
 	
 	<select id="selectSeat" resultType="int">
@@ -135,10 +128,16 @@
 		SELECT *
 		FROM SEAT_CHECK
 		WHERE USER_NO = ${userNo}
+		AND STATE = 'Y'
 	</select>
 	
 	<delete id="deleteEndSeat">
 		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo}
 	</delete>
+	
+	<update id="beforePaySeat">
+		UPDATE SEAT_CHECK SET STATE = 'Y'
+		WHERE STATE = 'N' AND USER_NO = ${userNo}
+	</update>
 	
 </mapper>
