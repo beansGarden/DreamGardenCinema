@@ -14,15 +14,29 @@ body {
     background-color: black;
 }
 
-.swiper-slide {
+.movie--main--slider{
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.movie--main--slider .swiper-slide{
+    background-color: black;
+}
+
+.main-swiper-slider {
     text-align: center;
     font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
-.swiper-slide img {
+
+
+.main-swiper-slider img {
     display: block;
 }
 
@@ -127,6 +141,7 @@ body {
 
 }
 
+/* 메뉴부분 */
 .info-type-select{
     display: flex;
     justify-content: space-around;
@@ -136,6 +151,7 @@ body {
 
 .info-type-select button{
     background-color: white;
+    border: 2px solid white;
     font-size: 20px;
     width: 49%;
     height: 100%;
@@ -172,6 +188,14 @@ body {
     background-color: black;
 }
 
+/* 하단 정보란 각 부분 공간부여  */
+.outer-info__type-info strong{
+    display: block;
+    margin: 20px 10px;
+}
+
+
+/* 스틸컷 부분 */
 .swiper {
     width: 100%;
     height: 100%;
@@ -188,50 +212,57 @@ body {
 
 .swiper-slide img {
     display: block;
-    width: 100%;
-    height: 100%;
     object-fit: cover;
 }
 
-.swiper {
-    width: 100%;
-    height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .swiper-slide {
     background-size: cover;
     background-position: center;
 }
 
-.mySwiper2 {
-    height: 80%;
-    width: 100%;
-}
-
-.mySwiper {
-    height: 20%;
+/* 스틸컷 갤러리 */
+.stillCutGallary {
+    height: 133px;
     box-sizing: border-box;
     padding: 10px 0;
 }
 
-.mySwiper .swiper-slide {
+.stillCutGallary .swiper-slide {
     width: 25%;
     height: 100%;
     opacity: 0.4;
 }
 
-.mySwiper .swiper-slide-thumb-active {
+.stillCutGallary .swiper-slide img {
+    width: 100%;
+    height: 100%;
     opacity: 1;
 }
 
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.stillCutGallary .swiper-slide-thumb-active {
+    opacity: 1;
 }
+
+
+
+/* 스틸컷 디테일 */
+.stillCutDetail {
+    height: 510px;
+    width: 100%;
+    background-color: gray;
+}
+
+.stillCutDetail .stillCutDetail-wrapper div img{
+    height: 100%;
+}
+
+.stillCutDetail .swiper-slide{
+    background-color: black;
+    background-size: none;
+    background-position: none;
+}
+
 
 
 /* 아랫단 봇 배너 */
