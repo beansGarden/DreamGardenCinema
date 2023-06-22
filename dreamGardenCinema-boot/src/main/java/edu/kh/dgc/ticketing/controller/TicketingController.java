@@ -1,5 +1,6 @@
 package edu.kh.dgc.ticketing.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,41 @@ public class TicketingController {
 		model.addAttribute("runningTime", runningTime);	
 		return "ticketing/Ticketing2";
 	}
+	
+	@PostMapping("/pay")
+	public String pay(Model model,
+			@RequestParam Map<String, Object> paramMap, @SessionAttribute("loginUser") User user, String[] seatList) {
+
+		List<String> resultSeatList = new ArrayList<>();
+		for(String seat : seatList) {
+			resultSeatList.add(seat);
+		}
+		
+		
+		// 좌석 'Y'로 변경
+		int result = service.beforePaySeat(user.getUserNo());
+		
+		int movieNo = Integer.parseInt((String)paramMap.get("movieNo"));
+		
+		Movie movie = service.selectMovie(movieNo);
+		String saveday = (String)paramMap.get("saveday");
+		String runningTime = (String)paramMap.get("runningTime");
+		
+		model.addAttribute("movie", movie);
+		model.addAttribute("saveday", saveday);
+		model.addAttribute("runningTime", runningTime);
+		model.addAttribute("resultSeatList", resultSeatList);
+		
+		return "ticketing/Ticketing3";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@PostMapping("/time")
 	@ResponseBody

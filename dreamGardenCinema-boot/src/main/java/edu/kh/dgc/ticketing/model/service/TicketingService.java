@@ -24,4 +24,8 @@ public interface TicketingService {
 
 	Map<String, Object> seatDelete(int userNo);
 
+	int beforePaySeat(int userNo);
+
+	Movie selectMovie(int movieNo);
+
 }

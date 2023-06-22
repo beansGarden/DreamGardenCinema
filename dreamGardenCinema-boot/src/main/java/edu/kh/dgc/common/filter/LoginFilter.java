@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter(filterName="loginFilter",
-urlPatterns = {"/myPage/*"})
+urlPatterns = {"/myPage/*", "/ticketing/pay", "/ticketing/seat", "/ticketing/complete"})
 public class LoginFilter implements Filter{
 
 	public void init(FilterConfig fConfig) throws ServletException {
@@ -38,8 +38,5 @@ public class LoginFilter implements Filter{
 		else {
 			chain.doFilter(request, response);
 		}
-		
-		
 	}
-
 }
