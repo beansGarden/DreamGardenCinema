@@ -261,10 +261,10 @@
 
     <!-- 내 정보 변경 모달 영역 -->
     <div class="my-page-changeinfo-modal-area">
-
+        
         <div class="my-page-changeinfo-border">
 
-
+            
         <div class="my-page-changeinfo-top">
             <span>회원 정보변경</span> 
             <p>회원 정보를<br>
@@ -273,12 +273,14 @@
         </div>
         <div class="my-page-changeinfo-container">
             <span>Dream Garden Cinema</span>
-    
+            
             <p>회원 정보 입력<span class="my-page-changeinfo-guide-text"> *는 필수입력 항목입니다</span></p>
         </div>
     
-        <div class="my-page-changeinfo-contentbox">
-    
+        
+        <form th:action="@{/myPage/change-info}" method="post" id="changeInfo">
+            <div class="my-page-changeinfo-contentbox">
+                
             <div class="my-page-changeinfo-back">
                 
                 <div class="my-page-changeinfo-name">
@@ -289,15 +291,11 @@
                     <p class="my-page-changeinfo-guide-text">*  <span>아이디</span></p>
                     <span th:text="${session.loginUser.userId}"></span>
                 </div>
-                <div class="my-page-changeinfo-hp">
-                    <p class="my-page-changeinfo-guide-text">*  <span>핸드폰 번호</span></p>
-                    <input type="text">
-                    <span>"-" 빼고 입력해주세요</span>
-                </div>
-                <!-- <div class="my-page-changeinfo-email">
+                <div class="my-page-changeinfo-email">
                     <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>
-                    <input type="email" required>
-                </div> -->
+                    <input type="email" id="changeEmail" name="userEmail"  required th:value="${session.loginUser.userEmail}">
+                    <i id="emailLine" class="emailLine"></i>
+                </div>
                 
             </div>
             
@@ -330,35 +328,55 @@
                 <div class="my-page-changeinfo-address-inputbox">
                     
                     <div id="postcode-box">
-                        <input type="text" placeholder="우편번호" id="postcode">
+                        <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress">
                         <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
                         <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
                     </div>
                     <div>
-                        <input type="text" placeholder="도로명/지번 주소" id="address">
+                        <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress">
                     </div>
                     <div>
-                        <input type="text" placeholder="상세 주소" id="detailAddress">
+                        <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress">
                     </div>
                 </div>
             </div>
                 <div class="my-page-changeinfo-update-btn">
-                    <button type="submit">수정</button>
-                    <button>취소</button>
+                    <button id="myPageBtn">수정</button>
+                    <button type="button">취소</button>
                 </div>
+            </div>
+        </form>
+            
         </div>
+        
+</div>
 
-    </div>
-    
-    </div>
-
-    <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}"><!-- js에서 사용하기 (로그인한 회원 비밀번호) -->
+<input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}"><!-- js에서 사용하기 (로그인한 회원 비밀번호) -->
 
 
     <th:block th:replace="~{common/footer}"></th:block>
 
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>   
     <script th:src="@{/js/myPage/my-page-reservation.js}"></script>
+    
+    <script th:inline="javascript">
+        //th:inline="javascript"
+        // - 타임리프를 script에서 사용 가능
+        // - 타임리프에서 출력되는 값을 JS에 맞는 자료형으로 변경
+
+        // Natural Template
+        // 1) JS 문법 에러 발생 X
+        const loginUser = /*[[${session.loginUser}]]*/"로그인한 회원정보";
+
+        if(loginUser.userAddress != null){
+            const arr = loginUser.userAddress.split("^^^");
+
+            document.querySelectorAll("input[name='memberAddress']").forEach((item,i)=>{
+                item.value = arr[i];
+            });
+        }
+
+    </script>
 
 </body>
 

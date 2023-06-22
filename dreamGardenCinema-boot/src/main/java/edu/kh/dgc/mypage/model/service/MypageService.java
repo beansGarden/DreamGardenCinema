@@ -19,4 +19,18 @@ public interface MypageService {
 	 */
 	int changeNickName(User loginuser);
 
+	/** 회원 정보 수정(이메일,주소)
+	 * @param updateUser
+	 * @return
+	 */
+	int changeInfo(User updateUser);
+
+	/** 회원 비밀번호 수정
+	 * @param checkPw
+	 * @param userNo
+	 * @param userPw
+	 * @return
+	 */
+	int changePw(String checkPw, int userNo, String userPw);
+
 }

@@ -78,4 +78,54 @@ public class MypageController {
 		
 		return "redirect:" + redirectUrl;
 	}
+	
+	// 내정보 수정
+	@PostMapping("/change-info")
+	public String changeInfo(
+			User updateUser
+			,String[] memberAddress
+			,String userEmail
+			,String checkPw
+			,String userPw
+			,RedirectAttributes ra
+			,@SessionAttribute("loginUser") User loginUser
+			) {
+		
+		String addr = String.join("^^^", memberAddress);
+		
+		updateUser.setUserAddress(addr);
+		
+		updateUser.setUserNo(loginUser.getUserNo());
+		
+		int userNo = loginUser.getUserNo();
+		
+		int result = service.changeInfo(updateUser);
+		
+		String message = null;
+		String path = "redirect:";
+		
+		if(result>0) {
+			
+			loginUser.setUserEmail(updateUser.getUserEmail());
+			loginUser.setUserAddress(updateUser.getUserAddress());
+			
+			int result2 = service.changePw(checkPw,userNo,userPw);
+				
+				if(result2>0) {
+					message = "회원 정보가 수정되었습니다.";
+					path += "/";
+				}else {
+					message = "현재 비밀번호가 일치하지않습니다.";
+					path +="/myPage/";
+				}
+		}else {
+			
+			message = "회원 정보 수정 실패";
+			path += "/";
+		}
+		
+		ra.addFlashAttribute("message",message);
+		
+		return path;
+	}
 }
