@@ -1,12 +1,15 @@
 package edu.kh.dgc.customerservice.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
@@ -35,27 +38,35 @@ public class CustomerServiceController {
 		
 	}
 	
-	// 공지사항 페이지 전체목록 출력
-		@GetMapping("/notice")
-		public String noticeList(Model model, Notice notice) {
-			
-			List<Notice> list = service.noticeList(notice);
-			
-			model.addAttribute("list", list);
-			
-			System.out.println(list);
-			
-			return "customerservice/notice";
-		}
+	// 공지사항 전체 목록 출력
+	@GetMapping("/notice")
+	public String notice(Model model, Notice notice) {
 		
+		List<Notice> list = service.noticeList(notice);
 		
-		// 공지사항 확인 페이지
-		@GetMapping("/noticeCon")
-		public String noticeCon() {
+		model.addAttribute("list", list);
+		
+//			System.out.println(list);
+		
+		return "customerservice/notice";
+	}
+	
+	// 공지사항 해당 게시글 내용 보기
+		@GetMapping("/noticeCon/{noticeNo}")
+		public String noticeList(Model model, 
+						@PathVariable(value = "noticeNo", required = false) int noticeNo
+						,Notice notice) {
+			
+			List<Notice> noticeList = service.noticeSelect(notice);
+			
+			System.out.println(notice);
+			
+			model.addAttribute("noticeList",noticeList);
 			
 			return "customerservice/notice-con";
 		}
-	
+		
+		
 	
 	
 	// 멤버십 이용 약관 페이지

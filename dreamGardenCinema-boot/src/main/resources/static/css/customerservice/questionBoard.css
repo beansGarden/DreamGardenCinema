@@ -299,6 +299,7 @@ input:focus{
     border-radius: 3px;
 
     font-size: 15px;
+    height: 26vh;
 }
 
 /* 글자 수세기 창 */

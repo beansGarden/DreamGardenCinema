@@ -109,7 +109,7 @@ a {
 }
 
 /* 검색 종류 선택 영역 */
-#service-search-select{
+#serviceSearchSelect{
     display: inline-block;
     width: 100px;
     height: 35px;
@@ -126,7 +126,7 @@ a {
 }
 
 /* 검색 영역 */
-#search-query{
+#searchQuery{
     width: 25vw;
     height: 35px;
 
@@ -162,7 +162,7 @@ a {
 
 
 .notice-list-box{
-    width: 70vw;
+    width: 65vw;
     display: flex;
     flex-direction: column;
 

@@ -443,8 +443,6 @@ function memList() {
 
 
 /************** 검색어가 FAQ 제목과 일치하는 목록 출력하기 **************/
-
-
 const searchArea = document.querySelector(".notice-search-area");
 const FAQlistContents = document.querySelector(".FAQ-list-contents");
 const searchBtn = document.querySelector(".service-search-btn");
@@ -585,12 +583,6 @@ searchBtn.addEventListener("click", () => {
     })
 
 })
-
-
-
-
-
-
 /************************************************************************/
 
 

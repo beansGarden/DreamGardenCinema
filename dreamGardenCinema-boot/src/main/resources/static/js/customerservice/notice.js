@@ -94,3 +94,31 @@ arrowLeftBtn.addEventListener("click",()=>{
     --pageActiveIdx;
     displayPage(pageActiveIdx);
 });  // https://www.youtube.com/watch?v=drXZCq3Y9d8&list=PL-qMANrofLyvzqz2yYzNectJnYo5ZifE7&index=74&ab_channel=Rock%27sEasyweb
+
+
+/**************************** 검색기능 ****************************/
+
+//fetch("/customerservice/searchFAQ?searchQuery=" + query + "&key=" + value) -> 파라미터 여러개 보내기
+const  searchQuery = document.getElementById("searchQuery");
+const noticeContents = document.querySelector(".notice-contents");
+const serviceSearchBtn = document.querySelector(".service-search-btn");
+
+serviceSearchBtn.addEventListener("click", ()=>{
+
+  
+
+
+
+
+})
+
+
+
+
+
+
+
+/******************************************************************/
+
+
+
