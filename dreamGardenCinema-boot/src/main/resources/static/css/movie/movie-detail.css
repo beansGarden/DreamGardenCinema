@@ -19,6 +19,8 @@ body {
     height: 100%;
     margin-left: auto;
     margin-right: auto;
+    --swiper-navigation-color: #fff; 
+    --swiper-pagination-color: #fff
 }
 
 .movie--main--slider .swiper-slide{
@@ -358,7 +360,8 @@ body {
 .comment-each{
     background-color: #A8A7DE;
     height: 125px;
-    box-shadow: 0 10px 10px -5px;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.6);
     border-radius: 5px;
 }
 

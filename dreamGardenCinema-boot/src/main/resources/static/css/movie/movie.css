@@ -11,6 +11,8 @@ body {
     justify-content: center;
     margin-bottom: 10px;
     margin-top: 5px;
+    --swiper-navigation-color: gray; 
+    --swiper-pagination-color: #fff;
 }
 
 
