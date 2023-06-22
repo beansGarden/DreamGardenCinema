@@ -11,6 +11,9 @@ const commentBtn = document.getElementById("commentBtn");
 const infoBar = document.getElementById("infoBar");
 const commentBar = document.getElementById("commentBar");
 
+const typeInfo = document.querySelector(".outer-info__type-info");
+const typeComment = document.querySelector(".outer-info__type-comment");
+
 infoBtn.addEventListener("click", () => {
     
     if(currentInfoType == "comment"){
@@ -20,6 +23,9 @@ infoBtn.addEventListener("click", () => {
 
         commentBar.classList.remove("selected-bar");
         infoBar.classList.add("selected-bar");
+
+        typeComment.classList.remove("menu-active");
+        typeInfo.classList.add("menu-active");
 
         currentInfoType = "info"
 
@@ -35,6 +41,9 @@ commentBtn.addEventListener("click", () => {
 
         infoBar.classList.remove("selected-bar");
         commentBar.classList.add("selected-bar");
+
+        typeInfo.classList.remove("menu-active");
+        typeComment.classList.add("menu-active");
 
         currentInfoType = "comment"
     }
