@@ -52,17 +52,12 @@ if (movieType != "") {
         
         const byReview = document.createElement("button");
         byReview.innerText = "관람평 많은순";
-        
-        const byWant = document.createElement("button");
-        byWant.innerText = "보고싶어요순";
 
         navMenu.append(byTicket);
         navMenu.innerHTML += " | ";
         navMenu.append(byStar);
         navMenu.innerHTML += " | ";
         navMenu.append(byReview);
-        navMenu.innerHTML += " | ";
-        navMenu.append(byWant);
 
         moreBtn.style.display = 'flex';
 
@@ -216,14 +211,10 @@ if (movieType != "") {
         const byTicket = document.createElement("button");
         byTicket.innerText = "예매순";
         
-        const byWant = document.createElement("button");
-        byWant.innerText = "보고싶어요순";
 
         navMenu.append(byRelease);
         navMenu.innerHTML += " | ";
         navMenu.append(byTicket);
-        navMenu.innerHTML += " | ";
-        navMenu.append(byWant);
 
         moreBtn.style.display = 'flex';
 

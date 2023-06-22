@@ -114,8 +114,6 @@ public class MovieController {
 		
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
-		
-		
 		model.addAttribute("movie", movieInfo);
 		model.addAttribute("advertisePoster", advertisePoster);
 		

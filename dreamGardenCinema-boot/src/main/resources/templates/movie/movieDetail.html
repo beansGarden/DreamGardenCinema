@@ -28,7 +28,7 @@
             </div>
             <div class="swiper-button-next main-next"></div>
             <div class="swiper-button-prev main-prev"></div>
-            <div class="swiper-pagination"></div>
+            <div class="swiper-pagination main-pagination"></div>
         </div>
     </section>
 
@@ -105,7 +105,7 @@
                     <div class="bar-type selected-bar" id="infoBar"></div>
                     <div class="bar-type" id="commentBar"></div>
                 </div>
-                
+
             </div>
             
 
@@ -161,6 +161,7 @@
                     </div>
                     <div class="swiper-button-next stillCutDetail-next"></div>
                     <div class="swiper-button-prev stillCutDetail-prev"></div>
+                    <div class="swiper-pagination stillcut-pagination"></div>
                 </div>
 
                 <strong style="font-size: 20px;">감독 및 배우</strong>
@@ -249,20 +250,49 @@
             <!-- comment(평점 및 관람평) -->
             <div class="outer-info__type-comment">
 
+                <form class="comment-submit" action="#" method="post">
+
+                    
+
+                </form>
+
+
+
+                <div class="comment-list"> <!-- th:if="commentsize != 0" -->
+
+                    <div class="comment-list__nav">
+
+                    </div>
+
+                    <div class="comment-list__list">
+
+                        <div class="comment-each">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="comment-list-null"> <!-- th:unless="commentsize != 0" -->
+
+                </div>
+
+
             </div>
 
 
 
         </section>
 
-        <section class="movie--bot__banner">
-            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
-        </section>
-
-
-
+        
+        
+        
     </div>
-
+    
+    <section class="movie--bot__banner">
+        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+    </section>
 
     <th:block th:replace="~{common/footer}"></th:block>
 
@@ -279,7 +309,7 @@
                 disableOnInteraction: false,
             },
             pagination: {
-                el: ".swiper-pagination",
+                el: ".main-pagination",
                 clickable: true,
             },
             navigation: {
@@ -305,6 +335,10 @@
             navigation: {
                 nextEl: ".stillCutDetail-next",
                 prevEl: ".stillCutDetail-prev",
+            },
+            pagination: {
+                el: ".stillcut-pagination",
+                clickable: true,
             },
             thumbs: {
                 swiper: swiper2,
