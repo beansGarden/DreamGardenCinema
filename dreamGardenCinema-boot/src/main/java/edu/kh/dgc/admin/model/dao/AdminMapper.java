@@ -70,6 +70,34 @@ public interface AdminMapper {
 	 */
 	List<Movie> adminMovieList();
 
+	//상영관 List 조회************************************************
+	/**상영관 영화 List 조회
+	 * @return
+	 */
+	List<Movie> adminCinemaList();
+
+	
+	/**2관 페이지 이동
+	 * @param movieTheaterNo
+	 * @return
+	 */
+	List<Movie> adminCinemaTwo(String movieTheaterNo);
+	
+	
+	/**상영관 등록 영화 불러오기
+	 * @return
+	 */
+	List<Movie> cinemaList();
+
+	
+	/**상영관 영화,상영시간 등록
+	 * @param movie
+	 * @return
+	 */
+	int cinemaListInsert(Movie movie);
+
+
+	
 	//공지사항 관리*************************************************
 	
 	/**공지사항 List 조회
@@ -147,6 +175,14 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<FAQ> getFaqSearchList(FAQ faqList);
+
+
+	
+
+
+	
+
+
 
 
 

@@ -20,6 +20,7 @@
 /* 상영관별 보이기 */
 .admin_cinemaManageAll{
     display: flex;
+    height: 65px;
     padding: 10px 30px;
     margin: 10px 10px;
 }

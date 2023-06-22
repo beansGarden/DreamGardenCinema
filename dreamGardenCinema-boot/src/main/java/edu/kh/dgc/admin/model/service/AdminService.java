@@ -59,6 +59,20 @@ public interface AdminService {
 	List<Movie> adminMovieList();
 
 	
+	//상영관 관리***************************
+	
+	//상영관 영화 List 조회
+	List<Movie> adminCinemaList();
+	
+	//2관 페이지 이동
+	List<Movie> adminCinemaTwo(String movieTheaterNo);
+
+	//상영관 등록 영화 불러오기
+	List<Movie> cinemaList();
+
+	//상영관 영화,상영시간 등록
+	int cinemaListInsert(Movie movie);
+	
 	//공지사항 관리*******************************
 	
 	//공지사항 List 조회
@@ -103,6 +117,11 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 게시글 검색
 	List<FAQ> getFaqSearchList(FAQ faqList);
 
+	
+
+	
+
+	
 	
 
 

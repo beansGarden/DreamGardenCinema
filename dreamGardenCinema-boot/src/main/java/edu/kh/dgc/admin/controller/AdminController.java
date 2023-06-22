@@ -96,16 +96,46 @@ public class AdminController {
 
 	// 4.관리자 상영 관리
 	@GetMapping("/adminCinemaManage") 
-	public String cinemaManage() {
+	public String cinemaManage(Model model) {
 		
+		List<Movie> cinemaList = service.adminCinemaList();
+		
+		model.addAttribute("cinemaList", cinemaList);
 
 		return "admin/admin_cinemaManage";
 	}
 
+	//2관으로 넘어가기
+	@RequestMapping("/cinema/{movieTheater}") 
+	public String cinema(Model model, @PathVariable(value="movieTheater", required=false) String movieTheaterNo) {
+		
+		List<Movie> cinemaList = service.adminCinemaTwo(movieTheaterNo);
+		
+		model.addAttribute("cinemaList", cinemaList);
+
+		System.out.println(movieTheaterNo);
+		System.out.println(cinemaList);
+		
+		return "admin/admin_cinemaManage" +"/"+ movieTheaterNo;
+	}	
+
 	// 4-1.관리자 상영 시간 등록
 	@GetMapping("/adminCinemaRegister") 
-	public String cinemaRegister() {
+	public String cinemaRegister(Model model, Movie movie) {
 
+		List<Movie> cinemaList = service.cinemaList();
+		
+		model.addAttribute("cinemaList",cinemaList);
+		
+		return "admin/admin_cinemaMangeDetail";
+	}
+	// 4-2.관리자 상영 시간 등록 (insert)
+	@GetMapping("/adminCinemaRegisterinsert") 
+	public String cinemaRegisterinsert(Model model,Movie movie) {
+
+		int result = service.cinemaListInsert(movie);
+		
+		
 		return "admin/admin_cinemaMangeDetail";
 	}
 
@@ -121,7 +151,7 @@ public class AdminController {
 	}
 
 	// 5-1.공지사항 게시글 조회
-	@GetMapping("/adminNoticeRead/{noticeNo}") //
+	@GetMapping("/adminNoticeRead/{noticeNo}") 
 	public String noticeRead(Model model, @PathVariable(value = "noticeNo", required = false) int noticeNo,
 			Notice notice) {
 

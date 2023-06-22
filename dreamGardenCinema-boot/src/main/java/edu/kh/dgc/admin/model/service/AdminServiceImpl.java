@@ -120,7 +120,40 @@ public class AdminServiceImpl implements AdminService {
 	
 		return mapper.adminMovieList();
 	}
+	
+	//상영관**************************************************
+	
+	//상영관 영화 List 조회
+	@Override
+	public List<Movie> adminCinemaList() {
+		
+		return mapper.adminCinemaList();
+	}
 
+	//2관 페이지 이동
+	@Override
+	public List<Movie> adminCinemaTwo(String movieTheaterNo) {
+		
+		return mapper.adminCinemaTwo(movieTheaterNo);
+	}
+
+
+	//상영관 등록 영화 불러오기
+	@Override
+	public List<Movie> cinemaList() {
+		
+		return mapper.cinemaList();
+	}
+
+	//상영관 영화,상영시간 등록
+	@Override
+	public int cinemaListInsert(Movie movie) {
+	
+		return  mapper.cinemaListInsert(movie);
+	}
+
+	
+	
 	//공지사항************************************************
 	
 	//공지사항 List 조회
@@ -211,6 +244,13 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getFaqSearchList(faqList);
 	}
 
+
+	
+
+
+	
+
+	
 	
 
 

@@ -59,7 +59,7 @@
 		</resultMap>
 		
 		<!--FAQ-->
-	<resultMap type="FAQ" id="faq_rm">
+		<resultMap type="FAQ" id="faq_rm">
 	
 		<id property="FAQNo" column="FAQ_NO"/>
 		
@@ -69,6 +69,27 @@
 		<result property="FAQCategory" column="FAQ_CATEGORY"/>
 
 		</resultMap>
+		
+		<!--Movie 영화 및 상영관-->
+		<resultMap type="MOVIE" id="movie_rm">
+	
+		<id property="movieNo" column="MOVIE_NO"/>
+		
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="poster" column="POSTER"/>
+		<result property="synopsis" column="SYNOPSIS"/>
+		<result property="runningTime" column="RUNNING_TIME"/>
+		<result property="rating" column="RATING"/>
+		<result property="releaseDate" column="RELEASE_DATE"/>
+		<result property="moviePrice" column="MOVIE_PRICE"/>
+		<result property="genre" column="GENRE"/>
+		<result property="screening" column="SCREENING"/>
+		<result property="movieTheater" column="MOVIE_THEATER"/>
+		<result property="movieTime" column="MOVIE_TIME"/>
+		<result property="movieday" column="MOVIE_DAY"/>
+		</resultMap>
+		
+		
 		
 	<!--관리자 로그인 보여주기-->
 <!--	<select id="getAdminDetails" resultMap="user_rm">
@@ -203,6 +224,65 @@
 		FROM MOVIE
 		ORDER BY MOVIE_NO DESC
 	 </select>
+	 
+	 
+	 <!--///////////////상영관//////////////-->
+	<!--상영관 조회-->
+	<select id="adminCinemaList" resultMap="movie_rm">
+		SELECT
+		  M.MOVIE_NO,
+		  M.MOVIE_TITLE,
+		  M.RUNNING_TIME,
+		  M.RELEASE_DATE,
+		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+		  LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+		  S.MOVIE_THEATER
+		FROM
+		  MOVIE M
+		JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+		GROUP BY
+		  M.MOVIE_NO,
+		  M.MOVIE_TITLE,
+		  M.RUNNING_TIME,
+		  M.RELEASE_DATE,
+		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
+		  S.MOVIE_THEATER
+		  ORDER BY M.RELEASE_DATE DESC
+	</select>
+	
+		<select id="adminCinemaTwo" resultMap="movie_rm">
+		SELECT
+		  M.MOVIE_NO,
+		  M.MOVIE_TITLE,
+		  M.RUNNING_TIME,
+		  M.RELEASE_DATE,
+		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+		  LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+		  S.MOVIE_THEATER
+		FROM
+		  MOVIE M
+		JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+		WHERE MOVIE_THEATER = #{movieTheater}
+		GROUP BY
+		  M.MOVIE_NO,
+		  M.MOVIE_TITLE,
+		  M.RUNNING_TIME,
+		  M.RELEASE_DATE,
+		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
+		  S.MOVIE_THEATER
+		  ORDER BY M.RELEASE_DATE DESC
+	</select>
+
+	<select id="cinemaList" resultMap="movie_rm">
+		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE
+		FROM MOVIE
+		ORDER BY MOVIE_NO DESC
+	</select>
+			 
+			 
+		INSERT INTO MOVIE_SCHEDULE
+ 	    VALUES (
+   		TO_TIMESTAMP(#{movieTime}, 'YYYY-MM-DD HH24:MI:SS.FF'),#{movieTheater},#{movieNo})
 	 
 	<!--////////////공지사항////////////-->	
 	<!--공지사항 게시판 리스트 조회-->
