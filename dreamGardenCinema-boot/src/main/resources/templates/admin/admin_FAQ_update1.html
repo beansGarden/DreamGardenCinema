@@ -41,12 +41,26 @@
                 <th>제목</th>
                 <td><input type="text" name="qnaTitle" id="" class="admin_faqTableInput" th:text="${list.FAQTitle}"></td>
             </tr>
+            <tr>
+                <th>선택</th>
+                    <td>
+                    <select name="FAQCategory" id="admin_faqTableSelect">
+                        <option value="P">영화관</option>
+                        <option value="M">영화</option>
+                         <option value="U">멤버쉽</option>
+                         <option value="B">예매/결제</option>
+                         <option value="H">홈페이지</option>
+                         <option value="A">계정</option>
+                         <option value="*">기타</option>
+                    </select>
+                </td>
+            </tr>
         </table>
     </div>
     <!-- 내용 쓰는 칸 -->
         <div class="admin_faqContentWrap" th:each="list : ${adminFaqList}">
             <form method="post">
-                <textarea id="summernote" name="qnaContent" th:text="${list.FAQContent}"></textarea>
+                <textarea id="summernote" name="qnaContent" th:utext="${faq.FAQContent}"></textarea>
    
               </form>
           

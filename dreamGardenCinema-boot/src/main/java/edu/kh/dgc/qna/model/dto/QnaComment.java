@@ -17,6 +17,8 @@ public class QnaComment {
 	private String qnaCommentDate;
 	private String qnaCommentFl;
 	private String qnaComment;
+	
+	
 }
 
 

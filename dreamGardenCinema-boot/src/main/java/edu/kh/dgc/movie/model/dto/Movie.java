@@ -15,7 +15,7 @@ public class Movie {
 	private String movieTitle;
 	private String poster;
 	private String synopsis;
-	private String runningTime;
+	private String runningTime; //러닝타임
 	private String rating;
 	private String releaseDate;
 	private String producer;
@@ -24,5 +24,10 @@ public class Movie {
 	private String screening;
 	private int rank;
 	private String ratio;
+	
+	//Movie schedule 조인 상영관
+	private String movieTheater;
+	private String movieTime; //상영시간
+	private String movieday; //상영일
 	
 }

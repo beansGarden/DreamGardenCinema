@@ -17,4 +17,10 @@ public class Notice {
 	private String enrollDate;
 	private int noticeViewpoint;
 	private String noticeFL;
+	
+	
+	//검색필터
+	private  String type;
+	private String keyword;
+
 }
