@@ -30,8 +30,6 @@ public class PaymentController {
 	@Autowired
 	private OrderService orderService;
 
-	private IamportClient api;
-
 	@Value("${port-one.RESTAPIKey}")
 	private String RESTAPIKey;
 
@@ -46,9 +44,9 @@ public class PaymentController {
 			throws IamportResponseException, IOException {
 		
 		System.out.println("imp_uid : " + imp_uid);
-		System.out.println(api.paymentByImpUid(imp_uid));
+		System.out.println(client.paymentByImpUid(imp_uid));
 		
-		return api.paymentByImpUid(imp_uid);
+		return client.paymentByImpUid(imp_uid);
 	}
 
 
