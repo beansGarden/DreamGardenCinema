@@ -26,16 +26,16 @@ public class UserServiceImpl implements UserService {
 		User loginUser = mapper.login(inputUser);
 		System.out.println("암호화 확인 : " + bcrypt.encode(inputUser.getUserPw()));
 
-//		if (loginUser != null) {
-//
-//			if (bcrypt.matches(inputUser.getUserPw(), loginUser.getUserPw())) {
-//
-//				loginUser.setUserPw(null);
-//
-//			} else { // 다를 경우
-//				loginUser = null;
-//			}
-//		}
+		if (loginUser != null) {
+
+			if (bcrypt.matches(inputUser.getUserPw(), loginUser.getUserPw())) {
+
+				loginUser.setUserPw(null);
+
+			} else { // 다를 경우
+				loginUser = null;
+			}
+		}
 		return loginUser;
 	}
 
@@ -77,6 +77,18 @@ public class UserServiceImpl implements UserService {
 			return mapper.changePw(user);
 		}
 		return 0;
+	}
+
+	// 가입한 회원 회원번호 가져오기
+	@Override
+	public String selectNo(String userId) {
+		return mapper.selectNo(userId);
+	}
+
+	// 가입한 회원 쿠폰 8개 삽입
+	@Override
+	public int insertCoupon(String selectNo) {
+		return mapper.insertCoupon(selectNo);
 	}
 
 }

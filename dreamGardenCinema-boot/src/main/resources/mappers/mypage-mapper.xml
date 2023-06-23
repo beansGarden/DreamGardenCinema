@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.kh.dgc.mypage.model.dao.MypageMapper">
-	
+
 	<resultMap type="Qna" id="qna_rm">
-	
-		<id property="qnaNo" column="QNA_NO"/>
-		
-		<result property="qnaTitle" column="QNA_TITLE"/>
-		<result property="qnaContent" column="QNA_CONTENT"/>
-		<result property="qnaEnrollDate" column="QNA_ENROLL_DATE"/>
-		<result property="qnaDeleteFl" column="QNA_DELETE_FL"/>
-		<result property="qnaCheckFl" column="QNA_CHECK_FL"/>
-		<result property="qnaCategory" column="QNA_CATEGORY"/>
-		<result property="userNo" column="USER_NO2"/>
-		<result property="userNickname" column="USER_NICKNAME"/>
-		
+
+		<id property="qnaNo" column="QNA_NO" />
+
+		<result property="qnaTitle" column="QNA_TITLE" />
+		<result property="qnaContent" column="QNA_CONTENT" />
+		<result property="qnaEnrollDate" column="QNA_ENROLL_DATE" />
+		<result property="qnaDeleteFl" column="QNA_DELETE_FL" />
+		<result property="qnaCheckFl" column="QNA_CHECK_FL" />
+		<result property="qnaCategory" column="QNA_CATEGORY" />
+		<result property="userNo" column="USER_NO2" />
+		<result property="userNickname" column="USER_NICKNAME" />
+
 		<!--JOIN QNA_COMMENT-->
-		<result property="qnaCommentNo" column="QNA_COMMENT_NO"/>
-		<result property="qnaCommentDate" column="QNA_COMMENT_DATE"/>
-		<result property="qnaCommentFl" column="QNA_COMMENT_FL"/>
-		<result property="qnaComment" column="QNA_COMMENT"/>
+		<result property="qnaCommentNo" column="QNA_COMMENT_NO" />
+		<result property="qnaCommentDate" column="QNA_COMMENT_DATE" />
+		<result property="qnaCommentFl" column="QNA_COMMENT_FL" />
+		<result property="qnaComment" column="QNA_COMMENT" />
 		<!--JOIN USER_INFO-->
-		<result property="userRating" column="USER_RATING"/>
-		
+		<result property="userRating" column="USER_RATING" />
+
 	</resultMap>
-	
+
 	<resultMap type="User" id="user_rm">
 		<id property="userNo" column="USER_NO" />
 		<result property="userId" column="USER_ID" />
@@ -39,20 +39,64 @@
 		<result property="userRole" column="USER_ROLE" />
 		<result property="userRating" column="USER_RATING" />
 		<result property="userClose" column="USER_CLOSE" />
+		<result property="userAddress" column="USER_ADDRESS" />
 	</resultMap>
-	
+
+	<resultMap type="Coupon" id="coupon_rm">
+		<!--JOIN USER_COUPON-->
+		<id property="userCouponNo" column="USER_COUPON_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="useFl" column="USE_FL" />
+		<!--COUPON-->
+		<result property="couponNo" column="COUPON_NO" />
+		<result property="couponPrice" column="COUPON_PRICE" />
+		<result property="couponName" column="COUPON_NAME" />
+	</resultMap>
+
 	<!--나의 1:1 문의 내역 조회-->
 	<select id="myQnaList" resultMap="qna_rm">
-		SELECT Q.QNA_NO,QNA_TITLE,QNA_CONTENT,QNA_CHECK_FL,QNA_CATEGORY,QNA_ENROLL_DATE,QNA_COMMENT,USER_RATING
+		SELECT
+		Q.QNA_NO,QNA_TITLE,QNA_CONTENT,QNA_CHECK_FL,QNA_CATEGORY,QNA_ENROLL_DATE,QNA_COMMENT,USER_RATING
 		FROM QNA Q
 		JOIN USER_INFO U ON (U.USER_NO = USER_NO2)
 		LEFT JOIN "QNA _COMMENT" C ON (Q.QNA_NO = C.QNA_NO)
 		WHERE USER_NO2 = #{userNo}
 	</select>
-	
+
+	<!-- 나의 닉네임 변경-->
 	<update id="changeNickName" parameterType="User">
 		UPDATE "USER_INFO" SET
 		USER_NICKNAME = #{userNickname}
 		WHERE USER_NO = #{userNo}
 	</update>
+
+	<!--회원 정보 수정(이메일,주소)-->
+	<update id="changeInfo" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_EMAIL = #{userEmail},
+		USER_ADDRESS = #{userAddress}
+		WHERE USER_NO = #{userNo}
+	</update>
+
+	<!-- 회원 번호가 일치하는 회원 비밀번호 조회-->
+	<select id="selectEncPw" parameterType="int" resultType="string">
+		SELECT USER_PW FROM "USER_INFO" WHERE USER_NO = #{userNo}
+	</select>
+
+	<!-- 비밀번호 변경-->
+	<update id="changePw" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_PW = #{userPw}
+		WHERE USER_NO = #{userNo}
+	</update>
+
+	<!-- 회원 보유 쿠폰 조회-->
+	<select id="couponList" resultMap="coupon_rm">
+		SELECT *
+		FROM USER_COUPON
+		JOIN COUPON USING(COUPON_NO)
+		WHERE USER_NO = #{userNo}
+		AND USE_FL ='N'
+	</select>
+
 </mapper>

@@ -135,11 +135,20 @@ public class UserController {
 
 		int result = service.signup(inputUser); // DB insert
 
+		
 		if (result > 0 && result1 == true) {
-			path += "/user/login";
-
-			message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";
-
+			// 가입한 회원 번호 가져오기
+			String selectNo = service.selectNo(inputUser.getUserId());
+			System.out.println(selectNo);
+			// 가입한 회원 번호 넘겨서 쿠폰 8개 삽입
+			int coupon = service.insertCoupon(selectNo);
+				if(coupon > 0) {
+					path += "/user/login";
+					message = inputUser.getUserNickname() + "님의 가입을 환영합니다.";
+				}else {
+					path = "user/signUp";
+					message = "회원 가입 실패";
+				}
 		} else {
 			path = "user/signUp";
 			message = "회원 가입 실패";
