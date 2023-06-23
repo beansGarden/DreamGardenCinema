@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import edu.kh.dgc.ticketing.model.service.OrderService;
 import edu.kh.dgc.ticketing.model.service.PaymentService;
 import jakarta.servlet.http.HttpSession;
 
+@PropertySource("classpath:config.properties")
 @RequestMapping("/ticketing")
 @Controller
 public class PaymentController {
