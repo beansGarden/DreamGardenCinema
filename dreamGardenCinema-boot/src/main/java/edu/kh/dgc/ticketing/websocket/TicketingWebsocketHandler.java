@@ -49,6 +49,8 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		
 		String seatResult = service.seatCheck(seatCheck);  // INSERT, DELETE 결과를 가져오는 서비스
 		
+		System.out.println(sessionList);
+		
 		for(int i=0;i<sessions.size();i++){  // List 하나씩 꺼내기
 			
 			String room = (String) sessionList.get(i).get("room");  // 접속유저들의 방번호
@@ -81,16 +83,13 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		log.info("Socket 연결 해제");
 		
 		int userNo = ((User)session.getAttributes().get("loginUser")).getUserNo();
-		System.out.println(userNo);
 		Map<String, Object> resultMap = service.seatDelete(userNo);
 		String seatResult = (String) resultMap.get("seatResult");
 		List<SeatCheck> seatCheckList = (List<SeatCheck>) resultMap.get("seatCheckList");
 		int idx = -1;
-		if(seatResult.equals("예매취소성공")) {
-			for(int i=0;i<sessions.size();i++){
-				
+		for(int i=0;i<sessions.size();i++){
+			if(seatResult.equals("예매취소성공")) {
 				WebSocketSession sess = sessions.get(i);
-				
 				if(!sessionList.get(i).get("userSession").equals(session.getAttributes().get("userSession"))) {  // 세션 아이디가 다른 접속자
 					TextMessage sendMsg = null;
 						for(SeatCheck seatCheck : seatCheckList) {
@@ -100,6 +99,8 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 				} else {
 					idx = i;
 				}
+			} else {
+				idx = i;
 			}
 		}
 		sessionList.remove(idx);

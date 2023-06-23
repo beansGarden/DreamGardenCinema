@@ -21,10 +21,10 @@
         <div class="ticketingBox">
             <ul class="ticketingNav">
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
-                <li class="active"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
-                <li><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
-                <li><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
-                <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
+                <li class="active"><a>01<br>상영시간</a></li>
+                <li><a class="seat">02<br>인원/좌석</a></li>
+                <li><a>03<br>결제</a></li>
+                <li><a>04<br>결제완료</a></li>
             </ul>
             <form th:action="@{/ticketing/seat}" method="POST" id="timeFrm">
                 <div class="choiceMovie">

@@ -14,6 +14,7 @@ import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Seat;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 @Service
 public class TicketingServiceImpl implements TicketingService{
@@ -46,7 +47,7 @@ public class TicketingServiceImpl implements TicketingService{
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		Movie movie = mapper.selectMovie(ticket);
+		Movie movie = mapper.selectMovie(ticket.getMovieNo());
 		ticket.setMovieTime(ticket.getMovieTime().split(" ")[0] + ticket.getMovieTime().split(" ")[2]);
 		List<SeatCheck> chkSeatList = mapper.selectChkSeatList(ticket); 
 		System.out.println(chkSeatList);
@@ -105,6 +106,21 @@ public class TicketingServiceImpl implements TicketingService{
 		seatResultMap.put("seatResult", seatResult);
 		
 		return seatResultMap;
+	}
+
+	@Override
+	public int beforePaySeat(int userNo) {
+		return mapper.beforePaySeat(userNo);
+	}
+
+	@Override
+	public Movie selectMovie(int movieNo) {
+		return mapper.selectMovie(movieNo);
+	}
+
+	@Override
+	public void ticketingOut(Map<String, Object> paramMap) {
+		mapper.ticketingOut(paramMap);
 	}
 
 
