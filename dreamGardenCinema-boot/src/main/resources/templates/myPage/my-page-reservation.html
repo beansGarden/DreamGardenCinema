@@ -360,12 +360,7 @@
     <script th:src="@{/js/myPage/my-page-reservation.js}"></script>
     
     <script th:inline="javascript">
-        //th:inline="javascript"
-        // - 타임리프를 script에서 사용 가능
-        // - 타임리프에서 출력되는 값을 JS에 맞는 자료형으로 변경
-
-        // Natural Template
-        // 1) JS 문법 에러 발생 X
+        
         const loginUser = /*[[${session.loginUser}]]*/"로그인한 회원정보";
 
         if(loginUser.userAddress != null){

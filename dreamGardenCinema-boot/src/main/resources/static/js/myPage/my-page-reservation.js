@@ -131,6 +131,8 @@ changeBtn.addEventListener("click", () => {
         alert("취소되었습니다")
     }
 })
+
+/* 유효성 검사를 위한 배열 */
 const checkObj = {
     "userPw": false,
     "checkPw": false,
