@@ -115,7 +115,7 @@
 	</insert>
 	
 	<delete id="deleteSeat">
-		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo} AND STATE = 'Y'
+		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo} AND STATE = 'N'
 	</delete>
 	
 	<select id="selectSeat" resultType="int">
@@ -128,11 +128,11 @@
 		SELECT *
 		FROM SEAT_CHECK
 		WHERE USER_NO = ${userNo}
-		AND STATE = 'Y'
+		AND STATE = 'N'
 	</select>
 	
 	<delete id="deleteEndSeat">
-		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo}
+		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'N'
 	</delete>
 	
 	<update id="beforePaySeat">

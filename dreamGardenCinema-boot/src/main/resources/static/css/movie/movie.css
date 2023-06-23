@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    user-select: none;
 }
 
 /* 윗단 탑 슬라이드 */
@@ -42,6 +43,8 @@ body {
 
 /* 영화리스트 */
 
+
+/* movie List 전체에 대한 박스 */
 .movie--mid__List {
     margin: auto;
     margin-top: 60px;
@@ -62,6 +65,9 @@ body {
     align-items: center;
 }
 
+
+
+
 .movieList--items {
     margin: auto;
     width: 98%;
@@ -78,14 +84,22 @@ body {
 }
 
 .movieItem .movie-poster-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     position: relative;
+
     width: 100%;
     height: 250px;
 }
 
+
+
 .movieItem .movie-poster{
     border-radius: 10px;
     width: 100%;
+    height: 100%;
 }
 
 .movieItem .movie-rating{
@@ -97,6 +111,41 @@ body {
 .movieItem .movie-title{
     margin-top: 10px;
 }
+
+
+.movie-action{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.movie-action:hover{
+    opacity: 1;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.movie-action a{
+    width: 80%;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: brightness(2);
+}
+
+
+
+
 
 
 .movieList--more{

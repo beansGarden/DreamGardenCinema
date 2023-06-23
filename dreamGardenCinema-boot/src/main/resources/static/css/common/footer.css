@@ -9,19 +9,25 @@
 
 /* footer 전체 박스 */
 .dg-footer-box{
+    position: relative;
     height: 200px;
-
-    /* border: 1px solid black; */
-
-    display: flex;
+    width: 100%;
+    min-width: 800px;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: 10px;
+    font-size: 10px; */
 }
 
 .dg-footer-logo{
-    margin-right: 30px;
+    overflow: hidden;
+    display: block;
+    float: left;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    margin-right: 20px;
+    margin-top: -20px;
 }
 
 /* footer 로고 이미지 */
@@ -29,17 +35,28 @@
     width: 100px;
     height: 100px;
 }
-
+.inner-wrap {
+    width: 800px;
+    margin: 0 auto;
+}
 /* footer 정보 */
+.dg-footer-info-list-box{
+    margin: 0 auto;
+    padding: 30px 0;
+    width: 800px;
+    overflow: hidden;
+}
+.footer-bottom{
+    overflow: hidden;
+    width: 800px;
+    margin: 0 auto;
+    padding: 0;
+}
 .dg-footer-info-list{
     display: flex;
     list-style: none;
     justify-content: center;
-
     font-size: 12px;
-    margin-bottom: 5px;
-
-    
 }
 
 /* footer 정보 list */
@@ -66,7 +83,6 @@
 
 /* footer 주소 */
 .dg-footer-addr{
-    display: flex;
     font-size: 12px;
     margin-bottom: 5px;
 }
@@ -85,43 +101,57 @@
 
     margin-bottom: 5px;
 }
-
+.dg-info-list>li{
+    padding-right: 5px;
+    border-right: 1px solid #808080;
+    margin-right: 5px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+}
+.dg-info-list>li:last-child{
+    padding-right: 5px;
+    border-right: 0px solid #808080;
+    margin-right: 5px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+}
 /* 대표이사 */
-.dg-info-list>li:nth-child(1){
+/* .dg-info-list>li:nth-child(1){
     padding-right: 5px;
     border-right: 1px solid #808080;
     margin-right: 3px;
     height: 10px;
     display: flex;
     align-items: center;
-}
+} */
 
 /* 사업자등록번호 */
-.dg-info-list>li:nth-child(2){
-
+/* .dg-info-list>li:nth-child(2){
     padding-right: 5px;
     border-right: 1px solid #808080;
     margin-right: 5px;
     height: 10px;
     display: flex;
     align-items: center;
-
-}
+} */
 
 /* 통신판매업신고번호 */
-.dg-info-list>li:nth-child(3){
+/* .dg-info-list>li:nth-child(3){
     padding-right: 5px;
     border-right: 1px solid #808080;
     margin-right: 5px;
     height: 10px;
     display: flex;
     align-items: center;
-}
+} */
 
 .dg-copyright{
     text-align: center;
     font-weight: bold;
     font-size: 13px;
+    margin-top: -30px;
 }
 
 

@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing3.css}">
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
 
@@ -26,19 +27,19 @@
                 <div class="ticketing_info">
                     <div>
                         <div class="poster">
-                            <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
+                            <img th:src="${movie.poster}">
                         </div>
                         <div class="title">
-                            <img th:src="@{/images/common/main/15세.png}" alt="">
-                            <span>범죄도시3</span>
+                            <img th:src="${movie.rating}">
+                            <span th:text="${movie.movieTitle}"></span>
                         </div>
                         <div class="date">
-                            <span>23.06.01(목)</span>
-                            <span>15:30~17:30</span>
+                            <span th:text="${saveday}"></span>
+                            <span th:text="${runningTime}"></span>
                         </div>
                         <div class="seat">
-                            <span><span>1관</span> 인원<span>2</span></span>
-                            <span>D10, D11</span>
+                            <span><span th:text="${movieTheater} + '관'"></span> 인원<span th:text="${#lists.size(resultSeatList)}">2</span></span>
+                            <span th:text="${resultSeatList}"></span>
                         </div>
                         <select name="coupon" id="coupon">
                             <option value="">쿠폰 적용하기</option>
@@ -47,12 +48,14 @@
                 </div>
                 <div class="price">
                     <div>결제금액</div>
-                    <div>총 <span>28,000</span>원</div>
+                    <div>총 <span th:text="(${#lists.size(resultSeatList)} * ${movie.moviePrice})"></span>원</div>
                 </div>
-                <div class="liquidate">
-                    <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
-                    <span>결제하기</span>
-                </div>
+                <button type="button" onclick="requestPay()">
+                    <div class="liquidate">
+                        <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
+                        <span>결제하기</span>
+                    </div>
+                </button>
             </form>
         </div>
     </div>
@@ -61,5 +64,6 @@
 
     <h1 th:text="${ticket}"></h1>
     <script th:src="@{/js/ticketing/Ticketing3.js}"></script>
+    <script th:src="@{/js/ticketing/Payment.js}"></script>
 </body>
 </html>

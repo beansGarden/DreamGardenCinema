@@ -138,3 +138,15 @@ socket.onmessage = function(event) {
         }
     }
 }
+
+const frm = document.querySelector(".frm");
+
+frm.addEventListener("summit", e=>{
+    
+    if(document.querySelectorAll("[name='seatNo']:checked").length == 0){
+        e.preventDefault();
+        alert("좌석을 선택해주세요");
+        return;
+    }
+    location.href="/ticketing/confirmSeat";
+});
