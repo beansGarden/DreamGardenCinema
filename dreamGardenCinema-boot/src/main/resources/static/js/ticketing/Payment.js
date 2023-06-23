@@ -8,7 +8,7 @@ function requestPay() {
     IMP.request_pay({ // param
         pg: "kakaopay.TC0ONETIME",
         pay_method: "kakaopay",
-        merchant_uid: "test-000040",
+        merchant_uid: "test-000041",
         name: "범죄도시3",
         amount: 1,
         buyer_email: loginUser.userEmail,

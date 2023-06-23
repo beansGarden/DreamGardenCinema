@@ -9,7 +9,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
-@PropertySource("classpath:/config.properties")
+@PropertySource("classpath:/config2.properties")
 public class RedisConfig {
 
     @Value("${spring.redis.host}")
