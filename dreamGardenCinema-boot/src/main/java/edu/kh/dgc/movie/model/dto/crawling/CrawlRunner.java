@@ -5,12 +5,27 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
 
+import edu.kh.dgc.movie.model.dto.crawling.format.CrawlFormat;
+
 @Component
-public class crawlRunner {
+public class CrawlRunner {
 	
     public static void main(String[] args) {
     	
+    	CrawlFormat info = new CrawlFormat();
+    	String crawlType;
     	
+    	// ----- 입력할 거 -----
+    	
+    	// webPage 주소
+    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19438";
+    	
+    	// crwalType in (info, stillcut, people)
+//    	crawlType = "info";
+//		crawlType = "stillcut";
+		crawlType = "people";
+    	
+    	// ----------------------
     	
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\chromeDriver\\chromedriver.exe"; 
         // System.getProperty("user.dir") == C:\dreamGardenCinema\dreamGardenCinema-boot
@@ -28,8 +43,29 @@ public class crawlRunner {
         // WebDriver 객체 생성
         ChromeDriver driver = new ChromeDriver( options );
         
+		/*
+		 * // webPage 주소 String Goto =
+		 * "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19890";
+		 */
         
-        driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19890");
+        // webPage 요청
+        driver.get(Goto);
+        
+        // 요청 후 기다리기 -> 비동기 요청 다 끝내기
+        try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
+        // crawling 요소 호출
+        
+        if(crawlType.equals("crawl"))	info.movieInfoCrawl(driver);
+        if(crawlType.equals("stillcut"))	info.stillCutInfoCrawl(driver);
+        if(crawlType.equals("people"))	info.peopleInfoCrawl(driver);
+        
+        
+        ////
         
         // 5초 후에 WebDriver 종료
         try {

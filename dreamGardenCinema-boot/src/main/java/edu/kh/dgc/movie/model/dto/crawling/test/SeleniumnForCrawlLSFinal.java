@@ -1,4 +1,4 @@
-package edu.kh.dgc.movie.model.dto.crawling;
+package edu.kh.dgc.movie.model.dto.crawling.test;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,12 +17,11 @@ import org.springframework.stereotype.Component;
 
 import edu.kh.dgc.DreamGardenCinemaBootApplication;
 import edu.kh.dgc.movie.model.dto.Movie;
-import edu.kh.dgc.movie.model.dto.crawling.test.SeleniumnForCrawlLS;
 import edu.kh.dgc.movie.model.service.CrawlingService;
 import edu.kh.dgc.movie.model.service.CrawlingServiceImpl;
 
 @Component
-public class SeleniumnForCrawlLSFinalP {
+public class SeleniumnForCrawlLSFinal {
 	
 	
     public static void main(String[] args) {
@@ -44,7 +43,7 @@ public class SeleniumnForCrawlLSFinalP {
         ChromeDriver driver = new ChromeDriver( options );
         
         // 웹페이지 요청
-        driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19890");
+        driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19586");
         
         try {
 			Thread.sleep(1000);
@@ -178,7 +177,7 @@ public class SeleniumnForCrawlLSFinalP {
         movie.setReleaseDate(releaseDate);
         movie.setGenre(genre);
         movie.setMoviePrice(12000);
-        movie.setScreening("P");
+        movie.setScreening("C");
         
         System.out.println(movie);
         
@@ -188,6 +187,8 @@ public class SeleniumnForCrawlLSFinalP {
         CrawlingService service = context.getBean(CrawlingServiceImpl.class);
         
         service.insertMovieInfo(movie);
+        
+        
         
     }
     

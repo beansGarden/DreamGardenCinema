@@ -1,4 +1,4 @@
-package edu.kh.dgc.movie.model.dto.crawling;
+package edu.kh.dgc.movie.model.dto.crawling.test;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import edu.kh.dgc.DreamGardenCinemaBootApplication;
 import edu.kh.dgc.movie.model.dto.Movie;
-import edu.kh.dgc.movie.model.dto.crawling.test.SeleniumnForCrawlLS;
 import edu.kh.dgc.movie.model.service.CrawlingService;
 import edu.kh.dgc.movie.model.service.CrawlingServiceImpl;
 
