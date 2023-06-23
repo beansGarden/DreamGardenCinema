@@ -40,28 +40,31 @@ public class TicketingController {
 		List<Movie> movieList = service.selectMovieList();
 		List<Schedule> timeList = null;
 		
-		if(!stringTicket.equals("null")) {
-			String[] parts = stringTicket.replaceAll("Ticket\\(|\\)", "").split(", ");
-			
-			Map<String, Object> saveTicket = new HashMap<>();
-			for (String part : parts) {
-			    String[] keyValue = part.split("=");
-			    saveTicket.put(keyValue[0], keyValue[1]);
-			}
-			
-			model.addAttribute("saveTicket", saveTicket);
-			
-			saveTicket.put("movieTime", ((String) saveTicket.get("movieTime")).split(" ")[0]);
-			
-			timeList = service.selectSaveTimeList(saveTicket);
-			
-			model.addAttribute("checkNo", saveTicket.get("movieNo"));
-		} else {
+		System.out.println(stringTicket);
+		
+		
+//		if(!stringTicket.equals("null")) {
+//			String[] parts = stringTicket.replaceAll("Ticket\\(|\\)", "").split(", ");
+//			
+//			Map<String, Object> saveTicket = new HashMap<>();
+//			for (String part : parts) {
+//			    String[] keyValue = part.split("=");
+//			    saveTicket.put(keyValue[0], keyValue[1]);
+//			}
+//			
+//			model.addAttribute("saveTicket", saveTicket);
+//			
+//			saveTicket.put("movieTime", ((String) saveTicket.get("movieTime")).split(" ")[0]);
+//			
+//			timeList = service.selectSaveTimeList(saveTicket);
+//			
+//			model.addAttribute("checkNo", saveTicket.get("movieNo"));
+//		} else {
 			Movie firstMovie = movieList.get(0);
 			int movieNo = firstMovie.getMovieNo();
 			timeList = service.selectTimeList(movieNo);
 			model.addAttribute("checkNo", movieNo);
-		}
+//		}
 		
 		model.addAttribute("timeList",timeList);
 		model.addAttribute("movieList", movieList);
@@ -106,6 +109,8 @@ public class TicketingController {
 					, Model model  // 모델에 담아서 forward  
 					, RedirectAttributes ra
 					, @SessionAttribute("loginUser") User loginUser) {
+		
+		System.out.println(ticket);
 		
 		String movieTheater = ticket.getMovieTime().split(",")[0];
 		String movieTime = ticket.getMovieTime().split(",")[1];

@@ -64,7 +64,7 @@
 	<select id="selectSaveTimeList" resultMap="schedule_rm">
 		SELECT MOVIE_NO, TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
-		WHERE TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${movieTime}
+		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
 		<![CDATA[
 		AND MOVIE_TIME > SYSDATE 
 		]]>
@@ -107,7 +107,6 @@
 		WHERE MOVIE_NO = ${movieNo}
 		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
 		AND MOVIE_THEATER = ${movieTheater}
-		AND STATE != 'N'
 	</select>
 	
 	<insert id="insertSeat">
