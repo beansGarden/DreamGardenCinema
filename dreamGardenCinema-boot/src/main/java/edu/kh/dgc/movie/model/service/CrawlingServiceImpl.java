@@ -16,5 +16,18 @@ public class CrawlingServiceImpl implements CrawlingService {
 	public int insertMovieInfo(Movie movie) {
 		return mapper.insertMovieInfo(movie);
 	}
+
+	@Override
+	public int selectMovieNoByTitle(String movieTitle) {
+		return mapper.selectMovieNoByTitle(movieTitle);
+	}
+
+	@Override
+	public int selectHavingMovieNoByTitle(String movieTitle) {
+		return mapper.selectHavingMovieNoByTitle(movieTitle);
+	}
+	
+	
+
 	
 }

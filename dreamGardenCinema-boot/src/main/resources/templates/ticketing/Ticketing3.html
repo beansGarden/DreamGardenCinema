@@ -8,10 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing3.css}">
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <!-- <script src="https://cdn.iamport.kr/v1/iamport.js"></script> -->
-    <%--아임포트 라이브러리--%>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
 
@@ -54,7 +51,7 @@
                     <div>결제금액</div>
                     <div>총 <span th:text="(${#lists.size(resultSeatList)} * ${movie.moviePrice})"></span>원</div>
                 </div>
-                <button type="button" class="btn_payment">
+                <button type="button" class="btn_payment" onclick="requestPay()">
                     <div class="liquidate">
                         <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
                         <span>결제하기</span>

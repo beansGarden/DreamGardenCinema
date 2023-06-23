@@ -151,19 +151,61 @@ changeBtn.addEventListener("click",()=>{
         alert("취소되었습니다")
     }
 })
+
+/* 유효성 검사를 위한 배열 */
+const checkObj = {
+  "userPw": false,
+  "checkPw": false,
+  "userEmail": true,
+  "userAddress": true
+};
+
+const myPageBtn = document.querySelector("#myPageBtn");
+/* 이메일 변경 영역 */
+const userEmail = document.querySelector("#changeEmail")
+const emailLine = document.querySelector("#emailLine")
+
+userEmail.addEventListener("input", () => {
+  const userEmailValue = userEmail.value;
+  const regEx = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+  if (regEx.test(userEmailValue)) {
+      emailLine.classList.add("clearEmail")
+      emailLine.classList.remove("emailLine")
+      emailLine.classList.remove("errorEmail")
+      checkObj.userEmail = true;
+  } else {
+      emailLine.classList.add("errorEmail")
+      emailLine.classList.remove("emailLine")
+      emailLine.classList.remove("clearEmail")
+      checkObj.userEmail = false;
+  }
+})
+userEmail.addEventListener("focus", () => {
+  line1.classList.remove("errorEmail");
+  line1.classList.remove("clearEmail");
+  line1.classList.add("emailLine");
+});
+
 /* 내 정보 변경 비밀번호 일치 여부 */
 const userPw = document.querySelector("#userPw")
 const line1 = document.querySelector("#line1")
 const loginUserPw = document.querySelector("#loginUserPw").value
-
 /* 현재 비밀번호 확인 영역 */
-userPw.addEventListener("blur",()=>{
-  if(userPw.value == loginUserPw){
+userPw.addEventListener("input", () => {
+  const regex = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-z\d$@$!%*#?&]{8,}$/;
+  const userPwValue = userPw.value;
+
+  if (regex.test(userPwValue)) {
       line1.classList.add("clear")
       line1.classList.remove("line1")
-  }else{
+      line1.classList.remove("error")
+      checkObj.userPw = true;
+  } else {
       line1.classList.add("error")
       line1.classList.remove("line1")
+      line1.classList.remove("clear")
+      checkObj.userPw = false;
   }
 })
 userPw.addEventListener("focus", () => {
@@ -177,53 +219,109 @@ const newPw = document.querySelector("#newPw")
 const checkPw = document.querySelector("#checkPw")
 /* 새 비밀번호 확인 영역 */
 
-checkPw.addEventListener("blur", () => {
+checkPw.addEventListener("input", () => {
+  const newPwValue = newPw.value;
+  const checkPwValue = checkPw.value;
+  const regex = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-z\d$@$!%*#?&]{8,}$/;
+
+  if (regex.test(newPwValue) && newPwValue === checkPwValue) {
+      Array.from(line2).forEach((element) => {
+          element.classList.add("clear");
+          element.classList.remove("line2");
+          element.classList.remove("error");
+          checkObj.checkPw = true;
+      });
+  } else {
+      Array.from(line2).forEach((element) => {
+          element.classList.add("error");
+          element.classList.remove("line2");
+          element.classList.remove("clear");
+          checkObj.checkPw = false;
+      });
+  }
+});
+newPw.addEventListener("input", () => {
   const newPwValue = newPw.value;
   const checkPwValue = checkPw.value;
 
   if (newPwValue === checkPwValue) {
-      line2.forEach((element) => {
+      Array.from(line2).forEach((element) => {
           element.classList.add("clear");
           element.classList.remove("line2");
+          element.classList.remove("error");
       });
-  }else{
-      line2.forEach((element) => {
+  } else {
+      Array.from(line2).forEach((element) => {
           element.classList.add("error");
           element.classList.remove("line2");
-      });
-  }
-});
-newPw.addEventListener("blur", () => {
-  const newPwValue = newPw.value;
-  const checkPwValue = checkPw.value;
-
-  if (newPwValue === checkPwValue) {
-      line2.forEach((element) => {
-          element.classList.add("clear");
-          element.classList.remove("line2");
-      });
-  }else{
-      line2.forEach((element) => {
-          element.classList.add("error");
-          element.classList.remove("line2");
+          element.classList.remove("clear");
       });
   }
 });
 
-newPw.addEventListener("focus",()=>{
-  line2.forEach((element) => {
+newPw.addEventListener("focus", () => {
+  Array.from(line2).forEach((element) => {
       element.classList.remove("error");
       element.classList.remove("clear");
       element.classList.add("line2");
   });
-})
-checkPw.addEventListener("focus",()=>{
-  line2.forEach((element) => {
+});
+
+checkPw.addEventListener("focus", () => {
+  Array.from(line2).forEach((element) => {
       element.classList.remove("error");
       element.classList.remove("clear");
       element.classList.add("line2");
   });
+});
+
+const detailAddress = document.querySelector("#detailAddress");
+detailAddress.addEventListener("input",e=>{
+
+  if (detailAddress.value === '') {
+      checkObj.userAddress = false;
+  } else {
+      checkObj.userAddress = true;
+  }
+
 })
+
+const changeInfo = document.querySelector("#changeInfo")
+
+changeInfo.addEventListener("submit", e => {
+  e.preventDefault();
+
+  let isValid = true;
+
+  for (let key in checkObj) {
+      if (!checkObj[key]) {
+          isValid = false;
+          switch (key) {
+              case "userEmail":
+                  alert("이메일이 유효하지 않습니다");
+                  userEmail.focus();
+                  break;
+              case "userPw":
+                  alert("현재 비밀번호가 유효하지 않습니다");
+                  userPw.focus();
+                  break;
+              case "checkPw":
+                  alert("새 비밀번호 확인이 유효하지 않습니다");
+                  checkPw.focus();
+                  break;
+              case "userAddress":
+                  alert("상세주소가 유효하지 않습니다");
+                  detailAddress.focus();
+                  break;
+          }
+          break;
+      }
+  }
+
+  if (isValid) {
+      e.target.submit();
+  }
+});
 
 
 

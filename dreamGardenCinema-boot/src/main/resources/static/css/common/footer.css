@@ -15,8 +15,10 @@
     min-width: 800px;
     /* display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 10px; */
+    align-items: center;*/
+    font-size: 10px;
+    
+    background-color: white;
 }
 
 .dg-footer-logo{

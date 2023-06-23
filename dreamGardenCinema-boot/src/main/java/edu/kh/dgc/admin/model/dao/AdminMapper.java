@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -46,22 +47,36 @@ public interface AdminMapper {
 	QnaComment selectQnaCommentList(QnaComment qnaCommentNo);
 	
 	//1:1문의 게시글 답변 수정 (update)
-	int qnaAnswerUpdate(QnaComment qnaComment);
+	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 
-	//1:1문의 게시글 
+	//1:1문의 게시글 검색
 	List<Qna> getSearchList(Qna qnaList);
 	
 	//회원관리*****************************************************
 	
+	/**회원 조회
+	 * @return
+	 */
+	int userListCount();
+
+	
 	/**회원관리 조회
 	 * @return
 	 */
-	List<User> adminUserList();
+	List<User> adminUserList(RowBounds rowBounds);
 
 	/**회원 선택 삭제
 	 * @return
 	 */
 	int userDelete(int userNo);
+	
+	
+	/**회원 검색
+	 * @param userList
+	 * @return
+	 */
+	List<User> getUserSearchList(RowBounds rowBounds);
+
 	
 	//영화 관리******************************************************
 	
@@ -70,12 +85,52 @@ public interface AdminMapper {
 	 */
 	List<Movie> adminMovieList();
 
-	//공지사항 관리*************************************************
-	
-	/**공지사항 List 조회
+	//상영관 List 조회************************************************
+	/**상영관 영화 List 조회
 	 * @return
 	 */
-	List<Notice> adminNoticeList();
+	List<User> MovieScheduleList(RowBounds rowBounds);
+
+	
+	/**2관 페이지 이동
+	 * @param movieTheaterNo
+	 * @return
+	 */
+	List<Movie> adminCinemaTwo(String movieTheaterNo);
+	
+	
+	/**상영관 등록 영화 불러오기
+	 * @return
+	 */
+	List<Movie> cinemaList();
+
+	
+	/**상영관 영화,상영시간 등록
+	 * @param movie
+	 * @return
+	 */
+	int cinemaListInsert(Movie movie);
+
+	
+	/**상영관 스케쥴 개수 
+	 * @return
+	 */
+	int movieScheduleListCount();
+
+
+	
+	//공지사항 관리*************************************************
+	
+	/**공지사항 개수 세기
+	 * @return
+	 */
+	int noticeListCount();
+	
+	/**공지사항 List 조회
+	 * @param rowBounds 
+	 * @return
+	 */
+	List<Notice> adminNoticeList(RowBounds rowBounds);
 
 	/**공지사항 게시글 조회
 	 * @param noticeNo
@@ -94,8 +149,14 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int noticeDelete(int noticeNo);
-
 	
+	/**FAQ (자주 찾는 질문) 게시글 검색
+	 * @param noticeList
+	 * @return
+	 */
+	List<Notice> getNoticeSearchList(Notice noticeList);
+
+
 	//FAQ (자주 찾는 질문) List 조회*****************************
 	
 	/**FAQ 게시판 List 조회
@@ -122,6 +183,54 @@ public interface AdminMapper {
 	int deleteFaq(FAQ faq);
 
 
+	/**FAQ (자주 찾는 질문) 글 삽입
+	 * @param faq
+	 * @return
+	 */
+	int faqInsert(FAQ faq);
+
+
+	/**FAQ (자주 찾는 질문) 게시글 선택 삭제(update)
+	 * @param fAQNo
+	 * @return
+	 */
+	int deleteFaq(int fAQNo);
+
+
+	/**FAQ 게시글 검색
+	 * @param faqList
+	 * @return
+	 */
+	List<FAQ> getFaqSearchList(FAQ faqList);
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+	
 
 
 

@@ -81,6 +81,41 @@ VALUES(SEQ_USER_NO.NEXTVAL, 'user10', 'password', '유저십', '01012341010', 'u
 
 COMMIT;
 
+--0623
+SELECT * FROM "USER_INFO";
+
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user11', 'password', '유일일', '01012341111', 'user11@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1988-11-11','M','서울시 중랑구');
+      
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user12', 'password', '유일이', '01012341212', 'user12@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2001-12-12','F','제주시 서귀포구');
+     
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user13', 'password', '유일삼', '01012341313', 'user13@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1979-12-13','M','경기도 하남시 망월동');
+     
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user14', 'password', '유일사', '01012341414', 'user14@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1960-05-14','F','경기도 수원시 팔달구');
+     
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user15', 'password', '유일오', '01012341515', 'user15@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1995-05-15','M','경기도 고양시 덕양구');
+     
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user15', 'password', '유일육', '01012341616', 'user16@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1991-10-16','F','서울시 서대문구 홍제동');
+
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user17', 'password', '유일칠', '01012341717', 'user17@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1996-08-17','M','서울시 중구');
+     
+INSERT INTO "USER_INFO"
+VALUES(SEQ_USER_NO.NEXTVAL, 'user19', 'password', '유일구', '01012341919', 'user19@email.com'
+      , DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '1991-08-19','F','서울시 중구');
+
 /*qna 등록*/
 
 INSERT INTO "QNA"

@@ -9,57 +9,57 @@
 </head>
 <body>
     <!-- 등급별로 쿠폰 보이지 않게 + 사용한 쿠폰 보이지 않게 기능 추가 예정 -->
-    <ul id="display-onoff">
-        <li style="--i:1;" id="bronze">
+    <ul id="display-onoff" th:if="${CouponList.size()>0}">
+        <li style="--i:1;" class="one">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 브론즈 쿠폰</h4>
                 <span>1000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:2;">
+        <li style="--i:2;" class="two">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 실버 쿠폰</h4>
                 <span>2000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:2;">
+        <li style="--i:3;" class="three">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 실버 쿠폰</h4>
                 <span>2000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:3;">
+        <li style="--i:4;" class="four">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 골드 쿠폰</h4>
                 <span>3000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:3;">
+        <li style="--i:5;" class="five">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 골드 쿠폰</h4>
                 <span>3000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:3;">
+        <li style="--i:6;" class="six">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 골드 쿠폰</h4>
                 <span>3000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:4;">
+        <li style="--i:7;" class="seven">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 플래티넘 쿠폰</h4>
                 <span>영화 무료 쿠폰</span>
             </div>
         </li>
-        <li style="--i:4;">
+        <li style="--i:8;" class="eight">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 플래티넘 쿠폰</h4>
@@ -68,7 +68,7 @@
         </li>
     </ul>
     
-    <div id="coupon-null">
+    <div id="coupon-null" th:if="${CouponList.size()==0}">
 
         <div id="coupon-null-container">
             <img th:src="@{/images/myPage/mailBox.png}">

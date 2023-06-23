@@ -51,6 +51,7 @@ body > div.admin_qnaWrap > div > table > thead > tr:nth-child(4) > td{
     padding: 5px 15px;
     border-radius: 5px;
     background-color: #0F0954;
+    color: white;
     
 }
 

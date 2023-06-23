@@ -290,7 +290,7 @@
     
             <p>회원 정보 입력<span class="my-page-changeinfo-guide-text"> *는 필수입력 항목입니다</span></p>
         </div>
-    
+        <form th:action="@{/myPage/change-info}" method="post" id="changeInfo">
         <div class="my-page-changeinfo-contentbox">
     
             <div class="my-page-changeinfo-back">
@@ -303,10 +303,10 @@
                     <p class="my-page-changeinfo-guide-text">*  <span>아이디</span></p>
                     <span th:text="${session.loginUser.userId}"></span>
                 </div>
-                <div class="my-page-changeinfo-hp">
-                    <p class="my-page-changeinfo-guide-text">*  <span>핸드폰 번호</span></p>
-                    <input type="text">
-                    <span>"-" 빼고 입력해주세요</span>
+                <div class="my-page-changeinfo-email">
+                    <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>
+                    <input type="email" id="changeEmail" name="userEmail"  required th:value="${session.loginUser.userEmail}">
+                    <i id="emailLine" class="emailLine"></i>
                 </div>
                 
             </div>
@@ -340,25 +340,25 @@
                 <div class="my-page-changeinfo-address-inputbox">
                     
                     <div id="postcode-box">
-                        <input type="text" placeholder="우편번호" id="postcode">
+                        <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress">
                         <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
                         <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
                     </div>
                     <div>
-                        <input type="text" placeholder="도로명/지번 주소" id="address">
+                        <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress">
                     </div>
                     <div>
-                        <input type="text" placeholder="상세 주소" id="detailAddress">
+                        <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress">
                     </div>
                 </div>
             </div>
             
             <div class="my-page-changeinfo-update-btn">
-                    <button>수정</button>
-                    <button>취소</button>
+                    <button id="myPageBtn">수정</button>
+                    <button  type="button">취소</button>
             </div>
         </div>
-
+    </form>
     </div>
     
     </div>
@@ -369,6 +369,20 @@
 
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>   
     <script th:src="@{/js/myPage/my-page-inquiry.js}"></script>
+
+    <script th:inline="javascript">
+        
+        const loginUser = /*[[${session.loginUser}]]*/"로그인한 회원정보";
+
+        if(loginUser.userAddress != null){
+            const arr = loginUser.userAddress.split("^^^");
+
+            document.querySelectorAll("input[name='memberAddress']").forEach((item,i)=>{
+                item.value = arr[i];
+            });
+        }
+
+    </script>
 </body>
 
 </html>

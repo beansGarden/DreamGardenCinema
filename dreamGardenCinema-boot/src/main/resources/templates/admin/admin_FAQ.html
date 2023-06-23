@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,49 +10,53 @@
     <link rel="stylesheet" href="\css\admin\admin_FAQ.css">
 
 </head>
+
 <body>
-       <!-- 사이드바 -->
- <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_faqWrap">
 
-              <!-- 게시판 제목 -->
-              <span id="admin_faqTitle">FAQ 관리</span>
+        <!-- 게시판 제목 -->
+        <span id="admin_faqTitle">FAQ 관리</span>
 
 
         <!-- 검색창 -->
         <div class="admin_faqSearchWrap">
-            <div  class="admin_faqSearchWrap2"> 
-            <form action="search-form" autocomplete="off">
-            <select class="admin_faqSelect" name="type" id="">
-                <option value="title">제목</option>
-                <option value="content">내용</option>
-                <option value="writer">작성자</option>
-            </select>
-            <!-- 검색 input 창 -->
-                <input type="text" name="" id="" class="admin_faqInput">
-        </div>
+            <div class="admin_faqSearchWrap2">
+                <form th:action="@{/getFaqSearchList}" autocomplete="off">
+                    <select class="admin_faqSelect" name="type" id="">
+                        <option value="number">번호</option>
+                        <option value="title">제목</option>
+                        <option value="categery">카테고리</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <!-- 검색 input 창 -->
+                    <input type="text" name="keyword" id="" class="admin_faqInput">
+            </div>
             <!-- 검색 버튼 -->
             <div class="admin_faqBtnWrap">
-                <button type="button" onclick="getSearchList()" class="admin_faqSearchBtn" value="검색">검색</button>
+                <button type="submit" class="admin_faqSearchBtn" value="검색">검색</button>
             </div>
-
-        </form>
+            </form>
         </div>
-            <!-- 목록 count -->
-            <div class="admin_faqList">
-                <span>목록</span>
-                <span>( 총</span>
-                <span class="admin_faqCount">0</span>
-                <span>개)</span>
+        <!-- 목록 count -->
+        <div class="admin_faqList">
+            <span>목록</span>
+            <span>( 총</span>
+            <span class="admin_faqCount"> 0 </span>
+            <span> / </span>
+            <span class="admin_faqCountAll">0</span>
+            <span>개)</span>
 
-            </div>
-            <!-- 게시판 -->
-            <div class="admin_faqBoardWrap">
-                <table>
-                    <thead>
+        </div>
+        <!-- 게시판 -->
+        <div class="admin_faqBoardWrap">
+            <table>
+                <thead>
                     <tr>
-                        <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll"></th>
+                        <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll"
+                                onclick='userSelectAll(this)'></th>
                         <th>번호</th>
                         <th>카테고리</th>
                         <th>제목</th>
@@ -61,7 +66,7 @@
                 <tbody>
                     <tr th:each="list : ${adminFaqList}">
                         <td><input type="checkbox" name="" id="" class="admin_faqCheckbox"></td>
-                        <td th:text="${list.FAQNo}">1</td>
+                        <td th:text="${list.FAQNo}" class="admin_faq_checkbox_no">1</td>
                         <td>
                             <span th:if="${list.FAQCategory == 'P'}">영화관</span>
                             <span th:if="${list.FAQCategory == 'M'}">영화</span>
@@ -69,29 +74,49 @@
                             <span th:if="${list.FAQCategory == 'B'}">예매/결제</span>
                             <span th:if="${list.FAQCategory == 'H'}">홈페이지</span>
                             <span th:if="${list.FAQCategory == 'A'}">계정</span>
+                            <span th:if="${list.FAQCategory == '*'}">기타</span>
                         </td>
                         <td>
-                            <a th:href="@{adminFaqRead/{FAQNo}(FAQNo=${list.FAQNo})}" th:text="${list.FAQTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</a>
+                            <a th:href="@{adminFaqRead/{FAQNo}(FAQNo=${list.FAQNo})}" th:text="${list.FAQTitle}">인터넷 예매
+                                후 현장에서 취소 가능한가요?</a>
                         </td>
                         <td th:text="${list.FAQDeleteFl}">Y</td>
                     </tr>
-                    
+
                 </tbody>
 
-                </table>
-            </div>
+            </table>
+        </div>
 
-                <!-- 페이지 네이션 -->
+         <!-- 페이지 네이션 -->
+         <ul class="pagination">
+            <li><a href="#">
+                    </a>
+            </li>
+            <li><a href="#"><</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">></a></li>
+        </ul>
 
-                 <!-- 등록,수정,삭제 버튼 -->
-                 <div class="admin_faqBtn">        
-                    <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
-                    <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button>
-                    <button class="admin_faqEndBtn"><a href="">삭제</a></button>
-                </div>
 
-    </div>    
+        <!-- 등록,수정,삭제 버튼 -->
+        <div class="admin_faqBtn">
+            <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
+            <!--                   <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button> -->
+            <button class="admin_faqEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+        </div>
+
+    </div>
 
     <script src="\js\admin\admin_FAQ.js"></script>
+
 </body>
+
 </html>

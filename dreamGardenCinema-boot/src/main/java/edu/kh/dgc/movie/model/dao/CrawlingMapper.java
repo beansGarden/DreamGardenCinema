@@ -8,5 +8,9 @@ import edu.kh.dgc.movie.model.dto.Movie;
 public interface CrawlingMapper {
 	
 	int insertMovieInfo(Movie movie);
+
+	int selectMovieNoByTitle(String movieTitle);
+
+	int selectHavingMovieNoByTitle(String movieTitle);
 	
 }

@@ -32,11 +32,9 @@
         <!--영화 선택  -->
         <div class="admin_cinemaManageDetail_Time">
         <span class="admin_cinemaManagerSTitle">상영 영화</span>
-            <select class="admin_cinemaManageDetaiMlList" name="" id="" > <!-- Movie List -->
-                <option value="0">영화를 선택해주세요</option>
-                <option value="1">인어공주</option>
-                <option value="2">범죄도시3</option>
-                <option value="3">바비</option>
+            <select class="admin_cinemaManageDetaiMlList" name="" id="" th:field="*{cinemaList}">  <!-- Movie List -->
+                <option value="0" >영화를 선택해주세요</option> 
+                <option value="1" th:each="list: ${cinemaList}" th:text="${list.movieTitle}" >영화를 선택해주세요</option> 
             </select>
                
          </div>
@@ -47,10 +45,6 @@
         </div>
 
         <!-- 상영 종료 날짜-->
-         <div class="admin_cinemaManageDetailEndDate">
-            <span class="admin_cinemaManagerSTitle">종영 날짜  </span>
-            <input type="date" name="" id="">
-        </div>
  
         <!-- 상영 시간 => 해시태그 -->
     <div class="admin_cinemaManageDetailDate">
