@@ -99,26 +99,93 @@ arrowLeftBtn.addEventListener("click",()=>{
 /**************************** 검색기능 ****************************/
 
 //fetch("/customerservice/searchFAQ?searchQuery=" + query + "&key=" + value) -> 파라미터 여러개 보내기
-const  searchQuery = document.getElementById("searchQuery");
-const noticeContents = document.querySelector(".notice-contents");
-const serviceSearchBtn = document.querySelector(".service-search-btn");
 
-serviceSearchBtn.addEventListener("click", ()=>{
+const serviceSearchBtn = document.querySelector(".service-search-btn"); // 검색 버튼
+const noticeContents = document.querySelector(".notice-contents");//공지사항 리스트 전체를 감싸는 박스
+const noticeListLink = document.querySelector(".service-notice-list");
+
+
+serviceSearchBtn.addEventListener("click", (e)=>{
+  
+  const noticeBox = document.querySelectorAll(".notice-list-box"); //공지사항 항목 리스트
+  
+
+  noticeBox.forEach((item) => {
+    item.remove();
+  });
+  e.preventDefault();
+  
+  const key = document.getElementById("serviceSearchSelect").value;
+  const searchQuery = document.getElementById("searchQuery").value;
 
   
+  fetch("/customerservice/noticeSearchList?key=" + key + "&query=" + searchQuery)
+    .then(resp => resp.json())
+    .then(noticeSearchList => {
+      console.log(noticeSearchList);
+
+      if (noticeSearchList.length == 0) {
+
+        const newNoticeBox = document.createElement("div");
+        newNoticeBox.classList.add("notice-list-box");
+
+        const noneContent = document.createElement("span");
+        noneContent.classList.add("notice-list-box");
+        noneContent.innerText = "일치하는 검색 결과가 없습니다.";
+        noneContent.style.fontSize = "17px";
+        noneContent.style.fontWeight = "bold";
+        noneContent.style.display = "flex";
+        noneContent.style.padding = "10px 0px 10px 520px";
+        noneContent.style.borderBottom = "2px solid #ccc";
+        
+        newNoticeBox.appendChild(noneContent);
+        noticeContents.appendChild(newNoticeBox);
+
+      }else{
+
+      for(let nList of noticeSearchList){
+        const newNoticeBox = document.createElement("div");
+        newNoticeBox.classList.add("notice-list-box");
+
+        const box1 = document.createElement("div");
+        box1.classList.add("customer-service-inquiry-content");
+        
+        const noticeNo = document.createElement("span");
+        noticeNo.classList.add("noticeNo");
+        noticeNo.innerHTML = nList.noticeNo;
+        box1.appendChild(noticeNo);
+
+        const noticeTitle = document.createElement("a");
+        noticeTitle.classList.add("service-notice-list");
+        noticeTitle.href = `/customerservice/noticeCon/${nList.noticeNo}`;
+
+        const noticeTitleSpan = document.createElement("span");
+        noticeTitleSpan.classList.add("noticeTitleSpan");
+        noticeTitleSpan.innerHTML = nList.noticeTitle;
+
+        noticeTitle.appendChild(noticeTitleSpan);
+        box1.appendChild(noticeTitle);
+
+        const enrollDate = document.createElement("span");
+        enrollDate.classList.add("enrollDate");
+        enrollDate.innerHTML = nList.enrollDate;
+        box1.appendChild(enrollDate);
+
+        newNoticeBox.appendChild(box1);
+        noticeContents.appendChild(newNoticeBox);
+
+
+      }
+
+
+    }
+
+
+
+
+    })
 
 
 
 
 })
-
-
-
-
-
-
-
-/******************************************************************/
-
-
-

@@ -15,10 +15,13 @@ public interface CustomerService {
 	List<FAQ> searchFAQList(String searchQuery);
 
 	// 공지사항 게시글 조회한 경우 해당 게시글 번호와 일치하는 내용 페이지로 이동
-	List<Notice> noticeSelect(Notice notice);
+	List<Notice> noticeSelect(String noticeNo);
 
 	// 공지사항 전체 목록 조회
 	List<Notice> noticeList(Notice notice);
+
+	// 검색어 조회
+	List<Notice> noticeSearchList(Map<String, Object> param);
 
 
 	// 공지사항 검색어 있을 경우 목록 조회

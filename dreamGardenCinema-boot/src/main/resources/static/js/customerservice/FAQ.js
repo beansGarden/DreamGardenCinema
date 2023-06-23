@@ -447,12 +447,12 @@ const searchArea = document.querySelector(".notice-search-area");
 const FAQlistContents = document.querySelector(".FAQ-list-contents");
 const searchBtn = document.querySelector(".service-search-btn");
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", (e) => {
   const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
   existingFAQItems.forEach((item) => {
     item.remove();
   });
-
+  e.preventDefault();
   const query = document.getElementById("query").value.trim();
 
   fetch("/customerservice/searchFAQ?searchQuery=" + query)
@@ -470,10 +470,11 @@ searchBtn.addEventListener("click", () => {
         const noneContent = document.createElement("span");
         noneContent.classList.add("divideFAQ");
         noneContent.innerText = "일치하는 검색 결과가 없습니다.";
+        noneContent.style.fontWeight = "bold";
         noneContent.style.fontSize = "17px";
         noneContent.style.display = "flex";
         noneContent.style.justifyContent = "center";
-        noneContent.style.padding="10px 0px 10px 160px";
+        noneContent.style.padding="10px 0px 10px 175px";
         noneContent.style.borderBottom="2px solid #ccc";
         
         

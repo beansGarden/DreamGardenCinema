@@ -59,7 +59,7 @@
                 </pre>
             </div>
 
-            <form action="@{#}" method="POST">
+            <form action="@{/customerservice/QAinsert}" method="POST" id="QAfrm" enctype="multipart/form-data">
 
                 <!-- 문의내용 -->
                 <div class="QA-main-title">
@@ -69,13 +69,13 @@
                 <!-- 분류 및 종류 행 -->
                 <div class="QA-divide">
                     <span>분류</span><span style="color: red;">*</span>
-                    <select name="" id="QASelection">분류선택
-                        <option value="">상영관</option>
-                        <option value="">영화</option>
-                        <option value="">멤버십</option>
-                        <option value="">예매/결제</option>
-                        <option value="">홈페이지</option>
-                        <option value="">계정</option>
+                    <select name="key" id="QASelection">분류선택
+                        <option value="p">상영관</option>
+                        <option value="m">영화</option>
+                        <option value="u">멤버십</option>
+                        <option value="b">예매/결제</option>
+                        <option value="h">홈페이지</option>
+                        <option value="a">계정</option>
                     </select>
 
                     <span>종류</span><span style="color: red;">*</span>
@@ -109,7 +109,7 @@
                 <!-- 첨부파일 -->
                 <div class="QA-upload-file">
                     <span>첨부파일</span>
-                    <input type="file" name="" id="QAInsertFile">
+                    <input type="file" name="images" id="QAInsertFile" accept="image/*" multiple>
                     <span><img th:src="@{/images/customerservice/경고.png}">첨부 파일형식 : jpg / jpeg /
                         png/ bmp / gif / pdf (5MB X 1개)</span>
                 </div>
@@ -150,7 +150,7 @@
                         <option value="">019</option>
                     </select>
 
-                    <input type="tel" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요.">
+                    <input type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요.">
 
                 </div>
 

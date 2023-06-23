@@ -31,14 +31,20 @@ public class CustomerServiceImpl implements CustomerService{
 
 	// 공지사항 게시글 조회한 경우 해당 게시글 번호와 일치하는 내용 페이지로 이동
 	@Override
-	public List<Notice> noticeSelect(Notice notice) {
-		return mapper.noticeSelect(notice);
+	public List<Notice> noticeSelect(String noticeNo) {
+		return mapper.noticeSelect(noticeNo);
 	}
 	
 	// 공지사항 전체 목록 조회
 	@Override
 	public List<Notice> noticeList(Notice notice) {
 		return mapper.noticeList(notice);
+	}
+
+	// 검색어 조회
+	@Override
+	public List<Notice> noticeSearchList(Map<String, Object> param) {
+		return mapper.noticeSearchList(param);
 	}
 
 

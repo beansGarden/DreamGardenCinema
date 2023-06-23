@@ -32,7 +32,7 @@ public class CustomerServiceController {
 		
 		model.addAttribute("FAQList", FAQList);
 		
-		System.out.println(FAQList);
+//		System.out.println(FAQList);
 		
 		return "customerservice/FAQ";
 		
@@ -54,20 +54,22 @@ public class CustomerServiceController {
 	// 공지사항 해당 게시글 내용 보기
 		@GetMapping("/noticeCon/{noticeNo}")
 		public String noticeList(Model model, 
-						@PathVariable(value = "noticeNo", required = false) int noticeNo
-						,Notice notice) {
+						@PathVariable(value = "noticeNo", required = false) String noticeNo
+						) {
+//			System.out.println(noticeNo);
 			
-			List<Notice> noticeList = service.noticeSelect(notice);
-			
-			System.out.println(notice);
+			List<Notice> noticeList = service.noticeSelect(noticeNo);
 			
 			model.addAttribute("noticeList",noticeList);
 			
 			return "customerservice/notice-con";
 		}
 		
+	// 1:1문의 작성하기
 		
-	
+		
+		
+		
 	
 	// 멤버십 이용 약관 페이지
 	@GetMapping("/terms")
@@ -82,8 +84,6 @@ public class CustomerServiceController {
 		
 		return "customerservice/FAQ";
 	}
-	
-	
 	
 	
 	// 1:1 문의 페이지

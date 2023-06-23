@@ -170,6 +170,7 @@ a {
 
 
 .service-notice-title{
+    width: 65vw;
     padding-top: 10px;
     padding-bottom: 10px;
     border-top: 3px solid #ccc;
@@ -181,6 +182,7 @@ a {
     font-size: 16px;
 
     justify-items: center;
+
 
 }
 
