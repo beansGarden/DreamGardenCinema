@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.mypage.model.service.MypageService;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.user.model.dto.User;
@@ -37,8 +38,17 @@ public class MypageController {
 		
 		return "myPage/my-page-membership";
 	}
+	// 쿠폰 조회
 	@GetMapping("/my-page-coupon")
-	public String coupon() {
+	public String coupon(
+			Model model
+			,@SessionAttribute("loginUser") User loginuser
+			) {
+		int userNo = loginuser.getUserNo();
+		
+		List<Coupon> couponList = service.couponList(userNo);
+		
+		model.addAttribute("CouponList",couponList);
 		
 		return "myPage/my-page-coupon.html";
 	}

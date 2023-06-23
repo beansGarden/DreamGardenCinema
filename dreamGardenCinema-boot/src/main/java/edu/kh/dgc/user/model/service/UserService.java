@@ -13,4 +13,16 @@ public interface UserService {
 
 	int changePw(String userPw, String userRePw, String userId);
 
+	/** 가입한 회원 회원 번호 가져오기
+	 * @param userId
+	 * @return
+	 */
+	String selectNo(String userId);
+
+	/** 가입한 회원 쿠폰 8개 삽입
+	 * @param selectNo
+	 * @return
+	 */
+	int insertCoupon(String selectNo);
+
 }

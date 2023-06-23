@@ -73,4 +73,16 @@ public class UserServiceImpl implements UserService {
 		return 0;
 	}
 
+	// 가입한 회원 회원번호 가져오기
+	@Override
+	public String selectNo(String userId) {
+		return mapper.selectNo(userId);
+	}
+
+	// 가입한 회원 쿠폰 8개 삽입
+	@Override
+	public int insertCoupon(String selectNo) {
+		return mapper.insertCoupon(selectNo);
+	}
+
 }

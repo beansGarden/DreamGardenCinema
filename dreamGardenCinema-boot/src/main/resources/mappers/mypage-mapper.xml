@@ -42,6 +42,17 @@
 		<result property="userAddress" column="USER_ADDRESS" />
 	</resultMap>
 
+	<resultMap type="Coupon" id="coupon_rm">
+		<!--JOIN USER_COUPON-->
+		<id property="userCouponNo" column="USER_COUPON_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="useFl" column="USE_FL" />
+		<!--COUPON-->
+		<result property="couponNo" column="COUPON_NO" />
+		<result property="couponPrice" column="COUPON_PRICE" />
+		<result property="couponName" column="COUPON_NAME" />
+	</resultMap>
+
 	<!--나의 1:1 문의 내역 조회-->
 	<select id="myQnaList" resultMap="qna_rm">
 		SELECT
@@ -71,12 +82,21 @@
 	<select id="selectEncPw" parameterType="int" resultType="string">
 		SELECT USER_PW FROM "USER_INFO" WHERE USER_NO = #{userNo}
 	</select>
-	
+
 	<!-- 비밀번호 변경-->
 	<update id="changePw" parameterType="User">
 		UPDATE "USER_INFO" SET
 		USER_PW = #{userPw}
 		WHERE USER_NO = #{userNo}
 	</update>
-	
+
+	<!-- 회원 보유 쿠폰 조회-->
+	<select id="couponList" resultMap="coupon_rm">
+		SELECT *
+		FROM USER_COUPON
+		JOIN COUPON USING(COUPON_NO)
+		WHERE USER_NO = #{userNo}
+		AND USE_FL ='N'
+	</select>
+
 </mapper>

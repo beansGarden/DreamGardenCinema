@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.dgc.mypage.model.dao.MypageMapper;
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
 import edu.kh.dgc.user.model.dto.User;
@@ -69,5 +70,11 @@ public class MypageServiceImpl implements MypageService{
 		}
 		
 		return 0;
+	}
+	
+	//회원 보유 쿠폰 리스트 조회
+	@Override
+	public List<Coupon> couponList(int userNo) {
+		return mapper.couponList(userNo);
 	}	
 }

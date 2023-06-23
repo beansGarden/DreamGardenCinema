@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -39,6 +40,12 @@ public interface MypageMapper {
 	 * @return
 	 */
 	public int changePw(User user);
+
+	/** 회원 쿠폰 리스트 조회
+	 * @param userNo
+	 * @return
+	 */
+	public List<Coupon> couponList(int userNo);
 
 
 }
