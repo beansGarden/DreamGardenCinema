@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.customerservice.model.service.CustomerFAQService;
-
+import edu.kh.dgc.customerservice.model.service.CustomerService;
 
 @RestController
 @RequestMapping("/customerservice")
@@ -21,6 +21,9 @@ public class CustomerFAQController {
 	
 	@Autowired
 	private CustomerFAQService FAQservice;
+	
+	@Autowired
+	private CustomerService service; 
 	
 	// FAQ(상영관 이용 관련) 목록 조회
 	@GetMapping(value="/theaterFAQ", produces = "application/json; charset=UTF-8")
@@ -45,6 +48,14 @@ public class CustomerFAQController {
 		return FAQservice.membList(FAQCategory);
 		
 	}
+	
+	// 검색어와 일치하는 FAQ 목록 조회
+		@GetMapping(value="/searchFAQ", produces = "application/json; charset=UTF-8")
+		public List<FAQ> searchFAQList(String searchQuery){
+			
+			return service.searchFAQList(searchQuery);
+			
+		} 
 	
 	
 

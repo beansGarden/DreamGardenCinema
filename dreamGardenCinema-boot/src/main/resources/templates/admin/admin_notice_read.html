@@ -18,28 +18,21 @@
           <span id="admin_noticeTitle">공지사항 관리</span>
 
             <!-- 게시판 -->
-            <div class="admin_noticeBoardWrap">
+            <div class="admin_noticeBoardWrap" th:each="list : ${adminNoticeOne}">
                 <table>
                     <thead>
                         <tr>
                             <th>번호</th>
-                                <td>1</td>
+                                <td th:text="${list.noticeNo}">1</td>
                         </tr>
-                        <tr>
-                            <th>카테고리</th>
-                                <td>[예매/결제]</td>
-                        </tr>
-                        <th>등록인</th>
-                        <td>관리자1</td>
-                    </tr>
-                        <tr>
+                        <tr th:each="list : ${adminNoticeOne}">
                             <th>제목</th>
-                                <td>회원 정보 관리 변경 안내</td>
+                                <td th:text="${list.noticeTitle}">회원 정보 관리 변경 안내</td>
                         </tr>
-                        <tr>
+                        <tr >
                             <th>내용</th>
-                                <td>    <!-- 내용 -->
-                                    <div class="admin_noticeContent">
+                                <td th:each="list : ${adminNoticeOne}">    <!-- 내용 -->
+                                    <div class="admin_noticeContent" th:utext="${list.noticeContent}">
                                        안내드립니다
                                     </div></td>
                         </tr>
@@ -53,9 +46,9 @@
 
           <!-- 등록,수정,삭제 버튼 -->
           <div class="admin_noticeBtn">
-            <button class="admin_noticeEndBtn"><a href="">등록</a></button>
-            <button class="admin_noticeEndBtn"><a href="">수정</a></button>
-            <button class="admin_noticeEndBtn"><a href="">삭제</a></button>
+            <!-- <button class="admin_noticeEndBtn"><a href="">등록</a></button> -->
+            <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeUpdate/{noticeNo}(noticeNo=${list.noticeNo})}">수정</a></button>
+            <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeRead/{noticeNo}/delete(noticeNo=${list.noticeNo})}">삭제</a></button>
         </div>
         
             

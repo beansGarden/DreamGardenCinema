@@ -33,6 +33,15 @@
 
 }
 
+/* select 창 */
+#admin_qnaTableSelect{
+ border: none;
+ outline: none; 
+ margin: 10px 10px;
+ width: 200px;
+
+}
+
 /* 글쓰기 textarea */
 #summernote{
     width: 1000px;

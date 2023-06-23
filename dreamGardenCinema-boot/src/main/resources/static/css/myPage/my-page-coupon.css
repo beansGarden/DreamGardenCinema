@@ -35,42 +35,77 @@ ul li{
     transition: 0.5s;
     transition-delay: calc(var(--i) * 0.05s);
 }
-ul li:nth-child(1){
+.one{
     transform: translateZ(-200px) translateY(-50px);
     opacity: 0.6;
 }
-ul li:nth-child(2){
+.two{
     transform: translateZ(-140px) translateY(-80px);
     background: #eee;
 }
-ul li:nth-child(3){
+.three{
     transform: translateZ(-100px) translateY(-120px);
     background: #eee;
 }
-ul li:nth-child(4){
+.four{
     transform: translateZ(-70px) translateY(-170px);
     background: #fff;
 }
-ul li:nth-child(5){
+.five{
     transform: translateZ(-40px) translateY(-220px);
     background: white;
 }
-ul li:nth-child(6){
+.six{
     transform: translateZ(-10px) translateY(-270px);
     background: white;
 }
-ul li:nth-child(7){
+.seven{
     transform: translateZ(20px) translateY(-320px);
     background: white;
 }
-ul li:nth-child(8){
+.eight{
     transform: translateZ(60px) translateY(-360px);
     background: white;
 }
 ul:hover{
     gap:30px;
 }
-ul:hover li{
+ul:hover .one{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .two{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .three{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .four{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .five{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .six{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .seven{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .eight{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);

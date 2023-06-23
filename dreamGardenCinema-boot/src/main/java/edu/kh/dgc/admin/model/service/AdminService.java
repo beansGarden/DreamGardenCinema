@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -29,8 +30,6 @@ public interface AdminService {
 	//1:1 문의 게시글 쓰기(삽입)
 	int qnaInsert(Qna qna);
 
-	//1:1문의 게시글 답변 쓰기(삽입)
-	int qnaAnswerInsert(QnaComment qnaComment);
 
 	//1:1문의 게시글 답변 등록 확인(업데이트)
 	QnaComment updateAnswer(int qnaNo);
@@ -39,18 +38,25 @@ public interface AdminService {
 	QnaComment selectQnaCommentList(QnaComment qnaComment);
 
 	//1:1문의 게시글 답변 수정 (update)
-	int qnaAnswerUpdate(QnaComment qnaComment);
+	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 	
+	//1:1문의 게시글 답변 쓰기 (insert)
+	int qnaAnswerInsert(QnaComment qnaComment);
+
 	//1:1문의 게시글검색
 	List<Qna> getSearchList(Qna qnaList);
 
 	//회원*****************************************
 	
 	//회원관리 List 조회
-	List<User> adminUserList();
+	Map<String, Object> adminUserList(int cp);
+	
 
 	//회원 선택 삭제
 	int userDelete(int userNo);
+
+	//회원 검색
+	Map<String, Object> getUserSearchList(User condition,int cp);
 
 	//영화 관리***********************************
 	
@@ -58,10 +64,24 @@ public interface AdminService {
 	List<Movie> adminMovieList();
 
 	
+	//상영관 관리***************************
+	
+	//상영관 영화 List 조회
+	Map<String, Object> adminCinemaList(int cp);
+	
+	//2관 페이지 이동
+	List<Movie> adminCinemaTwo(String movieTheaterNo);
+
+	//상영관 등록 영화 불러오기
+	List<Movie> cinemaList();
+
+	//상영관 영화,상영시간 등록
+	int cinemaListInsert(Movie movie);
+	
 	//공지사항 관리*******************************
 	
 	//공지사항 List 조회
-	List<Notice> adminNoticeList();
+	Map<String, Object>  adminNoticeList(int cp);
 
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
@@ -71,6 +91,11 @@ public interface AdminService {
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
+	
+	//공지사항 게시글 검색
+	List<Notice> getNoticeSearchList(Notice noticeList);
+
+
 
 	
 	//FAQ (자주 찾는 질문) 관리*****************************
@@ -86,7 +111,24 @@ public interface AdminService {
 
 	//FAQ (자주 찾는 질문) 게시글 삭제
 	int deleteFaq(FAQ faq);
+	
 
+	//FAQ (자주 찾는 질문) 게시글 삽입(insert)
+	int faqInsert(FAQ faq);
+
+	//FAQ (자주 찾는 질문) 게시글 선택 삭제
+	int deleteFaq(int fAQNo);
+
+	//FAQ (자주 찾는 질문) 게시글 검색
+	List<FAQ> getFaqSearchList(FAQ faqList);
+
+
+	
+
+	
+
+	
+	
 
 
 

@@ -262,7 +262,7 @@ body{
 .liquidate>div:first-child>span{
     margin-left: 10px;
 }
-.liquidate>a{
+.liquidate>button{
     background-color: #0E0753;
     border-bottom-right-radius: 15px;
     font-size: 20px;

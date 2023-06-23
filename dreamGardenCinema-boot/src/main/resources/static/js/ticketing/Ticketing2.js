@@ -72,7 +72,7 @@ if(ticket.movieTheater == 1){
 }
 
 let socket = new SockJS("/click");
-
+const pay = document.querySelector(".pay");
 // 좌석 선택
 function seatClick(e){
 
@@ -102,8 +102,14 @@ function seatClick(e){
 
     socket.send(JSON.stringify(data));
 
-    e.querySelector("[name=seatList]").checked = 'true';
+    if(e.querySelector("[name=seatList]").checked){
+        e.querySelector("[name=seatList]").checked = '';
+    } else {
+        e.querySelector("[name=seatList]").checked = 'true';
+    }
+    const chcSeat = document.querySelectorAll("[name=seatList]:checked");
 
+    pay.innerHTML = movie.moviePrice * chcSeat.length;
     e.classList.toggle("choiceSeat");
 }
 
@@ -132,3 +138,16 @@ socket.onmessage = function(event) {
         }
     }
 }
+
+const frm = document.getElementById("frm");
+
+
+frm.addEventListener("submit", e=>{
+
+    if(document.querySelectorAll("[name='seatList']:checked").length == 0){
+        e.preventDefault();
+        alert("좌석을 선택해주세요");
+        return;
+    }
+    location.href="/ticketing/confirmSeat";
+});

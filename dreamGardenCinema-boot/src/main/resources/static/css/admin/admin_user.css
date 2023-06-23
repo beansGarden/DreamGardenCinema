@@ -90,7 +90,10 @@
 
 }
 
+body > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(4){
+    width: 100px;
 
+}
 
 
 
@@ -109,3 +112,28 @@
     color: white;
     
 }
+
+/* 페이지네이션 */
+.pagination{
+    text-decoration: none;
+    text-align: center;
+    list-style: none;
+    margin-top: 30px;
+}
+
+.pagination li{
+    display: inline;
+
+}
+
+.pagination a{
+    text-decoration: none;
+}
+
+.pagination a:active{
+    font-weight: bold;
+    text-decoration: underline;
+    color: #0F0954;
+}
+
+ 

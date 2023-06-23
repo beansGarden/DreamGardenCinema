@@ -88,7 +88,7 @@ input{
     
 }
 
-
+/* 상영시간 삽입 칸 */
 .admin_cinemaManageDetailDate input{
     border: none;
     outline: none;
@@ -97,20 +97,23 @@ input{
     background-color: transparent;
 }
 
+.box{
+    width: 1000px;
+}
+
 .admin_cinemaManageDetailDate>div{
-    width: 30rem;
+    width: 60rem;
  
 }
 
 .admin_cinemaManageDetailDate .box{
-    padding: .3rem;
+    padding: .5rem;
 }
 
 .admin_cinemaManageDetailDate .tag{
-    display: inline-block;
     text-align: center;
     height: 2rem;
-    padding: 0.1rem .9rem;
+    padding: 0.3rem .9rem;
     margin: auto;
     font-size: .9rem;
     background-color:#0f0954a9;

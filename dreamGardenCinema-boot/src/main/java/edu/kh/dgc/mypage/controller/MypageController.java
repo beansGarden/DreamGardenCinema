@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.mypage.model.service.MypageService;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.user.model.dto.User;
@@ -37,8 +38,17 @@ public class MypageController {
 		
 		return "myPage/my-page-membership";
 	}
+	// 쿠폰 조회
 	@GetMapping("/my-page-coupon")
-	public String coupon() {
+	public String coupon(
+			Model model
+			,@SessionAttribute("loginUser") User loginuser
+			) {
+		int userNo = loginuser.getUserNo();
+		
+		List<Coupon> couponList = service.couponList(userNo);
+		
+		model.addAttribute("CouponList",couponList);
 		
 		return "myPage/my-page-coupon.html";
 	}
@@ -77,5 +87,55 @@ public class MypageController {
 		ra.addAttribute("message","닉네임이 변경되었습니다.");
 		
 		return "redirect:" + redirectUrl;
+	}
+	
+	// 내정보 수정
+	@PostMapping("/change-info")
+	public String changeInfo(
+			User updateUser
+			,String[] memberAddress
+			,String userEmail
+			,String checkPw
+			,String userPw
+			,RedirectAttributes ra
+			,@SessionAttribute("loginUser") User loginUser
+			) {
+		
+		String addr = String.join("^^^", memberAddress);
+		
+		updateUser.setUserAddress(addr);
+		
+		updateUser.setUserNo(loginUser.getUserNo());
+		
+		int userNo = loginUser.getUserNo();
+		
+		int result = service.changeInfo(updateUser);
+		
+		String message = null;
+		String path = "redirect:";
+		
+		if(result>0) {
+			
+			loginUser.setUserEmail(updateUser.getUserEmail());
+			loginUser.setUserAddress(updateUser.getUserAddress());
+			
+			int result2 = service.changePw(checkPw,userNo,userPw);
+				
+				if(result2>0) {
+					message = "회원 정보가 수정되었습니다.";
+					path += "/";
+				}else {
+					message = "현재 비밀번호가 일치하지않습니다.";
+					path +="/myPage/";
+				}
+		}else {
+			
+			message = "회원 정보 수정 실패";
+			path += "/";
+		}
+		
+		ra.addFlashAttribute("message",message);
+		
+		return path;
 	}
 }

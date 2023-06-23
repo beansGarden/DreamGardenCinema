@@ -46,28 +46,37 @@ function qnaDelete(qnaNo){
 
 }
 
+//체크박스 숫자 불러오기
+function userSelectAll(checkbox) {
+  var checkboxes = document.getElementsByClassName('admin_qnaCheckbox');
+  var count = document.getElementsByClassName('admin_qnaCount')[0];
+  var countAll = document.getElementsByClassName('admin_qnaCountAll')[0];
+  var checkedCount = 0;
 
-//검색 리스트 불러오기
-function getSearchList(){
-	$.ajax({
-		type: 'GET',
-		url : "/getSearchList",
-		data : $("form[name=search-form]").serialize(),
-		success : function(result){
-			//테이블 초기화
-			$('#boardTable > tbody').empty();
-			if(result.length>=1){
-				result.forEach(function(item){
-					str='<tr>'
-					str += "<td>"+item.idx+"</td>";
-					str+="<td>"+item.writer+"</td>";
-					str+="<td><a href = '/qna/detail?idx=" + item.idx + "'>" + item.title + "</a></td>";
-					str+="<td>"+item.date+"</td>";
-					str+="<td>"+item.hit+"</td>";
-					str+="</tr>"
-					$('#boardTable').append(str);
-        		})				 
-			}
-		}
-	})
+  if (checkbox.checked) {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = true;
+    }
+    checkedCount = checkboxes.length;
+  } else {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+    checkedCount = 0;
+  }
+
+  count.textContent = checkedCount.toString();
 }
+
+var checkboxes = document.getElementsByClassName('admin_qnaCheckbox');
+for (var i = 0; i < checkboxes.length; i++) {
+  checkboxes[i].addEventListener('change', function() {
+    var count = document.getElementsByClassName('admin_qnaCount')[0];
+    var checkedCount = document.querySelectorAll('.admin_qnaCheckbox:checked').length;
+    count.textContent = checkedCount.toString();
+  });
+}
+
+var countAll = document.getElementsByClassName('admin_qnaCountAll')[0];
+var totalItems = document.querySelectorAll('.admin_qnaCheckbox').length;
+countAll.textContent = totalItems.toString();

@@ -64,7 +64,7 @@
 	<select id="selectSaveTimeList" resultMap="schedule_rm">
 		SELECT MOVIE_NO, TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
 		FROM MOVIE_SCHEDULE
-		WHERE TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${movieTime}
+		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
 		<![CDATA[
 		AND MOVIE_TIME > SYSDATE 
 		]]>
@@ -103,14 +103,6 @@
 	
 	<select id="selectChkSeatList" resultMap="seatcheck_rm">
 		SELECT SEAT_NO
-		FROM TICKETING_INFO
-		WHERE MOVIE_NO = ${movieNo}
-		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
-		AND MOVIE_THEATER = ${movieTheater}
-		
-		UNION
-				
-		SELECT SEAT_NO
 		FROM SEAT_CHECK
 		WHERE MOVIE_NO = ${movieNo}
 		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
@@ -118,11 +110,11 @@
 	</select>
 	
 	<insert id="insertSeat">
-		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo})
+		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo}, DEFAULT)
 	</insert>
 	
 	<delete id="deleteSeat">
-		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo}
+		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo} AND STATE = 'N'
 	</delete>
 	
 	<select id="selectSeat" resultType="int">
@@ -135,10 +127,20 @@
 		SELECT *
 		FROM SEAT_CHECK
 		WHERE USER_NO = ${userNo}
+		AND STATE = 'N'
 	</select>
 	
 	<delete id="deleteEndSeat">
-		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo}
+		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'N'
+	</delete>
+	
+	<update id="beforePaySeat">
+		UPDATE SEAT_CHECK SET STATE = 'Y'
+		WHERE STATE = 'N' AND USER_NO = ${userNo}
+	</update>
+	
+	<delete id="ticketingOut">
+		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'Y' AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = #{movieTheater} AND MOVIE_NO = ${movieNo} 
 	</delete>
 	
 </mapper>

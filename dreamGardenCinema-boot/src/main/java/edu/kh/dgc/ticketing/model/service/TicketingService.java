@@ -7,6 +7,7 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 public interface TicketingService {
 
@@ -23,5 +24,11 @@ public interface TicketingService {
 	String seatCheck(SeatCheck seatCheck);
 
 	Map<String, Object> seatDelete(int userNo);
+
+	int beforePaySeat(int userNo);
+
+	Movie selectMovie(int movieNo);
+
+	void ticketingOut(Map<String, Object> paramMap);
 
 }

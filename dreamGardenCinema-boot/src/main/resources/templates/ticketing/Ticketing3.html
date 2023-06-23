@@ -20,27 +20,27 @@
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
                 <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
                 <li class="pass"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
-                <li class="active"><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
-                <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
+                <li class="active"><a>03<br>결제</a></li>
+                <li><a>04<br>결제완료</a></li>
             </ul>
             <form th:action="@{/ticketing/complete}" method="POST">
                 <div class="choiceHeader">예매내역</div>
                 <div class="ticketing_info">
                     <div>
                         <div class="poster">
-                            <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
+                            <img th:src="${movie.poster}">
                         </div>
                         <div class="title">
-                            <img th:src="@{/images/common/main/15세.png}" alt="">
-                            <span>범죄도시3</span>
+                            <img th:src="${movie.rating}">
+                            <span th:text="${movie.movieTitle}"></span>
                         </div>
                         <div class="date">
-                            <span>23.06.01(목)</span>
-                            <span>15:30~17:30</span>
+                            <span th:text="${saveday}"></span>
+                            <span th:text="${runningTime}"></span>
                         </div>
                         <div class="seat">
-                            <span><span>1관</span> 인원<span>2</span></span>
-                            <span>D10, D11</span>
+                            <span><span th:text="${movieTheater} + '관'"></span> 인원<span th:text="${#lists.size(resultSeatList)}">2</span></span>
+                            <span th:text="${resultSeatList}"></span>
                         </div>
                         <select name="coupon" id="coupon">
                             <option value="">쿠폰 적용하기</option>
@@ -49,9 +49,9 @@
                 </div>
                 <div class="price">
                     <div>결제금액</div>
-                    <div>총 <span>28,000</span>원</div>
+                    <div>총 <span th:text="(${#lists.size(resultSeatList)} * ${movie.moviePrice})"></span>원</div>
                 </div>
-                <button type="button" onclick="requestPay()">
+                <button type="button" class="btn_payment" onclick="requestPay()">
                     <div class="liquidate">
                         <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
                         <span>결제하기</span>
@@ -62,18 +62,38 @@
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
-
-    <h1 th:text="${ticket}"></h1>
-
     
     <script th:inline="javascript">
 
         let loginUser = /*[[${session.loginUser}]]*/ "";
         if(loginUser == null)loginUser = "";
+        let data = {};
+        data.movieNo = /*[[${movie.movieNo}]]*/ "영화번호";
+        data.saveday = /*[[${saveday}]]*/ "날짜";
+        data.runningTime = /*[[${runningTime}]]*/ "러닝타임";
+        data.movieTheater = /*[[${movieTheater}]]*/ "영화관";
+        data.seatList = /*[[${resultSeatList}]]*/ "좌석";
+
+        console.log(data);
+        
+        $(window).on("beforeunload", function(){
+
+            fetch("/ticketing/out", {
+                method : 'POST',
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify(data)
+            })
+            .then(resp => resp.text())
+            .then(result => {
+                alert("예매 취소");
+            })
+
+        });
 
     </script>
 
     <script th:src="@{/js/ticketing/Ticketing3.js}"></script>
     <script th:src="@{/js/ticketing/Payment.js}"></script>
+
 </body>
 </html>
