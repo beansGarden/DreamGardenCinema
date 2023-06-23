@@ -72,13 +72,12 @@ public class UserController {
 			RedirectAttributes ra) {
 
 		User loginUser = service.login(inputUser);
+		System.out.println(loginUser);
 		String path = "redirect:";
 
 		if (loginUser != null) {
 			System.out.println(loginUser.getUserId() + "  로그인 성공");
-//			if(inputUser.getUserRole().toUpperCase().equals("A")) { // 관리자 로그인 시 관리자페이지 이동
-//				path += "/manager";
-//			}
+			
 			path += "/";
 			model.addAttribute("loginUser", loginUser);
 			Cookie cookie = new Cookie("saveId", loginUser.getUserId());
@@ -87,6 +86,10 @@ public class UserController {
 				cookie.setMaxAge(60 * 60 * 24 * 30);
 			} else {
 				cookie.setMaxAge(0);
+			}
+			
+			if(loginUser.getUserRole().toUpperCase().equals("A")) { // 관리자 로그인 시 관리자페이지 이동
+				path = "redirect:/admin";
 			}
 
 			cookie.setPath("/");

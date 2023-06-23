@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing3.css}">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
@@ -63,6 +64,15 @@
     <th:block th:replace="~{common/footer}"></th:block>
 
     <h1 th:text="${ticket}"></h1>
+
+    
+    <script th:inline="javascript">
+
+        let loginUser = /*[[${session.loginUser}]]*/ "";
+        if(loginUser == null)loginUser = "";
+
+    </script>
+
     <script th:src="@{/js/ticketing/Ticketing3.js}"></script>
     <script th:src="@{/js/ticketing/Payment.js}"></script>
 </body>
