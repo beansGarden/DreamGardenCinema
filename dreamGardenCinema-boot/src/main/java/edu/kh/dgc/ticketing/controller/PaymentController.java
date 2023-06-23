@@ -51,14 +51,14 @@ public class PaymentController {
 	}
 
 
-	@RequestMapping(value ="complete", method = RequestMethod.POST)
-	@ResponseBody
-	public int paymentComplete(String imp_uid, String merchant_uid,String totalPrice, 
-			HttpSession session,Order order) throws Exception {
-	    
-	    String token = PaymentService.getToken();
-	    
-	    // 결제 완료된 금액
+//	@RequestMapping(value ="complete", method = RequestMethod.POST)
+//	@ResponseBody
+//	public int paymentComplete(String imp_uid, String merchant_uid,String totalPrice, 
+//			HttpSession session,Order order) throws Exception {
+//	    
+//	    String token = PaymentService.getToken();
+//	    
+//	    //결제 완료된 금액
 //	    String amount = PaymentService.paymentInfo(order.getImp_uid(), token);
 //	    
 //	    System.out.println("확인"+order.getTotalPrice());
@@ -75,11 +75,10 @@ public class PaymentController {
 //		}
 //	    System.out.println("check44 : " + order.getImp_uid());
 //		orderService.insert_pay(order);
-		
-		
-
+//		
+//		
+//
 //		return res;
-		return 1;
-	 
-	}
+//		return 1;
+//	}
 }
