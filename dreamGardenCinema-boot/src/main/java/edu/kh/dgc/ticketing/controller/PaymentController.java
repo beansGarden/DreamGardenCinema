@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ import edu.kh.dgc.ticketing.model.service.OrderService;
 import edu.kh.dgc.ticketing.model.service.PaymentService;
 import jakarta.servlet.http.HttpSession;
 
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:/config.properties")
 @RequestMapping("/ticketing")
 @Controller
 public class PaymentController {
@@ -31,24 +32,22 @@ public class PaymentController {
 	
 	@Autowired
 	private OrderService orderService;
-
+	
 	@Value("${port-one.RESTAPIKey}")
-	private String RESTAPIKey;
+	private String imp_key;
 
 	@Value("${port-one.RESTAPISecret}")
-	private String RESTAPISecret;
-
-	private IamportClient client = new IamportClient(RESTAPIKey, RESTAPISecret);
+	private String imp_secret;
 
 	@ResponseBody
-	@RequestMapping(value = "/verify_iamport/{imp_uid}", method = RequestMethod.POST)
+	@PostMapping(value = "/verify_iamport/{imp_uid}")
 	public IamportResponse<Payment> verifyIamportPOST(@PathVariable(value = "imp_uid") String imp_uid)
 			throws IamportResponseException, IOException {
 		
-		System.out.println("imp_uid : " + imp_uid);
-		System.out.println(client.paymentByImpUid(imp_uid));
+		IamportClient client = new IamportClient(imp_key, imp_secret);
+		IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
 		
-		return client.paymentByImpUid(imp_uid);
+		return result;
 	}
 
 

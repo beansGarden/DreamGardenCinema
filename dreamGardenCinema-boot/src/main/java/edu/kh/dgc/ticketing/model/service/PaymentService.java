@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:/config.properties")
 @Service
 public class PaymentService {
 	// ---------------------환불, 결제 토큰생성
