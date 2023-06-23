@@ -44,10 +44,14 @@ function userDelete(userNo){
 }
 
 //체크박스 숫자 불러오기
-function userSelectAll(checkbox) {
-  var checkboxes = document.getElementsByClassName('admin_userCheckbox');
-  var count = document.getElementsByClassName('admin_userCount')[0];
-  var countAll = document.getElementsByClassName('admin_userCountAll')[0];
+function userSelectAll(checkbox) { 
+  var checkboxes = document.getElementsByClassName('admin_userCheckbox'); //전체 선택하는 체크박스
+  var count = document.getElementsByClassName('admin_userCount')[0]; //선택한 일부 user 나오는 span
+// countAll이 전체 데이터의 개수를 세도록 변경
+var countAll = document.getElementsByClassName('admin_userCountAll')[0];
+var totalItems = document.querySelectorAll('.admin_userBoardWrap table tbody tr').length;
+
+
   var checkedCount = 0;
 
   if (checkbox.checked) {

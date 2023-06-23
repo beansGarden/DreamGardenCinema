@@ -30,19 +30,20 @@
 	
 		<!--회원-->
 		<resultMap type="User" id="user_rm">
-		<id property="userNo" column="USER_NO" />
-		<result property="userId" column="USER_ID" />
-		<result property="userPw" column="USER_PW" />
-		<result property="userNickname" column="USER_NICKNAME" />
-		<result property="userTel" column="USER_TEL" />
-		<result property="userEmail" column="USER_EMAIL" />
-		<result property="userBirth" column="USER_BIRTH" />
-		<result property="userGender" column="USER_GENDER" />
-		<result property="userEnrollDate" column="USER_ENROLL_DT" />
-		<result property="userAmount" column="USER_AMOUNT" />
-		<result property="userRole" column="USER_ROLE" />
-		<result property="userRating" column="USER_RATING" />
-		<result property="userClose" column="USER_CLOSE" />
+			<id property="userNo" column="USER_NO" />
+			
+			<result property="userId" column="USER_ID" />
+			<result property="userPw" column="USER_PW" />
+			<result property="userNickname" column="USER_NICKNAME" />
+			<result property="userTel" column="USER_TEL" />
+			<result property="userEmail" column="USER_EMAIL" />
+			<result property="userBirth" column="USER_BIRTH" />
+			<result property="userGender" column="USER_GENDER" />
+			<result property="userEnrollDate" column="USER_ENROLL_DT" />
+			<result property="userAmount" column="USER_AMOUNT" />
+			<result property="userRole" column="USER_ROLE" />
+			<result property="userRating" column="USER_RATING" />
+			<result property="userClose" column="USER_CLOSE" />
 	</resultMap>
 	
 	<!--공지사항-->
@@ -204,8 +205,15 @@
 	
 	
 	<!-- //////////회원///////// -->
-	 <select id="adminUserList" resultMap="user_rm">
-		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
+	
+	<select id="userListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+	</select>
+	
+	
+	<select id="adminUserList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE,USER_ROLE 
 		FROM USER_INFO
 		ORDER BY USER_NO DESC		 
 	 </select>
@@ -217,6 +225,32 @@
 		WHERE USER_NO = #{userNo}
 	 </update>
 	 
+	 <!--회원 검색-->
+	  <select id="getUserSearchList" parameterType="USER" resultMap="user_rm">
+    <bind name="formattedKeyword" value="keyword != null ? '%' + keyword + '%' : null"/>
+    SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
+    FROM USER_INFO
+    <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                AND USER_INFO.USER_NO LIKE #{formattedKeyword}
+            </when>
+            <when test="type != null and type.equals('name')">
+                AND USER_INFO.USER_NICKNAME LIKE #{formattedKeyword}
+            </when>
+            <when test="type != null and type.equals('id')">
+                AND USER_INFO.USER_ID LIKE #{formattedKeyword}
+            </when>
+            <when test="type != null and type.equals('email')">
+                AND USER_INFO.USER_EMAIL LIKE #{formattedKeyword}
+            </when>
+            <when test="type != null and type.equals('rating')">
+                AND USER_INFO.USER_RATING LIKE #{formattedKeyword}
+            </when>
+        </choose>
+    </where>
+</select>
+
 	 
 	 <!--////////////영화////////////-->
 	 <select id="adminMovieList" resultType="Movie">
@@ -228,7 +262,7 @@
 	 
 	 <!--///////////////상영관//////////////-->
 	<!--상영관 조회-->
-	<select id="adminCinemaList" resultMap="movie_rm">
+	<select id="MovieScheduleList" resultMap="movie_rm">
 		SELECT
 		  M.MOVIE_NO,
 		  M.MOVIE_TITLE,
@@ -278,13 +312,38 @@
 		FROM MOVIE
 		ORDER BY MOVIE_NO DESC
 	</select>
-			 
-			 
+	
+	<insert id="cinemaListInsert">
 		INSERT INTO MOVIE_SCHEDULE
  	    VALUES (
    		TO_TIMESTAMP(#{movieTime}, 'YYYY-MM-DD HH24:MI:SS.FF'),#{movieTheater},#{movieNo})
+	 </insert>
+	 
+	 
+	 	<select id="movieScheduleListCount" resultType="int">
+		SELECT COUNT(*) AS movie_count
+		FROM (
+		  SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
+		         TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+		         LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+		         S.MOVIE_THEATER
+		  FROM MOVIE M
+		  JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+		  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
+           TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'), S.MOVIE_THEATER)
+		</select>
+
+	 
 	 
 	<!--////////////공지사항////////////-->	
+	
+	<!--공지사항 개수 세기-->
+	<select id="noticeListCount" resultType="_int"> 
+	SELECT COUNT(*) FROM "NOTICE"
+	</select>
+	
+	
+	
 	<!--공지사항 게시판 리스트 조회-->
 	<select id="adminNoticeList" resultMap="notice_rm">
 		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_ENROLL_DATE,NOTICE_FL

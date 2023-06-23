@@ -1,3 +1,52 @@
+/* 체크박스 전체선택 */
+function cinemaSelectAll(cinemaSelectAll)  { //온클릭 
+  const checkboxes 
+     = document.querySelectorAll('input[type="checkbox"]'); //체크박스 전체 불러오기
+  
+  checkboxes.forEach((checkbox) => { //체크박스 전체 선택
+    checkbox.checked = cinemaSelectAll.checked //체크박스누르면 
+  })
+}
+//체크박스 숫자 불러오기
+function cinemaSelectAll(checkbox) {
+  var checkboxes = document.getElementsByClassName('admin_cinemaCheckbox');
+  var count = document.getElementsByClassName('admin_cinemaCount')[0];
+  var countAll = document.getElementsByClassName('admin_cinemaCountAll')[0];
+  var checkedCount = 0;
+
+  if (checkbox.checked) {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = true;
+    }
+    checkedCount = checkboxes.length;
+  } else {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+    checkedCount = 0;
+  }
+
+  count.textContent = checkedCount.toString();
+}
+
+var checkboxes = document.getElementsByClassName('admin_cinemaCheckbox');
+for (var i = 0; i < checkboxes.length; i++) {
+  checkboxes[i].addEventListener('change', function() {
+    var count = document.getElementsByClassName('admin_cinemaCount')[0];
+    var checkedCount = document.querySelectorAll('.admin_cinemaCheckbox:checked').length;
+    count.textContent = checkedCount.toString();
+  });
+}
+
+var countAll = document.getElementsByClassName('admin_cinemaCountAll')[0];
+var totalItems = document.querySelectorAll('.admin_cinemaCheckbox').length;
+countAll.textContent = totalItems.toString();
+
+
+
+
+
+/* 2관으로 넘어가기 */
 const cinemaList = document.querySelectorAll('.admin_cinemaOne');
 
 cinemaList.forEach(cinema => {
@@ -157,37 +206,37 @@ cinemaList.forEach(cinema => {
         tr.appendChild(th7);
         thead.appendChild(tr);
         const tbody = document.createElement("tbody");
-        const cinemaList = []; // Replace this with your actual cinema list data
+        // const cinemaList = []; // Replace this with your actual cinema list data
 
-        for (let list of cinemaList) {
-          const cinemaTr = document.createElement("tr");
-          const checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-          checkbox.classList.add("admin_cinemaManageCheckbox");
-          const td1 = document.createElement("td");
-          td1.appendChild(checkbox);
-          const td2 = document.createElement("td");
-          td2.innerText = list.movieNo;
-          const td3 = document.createElement("td");
-          td3.innerText = list.movieTitle;
-          const td4 = document.createElement("td");
-          td4.innerText = list.runningTime;
-          const td5 = document.createElement("td");
-          td5.innerText = list.releaseDate;
-          const td6 = document.createElement("td");
-          td6.innerText = list.movieday;
-          const td7 = document.createElement("td");
-          td7.innerText = list.movieTime;
+        // for (let list of cinemaList) {
+        //   const cinemaTr = document.createElement("tr");
+        //   const checkbox = document.createElement("input");
+        //   checkbox.type = "checkbox";
+        //   checkbox.classList.add("admin_cinemaManageCheckbox");
+        //   const td1 = document.createElement("td");
+        //   td1.appendChild(checkbox);
+        //   const td2 = document.createElement("td");
+        //   td2.innerText = list.movieNo;
+        //   const td3 = document.createElement("td");
+        //   td3.innerText = list.movieTitle;
+        //   const td4 = document.createElement("td");
+        //   td4.innerText = list.runningTime;
+        //   const td5 = document.createElement("td");
+        //   td5.innerText = list.releaseDate;
+        //   const td6 = document.createElement("td");
+        //   td6.innerText = list.movieday;
+        //   const td7 = document.createElement("td");
+        //   td7.innerText = list.movieTime;
 
-          cinemaTr.appendChild(td1);
-          cinemaTr.appendChild(td2);
-          cinemaTr.appendChild(td3);
-          cinemaTr.appendChild(td4);
-          cinemaTr.appendChild(td5);
-          cinemaTr.appendChild(td6);
-          cinemaTr.appendChild(td7);
-          tbody.appendChild(cinemaTr);
-        }
+        //   cinemaTr.appendChild(td1);
+        //   cinemaTr.appendChild(td2);
+        //   cinemaTr.appendChild(td3);
+        //   cinemaTr.appendChild(td4);
+        //   cinemaTr.appendChild(td5);
+        //   cinemaTr.appendChild(td6);
+        //   cinemaTr.appendChild(td7);
+        //   tbody.appendChild(cinemaTr);
+        // }
 
         scheduleTable.appendChild(thead);
         scheduleTable.appendChild(tbody);

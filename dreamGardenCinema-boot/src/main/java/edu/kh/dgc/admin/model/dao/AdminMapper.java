@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -53,15 +54,29 @@ public interface AdminMapper {
 	
 	//회원관리*****************************************************
 	
+	/**회원 조회
+	 * @return
+	 */
+	int userListCount();
+
+	
 	/**회원관리 조회
 	 * @return
 	 */
-	List<User> adminUserList();
+	List<User> adminUserList(RowBounds rowBounds);
 
 	/**회원 선택 삭제
 	 * @return
 	 */
 	int userDelete(int userNo);
+	
+	
+	/**회원 검색
+	 * @param userList
+	 * @return
+	 */
+	List<User> getUserSearchList(RowBounds rowBounds);
+
 	
 	//영화 관리******************************************************
 	
@@ -74,7 +89,7 @@ public interface AdminMapper {
 	/**상영관 영화 List 조회
 	 * @return
 	 */
-	List<Movie> adminCinemaList();
+	List<User> MovieScheduleList(RowBounds rowBounds);
 
 	
 	/**2관 페이지 이동
@@ -96,14 +111,26 @@ public interface AdminMapper {
 	 */
 	int cinemaListInsert(Movie movie);
 
+	
+	/**상영관 스케쥴 개수 
+	 * @return
+	 */
+	int movieScheduleListCount();
+
 
 	
 	//공지사항 관리*************************************************
 	
-	/**공지사항 List 조회
+	/**공지사항 개수 세기
 	 * @return
 	 */
-	List<Notice> adminNoticeList();
+	int noticeListCount();
+	
+	/**공지사항 List 조회
+	 * @param rowBounds 
+	 * @return
+	 */
+	List<Notice> adminNoticeList(RowBounds rowBounds);
 
 	/**공지사항 게시글 조회
 	 * @param noticeNo
@@ -175,6 +202,23 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<FAQ> getFaqSearchList(FAQ faqList);
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
 
 
 	

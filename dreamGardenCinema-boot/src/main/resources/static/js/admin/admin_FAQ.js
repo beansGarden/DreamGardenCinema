@@ -7,6 +7,40 @@ function userSelectAll(userSelectAll)  {
     checkbox.checked = userSelectAll.checked
   })
 }
+//체크박스 숫자 불러오기
+function userSelectAll(checkbox) {
+  var checkboxes = document.getElementsByClassName('admin_faqCheckbox');
+  var count = document.getElementsByClassName('admin_faqCount')[0];
+  var countAll = document.getElementsByClassName('admin_faqCountAll')[0];
+  var checkedCount = 0;
+
+  if (checkbox.checked) {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = true;
+    }
+    checkedCount = checkboxes.length;
+  } else {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+    checkedCount = 0;
+  }
+
+  count.textContent = checkedCount.toString();
+}
+
+var checkboxes = document.getElementsByClassName('admin_faqCheckbox');
+for (var i = 0; i < checkboxes.length; i++) {
+  checkboxes[i].addEventListener('change', function() {
+    var count = document.getElementsByClassName('admin_faqCount')[0];
+    var checkedCount = document.querySelectorAll('.admin_faqCheckbox:checked').length;
+    count.textContent = checkedCount.toString();
+  });
+}
+
+var countAll = document.getElementsByClassName('admin_faqCountAll')[0];
+var totalItems = document.querySelectorAll('.admin_faqCheckbox').length;
+countAll.textContent = totalItems.toString();
 
 /* 삭제 버튼 선택 삭제하기 */
 const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
@@ -45,37 +79,3 @@ fetch("/adminFaq/deleteFaqList", {
 }).catch(err=> console.log(err));
 
 }
-//체크박스 숫자 불러오기
-function userSelectAll(checkbox) {
-  var checkboxes = document.getElementsByClassName('admin_faqCheckbox');
-  var count = document.getElementsByClassName('admin_faqCount')[0];
-  var countAll = document.getElementsByClassName('admin_faqCountAll')[0];
-  var checkedCount = 0;
-
-  if (checkbox.checked) {
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = true;
-    }
-    checkedCount = checkboxes.length;
-  } else {
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = false;
-    }
-    checkedCount = 0;
-  }
-
-  count.textContent = checkedCount.toString();
-}
-
-var checkboxes = document.getElementsByClassName('admin_faqCheckbox');
-for (var i = 0; i < checkboxes.length; i++) {
-  checkboxes[i].addEventListener('change', function() {
-    var count = document.getElementsByClassName('admin_faqCount')[0];
-    var checkedCount = document.querySelectorAll('.admin_faqCheckbox:checked').length;
-    count.textContent = checkedCount.toString();
-  });
-}
-
-var countAll = document.getElementsByClassName('admin_faqCountAll')[0];
-var totalItems = document.querySelectorAll('.admin_faqCheckbox').length;
-countAll.textContent = totalItems.toString();

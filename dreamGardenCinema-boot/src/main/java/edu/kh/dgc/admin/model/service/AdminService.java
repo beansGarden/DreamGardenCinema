@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -48,10 +49,14 @@ public interface AdminService {
 	//회원*****************************************
 	
 	//회원관리 List 조회
-	List<User> adminUserList();
+	Map<String, Object> adminUserList(int cp);
+	
 
 	//회원 선택 삭제
 	int userDelete(int userNo);
+
+	//회원 검색
+	Map<String, Object> getUserSearchList(User condition,int cp);
 
 	//영화 관리***********************************
 	
@@ -62,7 +67,7 @@ public interface AdminService {
 	//상영관 관리***************************
 	
 	//상영관 영화 List 조회
-	List<Movie> adminCinemaList();
+	Map<String, Object> adminCinemaList(int cp);
 	
 	//2관 페이지 이동
 	List<Movie> adminCinemaTwo(String movieTheaterNo);
@@ -76,7 +81,7 @@ public interface AdminService {
 	//공지사항 관리*******************************
 	
 	//공지사항 List 조회
-	List<Notice> adminNoticeList();
+	Map<String, Object>  adminNoticeList(int cp);
 
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
@@ -116,6 +121,7 @@ public interface AdminService {
 
 	//FAQ (자주 찾는 질문) 게시글 검색
 	List<FAQ> getFaqSearchList(FAQ faqList);
+
 
 	
 

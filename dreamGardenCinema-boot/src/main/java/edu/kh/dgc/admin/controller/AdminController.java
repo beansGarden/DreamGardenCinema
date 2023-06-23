@@ -57,11 +57,18 @@ public class AdminController {
 	
 	// 2.관리자 회원 관리
 	@GetMapping("/adminUser") //
-	public String adminUser(Model model) {
+	public String adminUser(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 
-		List<User> adminUserList = service.adminUserList();
+		if(paramMap.get("key") == null) {
+			
+			Map<String, Object> adminUserList = service.adminUserList(cp);
 
-		model.addAttribute("adminUserList", adminUserList);
+			model.addAttribute("adminUserList", adminUserList);
+			
+		
+			System.out.println(adminUserList);
+		}
+		
 
 		return "admin/admin_user";
 	}
@@ -74,8 +81,27 @@ public class AdminController {
 		return service.userDelete(user.getUserNo());
 	}
 
+	// 2-2.관리자 회원 게시글 검색
+	@GetMapping("/getUserSearchList")
+	public String getUserSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+
+		User condition = new User();
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object> getUserSearchList = service.getUserSearchList(condition, cp);
+		model.addAttribute("adminUserList", getUserSearchList); 
+		
+		System.out.println(condition);
+		System.out.println(getUserSearchList);
+
+		return "admin/admin_user";
+
+	}
+	
+	
 	// 3.관리자 영화 관리
-	@GetMapping("/adminMovieManage") //
+	@GetMapping("/adminMovieManage") 
 	public String movieManage(Model model) {
 
 		List<Movie> adminMovieList = service.adminMovieList();
@@ -96,12 +122,16 @@ public class AdminController {
 
 	// 4.관리자 상영 관리
 	@GetMapping("/adminCinemaManage") 
-	public String cinemaManage(Model model) {
+	public String cinemaManage(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 		
-		List<Movie> cinemaList = service.adminCinemaList();
+		if(paramMap.get("key") == null) {	
 		
-		model.addAttribute("cinemaList", cinemaList);
-
+		Map<String, Object> cinemaMap = service.adminCinemaList(cp);
+		
+		model.addAttribute("cinemaList", cinemaMap);
+		
+		System.out.println(cinemaMap);
+		}
 		return "admin/admin_cinemaManage";
 	}
 
@@ -141,12 +171,16 @@ public class AdminController {
 
 	// 5.관리자 공지사항 리스트 조회
 	@GetMapping("/adminNotice") //
-	public String notice(Model model) {
+	public String notice(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+		
+		if(paramMap.get("key") == null) {	
+			
+		Map<String, Object> adminNoticeMap = service.adminNoticeList(cp);
 
-		List<Notice> adminNoticeList = service.adminNoticeList();
-
-		model.addAttribute("adminNoticeList", adminNoticeList);
-
+		model.addAttribute("adminNoticeMap", adminNoticeMap);
+		
+		System.out.println(adminNoticeMap);
+		}
 		return "admin/admin_notice";
 	}
 

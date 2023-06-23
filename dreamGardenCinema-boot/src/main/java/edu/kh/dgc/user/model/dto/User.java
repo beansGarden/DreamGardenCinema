@@ -63,4 +63,9 @@ public class User {
 	
 	private String userAddress;
 	
+	
+	//검색필터
+		private  String type;
+		private String keyword;
+		
 }
