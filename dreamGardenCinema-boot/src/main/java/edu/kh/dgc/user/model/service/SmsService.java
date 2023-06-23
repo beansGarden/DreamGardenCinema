@@ -34,7 +34,7 @@ import edu.kh.dgc.user.model.dto.SmsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:/config.properties")
 @Service
 @Slf4j
 @RequiredArgsConstructor
