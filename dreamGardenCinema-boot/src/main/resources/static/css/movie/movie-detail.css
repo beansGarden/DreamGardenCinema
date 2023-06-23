@@ -297,17 +297,18 @@ body {
 /*  */
 .people-img{
     margin: auto;
-    width: 50%;
+    width: 30%;
 }
 .people-img img{
-    width: 100%;
-    height: 100%;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
 }
 
 /*  */
 .people-info{
-    width: 50%;
+    padding-left: 10px;
+    width: 70%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -319,10 +320,12 @@ body {
     text-underline-offset: 4px;
     width: 60%;
     font-weight: bold;
+    font-size: 14px;
 }
 
 .info-role{
     width: 60%;
+    font-size: 13px;
 }
 
 
