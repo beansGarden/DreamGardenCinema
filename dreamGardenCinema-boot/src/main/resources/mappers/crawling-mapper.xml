@@ -27,5 +27,20 @@
 		
 	</insert>
 	
+	<select id="selectMovieNoByTitle">
+		
+		SELECT MOVIE_NO
+		FROM MOVIE
+		WHERE MOVIE_TITLE = #{movieTitle}
+		
+	</select>
+	
+	<select id="selectHavingMovieNoByTitle">
+		
+		SELECT COUNT(*)
+		FROM MOVIE
+		WHERE MOVIE_TITLE = #{movieTitle}
+		
+	</select>
 	
 </mapper>

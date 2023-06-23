@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import edu.kh.dgc.movie.model.dto.crawling.format.CrawlFormat;
 
-@Component
 public class CrawlRunner {
 	
     public static void main(String[] args) {
@@ -15,12 +14,20 @@ public class CrawlRunner {
     	CrawlFormat info = new CrawlFormat();
     	String crawlType;
     	
+		/* 전제사항 
+		 * 
+		 * 롯데 시네마의 HTML DOCUMENT OBJECT MODEL을 기반으로 하기 때문에 
+		 * 롯데 시네마 영화 상세 페이지 외의 크롤링은 해당되지 않는다.
+		 * 
+		 * */
+    	
     	// ----- 입력할 거 -----
     	
     	// webPage 주소
-    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19438";
+//    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19438";
+    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19951";
     	
-    	// crwalType in (info, stillcut, people)
+    	// crwalType in (info, stillcut, people) -> 기본전제는 영화 정보(info)가 있어야 하며 있는 경우에만 나머지 두가지를 할 수 있다.
 //    	crawlType = "info";
 //		crawlType = "stillcut";
 		crawlType = "people";
