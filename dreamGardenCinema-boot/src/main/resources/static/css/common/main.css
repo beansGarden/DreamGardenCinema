@@ -30,6 +30,8 @@ body{
 .main-slide{
     width: 100%;
     height: 750px;
+    --swiper-navigation-color: gray; 
+    --swiper-pagination-color: #fff;
 }
 
 

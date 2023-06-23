@@ -22,6 +22,7 @@
 		SELECT *
 		FROM MOVIE_IMG
 		WHERE MOVIE_IMG_ROLE='메인슬라이드'
+		ORDER BY DBMS_RANDOM.RANDOM
 	</select>
 	
 	
@@ -55,6 +56,7 @@
 		SELECT *
 		FROM MOVIE_IMG
 		WHERE MOVIE_IMG_ROLE='영화슬라이드'
+		ORDER BY DBMS_RANDOM.RANDOM
 	</select>
 	
 	<!-- -->

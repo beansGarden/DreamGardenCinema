@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
-import com.siot.IamportRestClient.response.Payment;
 
 import edu.kh.dgc.ticketing.model.dto.Order;
+import edu.kh.dgc.ticketing.model.dto.Payment;
 import edu.kh.dgc.ticketing.model.service.OrderService;
 import edu.kh.dgc.ticketing.model.service.PaymentService;
 import jakarta.servlet.http.HttpSession;

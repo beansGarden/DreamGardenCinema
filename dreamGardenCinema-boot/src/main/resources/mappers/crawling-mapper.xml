@@ -21,11 +21,26 @@
 
 		INSERT INTO "beansGarden".MOVIE
 		(MOVIE_NO, MOVIE_TITLE, POSTER, SYNOPSIS, RUNNING_TIME, RATING,
-		RELEASE_DATE, PRODUCER, MOVIE_PRICE, SCREENING, MAIN_POSTER, GENRE)
+		RELEASE_DATE, MOVIE_PRICE, SCREENING, GENRE)
 		VALUES(SEQ_MOVIE_NO.NEXTVAL, #{movieTitle}, #{poster}, #{synopsis}, 
-		#{runningTime}, #{rating}, #{releaseDate}, 'NULL' , '12000' , #{screening} , NULL, #{genre})
+		#{runningTime}, #{rating}, #{releaseDate}, '12000' , #{screening} , #{genre})
 		
 	</insert>
 	
+	<select id="selectMovieNoByTitle">
+		
+		SELECT MOVIE_NO
+		FROM MOVIE
+		WHERE MOVIE_TITLE = #{movieTitle}
+		
+	</select>
+	
+	<select id="selectHavingMovieNoByTitle">
+		
+		SELECT COUNT(*)
+		FROM MOVIE
+		WHERE MOVIE_TITLE = #{movieTitle}
+		
+	</select>
 	
 </mapper>
