@@ -139,4 +139,8 @@
 		WHERE STATE = 'N' AND USER_NO = ${userNo}
 	</update>
 	
+	<delete id="ticketingOut">
+		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'Y' AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = #{movieTheater} AND MOVIE_NO = ${movieNo} 
+	</delete>
+	
 </mapper>

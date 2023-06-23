@@ -1,5 +1,14 @@
 package edu.kh.dgc.ticketing.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
+import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
 import edu.kh.dgc.user.model.dto.User;
@@ -32,17 +42,16 @@ public class TicketingController {
 	@Autowired
 	private TicketingService service;
 	
+	// 예매 첫 페이지 로드(영화목록)
 	@GetMapping("/date")
 	public String date(Model model
 			, @RequestParam(value="saveTicket", required=false, defaultValue="null") String stringTicket
 			) { 
 		
-		List<Movie> movieList = service.selectMovieList();
+		List<Movie> movieList = service.selectMovieList();  // 영화 목록 조회
 		List<Schedule> timeList = null;
 		
-		System.out.println(stringTicket);
-		
-		
+		// 기존 정보를 갖고있도록
 //		if(!stringTicket.equals("null")) {
 //			String[] parts = stringTicket.replaceAll("Ticket\\(|\\)", "").split(", ");
 //			
@@ -60,8 +69,8 @@ public class TicketingController {
 //			
 //			model.addAttribute("checkNo", saveTicket.get("movieNo"));
 //		} else {
-			Movie firstMovie = movieList.get(0);
-			int movieNo = firstMovie.getMovieNo();
+			Movie firstMovie = movieList.get(0);  // 첫번째 영화
+			int movieNo = firstMovie.getMovieNo();  // 첫번째 영화 번호
 			timeList = service.selectTimeList(movieNo);
 			model.addAttribute("checkNo", movieNo);
 //		}
@@ -110,8 +119,6 @@ public class TicketingController {
 					, RedirectAttributes ra
 					, @SessionAttribute("loginUser") User loginUser) {
 		
-		System.out.println(ticket);
-		
 		String movieTheater = ticket.getMovieTime().split(",")[0];
 		String movieTime = ticket.getMovieTime().split(",")[1];
 		
@@ -130,14 +137,10 @@ public class TicketingController {
 		
 		model.addAttribute("room", room);
 		
-				
-		System.out.println((minute + runTime)/60);
-		
 		hour = hour+ ((minute+runTime)/60);
 		minute = (minute+runTime)%60;
 		
 		String runningTime = movieTime + "~" + hour +":"+minute;
-		System.out.println(runningTime);
 		
 		model.addAttribute("map", map);
 		model.addAttribute("ticket",ticket);
@@ -154,6 +157,8 @@ public class TicketingController {
 		for(String seat : seatList) {
 			resultSeatList.add(seat);
 		}
+		
+		
 		
 		
 		// 좌석 'Y'로 변경
@@ -176,9 +181,79 @@ public class TicketingController {
 	}
 	
 	
+	@ResponseBody
+	@PostMapping("/out")
+	public void ticketingOut(@SessionAttribute("loginUser") User user, @RequestBody Map<String, Object> paramMap) {
+		
+		String subday = ((String)paramMap.get("saveday")).substring(0, 10);
+		String subtime = ((String)paramMap.get("runningTime")).substring(0,5);
+		String[] splitday = subday.split("\\.");
+		String movieTime = ""+splitday[0]+splitday[1]+splitday[2]+subtime;
+		int movieNo = (int) paramMap.get("movieNo");
+		System.out.println(movieNo);
+		
+		List<String> seatList = (List<String>) paramMap.get("seatList");
+		
+		List<String> newList = new ArrayList<>();
+		
+		for(int i=0;i<seatList.size();i++) {
+			String seat = seatList.get(i);
+			newList.add(seat);
+		}
+		
+		paramMap.put("movieNo", movieNo);
+		paramMap.put("movieTime", movieTime);
+		paramMap.put("seatList", newList);
+		paramMap.put("userNo", user.getUserNo());
+		
+		
+		service.ticketingOut(paramMap);
+	}
 	
 	
-	
+	@GetMapping("/kakaopay")
+	@ResponseBody
+	public String kakaopay() {
+		try {
+			URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
+			HttpURLConnection serverConnect = (HttpURLConnection) address.openConnection();
+			serverConnect.setRequestMethod("POST");
+			serverConnect.setRequestProperty("Authorization", "KakaoAK a12cbc0d986752a861fb2b3e46421dc6");
+			serverConnect.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			serverConnect.setDoOutput(true);
+			String param = "cid=TC0ONETIME"
+					+ "&partner_order_id=partner_order_id"
+					+ "&partner_user_id=partner_user_id"
+					+ "&item_name=초코파이"
+					+ "&quantity=1"
+					+ "&vat_amount=200"
+					+ "&tax_free_amount=0"
+					+ "&approval_url=https://developers.kakao.com/success"
+					+ "&fail_url=https://developers.kakao.com/fail"
+					+ "&cancel_url=https://developers.kakao.com/cancel";
+			OutputStream outputStream = serverConnect.getOutputStream();
+			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+			dataOutputStream.writeBytes(param);
+			dataOutputStream.close();
+			
+			int result = serverConnect.getResponseCode();
+			
+			InputStream inputStream;
+			if(result == 200) {
+				inputStream = serverConnect.getInputStream();
+			} else {
+				inputStream = serverConnect.getErrorStream();
+			}
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+			return bufferedReader.readLine();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	

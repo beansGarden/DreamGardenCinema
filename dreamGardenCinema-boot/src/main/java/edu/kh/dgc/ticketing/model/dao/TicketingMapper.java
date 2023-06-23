@@ -10,6 +10,7 @@ import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Seat;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 @Mapper
 public interface TicketingMapper {
@@ -37,5 +38,7 @@ public interface TicketingMapper {
 	List<SeatCheck> selectEndSeat(int userNo);
 
 	int beforePaySeat(int userNo);
+
+	void ticketingOut(Map<String, Object> paramMap);
 
 }

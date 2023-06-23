@@ -8,7 +8,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing3.css}">
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <!-- <script src="https://cdn.iamport.kr/v1/iamport.js"></script> -->
+    <%--아임포트 라이브러리--%>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 </head>
 <body>
 
@@ -20,8 +23,8 @@
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
                 <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
                 <li class="pass"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
-                <li class="active"><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
-                <li><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
+                <li class="active"><a>03<br>결제</a></li>
+                <li><a>04<br>결제완료</a></li>
             </ul>
             <form th:action="@{/ticketing/complete}" method="POST">
                 <div class="choiceHeader">예매내역</div>
@@ -51,7 +54,7 @@
                     <div>결제금액</div>
                     <div>총 <span th:text="(${#lists.size(resultSeatList)} * ${movie.moviePrice})"></span>원</div>
                 </div>
-                <button type="button" onclick="requestPay()">
+                <button type="button" class="btn_payment">
                     <div class="liquidate">
                         <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
                         <span>결제하기</span>
@@ -62,18 +65,38 @@
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
-
-    <h1 th:text="${ticket}"></h1>
-
     
     <script th:inline="javascript">
 
         let loginUser = /*[[${session.loginUser}]]*/ "";
         if(loginUser == null)loginUser = "";
+        let data = {};
+        data.movieNo = /*[[${movie.movieNo}]]*/ "영화번호";
+        data.saveday = /*[[${saveday}]]*/ "날짜";
+        data.runningTime = /*[[${runningTime}]]*/ "러닝타임";
+        data.movieTheater = /*[[${movieTheater}]]*/ "영화관";
+        data.seatList = /*[[${resultSeatList}]]*/ "좌석";
+
+        console.log(data);
+        
+        $(window).on("beforeunload", function(){
+
+            fetch("/ticketing/out", {
+                method : 'POST',
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify(data)
+            })
+            .then(resp => resp.text())
+            .then(result => {
+                alert("예매 취소");
+            })
+
+        });
 
     </script>
 
     <script th:src="@{/js/ticketing/Ticketing3.js}"></script>
     <script th:src="@{/js/ticketing/Payment.js}"></script>
+
 </body>
 </html>

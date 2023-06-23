@@ -14,6 +14,7 @@ import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Seat;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 @Service
 public class TicketingServiceImpl implements TicketingService{
@@ -115,6 +116,11 @@ public class TicketingServiceImpl implements TicketingService{
 	@Override
 	public Movie selectMovie(int movieNo) {
 		return mapper.selectMovie(movieNo);
+	}
+
+	@Override
+	public void ticketingOut(Map<String, Object> paramMap) {
+		mapper.ticketingOut(paramMap);
 	}
 
 

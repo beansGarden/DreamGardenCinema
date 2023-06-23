@@ -220,4 +220,3 @@ function movieTimeSub(){
     }
     document.getElementById('timeFrm').submit();
 }
-
