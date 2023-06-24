@@ -16,7 +16,7 @@ public interface AdminService {
 	List<User> getAdminDetails();
 	
 	//1:1문의 게시판 조회
-	List<Qna> adminQnaList();
+	Map<String , Object> adminQnaList(int cp);
 
 	//1:1 문의 게시글 읽기 조회
 	Qna selectQnaOne(int qnaNo);
@@ -44,7 +44,7 @@ public interface AdminService {
 	int qnaAnswerInsert(QnaComment qnaComment);
 
 	//1:1문의 게시글검색
-	List<Qna> getSearchList(Qna qnaList);
+	Map<String, Object> getSearchList(Qna condition, int cp);
 
 	//회원*****************************************
 	
@@ -93,7 +93,7 @@ public interface AdminService {
 	int noticeDelete(int noticeNo);
 	
 	//공지사항 게시글 검색
-	List<Notice> getNoticeSearchList(Notice noticeList);
+	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
 
 
 
@@ -101,7 +101,7 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 관리*****************************
 	
 	//FAQ (자주 찾는 질문) List 조회
-	List<FAQ> adminFaqList();
+	Map<String , Object> adminFaqList(int cp);
 
 	//FAQ (자주 찾는 질문) 게시글 조회
 	List<FAQ> adminFaqOne(FAQ faq);
@@ -120,7 +120,7 @@ public interface AdminService {
 	int deleteFaq(int fAQNo);
 
 	//FAQ (자주 찾는 질문) 게시글 검색
-	List<FAQ> getFaqSearchList(FAQ faqList);
+	Map<String, Object> getFaqSearchList(FAQ condtion, int cp);
 
 
 	

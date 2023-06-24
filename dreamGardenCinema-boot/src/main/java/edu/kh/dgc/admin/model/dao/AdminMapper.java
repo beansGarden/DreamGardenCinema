@@ -21,9 +21,12 @@ public interface AdminMapper {
 	 */
 	List<User> getAdminDetails();
 
+	//1:1문의 Qna 게시글 개수 불러오기
+	int qnaListCount();
+
 	
 	//1:1문의 게시판 조회
-	List<Qna> adminQnaList();
+	List<Qna> adminQnaList(RowBounds rowBounds);
 	
 	//1:1문의 게시글 읽기 조회
 	Qna selectQnaOne(int qnaNo);
@@ -50,7 +53,7 @@ public interface AdminMapper {
 	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 
 	//1:1문의 게시글 검색
-	List<Qna> getSearchList(Qna qnaList);
+	List<Qna> getSearchList(RowBounds rowBounds);
 	
 	//회원관리*****************************************************
 	
@@ -72,10 +75,11 @@ public interface AdminMapper {
 	
 	
 	/**회원 검색
+	 * @param condition 
 	 * @param userList
 	 * @return
 	 */
-	List<User> getUserSearchList(RowBounds rowBounds);
+	List<User> getUserSearchList(User condition, RowBounds rowBounds);
 
 	
 	//영화 관리******************************************************
@@ -151,18 +155,26 @@ public interface AdminMapper {
 	int noticeDelete(int noticeNo);
 	
 	/**FAQ (자주 찾는 질문) 게시글 검색
+	 * @param condition 
 	 * @param noticeList
 	 * @return
 	 */
-	List<Notice> getNoticeSearchList(Notice noticeList);
+	List<Notice> getNoticeSearchList(Notice condition, RowBounds rowBounds);
 
 
 	//FAQ (자주 찾는 질문) List 조회*****************************
 	
-	/**FAQ 게시판 List 조회
+	/**FAQ 게시판 개수
 	 * @return
 	 */
-	List<FAQ> adminFaqList();
+	int faqListCount();
+
+	
+	/**FAQ 게시판 List 조회
+	 * @param rowBounds 
+	 * @return
+	 */
+	List<FAQ> adminFaqList(RowBounds rowBounds);
 
 	/**FAQ (자주 찾는 질문) 게시글 조회
 	 * @param faq
@@ -198,10 +210,14 @@ public interface AdminMapper {
 
 
 	/**FAQ 게시글 검색
-	 * @param faqList
+	 * @param condtion 
+	 * @param rowBounds
 	 * @return
 	 */
-	List<FAQ> getFaqSearchList(FAQ faqList);
+	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
+
+
+
 
 
 

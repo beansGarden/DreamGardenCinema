@@ -32,9 +32,32 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1문의 게시판 조회
 	@Override
-	public List<Qna> adminQnaList() {
+	public Map<String, Object> adminQnaList(int cp) {
+		
+		int qnalistCount = mapper.qnaListCount();
 
-		return mapper.adminQnaList();
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaList(rowBounds);
+
+		Map<String, Object> adminQnamap = new HashMap<String, Object>();
+		adminQnamap.put("pagination", pagination);
+		adminQnamap.put("qnaList", qnaList);
+
+		return adminQnamap;
+
 	}
 
 	// 1:1문의 게시글 읽기 조회
@@ -93,10 +116,32 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1 문의사항 검색
 	@Override
-	public List<Qna> getSearchList(Qna qnaList) {
+	public Map<String, Object> getSearchList(Qna conditon, int cp) {
+		int qnalistCount = mapper.qnaListCount();
 
-		return mapper.getSearchList(qnaList);
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.getSearchList(rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
 	}
+
 
 	// 회원****************************************************
 
@@ -156,7 +201,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<User> userList = mapper.getUserSearchList(rowBounds);
+		List<User> userList = mapper.getUserSearchList(condition,rowBounds);
 
 		Map<String, Object> getUserSearchList = new HashMap<String, Object>();
 		getUserSearchList.put("pagination", pagination);
@@ -283,19 +328,66 @@ public class AdminServiceImpl implements AdminService {
 
 	// 공지사항 게시글 검색
 	@Override
-	public List<Notice> getNoticeSearchList(Notice noticeList) {
+	public 	Map<String, Object> getNoticeSearchList(Notice condition, int cp) {
 
-		return mapper.getNoticeSearchList(noticeList);
+		int noticeListCount = mapper.noticeListCount();
+
+		Pagination pagination = new Pagination(noticeListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Notice> adminNoticeList = mapper.getNoticeSearchList(condition,rowBounds);
+
+		Map<String, Object> getNoticeSearchMap = new HashMap<String, Object>();
+		getNoticeSearchMap.put("pagination", pagination);
+		getNoticeSearchMap.put("adminNoticeList", adminNoticeList);
+
+		return getNoticeSearchMap;
 	}
 
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
 	// FAQ 게시판 List 조회
 	@Override
-	public List<FAQ> adminFaqList() {
+	public Map<String , Object> adminFaqList(int cp) {
 
-		return mapper.adminFaqList();
+		int faqListCount = mapper.faqListCount();
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList = mapper.adminFaqList(rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+
+
+		return adminFaqMap;
 	}
+	
 
 	// FAQ (자주 찾는 질문) 게시글 조회
 	@Override
@@ -334,9 +426,31 @@ public class AdminServiceImpl implements AdminService {
 
 	// FAQ 게시글 검색
 	@Override
-	public List<FAQ> getFaqSearchList(FAQ faqList) {
+	public Map<String, Object> getFaqSearchList(FAQ condtion, int cp) {
 
-		return mapper.getFaqSearchList(faqList);
+		int faqListCount = mapper.faqListCount();
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList =  mapper.getFaqSearchList(condtion,rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+		
+		return adminFaqMap;
 	}
-
 }

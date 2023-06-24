@@ -109,6 +109,12 @@
 		WHERE USER_CLOSE ='N'
 	</select>-->
 	
+	<!--Qna 개수 불러오기-->
+	<select id="qnaListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "QNA"
+	</select>
+	
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList" resultMap="qna_rm">
 		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME ,QNA_DELETE_FL
@@ -226,31 +232,40 @@
 	 </update>
 	 
 	 <!--회원 검색-->
-	  <select id="getUserSearchList" parameterType="USER" resultMap="user_rm">
-    <bind name="formattedKeyword" value="keyword != null ? '%' + keyword + '%' : null"/>
-    SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
-    FROM USER_INFO
-    <where>
-        <choose>
-            <when test="type != null and type.equals('number')">
-                AND USER_INFO.USER_NO LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('name')">
-                AND USER_INFO.USER_NICKNAME LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('id')">
-                AND USER_INFO.USER_ID LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('email')">
-                AND USER_INFO.USER_EMAIL LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('rating')">
-                AND USER_INFO.USER_RATING LIKE #{formattedKeyword}
-            </when>
-        </choose>
-    </where>
-</select>
-
+	 
+	<select id="getUserSearchList" parameterType="User" resultMap="user_rm">
+		 SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
+	    FROM USER_INFO
+		  <where>
+		    <choose>
+		      <when test="type != null and type.equals('number')">
+		        <if test="keyword != null and keyword != ''">
+		           AND USER_INFO.USER_NO LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('name')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('id')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_ID LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('email')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_EMAIL LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('rating')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_RATING LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		    </choose>
+		  </where>
+		</select>
 	 
 	 <!--////////////영화////////////-->
 	 <select id="adminMovieList" resultType="Movie">
@@ -413,6 +428,13 @@
   
 	
 	<!--/////////FAQ//////////-->
+	
+	<!--FAQ 개수 불러오기-->
+	<select id="faqListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "FAQ"
+	</select>
+	
 	
 	<!--FAQ 리스트 조회-->
 	<select id="adminFaqList" resultMap="faq_rm">

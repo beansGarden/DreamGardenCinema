@@ -198,17 +198,19 @@ public class AdminController {
 
 	// 5-1.공지사항 게시글 검색
 	@GetMapping("/getNoticeSearchList")
-	public String getNoticeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model) {
+	public String getNoticeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 
-		Notice noticeList = new Notice();
-		noticeList.setType(type);
-		noticeList.setKeyword(keyword);
-
-		List<Notice> adminNoticeList = service.getNoticeSearchList(noticeList);
-		model.addAttribute("adminNoticeList", adminNoticeList); 
 		
-		System.out.println(noticeList);
-		System.out.println(adminNoticeList);
+		Notice condition = new Notice();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object>  adminNoticeMap = service.getNoticeSearchList(condition,cp);
+		model.addAttribute("adminNoticeMap", adminNoticeMap); 
+		
+		System.out.println(condition);
+		System.out.println(adminNoticeMap);
 
 		return "admin/admin_notice";
 
@@ -287,13 +289,18 @@ public class AdminController {
 
 	// 6. 1:1 문의사항 리스트 조회 230613
 	@GetMapping("/adminQna") //
-	public String qnaList(Model model) {
+	public String qnaList(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 
-		List<Qna> adminQnaList = service.adminQnaList();
 
-		model.addAttribute("adminQnaList", adminQnaList);
+		if(paramMap.get("key") == null) {	
+			
+		Map<String, Object> adminQnamap = service.adminQnaList(cp);
 
-		return "admin/admin_QNA";
+		model.addAttribute("adminQnamap", adminQnamap);
+		
+		System.out.println(adminQnamap);
+		
+		} return "admin/admin_QNA";
 	}
 
 	// 6-1. 1:1 문의사항 게시글 조회 230613
@@ -472,30 +479,35 @@ public class AdminController {
 
 	// 6-5 1:1 문의 게시글 검색
 	@GetMapping("/getSearchList")
-	public String getSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model) {
+	public String getSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 
-		Qna qnaList = new Qna();
-		qnaList.setType(type);
-		qnaList.setKeyword(keyword);
+		
+		Qna condition = new Qna();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
 
-		model.addAttribute("qna", qnaList);
-		System.out.println(qnaList);
+		Map<String, Object>  adminQnaMap = service.getSearchList(condition,cp);
+		model.addAttribute("adminQnamap", adminQnaMap); 
+		
+		System.out.println(condition);
+		System.out.println(adminQnaMap);
 
-		List<Qna> qna = service.getSearchList(qnaList);
-		model.addAttribute("adminQnaList", qna); // 수정: qna 변수를 모델에 추가
-
-		return "admin/admin_QNA";
+		return "admin/admin_Qna";
 
 	}
 
 	// 7. FAQ 리스트 조회
 	@GetMapping("/adminFaq") //
-	public String faqList(Model model) {
+	public String faqList(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 
-		List<FAQ> adminFaqList = service.adminFaqList();
 
-		model.addAttribute("adminFaqList", adminFaqList);
+		if(paramMap.get("key") == null) {	
+			
+		Map<String, Object> adminFaqMap = service.adminFaqList(cp);
 
+		model.addAttribute("adminFaqMap", adminFaqMap);
+		}
 		return "admin/admin_FAQ";
 	}
 
@@ -617,21 +629,24 @@ public class AdminController {
 
 	// 7-4.공지사항 게시글 검색
 	@GetMapping("/getFaqSearchList")
-	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model) {
+	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 
-		FAQ FaqList = new FAQ();
-		FaqList.setType(type);
-		FaqList.setKeyword(keyword);
-
-		List<FAQ> adminFaqList = service.getFaqSearchList(FaqList);
-		model.addAttribute("adminFaqList", adminFaqList);
 		
-		System.out.println(FaqList);
-		System.out.println(adminFaqList);
+		FAQ condition = new FAQ();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object>  adminFaqMap = service.getFaqSearchList(condition,cp);
+		model.addAttribute("adminFaqMap", adminFaqMap);
+		
+		System.out.println(condition);
+		System.out.println(adminFaqMap);
 
 		return "admin/admin_faq";
 
 	}
+	
 
 	// 8. 신고하기 리스트 조회
 	@GetMapping("/adminReport") //
