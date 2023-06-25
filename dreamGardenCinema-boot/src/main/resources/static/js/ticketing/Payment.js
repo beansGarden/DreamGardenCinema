@@ -18,14 +18,15 @@ function requestPay() {
         if (rsp.success) {// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
             // 결제 성공 시 로직,
             imp_uid = rsp.imp_uid;
-            // 결제검증
+            // 결제검증(실존하는 결제인가)
             $.ajax({
                 url: '/ticketing/verify_iamport/'+imp_uid,
                 type: 'POST',
                 dataType: 'json'
             }).done(function (data) {
+                console.log(data);
                 // 결제를 요청했던 금액과 실제 결제된 금액이 같으면 해당 주문건의 결제가 정상적으로 완료된 것으로 간주한다.
-                if (true/* cdPay.textContent == data.response.amount */) {
+                if (1 == data.response.amount) {
                     // jQuery로 HTTP 요청
                     // 주문정보 생성 및 테이블에 저장 
                     // @@ 주문정보는 상품 개수만큼 생성되어야 해서 상품 개수만큼 반복문을 돌린다
@@ -35,7 +36,6 @@ function requestPay() {
                     // 데이터를 json으로 보내기 위해 바꿔준다.
                     data = JSON.stringify({
                         "ticketNo": rsp.merchant_uid,
-                        // "productNum": detailNum.textContent, //상품번호
                         "userNum": loginUser.userNum, // 회원번호
                         "movieName": rsp.name,
                         "orderDate": new Date().getTime(),
