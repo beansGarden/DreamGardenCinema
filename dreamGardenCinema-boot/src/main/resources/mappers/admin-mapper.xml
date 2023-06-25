@@ -92,23 +92,17 @@
 		
 		
 		
-	<!--관리자 로그인 보여주기-->
-<!--	<select id="getAdminDetails" resultMap="user_rm">
-		SELECT USER_ID,USER_NICKNAME
-		FROM USER_INFO
-		WHERE USER_ROLE = 'A'
-	</select>-->
+
 	
 		
+	<!--대시보드-->
+	<!--영화별 매출 불러오기-->	
+	<select id="ticketList" resultType="_int">
+		SELECT SUM(PAY_AMOUNT) AS TOTAL_AMOUNT
+		FROM TICKETING_INFO
+		WHERE MOVIE_NO = #{movieNo}
+	</select>
 		
-	
-<!--회원 리스트 조회-->
-<!--<select id="adminUserList" resultMap="user_rm">
-		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
-		FROM USER_INFO
-		WHERE USER_CLOSE ='N'
-	</select>-->
-	
 	<!--Qna 개수 불러오기-->
 	<select id="qnaListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -124,10 +118,24 @@
 		ORDER BY QNA_NO DESC
 	</select>
 	
+	<!--QNA(1:1)문의 리스트 조회-->
+	<select id="adminQnaList5" resultMap="qna_rm">
+		SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL
+	FROM (
+	   SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL,
+	          ROW_NUMBER() OVER (ORDER BY QNA_NO DESC) AS rn
+	   FROM QNA
+	   JOIN "USER_INFO" ON USER_NO = USER_NO2
+	   WHERE QNA_DELETE_FL = 'N'
+	) 
+	WHERE rn &lt;= 5
+
+	</select>
+	
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
 		SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME,QNA_DELETE_FL
-		FROM QNA
+		FROM QNA	
 		JOIN "USER_INFO" ON USER_NO=USER_NO2
 		WHERE QNA_NO = #{qnaNo}
 	</select>
@@ -278,7 +286,7 @@
 	 <!--///////////////상영관//////////////-->
 	<!--상영관 조회-->
 	<select id="MovieScheduleList" resultMap="movie_rm">
-		SELECT
+		 SELECT
 		  M.MOVIE_NO,
 		  M.MOVIE_TITLE,
 		  M.RUNNING_TIME,
@@ -296,7 +304,7 @@
 		  M.RELEASE_DATE,
 		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
 		  S.MOVIE_THEATER
-		  ORDER BY M.RELEASE_DATE DESC
+		ORDER BY M.RELEASE_DATE DESC
 	</select>
 	
 		<select id="adminCinemaTwo" resultMap="movie_rm">
@@ -323,7 +331,7 @@
 	</select>
 
 	<select id="cinemaList" resultMap="movie_rm">
-		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE
+		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE,MOVIE_NO
 		FROM MOVIE
 		ORDER BY MOVIE_NO DESC
 	</select>

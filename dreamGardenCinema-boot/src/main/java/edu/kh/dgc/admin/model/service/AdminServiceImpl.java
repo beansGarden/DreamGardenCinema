@@ -15,6 +15,7 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @Service
@@ -23,6 +24,23 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminMapper mapper;
 
+	
+	//대시보드
+	//영화별 매출 불러오기
+	@Override
+	public List<Ticket> ticketList(String movieNo) {
+		
+		return mapper.ticketList(movieNo);
+	}
+	
+	//1:1 문의사항 qna 대시보드 불러오기
+	@Override
+	public List<Qna> adminQnaList5() {
+
+		return mapper.adminQnaList5();
+	}
+	
+	
 	// 관리자 사이드바 로그인 보여주기
 	@Override
 	public List<User> getAdminDetails() {
@@ -223,7 +241,7 @@ public class AdminServiceImpl implements AdminService {
 
 	// 상영관 영화 List 조회
 	@Override
-	public Map<String, Object> adminCinemaList(int cp) {
+	public Map<String, Object> adminCinemaList(Movie condition,int cp) {
 		
 		int movieScheduleListCount = mapper.movieScheduleListCount();
 
@@ -241,7 +259,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<User> MovieScheduleList = mapper.MovieScheduleList(rowBounds);
+		List<User> MovieScheduleList = mapper.MovieScheduleList(condition,rowBounds);
 
 		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
 		adminCinemaMap.put("pagination", pagination);
@@ -453,4 +471,9 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminFaqMap;
 	}
+
+
+
+
+	
 }

@@ -1,5 +1,6 @@
 package edu.kh.dgc.admin.controller;
 
+import java.awt.desktop.SystemSleepEvent;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,9 @@ import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.user.model.dto.User;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import oracle.jdbc.proxy.annotation.Post;
+
 
 @Controller
 public class AdminController {
@@ -35,10 +38,31 @@ public class AdminController {
 
 	// 1.관리자 메인 대시보드
 	@GetMapping("/admin")
-	public String dashboard() {
+	public String dashboard(Model model) {
+	    List<Movie> cinemaList = service.cinemaList();
+	    model.addAttribute("cinemaList", cinemaList);
 
-		return "admin/admin_dashboard";
+	    List<Qna> adminQnaList5 = service.adminQnaList5();
+
+		model.addAttribute("adminQnaList", adminQnaList5);
+	    
+	    return "admin/admin_dashboard";
 	}
+
+	
+	@GetMapping("/ticketAmount")
+	@ResponseBody
+	public String getTicketAmount(Model model,@RequestParam(value = "movieNo", required = false) String movieNo) {
+	
+		List<Ticket> ticketAmount = service.ticketList(movieNo);
+	    model.addAttribute("ticketAmount", ticketAmount);
+	    
+	    System.out.println(movieNo);
+	    System.out.println(ticketAmount);
+	    
+	  return "admin/admin_dashboard";
+	}
+
 	
 	/*
 	 * //1-1. 관리자 로그인 화면
@@ -122,11 +146,15 @@ public class AdminController {
 
 	// 4.관리자 상영 관리
 	@GetMapping("/adminCinemaManage") 
-	public String cinemaManage(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 		
 		if(paramMap.get("key") == null) {	
 		
-		Map<String, Object> cinemaMap = service.adminCinemaList(cp);
+		Movie condition = new Movie();
+			
+		condition.setMovieday(movieday);
+			
+		Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
 		
 		model.addAttribute("cinemaList", cinemaMap);
 		
@@ -640,8 +668,6 @@ public class AdminController {
 		Map<String, Object>  adminFaqMap = service.getFaqSearchList(condition,cp);
 		model.addAttribute("adminFaqMap", adminFaqMap);
 		
-		System.out.println(condition);
-		System.out.println(adminFaqMap);
 
 		return "admin/admin_faq";
 

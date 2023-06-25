@@ -11,6 +11,7 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @Mapper
@@ -20,7 +21,18 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<User> getAdminDetails();
+	
+	
 
+	
+	//*****대시보드********************************************************
+	//영화별 매출 불러오기
+	List<Ticket> ticketList(String movieNo);
+	
+	List<Qna> adminQnaList5();
+	
+	//***1:1문의 Qnq*********************************************************
+	
 	//1:1문의 Qna 게시글 개수 불러오기
 	int qnaListCount();
 
@@ -91,9 +103,10 @@ public interface AdminMapper {
 
 	//상영관 List 조회************************************************
 	/**상영관 영화 List 조회
+	 * @param condition 
 	 * @return
 	 */
-	List<User> MovieScheduleList(RowBounds rowBounds);
+	List<User> MovieScheduleList(Movie condition, RowBounds rowBounds);
 
 	
 	/**2관 페이지 이동
@@ -215,6 +228,11 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
+
+
+
+
+
 
 
 

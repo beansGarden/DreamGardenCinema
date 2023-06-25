@@ -49,3 +49,20 @@ options: {
     }
 }
 });
+
+function getTicketAmount(selectElement) {
+    var selectedMovieNo = selectElement.value;
+    document.getElementById("selectedMovie").value = selectedMovieNo;
+
+    $.ajax({
+        url: "/ticketAmount",
+        type: "GET",
+        data: { movieNo: selectedMovieNo },
+        success: function (data) {
+            document.getElementById("ticketAmount").innerHTML = data;
+        },
+        error: function (xhr, status, error) {
+            console.log("AJAX Error:", error);
+        }
+    });
+}
