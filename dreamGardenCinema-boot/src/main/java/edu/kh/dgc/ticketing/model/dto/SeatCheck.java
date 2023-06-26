@@ -18,4 +18,5 @@ public class SeatCheck {
 	private String seatNo;
 	private int userNo;
 	private String checked;
+	private int ticketNo;
 }

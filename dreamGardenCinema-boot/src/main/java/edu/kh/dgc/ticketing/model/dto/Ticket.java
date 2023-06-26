@@ -22,4 +22,6 @@ public class Ticket {
 	private String ticketFL;
 	private String ticketId;
 	private String ticketImpId;
+	private String seatNo;
+	private String state;
 }

@@ -28,4 +28,8 @@ MANIFEST.MF
 *.log
 .factorypath
 settings.json
+<<<<<<< HEAD
+config.properties
+=======
+>>>>>>> sub-main
 config2.properties

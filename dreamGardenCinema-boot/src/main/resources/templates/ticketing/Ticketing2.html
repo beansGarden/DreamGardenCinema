@@ -13,17 +13,15 @@
 
     <th:block th:replace="~{common/header-white}"></th:block>
 
-    <div class="main" th:object="${ticket}">
+    <div class="main">
         <div class="ticketingBox">
             <ul class="ticketingNav">
-                <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
-                <!-- <li class="pass"><a th:href="@{/ticketing/date(movieNo=${ticket.movieNo}, movieTheater=${ticket.movieTheater}, movieTime=${ticket.movieTime}, saveTk=${ticket})}">01<br>상영시간</a></li> -->
                 <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
                 <li class="active"><a>02<br>인원/좌석</a></li>
                 <li><a>03<br>결제</a></li>
                 <li><a>04<br>결제완료</a></li>
             </ul>
-            <form th:action="@{/ticketing/pay(movieNo = ${map.movie.movieNo}, saveday = ${saveday}, runningTime = ${runningTime}, movieTheater=${ticket.movieTheater})}" method="POST" id="frm">
+            <form th:action="@{/ticketing/pay}" method="POST" id="frm">
                 <div class="choiceHeader">인원/좌석 선택</div>
                 <div class="choiceCount">
                     <div class="movie_info" th:object="${map.movie}">
@@ -42,7 +40,7 @@
                                 </span>
                             </div>
                             <div class="theater_info">
-                                <span th:text="${ticket.movieTheater}+'관'"></span>
+                                <span th:text="${map.ticket.movieTheater}+'관'"></span>
                             </div>
                         </div>
                         <div>
@@ -90,6 +88,11 @@
                 <div class="liquidate">
                     <div>총 합계 <span class="pay">0</span>원</div>
                     <button class="btn">결제하기</button>
+                    <input type='hidden' name="ticketNo" th:value="${map.ticket.ticketNo}">
+                    <input type='hidden' name="movieNo" th:value="${map.ticket.movieNo}">
+                    <input type='hidden' name="saveday" th:value="${saveday}">
+                    <input type='hidden' name="runningTime" th:value="${runningTime}">
+                    <input type='hidden' name="movieTheater" th:value="${map.ticket.movieTheater}">
                 </div>
             </form>
         </div>
@@ -100,7 +103,7 @@
     <script th:inline="javascript">
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
         const movie = /*[[${map.movie}]]*/ "영화";
-        const ticket = /*[[${ticket}]]*/ "티켓정보";
+        const ticket = /*[[${map.ticket}]]*/ "티켓정보";
         const chkSeatList = /*[[${map.chkSeatList}]]*/ "예약된좌석";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

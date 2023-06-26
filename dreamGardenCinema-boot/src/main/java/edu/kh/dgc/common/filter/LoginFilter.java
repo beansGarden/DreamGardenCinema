@@ -33,7 +33,7 @@ public class LoginFilter implements Filter{
 		HttpSession session = req.getSession();
 		
 		if(session.getAttribute("loginUser")== null) {
-			resp.sendRedirect("/");
+			resp.sendRedirect("/user/login");
 		}
 		else {
 			chain.doFilter(request, response);
