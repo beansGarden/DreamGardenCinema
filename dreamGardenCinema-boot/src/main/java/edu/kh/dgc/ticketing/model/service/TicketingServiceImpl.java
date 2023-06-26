@@ -152,4 +152,47 @@ public class TicketingServiceImpl implements TicketingService {
 		}
 	}
 
+	// 티켓 중복 확인
+	@Override
+	public int checkTicketId(String ticketId) {
+		return mapper.checkTicketId(ticketId);
+	}
+
+	@Override
+	public int updateTicketId(String createTicketId, int ticketNo) {
+		
+		Map<String, String> updateTicket = new HashMap<>();
+		updateTicket.put("createTicketId", createTicketId);
+		updateTicket.put("ticketNo", String.valueOf(ticketNo));
+		
+		return mapper.updateTicketId(updateTicket);
+	}
+
+	// 결제 실패 사유, TICKET_FL C 수정
+	@Override
+	public int updateReasonCancellationPayment(String reasonCancellationPayment, String ticketId) {
+		
+		Map<String, String> reasonCancellationMap = new HashMap<>();
+		reasonCancellationMap.put("reasonCancellationPayment", reasonCancellationPayment);
+		reasonCancellationMap.put("ticketId", ticketId);
+		
+		mapper.updateReasonCancellationPayment(reasonCancellationMap);
+		mapper.updateTictetFLC(ticketId);
+		
+		return 1;
+	}
+
+	// 결제 성공 imp_uid, TICKET_FL Y 수정
+	@Override
+	public int updategetTicketImpUid(String ticketImpId, String ticketId) {
+		Map<String, String> updategetTicketImpUid = new HashMap<>();
+		updategetTicketImpUid.put("ticketImpId", ticketImpId);
+		updategetTicketImpUid.put("ticketId", ticketId);
+		
+		mapper.updategetTicketImpUid(updategetTicketImpUid);
+		mapper.updateTictetFLY(ticketId);
+		
+		return 1;
+	}
+
 }

@@ -30,4 +30,16 @@ public interface TicketingService {
 	// 예매 3페이지 나갈 때 좌석,티켓정보 삭제
 	void ticketingOut(Map<String, Object> paramMap);
 
+	// 티켓 중복 확인
+	int checkTicketId(String ticketId);
+
+	// 티켓 업데이트
+	int updateTicketId(String createTicketId, int ticketNo);
+
+	// 결제 취소 사유
+	int updateReasonCancellationPayment(String reasonCancellationPayment, String ticketId);
+
+	// 결제 성공 imp_uid, TICKET_FL 수정
+	int updategetTicketImpUid(String ticketImpId, String ticketId);
+
 }

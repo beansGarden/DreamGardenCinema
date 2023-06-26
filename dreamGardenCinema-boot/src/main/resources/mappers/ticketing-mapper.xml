@@ -158,5 +158,40 @@
 		DELETE FROM SEAT_CHECK WHERE STATE = 'Y' AND TICKET_NO = #{ticketNo} 
 	</delete>
 	
+	<select id="checkTicketId" resultType="int">
+		SELECT COUNT(*) 
+		FROM TICKETING_INFO 
+		WHERE TICKET_ID LIKE #{ticketId}
+	</select>
+	
+	<update id="updateTicketId">
+		UPDATE TICKETING_INFO 
+		SET TICKET_ID = #{createTicketId} 
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<update id="updateReasonCancellationPayment">
+		UPDATE TICKETING_INFO 
+		SET REASON_CANCELLATION_PAYMENT = #{reasonCancellationPayment}
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+	
+	<update id="updategetTicketImpUid">
+		UPDATE TICKETING_INFO 
+		SET TICKEY_IMP_UID = #{ticketImpId}
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+	
+	<update id="updateTictetFLC">
+		UPDATE TICKETING_INFO 
+		SET TICKET_FL = 'C'
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+	
+	<update id="updateTictetFLY">
+		UPDATE TICKETING_INFO 
+		SET TICKET_FL = 'Y'
+		WHERE TICKET_ID = #{ticketId}
+	</update>
 
 </mapper>

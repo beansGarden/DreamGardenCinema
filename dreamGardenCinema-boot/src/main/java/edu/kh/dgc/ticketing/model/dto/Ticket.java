@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Ticket {
 	private int ticketNo;
 	private String ticketingTime;
-	private int payAmount;
+	private String payAmount;
 	private int userNo;
 	private int coupon;
 	private String movieTime;
@@ -24,4 +24,7 @@ public class Ticket {
 	private String ticketImpId;
 	private String seatNo;
 	private String state;
+	
+	private String reasonCancellationPayment;
+	
 }

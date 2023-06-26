@@ -56,5 +56,25 @@ public interface TicketingMapper {
 	// 예매 3페이지 좌석 정보 삭제
 	int ticketingOut(Map<String, Object> paramMap);
 
+	// 티켓 중복 확인
+	int checkTicketId(String ticketId);
+
+	// 티켓 업데이트
+	int updateTicketId(Map<String, String> updateTicket);
+
+	// 결제 성공 imp_uid
+	void updategetTicketImpUid(Map<String, String> updategetTicketImpUid);
+
+	// 결제 취소 사유
+	void updateReasonCancellationPayment(Map<String, String> reasonCancellationMap);
+
+	// TICKET_FL 수정 (C)
+	void updateTictetFLC(String ticketId);
+	
+	// TICKET_FL 수정 (Y)
+	void updateTictetFLY(String ticketId);
+
+	
+
 
 }

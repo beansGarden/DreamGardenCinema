@@ -31,8 +31,6 @@ public class PaymentService {
 	private String RESTAPISecret;
 
 	public String getToken() throws Exception {
-		System.out.println("PaymentService  "+RESTAPIKey);
-		System.out.println("PaymentService  "+RESTAPISecret);
 
 		HttpsURLConnection conn = null;
 		URL url = new URL("https://api.iamport.kr/users/getToken");
@@ -45,8 +43,8 @@ public class PaymentService {
 		conn.setDoOutput(true);
 		JsonObject json = new JsonObject();
 
-		json.addProperty("RESTAPIKey", RESTAPIKey);
-		json.addProperty("RESTAPISecret", RESTAPISecret);
+		json.addProperty("imp_key", RESTAPIKey);
+		json.addProperty("imp_secret", RESTAPISecret);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 
@@ -118,6 +116,7 @@ public class PaymentService {
 		json.addProperty("amount", amount);
 		json.addProperty("checksum", amount);
 
+		System.out.println("payMentCancle");
 		System.out.println("check 1 : " + imp_uid);
 		System.out.println("check 2 : " + amount);
 		System.out.println(reason);
