@@ -23,7 +23,7 @@ public class CrawlRunner {
     	// ----- 입력할 거 -----
     	
     	// webPage 주소
-    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19903";
+    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19890";
     	
     	// movie Screen status -> Current, Promise
 //    	String movieScreen = "C";
