@@ -58,8 +58,6 @@ if(ticket.movieTheater == 1){
                     inputcb.name = 'seatList';
                     inputcb.value = alpha+j;
 
-
-
                     seatNo.setAttribute("seatNo", alpha+j);
                     seatNo.setAttribute("onclick",'seatClick(this)');
                     seatNo.append(seatSpan, inputcb);
@@ -84,20 +82,14 @@ function seatClick(e){
     let choiceSeat = document.querySelectorAll(".choiceSeat");
     
     var data = {};
-    data.room = movie.movieNo + "/" + ticket.movieTheater + "/" + ticket.movieTime;
-    data.userNo = loginUser.userNo;
-    data.movieNo = movie.movieNo;
-    data.movieTheater = ticket.movieTheater;
-    data.movieTime = ticket.movieTime;
+    data.ticket = ticket;
     data.seatNo = e.getAttribute("seatno");
-    if(e.classList.contains("choiceSeat")){  // 내가 선택한지 좌석인지 확인
-        data.checked = 'Y';
-    } else {
-        data.checked = 'N';
-        if(choiceSeat.length==btn1.innerText){
-            alert("인원 수 만큼 선택해주세요");
-            return;
-        }
+
+
+
+    if(!e.classList.contains("choiceSeat") && choiceSeat.length==btn1.innerText){
+        alert("인원 수 만큼 선택해주세요");
+        return;
     }
 
     socket.send(JSON.stringify(data));
@@ -126,11 +118,13 @@ socket.onmessage = function(event) {
         if(resultList[1] == "alreadyChk"){
             if(seat[i].getAttribute("seatno")==resultList[0]){
                 seat[i].classList.add("alreadyChk");
+                console.log("예매해찌><");
             }
         }
         if(resultList[1] == "cancelChk"){
             if(seat[i].getAttribute("seatno")==resultList[0]){
                 seat[i].classList.remove("alreadyChk");
+                console.log("옛다 취소해준다");
             }
         }
         if(resultList[1] == "fail"){
@@ -149,5 +143,5 @@ frm.addEventListener("submit", e=>{
         alert("좌석을 선택해주세요");
         return;
     }
-    location.href="/ticketing/confirmSeat";
+    // location.href="/ticketing/confirmSeat";
 });

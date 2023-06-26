@@ -42,43 +42,78 @@ public class TicketingController {
 	@Autowired
 	private TicketingService service;
 	
-	// 예매 첫 페이지 로드(영화목록)
+	// 예매 1페이지 (영화목록 조회)
 	@GetMapping("/date")
 	public String date(Model model
 			, @RequestParam(value="saveTicket", required=false, defaultValue="null") String stringTicket
 			) { 
-		
 		List<Movie> movieList = service.selectMovieList();  // 영화 목록 조회
-		List<Schedule> timeList = null;
-		
-		// 기존 정보를 갖고있도록
-//		if(!stringTicket.equals("null")) {
-//			String[] parts = stringTicket.replaceAll("Ticket\\(|\\)", "").split(", ");
-//			
-//			Map<String, Object> saveTicket = new HashMap<>();
-//			for (String part : parts) {
-//			    String[] keyValue = part.split("=");
-//			    saveTicket.put(keyValue[0], keyValue[1]);
-//			}
-//			
-//			model.addAttribute("saveTicket", saveTicket);
-//			
-//			saveTicket.put("movieTime", ((String) saveTicket.get("movieTime")).split(" ")[0]);
-//			
-//			timeList = service.selectSaveTimeList(saveTicket);
-//			
-//			model.addAttribute("checkNo", saveTicket.get("movieNo"));
-//		} else {
-			Movie firstMovie = movieList.get(0);  // 첫번째 영화
-			int movieNo = firstMovie.getMovieNo();  // 첫번째 영화 번호
-			timeList = service.selectTimeList(movieNo);
-			model.addAttribute("checkNo", movieNo);
-//		}
-		
-		model.addAttribute("timeList",timeList);
 		model.addAttribute("movieList", movieList);
 		return "ticketing/Ticketing1";
 	}
+	
+	// 예매 1페이지 영화시간,상영관 조회 AJAX
+	@PostMapping("/time")
+	@ResponseBody
+	public List<Schedule> movieTime(@RequestBody Map<String, Object> paramMap){
+		String dateList = (String)paramMap.get("date");
+		String date = dateList.split(" ")[0];
+		paramMap.put("date", date);
+		return service.movieTime(paramMap);
+	}
+	
+	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회 
+	@PostMapping("/seat")
+	public String seat(Ticket ticket
+					, String date
+					, Model model  // 모델에 담아서 forward  
+					, RedirectAttributes ra
+					, @SessionAttribute("loginUser") User loginUser) {
+	
+		// 2023062414:00
+		String movieTime = date.split(" ")[0] + ticket.getMovieTime().split(",")[1];
+		String movieTheater = ticket.getMovieTime().split(",")[0];
+		
+		ticket.setMovieTime(movieTime);
+		ticket.setMovieTheater(movieTheater);
+		ticket.setUserNo(loginUser.getUserNo());  // 티켓정보에 로그인 회원번호 추가		
+		
+		Map<String, Object> map = service.seatInfo(ticket); // 티켓인포에 저장(INSERT)(SELECT), 영화정보(SELECT), 좌석정보(SELECT)
+		
+		// 영화번호, 영화관, 영화시간 => 방으로 구분 (3/1/2023062414:00)
+		String changeMovieTime = date.substring(2,4) + "." + date.substring(4,6) + "." + date.substring(6,8) + "(" + date.substring(9)+")";
+		
+		int runTime = Integer.parseInt((((Movie)map.get("movie")).getRunningTime()));
+		
+		int hour = Integer.parseInt(movieTime.substring(8,10));
+		int minute = Integer.parseInt(movieTime.substring(11, 13));
+		
+		hour = hour+ ((minute+runTime)/60);
+		minute = (minute+runTime)%60;
+		
+		// 화면단에 보여줄 러닝타임 (14:00 ~ 
+		String runningTime = movieTime.substring(8) + "~" + hour +":"+minute;
+		
+		String room = ticket.getMovieNo() + "/" + ticket.getMovieTheater() + "/" + ticket.getMovieTime();
+		
+		model.addAttribute("room", room);
+		model.addAttribute("map", map);
+		model.addAttribute("saveday", changeMovieTime);
+		model.addAttribute("runningTime", runningTime);	
+		return "ticketing/Ticketing2";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/seat")
 	public String seat(Model model
@@ -112,42 +147,6 @@ public class TicketingController {
 	}
 	
 	
-	@PostMapping("/seat")
-	public String seat(Ticket ticket
-					, String date
-					, Model model  // 모델에 담아서 forward  
-					, RedirectAttributes ra
-					, @SessionAttribute("loginUser") User loginUser) {
-		
-		String movieTheater = ticket.getMovieTime().split(",")[0];
-		String movieTime = ticket.getMovieTime().split(",")[1];
-		
-		ticket.setUserNo(loginUser.getUserNo());  // 티켓정보에 로그인 회원번호 추가
-		ticket.setMovieTheater(movieTheater);
-		ticket.setMovieTime(date+" "+movieTime);
-		String changeMovieTime = date.substring(0, 4) + "." + date.substring(4,6) + "." + date.substring(6,8) + "(" + date.substring(9)+")";
-		Map<String, Object> map = service.seatInfo(ticket);
-		
-		int hour = Integer.parseInt(movieTime.substring(0,2));
-		int minute = Integer.parseInt(movieTime.substring(3,5));
-		Movie movie = (Movie) map.get("movie");
-		int runTime = Integer.parseInt(movie.getRunningTime());
-		
-		String room = ticket.getMovieNo() + "/" + movieTheater + "/" + date.substring(0, 8) + movieTime;
-		
-		model.addAttribute("room", room);
-		
-		hour = hour+ ((minute+runTime)/60);
-		minute = (minute+runTime)%60;
-		
-		String runningTime = movieTime + "~" + hour +":"+minute;
-		
-		model.addAttribute("map", map);
-		model.addAttribute("ticket",ticket);
-		model.addAttribute("saveday", changeMovieTime);
-		model.addAttribute("runningTime", runningTime);	
-		return "ticketing/Ticketing2";
-	}
 	
 	@PostMapping("/pay")
 	public String pay(Model model,
@@ -157,9 +156,6 @@ public class TicketingController {
 		for(String seat : seatList) {
 			resultSeatList.add(seat);
 		}
-		
-		
-		
 		
 		// 좌석 'Y'로 변경
 		int result = service.beforePaySeat(user.getUserNo());
@@ -211,65 +207,14 @@ public class TicketingController {
 	}
 	
 	
-	@GetMapping("/kakaopay")
-	@ResponseBody
-	public String kakaopay() {
-		try {
-			URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
-			HttpURLConnection serverConnect = (HttpURLConnection) address.openConnection();
-			serverConnect.setRequestMethod("POST");
-			serverConnect.setRequestProperty("Authorization", "KakaoAK a12cbc0d986752a861fb2b3e46421dc6");
-			serverConnect.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-			serverConnect.setDoOutput(true);
-			String param = "cid=TC0ONETIME"
-					+ "&partner_order_id=partner_order_id"
-					+ "&partner_user_id=partner_user_id"
-					+ "&item_name=초코파이"
-					+ "&quantity=1"
-					+ "&vat_amount=200"
-					+ "&tax_free_amount=0"
-					+ "&approval_url=https://developers.kakao.com/success"
-					+ "&fail_url=https://developers.kakao.com/fail"
-					+ "&cancel_url=https://developers.kakao.com/cancel";
-			OutputStream outputStream = serverConnect.getOutputStream();
-			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-			dataOutputStream.writeBytes(param);
-			dataOutputStream.close();
-			
-			int result = serverConnect.getResponseCode();
-			
-			InputStream inputStream;
-			if(result == 200) {
-				inputStream = serverConnect.getInputStream();
-			} else {
-				inputStream = serverConnect.getErrorStream();
-			}
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			return bufferedReader.readLine();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	
 	
 	
-	@PostMapping("/time")
-	@ResponseBody
-	public List<Schedule> movieTime(@RequestBody Map<String, Object> paramMap){
-		
-		String dateList = (String)paramMap.get("date");
-		
-		String date = dateList.split(" ")[0];
-		
-		paramMap.put("date", date);
-		
-		return service.movieTime(paramMap);
-	}
+	
+	
+	
+	
 	
 	
 }

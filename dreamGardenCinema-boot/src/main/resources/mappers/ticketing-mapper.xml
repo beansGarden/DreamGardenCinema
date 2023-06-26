@@ -39,6 +39,8 @@
 		<result property="movieTheater" column="MOVIE_THEATER"/>
 		<result property="movieNo" column="MOVIE_NO"/>
 		<result property="ticketCancle" column="TICKET_CANCLE"/>
+		<result property="seatNo" column="SEAT_NO"/>
+		<result property="state" column="STATE"/>
 	</resultMap>
 	
 	<resultMap type="SeatCheck" id="seatcheck_rm">
@@ -49,39 +51,7 @@
 		<result property="userNo" column="USER_NO"/>
 	</resultMap>
 	
-	
-	<select id="selectTimeList" resultMap="schedule_rm">
-		SELECT MOVIE_NO, TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
-		FROM MOVIE_SCHEDULE
-		WHERE TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
-		<![CDATA[
-		AND MOVIE_TIME > SYSDATE 
-		]]>
-		AND MOVIE_NO = ${movieNo}
-		ORDER BY MOVIE_TIME, MOVIE_THEATER
-	</select>
-	
-	<select id="selectSaveTimeList" resultMap="schedule_rm">
-		SELECT MOVIE_NO, TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
-		FROM MOVIE_SCHEDULE
-		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
-		<![CDATA[
-		AND MOVIE_TIME > SYSDATE 
-		]]>
-		AND MOVIE_NO = ${movieNo}
-		ORDER BY MOVIE_TIME, MOVIE_THEATER
-	</select>
-	
-	<select id="movieTime" resultMap="schedule_rm">
-		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
-		FROM MOVIE_SCHEDULE
-		<![CDATA[
-		WHERE MOVIE_TIME > SYSDATE 
-		]]>
-		AND MOVIE_NO = ${movieNo} AND TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${date}
-		ORDER BY MOVIE_TIME, MOVIE_THEATER
-	</select>
-
+	<!-- 예매 1페이지 (영화목록 조회) -->
 	<select id="selectMovieList" resultMap="movie_rm">
 		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER
 		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
@@ -95,44 +65,78 @@
 			ORDER BY TICKET_COUNT DESC, RELEASE_DATE)
 	</select>
 	
+	<!-- 예매 1페이지 영화시간,상영관 조회 AJAX -->
+	<select id="movieTime" resultMap="schedule_rm">
+		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
+		FROM MOVIE_SCHEDULE
+		<![CDATA[
+		WHERE MOVIE_TIME > SYSDATE 
+		]]>
+		AND MOVIE_NO = ${movieNo} AND TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${date}
+		ORDER BY MOVIE_TIME, MOVIE_THEATER
+	</select>
+
+	<!-- 예매 2페이지 영화정보 가져오기 -->	
 	<select id="selectMovie" resultMap="movie_rm">
 		SELECT MOVIE_NO, MOVIE_TITLE, POSTER, RUNNING_TIME, RATING, RELEASE_DATE, MOVIE_PRICE, GENRE
 		FROM MOVIE
 		WHERE MOVIE_NO = ${movieNo}
 	</select>
 	
+	<!-- 예매 2페이지 티켓정보 삽입 -->
+	<insert id="insertTicket" parameterType="Ticket" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="ticketNo">
+			SELECT SEQ_TICKET_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TICKETING_INFO(TICKET_NO, USER_NO, MOVIE_TIME, MOVIE_THEATER, MOVIE_NO, TICKET_FL) VALUES(#{ticketNo}, #{userNo}, TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), #{movieTheater}, #{movieNo}, DEFAULT)
+	</insert>
+	
+	<!-- 예매 2페이지 선택or예매완료 좌석 확인 -->	
 	<select id="selectChkSeatList" resultMap="seatcheck_rm">
 		SELECT SEAT_NO
 		FROM SEAT_CHECK
+		JOIN TICKETING_INFO USING(TICKET_NO)
 		WHERE MOVIE_NO = ${movieNo}
 		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
 		AND MOVIE_THEATER = ${movieTheater}
 	</select>
 	
-	<insert id="insertSeat">
-		INSERT INTO SEAT_CHECK VALUES(TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), ${movieTheater}, ${movieNo}, #{seatNo}, ${userNo}, DEFAULT)
-	</insert>
-	
-	<delete id="deleteSeat">
-		DELETE FROM SEAT_CHECK WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO = ${userNo} AND STATE = 'N'
-	</delete>
-	
-	<select id="selectSeat" resultType="int">
-		SELECT COUNT(*)
-		FROM SEAT_CHECK
-		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo} AND USER_NO != ${userNo}
-	</select>
-	
-	<select id="selectEndSeat" resultMap="seatcheck_rm">
+	<!-- 예매 2페이지 좌석 선택 Web Socket -->	
+	<select id="selectSeat" resultMap="ticket_rm">
 		SELECT *
 		FROM SEAT_CHECK
-		WHERE USER_NO = ${userNo}
+		JOIN TICKETING_INFO USING(TICKET_NO)
+		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo}
+	</select>
+	
+	<!-- 예매 2페이지 좌석 Web Socket INSERT -->
+	<insert id="insertSeat">
+		INSERT INTO SEAT_CHECK VALUES(#{seatNo}, DEFAULT, #{ticketNo})
+	</insert>
+	
+	<!-- 예매 2페이지 좌석 Web Socket DELETE -->
+	<delete id="deleteSeat">
+		DELETE FROM SEAT_CHECK WHERE SEAT_NO = #{seatNo} AND STATE = 'N' AND TICKET_NO = #{ticketNo}
+	</delete>
+	
+	<!-- 예매 2페이지 웹소켓 해제 시 선택한 좌석 조회 -->
+	<select id="selectEndSeat" resultMap="ticket_rm">
+		SELECT *
+		FROM SEAT_CHECK
+		JOIN TICKETING_INFO USING(TICKET_NO)
+		WHERE USER_NO = #{userNo}
 		AND STATE = 'N'
 	</select>
 	
+	<!-- 예매 2페이지 웹소켓 해제 시 선택했던 좌석 삭제 -->
 	<delete id="deleteEndSeat">
-		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'N'
+		DELETE FROM SEAT_CHECK WHERE USER_NO = ${ticketNo} AND STATE = 'N'
 	</delete>
+
+
+
+	
+	
 	
 	<update id="beforePaySeat">
 		UPDATE SEAT_CHECK SET STATE = 'Y'
@@ -142,5 +146,12 @@
 	<delete id="ticketingOut">
 		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'Y' AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = #{movieTheater} AND MOVIE_NO = ${movieNo} 
 	</delete>
+	
+	
+	<select id="selectTicket">
+		SELECT *
+		FROM TICKETING_INFO
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
 	
 </mapper>
