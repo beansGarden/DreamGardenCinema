@@ -18,6 +18,14 @@
 		<result property="ratio" column="RATIO"/>
 	</resultMap>
 	
+	<resultMap id="Person" type="person">
+		<id property="personNo" column="PERSON_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="name" column="PERSON_NO"/>
+		<result property="role" column="PERSON_ROLE"/>
+		<result property="img" column="PERSON_IMG"/>
+	</resultMap>
+	
 	<select id="selectMainSlideImgList">
 		SELECT *
 		FROM MOVIE_IMG
@@ -76,5 +84,7 @@
 		FROM MOVIE
 		WHERE MOVIE_NO = #{movieNo}
 	</select>
+	
+	
 	
 </mapper>

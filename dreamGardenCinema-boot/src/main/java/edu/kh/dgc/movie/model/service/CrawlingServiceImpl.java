@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.movie.model.dao.CrawlingMapper;
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.Person;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService {
@@ -25,6 +26,11 @@ public class CrawlingServiceImpl implements CrawlingService {
 	@Override
 	public int selectHavingMovieNoByTitle(String movieTitle) {
 		return mapper.selectHavingMovieNoByTitle(movieTitle);
+	}
+
+	@Override
+	public int insertMoviePerson(Person person) {
+		return mapper.insertMoviePerson(person);
 	}
 	
 	
