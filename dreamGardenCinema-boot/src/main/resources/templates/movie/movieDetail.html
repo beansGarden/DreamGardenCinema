@@ -17,14 +17,14 @@
 </head>
 
 <body>
-
     <th:block th:replace="~{common/header-white}"></th:block>
 
     <section class="movie--Top__banner">
         <div class="swiper movie--main--slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide main-swiper-slider"><img src="https://dummyimage.com/800x560/6e2424/ebebeb&text=silder"></div>
-                <div class="swiper-slide main-swiper-slider"><img src="https://dummyimage.com/800x560/6e2424/ebebeb&text=silder"></div>
+                <div class="swiper-slide main-swiper-slider" th:each="item : ${movieStillCut}">
+                    <img th:src="@{|${item}|}">
+                </div>
             </div>
             <div class="swiper-button-next main-next"></div>
             <div class="swiper-button-prev main-prev"></div>
@@ -127,20 +127,8 @@
 
                 <div thumbsSlider="" class="swiper stillCutGallary">
                     <div class="swiper-wrapper stillCutGallary-swiper">
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                        <div class="swiper-slide main-swiper-slider" th:each="item : ${movieStillCut}">
+                            <img th:src="@{|${item}|}">
                         </div>
                     </div>
                     <div class="swiper-button-next stillCutGallary-next"></div>
@@ -149,20 +137,8 @@
 
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper stillCutDetail">
                     <div class="swiper-wrapper stillCutDetail-wrapper">
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                        <div class="swiper-slide main-swiper-slider" th:each="item : ${movieStillCut}">
+                            <img th:src="@{|${item}|}">
                         </div>
                     </div>
                     <div class="swiper-button-next stillCutDetail-next"></div>

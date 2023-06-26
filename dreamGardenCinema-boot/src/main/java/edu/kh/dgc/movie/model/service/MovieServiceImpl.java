@@ -117,6 +117,13 @@ public class MovieServiceImpl implements MovieService{
 		return mapper.selectMovieActorName(movieNo, rowBounds);
 	}
 
+
+
+	@Override
+	public List<String> selectMovieStillCut(int movieNo) {
+		return mapper.selectMovieStillCut(movieNo);
+	}
+
 	
 	
 	

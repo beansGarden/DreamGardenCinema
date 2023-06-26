@@ -1,5 +1,7 @@
 package edu.kh.dgc.movie.model.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -15,5 +17,7 @@ public interface CrawlingMapper {
 	int selectHavingMovieNoByTitle(String movieTitle);
 
 	int insertMoviePerson(Person person);
+
+	int insertMovieStillCut(Map<String, Object> img);
 	
 }

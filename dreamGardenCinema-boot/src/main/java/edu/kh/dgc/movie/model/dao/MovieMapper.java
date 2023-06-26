@@ -32,6 +32,8 @@ public interface MovieMapper {
 
 	public List<String> selectMovieActorName(int movieNo, RowBounds rowBounds);
 
+	public List<String> selectMovieStillCut(int movieNo);
+
 
 	
 

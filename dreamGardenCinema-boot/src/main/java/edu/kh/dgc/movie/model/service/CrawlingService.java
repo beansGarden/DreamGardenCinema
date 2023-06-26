@@ -1,5 +1,7 @@
 package edu.kh.dgc.movie.model.service;
 
+import java.util.Map;
+
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.movie.model.dto.Person;
 
@@ -26,6 +28,12 @@ public interface CrawlingService {
 	 * @param person
 	 */
 	public int insertMoviePerson(Person person);
+
+	/** 영화 스틸컷 DB INSERT
+	 * @param img
+	 * @return
+	 */
+	public int insertMovieStillCut(Map<String, Object> img);
 	
 	
 	

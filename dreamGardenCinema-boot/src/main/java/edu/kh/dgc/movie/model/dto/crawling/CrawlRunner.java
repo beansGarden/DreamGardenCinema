@@ -3,7 +3,6 @@ package edu.kh.dgc.movie.model.dto.crawling;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.stereotype.Component;
 
 import edu.kh.dgc.movie.model.dto.crawling.format.CrawlFormat;
 
@@ -31,8 +30,8 @@ public class CrawlRunner {
     	
     	// crwalType in (info, stillcut, people) -> 기본전제는 영화 정보(info)가 있어야 하며 있는 경우에만 나머지 두가지를 할 수 있다.
 //    	crawlType = "info";
-//		crawlType = "stillcut";
-		crawlType = "people";
+		crawlType = "stillcut";
+//		crawlType = "people";
     	
 		
     	// ----------------------

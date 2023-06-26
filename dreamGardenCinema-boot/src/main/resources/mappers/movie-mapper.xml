@@ -106,5 +106,12 @@
 		AND PERSON_ROLE != '감독'	
 	</select>
 	
+	<select id="selectMovieStillCut">
+		SELECT MOVIE_IMG_PATH
+		FROM MOVIE_IMG
+		WHERE MOVIE_NO = #{movieNo}
+		AND MOVIE_IMG_ROLE = '스틸컷'
+		
+	</select>
 	
 </mapper>

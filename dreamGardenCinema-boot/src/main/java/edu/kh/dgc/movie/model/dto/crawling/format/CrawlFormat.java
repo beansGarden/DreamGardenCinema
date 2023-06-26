@@ -4,11 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.context.ApplicationContext;
@@ -163,6 +166,111 @@ public class CrawlFormat {
 		context.getBean(CrawlFormat.class);
 		CrawlingService service = context.getBean(CrawlingServiceImpl.class);
 		
+		// 영화 타이틀 얻어오기
+        String movieTitle = driver.findElement(By.xpath("//*[@id=\"contents\"]/div/div[2]/strong")).getText();
+        System.out.println( movieTitle );
+        
+        System.out.println();
+        
+        // 영화 타이틀에 맞는 영화고유넘버(DB) 찾기
+        
+        // 고유 넘버 찾기 이전에 그 영화가 있는지 찾아보기
+        if(service.selectHavingMovieNoByTitle(movieTitle) == 0){
+        	System.out.println("영화가 DB에 없습니다. 영화 정보부터 넣어주세요");
+        	return;
+        }
+        
+        int movieNo = service.selectMovieNoByTitle(movieTitle);
+        System.out.println(movieNo);
+        
+        System.out.println();
+		
+		
+		// 스틸컷 이미지 요소 얻어오기
+        // cloned 된거 다 삭제하기
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        
+		List<WebElement> cloned = driver.findElements(By.className("cloned"));
+		
+		System.out.println(cloned);
+		
+		for(WebElement items : cloned) {
+			  
+			js.executeScript("document.querySelector('.cloned').remove()");
+					  
+		}
+		
+		
+		// 클론된거 지우고 각 owl-item에 있는 src 사진 다운받기
+		WebElement stage = driver.findElement(By.id("visual_top"));
+		
+		List<WebElement> items = stage.findElements(By.className("owl-item"));
+		
+		String projectDirectory = System.getProperty("user.dir");
+		
+		// 스틸컷 폴더 생성
+		String stillCutFolderPath = projectDirectory + "\\src\\main\\resources\\static\\images\\movie\\스틸컷\\" + movieNo; 
+    	File Folder = new File(stillCutFolderPath);
+
+    	// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+    	if (!Folder.exists()) {
+    		try{
+    		    Folder.mkdir(); //폴더 생성합니다.
+    		    System.out.println("폴더가 생성되었습니다.");
+    	        } 
+    	        catch(Exception e){
+    		    e.getStackTrace();
+    		}        
+             }else {
+    		System.out.println("이미 폴더가 생성되어 있습니다.");
+    	}
+		
+		int index = 1;
+		
+		for(WebElement item : items) {
+			
+//			System.out.println(index);
+			
+			String imgSrc = item.findElement(By.tagName("img")).getAttribute("src");
+			System.out.println(imgSrc);
+			
+			// 실제 저장할 경로
+			String saveImgSrc = projectDirectory + "\\src\\main\\resources\\static\\images\\movie\\스틸컷\\" + movieNo + "\\" + index + ".jpg"; 
+			
+			BufferedImage saveImage = null;
+			
+			// 이미지를 다운로드 하기
+			try {
+				saveImage = ImageIO.read(new URL(imgSrc));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				ImageIO.write(saveImage, "jpg", new File(saveImgSrc));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			// db에 저장할 경로(resolver가 된 이후의 경로)
+			String imgPath = "/images/movie/스틸컷/" + movieNo + "/" + index + ".jpg";
+			
+			Map<String, Object> img = new HashMap<>();
+			
+			img.put("movieNo", movieNo);
+			img.put("imgPath", imgPath);
+			img.put("role", "스틸컷");
+			
+			service.insertMovieStillCut(img);
+			
+			index++;
+			
+			
+			
+		}
+
+		
+
 		
 		
 		

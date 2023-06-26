@@ -75,6 +75,12 @@ public interface MovieService {
 	 */
 	List<String> selectMovieActorName(int movieNo);
 
+	/** 영화 스틸컷 불러오기
+	 * @param movieNo
+	 * @return
+	 */
+	List<String> selectMovieStillCut(int movieNo);
+
 	
 
 

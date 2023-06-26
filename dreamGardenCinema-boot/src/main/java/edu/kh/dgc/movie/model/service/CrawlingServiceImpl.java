@@ -1,5 +1,7 @@
 package edu.kh.dgc.movie.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,11 @@ public class CrawlingServiceImpl implements CrawlingService {
 	@Override
 	public int insertMoviePerson(Person person) {
 		return mapper.insertMoviePerson(person);
+	}
+
+	@Override
+	public int insertMovieStillCut(Map<String, Object> img) {
+		return mapper.insertMovieStillCut(img);
 	}
 	
 	

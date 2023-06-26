@@ -59,5 +59,14 @@
 		(SEQ_PERSON_NO.NEXTVAL, #{movieNo}, #{name}, #{role}, #{img})
 		
 	</insert>
+	
+	<insert id="insertMovieStillCut">
+		
+		INSERT INTO "beansGarden".MOVIE_IMG
+		(MOVIE_IMG_NO, MOVIE_NO, MOVIE_IMG_PATH, MOVIE_IMG_ROLE)
+		VALUES
+		(SEQ_MOVIE_IMG_NO.NEXTVAL, #{movieNo}, #{imgPath}, #{role})
+		
+	</insert>
 		
 </mapper>

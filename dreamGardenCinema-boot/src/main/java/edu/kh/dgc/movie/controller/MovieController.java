@@ -113,6 +113,8 @@ public class MovieController {
 		String movieDriectorName = service.selectMovieDirectorName(movieNo);
 		List<String> movieActorName = service.selectMovieActorName(movieNo);
 		
+		List<String> movieStillCut = service.selectMovieStillCut(movieNo);
+		
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
 		String story = movieInfo.getSynopsis();
@@ -120,10 +122,15 @@ public class MovieController {
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
 		model.addAttribute("movie", movieInfo);
-		model.addAttribute("advertisePoster", advertisePoster);
-		model.addAttribute("persons", moviePersons);
+		
 		model.addAttribute("movieDriectorName", movieDriectorName);
 		model.addAttribute("movieActorName", movieActorName);
+		
+		model.addAttribute("movieStillCut", movieStillCut);
+		
+		model.addAttribute("persons", moviePersons);
+		
+		model.addAttribute("advertisePoster", advertisePoster);
 		
 		return "movie/movieDetail";
 	}
