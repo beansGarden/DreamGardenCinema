@@ -18,10 +18,10 @@
 		<result property="ratio" column="RATIO"/>
 	</resultMap>
 	
-	<resultMap id="Person" type="person">
+	<resultMap type="Person" id="person_rm">
 		<id property="personNo" column="PERSON_NO"/>
 		<result property="movieNo" column="MOVIE_NO"/>
-		<result property="name" column="PERSON_NO"/>
+		<result property="name" column="PERSON_NAME"/>
 		<result property="role" column="PERSON_ROLE"/>
 		<result property="img" column="PERSON_IMG"/>
 	</resultMap>
@@ -85,6 +85,26 @@
 		WHERE MOVIE_NO = #{movieNo}
 	</select>
 	
+	<!--영화인 정보 얻어오기-->
+	<select id="selectMoviePerson" resultMap="person_rm">
+		SELECT *
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}	
+	</select>
+	
+	<select id="selectMovieDirectorName">
+		SELECT PERSON_NAME
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}
+		AND PERSON_ROLE = '감독'
+	</select>
+	
+	<select id="selectMovieActorName">
+		SELECT PERSON_NAME
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}
+		AND PERSON_ROLE != '감독'	
+	</select>
 	
 	
 </mapper>

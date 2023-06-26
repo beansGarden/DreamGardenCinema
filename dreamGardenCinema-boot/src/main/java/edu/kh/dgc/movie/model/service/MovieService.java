@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.Person;
 
 public interface MovieService {
 	
@@ -56,9 +57,23 @@ public interface MovieService {
 	 */
 	Movie selectMovieDetail(int movieNo);
 
-	
+	/** 영화와 관련된 영화인 정보 불러오기
+	 * @param movieNo
+	 * @return
+	 */
+	List<Person> selectMoviePerson(int movieNo);
 
-	
+	/** 영화 감독 이름 얻어오기
+	 * @param movieNo
+	 * @return
+	 */
+	String selectMovieDirectorName(int movieNo);
+
+	/** 영화 출연진 이름 얻어오기
+	 * @param movieNo
+	 * @return
+	 */
+	List<String> selectMovieActorName(int movieNo);
 
 	
 

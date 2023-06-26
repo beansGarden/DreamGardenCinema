@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.Person;
 import edu.kh.dgc.movie.model.service.MovieService;
 
 @RequestMapping("/movie")
@@ -107,6 +108,10 @@ public class MovieController {
 									Model model) {
 		
 		Movie movieInfo = service.selectMovieDetail(movieNo);
+		List<Person> moviePersons = service.selectMoviePerson(movieNo);
+		
+		String movieDriectorName = service.selectMovieDirectorName(movieNo);
+		List<String> movieActorName = service.selectMovieActorName(movieNo);
 		
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
@@ -116,6 +121,9 @@ public class MovieController {
 		
 		model.addAttribute("movie", movieInfo);
 		model.addAttribute("advertisePoster", advertisePoster);
+		model.addAttribute("persons", moviePersons);
+		model.addAttribute("movieDriectorName", movieDriectorName);
+		model.addAttribute("movieActorName", movieActorName);
 		
 		return "movie/movieDetail";
 	}

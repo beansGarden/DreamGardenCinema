@@ -67,11 +67,17 @@
                             </li>
 
                             <li>
-                                감독
+                                감독 <span class="line1" th:text="${movieDriectorName}">감독이름</span>
                             </li>
 
                             <li>
-                                출연
+                                출연 
+                                <span class="line1">
+                                    <span th:each="actor : ${movieActorName}">
+                                        <span th:text="|${actor}, |"></span>
+                                    </span>
+                                </span>
+                                <span th:unless="${movieActorName.isEmpty()}">⋯</span>
                             </li>
 
                         </ul>
@@ -166,19 +172,19 @@
 
                 <strong style="font-size: 20px;">감독 및 배우</strong>
 
-                <div class="movie-people">
+                <div class="movie-person">
                     
-                    <ul class="movie-people__gird">
+                    <ul class="movie-person__gird">
 
-                        <li class="people">
+                        <li class="person" th:each="person : ${persons}">
 
-                            <div class="people-img">
-                                <img th:src="@{/images/movie/영화인/null.png}">
+                            <div class="person-img">
+                                <img th:src="@{|${person.img}|}">
                             </div>
 
-                            <div class="people-info">
-                                <pre class="info-name">홍길동</pre>
-                                <pre class="info-role">감독</pre>
+                            <div class="person-info">
+                                <pre class="info-name" th:text="${person.name}">영화인 이름</pre>
+                                <pre class="info-role" th:text="${person.role}">영화인 역할</pre>
                             </div>
 
                         </li>
