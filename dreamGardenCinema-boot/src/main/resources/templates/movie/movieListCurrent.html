@@ -91,7 +91,9 @@
     </section>
 
     <section class="movie--bot__banner">
-        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
     </section>
 
     <th:block th:replace="~{common/footer}"></th:block>

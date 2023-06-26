@@ -91,7 +91,9 @@
     </div>
 
     <section class="movie--banner">
-        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
     </section>
 
 

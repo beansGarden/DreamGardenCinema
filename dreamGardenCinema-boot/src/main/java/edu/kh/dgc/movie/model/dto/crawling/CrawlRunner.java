@@ -78,7 +78,9 @@ public class CrawlRunner {
 	        info.stillCutInfoCrawl(driver);
         }
         if(crawlType.equals("all")) {
-        	
+        	info.movieInfoCrawl(driver);
+	        info.peopleInfoCrawl(driver);
+	        info.stillCutInfoCrawl(driver);
         }
         // 1초 후에 WebDriver 종료
         try {
