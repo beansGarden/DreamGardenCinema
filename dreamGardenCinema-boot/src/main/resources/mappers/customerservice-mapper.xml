@@ -29,7 +29,29 @@
 		<result property="noticeFL" column="NOTICE_FL" />
 
 	</resultMap>
-
+	
+	<!--Qna 1:1 문의-->
+		<resultMap type="Qna" id="qna_rm">
+	
+		<id property="qnaNo" column="QNA_NO"/>
+		
+		<result property="qnaTitle" column="QNA_TITLE"/>
+		<result property="qnaContent" column="QNA_CONTENT"/>
+		<result property="qnaEnrollDate" column="QNA_ENROLL_DATE"/>
+		<result property="qnaDeleteFl" column="QNA_DELETE_FL"/>
+		<result property="qnaCheckFl" column="QNA_CHECK_FL"/>
+		<result property="qnaCategory" column="QNA_CATEGORY"/>
+		<result property="userNo" column="USER_NO2"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
+		</resultMap>
+		
+	<!-- Qna 1:1 문의 이미지 -->
+	<resultMap id="qna_img_rm" type="QnaImage">
+		<id property="qnaImgNo" column="QNA_IMG_NO"/>
+		<result property="qnaImgOrder" column="QNA_IMG_ORDER"/>
+		<result property="qnaImgPath" column="QNA_IMG_PATH"/>
+		<result property="qnaNo" column="QNA_NO"/>
+	</resultMap>
 
 	<!-- FAQ 전체목록 조회 -->
 	<select id="main" resultMap="faq_rm">
@@ -130,6 +152,41 @@
 		</choose>
 		ORDER BY NOTICE_NO DESC
 	</select>
+	
+	<!-- 1:1 문의글 삽입 -->
+	<insert id="cusQAInsert"  parameterType="Qna"  useGeneratedKeys="true">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="qnaNo">
+			SELECT SEQ_QNA_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO QNA VALUES(
+		#{qnaNo},
+		#{qnaTitle}, 
+		#{qnaContent}, 
+		SYSDATE, 
+		DEFAULT, 
+		DEFAULT, 
+		#{selectedValue}, 
+		#{userNo})
+	</insert>
+	
+	
+	<!-- 이미지 삽입 -->
+	<insert id="insertQAImageList" parameterType="list">
+		INSERT INTO
+		"QNA_IMG"
+		SELECT SEQ_QNA_IMG_NO.NEXTVAL,A.*
+		FROM(
+		<foreach collection="list" item="img" separator=" UNION ALL ">
+			SELECT 
+			#{img.qnaImgOrder} QNA_IMG_ORDER,
+			#{img.qnaImgPath} QNA_IMG_PATH,
+			#{img.qnaNo} QNA_NO
+			FROM DUAL
+		</foreach>
+		)A
+	</insert>
 
 </mapper>
 

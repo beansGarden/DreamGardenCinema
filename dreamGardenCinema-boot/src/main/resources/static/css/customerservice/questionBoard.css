@@ -172,7 +172,7 @@ a {
 
 #QASelection {
     height: 30px;
-    width: 80px;
+    width: 100px;
     text-align: center;
     font-size: 15px;
 
@@ -625,6 +625,10 @@ textarea:focus{
     font-weight: bold;
 }
 
+/* 고객정보 작성란 숨기기 */
+.QA-cus-info-hidden{
+    display: none;
+}
 
 
 

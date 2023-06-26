@@ -59,7 +59,7 @@
                 </pre>
             </div>
 
-            <form action="@{/customerservice/QAinsert}" method="POST" id="QAfrm" enctype="multipart/form-data">
+            <form th:action="@{/customerservice/QAinsert}" method="POST" id="QAfrm" enctype="multipart/form-data">
 
                 <!-- 문의내용 -->
                 <div class="QA-main-title">
@@ -76,18 +76,16 @@
                         <option value="b">예매/결제</option>
                         <option value="h">홈페이지</option>
                         <option value="a">계정</option>
+                        <option value="e">기타</option>
                     </select>
 
-                    <span>종류</span><span style="color: red;">*</span>
-                    <input type="radio" name="customerQuestionService" id="customerserviceMovie">영화관 문의
-                    <input type="radio" name="customerQuestionService" id="customerserviceMovieETC">기타 문의
                 </div>
 
 
                 <!-- 제목 행 -->
                 <div class="QA-title">
                     <span>제목</span><span style="color: red;">*</span>
-                    <input type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요." minlength="0"
+                    <input name="qnaTitle" type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요." minlength="0"
                         maxlength="49">
                     <div class="QA-title-count-box">
                         <span id="QATitleCount">0</span>/
@@ -98,7 +96,7 @@
                 <!-- 내용 -->
                 <div class="QA-contents">
                     <span>내용</span><span style="color: red;">*</span>
-                    <textarea name="" id="QADetailContents" cols="100" rows="10" minlength="0" maxlength="1999"
+                    <textarea name="qnaContent" id="QADetailContents" cols="100" rows="10" minlength="0" maxlength="1999"
                         placeholder="내용을 입력 해주세요."></textarea>
                     <div class="QA-span-container">
                         <span id="QAContentsCount">0</span>/
@@ -117,7 +115,7 @@
                 <!-- 회원 여부 체크  -->
                 <div class="QA-member-check">
                     <span>비회원 여부 체크</span>
-                    <input type="checkbox" name="" id="QAmemChkBox">
+                    <input type="checkbox" name="chkNoneMember" id="QAmemChkBox">
                     <span>이메일로 답변 받기</span>
                     <span>
                         <img th:src="@{/images/customerservice/경고.png}">
@@ -126,41 +124,45 @@
 
                 <!-- 고객정보 -->
 
-                <div class="QA-customer-info-title">
-                    <span>고객정보</span>
+                <div class="QA-cus-info-hidden">
+                    <div class="QA-customer-info-title">
+                        <span>고객정보</span>
+                    </div>
+
+                    <!-- 성명 -->
+                    <div class="QA-customer-name">
+                        <span>성명</span><span style="color: red;">*</span>
+                        <input name="nonMemberName" type="text" placeholder="성함을 입력해 주세요." id="cusName">
+                    </div>
+
+                    <!-- 연락처 -->
+                    <div class="QA-customer-tel">
+                        <span>연락처</span><span style="color: red;">*</span>
+                        <select name="first" id="QASelectNum">
+                            <option value="">선택</option>
+                            <option value="one">010</option>
+                            <option value="two">011</option>
+                            <option value="thr">016</option>
+                            <option value="four">017</option>
+                            <option value="fiv">018</option>
+                            <option value="six">019</option>
+                        </select>
+
+                        <input name="nonMemberTel" type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요." id="cusTel">
+
+                    </div>
+
+                    <div class="QA-customer-email">
+                        <span>이메일</span><span style="color: red;">*</span>
+                        <input name="nonMemberEmail" type="email" id="QAEmail">
+                        <span>
+                            <img th:src="@{/images/customerservice/경고.png}">답변 등록시 해당 이메일로 자동 발송 됩니다.
+                        </span>
+                    </div>
+
                 </div>
 
 
-                <!-- 성명 -->
-                <div class="QA-customer-name">
-                    <span>성명</span><span style="color: red;">*</span>
-                    <input type="text" placeholder="성함을 입력해 주세요.">
-                </div>
-
-                <!-- 연락처 -->
-                <div class="QA-customer-tel">
-                    <span>연락처</span><span style="color: red;">*</span>
-                    <select name="" id="QASelectNum">
-                        <option value="">선택</option>
-                        <option value="">010</option>
-                        <option value="">011</option>
-                        <option value="">016</option>
-                        <option value="">017</option>
-                        <option value="">018</option>
-                        <option value="">019</option>
-                    </select>
-
-                    <input type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요.">
-
-                </div>
-
-                <div class="QA-customer-email">
-                    <span>이메일</span><span style="color: red;">*</span>
-                    <input type="email" id="QAEmail">
-                    <span>
-                        <img th:src="@{/images/customerservice/경고.png}">답변 등록시 해당 이메일로 자동 발송 됩니다.
-                    </span>
-                </div>
 
                 <!-- 개인정보 수집 동의 -->
                 <div class="QA-personal-agree-title">
@@ -195,11 +197,21 @@
                     <button class="QA-del-btn">취소</button>
                 </div>
             </form>
+
         </div>
 
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
+
+    <script th:inline="javascript">
+
+        /* Natural Template  */
+        const message = /*[[${message}]]*/ "전달 받은 message";
+        // 타임리프 해석             값(자료형이 알아서 해석)       사라짐(설명) 
+
+        if (message != null) alert(message);
+    </script>
 
     <script th:src="@{/js/customerservice/questionBoard.js}"></script>
 
