@@ -38,7 +38,9 @@
 		<result property="movieTime" column="MOVIE_TIME"/>
 		<result property="movieTheater" column="MOVIE_THEATER"/>
 		<result property="movieNo" column="MOVIE_NO"/>
-		<result property="ticketCancle" column="TICKET_CANCLE"/>
+		<result property="ticketFL" column="TICKET_FL"/>
+		<result property="ticketId" column="TICKET_ID"/>
+		<result property="ticketImpId" column="TICKEY_IMP_UID"/>
 		<result property="seatNo" column="SEAT_NO"/>
 		<result property="state" column="STATE"/>
 	</resultMap>
@@ -177,7 +179,7 @@
 	<delete id="ticketingOut">
 		DELETE FROM SEAT_CHECK WHERE STATE = 'Y' AND TICKET_NO = #{ticketNo} 
 	</delete>
-	
+
 	<!-- 예매 3페이지 쿠폰 가격 조회 AJAX -->
 	<select id="selectCouponPrice">
 		SELECT COUPON_PRICE
@@ -198,5 +200,42 @@
 		FROM TICKETING_INFO
 		WHERE TICKET_NO = #{ticketNo}
 	</select>
+
+	<select id="checkTicketId" resultType="int">
+		SELECT COUNT(*) 
+		FROM TICKETING_INFO 
+		WHERE TICKET_ID LIKE #{ticketId}
+	</select>
+	
+	<update id="updateTicketId">
+		UPDATE TICKETING_INFO 
+		SET TICKET_ID = #{createTicketId} 
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<update id="updateReasonCancellationPayment">
+		UPDATE TICKETING_INFO 
+		SET REASON_CANCELLATION_PAYMENT = #{reasonCancellationPayment}
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+	
+	<update id="updategetTicketImpUid">
+		UPDATE TICKETING_INFO 
+		SET TICKEY_IMP_UID = #{ticketImpId}
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+	
+	<update id="updateTictetFLC">
+		UPDATE TICKETING_INFO 
+		SET TICKET_FL = 'C'
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+	
+	<update id="updateTictetFLY">
+		UPDATE TICKETING_INFO 
+		SET TICKET_FL = 'Y'
+		WHERE TICKET_ID = #{ticketId}
+	</update>
+
 
 </mapper>
