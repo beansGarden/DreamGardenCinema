@@ -118,13 +118,11 @@ socket.onmessage = function(event) {
         if(resultList[1] == "alreadyChk"){
             if(seat[i].getAttribute("seatno")==resultList[0]){
                 seat[i].classList.add("alreadyChk");
-                console.log("예매해찌><");
             }
         }
         if(resultList[1] == "cancelChk"){
             if(seat[i].getAttribute("seatno")==resultList[0]){
                 seat[i].classList.remove("alreadyChk");
-                console.log("옛다 취소해준다");
             }
         }
         if(resultList[1] == "fail"){
@@ -143,5 +141,4 @@ frm.addEventListener("submit", e=>{
         alert("좌석을 선택해주세요");
         return;
     }
-    // location.href="/ticketing/confirmSeat";
 });

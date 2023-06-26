@@ -7,10 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
-import edu.kh.dgc.ticketing.model.dto.Seat;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
-import edu.kh.dgc.user.model.dto.User;
 
 @Mapper
 public interface TicketingMapper {
@@ -44,17 +42,19 @@ public interface TicketingMapper {
 	
 	// 예매 2페이지 웹소켓 해제 시 선택했던 좌석 삭제
 	int deleteEndSeat(Ticket ticket);
+	
+	// 예매 2페이지 웹소켓 해제 시 티켓정보 삭제
+	// 예매 3페이지 페이지 나갈 시 좌석 정보 삭제
+	int deleteEndTicket(int ticketNo);
 
+	// 예매 3페이지 SEAT_CHECK 테이블 Y로 변경
+	int beforePaySeat(int ticketNo);
+	
+	// 예매 3페이지 티켓 가격 삽입
+	int beforePayTicket(Map<String, Integer> paramMap);
 
+	// 예매 3페이지 좌석 정보 삭제
+	int ticketingOut(Map<String, Object> paramMap);
 
-
-
-
-	int beforePaySeat(int userNo);
-
-	void ticketingOut(Map<String, Object> paramMap);
-
-
-	Ticket selectTicket(int ticketNo);
 
 }

@@ -88,6 +88,11 @@
                 <div class="liquidate">
                     <div>총 합계 <span class="pay">0</span>원</div>
                     <button class="btn">결제하기</button>
+                    <input type='hidden' name="ticketNo" th:value="${map.ticket.ticketNo}">
+                    <input type='hidden' name="movieNo" th:value="${map.ticket.movieNo}">
+                    <input type='hidden' name="saveday" th:value="${saveday}">
+                    <input type='hidden' name="runningTime" th:value="${runningTime}">
+                    <input type='hidden' name="movieTheater" th:value="${map.ticket.movieTheater}">
                 </div>
             </form>
         </div>

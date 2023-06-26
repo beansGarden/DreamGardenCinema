@@ -1,16 +1,6 @@
 package edu.kh.dgc.ticketing.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
-import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
 import edu.kh.dgc.user.model.dto.User;
@@ -61,6 +50,18 @@ public class TicketingController {
 		paramMap.put("date", date);
 		return service.movieTime(paramMap);
 	}
+	
+	// 예매 2페이지 선택 시 기존 정보를 갖고 보여주는 창
+	@GetMapping("/seat")
+	public String seat( Ticket ticket, String date
+			, Model model
+			, RedirectAttributes ra) {
+		
+		
+		
+		return "ticketing/Ticketing2";
+	}
+	
 	
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회 
 	@PostMapping("/seat")
@@ -103,90 +104,32 @@ public class TicketingController {
 		return "ticketing/Ticketing2";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@GetMapping("/seat")
-	public String seat(Model model
-					, RedirectAttributes ra) {
-		
-		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-		
-		return "ticketing/Ticketing2";
-	}
-	
-	@GetMapping("/pay")
-	public String pay(Model model) {
-		
-		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-		
-		return "ticketing/Ticketing3";
-	}
-	
-	@GetMapping("/complete")
-	public String complete(Model model) {
-		
-		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-		
-		return "ticketing/Ticketing4";
-	}
-	
-	@GetMapping("/PaymentPage")
-	public String PaymentPage(Model model) {
-		
-		return "ticketing/PaymentPage";
-	}
-	
-	
-	
+	// 예매 3페이지 선택한 영화, 시간, 좌석, 금액정보 삽입, 조회
 	@PostMapping("/pay")
 	public String pay(Model model,
-			@RequestParam Map<String, Object> paramMap, @SessionAttribute("loginUser") User user, String[] seatList) {
-
+			int ticketNo, int movieNo, String saveday, String runningTime, String movieTheater,  @SessionAttribute("loginUser") User user, String[] seatList){
+		
+		// 좌석 리스트로 담기
 		List<String> resultSeatList = new ArrayList<>();
 		for(String seat : seatList) {
 			resultSeatList.add(seat);
 		}
 		
-		// 좌석 'Y'로 변경
-		int result = service.beforePaySeat(user.getUserNo());
-		
-		int movieNo = Integer.parseInt((String)paramMap.get("movieNo"));
-		
-		Movie movie = service.selectMovie(movieNo);
-		String saveday = (String)paramMap.get("saveday");
-		String runningTime = (String)paramMap.get("runningTime");
-		String movieTheater = (String) paramMap.get("movieTheater");
-		
+		// 좌석 'Y'로 변경 / 정보 조회해오기
+		Movie movie = service.beforePaySeat(ticketNo, movieNo, resultSeatList.size());
+		model.addAttribute("ticketNo", ticketNo);
 		model.addAttribute("movie", movie);
 		model.addAttribute("saveday", saveday);
 		model.addAttribute("runningTime", runningTime);
 		model.addAttribute("resultSeatList", resultSeatList);
 		model.addAttribute("movieTheater", movieTheater);
-		
 		return "ticketing/Ticketing3";
 	}
 	
-	
+	// 예매 3페이지 나갈 때 좌석,티켓정보 삭제
 	@ResponseBody
 	@PostMapping("/out")
 	public void ticketingOut(@SessionAttribute("loginUser") User user, @RequestBody Map<String, Object> paramMap) {
-		
-		String subday = ((String)paramMap.get("saveday")).substring(0, 10);
-		String subtime = ((String)paramMap.get("runningTime")).substring(0,5);
-		String[] splitday = subday.split("\\.");
-		String movieTime = ""+splitday[0]+splitday[1]+splitday[2]+subtime;
-		int movieNo = (int) paramMap.get("movieNo");
-		System.out.println(movieNo);
 		
 		List<String> seatList = (List<String>) paramMap.get("seatList");
 		
@@ -197,14 +140,45 @@ public class TicketingController {
 			newList.add(seat);
 		}
 		
-		paramMap.put("movieNo", movieNo);
-		paramMap.put("movieTime", movieTime);
 		paramMap.put("seatList", newList);
-		paramMap.put("userNo", user.getUserNo());
-		
 		
 		service.ticketingOut(paramMap);
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//	@GetMapping("/pay")
+//	public String pay(Model model) {
+//		
+//		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
+//		
+//		return "ticketing/Ticketing3";
+//	}
+//	
+//	@GetMapping("/complete")
+//	public String complete(Model model) {
+//		
+//		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
+//		
+//		return "ticketing/Ticketing4";
+//	}
+//	
+//	@GetMapping("/PaymentPage")
+//	public String PaymentPage(Model model) {
+//		
+//		return "ticketing/PaymentPage";
+//	}
 	
 	
 	

@@ -68,16 +68,12 @@
         let loginUser = /*[[${session.loginUser}]]*/ "";
         if(loginUser == null)loginUser = "";
         let data = {};
-        data.movieNo = /*[[${movie.movieNo}]]*/ "영화번호";
-        data.saveday = /*[[${saveday}]]*/ "날짜";
-        data.runningTime = /*[[${runningTime}]]*/ "러닝타임";
-        data.movieTheater = /*[[${movieTheater}]]*/ "영화관";
+        data.ticketNo = /*[[${ticketNo}]]*/ "티켓번호";
         data.seatList = /*[[${resultSeatList}]]*/ "좌석";
 
         console.log(data);
         
         $(window).on("beforeunload", function(){
-
             fetch("/ticketing/out", {
                 method : 'POST',
                 headers : {'Content-Type': 'application/json'},
@@ -87,7 +83,6 @@
             .then(result => {
                 alert("예매 취소");
             })
-
         });
 
     </script>

@@ -11,10 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
-import edu.kh.dgc.ticketing.model.dto.Seat;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
-import edu.kh.dgc.user.model.dto.User;
 
 @Service
 public class TicketingServiceImpl implements TicketingService {
@@ -55,7 +53,13 @@ public class TicketingServiceImpl implements TicketingService {
 	@Override
 	public String seatCheck(Ticket ticket) {
 		
+		System.out.println(ticket);
+		
 		Ticket result = mapper.selectSeat(ticket);
+		
+		System.out.println(result);
+		
+		
 		String seatResult = null;
 		if(result == null) {  // 조회된 좌석정보가 없으면
 			int insertResult = mapper.insertSeat(ticket); // 좌석 INSERT
@@ -78,13 +82,9 @@ public class TicketingServiceImpl implements TicketingService {
 				seatResult = "이미선택";
 			}
 		}
-		
+		System.out.println(seatResult);
 		return seatResult;
 	}
-	
-	
-	
-	
 	
 	// 예매 2페이지 Web Socket 연결 해제 시 데이터 삭제
 	@Override
@@ -95,40 +95,61 @@ public class TicketingServiceImpl implements TicketingService {
 		// 예매 넘어가지 않은 좌석리스트
 		List<Ticket> seatCheckList = mapper.selectEndSeat(userNo);
 		
-		int result = mapper.deleteEndSeat(seatCheckList.get(0));
+		System.out.println("예매 넘어가지 않은 좌석리스트" + seatCheckList);
 		
-		String seatResult = null;
-		if (result > 0) {
-			seatResult = "예매취소성공";
-		} else {
-			seatResult = "예매취소실패";
+		if(seatCheckList.size() > 0) {
+			int result = mapper.deleteEndSeat(seatCheckList.get(0));
+			
+			int ticketResult = 0;
+			if(result>0) {
+				System.out.println("첫번째 값 : "+seatCheckList.get(0));
+				ticketResult = mapper.deleteEndTicket(seatCheckList.get(0).getTicketNo());			
+			}
+			String seatResult = null;
+			if (ticketResult > 0) {
+				seatResult = "예매취소성공";
+			} else {
+				seatResult = "예매취소실패";
+			}
+			seatResultMap.put("seatResult", seatResult);
 		}
-		
 		seatResultMap.put("seatCheckList", seatCheckList);
-		seatResultMap.put("seatResult", seatResult);
 		
 		return seatResultMap;
 	}
 	
-	
-	
-	
-	
-
-
+	// 예매 3페이지 SEAT_CHECK 테이블 Y로 변경 / 영화, 좌석 정보 조회
 	@Override
-	public int beforePaySeat(int userNo) {
-		return mapper.beforePaySeat(userNo);
+	public Movie beforePaySeat(int ticketNo, int movieNo, int seatListSize) {
+		
+		// Y로 변경
+		int a = mapper.beforePaySeat(ticketNo);
+		System.out.println("좌석 Y로 변경됐는지 확인 : " + a);
+		
+		// Ticket 가격 넣기
+		Map<String, Integer> paramMap = new HashMap<>();
+		paramMap.put("ticketNo", ticketNo);
+		paramMap.put("seatListSize", seatListSize);
+		System.out.println("파람맵 확인 : " + paramMap);
+		int result = mapper.beforePayTicket(paramMap);
+		System.out.println("티켓 가격 넣어졌는지 확인 : " + result);
+		
+		// 영화정보 조회
+		Movie movie = mapper.selectMovie(movieNo);
+		
+		return movie;
 	}
 
-	@Override
-	public Movie selectMovie(int movieNo) {
-		return mapper.selectMovie(movieNo);
-	}
-
+	// 예매 3페이지 나갈 때 티켓정보 삭제
 	@Override
 	public void ticketingOut(Map<String, Object> paramMap) {
-		mapper.ticketingOut(paramMap);
+		// 좌석 정보 삭제
+		int result = mapper.ticketingOut(paramMap);
+		
+		if(result > 0) {
+			// 티켓 정보 삭제
+			mapper.deleteEndTicket((int)paramMap.get("ticketNo"));
+		}
 	}
 
 }

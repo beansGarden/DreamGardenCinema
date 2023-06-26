@@ -5,9 +5,7 @@ import java.util.Map;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
-import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
-import edu.kh.dgc.user.model.dto.User;
 
 public interface TicketingService {
 
@@ -26,19 +24,10 @@ public interface TicketingService {
 	// 예매 2페이지 Web Socket 연결 해제 시 데이터 삭제
 	Map<String, Object> seatDelete(int userNo);
 	
+	// 예매 3페이지 SEAT_CHECK 테이블 Y로 변경
+	Movie beforePaySeat(int ticketNo, int movieNo, int seatListSize);
 	
-	
-	
-	
-	
-	
-	
-
-
-	int beforePaySeat(int userNo);
-
-	Movie selectMovie(int movieNo);
-
+	// 예매 3페이지 나갈 때 좌석,티켓정보 삭제
 	void ticketingOut(Map<String, Object> paramMap);
 
 }

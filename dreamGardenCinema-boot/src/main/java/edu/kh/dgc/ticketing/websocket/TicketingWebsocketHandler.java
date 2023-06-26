@@ -1,7 +1,6 @@
 package edu.kh.dgc.ticketing.websocket;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +13,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
 import edu.kh.dgc.user.model.dto.User;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,7 +91,7 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		List<Ticket> seatCheckList = (List<Ticket>) resultMap.get("seatCheckList");
 		int idx = -1;
 		for(int i=0;i<sessions.size();i++){
-			if(seatResult.equals("예매취소성공")) {
+			if(seatResult != null &&  seatResult.equals("예매취소성공")) {
 				WebSocketSession sess = sessions.get(i);
 				if(!sessionList.get(i).get("userSession").equals(session.getAttributes().get("userSession"))) {  // 세션 아이디가 다른 접속자
 					TextMessage sendMsg = null;

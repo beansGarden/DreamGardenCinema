@@ -104,9 +104,9 @@
 	<!-- 예매 2페이지 좌석 선택 Web Socket -->	
 	<select id="selectSeat" resultMap="ticket_rm">
 		SELECT *
-		FROM SEAT_CHECK
-		JOIN TICKETING_INFO USING(TICKET_NO)
-		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo} AND SEAT_NO = #{seatNo}
+		FROM TICKETING_INFO
+		JOIN SEAT_CHECK USING(TICKET_NO)
+		WHERE TICKET_NO = ${ticketNo} AND SEAT_NO = #{seatNo} AND TICKET_FL = 'N'
 	</select>
 	
 	<!-- 예매 2페이지 좌석 Web Socket INSERT -->
@@ -130,28 +130,31 @@
 	
 	<!-- 예매 2페이지 웹소켓 해제 시 선택했던 좌석 삭제 -->
 	<delete id="deleteEndSeat">
-		DELETE FROM SEAT_CHECK WHERE USER_NO = ${ticketNo} AND STATE = 'N'
+		DELETE FROM SEAT_CHECK WHERE TICKET_NO = ${ticketNo} AND STATE = 'N'
 	</delete>
-
-
-
 	
+	<!-- 예매 2페이지 웹소켓 해제 시 티켓 삭제 -->
+	<!-- 예매 3페이지 페이지 나갈 시 좌석 정보 삭제 -->
+	<delete id="deleteEndTicket">
+		DELETE FROM TICKETING_INFO WHERE TICKET_NO = ${ticketNo}
+	</delete>
 	
-	
+	<!-- 예매 3페이지 SEAT_CHECK 테이블 Y로 변경 -->
 	<update id="beforePaySeat">
 		UPDATE SEAT_CHECK SET STATE = 'Y'
-		WHERE STATE = 'N' AND USER_NO = ${userNo}
+		WHERE STATE = 'N' AND TICKET_NO = ${ticketNo}
 	</update>
 	
+	<!-- 예매 3페이지 TICKETING_INFO 테이블 가격 삽입 -->
+	<update id="beforePayTicket">
+		UPDATE TICKETING_INFO SET PAY_AMOUNT = 12000 * #{seatListSize}
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<!-- 예매 3페이지 좌석 정보 삭제 -->
 	<delete id="ticketingOut">
-		DELETE FROM SEAT_CHECK WHERE USER_NO = ${userNo} AND STATE = 'Y' AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI') AND MOVIE_THEATER = #{movieTheater} AND MOVIE_NO = ${movieNo} 
+		DELETE FROM SEAT_CHECK WHERE STATE = 'Y' AND TICKET_NO = #{ticketNo} 
 	</delete>
 	
-	
-	<select id="selectTicket">
-		SELECT *
-		FROM TICKETING_INFO
-		WHERE TICKET_NO = #{ticketNo}
-	</select>
-	
+
 </mapper>
