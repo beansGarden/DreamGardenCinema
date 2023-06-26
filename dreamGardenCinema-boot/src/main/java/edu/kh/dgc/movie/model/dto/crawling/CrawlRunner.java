@@ -23,7 +23,7 @@ public class CrawlRunner {
     	// ----- 입력할 거 -----
     	
     	// webPage 주소
-    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19864";
+    	String Goto = "https://www.lottecinema.co.kr/NLCHS/Movie/MovieDetailView?movie=19903";
     	
     	// movie Screen status -> Current, Promise
 //    	String movieScreen = "C";
@@ -32,7 +32,8 @@ public class CrawlRunner {
 //    	crawlType = "info";
 //		crawlType = "stillcut";
 //		crawlType = "people";
-    	
+    	crawlType = "subInfo"; // stillCut + people
+//    	crawlType = "all"; // literally
 		
     	// ----------------------
     	
@@ -69,12 +70,16 @@ public class CrawlRunner {
         
         // crawling 요소 호출
         
-//        if(crawlType.equals("crawl"))	info.movieInfoCrawl(driver);
-//        if(crawlType.equals("stillcut"))	info.stillCutInfoCrawl(driver);
-//        if(crawlType.equals("people"))	info.peopleInfoCrawl(driver);
-        info.peopleInfoCrawl(driver);
-        info.stillCutInfoCrawl(driver);
-        
+        if(crawlType.equals("crawl"))	info.movieInfoCrawl(driver);
+        if(crawlType.equals("stillcut"))	info.stillCutInfoCrawl(driver);
+        if(crawlType.equals("people"))	info.peopleInfoCrawl(driver);
+        if(crawlType.equals("subInfo")) {
+	        info.peopleInfoCrawl(driver);
+	        info.stillCutInfoCrawl(driver);
+        }
+        if(crawlType.equals("all")) {
+        	
+        }
         // 1초 후에 WebDriver 종료
         try {
             Thread.sleep(1000);
