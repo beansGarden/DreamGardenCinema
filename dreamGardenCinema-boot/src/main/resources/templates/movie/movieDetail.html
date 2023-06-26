@@ -67,14 +67,23 @@
                             </li>
 
                             <li>
-                                감독 <span class="line1" th:text="${movieDriectorName}">감독이름</span>
+                                감독                                 
+                                <span class="line1" th:with="max=${#lists.size(movieDirectorName)}">
+                                    <span th:unless="${#lists.size(movieDirectorName)} >= 2" th:each="director : ${movieDirectorName}"> 
+                                        <span th:text="${director}">감독이름</span> 
+                                    </span>
+                                    <span th:if="${#lists.size(movieDirectorName)} >= 2" th:each="director : ${movieDirectorName}">
+                                        <span th:text="${director}">감독이름</span><!--  
+                                        --><span th:if="${directorStat.count} < ${max}">,</span>
+                                    </span>
+                                </span>
                             </li>
 
                             <li>
                                 출연 
                                 <span class="line1">
                                     <span th:each="actor : ${movieActorName}">
-                                        <span th:text="|${actor}, |"></span>
+                                        <span th:text="|${actor}, |">출연진 이름</span>
                                     </span>
                                 </span>
                                 <span th:unless="${movieActorName.isEmpty()}">⋯</span>

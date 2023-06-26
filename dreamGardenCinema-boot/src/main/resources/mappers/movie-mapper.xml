@@ -103,7 +103,7 @@
 		SELECT PERSON_NAME
 		FROM PERSON_INFO
 		WHERE MOVIE_NO = #{movieNo}
-		AND PERSON_ROLE != '감독'	
+		AND (PERSON_ROLE IS NULL OR PERSON_ROLE != '감독')
 	</select>
 	
 	<select id="selectMovieStillCut">
@@ -111,7 +111,6 @@
 		FROM MOVIE_IMG
 		WHERE MOVIE_NO = #{movieNo}
 		AND MOVIE_IMG_ROLE = '스틸컷'
-		
 	</select>
 	
 </mapper>

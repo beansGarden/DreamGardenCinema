@@ -67,7 +67,7 @@ public interface MovieService {
 	 * @param movieNo
 	 * @return
 	 */
-	String selectMovieDirectorName(int movieNo);
+	List<String> selectMovieDirectorName(int movieNo);
 
 	/** 영화 출연진 이름 얻어오기
 	 * @param movieNo

@@ -110,7 +110,7 @@ public class MovieController {
 		Movie movieInfo = service.selectMovieDetail(movieNo);
 		List<Person> moviePersons = service.selectMoviePerson(movieNo);
 		
-		String movieDriectorName = service.selectMovieDirectorName(movieNo);
+		List<String> movieDirectorName = service.selectMovieDirectorName(movieNo);
 		List<String> movieActorName = service.selectMovieActorName(movieNo);
 		
 		List<String> movieStillCut = service.selectMovieStillCut(movieNo);
@@ -123,7 +123,7 @@ public class MovieController {
 		
 		model.addAttribute("movie", movieInfo);
 		
-		model.addAttribute("movieDriectorName", movieDriectorName);
+		model.addAttribute("movieDirectorName", movieDirectorName);
 		model.addAttribute("movieActorName", movieActorName);
 		
 		model.addAttribute("movieStillCut", movieStillCut);

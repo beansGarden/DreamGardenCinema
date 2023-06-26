@@ -28,7 +28,7 @@ public interface MovieMapper {
 
 	public List<Person> selectMoviePerson(int movieNo);
 
-	public String selectMovieDirectorName(int movieNo);
+	public List<String> selectMovieDirectorName(int movieNo);
 
 	public List<String> selectMovieActorName(int movieNo, RowBounds rowBounds);
 

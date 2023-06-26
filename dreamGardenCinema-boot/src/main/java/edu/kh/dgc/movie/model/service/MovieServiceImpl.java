@@ -105,7 +105,7 @@ public class MovieServiceImpl implements MovieService{
 
 
 	@Override
-	public String selectMovieDirectorName(int movieNo) {
+	public List<String> selectMovieDirectorName(int movieNo) {
 		return mapper.selectMovieDirectorName(movieNo);
 	}
 

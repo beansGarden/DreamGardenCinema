@@ -284,6 +284,12 @@ public class CrawlFormat {
 		context.getBean(CrawlFormat.class);
 		CrawlingService service = context.getBean(CrawlingServiceImpl.class);
 		
+		try {
+			WebElement castingMoreBtn = driver.findElement(By.id("casting_more_btn"));
+			castingMoreBtn.click();
+		} catch (Exception e) {
+			System.out.println("더보기 버튼 없음");
+		}
 		
 		// 영화 타이틀 얻어오기
         String movieTitle = driver.findElement(By.xpath("//*[@id=\"contents\"]/div/div[2]/strong")).getText();
@@ -384,7 +390,7 @@ public class CrawlFormat {
 				System.out.println("이미지 정보 없음");
 				saveImgDirectory = projectDirectory + "\\src\\main\\resources\\static\\images\\movie\\영화인\\null.png";
 				System.out.println(saveImgDirectory);
-				imgInsert = "/images/movie/영화인/null.jpg";
+				imgInsert = "/images/movie/영화인/null.png";
 			}
 			
 			System.out.println();
