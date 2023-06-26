@@ -25,9 +25,12 @@ public interface TicketingService {
 	Map<String, Object> seatDelete(int userNo);
 	
 	// 예매 3페이지 SEAT_CHECK 테이블 Y로 변경
-	Movie beforePaySeat(int ticketNo, int movieNo, int seatListSize);
+	Map<String, Object> beforePaySeat(int ticketNo, int movieNo, int seatListSize, int userNo);
 	
 	// 예매 3페이지 나갈 때 좌석,티켓정보 삭제
 	void ticketingOut(Map<String, Object> paramMap);
+
+	// 예매 3페이지 쿠폰 AJAX
+	int couponSet(Map<String, Integer> paramMap);
 
 }

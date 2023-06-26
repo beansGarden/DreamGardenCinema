@@ -1,4 +1,4 @@
-const btnPayment = document.querySelector(".btn_payment");
+// const btnPayment = document.querySelector(".btn_payment");
 // btnPayment.addEventListener("click", ()=>{
 
 //     fetch("/ticketing/kakaopay", {
@@ -35,3 +35,17 @@ const btnPayment = document.querySelector(".btn_payment");
 //     IMP.init("imp28360342");
 
 // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+const seatScreen = document.querySelector(".ticketingNav>li:nth-child(2)");

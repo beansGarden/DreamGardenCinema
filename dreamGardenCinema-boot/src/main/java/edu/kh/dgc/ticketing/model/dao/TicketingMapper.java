@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
@@ -52,9 +53,24 @@ public interface TicketingMapper {
 	
 	// 예매 3페이지 티켓 가격 삽입
 	int beforePayTicket(Map<String, Integer> paramMap);
+	
+	// 예매 3페이지 로그인 유저의 사용하지 않은 쿠폰 가져오기
+	List<Coupon> couponList(int userNo);
 
 	// 예매 3페이지 좌석 정보 삭제
 	int ticketingOut(Map<String, Object> paramMap);
+
+	// 예매 3페이지 쿠폰 가격 조회 AJAX
+	int selectCouponPrice(Integer couponNo);
+
+	// 예매 3페이지 티켓 가격 업데이트 AJAX
+	int updatePrice(Map<String, Integer> paramMap);
+
+	// 예매 3페이지 티켓 가격 재조회 AJAX
+	int selectPrice(Map<String, Integer> paramMap);
+
+	
+
 
 
 }

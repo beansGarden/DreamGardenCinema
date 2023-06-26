@@ -114,11 +114,10 @@ public class TicketingController {
 		for(String seat : seatList) {
 			resultSeatList.add(seat);
 		}
-		
 		// 좌석 'Y'로 변경 / 정보 조회해오기
-		Movie movie = service.beforePaySeat(ticketNo, movieNo, resultSeatList.size());
+		Map<String, Object> map = service.beforePaySeat(ticketNo, movieNo, resultSeatList.size(), user.getUserNo());
 		model.addAttribute("ticketNo", ticketNo);
-		model.addAttribute("movie", movie);
+		model.addAttribute("map", map);
 		model.addAttribute("saveday", saveday);
 		model.addAttribute("runningTime", runningTime);
 		model.addAttribute("resultSeatList", resultSeatList);
@@ -130,22 +129,25 @@ public class TicketingController {
 	@ResponseBody
 	@PostMapping("/out")
 	public void ticketingOut(@SessionAttribute("loginUser") User user, @RequestBody Map<String, Object> paramMap) {
-		
 		List<String> seatList = (List<String>) paramMap.get("seatList");
-		
 		List<String> newList = new ArrayList<>();
-		
 		for(int i=0;i<seatList.size();i++) {
 			String seat = seatList.get(i);
 			newList.add(seat);
 		}
-		
 		paramMap.put("seatList", newList);
-		
 		service.ticketingOut(paramMap);
 	}
 	
-
+	// 예매 3페이지 쿠폰 AJAX
+	@ResponseBody
+	@PostMapping("/coupon")
+	public int couponSet(@RequestBody Map<String, Integer> paramMap) {
+		
+		System.out.println(paramMap);
+		
+		return service.couponSet(paramMap);
+	}
 	
 	
 	

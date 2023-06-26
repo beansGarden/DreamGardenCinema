@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.mypage.model.dao.MypageMapper;
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
@@ -120,24 +122,26 @@ public class TicketingServiceImpl implements TicketingService {
 	
 	// 예매 3페이지 SEAT_CHECK 테이블 Y로 변경 / 영화, 좌석 정보 조회
 	@Override
-	public Movie beforePaySeat(int ticketNo, int movieNo, int seatListSize) {
+	public Map<String, Object> beforePaySeat(int ticketNo, int movieNo, int seatListSize, int userNo) {
 		
 		// Y로 변경
 		int a = mapper.beforePaySeat(ticketNo);
-		System.out.println("좌석 Y로 변경됐는지 확인 : " + a);
 		
 		// Ticket 가격 넣기
 		Map<String, Integer> paramMap = new HashMap<>();
 		paramMap.put("ticketNo", ticketNo);
 		paramMap.put("seatListSize", seatListSize);
-		System.out.println("파람맵 확인 : " + paramMap);
 		int result = mapper.beforePayTicket(paramMap);
-		System.out.println("티켓 가격 넣어졌는지 확인 : " + result);
 		
 		// 영화정보 조회
 		Movie movie = mapper.selectMovie(movieNo);
+		List<Coupon> couponList = mapper.couponList(userNo);
 		
-		return movie;
+		Map<String, Object> map = new HashMap<>();
+		map.put("movie", movie);
+		map.put("couponList", couponList);
+		
+		return map;
 	}
 
 	// 예매 3페이지 나갈 때 티켓정보 삭제
@@ -146,10 +150,33 @@ public class TicketingServiceImpl implements TicketingService {
 		// 좌석 정보 삭제
 		int result = mapper.ticketingOut(paramMap);
 		
+		System.out.println("+++++++++++++++삭제 됐다    " + result);
+		
 		if(result > 0) {
 			// 티켓 정보 삭제
 			mapper.deleteEndTicket((int)paramMap.get("ticketNo"));
 		}
 	}
-
+	
+	// 예매 3페이지 쿠폰 AJAX
+	@Override
+	public int couponSet(Map<String, Integer> paramMap) {
+		
+		// 쿠폰 가격 조회
+		int couponPrice = mapper.selectCouponPrice(paramMap.get("couponNo"));
+		
+		System.out.println("쿠폰가격확인 : "+couponPrice);
+		
+		// 티켓 가격 업데이트
+		paramMap.put("couponPrice", couponPrice);
+		int result = mapper.updatePrice(paramMap);
+		
+		System.out.println("티켓가격업데이트 확인 : "+result);
+		int resultPrice = 999999;
+		if(result>0) {
+			 resultPrice = mapper.selectPrice(paramMap);
+		}
+		System.out.println(resultPrice);
+		return resultPrice;
+	}
 }
