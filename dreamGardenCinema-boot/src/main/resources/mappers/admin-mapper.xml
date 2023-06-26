@@ -88,6 +88,7 @@
 		<result property="movieTheater" column="MOVIE_THEATER"/>
 		<result property="movieTime" column="MOVIE_TIME"/>
 		<result property="movieday" column="MOVIE_DAY"/>
+		<result property="producer" column="PERSON_NAME"/>
 		</resultMap>
 		
 		
@@ -111,7 +112,7 @@
 	
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList" resultMap="qna_rm">
-		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME ,QNA_DELETE_FL
+		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME ,QNA_DELETE_FL,QNA_CHECK_FL
 		FROM QNA
 		JOIN "USER_INFO" 
 		ON USER_NO=USER_NO2
@@ -164,18 +165,18 @@
 	<!--글 답변 삽입-->
 	<insert id="qnaAnswerInsert" parameterType="QnaComment" useGeneratedKeys="true">
 
-		<selectKey order = "BEFORE" resultType="_int" keyProperty = "qnaCommentNo">
+		<selectKey order = "BEFORE" resultType="Integer" keyProperty = "qnaCommentNo">
 			SELECT SEQ_QNACOMMENT_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO "QNA _COMMENT"
-		VALUES (#{qnaCommentNo},DEFAULT,DEFAULT,(SELECT USER_NO FROM "QNA _COMMENT" WHERE QNA_NO = #{qnaNo}),#{qnaNo},#{qnaComment})
+		VALUES (#{qnaCommentNo},DEFAULT,DEFAULT,#{userNo},#{qnaNo},#{qnaComment})
 	</insert>
 	
 	<!--글 답변 수정-->
 	<update id="qnaAnswerUpdate">
 		UPDATE "QNA _COMMENT"
 		SET QNA_COMMENT = #{qnaComment}
-		WHERE QNA_COMMENT_NO =#{qnaCommentNo}	
+		WHERE QNA_COMMENT_NO = #{qnaCommentNo}	
 	</update>
 	
 	<!--글 답변 수정 시 QNA에서 답변 된 거 확인-->
@@ -276,35 +277,73 @@
 		</select>
 	 
 	 <!--////////////영화////////////-->
-	 <select id="adminMovieList" resultType="Movie">
-		SELECT MOVIE_NO,MOVIE_TITLE,PRODUCER,RELEASE_DATE,MOVIE_PRICE 
+	 
+	
+	 
+	  <select id="movieListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MOVIE
+	 </select>
+	 
+	 
+	 <select id="adminMovieList" resultMap="movie_rm">
+		SELECT
+		  MOVIE_NO,
+		  MOVIE_TITLE,
+		  RELEASE_DATE,
+		  MOVIE_PRICE,
+		  (
+		    SELECT LISTAGG(PERSON_NAME, ', ') WITHIN GROUP (ORDER BY PERSON_NAME)
+		    FROM PERSON_INFO
+		    WHERE PERSON_ROLE = '감독' AND MOVIE.MOVIE_NO = PERSON_INFO.MOVIE_NO
+		  ) AS PERSON_NAME
 		FROM MOVIE
 		ORDER BY MOVIE_NO DESC
 	 </select>
+	 
+	 <select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
+		  SELECT MOVIE_NO,MOVIE_TITLE,RELEASE_DATE,MOVIE_PRICE
+		 FROM MOVIE
+		  <where>
+		    <choose>
+		      <when test="type != null and type.equals('number')">
+		        <if test="keyword != null and keyword != ''">
+		          AND MOVIE_NO LIKE  #{keyword}
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('title')">
+		        <if test="keyword != null and keyword != ''">
+		          AND MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		    </choose>
+		  </where>
+		</select>
 	 
 	 
 	 <!--///////////////상영관//////////////-->
 	<!--상영관 조회-->
 	<select id="MovieScheduleList" resultMap="movie_rm">
-		 SELECT
-		  M.MOVIE_NO,
-		  M.MOVIE_TITLE,
-		  M.RUNNING_TIME,
-		  M.RELEASE_DATE,
-		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
-		  LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
-		  S.MOVIE_THEATER
-		FROM
-		  MOVIE M
-		JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
-		GROUP BY
-		  M.MOVIE_NO,
-		  M.MOVIE_TITLE,
-		  M.RUNNING_TIME,
-		  M.RELEASE_DATE,
-		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
-		  S.MOVIE_THEATER
-		ORDER BY M.RELEASE_DATE DESC
+		SELECT
+	  M.MOVIE_NO,
+	  M.MOVIE_TITLE,
+	  M.RUNNING_TIME,
+	  M.RELEASE_DATE,
+	  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+	  LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+	  S.MOVIE_THEATER
+	FROM
+	  MOVIE M
+	JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+	WHERE TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') = #{movieday}
+	GROUP BY
+	  M.MOVIE_NO,
+	  M.MOVIE_TITLE,
+	  M.RUNNING_TIME,
+	  M.RELEASE_DATE,
+	  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
+	  S.MOVIE_THEATER
+	ORDER BY M.RELEASE_DATE DESC
 	</select>
 	
 		<select id="adminCinemaTwo" resultMap="movie_rm">

@@ -52,11 +52,8 @@ public interface AdminMapper {
 	//1:1문의 게시글 삽입
 	int qnaInsert(Qna qna);
 
-	//1:1문의 게시글 답변 쓰기(삽입)
-	int qnaAnswerInsert(QnaComment qnaComment);
-
 	//1:1문의 게시글 답변 등록 확인(업데이트)
-	QnaComment updateAnswer(int qnaNo);
+	Qna updateAnswer(int qnaNo);
 
 	//1:1문의 게시글 답변 불러오기(select)
 	QnaComment selectQnaCommentList(QnaComment qnaCommentNo);
@@ -64,6 +61,10 @@ public interface AdminMapper {
 	//1:1문의 게시글 답변 수정 (update)
 	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 
+	//1:1문의 게시글 답변 쓰기(삽입)
+	int qnaAnswerInsert(QnaComment qnaCommentObj);
+
+	
 	//1:1문의 게시글 검색
 	List<Qna> getSearchList(RowBounds rowBounds);
 	
@@ -96,17 +97,35 @@ public interface AdminMapper {
 	
 	//영화 관리******************************************************
 	
-	/**영화 List 조회
+
+	/**영화 개수
 	 * @return
 	 */
-	List<Movie> adminMovieList();
+	int movieListCount();
+
+	
+	/**영화 List 조회
+	 * @param rowBounds 
+	 * @return
+	 */
+	List<Movie> adminMovieList(RowBounds rowBounds);
+	
+	
+
+	/**영화 검색
+	 * @param condition
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
+
 
 	//상영관 List 조회************************************************
 	/**상영관 영화 List 조회
 	 * @param condition 
 	 * @return
 	 */
-	List<User> MovieScheduleList(Movie condition, RowBounds rowBounds);
+	List<Movie> MovieScheduleList(Movie condition, RowBounds rowBounds);
 
 	
 	/**2관 페이지 이동
@@ -228,6 +247,12 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
+
+
+
+
+
+
 
 
 

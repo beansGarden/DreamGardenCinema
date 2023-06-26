@@ -8,7 +8,7 @@
     <title>cinemaManage</title>
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="\css\admin\admin_cinemaManage.css">
-    <script src="\js\admin\admin_cinemaManage.js"></script>
+ 
 </head>
 
 <main th:with="pagination=${cinemaList.pagination}, cinemaList=${cinemaList.cinemaList}">
@@ -34,7 +34,8 @@
 
             <!-- 상영일 선택-->
             <div class="admin_cinemaManageDate">
-                <input type="date" name="movieday" id="">
+                <input type="date" id="selectedDate" onchange="setHiddenValue()">
+                <input type="hidden" name="movieday" id="hiddenValue">
             </div>
         </div>
         <!-- 검색창 -->
@@ -170,6 +171,8 @@
         
     </div>
     
-    
+    <script src="\js\admin\admin_cinemaManage.js"></script>
 
 </body>
+
+</html>

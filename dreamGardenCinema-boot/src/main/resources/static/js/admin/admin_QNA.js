@@ -80,3 +80,7 @@ for (var i = 0; i < checkboxes.length; i++) {
 var countAll = document.getElementsByClassName('admin_qnaCountAll')[0];
 var totalItems = document.querySelectorAll('.admin_qnaCheckbox').length;
 countAll.textContent = totalItems.toString();
+
+
+
+

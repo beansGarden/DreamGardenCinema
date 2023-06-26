@@ -45,7 +45,7 @@ public interface AdminService {
 
 
 	//1:1문의 게시글 답변 등록 확인(업데이트)
-	QnaComment updateAnswer(int qnaNo);
+	Qna updateAnswer(int qnaNo);
 
 	//1:1문의 게시글 답변 불러오기(select)
 	QnaComment selectQnaCommentList(QnaComment qnaComment);
@@ -54,7 +54,7 @@ public interface AdminService {
 	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 	
 	//1:1문의 게시글 답변 쓰기 (insert)
-	int qnaAnswerInsert(QnaComment qnaComment);
+	int qnaAnswerInsert(QnaComment qnaCommentObj);
 
 	//1:1문의 게시글검색
 	Map<String, Object> getSearchList(Qna condition, int cp);
@@ -74,7 +74,11 @@ public interface AdminService {
 	//영화 관리***********************************
 	
 	//영화 List 조회
-	List<Movie> adminMovieList();
+	Map<String, Object> adminMovieList(int cp);
+
+	//영화 검색
+	Map<String, Object> getMovieSearchList(Movie condition, int cp);
+
 
 	
 	//상영관 관리***************************

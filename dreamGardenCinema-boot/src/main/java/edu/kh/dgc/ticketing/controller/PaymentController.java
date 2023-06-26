@@ -9,18 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
-import com.siot.IamportRestClient.response.Payment;
 
-import edu.kh.dgc.ticketing.model.dto.Order;
+import edu.kh.dgc.ticketing.model.dto.Payment;
 import edu.kh.dgc.ticketing.model.service.OrderService;
 import edu.kh.dgc.ticketing.model.service.PaymentService;
-import jakarta.servlet.http.HttpSession;
 
 @PropertySource("classpath:/config.properties")
 @RequestMapping("/ticketing")
@@ -45,9 +42,9 @@ public class PaymentController {
          throws IamportResponseException, IOException {
       
       IamportClient client = new IamportClient(imp_key, imp_secret);
-      IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
+		/* IamportResponse<Payment> result = client.paymentByImpUid(imp_uid); */
       
-      return result;
+      return null;
    }
 
 

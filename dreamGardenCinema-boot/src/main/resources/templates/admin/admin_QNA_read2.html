@@ -43,7 +43,7 @@
                             <th>등록인</th>
                             <td th:text="${Qna.userNickname}">2023.05.31</td>
                             <td th:text="${Qna.userNo}" >154541</td>
-                            <input type="hidden" th:value="${Qna.userNo}"name="userNo">
+                            <input type="hidden" th:value="${Qna.userNo}" name="userNo">
                         </tr>
                         <tr>
                             <th>제목</th>
@@ -59,7 +59,8 @@
                         </tr>
                         <tr>
                             <th>답변 번호</th>
-                            <td th:text="${QnaComment.qnaCommentNo}"  name="qnaCommentNo">1</td>
+                            <td th:text="${QnaComment.qnaCommentNo}" >1</td>
+                            <input type="hidden" name="qnaCommentNo" th:value="${QnaComment.qnaCommentNo}"  >
                         </tr>
                         <tr>
                             <th>답변</th>
@@ -67,9 +68,9 @@
                                 <!-- 답변 쓰는 칸 -->
                                 <div class="admin_qnaContentWrap">
 
-                             <!--        <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px;"
-                                        th:text="${QnaComment.qnaComment}">답변 내용</textarea> -->
-                                        <div th:text="${QnaComment.qnaComment}">답변내용</div>
+                                   <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px;"
+                                        th:text="${QnaComment.qnaComment}">답변 내용</textarea>
+                                        
         </form>
     </div>
     </tr>
@@ -83,9 +84,7 @@
 
     <!-- 등록,수정,삭제 버튼 -->
     <div class="admin_qnaBtn">
-
-        <button class="admin_qnaEndBtn"><a th:href="@{adminQnaAnsweUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">답변 수정하기</a></button>
-<!--         <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록하기</a></button> -->
+        <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록하기</a></button>
         <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
         <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
 

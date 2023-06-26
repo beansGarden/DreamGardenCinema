@@ -68,6 +68,7 @@
                         <th>등록일</th>
                         <th>등록인</th>
                         <th>삭제여부</th>
+                        <th>답변여부</th>
 
                     </tr>
                 </thead>
@@ -80,6 +81,7 @@
                         <td th:text="${list.qnaEnrollDate}"></td>
                         <td th:text="${list.userNickname}"></td>
                         <td th:text="${list.qnaDeleteFl}"></td>
+                        <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
 
                     </tr>
 

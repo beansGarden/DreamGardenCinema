@@ -106,14 +106,14 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1문의 게시글 답변 쓰기(삽입)
 	@Override
-	public int qnaAnswerInsert(QnaComment qnaComment) {
+	public int qnaAnswerInsert(QnaComment qnaCommentObj) {
 
-		return mapper.qnaAnswerInsert(qnaComment);
+		return mapper.qnaAnswerInsert(qnaCommentObj);
 	}
 
 	// 1:1문의 게시글 답변 등록 확인(업데이트)
 	@Override
-	public QnaComment updateAnswer(int qnaNo) {
+	public Qna updateAnswer(int qnaNo) {
 
 		return mapper.updateAnswer(qnaNo);
 	}
@@ -232,11 +232,66 @@ public class AdminServiceImpl implements AdminService {
 
 	// 영화 List 조회
 	@Override
-	public List<Movie> adminMovieList() {
+	public Map<String, Object> adminMovieList(int cp) {
+		
+		int movieListCount = mapper.movieListCount();
 
-		return mapper.adminMovieList();
+		Pagination pagination = new Pagination(movieListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Movie> adminMovieList = mapper.adminMovieList(rowBounds);
+
+		Map<String, Object> adminMovieMap = new HashMap<String, Object>();
+		adminMovieMap.put("pagination", pagination);
+		adminMovieMap.put("adminMovieList", adminMovieList);
+
+
+		return adminMovieMap;
 	}
+	
+	
+	//영화검색
+	@Override
+	public Map<String, Object> getMovieSearchList(Movie condition, int cp) {
 
+		int movieListCount = mapper.movieListCount();
+
+		Pagination pagination = new Pagination(movieListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Movie> adminMovieList = mapper.getMovieSearchList(condition,rowBounds);
+
+		Map<String, Object> adminMovieMap = new HashMap<String, Object>();
+		adminMovieMap.put("pagination", pagination);
+		adminMovieMap.put("adminMovieList", adminMovieList);
+
+		return adminMovieMap;
+	}
+		
+
+		
 	// 상영관**************************************************
 
 	// 상영관 영화 List 조회
@@ -259,12 +314,14 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<User> MovieScheduleList = mapper.MovieScheduleList(condition,rowBounds);
+		List<Movie> MovieScheduleList = mapper.MovieScheduleList(condition,rowBounds);
 
+		
 		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
 		adminCinemaMap.put("pagination", pagination);
 		adminCinemaMap.put("cinemaList", MovieScheduleList);
 
+		
 
 		return adminCinemaMap;
 	}
