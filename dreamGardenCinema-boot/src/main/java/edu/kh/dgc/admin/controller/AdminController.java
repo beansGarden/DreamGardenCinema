@@ -192,7 +192,7 @@ public class AdminController {
 	}
 
 	//2관으로 넘어가기
-	@RequestMapping("/cinema/{movieTheater}") 
+	@RequestMapping("/adminCinemaManage/{movieTheater}") 
 	public String cinema(Model model, @PathVariable(value="movieTheater", required=false) String movieTheaterNo) {
 		
 		List<Movie> cinemaList = service.adminCinemaTwo(movieTheaterNo);
@@ -202,7 +202,7 @@ public class AdminController {
 		System.out.println(movieTheaterNo);
 		System.out.println(cinemaList);
 		
-		return "redirect:";
+		 return "redirect:"; 
 
 		/* return "admin/admin_cinemaManage" +"/"+ movieTheaterNo; */
 	}	

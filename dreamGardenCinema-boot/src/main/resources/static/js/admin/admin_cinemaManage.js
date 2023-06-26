@@ -80,7 +80,7 @@ function getMovieScheduleByDay() {
 
 
   /* 2관으로 넘어가기 */
-  const cinemaList = document.querySelectorAll('.admin_cinemaOne');
+/*  const cinemaList = document.querySelectorAll('.admin_cinemaOne');
 
   cinemaList.forEach(cinema => {
     cinema.addEventListener('click', function (event) {
@@ -97,8 +97,14 @@ function getMovieScheduleByDay() {
         .then(result => {
           console.log(result);
           console.log(cinemaNumber);
+
+          
         })
         .then(cinemaList => {
+
+
+          const tbody1 = document.querySelector("#schedule-table tbody");
+          tbody1.innerHTML = "";
 
           // 전체 감싸는 div
           const cinemaManageWrap = document.createElement("div");
@@ -286,7 +292,119 @@ function getMovieScheduleByDay() {
 
 
 
+  }); */
+
+ 
+   /* cinemaList.forEach(cinema => {
+    cinema.addEventListener('click', function (event) {
+      event.preventDefault();
+  
+      const cinemaNumber = this.querySelector('a').innerText[0];
+  
+      fetch(`/adminCinemaManage/${cinemaNumber}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 'movieTheater': cinemaNumber })
+      })
+        .then(resp => resp.text())
+        .then(result => {
+          console.log(result);
+          console.log(cinemaNumber);
+  
+          // 기존 테이블 내용 지우기
+          const tbody = document.querySelector("#schedule-table tbody");
+          tbody.innerHTML = "";
+  
+          // 새로운 데이터로 테이블 채우기
+          const cinemaList = JSON.parse(result); // 새로운 데이터를 파싱
+          cinemaList.forEach(movie => {
+            const cinemaTr = document.createElement("tr");
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.classList.add("admin_cinemaManageCheckbox");
+            const td1 = document.createElement("td");
+            td1.appendChild(checkbox);
+            const td2 = document.createElement("td");
+            td2.innerText = movie.movieNo;
+            const td3 = document.createElement("td");
+            td3.innerText = movie.movieTitle;
+            const td4 = document.createElement("td");
+            td4.innerText = movie.runningTime;
+            const td5 = document.createElement("td");
+            td5.innerText = movie.releaseDate;
+            const td6 = document.createElement("td");
+            td6.innerText = movie.movieday;
+            const td7 = document.createElement("td");
+            td7.innerText = movie.movieTime;
+  
+            cinemaTr.appendChild(td1);
+            cinemaTr.appendChild(td2);
+            cinemaTr.appendChild(td3);
+            cinemaTr.appendChild(td4);
+            cinemaTr.appendChild(td5);
+            cinemaTr.appendChild(td6);
+            cinemaTr.appendChild(td7);
+            tbody.appendChild(cinemaTr);
+          });
+  
+        });
+    });
+  }); */
+   
+
+  cinemaList.forEach(cinema => {
+    cinema.addEventListener('click', function (event) {
+      event.preventDefault();
+  
+      const cinemaNumber = this.querySelector('a').innerText[0];
+  
+      fetch(`/adminCinemaManage/${cinemaNumber}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 'movieTheater': cinemaNumber })
+      })
+        .then(resp => resp.text())
+        .then(result => {
+          console.log(result);
+          console.log(cinemaNumber);
+  
+          // 기존 테이블 내용 지우기
+          const tbody = document.querySelector("#schedule-table tbody");
+          tbody.innerHTML = ""; // 기존 내용을 비웁니다.
+  
+          // 새로운 데이터로 테이블 채우기
+          const cinemaList = JSON.parse(result); // 새로운 데이터를 파싱
+          cinemaList.forEach(movie => {
+            const cinemaTr = document.createElement("tr");
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.classList.add("admin_cinemaManageCheckbox");
+            const td1 = document.createElement("td");
+            td1.appendChild(checkbox);
+            const td2 = document.createElement("td");
+            td2.innerText = movie.movieNo;
+            const td3 = document.createElement("td");
+            td3.innerText = movie.movieTitle;
+            const td4 = document.createElement("td");
+            td4.innerText = movie.runningTime;
+            const td5 = document.createElement("td");
+            td5.innerText = movie.releaseDate;
+            const td6 = document.createElement("td");
+            td6.innerText = movie.movieday;
+            const td7 = document.createElement("td");
+            td7.innerText = movie.movieTime;
+  
+            cinemaTr.appendChild(td1);
+            cinemaTr.appendChild(td2);
+            cinemaTr.appendChild(td3);
+            cinemaTr.appendChild(td4);
+            cinemaTr.appendChild(td5);
+            cinemaTr.appendChild(td6);
+            cinemaTr.appendChild(td7);
+            tbody.appendChild(cinemaTr);
+          });
+  
+        });
+    });
   });
-
-
-
+  

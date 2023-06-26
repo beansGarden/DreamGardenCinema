@@ -88,6 +88,9 @@
                         <td th:text="${list.movieday}">2023.05.31</td>
                         <td th:text="${list.movieTime}">12:00,16:00</td>
                     </tr>
+                    <tr th:if="${cinemaList.isEmpty()}">
+                        <td colspan="7">데이터가 없습니다.</td>
+                      </tr>
                 </tbody>
 
             </table>
