@@ -152,9 +152,6 @@ public class CrawlFormat {
 
 		System.out.println(movie);
 
-		
-		 
-
 		service.insertMovieInfo(movie);
 	}
 
