@@ -38,7 +38,9 @@
 		<result property="movieTime" column="MOVIE_TIME"/>
 		<result property="movieTheater" column="MOVIE_THEATER"/>
 		<result property="movieNo" column="MOVIE_NO"/>
-		<result property="ticketCancle" column="TICKET_CANCLE"/>
+		<result property="ticketFL" column="TICKET_FL"/>
+		<result property="ticketId" column="TICKET_ID"/>
+		<result property="ticketImpId" column="TICKEY_IMP_UID"/>
 	</resultMap>
 	
 	<resultMap type="SeatCheck" id="seatcheck_rm">

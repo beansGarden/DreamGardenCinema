@@ -19,4 +19,7 @@ public class Ticket {
 	private String movieTheater;
 	private int movieNo;
 	private String ticketCancle;
+	private String ticketFL;
+	private String ticketId;
+	private String ticketImpId;
 }

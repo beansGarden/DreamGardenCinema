@@ -96,6 +96,13 @@ public class TicketingController {
 		
 		return "ticketing/Ticketing3";
 	}
+	@GetMapping("/pay2")
+	public String payaaa(Model model) {
+		
+		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
+		
+		return "ticketing/Ticketing32";
+	}
 	
 	@GetMapping("/complete")
 	public String complete(Model model) {
@@ -112,103 +119,103 @@ public class TicketingController {
 	}
 	
 	
-	@PostMapping("/seat")
-	public String seat(Ticket ticket
-					, String date
-					, Model model  // 모델에 담아서 forward  
-					, RedirectAttributes ra
-					, @SessionAttribute("loginUser") User loginUser) {
-		
-		String movieTheater = ticket.getMovieTime().split(",")[0];
-		String movieTime = ticket.getMovieTime().split(",")[1];
-		
-		ticket.setUserNo(loginUser.getUserNo());  // 티켓정보에 로그인 회원번호 추가
-		ticket.setMovieTheater(movieTheater);
-		ticket.setMovieTime(date+" "+movieTime);
-		String changeMovieTime = date.substring(0, 4) + "." + date.substring(4,6) + "." + date.substring(6,8) + "(" + date.substring(9)+")";
-		Map<String, Object> map = service.seatInfo(ticket);
-		
-		int hour = Integer.parseInt(movieTime.substring(0,2));
-		int minute = Integer.parseInt(movieTime.substring(3,5));
-		Movie movie = (Movie) map.get("movie");
-		int runTime = Integer.parseInt(movie.getRunningTime());
-		
-		String room = ticket.getMovieNo() + "/" + movieTheater + "/" + date.substring(0, 8) + movieTime;
-		
-		model.addAttribute("room", room);
-		
-		hour = hour+ ((minute+runTime)/60);
-		minute = (minute+runTime)%60;
-		
-		String runningTime = movieTime + "~" + hour +":"+minute;
-		
-		model.addAttribute("map", map);
-		model.addAttribute("ticket",ticket);
-		model.addAttribute("saveday", changeMovieTime);
-		model.addAttribute("runningTime", runningTime);	
-		return "ticketing/Ticketing2";
-	}
-	
-	@PostMapping("/pay")
-	public String pay(Model model,
-			@RequestParam Map<String, Object> paramMap, @SessionAttribute("loginUser") User user, String[] seatList) {
-
-		List<String> resultSeatList = new ArrayList<>();
-		for(String seat : seatList) {
-			resultSeatList.add(seat);
-		}
-		
-		
-		
-		
-		// 좌석 'Y'로 변경
-		int result = service.beforePaySeat(user.getUserNo());
-		
-		int movieNo = Integer.parseInt((String)paramMap.get("movieNo"));
-		
-		Movie movie = service.selectMovie(movieNo);
-		String saveday = (String)paramMap.get("saveday");
-		String runningTime = (String)paramMap.get("runningTime");
-		String movieTheater = (String) paramMap.get("movieTheater");
-		
-		model.addAttribute("movie", movie);
-		model.addAttribute("saveday", saveday);
-		model.addAttribute("runningTime", runningTime);
-		model.addAttribute("resultSeatList", resultSeatList);
-		model.addAttribute("movieTheater", movieTheater);
-		
-		return "ticketing/Ticketing3";
-	}
-	
-	
-	@ResponseBody
-	@PostMapping("/out")
-	public void ticketingOut(@SessionAttribute("loginUser") User user, @RequestBody Map<String, Object> paramMap) {
-		
-		String subday = ((String)paramMap.get("saveday")).substring(0, 10);
-		String subtime = ((String)paramMap.get("runningTime")).substring(0,5);
-		String[] splitday = subday.split("\\.");
-		String movieTime = ""+splitday[0]+splitday[1]+splitday[2]+subtime;
-		int movieNo = (int) paramMap.get("movieNo");
-		System.out.println(movieNo);
-		
-		List<String> seatList = (List<String>) paramMap.get("seatList");
-		
-		List<String> newList = new ArrayList<>();
-		
-		for(int i=0;i<seatList.size();i++) {
-			String seat = seatList.get(i);
-			newList.add(seat);
-		}
-		
-		paramMap.put("movieNo", movieNo);
-		paramMap.put("movieTime", movieTime);
-		paramMap.put("seatList", newList);
-		paramMap.put("userNo", user.getUserNo());
-		
-		
-		service.ticketingOut(paramMap);
-	}
+//	@PostMapping("/seat")
+//	public String seat(Ticket ticket
+//					, String date
+//					, Model model  // 모델에 담아서 forward  
+//					, RedirectAttributes ra
+//					, @SessionAttribute("loginUser") User loginUser) {
+//		
+//		String movieTheater = ticket.getMovieTime().split(",")[0];
+//		String movieTime = ticket.getMovieTime().split(",")[1];
+//		
+//		ticket.setUserNo(loginUser.getUserNo());  // 티켓정보에 로그인 회원번호 추가
+//		ticket.setMovieTheater(movieTheater);
+//		ticket.setMovieTime(date+" "+movieTime);
+//		String changeMovieTime = date.substring(0, 4) + "." + date.substring(4,6) + "." + date.substring(6,8) + "(" + date.substring(9)+")";
+//		Map<String, Object> map = service.seatInfo(ticket);
+//		
+//		int hour = Integer.parseInt(movieTime.substring(0,2));
+//		int minute = Integer.parseInt(movieTime.substring(3,5));
+//		Movie movie = (Movie) map.get("movie");
+//		int runTime = Integer.parseInt(movie.getRunningTime());
+//		
+//		String room = ticket.getMovieNo() + "/" + movieTheater + "/" + date.substring(0, 8) + movieTime;
+//		
+//		model.addAttribute("room", room);
+//		
+//		hour = hour+ ((minute+runTime)/60);
+//		minute = (minute+runTime)%60;
+//		
+//		String runningTime = movieTime + "~" + hour +":"+minute;
+//		
+//		model.addAttribute("map", map);
+//		model.addAttribute("ticket",ticket);
+//		model.addAttribute("saveday", changeMovieTime);
+//		model.addAttribute("runningTime", runningTime);	
+//		return "ticketing/Ticketing2";
+//	}
+//	
+//	@PostMapping("/pay")
+//	public String pay(Model model,
+//			@RequestParam Map<String, Object> paramMap, @SessionAttribute("loginUser") User user, String[] seatList) {
+//
+//		List<String> resultSeatList = new ArrayList<>();
+//		for(String seat : seatList) {
+//			resultSeatList.add(seat);
+//		}
+//		
+//		
+//		
+//		
+//		// 좌석 'Y'로 변경
+//		int result = service.beforePaySeat(user.getUserNo());
+//		
+//		int movieNo = Integer.parseInt((String)paramMap.get("movieNo"));
+//		
+//		Movie movie = service.selectMovie(movieNo);
+//		String saveday = (String)paramMap.get("saveday");
+//		String runningTime = (String)paramMap.get("runningTime");
+//		String movieTheater = (String) paramMap.get("movieTheater");
+//		
+//		model.addAttribute("movie", movie);
+//		model.addAttribute("saveday", saveday);
+//		model.addAttribute("runningTime", runningTime);
+//		model.addAttribute("resultSeatList", resultSeatList);
+//		model.addAttribute("movieTheater", movieTheater);
+//		
+//		return "ticketing/Ticketing3";
+//	}
+//	
+//	
+//	@ResponseBody
+//	@PostMapping("/out")
+//	public void ticketingOut(@SessionAttribute("loginUser") User user, @RequestBody Map<String, Object> paramMap) {
+//		
+//		String subday = ((String)paramMap.get("saveday")).substring(0, 10);
+//		String subtime = ((String)paramMap.get("runningTime")).substring(0,5);
+//		String[] splitday = subday.split("\\.");
+//		String movieTime = ""+splitday[0]+splitday[1]+splitday[2]+subtime;
+//		int movieNo = (int) paramMap.get("movieNo");
+//		System.out.println(movieNo);
+//		
+//		List<String> seatList = (List<String>) paramMap.get("seatList");
+//		
+//		List<String> newList = new ArrayList<>();
+//		
+//		for(int i=0;i<seatList.size();i++) {
+//			String seat = seatList.get(i);
+//			newList.add(seat);
+//		}
+//		
+//		paramMap.put("movieNo", movieNo);
+//		paramMap.put("movieTime", movieTime);
+//		paramMap.put("seatList", newList);
+//		paramMap.put("userNo", user.getUserNo());
+//		
+//		
+//		service.ticketingOut(paramMap);
+//	}
 	
 	
 	@GetMapping("/kakaopay")

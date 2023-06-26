@@ -34,10 +34,10 @@ public class PaymentController {
 	private OrderService orderService;
 
 	@Value("${port-one.RESTAPIKey}")
-	private String imp_key;
+	private String RESTAPIKey;
 
 	@Value("${port-one.RESTAPISecret}")
-	private String imp_secret;
+	private String RESTAPISecret;
 
 	//결제 검증(실존하는 결제인지)
 	@ResponseBody
@@ -45,25 +45,29 @@ public class PaymentController {
 	public IamportResponse<Payment> verifyIamportPOST(@PathVariable(value = "imp_uid") String imp_uid)
 			throws IamportResponseException, IOException {
 
-		IamportClient client = new IamportClient(imp_key, imp_secret);
+		IamportClient client = new IamportClient(RESTAPIKey, RESTAPISecret);
 		IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
 
 		return result;
 	}
 
-	@RequestMapping(value = "complete", method = RequestMethod.POST)
+	@RequestMapping(value = "/complete", method = RequestMethod.POST)
 	@ResponseBody
 	public int paymentComplete(String imp_uid, String merchant_uid, String totalPrice, HttpSession session, Order order)
 			throws Exception {
 
 		String token = PaymentService.getToken();
+		System.out.println("token : "+token);
+		System.out.println("merchant_uid : "+merchant_uid);
+		System.out.println("totalPrice : "+totalPrice);
 
 		// 결제 완료된 금액
-		String amount = PaymentService.paymentInfo(order.getImp_uid(), token);
-
-		System.out.println("확인" + order.getTotalPrice());
-		System.out.println("확인1 : " + order.getReserNum());
-		System.out.println(amount);
+		String amount = PaymentService.paymentInfo(imp_uid, token);
+//		String amount = PaymentService.paymentInfo(order.getImp_uid(), token);
+		System.out.println("amount : "+amount);
+		
+//		System.out.println("확인" + order.getTotalPrice());
+//		System.out.println("확인1 : " + order.getReserNum());
 
 		int res = 1;
 

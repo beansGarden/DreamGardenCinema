@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing3.css}">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+</head>
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="main">
+        <div class="ticketingBox">
+            <ul class="ticketingNav">
+                <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
+            </ul>
+            <form th:action="@{/ticketing/complete}" method="POST">
+                <button type="button" class="btn_payment" onclick="requestPay()">
+                    <div class="liquidate">
+                        <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
+                        <span>결제하기</span>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+    
+    <script th:inline="javascript">
+
+        let loginUser = /*[[${session.loginUser}]]*/ "";
+        if(loginUser == null)loginUser = "";
+        let data = {};
+
+        // $(window).on("beforeunload", function(){
+
+        //     fetch("/ticketing/out", {
+        //         method : 'POST',
+        //         headers : {'Content-Type': 'application/json'},
+        //         body : JSON.stringify(data)
+        //     })
+        //     .then(resp => resp.text())
+        //     .then(result => {
+        //         alert("예매 취소");
+        //     })
+
+        // });
+
+    </script>
+
+    <script th:src="@{/js/ticketing/Ticketing3.js}"></script>
+    <script th:src="@{/js/ticketing/Payment.js}"></script>
+
+</body>
+</html>

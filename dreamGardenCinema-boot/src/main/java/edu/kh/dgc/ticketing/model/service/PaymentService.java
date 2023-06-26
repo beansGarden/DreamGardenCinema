@@ -31,6 +31,8 @@ public class PaymentService {
 	private String RESTAPISecret;
 
 	public String getToken() throws Exception {
+		System.out.println("PaymentService  "+RESTAPIKey);
+		System.out.println("PaymentService  "+RESTAPISecret);
 
 		HttpsURLConnection conn = null;
 		URL url = new URL("https://api.iamport.kr/users/getToken");
