@@ -129,13 +129,12 @@ public class AdminController {
 	// 3.관리자 영화 관리
 	@GetMapping("/adminMovieManage") 
 	public String movieManage(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp
-							,@RequestParam Map<String, Object> paramMap,@RequestParam(value = "movieday", required = false) String movieday) {
+							,@RequestParam Map<String, Object> paramMap,@RequestParam(value = "movieday", required = false) String movieNo) {
 
 		if(paramMap.get("key") == null) {
 			
 		Map<String, Object> adminMovieMap = service.adminMovieList(cp);
 
-		System.out.println(movieday);
 		
 		model.addAttribute("adminMovieList", adminMovieMap);
 
@@ -203,7 +202,9 @@ public class AdminController {
 		System.out.println(movieTheaterNo);
 		System.out.println(cinemaList);
 		
-		return "admin/admin_cinemaManage" +"/"+ movieTheaterNo;
+		return "redirect:";
+
+		/* return "admin/admin_cinemaManage" +"/"+ movieTheaterNo; */
 	}	
 
 	// 4-1.관리자 상영 시간 등록

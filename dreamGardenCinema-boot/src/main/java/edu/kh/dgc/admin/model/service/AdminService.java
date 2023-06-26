@@ -29,10 +29,10 @@ public interface AdminService {
 	List<User> getAdminDetails();
 	
 	//1:1문의 게시판 조회
-	Map<String , Object> adminQnaList(int cp);
+	Map<String, Object> adminQnaList(int cp);
 
 	//1:1 문의 게시글 읽기 조회
-	Qna selectQnaOne(int qnaNo);
+	Qna  selectQnaOne(int qnaNo);
 	
 	//1:1 문의 게시글 수정
 	int qnaUpdate(Qna qna);

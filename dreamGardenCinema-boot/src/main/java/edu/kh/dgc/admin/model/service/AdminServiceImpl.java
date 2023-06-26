@@ -316,11 +316,13 @@ public class AdminServiceImpl implements AdminService {
 
 		List<Movie> MovieScheduleList = mapper.MovieScheduleList(condition,rowBounds);
 
+		System.out.println(MovieScheduleList);
 		
 		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
 		adminCinemaMap.put("pagination", pagination);
 		adminCinemaMap.put("cinemaList", MovieScheduleList);
 
+	
 		
 
 		return adminCinemaMap;
