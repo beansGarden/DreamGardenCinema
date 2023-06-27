@@ -124,7 +124,7 @@
 	
 	<!-- 예매 2페이지 좌석 Web Socket INSERT -->
 	<insert id="insertSeat">
-		INSERT INTO SEAT_CHECK VALUES(#{seatNo}, DEFAULT, #{ticketNo})
+		INSERT INTO SEAT_CHECK VALUES(#{seatNo}, DEFAULT, ${ticketNo})
 	</insert>
 	
 	<!-- 예매 2페이지 좌석 Web Socket DELETE -->

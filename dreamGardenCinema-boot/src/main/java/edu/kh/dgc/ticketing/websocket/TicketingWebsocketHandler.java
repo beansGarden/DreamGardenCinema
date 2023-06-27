@@ -46,7 +46,10 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		// 가져온 메시지를 seatCheck 객체로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
 		Ticket ticket = objectMapper.readValue(message.getPayload().substring(10), Ticket.class);  // room, movieTime, movieTheater, movieNo, seatNo, userNo, checked
-		ticket.setSeatNo(message.getPayload().split("\"")[31]);
+		
+		System.out.println(message.getPayload().split("\"")[39]);
+		
+		ticket.setSeatNo(message.getPayload().split("\"")[39]);
 		
 		String seatResult = service.seatCheck(ticket);  // INSERT, DELETE 결과를 가져오는 서비스
 		

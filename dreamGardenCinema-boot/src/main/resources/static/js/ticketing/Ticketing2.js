@@ -84,8 +84,7 @@ function seatClick(e){
     var data = {};
     data.ticket = ticket;
     data.seatNo = e.getAttribute("seatno");
-
-
+    console.log("좌석번호 : " + e.getAttribute("seatno"));
 
     if(!e.classList.contains("choiceSeat") && choiceSeat.length==btn1.innerText){
         alert("인원 수 만큼 선택해주세요");
