@@ -70,9 +70,10 @@
 
         let loginUser = /*[[${session.loginUser}]]*/ "로그인유저";
         let ticketNo = /*[[${ticketNo}]]*/  "티켓번호";
+        let seatList = /*[[${resultSeatList}]]*/ "좌석";
         let data = {};
         data.ticketNo = ticketNo;
-        data.seatList = /*[[${resultSeatList}]]*/ "좌석";
+        data.seatList = seatList;
 
         let ticketEA = data.seatList.length;
 

@@ -61,13 +61,17 @@ public interface TicketingMapper {
 	int ticketingOut(Map<String, Object> paramMap);
 
 	// 예매 3페이지 쿠폰 가격 조회 AJAX
-	int selectCouponPrice(Integer couponNo);
+	int selectCouponPrice(Map<String, Integer> paramMap);
+	
+	// 예매 3페이지 티켓 좌석 갯수 조회 AJAX
+	int selectSeatSize(Integer integer);
 
 	// 예매 3페이지 티켓 가격 업데이트 AJAX
 	int updatePrice(Map<String, Integer> paramMap);
 
 	// 예매 3페이지 티켓 가격 재조회 AJAX
 	int selectPrice(Map<String, Integer> paramMap);
+	
 
 	// 티켓 중복 확인
 	int checkTicketId(String ticketId);
@@ -86,6 +90,7 @@ public interface TicketingMapper {
 	
 	// TICKET_FL 수정 (Y)
 	void updateTictetFLY(String ticketId);
+
 
 	
 

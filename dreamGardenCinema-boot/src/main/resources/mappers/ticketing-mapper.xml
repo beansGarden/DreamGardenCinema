@@ -181,22 +181,30 @@
 	</delete>
 
 	<!-- 예매 3페이지 쿠폰 가격 조회 AJAX -->
-	<select id="selectCouponPrice">
-		SELECT COUPON_PRICE
+	<select id="selectCouponPrice" resultType="_int">
+		SELECT NVL(MAX(COUPON_PRICE), 0)
 		FROM USER_COUPON
 		LEFT JOIN COUPON USING(COUPON_NO)
 		WHERE USER_COUPON_NO = #{couponNo}
+		AND USER_NO = ${userNo}
+	</select>
+	
+	<!-- 예매 3페이지 티켓 좌석 갯수 조회 AJAX -->
+	<select id="selectSeatSize">
+		SELECT COUNT(*)
+		FROM SEAT_CHECK
+		WHERE TICKET_NO = ${ticketNo}
 	</select>
 	
 	<!-- 예매 3페이지 티켓 가격 업데이트 AJAX -->
 	<update id="updatePrice">
-		UPDATE TICKETING_INFO SET PAY_AMOUNT = PAY_AMOUNT - #{couponPrice}
+		UPDATE TICKETING_INFO SET PAY_AMOUNT = #{newPrice}
 		WHERE TICKET_NO = #{ticketNo}
 	</update>
 	
 	<!-- 예매 3페이지 티켓 가격 재조회 AJAX -->
 	<select id="selectPrice" resultType="_int">
-		SELECT NVL(PAY_AMOUNT, 0) PAY_AMOUNT
+		SELECT PAY_AMOUNT
 		FROM TICKETING_INFO
 		WHERE TICKET_NO = #{ticketNo}
 	</select>

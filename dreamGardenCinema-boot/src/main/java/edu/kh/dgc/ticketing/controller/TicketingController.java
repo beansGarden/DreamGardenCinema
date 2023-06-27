@@ -149,11 +149,9 @@ public class TicketingController {
 	// 예매 3페이지 쿠폰 AJAX
 	@ResponseBody
 	@PostMapping("/coupon")
-	public int couponSet(@RequestBody Map<String, Integer> paramMap) {
+	public int couponSet(@RequestBody Map<String, Integer> paramMap, @SessionAttribute("loginUser") User user) {
 		
-		System.out.println(paramMap);
-		
-		return service.couponSet(paramMap);
+		return service.couponSet(paramMap, user);
 	}
 	
 

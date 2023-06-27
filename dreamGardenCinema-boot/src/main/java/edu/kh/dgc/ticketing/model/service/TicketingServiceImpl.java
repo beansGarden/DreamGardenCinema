@@ -15,6 +15,7 @@ import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 @Service
 public class TicketingServiceImpl implements TicketingService {
@@ -55,12 +56,7 @@ public class TicketingServiceImpl implements TicketingService {
 	@Override
 	public String seatCheck(Ticket ticket) {
 		
-		System.out.println(ticket);
-		
 		Ticket result = mapper.selectSeat(ticket);
-		
-		System.out.println(result);
-		
 		
 		String seatResult = null;
 		if(result == null) {  // 조회된 좌석정보가 없으면
@@ -84,7 +80,6 @@ public class TicketingServiceImpl implements TicketingService {
 				seatResult = "이미선택";
 			}
 		}
-		System.out.println(seatResult);
 		return seatResult;
 	}
 	
@@ -97,14 +92,11 @@ public class TicketingServiceImpl implements TicketingService {
 		// 예매 넘어가지 않은 좌석리스트
 		List<Ticket> seatCheckList = mapper.selectEndSeat(userNo);
 		
-		System.out.println("예매 넘어가지 않은 좌석리스트" + seatCheckList);
-		
 		if(seatCheckList.size() > 0) {
 			int result = mapper.deleteEndSeat(seatCheckList.get(0));
 			
 			int ticketResult = 0;
 			if(result>0) {
-				System.out.println("첫번째 값 : "+seatCheckList.get(0));
 				ticketResult = mapper.deleteEndTicket(seatCheckList.get(0).getTicketNo());			
 			}
 			String seatResult = null;
@@ -150,8 +142,6 @@ public class TicketingServiceImpl implements TicketingService {
 		// 좌석 정보 삭제
 		int result = mapper.ticketingOut(paramMap);
 		
-		System.out.println("+++++++++++++++삭제 됐다    " + result);
-		
 		if(result > 0) {
 			// 티켓 정보 삭제
 			mapper.deleteEndTicket((int)paramMap.get("ticketNo"));
@@ -160,23 +150,22 @@ public class TicketingServiceImpl implements TicketingService {
 	
 	// 예매 3페이지 쿠폰 AJAX
 	@Override
-	public int couponSet(Map<String, Integer> paramMap) {
+	public int couponSet(Map<String, Integer> paramMap, User user) {
 		
-		// 쿠폰 가격 조회
-		int couponPrice = mapper.selectCouponPrice(paramMap.get("couponNo"));
+		paramMap.put("userNo", user.getUserNo());
 		
-		System.out.println("쿠폰가격확인 : "+couponPrice);
+		int couponPrice = mapper.selectCouponPrice(paramMap);
+			
+		int seatSize = mapper.selectSeatSize(paramMap.get("ticketNo"));
 		
 		// 티켓 가격 업데이트
-		paramMap.put("couponPrice", couponPrice);
+		paramMap.put("newPrice", 12000 * seatSize - couponPrice);
 		int result = mapper.updatePrice(paramMap);
 		
-		System.out.println("티켓가격업데이트 확인 : "+result);
 		int resultPrice = 999999;
 		if(result>0) {
 			 resultPrice = mapper.selectPrice(paramMap);
 		}
-		System.out.println(resultPrice);
 		return resultPrice;
 	}
 

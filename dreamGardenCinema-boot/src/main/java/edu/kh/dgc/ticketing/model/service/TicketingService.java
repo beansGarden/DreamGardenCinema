@@ -6,6 +6,7 @@ import java.util.Map;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 public interface TicketingService {
 
@@ -31,7 +32,7 @@ public interface TicketingService {
 	void ticketingOut(Map<String, Object> paramMap);
 
 	// 예매 3페이지 쿠폰 AJAX
-	int couponSet(Map<String, Integer> paramMap);
+	int couponSet(Map<String, Integer> paramMap, User user);
 	
 	// 티켓 중복 확인
 	int checkTicketId(String ticketId);

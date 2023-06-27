@@ -19,7 +19,7 @@ coupon.addEventListener("change", e=>{
     fetch("/ticketing/coupon", {
         method : "POST",
         headers : {"Content-Type" : "application/json"},
-        body : JSON.stringify({"couponNo" : couponNo, "ticketNo" : ticketNo, "moviePrice" : moviePrice, "seatSize" : seatSize})
+        body : JSON.stringify({"couponNo" : couponNo, "ticketNo" : ticketNo})
     })
     .then(resp => resp.text())
     .then(resultPrice => {
@@ -36,5 +36,6 @@ document.onkeydown = function(e){
         return;
     }
 }
+
 
 const seatScreen = document.querySelector(".ticketingNav>li:nth-child(2)");
