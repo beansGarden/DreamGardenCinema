@@ -35,6 +35,8 @@ public class TicketingController {
 	@Autowired
 	private TicketingService service;
 
+	private int amountPaid;
+
 	// 예매 1페이지 (영화목록 조회)
 	@GetMapping("/date")
 	public String date(Model model,
@@ -119,16 +121,23 @@ public class TicketingController {
 		model.addAttribute("runningTime", runningTime);
 		model.addAttribute("resultSeatList", resultSeatList);
 		model.addAttribute("movieTheater", movieTheater);
-		
+
+		amountPaid = resultSeatList.size() * 12000;
+		model.addAttribute("amountPaid", amountPaid);
+
 		String createTicketId = createTicketId((String) (session.getAttribute("movieTheater")), resultSeatList);
 		model.addAttribute("createTicketId", createTicketId);
-		
+
 		int updateTicketId = service.updateTicketId(createTicketId, ticketNo);
-		
+
 		System.out.println("createTicketId : " + createTicketId);
 		System.out.println("updateTicketId : " + updateTicketId);
 
 		return "ticketing/Ticketing3";
+	}
+
+	public int getAmountPaid() {
+		return amountPaid;
 	}
 
 	// 예매 3페이지 나갈 때 좌석,티켓정보 삭제
@@ -138,24 +147,23 @@ public class TicketingController {
 
 		List<String> seatList = (List<String>) paramMap.get("seatList");
 		List<String> newList = new ArrayList<>();
-		for(int i=0;i<seatList.size();i++) {
+		for (int i = 0; i < seatList.size(); i++) {
 			String seat = seatList.get(i);
 			newList.add(seat);
 		}
 		paramMap.put("seatList", newList);
 		service.ticketingOut(paramMap);
 	}
-	
+
 	// 예매 3페이지 쿠폰 AJAX
 	@ResponseBody
 	@PostMapping("/coupon")
 	public int couponSet(@RequestBody Map<String, Integer> paramMap) {
-		
+
 		System.out.println(paramMap);
-		
+
 		return service.couponSet(paramMap);
 	}
-	
 
 	public String createTicketId(String movieTheater, List<String> resultSeatList) {
 
@@ -171,11 +179,11 @@ public class TicketingController {
 		int alphabetIndex = uppercaseLetter - 'A' + 1;
 
 		String convertedSeat;
-        if (seatNumber < 10) {
-            convertedSeat = String.format("%02d", alphabetIndex) + "0" + seatNumber;
-        } else {
-            convertedSeat = String.format("%02d", alphabetIndex) + String.format("%02d", seatNumber);
-        }
+		if (seatNumber < 10) {
+			convertedSeat = String.format("%02d", alphabetIndex) + "0" + seatNumber;
+		} else {
+			convertedSeat = String.format("%02d", alphabetIndex) + String.format("%02d", seatNumber);
+		}
 
 		LocalDate currentDate = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMdd");
