@@ -15,6 +15,9 @@
 		<result property="qnaCategory" column="QNA_CATEGORY" />
 		<result property="userNo" column="USER_NO" />
 		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="qnaImage" column="QNA_IMG_PATH" />
+		<result property="qnaImageNo" column="QNA_IMG_NO" />
+		
 	</resultMap>
 
 	<!--Qna Comment-->
@@ -154,9 +157,9 @@
 
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-		SELECT USER_NO,
+	SELECT USER_NO,
 		QNA.QNA_NO,
-		QNA.QNA_TITLE,
+		QNA.QNA_TITLE,QNA.QNA_CATEGORY,
 		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
 		USER_INFO.USER_NICKNAME,
 		QNA.QNA_DELETE_FL,
