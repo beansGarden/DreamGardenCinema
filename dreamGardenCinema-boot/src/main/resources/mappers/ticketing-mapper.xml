@@ -43,6 +43,7 @@
 		<result property="ticketImpId" column="TICKEY_IMP_UID"/>
 		<result property="seatNo" column="SEAT_NO"/>
 		<result property="state" column="STATE"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
 	</resultMap>
 	
 	<resultMap type="SeatCheck" id="seatcheck_rm">
@@ -149,7 +150,7 @@
 	<!-- 예매 2페이지 웹소켓 해제 시 티켓 삭제 -->
 	<!-- 예매 3페이지 페이지 나갈 시 좌석 정보 삭제 -->
 	<delete id="deleteEndTicket">
-		DELETE FROM TICKETING_INFO WHERE TICKET_NO = ${ticketNo}
+		DELETE FROM TICKETING_INFO WHERE TICKET_NO = ${ticketNo} AND TICKET_FL = 'N'
 	</delete>
 	
 	<!-- 예매 3페이지 SEAT_CHECK 테이블 Y로 변경 -->
@@ -208,6 +209,14 @@
 		FROM TICKETING_INFO
 		WHERE TICKET_NO = #{ticketNo}
 	</select>
+	
+	<!-- 예매 3페이지 결제 시 티켓 정보 가져오는 AJAX -->
+	<select id="ticketInfo" resultMap="ticket_rm">
+		SELECT MOVIE_TITLE, PAY_AMOUNT, TICKET_ID
+		FROM TICKETING_INFO A
+		LEFT JOIN MOVIE USING(MOVIE_NO)
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
 
 	<select id="checkTicketId" resultType="int">
 		SELECT COUNT(*) 
@@ -221,29 +230,24 @@
 		WHERE TICKET_NO = #{ticketNo}
 	</update>
 	
+	<!-- 결제 취소  결제상태 C로 바꾸고 결제 취소 사유 작성 -->
 	<update id="updateReasonCancellationPayment">
 		UPDATE TICKETING_INFO 
-		SET REASON_CANCELLATION_PAYMENT = #{reasonCancellationPayment}
-		WHERE TICKET_ID = #{ticketId}
+		SET REASON_CANCELLATION_PAYMENT = #{reasonCancellationPayment}, TICKET_FL = 'C'
+		WHERE TICKET_No = #{ticketNo}
 	</update>
 	
+	<!-- 결제 완료 : 결제상태 Y로 바꾸고 imp_uid 삽입 -->
 	<update id="updategetTicketImpUid">
 		UPDATE TICKETING_INFO 
-		SET TICKEY_IMP_UID = #{ticketImpId}
-		WHERE TICKET_ID = #{ticketId}
+		SET TICKEY_IMP_UID = #{ticketImpId}, TICKET_FL = 'Y'
+		WHERE TICKET_No = #{ticketNo}
 	</update>
 	
-	<update id="updateTictetFLC">
-		UPDATE TICKETING_INFO 
-		SET TICKET_FL = 'C'
-		WHERE TICKET_ID = #{ticketId}
+	<!-- SEAT_CHECK TABLE C(Complete)로 변경 -->
+	<update id="updateSeatList">
+		UPDATE SEAT_CHECK SET STATE='C'
+		WHERE TICKET_NO = #{ticketNo}
 	</update>
 	
-	<update id="updateTictetFLY">
-		UPDATE TICKETING_INFO 
-		SET TICKET_FL = 'Y'
-		WHERE TICKET_ID = #{ticketId}
-	</update>
-
-
 </mapper>

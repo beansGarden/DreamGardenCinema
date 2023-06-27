@@ -41,9 +41,13 @@ public interface TicketingService {
 	int updateTicketId(String createTicketId, int ticketNo);
 
 	// 결제 취소 사유
-	int updateReasonCancellationPayment(String reasonCancellationPayment, String ticketId);
+	int updateReasonCancellationPayment(Ticket ticket);
 
 	// 결제 성공 imp_uid, TICKET_FL 수정
-	int updategetTicketImpUid(String ticketImpId, String ticketId);
+	int updategetTicketImpUid(Ticket ticket);
+
+	// 예매 3페이지 결제API 시 티켓 정보 가져오는 AJAX
+	Ticket ticketInfo(Integer ticketNo);
+
 
 }

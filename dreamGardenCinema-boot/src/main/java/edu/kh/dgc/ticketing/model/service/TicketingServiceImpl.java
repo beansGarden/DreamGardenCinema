@@ -175,6 +175,7 @@ public class TicketingServiceImpl implements TicketingService {
 		return mapper.checkTicketId(ticketId);
 	}
 
+	// 예매 3페이지 티켓ID 생성 후 삽입
 	@Override
 	public int updateTicketId(String createTicketId, int ticketNo) {
 		
@@ -185,31 +186,31 @@ public class TicketingServiceImpl implements TicketingService {
 		return mapper.updateTicketId(updateTicket);
 	}
 
-	// 결제 실패 사유, TICKET_FL C 수정
+	// 결제 실패 사유 삽입, TICKET_FL C 수정
 	@Override
-	public int updateReasonCancellationPayment(String reasonCancellationPayment, String ticketId) {
+	public int updateReasonCancellationPayment(Ticket ticket) {
 		
-		Map<String, String> reasonCancellationMap = new HashMap<>();
-		reasonCancellationMap.put("reasonCancellationPayment", reasonCancellationPayment);
-		reasonCancellationMap.put("ticketId", ticketId);
-		
-		mapper.updateReasonCancellationPayment(reasonCancellationMap);
-		mapper.updateTictetFLC(ticketId);
-		
-		return 1;
+		int result = mapper.updateReasonCancellationPayment(ticket);
+		return result;
 	}
 
-	// 결제 성공 imp_uid, TICKET_FL Y 수정
+	// 결제 성공 imp_uid 삽입, TICKET_FL Y 수정, SEAT_CHECK TABLE C(Complete)로 변경
 	@Override
-	public int updategetTicketImpUid(String ticketImpId, String ticketId) {
-		Map<String, String> updategetTicketImpUid = new HashMap<>();
-		updategetTicketImpUid.put("ticketImpId", ticketImpId);
-		updategetTicketImpUid.put("ticketId", ticketId);
-		
-		mapper.updategetTicketImpUid(updategetTicketImpUid);
-		mapper.updateTictetFLY(ticketId);
-		
-		return 1;
+	public int updategetTicketImpUid(Ticket ticket) {
+		int result = mapper.updategetTicketImpUid(ticket);
+		System.out.println("서비스 임플의 ticket imp 성공 시" + result);
+		if(result>0) {
+			result = mapper.updateSeatList(ticket);			
+		} else {
+			result = 0;
+		}
+		return result;
+	}
+
+	// 예매 3페이지 결제 시 티켓 정보 가져오는 AJAX
+	@Override
+	public Ticket ticketInfo(Integer ticketNo) {
+		return mapper.ticketInfo(ticketNo);
 	}
 
 }

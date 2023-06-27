@@ -72,6 +72,8 @@ public interface TicketingMapper {
 	// 예매 3페이지 티켓 가격 재조회 AJAX
 	int selectPrice(Map<String, Integer> paramMap);
 	
+	// 예매 3페이지 결제 시 티켓 정보 가져오는 AJAX
+	Ticket ticketInfo(Integer ticketNo);
 
 	// 티켓 중복 확인
 	int checkTicketId(String ticketId);
@@ -80,16 +82,21 @@ public interface TicketingMapper {
 	int updateTicketId(Map<String, String> updateTicket);
 
 	// 결제 성공 imp_uid
-	void updategetTicketImpUid(Map<String, String> updategetTicketImpUid);
+	int updategetTicketImpUid(Ticket ticket);
 
 	// 결제 취소 사유
-	void updateReasonCancellationPayment(Map<String, String> reasonCancellationMap);
+	int updateReasonCancellationPayment(Ticket ticket);
 
 	// TICKET_FL 수정 (C)
 	void updateTictetFLC(String ticketId);
 	
 	// TICKET_FL 수정 (Y)
 	void updateTictetFLY(String ticketId);
+
+	// 예매 3페이지 결제API 시 SEAT_CHECK 테이블 C로 변경
+	int updateSeatList(Ticket ticket);
+
+
 
 
 	

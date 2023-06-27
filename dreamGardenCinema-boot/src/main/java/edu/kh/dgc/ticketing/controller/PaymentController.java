@@ -32,9 +32,6 @@ public class PaymentController {
 	private PaymentService PaymentService;
 	
 	@Autowired
-    private TicketingController ticketingController;
-	
-	@Autowired
 	private TicketingService TicketingService;
 
 	@Value("${port-one.RESTAPIKey}")
@@ -60,44 +57,45 @@ public class PaymentController {
 	public int paymentComplete(HttpSession session,@RequestBody Ticket ticket)
 			throws Exception {
 		
-		int amountPaid = ticketingController.getAmountPaid();
+//		int amountPaid = ticketingController.getAmountPaid();
 		
-		System.out.println("amountPaid : "+ amountPaid);
+//		System.out.println("amountPaid : "+ amountPaid);
 		// 정보 넘길때 예매번호 생성해야함
 		String token = PaymentService.getToken();
-		System.out.println("imp_uid : " + ticket.getTicketImpId());
-		System.out.println("PayAmount : " + ticket.getPayAmount());
+//		System.out.println("imp_uid : " + ticket.getTicketImpId());
+//		System.out.println("PayAmount : " + ticket.getPayAmount());
 
 		// 결제 완료된 금액
 		String amount = PaymentService.paymentInfo(ticket.getTicketImpId(), token);
-		System.out.println("amount : "+amount);
+//		System.out.println("amount : "+amount);
 		
 		//DB결제 금액 체크
-		
+		Ticket ticketCheck = TicketingService.ticketInfo(ticket.getTicketNo());
 
 		int res = 1;
 
-		String reasonCancellationPayment = "결제 금액 오류";
-		
-		if (amountPaid != Integer.parseInt(amount)) {
+		System.out.println("==============" + !ticketCheck.getPayAmount().equals(amount));
+		// 결제된 금액과 DB의 금액이 같지 않으면
+		if (!ticketCheck.getPayAmount().equals(amount)) {
 			res = 0;
 			// 결제 취소
 			System.out.println("결제 취소");
+			
+			String reasonCancellationPayment = "결제 금액 오류";
 			PaymentService.payMentCancle(token, ticket.getTicketImpId(), amount, reasonCancellationPayment);
-			int result1 = 
-					TicketingService.updateReasonCancellationPayment(reasonCancellationPayment, ticket.getTicketId());
+			ticket.setReasonCancellationPayment(reasonCancellationPayment);
+			int result1 = TicketingService.updateReasonCancellationPayment(ticket);
+			
 			if(result1 == 0) {
 				System.out.println("updateReasonCancellationPayment : 실패");
 			}
 			return res;
 		}
-		System.out.println("check44 : " + ticket.getTicketImpId());
 		
-		
-		
-		int result2 = 
-				TicketingService.updategetTicketImpUid(ticket.getTicketImpId(), ticket.getTicketId());
-		if(result2 == 0) {
+		// 결제 성공 시
+		int result2 = TicketingService.updategetTicketImpUid(ticket);
+		System.out.println("결제 성공 시 ============="+ result2);
+		if(result2 == 0) {  // 결제 성공 후 정보가 업데이트 되지 않았으면
 			res = 0;
 		}
 		return res;
