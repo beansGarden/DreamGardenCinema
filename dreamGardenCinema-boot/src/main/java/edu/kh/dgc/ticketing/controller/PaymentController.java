@@ -18,9 +18,7 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
-import edu.kh.dgc.ticketing.model.dto.Order;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
-import edu.kh.dgc.ticketing.model.service.OrderService;
 import edu.kh.dgc.ticketing.model.service.PaymentService;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +30,9 @@ public class PaymentController {
 
 	@Autowired
 	private PaymentService PaymentService;
+	
+	@Autowired
+    private TicketingController ticketingController;
 	
 	@Autowired
 	private TicketingService TicketingService;
@@ -59,10 +60,13 @@ public class PaymentController {
 	public int paymentComplete(HttpSession session,@RequestBody Ticket ticket)
 			throws Exception {
 		
+		int amountPaid = ticketingController.getAmountPaid();
+		
+		System.out.println("amountPaid : "+ amountPaid);
 		// 정보 넘길때 예매번호 생성해야함
 		String token = PaymentService.getToken();
 		System.out.println("imp_uid : " + ticket.getTicketImpId());
-		System.out.println("PayAmount : " + ticket.getPayAmount()); // 0 뜸 확인 요망
+		System.out.println("PayAmount : " + ticket.getPayAmount());
 
 		// 결제 완료된 금액
 		String amount = PaymentService.paymentInfo(ticket.getTicketImpId(), token);
@@ -75,7 +79,7 @@ public class PaymentController {
 
 		String reasonCancellationPayment = "결제 금액 오류";
 		
-		if (!ticket.getPayAmount().equals(amount)) {
+		if (amountPaid != Integer.parseInt(amount)) {
 			res = 0;
 			// 결제 취소
 			System.out.println("결제 취소");
@@ -88,6 +92,9 @@ public class PaymentController {
 			return res;
 		}
 		System.out.println("check44 : " + ticket.getTicketImpId());
+		
+		
+		
 		int result2 = 
 				TicketingService.updategetTicketImpUid(ticket.getTicketImpId(), ticket.getTicketId());
 		if(result2 == 0) {
