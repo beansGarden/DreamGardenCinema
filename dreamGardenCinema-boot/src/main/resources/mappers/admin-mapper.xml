@@ -13,7 +13,7 @@
 		<result property="qnaDeleteFl" column="QNA_DELETE_FL"/>
 		<result property="qnaCheckFl" column="QNA_CHECK_FL"/>
 		<result property="qnaCategory" column="QNA_CATEGORY"/>
-		<result property="userNo" column="USER_NO2"/>
+		<result property="userNo" column="USER_NO"/>
 		<result property="userNickname" column="USER_NICKNAME"/>
 		</resultMap>
 		
@@ -152,7 +152,7 @@
 	
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-		SELECT
+		SELECT USER_NO,
 	  QNA.QNA_NO,
 	  QNA.QNA_TITLE,
 	  TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,

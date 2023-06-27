@@ -193,16 +193,16 @@ public class AdminController {
 
 	//2관으로 넘어가기
 	@RequestMapping("/adminCinemaManage/{movieTheater}") 
-	public String cinema(Model model, @PathVariable(value="movieTheater", required=false) String movieTheaterNo) {
+	public String cinema(Model model, @PathVariable(value="movieTheater", required=false) String movieTheaterNo,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 		
-		List<Movie> cinemaList = service.adminCinemaTwo(movieTheaterNo);
+		Map<String, Object> cinemaMap  = service.adminCinemaTwo(movieTheaterNo,cp);
 		
-		model.addAttribute("cinemaList", cinemaList);
+		model.addAttribute("cinemaList", cinemaMap);
 
 		System.out.println(movieTheaterNo);
-		System.out.println(cinemaList);
+		System.out.println(cinemaMap);
 		
-		 return "redirect:"; 
+		 return  "admin/admin_cinemaManage"; 
 
 		/* return "admin/admin_cinemaManage" +"/"+ movieTheaterNo; */
 	}	
@@ -442,7 +442,7 @@ public class AdminController {
 		System.out.println("qnaComment : " + qnaComment);
 		
 
-		if(qnaComment != null) {
+		if(qnaCommentNo > 0) {
 			System.out.println("	    if (qnaComment != null) 통과 ");
 	    	QnaComment qnaCommentObj = new QnaComment();
 	    	qnaCommentObj.setQnaNo(qnaNo);

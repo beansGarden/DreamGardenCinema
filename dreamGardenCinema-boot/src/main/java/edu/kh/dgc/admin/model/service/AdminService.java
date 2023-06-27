@@ -32,7 +32,7 @@ public interface AdminService {
 	Map<String, Object> adminQnaList(int cp);
 
 	//1:1 문의 게시글 읽기 조회
-	Qna  selectQnaOne(int qnaNo);
+	Qna selectQnaOne(int qnaNo);
 	
 	//1:1 문의 게시글 수정
 	int qnaUpdate(Qna qna);
@@ -87,7 +87,7 @@ public interface AdminService {
 	Map<String, Object> adminCinemaList(Movie condition, int cp);
 	
 	//2관 페이지 이동
-	List<Movie> adminCinemaTwo(String movieTheaterNo);
+	Map<String, Object> adminCinemaTwo(String movieTheaterNo, int cp);
 
 	//상영관 등록 영화 불러오기
 	List<Movie> cinemaList();

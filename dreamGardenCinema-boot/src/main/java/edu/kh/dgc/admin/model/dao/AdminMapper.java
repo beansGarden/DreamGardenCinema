@@ -130,9 +130,10 @@ public interface AdminMapper {
 	
 	/**2관 페이지 이동
 	 * @param movieTheaterNo
+	 * @param rowBounds 
 	 * @return
 	 */
-	List<Movie> adminCinemaTwo(String movieTheaterNo);
+	List<Movie> adminCinemaTwo(String movieTheaterNo, RowBounds rowBounds);
 	
 	
 	/**상영관 등록 영화 불러오기

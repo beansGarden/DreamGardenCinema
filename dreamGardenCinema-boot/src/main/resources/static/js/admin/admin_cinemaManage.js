@@ -80,28 +80,37 @@ function getMovieScheduleByDay() {
 
 
   /* 2관으로 넘어가기 */
-/*  const cinemaList = document.querySelectorAll('.admin_cinemaOne');
+  const cinemaList = document.querySelectorAll('.admin_cinemaOne');
 
-  cinemaList.forEach(cinema => {
-    cinema.addEventListener('click', function (event) {
-      event.preventDefault();
+cinemaList.forEach(cinema => {
+  cinema.addEventListener('click', function (event) {
+    event.preventDefault();
 
-      const cinemaNumber = this.querySelector('a').innerText[0];
+    const cinemaNumber = this.textContent[0];
 
-      fetch(`/cinema/${cinemaNumber}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 'movieTheater': cinemaNumber })
-      })
-        .then(resp => resp.text())
-        .then(result => {
-          console.log(result);
-          console.log(cinemaNumber);
-
+    fetch(`/adminCinemaManage/${cinemaNumber}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'movieTheater': cinemaNumber })
+    })
+      .then(resp => resp.text())
+      .then(result => {
+        console.log(result);
+        console.log(cinemaNumber)
+        .then(data => {
+          // 서버로부터 받은 데이터(data)를 처리하는 부분
+          // 예시: 받은 데이터를 콘솔에 출력
+          console.log(data);
           
+          // 리다이렉션을 수행해야 하는 경우
+          if (data.redirect) {
+            window.location.href = data.redirect; // 받은 리다이렉션 URL로 이동
+          } else {
+            // 리다이렉션이 아닌 경우 추가적인 처리
+          }
         })
-        .then(cinemaList => {
-
+        .catch(error => {
+          console.log('Fetch Error:', error);
 
           const tbody1 = document.querySelector("#schedule-table tbody");
           tbody1.innerHTML = "";
@@ -292,7 +301,9 @@ function getMovieScheduleByDay() {
 
 
 
-  }); */
+  }); 
+
+});
 
  
    /* cinemaList.forEach(cinema => {
@@ -349,9 +360,9 @@ function getMovieScheduleByDay() {
   
         });
     });
-  }); */
+  }); 
    
-
+/* 
   cinemaList.forEach(cinema => {
     cinema.addEventListener('click', function (event) {
       event.preventDefault();
@@ -406,5 +417,5 @@ function getMovieScheduleByDay() {
   
         });
     });
-  });
+  }); */
   
