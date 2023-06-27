@@ -184,7 +184,7 @@
             <!-- comment(평점 및 관람평) -->
             <div class="outer-info__type-comment menu-active">
 
-                <form class="comment-submit" th:action="@{/movie/movieDetail=${movie.movieNo}/comment}" method="post">
+                <form class="comment-submit" th:action method="post">
 
                     <div class="star-rating">
 
@@ -200,7 +200,7 @@
                                 th:style="|background: url(@{/images/movie/comment/star3.png}) repeat-x; 
                                 background-size: 60px 60px;|
                                 ">
-                                    <input type="range" min=1 max=10 id="star" name="star" value=9>
+                                    <input type="range" min=1 max=10 id="star" name="score" value=9>
                                 </span>
                             </div>
 
@@ -213,7 +213,7 @@
                     </div>
 
                     <div class="review-write">
-                        <textarea class="review-textarea" name="review" placeholder="평점 및 영화 관람평을 작성해주세요. 주제와 무관한 리뷰 또는 스포일러는 신고, 삭제될 수 있습니다."></textarea>
+                        <textarea class="review-textarea" name="reviewContent" placeholder="평점 및 영화 관람평을 작성해주세요. 주제와 무관한 리뷰 또는 스포일러는 신고, 삭제될 수 있습니다."></textarea>
                         <button class="review-btn">관람평 작성</button>
                     </div>
 
@@ -244,12 +244,12 @@
 
                     <div class="comment-list__list">
 
-                        <div class="comment-each">
-
+                        <div class="comment-each comment-none" th:if="${movieComment.isEmpty()}">
+                            작성된 관람평이 없습니다.
                         </div>
-                        
-                        <div class="comment-each">
 
+                        <div class="comment-each" th:unless="${movieComment.isEmpty()}" th:each="comment : ${movieComment}">
+                            
                         </div>
 
                     </div>

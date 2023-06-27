@@ -26,6 +26,16 @@
 		<result property="img" column="PERSON_IMG"/>
 	</resultMap>
 	
+	<resultMap type="MovieComment" id="comment_rm">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="score" column="SCORE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+	</resultMap>
+	
+	
 	<select id="selectMainSlideImgList">
 		SELECT *
 		FROM MOVIE_IMG
@@ -112,5 +122,18 @@
 		WHERE MOVIE_NO = #{movieNo}
 		AND MOVIE_IMG_ROLE = '스틸컷'
 	</select>
+	
+	<select id="selectMovieComment">
+		SELECT *
+		FROM MOVIE_REVIEW
+		WHERE MOVIE_NO = #{movieNo}
+		ORDER BY REVIEW_DATE DESC
+	</select>
+	
+	<insert id="insertMovieComment">
+		INSERT INTO "beansGarden".MOVIE_REVIEW
+		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO)
+		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo})
+	</insert>
 	
 </mapper>

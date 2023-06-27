@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.MovieComment;
 import edu.kh.dgc.movie.model.dto.Person;
 
 @Mapper
@@ -33,6 +34,12 @@ public interface MovieMapper {
 	public List<String> selectMovieActorName(int movieNo, RowBounds rowBounds);
 
 	public List<String> selectMovieStillCut(int movieNo);
+
+	public List<MovieComment> selectMovieComment(int movieNo);
+
+	public int insertMovieComment(MovieComment comment);
+
+
 
 
 	

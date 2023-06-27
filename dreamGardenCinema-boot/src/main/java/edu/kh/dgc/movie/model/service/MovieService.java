@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.MovieComment;
 import edu.kh.dgc.movie.model.dto.Person;
 
 public interface MovieService {
@@ -80,6 +81,20 @@ public interface MovieService {
 	 * @return
 	 */
 	List<String> selectMovieStillCut(int movieNo);
+
+	/** 영화 댓글(리뷰) 불러오기
+	 * @param movieNo
+	 * @return
+	 */
+	List<MovieComment> selectMovieComment(int movieNo);
+
+	/**
+	 * @param comment
+	 * @return
+	 */
+	int insertMovieComment(MovieComment comment);
+
+
 
 	
 
