@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-@PropertySource("classpath:/config.properties")
+@PropertySource("classpath:/config2.properties")
 @Service
 public class PaymentService {
 	// ---------------------환불, 결제 토큰생성
@@ -43,8 +43,8 @@ public class PaymentService {
 		conn.setDoOutput(true);
 		JsonObject json = new JsonObject();
 
-		json.addProperty("RESTAPIKey", RESTAPIKey);
-		json.addProperty("RESTAPISecret", RESTAPISecret);
+		json.addProperty("imp_key", RESTAPIKey);
+		json.addProperty("imp_secret", RESTAPISecret);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 
@@ -116,6 +116,7 @@ public class PaymentService {
 		json.addProperty("amount", amount);
 		json.addProperty("checksum", amount);
 
+		System.out.println("payMentCancle");
 		System.out.println("check 1 : " + imp_uid);
 		System.out.println("check 2 : " + amount);
 		System.out.println(reason);

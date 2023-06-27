@@ -11,23 +11,6 @@ pizzaBtn.addEventListener("click", ()=>{  /* 피자 버튼 누르면 포스터 �
     hamburger.style.display = "none";
 })
 
-// 영화 선택 이벤트
-const checkMovie = document.querySelectorAll(".MovieList>label");
-let sameLabel;
-for(let i=0;i<checkMovie.length;i++){
-    checkMovie[i].addEventListener("click", e=>{
-        for(let j=0;j<checkMovie.length;j++){
-            checkMovie[j].classList.remove("saveMovie");
-        }
-        sameLabel = e.currentTarget.getAttribute("for");
-        for(let j=0;j<checkMovie.length;j++){
-            if(checkMovie[j].getAttribute("for") == sameLabel){
-                checkMovie[j].classList.add("saveMovie");
-            }
-        }
-    })
-}
-
 // 날짜 설정
 const swiperWrapper = document.querySelector(".swiper-wrapper");
 const headerDate = document.querySelector(".headerDate");
@@ -37,12 +20,7 @@ for(let i=0;i<10;i++){
     let month = today.getMonth()+1;   /* 1~12 */
     let date = today.getDate();   /* 1~31 */
     let day = today.getDay();   /* 0~6 */
-    let saveDate; /* 저장된 날짜 */
-    let saveTime; /* 저장된 시간 */
-    if(saveDay != null){
-        saveDate = saveDay.split(" ")[0];  /* 20230615 */
-        saveTime = saveDay.split(" ")[1];  /* 18:00 */
-    }
+    
     switch(day) {
         case 1: day = "월"; break; 
         case 2: day = "화"; break;
@@ -81,20 +59,11 @@ for(let i=0;i<10;i++){
         headerDate.innerText = `${year}-${month}-${date}(${day})`;
     }
 
-    let compareDay = `${year}${month}${date}`;
-    if(saveDay == null){
-        if(i==0) {
-            li.classList.add("dateActive");
-            input.setAttribute("checked", true);
-        } 
-    } else {
-        if(saveDate == compareDay){
-            li.classList.add("dateActive");
-            input.setAttribute("checked", true);
-        }
-    }
+    if(i==0) {
+        li.classList.add("dateActive");
+        input.setAttribute("checked", true);
+    } 
     em.innerText = day;
-
 
     input.value = `${today.getFullYear()}${month}${date} ${day}`;  /*  ${day} */
     label.append(input, innerStrong, em);
@@ -103,6 +72,23 @@ for(let i=0;i<10;i++){
     swiperWrapper.append(li);
     today.setDate(today.getDate()+1);
 
+}
+
+// 영화 선택 이벤트
+const checkMovie = document.querySelectorAll(".MovieList>label");
+let sameLabel;
+for(let i=0;i<checkMovie.length;i++){
+    checkMovie[i].addEventListener("click", e=>{
+        for(let j=0;j<checkMovie.length;j++){
+            checkMovie[j].classList.remove("saveMovie");
+        }
+        sameLabel = e.currentTarget.getAttribute("for");
+        for(let j=0;j<checkMovie.length;j++){
+            if(checkMovie[j].getAttribute("for") == sameLabel){
+                checkMovie[j].classList.add("saveMovie");
+            }
+        }
+    })
 }
 
 // 날짜 선택 이벤트
@@ -127,87 +113,91 @@ function dateSet(){
 // 상영시간 / 상영관 AJAX
 const checkBtn = document.querySelectorAll(".checkBtn");
 for(let i=0;i<checkBtn.length;i++){
-    checkBtn[i].addEventListener("click", e => {
-        let movieNo;
-        let date;
+    checkBtn[i].addEventListener("click", e=>{
+        theaterChoiceajax(e.currentTarget);
+    });
+};
 
-        if(e.currentTarget.nodeName == 'LABEL'){
-            movieNo = e.currentTarget.getAttribute('for');
-            date = document.querySelector("input[name=date]:checked").value;
-        }
-        if(e.currentTarget.nodeName == 'LI'){
-            movieNo = document.querySelector("input[name=movieNo]:checked").value;
-            date = e.currentTarget.querySelector("a>label>input").value;
-        }
+document.addEventListener("DOMContentLoaded", function(){
+    theaterChoiceajax(checkBtn[0]);
+});
 
-        const data = {"movieNo" : movieNo, "date" : date};
-        
-        fetch("/ticketing/time", {
-            method : "POST",
-            headers : {"Content-Type" : "application/json"},
-            body : JSON.stringify(data)
-        })
-        .then(resp => resp.json())
-        .then(timeList => {
+// 상영시간 / 상영관 AJAX
+function theaterChoiceajax(e){
+    let movieNo;
+    let date;
 
-            // 기존 정보 삭제
-            const movieChoiceTitle = document.querySelector(".movieChoiceTitle");
-            const timeSelect = document.querySelector(".timeSelect");
-            timeSelect.innerHTML = '';
-            movieChoiceTitle.innerHTML = '';
+    console.log(e);
 
-            const ul = document.createElement("ul");
-            ul.classList.add("timelist");
+    if(e.nodeName == 'LABEL'){
+        movieNo = e.getAttribute('for');
+        date = document.querySelector("input[name=date]:checked").value;
+    }
+    if(e.nodeName == 'LI'){
+        movieNo = document.querySelector("input[name=movieNo]:checked").value;
+        date = e.querySelector("a>label>input").value;
+    }
 
-            if(timeList.length==0){
-                const div = document.createElement("div");
-                div.classList.add("nonelist");
-                div.innerText ="상영 중인 정보가 없습니다"
-                timeSelect.append(div);
-            } else {
+    const data = {"movieNo" : movieNo, "date" : date};
+    console.log(data);
+    fetch("/ticketing/time", {
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data)
+    })
+    .then(resp => resp.json())
+    .then(timeList => {
 
-                for(let i=0;i<timeList.length;i++){
-                    // 영화관, 시간 버튼 생성
-                    const li = document.createElement("li");
-                    const label = document.createElement("label");
-                    label.classList.add("btn");
-                    label.setAttribute("onclick", "movieTimeSub()");
-                    label.setAttribute("for", `${timeList[i].movieTheater},${timeList[i].movieTime}`);
-    
-                    const input = document.createElement("input");
-                    input.type = "radio";
-                    input.name = "movieTime";
-                    input.id = `${timeList[i].movieTheater},${timeList[i].movieTime}`;
-                    input.value = `${timeList[i].movieTheater},${timeList[i].movieTime}`;
-    
-                    const firstDiv = document.createElement("div");
-                    firstDiv.innerText = timeList[i].movieTheater + '관';
-                    const lastDiv = document.createElement("div");
-                    lastDiv.innerText = timeList[i].movieTime;
-                    label.append(input, firstDiv, lastDiv);
-                    li.append(label);
-                    ul.append(li);
-                }
-                timeSelect.append(ul);
+        // 기존 정보 삭제
+        const movieChoiceTitle = document.querySelector(".movieChoiceTitle");
+        const timeSelect = document.querySelector(".timeSelect");
+        timeSelect.innerHTML = '';
+        movieChoiceTitle.innerHTML = '';
+
+        const ul = document.createElement("ul");
+        ul.classList.add("timelist");
+
+        if(timeList.length==0){
+            const div = document.createElement("div");
+            div.classList.add("nonelist");
+            div.innerText ="상영 중인 정보가 없습니다"
+            timeSelect.append(div);
+        } else {
+
+            for(let i=0;i<timeList.length;i++){
+                // 영화관, 시간 버튼 생성
+                const li = document.createElement("li");
+                const label = document.createElement("label");
+                label.classList.add("btn");
+                label.setAttribute("onclick", "movieTimeSub()");
+                label.setAttribute("for", `${timeList[i].movieTheater},${timeList[i].movieTime}`);
+
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "movieTime";
+                input.id = `${timeList[i].movieTheater},${timeList[i].movieTime}`;
+                input.value = `${timeList[i].movieTheater},${timeList[i].movieTime}`;
+
+                const firstDiv = document.createElement("div");
+                firstDiv.innerText = timeList[i].movieTheater + '관';
+                const lastDiv = document.createElement("div");
+                lastDiv.innerText = timeList[i].movieTime;
+                label.append(input, firstDiv, lastDiv);
+                li.append(label);
+                ul.append(li);
             }
-
-            // 영화 등급, 제목 바꾸기
-        
-            const img = document.createElement("img");
-            img.setAttribute("src",document.querySelector(".saveMovie>img.rating").src);
-            const span = document.createElement("span");
-            span.innerText = document.querySelector(".saveMovie>span.movieTitle").innerText;
-            movieChoiceTitle.append(img, span);
-
-
-            // document.querySelector(".saveMovie>img.rating").src
-            // document.querySelector(".saveMovie>span.movieTitle").innerText;
-            
-        })
-        .catch(err => {
-            console.log("예외 발생");
-            console.log(err);
-        })
+            timeSelect.append(ul);
+        }
+        // 영화 등급, 제목 바꾸기
+        const img = document.createElement("img");
+        img.setAttribute("src",document.querySelector(".saveMovie>img.rating").src);
+        const span = document.createElement("span");
+        span.innerText = document.querySelector(".saveMovie>span.movieTitle").innerText;
+        movieChoiceTitle.append(img, span);
+    })
+    .catch(err => {
+        console.log("예외 발생");
+        console.log(err);
     })
 }
 
@@ -216,7 +206,7 @@ function movieTimeSub(){
     if(loginUser == null){
         alert("로그인 후 이용해주시길 바랍니다.");
         document.location.href = "/user/login";
-        return false;
+        return;
     }
     document.getElementById('timeFrm').submit();
 }

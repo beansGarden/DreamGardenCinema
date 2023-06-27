@@ -65,15 +65,15 @@ function requestPay() {
 
                     // 데이터를 json으로 보내기 위해 바꿔준다.
                     data = JSON.stringify({
-                        "orderNum": rsp.merchant_uid,
-                        "productNum": detailNum.textContent, //상품번호
-                        "num": userNum.value, // 회원번호
-                        "productName": rsp.name,
-                        "orderDate": new Date().getTime(),
-                        "totalPrice": rsp.paid_amount,
-                        "imp_uid": rsp.imp_uid,
-                        "reserNum": reserNum.textContent // 예약정보를 담고있는번호
-                    }); 
+                        "orderNum" :  rsp.merchant_uid,
+                        "productNum" : detailNum.textContent, //상품번호
+                        "num" : userNum.value, // 회원번호
+                        "productName" : rsp.name,
+                        "orderDate" : new Date().getTime(),
+                        "totalPrice" : rsp.paid_amount,
+                        "imp_uid" : rsp.imp_uid,
+                        "reserNum" :  reserNum.textContent // 예약정보를 담고있는번호
+                    });
 
                     jQuery.ajax({
                         url: "/order/complete", // 예: https://www.myservice.com/payments/complete
