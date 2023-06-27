@@ -12,7 +12,6 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.movie.model.service.MovieService;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.notice.model.service.NoticeService;
-import edu.kh.dgc.ticketing.model.service.TicketingService;
 
 @Controller
 public class MainController {

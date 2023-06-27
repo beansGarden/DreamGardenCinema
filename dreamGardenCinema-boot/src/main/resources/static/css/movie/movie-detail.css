@@ -95,6 +95,10 @@ body {
 
 }
 
+.line1{
+    padding: 0 5px;
+}
+
 .movie-info{
     width: 75%;
 }
@@ -277,7 +281,7 @@ body {
 /* 영화인 */
 
 /* 공통사항 */
-.movie-people__gird{
+.movie-person__gird{
     margin: auto;
     margin-top: 40px;
     width: 98%;
@@ -287,7 +291,7 @@ body {
 }
 
 /* 영화인 디테일 */
-.people{
+.person{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -295,18 +299,18 @@ body {
 }
 
 /*  */
-.people-img{
+.person-img{
     margin: auto;
     width: 30%;
 }
-.people-img img{
+.person-img img{
     width: 90px;
     height: 90px;
     border-radius: 50%;
 }
 
 /*  */
-.people-info{
+.person-info{
     padding-left: 10px;
     width: 70%;
     display: flex;
@@ -343,6 +347,89 @@ body {
     height: 300px;
 }
 
+.star-rating{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 350px;
+    margin: auto;
+    padding-top: 50px;
+    row-gap: 10px;
+    margin-bottom: 50px;
+}
+
+
+/* star rating 부분 */
+
+.score-container{
+    width: 350px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    column-gap: 15px;
+}
+
+.score {
+    width: 300px;
+    height: 60px;
+    /* background: url(https://upload.wikimedia.org/wikipedia/commons/b/b0/Star-.svg) repeat-x; */
+    /* background-size: 60px 60px; */
+}
+
+.score:hover{
+    filter: brightness(0.9);
+}
+
+.score-value {
+    position: relative;
+    display: inline-block;
+    height: 60px;
+    width: 90%;
+    /* background: url(https://upload.wikimedia.org/wikipedia/commons/6/63/Star%2A.svg) repeat-x; */
+    /* background-size: 60px 60px; */
+    transition: all 0.3s;
+}
+
+#star {
+    position: absolute;
+    top: -5px;
+    width: 300px;
+    height: 70px;
+    opacity: 0;
+}
+
+
+/* 리뷰 입력란 */
+.review-write{
+    display: flex;
+    width: 900px;
+    margin: auto;
+    margin-top: 20px;
+    height: 80px;
+}
+
+.review-textarea {
+    resize: none;
+    width: 85%;
+    padding: 15px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.review-btn{
+    width: 15%;
+    background-color: #0E0853;
+    color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.review-btn:hover{
+    background-color: #1f12af;
+    transition: all 0.2s;
+}
+
 
 
 /* 댓글 리스트 부분 */
@@ -352,8 +439,31 @@ body {
 /* nav */
 .comment-list__nav{
     height: 30px;
-    background-color: coral;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
 }
+
+/* 관람객 관람평 div */
+.comment--nav-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    column-gap: 5px;
+}
+
+.comment--nav-title img{
+    width: 20px;
+    height: 20px;
+}
+
+/* 리뷰 정렬 기준 nav */
+.comment--nav-sort{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
 
 /*  */
 .comment-list__list{
@@ -366,6 +476,12 @@ body {
     box-shadow: 0 3px 3px rgba(0,0,0,0.2);
     border-bottom: 1px solid rgba(0,0,0,0.6);
     border-radius: 5px;
+}
+
+.comment-none{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

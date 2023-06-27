@@ -12,11 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.MovieComment;
+import edu.kh.dgc.movie.model.dto.Person;
 import edu.kh.dgc.movie.model.service.MovieService;
+import edu.kh.dgc.user.model.dto.User;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/movie")
+@SessionAttributes({"loginUser"})
 @Controller
 public class MovieController {
 
@@ -107,17 +114,59 @@ public class MovieController {
 									Model model) {
 		
 		Movie movieInfo = service.selectMovieDetail(movieNo);
+		String story = movieInfo.getSynopsis();
+		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		
+		List<String> movieDirectorName = service.selectMovieDirectorName(movieNo);
+		List<String> movieActorName = service.selectMovieActorName(movieNo);
+		
+		List<String> movieStillCut = service.selectMovieStillCut(movieNo);
+		
+		List<Person> moviePersons = service.selectMoviePerson(movieNo);
+		
+		List<MovieComment> movieComment = service.selectMovieComment(movieNo);
 		
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
-		String story = movieInfo.getSynopsis();
-		
-		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
 		model.addAttribute("movie", movieInfo);
+		
+		model.addAttribute("movieDirectorName", movieDirectorName);
+		model.addAttribute("movieActorName", movieActorName);
+//		
+		model.addAttribute("movieStillCut", movieStillCut);
+		
+		model.addAttribute("persons", moviePersons);
+		
+		model.addAttribute("movieComment", movieComment);
+		
 		model.addAttribute("advertisePoster", advertisePoster);
 		
 		return "movie/movieDetail";
+	}
+	
+	@PostMapping("/movieDetail={movieNo}")
+	public String insertMovieComment(@PathVariable("movieNo") int movieNo,
+									int score,
+									String reviewContent,
+									HttpServletRequest request,
+									@SessionAttribute("loginUser") User loginUser){
+		
+		
+		int userNo = loginUser.getUserNo();
+		
+		MovieComment comment = new MovieComment();
+		
+		comment.setMovieNo(movieNo);
+		comment.setScore(score);
+		comment.setUserNo(userNo);
+		comment.setReviewContent(reviewContent);
+		
+		int result = service.insertMovieComment(comment);
+		
+		String referer = request.getHeader("Referer");
+		
+		return "redirect:"+ referer;
 	}
 	
 	
