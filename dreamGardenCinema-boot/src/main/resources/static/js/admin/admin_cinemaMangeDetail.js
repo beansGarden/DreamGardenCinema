@@ -1,3 +1,4 @@
+/* 시간 태그 입력 */
 const box = document.querySelector('.admin_cinemaManageDetailDate .box');
 const innerBox = document.querySelector('.admin_cinemaManageDetailDate .innerBox');
 const input = document.querySelector('.admin_cinemaManageDetailDate input');
@@ -73,3 +74,21 @@ function render(){
     });
     innerBox.innerHTML = tmp;
 }
+
+
+
+
+/* 선택해서 hidden에 넣기 */
+function setHiddenValue(selectElement) {
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var hiddenValue = document.getElementById("hiddenValue");
+    hiddenValue.value = selectedOption.value;
+}
+
+/* 엔터키 금지 */
+document.querySelector('form').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  });
+  
