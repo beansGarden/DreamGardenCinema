@@ -80,6 +80,10 @@ padding: 20px 30px;
     color: white;
 }
 
+.admin_sideBarLogOut{
+    width: 100px;
+}
+
 .admin_sideBarLogOutBtn{
     display: flex;
     flex-direction: row;
@@ -100,9 +104,23 @@ padding: 20px 30px;
    
 }
 
+/* 사이드바 로그아웃 아이콘 */
 .material-symbols-outlined{
     color: white;
     margin-right: 10px;
+
+    
+}
+
+#logout{
+    margin-right: 0px;
+}
+
+.material-symbols-outlined a{
+    color: white;
+    margin-right: 0px;
+
+    
 }
 
 .admin_sideBarList{
@@ -128,4 +146,10 @@ padding: 20px 30px;
     height: 800px;
     margin-top: 630px;
     color: white;
+}
+
+/* 사이드바 로그인 이름 */
+#admin_Nickname{
+    font-size: 15px;
+    margin-top: 10px;
 }

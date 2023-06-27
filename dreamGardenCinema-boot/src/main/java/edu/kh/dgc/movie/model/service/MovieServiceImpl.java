@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.movie.model.dao.MovieMapper;
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.MovieComment;
+import edu.kh.dgc.movie.model.dto.Person;
 
 @Service
 public class MovieServiceImpl implements MovieService{
@@ -93,6 +95,57 @@ public class MovieServiceImpl implements MovieService{
 	public Movie selectMovieDetail(int movieNo) {
 		return mapper.selectMovieDetail(movieNo);
 	}
+
+
+	// 영화인 정보 불러오기
+	@Override
+	public List<Person> selectMoviePerson(int movieNo) {
+		return mapper.selectMoviePerson(movieNo);
+	}
+
+
+
+	@Override
+	public List<String> selectMovieDirectorName(int movieNo) {
+		return mapper.selectMovieDirectorName(movieNo);
+	}
+
+
+
+	@Override
+	public List<String> selectMovieActorName(int movieNo) {
+		RowBounds rowBounds = new RowBounds(0, 4);
+		return mapper.selectMovieActorName(movieNo, rowBounds);
+	}
+
+
+
+	@Override
+	public List<String> selectMovieStillCut(int movieNo) {
+		return mapper.selectMovieStillCut(movieNo);
+	}
+
+
+
+	@Override
+	public List<MovieComment> selectMovieComment(int movieNo) {
+		return mapper.selectMovieComment(movieNo);
+	}
+
+
+
+	@Override
+	public int insertMovieComment(MovieComment comment) {
+		return mapper.insertMovieComment(comment);
+	}
+
+	
+
+
+
+
+	
+	
 
 	
 	

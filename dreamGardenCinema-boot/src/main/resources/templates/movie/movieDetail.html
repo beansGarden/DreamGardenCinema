@@ -17,14 +17,14 @@
 </head>
 
 <body>
-
     <th:block th:replace="~{common/header-white}"></th:block>
 
     <section class="movie--Top__banner">
         <div class="swiper movie--main--slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide main-swiper-slider"><img src="https://dummyimage.com/800x560/6e2424/ebebeb&text=silder"></div>
-                <div class="swiper-slide main-swiper-slider"><img src="https://dummyimage.com/800x560/6e2424/ebebeb&text=silder"></div>
+                <div class="swiper-slide main-swiper-slider" th:each="item : ${movieStillCut}">
+                    <img th:src="@{|${item}|}">
+                </div>
             </div>
             <div class="swiper-button-next main-next"></div>
             <div class="swiper-button-prev main-prev"></div>
@@ -35,7 +35,7 @@
     <div class="info-wrapper">
         <section class="movie--detail__basic" th:object="${movie}">
 
-            <div class="detail--movie-poster"><img th:src="@{|*{poster}|}"></div>
+            <div class="detail--movie-poster"><img th:src="@{|*{poster}|}"></div>   
             
             <div class="detail--movie-info">
 
@@ -67,11 +67,26 @@
                             </li>
 
                             <li>
-                                감독
+                                감독                                 
+                                <span class="line1" th:with="max=${#lists.size(movieDirectorName)}">
+                                    <span th:unless="${#lists.size(movieDirectorName)} >= 2" th:each="director : ${movieDirectorName}"> 
+                                        <span th:text="${director}">감독이름</span> 
+                                    </span>
+                                    <span th:if="${#lists.size(movieDirectorName)} >= 2" th:each="director : ${movieDirectorName}">
+                                        <span th:text="${director}">감독이름</span><!--  
+                                        --><span th:if="${directorStat.count} < ${max}">,</span>
+                                    </span>
+                                </span>
                             </li>
 
                             <li>
-                                출연
+                                출연 
+                                <span class="line1">
+                                    <span th:each="actor : ${movieActorName}">
+                                        <span th:text="|${actor}, |">출연진 이름</span>
+                                    </span>
+                                </span>
+                                <span th:unless="${movieActorName.isEmpty()}">⋯</span>
                             </li>
 
                         </ul>
@@ -110,8 +125,8 @@
             
 
 
-            <!-- 영화 정보 -->
-            <div class="outer-info__type-info menu-active" th:object="${movie}">
+            <!-- 영화 정보 -->          <!-- menu-active -->
+            <div class="outer-info__type-info" th:object="${movie}">
 
                 <strong style="font-size: 20px;">시놉시스</strong>
 
@@ -121,20 +136,8 @@
 
                 <div thumbsSlider="" class="swiper stillCutGallary">
                     <div class="swiper-wrapper stillCutGallary-swiper">
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                        <div class="swiper-slide main-swiper-slider" th:each="item : ${movieStillCut}">
+                            <img th:src="@{|${item}|}">
                         </div>
                     </div>
                     <div class="swiper-button-next stillCutGallary-next"></div>
@@ -143,20 +146,8 @@
 
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper stillCutDetail">
                     <div class="swiper-wrapper stillCutDetail-wrapper">
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                        <div class="swiper-slide main-swiper-slider" th:each="item : ${movieStillCut}">
+                            <img th:src="@{|${item}|}">
                         </div>
                     </div>
                     <div class="swiper-button-next stillCutDetail-next"></div>
@@ -166,79 +157,22 @@
 
                 <strong style="font-size: 20px;">감독 및 배우</strong>
 
-                <div class="movie-people">
+                <div class="movie-person">
                     
-                    <ul class="movie-people__gird">
+                    <ul class="movie-person__gird">
 
-                        <li class="people">
+                        <li class="person" th:each="person : ${persons}">
 
-                            <div class="people-img">
-                                <img th:src="@{/images/movie/영화인/null.png}">
+                            <div class="person-img">
+                                <img th:src="@{|${person.img}|}">
                             </div>
 
-                            <div class="people-info">
-                                <pre class="info-name">홍길동</pre>
-                                <pre class="info-role">감독</pre>
-                            </div>
-
-                        </li>
-
-
-                        <li class="people">
-
-                            <div class="people-img">
-                                <img th:src="@{/images/movie/영화인/null.png}">
-                            </div>
-
-                            <div class="people-info">
-                                <pre class="info-name">홍길동</pre>
-                                <pre class="info-role">감독</pre>
+                            <div class="person-info">
+                                <pre class="info-name" th:text="${person.name}">영화인 이름</pre>
+                                <pre class="info-role" th:text="${person.role}">영화인 역할</pre>
                             </div>
 
                         </li>
-
-
-                        <li class="people">
-
-                            <div class="people-img">
-                                <img th:src="@{/images/movie/영화인/null.png}">
-                            </div>
-
-                            <div class="people-info">
-                                <pre class="info-name">홍길동</pre>
-                                <pre class="info-role">감독</pre>
-                            </div>
-
-                        </li>
-
-
-                        <li class="people">
-
-                            <div class="people-img">
-                                <img th:src="@{/images/movie/영화인/null.png}">
-                            </div>
-
-                            <div class="people-info">
-                                <pre class="info-name">홍길동</pre>
-                                <pre class="info-role">감독</pre>
-                            </div>
-
-                        </li>
-
-
-                        <li class="people">
-
-                            <div class="people-img">
-                                <img th:src="@{/images/movie/영화인/null.png}">
-                            </div>
-
-                            <div class="people-info">
-                                <pre class="info-name">홍길동</pre>
-                                <pre class="info-role">감독</pre>
-                            </div>
-
-                        </li>
-
 
                     </ul>
 
@@ -248,36 +182,79 @@
 
 
             <!-- comment(평점 및 관람평) -->
-            <div class="outer-info__type-comment">
+            <div class="outer-info__type-comment menu-active">
 
-                <form class="comment-submit" action="#" method="post">
+                <form class="comment-submit" th:action method="post">
 
-                    
+                    <div class="star-rating">
+
+                        <div class="font1">평점 · 관람평 작성</div>
+
+                        <div class="score-container">
+
+                            <div class="score"
+                                th:style="|background: url(@{/images/movie/comment/starGray.png}) repeat-x;
+                                background-size: 60px 60px;|
+                                ">
+                                <span class="score-value" id="scoreValue"
+                                th:style="|background: url(@{/images/movie/comment/star3.png}) repeat-x; 
+                                background-size: 60px 60px;|
+                                ">
+                                    <input type="range" min=1 max=10 id="star" name="score" value=9>
+                                </span>
+                            </div>
+
+                            <div class="rating-value font0" id="ratingValue">9</div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="review-write">
+                        <textarea class="review-textarea" name="reviewContent" placeholder="평점 및 영화 관람평을 작성해주세요. 주제와 무관한 리뷰 또는 스포일러는 신고, 삭제될 수 있습니다."></textarea>
+                        <button class="review-btn">관람평 작성</button>
+                    </div>
 
                 </form>
-
 
 
                 <div class="comment-list"> <!-- th:if="commentsize != 0" -->
 
                     <div class="comment-list__nav">
 
+                        <div class="comment--nav-title">
+                            <img th:src="@{/images/movie/comment/star3.png}">
+                            <div>관람객 관람평</div>
+                        </div>
+
+                        <div class="comment--nav-sort">
+
+                            <div class="review-counter">
+                                총 <span>00</span> 건
+                            </div>
+                            |
+                            <div>
+                                최신순
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="comment-list__list">
 
-                        <div class="comment-each">
+                        <div class="comment-each comment-none" th:if="${movieComment.isEmpty()}">
+                            작성된 관람평이 없습니다.
+                        </div>
 
+                        <div class="comment-each" th:unless="${movieComment.isEmpty()}" th:each="comment : ${movieComment}">
+                            
                         </div>
 
                     </div>
 
                 </div>
-
-                <div class="comment-list-null"> <!-- th:unless="commentsize != 0" -->
-
-                </div>
-
 
             </div>
 
@@ -291,7 +268,9 @@
     </div>
     
     <section class="movie--bot__banner">
-        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
     </section>
 
     <th:block th:replace="~{common/footer}"></th:block>

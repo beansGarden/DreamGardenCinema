@@ -26,9 +26,13 @@ public class Qna {
 	private int qnaCommentNo;
 	private String qnaCommentDate;
 	private String qnaCommentFl;
+	private String qnaComment;
 	
 	//JOIN USER_INFO
 	private int userRating;
+	
+	//JOIN QNA_IMG
+	private String qnaImage;
 	
 	//검색필터
 	private  String type;

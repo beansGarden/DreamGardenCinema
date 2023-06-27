@@ -98,5 +98,12 @@
 		WHERE USER_NO = #{userNo}
 		AND USE_FL ='N'
 	</select>
+	
+	<!-- 회원 탈퇴-->
+	<update id="secessionUser" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_CLOSE = 'Y'
+		WHERE USER_NO = #{userNo}
+	</update>
 
 </mapper>
