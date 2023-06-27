@@ -47,5 +47,11 @@ public interface MypageMapper {
 	 */
 	public List<Coupon> couponList(int userNo);
 
+	/** 회원 탈퇴
+	 * @param userNo
+	 * @return
+	 */
+	public int secessionUser(int userNo);
+
 
 }

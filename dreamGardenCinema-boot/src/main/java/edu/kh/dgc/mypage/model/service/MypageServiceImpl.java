@@ -76,5 +76,30 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<Coupon> couponList(int userNo) {
 		return mapper.couponList(userNo);
-	}	
+	}
+
+	@Override
+	public int secessionCheck(int userNo, String secessionPwValue) {
+		
+		int result = 0;
+
+		String encPw = mapper.selectEncPw(userNo);
+		
+		if(bcrypt.matches(secessionPwValue,encPw)) {
+			result = 1;
+			
+		}else {
+
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	// 회원 탈퇴
+	@Override
+	public int secessionUser(int userNo) {
+		return mapper.secessionUser(userNo);
+	}
+
 }
