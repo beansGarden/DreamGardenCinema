@@ -125,6 +125,16 @@ public class AdminController {
 
 	}
 	
+	//2-3 회원 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminUserListAjax")
+    public int adminUserListAjax() {
+        
+		
+		return service.userListCount();
+    }
+	
+	
 	
 	// 3.관리자 영화 관리
 	@GetMapping("/adminMovieManage") 
@@ -171,8 +181,17 @@ public class AdminController {
 
 	}
 	
+	//3-3 영화 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminMovieListAjax")
+    public int adminMovieListAjax() {
+        
+		
+		return service.movieListCount();
+    }
 	
-	// 4.관리자 상영 관리
+	
+	// 4.관리자 상영 관리 -구현 완-
 	@GetMapping("/adminCinemaManage") 
 	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 		
@@ -227,6 +246,20 @@ public class AdminController {
 		return "admin/admin_cinemaMangeDetail";
 	}
 
+	
+	//4-3 상영관 관리자 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminCinemaListAjax")
+    public int adminCinemaListAjax() {
+        
+		
+		return service.movieScheduleListCount();
+    }
+	
+	
+	
+	
+	
 	// 5.관리자 공지사항 리스트 조회
 	@GetMapping("/adminNotice") //
 	public String notice(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
@@ -344,6 +377,17 @@ public class AdminController {
 	}
 
 	
+	//5-6 공지사항 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminNoticeListAjax")
+    public int adminNoticeListAjax() {
+        
+		
+		return service.noticeListCount();
+    }
+	
+	
+	
 
 	// 6. 1:1 문의사항 리스트 조회 230613
 	@GetMapping("/adminQna") //
@@ -366,8 +410,10 @@ public class AdminController {
 	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,Qna qna,
 			QnaComment qnaComment) {
 
+		//게시글 불러오기
 		qna = service.selectQnaOne(qnaNo);
 		
+		//답변 불러오기
 		QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
 
 		qna.setQnaNo(qnaNo);
@@ -462,9 +508,9 @@ public class AdminController {
 	        if (qnaUpdateResult > 0) {
 	            ra.addFlashAttribute("message", "성공");
 	            
-	            Qna qnaFlUpdate = service.updateAnswer(qnaNo);
+	           int qnaFlUpdate = service.updateAnswer(qnaNo);
 	            
-	            if (qnaFlUpdate != null) {
+	            if (qnaFlUpdate > 0) {
 	                ra.addFlashAttribute("message", "성공");
 	                return "redirect:/adminQnaRead" + "/" + qnaNo;
 	            } else {
@@ -498,9 +544,9 @@ public class AdminController {
 	            ra.addFlashAttribute("message", "성공");
 	            
 	            // 결과(update)
-	            Qna  qnaFlUpdate = service.updateAnswer(qnaNo);
+	            int qnaFlUpdate = service.updateAnswer(qnaNo);
 	            
-	            if (qnaFlUpdate != null) {
+	            if (qnaFlUpdate > 0) {
 	                ra.addFlashAttribute("message", "성공");
 	                return "redirect:/adminQnaRead" + "/" + qnaNo;
 	            } else {
@@ -610,6 +656,17 @@ public class AdminController {
 
 	}
 
+	//6-6 Qna 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminQnaListAjax")
+    public int adminQnaListAjax() {
+        
+		
+		return service.qnaListCount();
+    }
+	
+	
+	
 	// 7. FAQ 리스트 조회
 	@GetMapping("/adminFaq") //
 	public String faqList(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
@@ -757,6 +814,17 @@ public class AdminController {
 		return "admin/admin_faq";
 
 	}
+	
+	//7-5 FAQ 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminFaqListAjax")
+    public int adminFaqListAjax() {
+        
+		
+		return service.faqListCount();
+    }
+	
+	
 	
 
 	// 8. 신고하기 리스트 조회

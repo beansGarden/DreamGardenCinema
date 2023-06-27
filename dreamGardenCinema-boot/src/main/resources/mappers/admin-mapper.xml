@@ -309,8 +309,7 @@
 		</select>
 	 
 	 <!--////////////영화////////////-->
-	 
-	
+
 	 
 	  <select id="movieListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -334,22 +333,30 @@
 	 </select>
 	 
 	 <select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
-		  SELECT MOVIE_NO,MOVIE_TITLE,RELEASE_DATE,MOVIE_PRICE
-		 FROM MOVIE
+		 SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
+		FROM MOVIE M
+		JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	
 		  <where>
 		    <choose>
 		      <when test="type != null and type.equals('number')">
 		        <if test="keyword != null and keyword != ''">
-		          AND MOVIE_NO LIKE  #{keyword}
+		          AND M.MOVIE_NO LIKE  #{keyword}
 		        </if>
 		      </when>
 		      <when test="type != null and type.equals('title')">
 		        <if test="keyword != null and keyword != ''">
-		          AND MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+		          AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		     <when test="type != null and type.equals('director')">
+		        <if test="keyword != null and keyword != ''">
+		          AND P.PERSON_NAME LIKE '%' || #{keyword} || '%'
 		        </if>
 		      </when>
 		    </choose>
 		  </where>
+		  	GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
 		</select>
 	 
 	 

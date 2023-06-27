@@ -36,7 +36,6 @@ public interface AdminMapper {
 	//1:1문의 Qna 게시글 개수 불러오기
 	int qnaListCount();
 
-	
 	//1:1문의 게시판 조회
 	List<Qna> adminQnaList(RowBounds rowBounds);
 	
@@ -53,7 +52,7 @@ public interface AdminMapper {
 	int qnaInsert(Qna qna);
 
 	//1:1문의 게시글 답변 등록 확인(업데이트)
-	Qna updateAnswer(int qnaNo);
+	int updateAnswer(int qnaNo);
 
 	//1:1문의 게시글 답변 불러오기(select)
 	QnaComment selectQnaCommentList(QnaComment qnaCommentNo);
@@ -120,6 +119,7 @@ public interface AdminMapper {
 	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
 
 
+	
 	//상영관 List 조회************************************************
 	/**상영관 영화 List 조회
 	 * @param condition 
@@ -248,6 +248,11 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
+
+
+
+
+	
 
 
 

@@ -22,8 +22,9 @@ public interface AdminService {
 	//대시보드 1:1문의 최신 5개만 오게하기
 	List<Qna> adminQnaList5();
 	
-	
-	
+	//영화 개수 가져오기
+	int movieListCount();
+
 	//------------------------------------------
 	//관리자 사이드바 로그인 보여주기
 	List<User> getAdminDetails();
@@ -32,7 +33,7 @@ public interface AdminService {
 	Map<String, Object> adminQnaList(int cp);
 
 	//1:1 문의 게시글 읽기 조회
-	Qna selectQnaOne(int qnaNo);
+	Qna  selectQnaOne(int qnaNo);
 	
 	//1:1 문의 게시글 수정
 	int qnaUpdate(Qna qna);
@@ -45,7 +46,7 @@ public interface AdminService {
 
 
 	//1:1문의 게시글 답변 등록 확인(업데이트)
-	Qna updateAnswer(int qnaNo);
+	int updateAnswer(int qnaNo);
 
 	//1:1문의 게시글 답변 불러오기(select)
 	QnaComment selectQnaCommentList(QnaComment qnaComment);
@@ -59,6 +60,9 @@ public interface AdminService {
 	//1:1문의 게시글검색
 	Map<String, Object> getSearchList(Qna condition, int cp);
 
+	//1:1문의 Qna 전체 개수 가져오기
+	int qnaListCount();
+	
 	//회원*****************************************
 	
 	//회원관리 List 조회
@@ -70,6 +74,9 @@ public interface AdminService {
 
 	//회원 검색
 	Map<String, Object> getUserSearchList(User condition,int cp);
+	
+	//회원 전체 개수 가져오기
+	int userListCount();
 
 	//영화 관리***********************************
 	
@@ -95,8 +102,8 @@ public interface AdminService {
 	//상영관 영화,상영시간 등록
 	int cinemaListInsert(Movie movie);
 	
-	
-
+	//상영관 스케쥴 개수
+	int movieScheduleListCount();
 
 	
 	//공지사항 관리*******************************
@@ -116,7 +123,8 @@ public interface AdminService {
 	//공지사항 게시글 검색
 	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
 
-
+	//공지사항 전체 개수
+	int noticeListCount();
 
 	
 	//FAQ (자주 찾는 질문) 관리*****************************
@@ -143,6 +151,17 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 게시글 검색
 	Map<String, Object> getFaqSearchList(FAQ condtion, int cp);
 
+	//FAQ 개수
+	int faqListCount();
+
+	
+
+	
+
+
+
+
+	
 
 
 
