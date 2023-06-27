@@ -114,7 +114,7 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1문의 게시글 답변 등록 확인(업데이트)
 	@Override
-	public Qna updateAnswer(int qnaNo) {
+	public int updateAnswer(int qnaNo) {
 
 		return mapper.updateAnswer(qnaNo);
 	}
@@ -136,6 +136,7 @@ public class AdminServiceImpl implements AdminService {
 	// 1:1 문의사항 검색
 	@Override
 	public Map<String, Object> getSearchList(Qna conditon, int cp) {
+		
 		int qnalistCount = mapper.qnaListCount();
 
 		Pagination pagination = new Pagination(qnalistCount, cp);
@@ -159,6 +160,16 @@ public class AdminServiceImpl implements AdminService {
 		getQnaSearchMap.put("qnaList", qnaList);
 
 		return getQnaSearchMap;
+	}
+	
+
+	//1:1문의 Qna 게시판 
+	@Override
+	public int qnaListCount() {
+		
+		int qnalistCount = mapper.qnaListCount();
+		
+		return qnalistCount;
 	}
 
 
@@ -229,6 +240,18 @@ public class AdminServiceImpl implements AdminService {
 		return getUserSearchList;
 	}
 
+
+	//회원 전체 개수 가져오기
+	@Override
+	public int userListCount() {
+		
+		int userlistCount = mapper.userListCount();
+		
+		return userlistCount;
+	}
+
+	
+	
 	// 영화***************************************************
 
 	// 영화 List 조회
@@ -236,14 +259,8 @@ public class AdminServiceImpl implements AdminService {
 	public Map<String, Object> adminMovieList(int cp) {
 		
 		int movieListCount = mapper.movieListCount();
-
+		
 		Pagination pagination = new Pagination(movieListCount, cp);
-
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
 
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -261,6 +278,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminMovieMap;
 	}
 	
+	//영화전체 개수 가져오기
+	@Override
+	public int movieListCount() {
+		
+		int movieListCount = mapper.movieListCount();
+		
+		return movieListCount;
+	}
+
+
 	
 	//영화검색
 	@Override
@@ -376,6 +403,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.cinemaListInsert(movie);
 	}
+	
+	//상영관 스케쥴 개수
+	@Override
+	public int movieScheduleListCount() {
+		
+		int movieScheduleListCount = mapper.movieScheduleListCount();
+		
+		return movieScheduleListCount;
+	}
+	
 
 	// 공지사항************************************************
 
@@ -460,6 +497,15 @@ public class AdminServiceImpl implements AdminService {
 		return getNoticeSearchMap;
 	}
 
+	//공지사항 전체 개수
+	@Override
+	public int noticeListCount() {
+		
+		int noticeListCount = mapper.noticeListCount();
+	
+		return noticeListCount;
+	}
+	
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
 	// FAQ 게시판 List 조회
@@ -564,6 +610,20 @@ public class AdminServiceImpl implements AdminService {
 	public List<SalesByPeriod> getSalesByDay() {
 		return mapper.getSalesByDay();
 	}
+
+	//FAQ 개수
+	@Override
+	public int faqListCount() {
+		
+		int faqListCount = mapper.faqListCount();
+		
+		return faqListCount;
+	}
+
+	
+
+	
+
 
 
 

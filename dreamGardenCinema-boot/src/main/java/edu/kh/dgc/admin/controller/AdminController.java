@@ -120,7 +120,18 @@ public class AdminController {
 		return "admin/admin_user";
 
 	}
-
+	
+	//2-3 회원 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminUserListAjax")
+    public int adminUserListAjax() {
+        
+		
+		return service.userListCount();
+    }
+	
+	
+	
 	// 3.관리자 영화 관리
 	@GetMapping("/adminMovieManage")
 	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
@@ -165,24 +176,32 @@ public class AdminController {
 		return "admin/admin_movieManage";
 
 	}
-
-	// 4.관리자 상영 관리
-	@GetMapping("/adminCinemaManage")
-	public String cinemaManage(Model model, @Param("movieday") String movieday,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-			@RequestParam Map<String, Object> paramMap) {
-
-		if (paramMap.get("key") == null) {
-
-			Movie condition = new Movie();
-
-			condition.setMovieday(movieday);
-
-			Map<String, Object> cinemaMap = service.adminCinemaList(condition, cp);
-
-			model.addAttribute("cinemaList", cinemaMap);
-
-			System.out.println(cinemaMap);
+	
+	//3-3 영화 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminMovieListAjax")
+    public int adminMovieListAjax() {
+        
+		
+		return service.movieListCount();
+    }
+	
+	
+	// 4.관리자 상영 관리 -구현 완-
+	@GetMapping("/adminCinemaManage") 
+	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+		
+		if(paramMap.get("key") == null) {	
+		
+		Movie condition = new Movie();
+			
+		condition.setMovieday(movieday);
+			
+		Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
+		
+		model.addAttribute("cinemaList", cinemaMap);
+		
+		System.out.println(cinemaMap);
 		}
 		return "admin/admin_cinemaManage";
 	}
@@ -224,6 +243,20 @@ public class AdminController {
 		return "admin/admin_cinemaMangeDetail";
 	}
 
+	
+	//4-3 상영관 관리자 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminCinemaListAjax")
+    public int adminCinemaListAjax() {
+        
+		
+		return service.movieScheduleListCount();
+    }
+	
+	
+	
+	
+	
 	// 5.관리자 공지사항 리스트 조회
 	@GetMapping("/adminNotice") //
 	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
@@ -338,6 +371,19 @@ public class AdminController {
 		return service.noticeDelete(noticeNo);
 	}
 
+	
+	//5-6 공지사항 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminNoticeListAjax")
+    public int adminNoticeListAjax() {
+        
+		
+		return service.noticeListCount();
+    }
+	
+	
+	
+
 	// 6. 1:1 문의사항 리스트 조회 230613
 	@GetMapping("/adminQna") //
 	public String qnaList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
@@ -360,8 +406,10 @@ public class AdminController {
 	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo, Qna qna,
 			QnaComment qnaComment) {
 
+		//게시글 불러오기
 		qna = service.selectQnaOne(qnaNo);
-
+		
+		//답변 불러오기
 		QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
 
 		qna.setQnaNo(qnaNo);
@@ -421,92 +469,97 @@ public class AdminController {
 
 		return "admin/admin_QNA_read";
 	}
-	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입
-	// 230615------------------------------------------------진행중6/22
+	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615------------------------------------------------진행중6/22
 
-	@RequestMapping("/adminQnaAnswer/{qnaNo}")
-	public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
-			@RequestParam(value = "qnaComment", required = false) String qnaComment,
-			@RequestParam(value = "userNo", required = false) Integer userNo,
-			@RequestParam(value = "qnaCommentNo", required = false) Integer qnaCommentNo,
-			@ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
+   @RequestMapping("/adminQnaAnswer/{qnaNo}")
+   public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
+           @RequestParam(value = "qnaComment", required = false) String qnaComment,
+           @RequestParam(value = "userNo", required = false)  Integer userNo,
+           @RequestParam(value = "qnaCommentNo", required = false) Integer qnaCommentNo,
+           @ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
+      
+      System.out.println("qnaCommentNo : " + qnaCommentNo);
+      System.out.println("userNo : " + userNo);
+      System.out.println("qnaNo : " + qnaNo);
+      System.out.println("qnaComment : " + qnaComment);
+      
 
-		System.out.println("qnaCommentNo : " + qnaCommentNo);
-		System.out.println("userNo : " + userNo);
-		System.out.println("qnaNo : " + qnaNo);
-		System.out.println("qnaComment : " + qnaComment);
+      if(qnaCommentNo > 0) {
+         System.out.println("       if (qnaComment != null) 통과 ");
+          QnaComment qnaCommentObj = new QnaComment();
+          qnaCommentObj.setQnaNo(qnaNo);
+          qnaCommentObj.setQnaComment(qnaComment);
+          qnaCommentObj.setUserNo(userNo);
+          qnaCommentObj.setQnaCommentNo(qnaCommentNo);
+          
+//          if (userNo < ) {
+//              qnaCommentObj.setUserNo(userNo);
+//          }
+          
+           int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
 
-		if (qnaCommentNo > 0) {
-			System.out.println("	    if (qnaComment != null) 통과 ");
-			QnaComment qnaCommentObj = new QnaComment();
-			qnaCommentObj.setQnaNo(qnaNo);
-			qnaCommentObj.setQnaComment(qnaComment);
-			qnaCommentObj.setUserNo(userNo);
-			qnaCommentObj.setQnaCommentNo(qnaCommentNo);
+           System.out.println("qnaUpdateResult : " + qnaUpdateResult);
+           System.out.println("qnaCommentObj :" +qnaCommentObj);
 
-//	    	if (userNo < ) {
-//	    	    qnaCommentObj.setUserNo(userNo);
-//	    	}
+           if (qnaUpdateResult > 0) {
+               ra.addFlashAttribute("message", "성공");
+               
+              int qnaFlUpdate = service.updateAnswer(qnaNo);
+               
+               if (qnaFlUpdate > 0) {
+                   ra.addFlashAttribute("message", "성공");
+                   return "redirect:/adminQnaRead" + "/" + qnaNo;
+               } else {
+                   ra.addFlashAttribute("message", "실패");
+                   return "redirect:/adminQnaRead" + "/" + qnaNo;
+               }
+               
+           
+           } else {
+               ra.addFlashAttribute("message", "실패");
+               
+            
+           }
+       } else {
+         
+           QnaComment qnaCommentInsert = new QnaComment();
+           qnaCommentInsert.setQnaNo(qnaNo);
+           qnaCommentInsert.setQnaComment(qnaComment);
+           qnaCommentInsert.setUserNo(userNo);
+          
+         
+           // 결과값 (0,1)
+           int qnaResult = service.qnaAnswerInsert(qnaCommentInsert);
 
-			int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
+           System.out.println("qnaCommentInsert :" + qnaCommentInsert);
+           System.out.println("qnaResult : " + qnaResult);
 
-			System.out.println("qnaUpdateResult : " + qnaUpdateResult);
-			System.out.println("qnaCommentObj :" + qnaCommentObj);
+           if (qnaResult > 0) {
+               ra.addFlashAttribute("message", "성공");
+               
+               // 결과(update)
+               int qnaFlUpdate = service.updateAnswer(qnaNo);
+               
+               if (qnaFlUpdate > 0) {
+                   ra.addFlashAttribute("message", "성공");
+                   return "redirect:/adminQnaRead" + "/" + qnaNo;
+               } else {
+                   ra.addFlashAttribute("message", "실패");
+                   return "redirect:/adminQnaRead" + "/" + qnaNo;
+               }
+               
+             
+           } else {
+               ra.addFlashAttribute("message", "실패");
+               
+               
+           }
+       }
 
-			if (qnaUpdateResult > 0) {
-				ra.addFlashAttribute("message", "성공");
-
-				Qna qnaFlUpdate = service.updateAnswer(qnaNo);
-
-				if (qnaFlUpdate != null) {
-					ra.addFlashAttribute("message", "성공");
-					return "redirect:/adminQnaRead" + "/" + qnaNo;
-				} else {
-					ra.addFlashAttribute("message", "실패");
-					return "redirect:/adminQnaRead" + "/" + qnaNo;
-				}
-
-			} else {
-				ra.addFlashAttribute("message", "실패");
-
-			}
-		} else {
-
-			QnaComment qnaCommentInsert = new QnaComment();
-			qnaCommentInsert.setQnaNo(qnaNo);
-			qnaCommentInsert.setQnaComment(qnaComment);
-			qnaCommentInsert.setUserNo(userNo);
-
-			// 결과값 (0,1)
-			int qnaResult = service.qnaAnswerInsert(qnaCommentInsert);
-
-			System.out.println("qnaCommentInsert :" + qnaCommentInsert);
-
-			System.out.println("qnaResult : " + qnaResult);
-
-			if (qnaResult > 0) {
-				ra.addFlashAttribute("message", "성공");
-
-				// 결과(update)
-				Qna qnaFlUpdate = service.updateAnswer(qnaNo);
-
-				if (qnaFlUpdate != null) {
-					ra.addFlashAttribute("message", "성공");
-					return "redirect:/adminQnaRead" + "/" + qnaNo;
-				} else {
-					ra.addFlashAttribute("message", "실패");
-					return "redirect:/adminQnaRead" + "/" + qnaNo;
-				}
-
-			} else {
-				ra.addFlashAttribute("message", "실패");
-
-			}
-		}
-
-		return "redirect:/adminQnaRead" + "/" + qnaNo;
-
-	}
+      return "redirect:/adminQnaRead" +"/" + qnaNo;
+   
+   }
+   
 
 	// 6-2. 1:1 문의사항 게시글 수정화면 전환 230614
 	@GetMapping("/adminQnaUpdate/{qnaNo}")
@@ -597,6 +650,17 @@ public class AdminController {
 
 	}
 
+	//6-6 Qna 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminQnaListAjax")
+    public int adminQnaListAjax() {
+        
+		
+		return service.qnaListCount();
+    }
+	
+	
+	
 	// 7. FAQ 리스트 조회
 	@GetMapping("/adminFaq") //
 	public String faqList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
@@ -741,6 +805,18 @@ public class AdminController {
 		return "admin/admin_faq";
 
 	}
+	
+	//7-5 FAQ 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminFaqListAjax")
+    public int adminFaqListAjax() {
+        
+		
+		return service.faqListCount();
+    }
+	
+	
+	
 
 	// 8. 신고하기 리스트 조회
 	@GetMapping("/adminReport") //

@@ -79,3 +79,27 @@ function userSelectAll(checkbox) {
   var totalItems = document.querySelectorAll('.admin_noticeCheckbox').length;
   countAll.textContent = totalItems.toString();
   
+  //공지사항 notice 전체 불러오기
+
+  // Ajax 요청 함수
+  function ajaxRequest(url, method, successCallback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            successCallback(xhr.responseText);
+        }
+    };
+    xhr.send();
+}
+
+// 영화 개수 가져오기
+function getNoticeCount() {
+    ajaxRequest('/adminNoticeListAjax', 'GET', function(response) {
+        var countElement = document.querySelector('.admin_noticeCountAll');
+        countElement.textContent = response;
+    });
+}
+
+// 페이지 로드 시 영화 개수 가져오기 호출
+getNoticeCount()
