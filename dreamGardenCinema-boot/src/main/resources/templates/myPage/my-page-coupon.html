@@ -9,64 +9,79 @@
 </head>
 <body>
     <!-- 등급별로 쿠폰 보이지 않게 + 사용한 쿠폰 보이지 않게 기능 추가 예정 -->
-    <ul id="display-onoff" th:if="${CouponList.size()>0}">
-        <li style="--i:1;" class="one">
+    <ul id="display-onoff">
+        <li th:each="coupon, i : ${CouponList}" style="--i: ${(i.index + 1)};" th:class="${'CouponList' + (i.index + 1)}">
+            <img th:src="@{/images/myPage/tiket.png}">
+            <div class="coupon-text">
+                <h4 th:text="${coupon.couponName}"></h4>
+                <th:block th:if="${coupon.couponPrice==10000}">
+                    <span>영화 무료 쿠폰</span>
+                </th:block>
+                <th:block th:unless="${coupon.couponPrice==10000}">
+                    <span th:text='|${coupon.couponPrice}원 할인 쿠폰|'></span>
+                </th:block>
+            </div>
+        </li>
+    </ul>
+    
+    <!-- <ul id="display-onoff" th:if="${CouponList.size()>0}">
+        <li style="--i:1;" class="CouponList1">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 브론즈 쿠폰</h4>
                 <span>1000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:2;" class="two">
+        <li style="--i:2;" class="CouponList2">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 실버 쿠폰</h4>
                 <span>2000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:3;" class="three">
+        <li style="--i:3;" class="CouponList3">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 실버 쿠폰</h4>
                 <span>2000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:4;" class="four">
+        <li style="--i:4;" class="CouponList4">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 골드 쿠폰</h4>
                 <span>3000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:5;" class="five">
+        <li style="--i:5;" class="CouponList5">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 골드 쿠폰</h4>
                 <span>3000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:6;" class="six">
+        <li style="--i:6;" class="CouponList6">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 골드 쿠폰</h4>
                 <span>3000원 할인 쿠폰</span>
             </div>
         </li>
-        <li style="--i:7;" class="seven">
+        <li style="--i:7;" class="CouponList7">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 플래티넘 쿠폰</h4>
                 <span>영화 무료 쿠폰</span>
             </div>
         </li>
-        <li style="--i:8;" class="eight">
+        <li style="--i:8;" class="CouponList8">
             <img th:src="@{/images/myPage/tiket.png}">
             <div class="coupon-text">
                 <h4>멤버십 플래티넘 쿠폰</h4>
                 <span>영화 무료 쿠폰</span>
             </div>
         </li>
-    </ul>
+    </ul> -->
     
     <div id="coupon-null" th:if="${CouponList.size()==0}">
 
@@ -76,5 +91,23 @@
         </div>
 
     </div>
+
+
 </body>
+
+
+    <script th:inline="javascript">
+
+    const couponListSize = /*[[${CouponListSize}]]*/"리스트 사이즈";
+    console.log("CouponList의 크기:", couponListSize);
+
+    if(couponListSize==1){
+        const CouponList1 = document.querySelector(".CouponList1");
+
+        CouponList1.style.transform = 'translateZ(-200px) translateY(-50px)'
+        CouponList1.style.opacity = '0.0';
+    }
+
+    </script>
+
 </html>
