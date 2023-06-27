@@ -96,12 +96,38 @@ function getCinemaCount() {
     });
 }
 
+
+function first() {
+
+  const FAQlistContents = document.querySelector(".admin_cinemaManageAll");
+  const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
+  existingFAQItems.forEach((item) => {
+    item.remove();
+  });
+
+  const FAQCategory = 'U'; //M인 카테고리 타이틀
+
+  fetch("/customerservice/membershipFAQ?FAQCategory=" + FAQCategory)
+    .then((resp) => resp.json())
+    .then((membList) => {
+      console.log(membList);
+
+      for (let mList of membList) {
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 페이지 로드 시 영화 개수 가져오기 호출
 getCinemaCount()
-
-
-
-
   /* 2관으로 넘어가기 */
   const cinemaList = document.querySelectorAll('.admin_cinemaOne');
 

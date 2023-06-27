@@ -80,10 +80,11 @@ function render(){
 
 /* 선택해서 hidden에 넣기 */
 function setHiddenValue(selectElement) {
-    var selectedOption = selectElement.options[selectElement.selectedIndex];
-    var hiddenValue = document.getElementById("hiddenValue");
-    hiddenValue.value = selectedOption.value;
-}
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const movieNoInput = document.getElementById('hiddenValue');
+    movieNoInput.value = selectedOption.value;
+  }
+  
 
 /* 엔터키 금지 */
 document.querySelector('form').addEventListener('keydown', function(event) {
@@ -91,4 +92,6 @@ document.querySelector('form').addEventListener('keydown', function(event) {
       event.preventDefault();
     }
   });
+  
+
   
