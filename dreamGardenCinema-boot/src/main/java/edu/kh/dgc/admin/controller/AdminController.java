@@ -414,6 +414,8 @@ public class AdminController {
 
 		qna.setQnaNo(qnaNo);
 		model.addAttribute("Qna", qna);
+		
+		System.out.println(qna);
 
 		if (qnaCommentList != null) {
 			model.addAttribute("QnaComment", qnaCommentList);

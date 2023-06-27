@@ -31,6 +31,9 @@ public class Qna {
 	//JOIN USER_INFO
 	private int userRating;
 	
+	//JOIN QNA_IMG
+	private String qnaImage;
+	
 	//검색필터
 	private  String type;
 	private String keyword;
