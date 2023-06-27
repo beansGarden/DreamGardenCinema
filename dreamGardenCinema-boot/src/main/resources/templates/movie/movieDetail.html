@@ -35,7 +35,7 @@
     <div class="info-wrapper">
         <section class="movie--detail__basic" th:object="${movie}">
 
-            <div class="detail--movie-poster"><img th:src="@{|*{poster}|}"></div>
+            <div class="detail--movie-poster"><img th:src="@{|*{poster}|}"></div>   
             
             <div class="detail--movie-info">
 
@@ -125,8 +125,8 @@
             
 
 
-            <!-- 영화 정보 -->
-            <div class="outer-info__type-info menu-active" th:object="${movie}">
+            <!-- 영화 정보 -->          <!-- menu-active -->
+            <div class="outer-info__type-info" th:object="${movie}">
 
                 <strong style="font-size: 20px;">시놉시스</strong>
 
@@ -182,19 +182,63 @@
 
 
             <!-- comment(평점 및 관람평) -->
-            <div class="outer-info__type-comment">
+            <div class="outer-info__type-comment menu-active">
 
-                <form class="comment-submit" action="#" method="post">
+                <form class="comment-submit" th:action="@{/movie/movieDetail=${movie.movieNo}/comment}" method="post">
 
-                    
+                    <div class="star-rating">
+
+                        <div class="font1">평점 · 관람평 작성</div>
+
+                        <div class="score-container">
+
+                            <div class="score"
+                                th:style="|background: url(@{/images/movie/comment/starGray.png}) repeat-x;
+                                background-size: 60px 60px;|
+                                ">
+                                <span class="score-value" id="scoreValue"
+                                th:style="|background: url(@{/images/movie/comment/star3.png}) repeat-x; 
+                                background-size: 60px 60px;|
+                                ">
+                                    <input type="range" min=1 max=10 id="star" name="star" value=9>
+                                </span>
+                            </div>
+
+                            <div class="rating-value font0" id="ratingValue">9</div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="review-write">
+                        <textarea class="review-textarea" name="review" placeholder="평점 및 영화 관람평을 작성해주세요. 주제와 무관한 리뷰 또는 스포일러는 신고, 삭제될 수 있습니다."></textarea>
+                        <button class="review-btn">관람평 작성</button>
+                    </div>
 
                 </form>
-
 
 
                 <div class="comment-list"> <!-- th:if="commentsize != 0" -->
 
                     <div class="comment-list__nav">
+
+                        <div class="comment--nav-title">
+                            <img th:src="@{/images/movie/comment/star3.png}">
+                            <div>관람객 관람평</div>
+                        </div>
+
+                        <div class="comment--nav-sort">
+
+                            <div class="review-counter">
+                                총 <span>00</span> 건
+                            </div>
+                            |
+                            <div>
+                                최신순
+                            </div>
+                        </div>
 
                     </div>
 
@@ -203,15 +247,14 @@
                         <div class="comment-each">
 
                         </div>
+                        
+                        <div class="comment-each">
+
+                        </div>
 
                     </div>
 
                 </div>
-
-                <div class="comment-list-null"> <!-- th:unless="commentsize != 0" -->
-
-                </div>
-
 
             </div>
 
