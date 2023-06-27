@@ -1,5 +1,7 @@
 package edu.kh.dgc.qna.model.dto;
 
+import com.google.common.base.Optional;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +19,7 @@ public class QnaComment {
 	private String qnaCommentDate;
 	private String qnaCommentFl;
 	private String qnaComment;
+
 	
 	
 }

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
@@ -13,73 +11,59 @@
     <link rel="stylesheet" href="/css/admin/admin_dashboard.css">
 
 
-   
+
 </head>
+
 <body>
-   <!-- 사이드바 -->
- <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_dashboardWrap" layout:fragment="content">
 
         <div class="admin_dashboardSalesforMovie">
-        <div  class="admin_dashboardSalesforMovie_title"><span>영화별 총 매출</span></div>
-            <div class="admin_dashboardSalesforMovie-in">
-            <select>
-                <option value="">범죄도시3</option>
-                <option value="">바비</option>
-                <option value="">인어공주</option>
-            </select>
-            <span>￦5,000,000</span>
+            <div class="admin_dashboardSalesforMovie_title"><span>영화별 총 매출</span></div>
+            <div class="admin_dashboardSalesforMovie-in" th:field="*{cinemaList}">
+                <select onchange="getTicketAmount(this)">
+                    <option th:each="list: ${cinemaList}" th:value="${list.movieNo}" th:text="${list.movieTitle}">영화를
+                        선택해주세요</option>
+                </select>
+                <input type="hidden" name="movieNo" id="selectedMovie" />
+                 <span id="ticketAmount" th:text="${ticketAmount}">₩5,000,000</span>
+   <!--              <span id="ticketAmount">₩5,000,000</span> -->
+            </div>
         </div>
-        </div>
+
 
         <div class="admin_dashboardSalesforQuater">
             <div class="admin_dashboardSalesforQuater_title"><span>1분기 총 매출</span></div>
             <div class="admin_dashboardSalesforQuater-in">
-            <span>￦50,000,000</span>
-        </div>
-    </div>
-
-        <!-- 1:1 문의 List -->
-        <div class="admin_dashboardQnaList">    
-            <div class="admin_dashboardQnaList_title"><span>1:1 문의 리스트</span></div>
-            <div class="admin_dashboardQnaList-in">
-            <table>
-                <tbody>
-                    <tr>
-                        <th>제목</th>
-                        <th>회원</th>
-                    </tr>
-                    <tr>
-                            <td>지갑 잃어버렸어요</td>
-                            <td>유저일</td>
-                     </tr>
-                     <tr>
-                            <td>할인 쿠폰 어떻게 적용하죠?</td>
-                            <td>유저이</td>
-                    </tr>
-                     <tr>
-                            <td>할인 쿠폰 어떻게 적용하죠?</td>
-                            <td>유저이</td>
-                    </tr>
-                     <tr>
-                            <td>할인 쿠폰 어떻게 적용하죠?</td>
-                            <td>유저이</td>
-                    </tr>
-                     <tr>
-                            <td>할인 쿠폰 어떻게 적용하죠?</td>
-                            <td>유저이</td>
-                    </tr>
-                     <tr>
-                            <td>할인 쿠폰 어떻게 적용하죠?</td>
-                            <td>유저이</td>
-                    </tr>
-            </tbody>
-            </table>
+                <span>￦50,000,000</span>
             </div>
         </div>
 
-        
+        <!-- 1:1 문의 List -->
+
+        <div class="admin_dashboardQnaList">
+            <div class="admin_dashboardQnaList_title"><span>1:1 문의 리스트</span></div>
+            <div class="admin_dashboardQnaList-in">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>제목</th>
+                            <th>회원</th>
+                        </tr>
+                        <tr th:each="list: ${adminQnaList}">
+                            <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">지갑 잃어버렸어요</a></td>
+                            <td th:text="${list.userNickname}" style="width: 100px">유저일</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
         <div class="admin_dashboardSalesforLastweek">
             <div class="admin_dashboardSalesforLastweek_title"><span>지난주 요일별 매출</span></div>
             <div class="admin_dashboardSalesforLastweek-in">
@@ -87,14 +71,16 @@
                     <!--차트가 그려질 부분-->
                     <canvas id="myChart" style="width: 400px;"></canvas>
                 </div>
+            </div>
         </div>
-     </div>
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="\js\admin\admin_dashborad.js"></script>
-  
+
+
 
 </body>
+
 </html>

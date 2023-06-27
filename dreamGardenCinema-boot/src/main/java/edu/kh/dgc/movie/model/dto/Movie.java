@@ -30,4 +30,8 @@ public class Movie {
 	private String movieTime; //상영시간
 	private String movieday; //상영일
 	
+
+	//검색필터
+	private  String type;
+	private String keyword;
 }

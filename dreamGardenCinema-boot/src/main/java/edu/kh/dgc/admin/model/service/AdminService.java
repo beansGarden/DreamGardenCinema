@@ -8,15 +8,28 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 public interface AdminService {
 
+	
+	//대시보드 
+	
+	//영화별 매출 리스트 불러오기
+	List<Ticket> ticketList(String movieNo);
+	
+	//대시보드 1:1문의 최신 5개만 오게하기
+	List<Qna> adminQnaList5();
+	
+	
+	
+	//------------------------------------------
 	//관리자 사이드바 로그인 보여주기
 	List<User> getAdminDetails();
 	
 	//1:1문의 게시판 조회
-	List<Qna> adminQnaList();
+	Map<String, Object> adminQnaList(int cp);
 
 	//1:1 문의 게시글 읽기 조회
 	Qna selectQnaOne(int qnaNo);
@@ -32,7 +45,7 @@ public interface AdminService {
 
 
 	//1:1문의 게시글 답변 등록 확인(업데이트)
-	QnaComment updateAnswer(int qnaNo);
+	Qna updateAnswer(int qnaNo);
 
 	//1:1문의 게시글 답변 불러오기(select)
 	QnaComment selectQnaCommentList(QnaComment qnaComment);
@@ -41,10 +54,10 @@ public interface AdminService {
 	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 	
 	//1:1문의 게시글 답변 쓰기 (insert)
-	int qnaAnswerInsert(QnaComment qnaComment);
+	int qnaAnswerInsert(QnaComment qnaCommentObj);
 
 	//1:1문의 게시글검색
-	List<Qna> getSearchList(Qna qnaList);
+	Map<String, Object> getSearchList(Qna condition, int cp);
 
 	//회원*****************************************
 	
@@ -61,22 +74,30 @@ public interface AdminService {
 	//영화 관리***********************************
 	
 	//영화 List 조회
-	List<Movie> adminMovieList();
+	Map<String, Object> adminMovieList(int cp);
+
+	//영화 검색
+	Map<String, Object> getMovieSearchList(Movie condition, int cp);
+
 
 	
 	//상영관 관리***************************
 	
 	//상영관 영화 List 조회
-	Map<String, Object> adminCinemaList(int cp);
+	Map<String, Object> adminCinemaList(Movie condition, int cp);
 	
 	//2관 페이지 이동
-	List<Movie> adminCinemaTwo(String movieTheaterNo);
+	Map<String, Object> adminCinemaTwo(String movieTheaterNo, int cp);
 
 	//상영관 등록 영화 불러오기
 	List<Movie> cinemaList();
 
 	//상영관 영화,상영시간 등록
 	int cinemaListInsert(Movie movie);
+	
+	
+
+
 	
 	//공지사항 관리*******************************
 	
@@ -93,7 +114,7 @@ public interface AdminService {
 	int noticeDelete(int noticeNo);
 	
 	//공지사항 게시글 검색
-	List<Notice> getNoticeSearchList(Notice noticeList);
+	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
 
 
 
@@ -101,7 +122,7 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 관리*****************************
 	
 	//FAQ (자주 찾는 질문) List 조회
-	List<FAQ> adminFaqList();
+	Map<String , Object> adminFaqList(int cp);
 
 	//FAQ (자주 찾는 질문) 게시글 조회
 	List<FAQ> adminFaqOne(FAQ faq);
@@ -120,8 +141,14 @@ public interface AdminService {
 	int deleteFaq(int fAQNo);
 
 	//FAQ (자주 찾는 질문) 게시글 검색
-	List<FAQ> getFaqSearchList(FAQ faqList);
+	Map<String, Object> getFaqSearchList(FAQ condtion, int cp);
 
+
+
+
+
+
+	
 
 	
 

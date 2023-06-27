@@ -59,7 +59,7 @@ html, body {
 .admin_dashboardSalesforMovie-in>select{
     border: none;
     outline: none;
-    width: 100px;
+    width: 400px;
     height: 30px;
     background-color: rgba(148, 148, 148, 0);
     font-size: 15px;

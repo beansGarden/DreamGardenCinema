@@ -49,6 +49,10 @@
                                     </div></td>
                         </tr>
                         <tr>
+                            <th>답변 번호</th>
+                            <td th:text="${QnaComment.qnaCommentNo}" name="qnaCommentNo">1</td>
+                        </tr>
+                        <tr>
                             <th>답변</th>
                                 <td>    <!-- 내용 -->
                                     <div class="admin_qnaComment" th:text="${QnaComment.qnaComment}">

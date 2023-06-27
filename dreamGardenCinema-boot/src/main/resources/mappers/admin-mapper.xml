@@ -13,7 +13,7 @@
 		<result property="qnaDeleteFl" column="QNA_DELETE_FL"/>
 		<result property="qnaCheckFl" column="QNA_CHECK_FL"/>
 		<result property="qnaCategory" column="QNA_CATEGORY"/>
-		<result property="userNo" column="USER_NO2"/>
+		<result property="userNo" column="USER_NO"/>
 		<result property="userNickname" column="USER_NICKNAME"/>
 		</resultMap>
 		
@@ -88,42 +88,89 @@
 		<result property="movieTheater" column="MOVIE_THEATER"/>
 		<result property="movieTime" column="MOVIE_TIME"/>
 		<result property="movieday" column="MOVIE_DAY"/>
+		<result property="producer" column="PERSON_NAME"/>
 		</resultMap>
 		
 		
 		
-	<!--관리자 로그인 보여주기-->
-<!--	<select id="getAdminDetails" resultMap="user_rm">
-		SELECT USER_ID,USER_NICKNAME
-		FROM USER_INFO
-		WHERE USER_ROLE = 'A'
-	</select>-->
+
 	
 		
+	<!--대시보드-->
+	<!--영화별 매출 불러오기-->	
+	<select id="ticketList" resultType="_int">
+		SELECT SUM(PAY_AMOUNT) AS TOTAL_AMOUNT
+		FROM TICKETING_INFO
+		WHERE MOVIE_NO = #{movieNo}
+	</select>
 		
-	
-<!--회원 리스트 조회-->
-<!--<select id="adminUserList" resultMap="user_rm">
-		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE 
-		FROM USER_INFO
-		WHERE USER_CLOSE ='N'
-	</select>-->
+	<!--Qna 개수 불러오기-->
+	<select id="qnaListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "QNA"
+	</select>
 	
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList" resultMap="qna_rm">
-		SELECT QNA_NO,QNA_TITLE,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME ,QNA_DELETE_FL
-		FROM QNA
-		JOIN "USER_INFO" 
-		ON USER_NO=USER_NO2
-		ORDER BY QNA_NO DESC
+		SELECT
+	  QNA.QNA_NO,
+	  QNA.QNA_TITLE,
+	  TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+	  USER_INFO.USER_NICKNAME,
+	  QNA.QNA_DELETE_FL,
+	  QNA.QNA_CHECK_FL,
+	  QNA_IMG.QNA_IMG_PATH
+	FROM
+	  QNA
+	  JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+	  LEFT JOIN (
+	    SELECT
+	      QNA_NO,
+	      MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
+	    FROM
+	      QNA_IMG
+	    GROUP BY
+	      QNA_NO
+	  ) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
+	ORDER BY
+  QNA.QNA_NO DESC
+	</select>
+	
+	<!--QNA(1:1)문의 리스트 조회-->
+	<select id="adminQnaList5" resultMap="qna_rm">
+		SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL
+	FROM (
+	   SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL,
+	          ROW_NUMBER() OVER (ORDER BY QNA_NO DESC) AS rn
+	   FROM QNA
+	   JOIN "USER_INFO" ON USER_NO = USER_NO2
+	   WHERE QNA_DELETE_FL = 'N'
+	) 
+	WHERE rn &lt;= 5
+
 	</select>
 	
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-		SELECT QNA_NO,QNA_CATEGORY,USER_NO2,QNA_TITLE,QNA_CONTENT,TO_CHAR(QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,USER_NICKNAME,QNA_DELETE_FL
-		FROM QNA
-		JOIN "USER_INFO" ON USER_NO=USER_NO2
-		WHERE QNA_NO = #{qnaNo}
+		SELECT USER_NO,
+	  QNA.QNA_NO,
+	  QNA.QNA_TITLE,
+	  TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+	  USER_INFO.USER_NICKNAME,
+	  QNA.QNA_DELETE_FL,
+	  QNA.QNA_CHECK_FL,
+	  QNA_IMG.QNA_IMG_PATH
+	FROM
+	  QNA
+	  JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+	  LEFT JOIN (
+	    SELECT QNA_NO, MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
+	    FROM QNA_IMG
+	    GROUP BY  QNA_NO
+	  ) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
+	WHERE QNA.QNA_NO = #{qnaNo}
+	ORDER BY
+	  QNA.QNA_NO DESC
 	</select>
 	
 	<!--QNA 글 업데이트-->
@@ -150,18 +197,18 @@
 	<!--글 답변 삽입-->
 	<insert id="qnaAnswerInsert" parameterType="QnaComment" useGeneratedKeys="true">
 
-		<selectKey order = "BEFORE" resultType="_int" keyProperty = "qnaCommentNo">
+		<selectKey order = "BEFORE" resultType="Integer" keyProperty = "qnaCommentNo">
 			SELECT SEQ_QNACOMMENT_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO "QNA _COMMENT"
-		VALUES (#{qnaCommentNo},DEFAULT,DEFAULT,(SELECT USER_NO FROM "QNA _COMMENT" WHERE QNA_NO = #{qnaNo}),#{qnaNo},#{qnaComment})
+		VALUES (#{qnaCommentNo},DEFAULT,DEFAULT,#{userNo},#{qnaNo},#{qnaComment})
 	</insert>
 	
 	<!--글 답변 수정-->
 	<update id="qnaAnswerUpdate">
 		UPDATE "QNA _COMMENT"
 		SET QNA_COMMENT = #{qnaComment}
-		WHERE QNA_COMMENT_NO =#{qnaCommentNo}	
+		WHERE QNA_COMMENT_NO = #{qnaCommentNo}	
 	</update>
 	
 	<!--글 답변 수정 시 QNA에서 답변 된 거 확인-->
@@ -226,63 +273,111 @@
 	 </update>
 	 
 	 <!--회원 검색-->
-	  <select id="getUserSearchList" parameterType="USER" resultMap="user_rm">
-    <bind name="formattedKeyword" value="keyword != null ? '%' + keyword + '%' : null"/>
-    SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
-    FROM USER_INFO
-    <where>
-        <choose>
-            <when test="type != null and type.equals('number')">
-                AND USER_INFO.USER_NO LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('name')">
-                AND USER_INFO.USER_NICKNAME LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('id')">
-                AND USER_INFO.USER_ID LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('email')">
-                AND USER_INFO.USER_EMAIL LIKE #{formattedKeyword}
-            </when>
-            <when test="type != null and type.equals('rating')">
-                AND USER_INFO.USER_RATING LIKE #{formattedKeyword}
-            </when>
-        </choose>
-    </where>
-</select>
-
+	 
+	<select id="getUserSearchList" parameterType="User" resultMap="user_rm">
+		 SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
+	    FROM USER_INFO
+		  <where>
+		    <choose>
+		      <when test="type != null and type.equals('number')">
+		        <if test="keyword != null and keyword != ''">
+		           AND USER_INFO.USER_NO LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('name')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('id')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_ID LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('email')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_EMAIL LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('rating')">
+		        <if test="keyword != null and keyword != ''">
+		         AND USER_INFO.USER_RATING LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		    </choose>
+		  </where>
+		</select>
 	 
 	 <!--////////////영화////////////-->
-	 <select id="adminMovieList" resultType="Movie">
-		SELECT MOVIE_NO,MOVIE_TITLE,PRODUCER,RELEASE_DATE,MOVIE_PRICE 
+	 
+	
+	 
+	  <select id="movieListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MOVIE
+	 </select>
+	 
+	 
+	 <select id="adminMovieList" resultMap="movie_rm">
+		SELECT
+		  MOVIE_NO,
+		  MOVIE_TITLE,
+		  RELEASE_DATE,
+		  MOVIE_PRICE,
+		  (
+		    SELECT LISTAGG(PERSON_NAME, ', ') WITHIN GROUP (ORDER BY PERSON_NAME)
+		    FROM PERSON_INFO
+		    WHERE PERSON_ROLE = '감독' AND MOVIE.MOVIE_NO = PERSON_INFO.MOVIE_NO
+		  ) AS PERSON_NAME
 		FROM MOVIE
 		ORDER BY MOVIE_NO DESC
 	 </select>
+	 
+	 <select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
+		  SELECT MOVIE_NO,MOVIE_TITLE,RELEASE_DATE,MOVIE_PRICE
+		 FROM MOVIE
+		  <where>
+		    <choose>
+		      <when test="type != null and type.equals('number')">
+		        <if test="keyword != null and keyword != ''">
+		          AND MOVIE_NO LIKE  #{keyword}
+		        </if>
+		      </when>
+		      <when test="type != null and type.equals('title')">
+		        <if test="keyword != null and keyword != ''">
+		          AND MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+		        </if>
+		      </when>
+		    </choose>
+		  </where>
+		</select>
 	 
 	 
 	 <!--///////////////상영관//////////////-->
 	<!--상영관 조회-->
 	<select id="MovieScheduleList" resultMap="movie_rm">
 		SELECT
-		  M.MOVIE_NO,
-		  M.MOVIE_TITLE,
-		  M.RUNNING_TIME,
-		  M.RELEASE_DATE,
-		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
-		  LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
-		  S.MOVIE_THEATER
-		FROM
-		  MOVIE M
-		JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
-		GROUP BY
-		  M.MOVIE_NO,
-		  M.MOVIE_TITLE,
-		  M.RUNNING_TIME,
-		  M.RELEASE_DATE,
-		  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
-		  S.MOVIE_THEATER
-		  ORDER BY M.RELEASE_DATE DESC
+	  M.MOVIE_NO,
+	  M.MOVIE_TITLE,
+	  M.RUNNING_TIME,
+	  M.RELEASE_DATE,
+	  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+	  LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+	  S.MOVIE_THEATER
+	FROM
+	  MOVIE M
+	JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+	GROUP BY
+	  M.MOVIE_NO,
+	  M.MOVIE_TITLE,
+	  M.RUNNING_TIME,
+	  M.RELEASE_DATE,
+	  TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'),
+	  S.MOVIE_THEATER
+	ORDER BY M.RELEASE_DATE DESC
 	</select>
+<!--	WHERE TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') = #{movieday}-->
+<!--	WHERE MOVIE_THEATER = #{movieTheater}-->
 	
 		<select id="adminCinemaTwo" resultMap="movie_rm">
 		SELECT
@@ -308,7 +403,7 @@
 	</select>
 
 	<select id="cinemaList" resultMap="movie_rm">
-		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE
+		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE,MOVIE_NO
 		FROM MOVIE
 		ORDER BY MOVIE_NO DESC
 	</select>
@@ -413,6 +508,13 @@
   
 	
 	<!--/////////FAQ//////////-->
+	
+	<!--FAQ 개수 불러오기-->
+	<select id="faqListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "FAQ"
+	</select>
+	
 	
 	<!--FAQ 리스트 조회-->
 	<select id="adminFaqList" resultMap="faq_rm">
