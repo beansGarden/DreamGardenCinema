@@ -73,29 +73,27 @@ public class CustomerServiceController {
 	@PostMapping("/QAinsert")
 	public String cusQAInsert(Qna qna, String QAAgree 
 				, @RequestParam(value="images", required=false) List<MultipartFile> images
-				, @SessionAttribute("loginUser") User loginUser, RedirectAttributes ra
+				, @SessionAttribute(name="loginUser", required=false) User loginUser, RedirectAttributes ra
 				, @RequestParam(value="key", required=false)String selectedValue) throws IllegalStateException, IOException {
 
 		
 		// 1. 로그인한 회원 번호를 얻어와 Qna에 세팅
-		qna.setUserNo(loginUser.getUserNo());
-		
-		System.out.println(qna);
+		if(loginUser != null) {
+			qna.setUserNo(loginUser.getUserNo());
+		}
 		
 		int qnaNo = service.cusQAInsert(qna, images, selectedValue);
-		
-//			int nonQnaNo = service.nonMemInsert(nonQna, images);
 		
 		String message = null;
 		String path = "redirect:";
 		
 		if(qnaNo > 0 ) { // 삽입성공시 || nonQnaNo > 0
 			
-			message = "1:1문의가 접수 되었습니다";
+			message = "1:1문의가 등록 되었습니다";
 			path += "/customerservice/";
 			
 		}else {
-			message = "1:1문의 접수 실패";
+			message = "1:1문의 등록 실패";
 			path += "/customerservice/questionBoard";
 		}
 		

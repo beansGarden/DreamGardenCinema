@@ -43,6 +43,10 @@
 		<result property="qnaCategory" column="QNA_CATEGORY"/>
 		<result property="userNo" column="USER_NO2"/>
 		<result property="userNickname" column="USER_NICKNAME"/>
+		
+		<result property="nonMemberName" column="NONMEMBER_NAME"/>
+		<result property="nonMemberEmail" column="NONMEMBER_EMAIL"/>
+		<result property="nonMemberTel" column="NONMEMBER_TEL"/>
 		</resultMap>
 		
 	<!-- Qna 1:1 문의 이미지 -->
@@ -168,7 +172,15 @@
 		DEFAULT, 
 		DEFAULT, 
 		#{selectedValue}, 
-		#{userNo})
+		 <choose>
+			 <when test="userNo != 0">
+				#{userNo},
+			 </when>
+			 <when test="userNo == 0">
+				 null,
+			 </when>
+		 </choose>
+		#{nonMemberName},#{nonMemberEmail},#{nonMemberTel})
 	</insert>
 	
 	

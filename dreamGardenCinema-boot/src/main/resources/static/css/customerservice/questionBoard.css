@@ -581,10 +581,16 @@ textarea:focus{
     display: flex;
     justify-content: end;
     width: 70vw;
-    gap: 10px;
+    gap: 9px;
+    align-items: center;
 }
 
-/* 확인,취소 버튼 */
+.QA-personal-agree-chk>input{
+    width: 15px;
+    height: 15px;
+}
+
+/* 확인 버튼 */
 .QA-final-confirm{
     display: flex;
     width: 70vw;
@@ -596,7 +602,6 @@ textarea:focus{
     
 }
 
-/* 확인 버튼 */
 .QA-conf-btn{
     font-size: 16px;
     width: 5vw;
@@ -610,29 +615,10 @@ textarea:focus{
     font-weight: bold;
 }
 
-/* 취소버튼 */
-.QA-del-btn{
-    font-size: 16px;
-    width: 5vw;
-    height: 5vh;
-    border: 1px solid #0F0954;
-    border-radius: 5px;
-}
-
-.QA-del-btn:hover{
-    background-color: #73080867;
-    color: white;
-    font-weight: bold;
-}
-
 /* 고객정보 작성란 숨기기 */
 .QA-cus-info-hidden{
     display: none;
 }
-
-
-
-
 
 
 

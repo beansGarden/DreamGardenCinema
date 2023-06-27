@@ -70,6 +70,7 @@
                 <div class="QA-divide">
                     <span>분류</span><span style="color: red;">*</span>
                     <select name="key" id="QASelection">분류선택
+                        <option value="">선택</option>
                         <option value="p">상영관</option>
                         <option value="m">영화</option>
                         <option value="u">멤버십</option>
@@ -114,7 +115,7 @@
 
                 <!-- 회원 여부 체크  -->
                 <div class="QA-member-check">
-                    <span>비회원 여부 체크</span>
+                    <span>비회원 체크</span>
                     <input type="checkbox" name="chkNoneMember" id="QAmemChkBox">
                     <span>이메일로 답변 받기</span>
                     <span>
@@ -148,7 +149,8 @@
                             <option value="six">019</option>
                         </select>
 
-                        <input name="nonMemberTel" type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요." id="cusTel">
+                        <input name="nonMemberTel" type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요." id="cusTel"
+                                maxlength="8">
 
                     </div>
 
@@ -189,12 +191,10 @@
 
                 <div class="QA-personal-agree-chk">
                     <input type="radio" name="QAAgree" id="">동의
-                    <input type="radio" name="QAAgree" id="">비동의
                 </div>
 
                 <div class="QA-final-confirm">
-                    <button class="QA-conf-btn">확인</button>
-                    <button class="QA-del-btn">취소</button>
+                    <button type="submit" class="QA-conf-btn">등록</button>
                 </div>
             </form>
 
