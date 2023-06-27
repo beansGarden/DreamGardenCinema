@@ -6,11 +6,13 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @Mapper
@@ -20,10 +22,23 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<User> getAdminDetails();
+	
+	
 
 	
+	//*****대시보드********************************************************
+	//영화별 매출 불러오기
+	List<Ticket> ticketList(String movieNo);
+	
+	List<Qna> adminQnaList5();
+	
+	//***1:1문의 Qnq*********************************************************
+	
+	//1:1문의 Qna 게시글 개수 불러오기
+	int qnaListCount();
+
 	//1:1문의 게시판 조회
-	List<Qna> adminQnaList();
+	List<Qna> adminQnaList(RowBounds rowBounds);
 	
 	//1:1문의 게시글 읽기 조회
 	Qna selectQnaOne(int qnaNo);
@@ -37,11 +52,8 @@ public interface AdminMapper {
 	//1:1문의 게시글 삽입
 	int qnaInsert(Qna qna);
 
-	//1:1문의 게시글 답변 쓰기(삽입)
-	int qnaAnswerInsert(QnaComment qnaComment);
-
 	//1:1문의 게시글 답변 등록 확인(업데이트)
-	QnaComment updateAnswer(int qnaNo);
+	int updateAnswer(int qnaNo);
 
 	//1:1문의 게시글 답변 불러오기(select)
 	QnaComment selectQnaCommentList(QnaComment qnaCommentNo);
@@ -49,8 +61,12 @@ public interface AdminMapper {
 	//1:1문의 게시글 답변 수정 (update)
 	int qnaAnswerUpdate(QnaComment qnaCommentObj);
 
+	//1:1문의 게시글 답변 쓰기(삽입)
+	int qnaAnswerInsert(QnaComment qnaCommentObj);
+
+	
 	//1:1문의 게시글 검색
-	List<Qna> getSearchList(Qna qnaList);
+	List<Qna> getSearchList(RowBounds rowBounds);
 	
 	//회원관리*****************************************************
 	
@@ -72,31 +88,53 @@ public interface AdminMapper {
 	
 	
 	/**회원 검색
+	 * @param condition 
 	 * @param userList
 	 * @return
 	 */
-	List<User> getUserSearchList(RowBounds rowBounds);
+	List<User> getUserSearchList(User condition, RowBounds rowBounds);
 
 	
 	//영화 관리******************************************************
 	
-	/**영화 List 조회
+
+	/**영화 개수
 	 * @return
 	 */
-	List<Movie> adminMovieList();
+	int movieListCount();
 
+	
+	/**영화 List 조회
+	 * @param rowBounds 
+	 * @return
+	 */
+	List<Movie> adminMovieList(RowBounds rowBounds);
+	
+	
+
+	/**영화 검색
+	 * @param condition
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
+
+
+	
 	//상영관 List 조회************************************************
 	/**상영관 영화 List 조회
+	 * @param condition 
 	 * @return
 	 */
-	List<User> MovieScheduleList(RowBounds rowBounds);
+	List<Movie> MovieScheduleList(Movie condition, RowBounds rowBounds);
 
 	
 	/**2관 페이지 이동
 	 * @param movieTheaterNo
+	 * @param rowBounds 
 	 * @return
 	 */
-	List<Movie> adminCinemaTwo(String movieTheaterNo);
+	List<Movie> adminCinemaTwo(String movieTheaterNo, RowBounds rowBounds);
 	
 	
 	/**상영관 등록 영화 불러오기
@@ -151,18 +189,26 @@ public interface AdminMapper {
 	int noticeDelete(int noticeNo);
 	
 	/**FAQ (자주 찾는 질문) 게시글 검색
+	 * @param condition 
 	 * @param noticeList
 	 * @return
 	 */
-	List<Notice> getNoticeSearchList(Notice noticeList);
+	List<Notice> getNoticeSearchList(Notice condition, RowBounds rowBounds);
 
 
 	//FAQ (자주 찾는 질문) List 조회*****************************
 	
-	/**FAQ 게시판 List 조회
+	/**FAQ 게시판 개수
 	 * @return
 	 */
-	List<FAQ> adminFaqList();
+	int faqListCount();
+
+	
+	/**FAQ 게시판 List 조회
+	 * @param rowBounds 
+	 * @return
+	 */
+	List<FAQ> adminFaqList(RowBounds rowBounds);
 
 	/**FAQ (자주 찾는 질문) 게시글 조회
 	 * @param faq
@@ -198,10 +244,28 @@ public interface AdminMapper {
 
 
 	/**FAQ 게시글 검색
-	 * @param faqList
+	 * @param condtion 
+	 * @param rowBounds
 	 * @return
 	 */
-	List<FAQ> getFaqSearchList(FAQ faqList);
+	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
+
+	List<SalesByPeriod> getSalesByDay();
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

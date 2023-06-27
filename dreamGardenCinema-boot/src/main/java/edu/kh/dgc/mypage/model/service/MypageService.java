@@ -40,4 +40,17 @@ public interface MypageService {
 	 */
 	List<Coupon> couponList(int userNo);
 
+	/** 비밀번호 조회
+	 * @param userNo
+	 * @param secessionPwValue 
+	 * @return
+	 */
+	int secessionCheck(int userNo, String secessionPwValue);
+
+	/** 회원 탈퇴
+	 * @param userNo
+	 * @return
+	 */
+	int secessionUser(int userNo);
+
 }

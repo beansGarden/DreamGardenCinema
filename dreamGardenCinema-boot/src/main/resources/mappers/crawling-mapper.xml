@@ -17,6 +17,14 @@
 		<result property="screening" column="SCREENING"/>		
 	</resultMap>
 	
+	<resultMap id="Person" type="person">
+		<id property="personNo" column="PERSON_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="name" column="PERSON_NO"/>
+		<result property="role" column="PERSON_ROLE"/>
+		<result property="img" column="PERSON_IMG"/>
+	</resultMap>
+	
 	<insert id="insertMovieInfo">
 
 		INSERT INTO "beansGarden".MOVIE
@@ -43,4 +51,22 @@
 		
 	</select>
 	
+	<insert id="insertMoviePerson">
+		
+		INSERT INTO "beansGarden".PERSON_INFO
+		(PERSON_NO, MOVIE_NO, PERSON_NAME, PERSON_ROLE, PERSON_IMG)
+		VALUES
+		(SEQ_PERSON_NO.NEXTVAL, #{movieNo}, #{name}, #{role}, #{img})
+		
+	</insert>
+	
+	<insert id="insertMovieStillCut">
+		
+		INSERT INTO "beansGarden".MOVIE_IMG
+		(MOVIE_IMG_NO, MOVIE_NO, MOVIE_IMG_PATH, MOVIE_IMG_ROLE)
+		VALUES
+		(SEQ_MOVIE_IMG_NO.NEXTVAL, #{movieNo}, #{imgPath}, #{role})
+		
+	</insert>
+		
 </mapper>

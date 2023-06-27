@@ -1,6 +1,9 @@
 package edu.kh.dgc.movie.model.service;
 
+import java.util.Map;
+
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.Person;
 
 public interface CrawlingService {
 	
@@ -21,4 +24,17 @@ public interface CrawlingService {
 	 */
 	public int selectHavingMovieNoByTitle(String movieTitle);
 
+	/** 영화인 DB INSERT
+	 * @param person
+	 */
+	public int insertMoviePerson(Person person);
+
+	/** 영화 스틸컷 DB INSERT
+	 * @param img
+	 * @return
+	 */
+	public int insertMovieStillCut(Map<String, Object> img);
+	
+	
+	
 }

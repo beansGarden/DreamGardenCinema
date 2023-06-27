@@ -8,7 +8,7 @@
     <title>cinemaManage</title>
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="\css\admin\admin_cinemaManage.css">
-    <script src="\js\admin\admin_cinemaManage.js"></script>
+ 
 </head>
 
 <main th:with="pagination=${cinemaList.pagination}, cinemaList=${cinemaList.cinemaList}">
@@ -26,15 +26,16 @@
         <div class="admin_cinemaManageAll">
             <div class="admin_cinemaOne" id="cinemaOne"><a href="#">1관</a></div>
             <div>　</div>
-            <div class="admin_cinemaOne"  id="cinemaTwo" name><a th:href="@{/cinema/{movieTheater}(movieTheater=${movieTheater})}">2관</a></div>
+            <div class="admin_cinemaOne"  id="cinemaTwo" name><a th:href="@{/adminCinemaManage/{movieTheater}(movieTheater=${movieTheater})}">2관</a></div>
         
             <div>　</div>
-            <div class="admin_cinemaOne"  id="cinemaThree"><a href="">3관</a></div>
+            <div class="admin_cinemaOne"  id="cinemaThree"><a href="#">3관</a></div>
 
 
-            <!-- 상영일 -->
+            <!-- 상영일 선택-->
             <div class="admin_cinemaManageDate">
-                <input type="date" name="" id="">
+                <input type="date" id="selectedDate" onchange="setHiddenValue()">
+                <input type="hidden" name="movieday" id="hiddenValue">
             </div>
         </div>
         <!-- 검색창 -->
@@ -87,6 +88,9 @@
                         <td th:text="${list.movieday}">2023.05.31</td>
                         <td th:text="${list.movieTime}">12:00,16:00</td>
                     </tr>
+                    <tr th:if="${cinemaList.isEmpty()}">
+                        <td colspan="7">데이터가 없습니다.</td>
+                      </tr>
                 </tbody>
 
             </table>
@@ -170,6 +174,8 @@
         
     </div>
     
-    
+    <script src="\js\admin\admin_cinemaManage.js"></script>
 
 </body>
+
+</html>
