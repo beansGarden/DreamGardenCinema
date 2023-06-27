@@ -12,9 +12,7 @@ var myChart = new Chart(context, {
             { //데이터
                 label: '요일별 매출', //차트 제목
                 fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                data: [
-                    21, 19, 25, 20, 23, 40, 25 //x축 label에 대응되는 데이터 값
-                ],
+                data: salesByPeriod,
                 backgroundColor: [
                     //색상
                     'rgba(153, 102, 255, 0.2)',

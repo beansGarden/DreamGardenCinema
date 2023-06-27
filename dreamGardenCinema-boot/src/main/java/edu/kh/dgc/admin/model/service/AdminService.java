@@ -3,6 +3,7 @@ package edu.kh.dgc.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
@@ -142,6 +143,9 @@ public interface AdminService {
 
 	//FAQ (자주 찾는 질문) 게시글 검색
 	Map<String, Object> getFaqSearchList(FAQ condtion, int cp);
+
+	// 지난 주 요일별 매출
+	List<SalesByPeriod> getSalesByDay();
 
 
 

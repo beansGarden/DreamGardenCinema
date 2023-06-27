@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin_DashBoard</title>
 
-    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/admin/admin_dashboard.css">
 
 
@@ -28,8 +28,8 @@
                         선택해주세요</option>
                 </select>
                 <input type="hidden" name="movieNo" id="selectedMovie" />
-                 <span id="ticketAmount" th:text="${ticketAmount}">₩5,000,000</span>
-   <!--              <span id="ticketAmount">₩5,000,000</span> -->
+                <span id="ticketAmount" th:text="${ticketAmount}">₩5,000,000</span>
+                <!-- <span id="ticketAmount">₩5,000,000</span> -->
             </div>
         </div>
 
@@ -74,11 +74,24 @@
             </div>
         </div>
     </div>
+    <div style="width: 500px; height: 1000px; color: black;">
+        <th:block th:each="sales : ${lastWeekSales}">
+            <div th:text="${sales.totalSales}"></div>
+        </th:block>
+    </div>
 
+    <script th:inline="javascript">
+        let salesByPeriod = [];
+        /*[# th:each="sales : ${salesByPeriod}"]*/
+        salesByPeriod.push(/*[[${sales.totalSales}]]*/);
+        /*[/]*/
+        console.log(salesByPeriod);
+        
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="\js\admin\admin_dashborad.js"></script>
-
+    
 
 
 </body>

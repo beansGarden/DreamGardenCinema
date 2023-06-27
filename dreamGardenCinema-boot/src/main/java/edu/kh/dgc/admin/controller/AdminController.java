@@ -1,6 +1,5 @@
 package edu.kh.dgc.admin.controller;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.kh.dgc.admin.model.dto.Admin;
+import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.service.AdminService;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -28,8 +27,6 @@ import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.user.model.dto.User;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
-import oracle.jdbc.proxy.annotation.Post;
-
 
 @Controller
 public class AdminController {
@@ -40,32 +37,33 @@ public class AdminController {
 	// 1.관리자 메인 대시보드
 	@GetMapping("/admin")
 	public String dashboard(Model model) {
-	    
-		//대시보드 영화 리스트 불러오기
-		List<Movie> cinemaList = service.cinemaList();
-	    model.addAttribute("cinemaList", cinemaList);
 
-	    //대시보드 QNA 최신 5개 보여지기
-	    List<Qna> adminQnaList5 = service.adminQnaList5();
-	    model.addAttribute("adminQnaList", adminQnaList5);
-	    
-	    return "admin/admin_dashboard";
+		// 대시보드 영화 리스트 불러오기
+		List<Movie> cinemaList = service.cinemaList();
+		model.addAttribute("cinemaList", cinemaList);
+
+		// 대시보드 QNA 최신 5개 보여지기
+		List<Qna> adminQnaList5 = service.adminQnaList5();
+		model.addAttribute("adminQnaList", adminQnaList5);
+		
+		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
+		model.addAttribute("salesByPeriod", salesByPeriod);
+
+		return "admin/admin_dashboard";
 	}
 
-	//영화별 매출 불러오기
+	// 영화별 매출 불러오기
 	@GetMapping("/ticketAmount")
 	@ResponseBody
 	public Map<String, Object> getTicketAmount(@RequestParam(value = "movieNo", required = false) String movieNo) {
-	    Map<String, Object> response = new HashMap<>();
-	    
-	    List<Ticket> ticketAmount = service.ticketList(movieNo);
-	    response.put("ticketAmount", ticketAmount);
-	    
-	    return response;
+		Map<String, Object> response = new HashMap<>();
+
+		List<Ticket> ticketAmount = service.ticketList(movieNo);
+		response.put("ticketAmount", ticketAmount);
+
+		return response;
 	}
 
-
-	
 	/*
 	 * //1-1. 관리자 로그인 화면
 	 * 
@@ -79,22 +77,19 @@ public class AdminController {
 	 * return "admin/admin_sideBar";}
 	 */
 
-	
-	
 	// 2.관리자 회원 관리
-	@GetMapping("/adminUser") 
-	public String adminUser(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+	@GetMapping("/adminUser")
+	public String adminUser(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
 
-		if(paramMap.get("key") == null) {
-			
+		if (paramMap.get("key") == null) {
+
 			Map<String, Object> adminUserList = service.adminUserList(cp);
 
 			model.addAttribute("adminUserList", adminUserList);
-			
-		
+
 			System.out.println(adminUserList);
 		}
-		
 
 		return "admin/admin_user";
 	}
@@ -109,141 +104,143 @@ public class AdminController {
 
 	// 2-2.관리자 회원 게시글 검색
 	@GetMapping("/getUserSearchList")
-	public String getUserSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+	public String getUserSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
 		User condition = new User();
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
 		Map<String, Object> getUserSearchList = service.getUserSearchList(condition, cp);
-		model.addAttribute("adminUserList", getUserSearchList); 
-		
+		model.addAttribute("adminUserList", getUserSearchList);
+
 		System.out.println(condition);
 		System.out.println(getUserSearchList);
 
 		return "admin/admin_user";
 
 	}
-	
-	
+
 	// 3.관리자 영화 관리
-	@GetMapping("/adminMovieManage") 
-	public String movieManage(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp
-							,@RequestParam Map<String, Object> paramMap,@RequestParam(value = "movieday", required = false) String movieNo) {
+	@GetMapping("/adminMovieManage")
+	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(value = "movieday", required = false) String movieNo) {
 
-		if(paramMap.get("key") == null) {
-			
-		Map<String, Object> adminMovieMap = service.adminMovieList(cp);
+		if (paramMap.get("key") == null) {
 
-		
-		model.addAttribute("adminMovieList", adminMovieMap);
+			Map<String, Object> adminMovieMap = service.adminMovieList(cp);
 
-		System.out.println(adminMovieMap);
+			model.addAttribute("adminMovieList", adminMovieMap);
+
+			System.out.println(adminMovieMap);
 		}
-		
+
 		return "admin/admin_movieManage";
 	}
 
 	// 3-1.관리자 영화 등록
-	@GetMapping("/adminMovieRegister") 
+	@GetMapping("/adminMovieRegister")
 	public String movieRegister() {
 
 		return "admin/admin_movieManageDetail";
 	}
 
-	//3-2 영화 검색
+	// 3-2 영화 검색
 	@GetMapping("/getMovieSearchList")
-	public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+	public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		
 		Movie condition = new Movie();
-		
+
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object>  adminMovieMap = service.getMovieSearchList(condition,cp);
-		model.addAttribute("adminMovieList", adminMovieMap); 
-		
+		Map<String, Object> adminMovieMap = service.getMovieSearchList(condition, cp);
+		model.addAttribute("adminMovieList", adminMovieMap);
+
 		System.out.println(condition);
 		System.out.println(adminMovieMap);
 
 		return "admin/admin_movieManage";
 
 	}
-	
-	
+
 	// 4.관리자 상영 관리
-	@GetMapping("/adminCinemaManage") 
-	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
-		
-		if(paramMap.get("key") == null) {	
-		
-		Movie condition = new Movie();
-			
-		condition.setMovieday(movieday);
-			
-		Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
-		
-		model.addAttribute("cinemaList", cinemaMap);
-		
-		System.out.println(cinemaMap);
+	@GetMapping("/adminCinemaManage")
+	public String cinemaManage(Model model, @Param("movieday") String movieday,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+
+		if (paramMap.get("key") == null) {
+
+			Movie condition = new Movie();
+
+			condition.setMovieday(movieday);
+
+			Map<String, Object> cinemaMap = service.adminCinemaList(condition, cp);
+
+			model.addAttribute("cinemaList", cinemaMap);
+
+			System.out.println(cinemaMap);
 		}
 		return "admin/admin_cinemaManage";
 	}
 
-	//2관으로 넘어가기
-	@RequestMapping("/adminCinemaManage/{movieTheater}") 
-	public String cinema(Model model, @PathVariable(value="movieTheater", required=false) String movieTheaterNo,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
-		
-		Map<String, Object> cinemaMap  = service.adminCinemaTwo(movieTheaterNo,cp);
-		
+	// 2관으로 넘어가기
+	@RequestMapping("/adminCinemaManage/{movieTheater}")
+	public String cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+
+		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
+
 		model.addAttribute("cinemaList", cinemaMap);
 
 		System.out.println(movieTheaterNo);
 		System.out.println(cinemaMap);
-		
-		 return  "admin/admin_cinemaManage"; 
+
+		return "admin/admin_cinemaManage";
 
 		/* return "admin/admin_cinemaManage" +"/"+ movieTheaterNo; */
-	}	
+	}
 
 	// 4-1.관리자 상영 시간 등록
-	@GetMapping("/adminCinemaRegister") 
+	@GetMapping("/adminCinemaRegister")
 	public String cinemaRegister(Model model, Movie movie) {
 
 		List<Movie> cinemaList = service.cinemaList();
-		
-		model.addAttribute("cinemaList",cinemaList);
-		
+
+		model.addAttribute("cinemaList", cinemaList);
+
 		return "admin/admin_cinemaMangeDetail";
 	}
+
 	// 4-2.관리자 상영 시간 등록 (insert)
-	@GetMapping("/adminCinemaRegisterinsert") 
-	public String cinemaRegisterinsert(Model model,Movie movie) {
+	@GetMapping("/adminCinemaRegisterinsert")
+	public String cinemaRegisterinsert(Model model, Movie movie) {
 
 		int result = service.cinemaListInsert(movie);
-		
-		
+
 		return "admin/admin_cinemaMangeDetail";
 	}
 
 	// 5.관리자 공지사항 리스트 조회
 	@GetMapping("/adminNotice") //
-	public String notice(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
-		
-		if(paramMap.get("key") == null) {	
-			
-		Map<String, Object> adminNoticeMap = service.adminNoticeList(cp);
+	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
 
-		model.addAttribute("adminNoticeMap", adminNoticeMap);
-		
+		if (paramMap.get("key") == null) {
+
+			Map<String, Object> adminNoticeMap = service.adminNoticeList(cp);
+
+			model.addAttribute("adminNoticeMap", adminNoticeMap);
 
 		}
 		return "admin/admin_notice";
 	}
 
 	// 5-1.공지사항 게시글 조회
-	@GetMapping("/adminNoticeRead/{noticeNo}") 
+	@GetMapping("/adminNoticeRead/{noticeNo}")
 	public String noticeRead(Model model, @PathVariable(value = "noticeNo", required = false) int noticeNo,
 			Notice notice) {
 
@@ -256,24 +253,23 @@ public class AdminController {
 
 	// 5-1.공지사항 게시글 검색
 	@GetMapping("/getNoticeSearchList")
-	public String getNoticeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+	public String getNoticeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		
 		Notice condition = new Notice();
-		
+
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object>  adminNoticeMap = service.getNoticeSearchList(condition,cp);
-		model.addAttribute("adminNoticeMap", adminNoticeMap); 
-		
+		Map<String, Object> adminNoticeMap = service.getNoticeSearchList(condition, cp);
+		model.addAttribute("adminNoticeMap", adminNoticeMap);
+
 		System.out.println(condition);
 		System.out.println(adminNoticeMap);
 
 		return "admin/admin_notice";
 
 	}
-	
 
 	// 5-2. 공지사항 게시글 쓰기
 	@GetMapping("/adminNoticeWrite")
@@ -283,27 +279,26 @@ public class AdminController {
 	}
 
 	// 5-2. 공지사항 게시글 쓰기 - 삽입
-	
+
 	@PostMapping("/adminNoticeWriteInsert")
 	public String noticeWriteInsert(Notice notice, Model model) {
-		
+
 		int result = service.noticeWriteInsert(notice);
-		
+
 		int noticeNo = notice.getNoticeNo();
-		
+
 		System.out.println(noticeNo);
 
 		model.addAttribute("notice", notice);
 
-		return "redirect:/adminNoticeRead" +"/" + noticeNo;
-}
-
-	
+		return "redirect:/adminNoticeRead" + "/" + noticeNo;
+	}
 
 	// 5-3. 공지사항 게시글 수정 화면 전환
 	@GetMapping("/adminNoticeUpdate/{noticeNo}")
-	public String noticeUpdate(Model model, @PathVariable(value = "noticeNo", required = false) int noticeNo,Notice notice) {
-		
+	public String noticeUpdate(Model model, @PathVariable(value = "noticeNo", required = false) int noticeNo,
+			Notice notice) {
+
 		List<Notice> adminNoticeList = service.adminNoticeOne(notice);
 		notice.setNoticeNo(noticeNo);
 
@@ -339,73 +334,72 @@ public class AdminController {
 	public int deleteNoticeList(@RequestBody Map<String, Integer> request) {
 
 		int noticeNo = request.get("noticeNo");
-		
+
 		return service.noticeDelete(noticeNo);
 	}
 
-	
-
 	// 6. 1:1 문의사항 리스트 조회 230613
 	@GetMapping("/adminQna") //
-	public String qnaList(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+	public String qnaList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
 
+		if (paramMap.get("key") == null) {
 
-		if(paramMap.get("key") == null) {	
-			
-		Map<String, Object> adminQnamap = service.adminQnaList(cp);
+			Map<String, Object> adminQnamap = service.adminQnaList(cp);
 
-		model.addAttribute("adminQnamap", adminQnamap);
-		
-		System.out.println(adminQnamap);
-		
-		} return "admin/admin_QNA";
+			model.addAttribute("adminQnamap", adminQnamap);
+
+			System.out.println(adminQnamap);
+
+		}
+		return "admin/admin_QNA";
 	}
 
 	// 6-1. 1:1 문의사항 게시글 조회 230613
 	@GetMapping("/adminQnaRead/{qnaNo}") //
-	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,Qna qna,
+	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo, Qna qna,
 			QnaComment qnaComment) {
 
 		qna = service.selectQnaOne(qnaNo);
-		
+
 		QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
 
 		qna.setQnaNo(qnaNo);
 		model.addAttribute("Qna", qna);
-	
-		if (qnaCommentList != null) {
-		    model.addAttribute("QnaComment", qnaCommentList);
-		} else {
-			
-		    // qnaCommentList가 null인 경우에 대한 처리 로직 추가
-		    // 예: 필요한 필드들을 초기화하거나 기본값으로 설정
-		    QnaComment emptyQnaComment = new QnaComment();
-		    model.addAttribute("QnaComment", emptyQnaComment);
-		}	
-		return "admin/admin_QNA_read";
-	}
-	
-	// 6-2. 1:1 문의사항 게시글 및 답변 수정 조회
-	@GetMapping("/adminQnaRead/adminQnaAnsweUpdate/{qnaNo}") //
-	public String qnaRead2(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo,Qna qna,
-			QnaComment qnaComment) {
-		
-		qna = service.selectQnaOne(qnaNo);
-		
-		QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
-		
-		qna.setQnaNo(qnaNo);
-		model.addAttribute("Qna", qna);
-		
+
 		if (qnaCommentList != null) {
 			model.addAttribute("QnaComment", qnaCommentList);
 		} else {
-			
+
 			// qnaCommentList가 null인 경우에 대한 처리 로직 추가
 			// 예: 필요한 필드들을 초기화하거나 기본값으로 설정
 			QnaComment emptyQnaComment = new QnaComment();
 			model.addAttribute("QnaComment", emptyQnaComment);
-		}	
+		}
+		return "admin/admin_QNA_read";
+	}
+
+	// 6-2. 1:1 문의사항 게시글 및 답변 수정 조회
+	@GetMapping("/adminQnaRead/adminQnaAnsweUpdate/{qnaNo}") //
+	public String qnaRead2(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo, Qna qna,
+			QnaComment qnaComment) {
+
+		qna = service.selectQnaOne(qnaNo);
+
+		QnaComment qnaCommentList = service.selectQnaCommentList(qnaComment);
+
+		qna.setQnaNo(qnaNo);
+		model.addAttribute("Qna", qna);
+
+		if (qnaCommentList != null) {
+			model.addAttribute("QnaComment", qnaCommentList);
+		} else {
+
+			// qnaCommentList가 null인 경우에 대한 처리 로직 추가
+			// 예: 필요한 필드들을 초기화하거나 기본값으로 설정
+			QnaComment emptyQnaComment = new QnaComment();
+			model.addAttribute("QnaComment", emptyQnaComment);
+		}
 		return "admin/admin_QNA_read2";
 	}
 
@@ -427,99 +421,92 @@ public class AdminController {
 
 		return "admin/admin_QNA_read";
 	}
-	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615------------------------------------------------진행중6/22
+	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입
+	// 230615------------------------------------------------진행중6/22
 
 	@RequestMapping("/adminQnaAnswer/{qnaNo}")
 	public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
-	        @RequestParam(value = "qnaComment", required = false) String qnaComment,
-	        @RequestParam(value = "userNo", required = false)  Integer userNo,
-	        @RequestParam(value = "qnaCommentNo", required = false) Integer qnaCommentNo,
-	        @ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
-		
+			@RequestParam(value = "qnaComment", required = false) String qnaComment,
+			@RequestParam(value = "userNo", required = false) Integer userNo,
+			@RequestParam(value = "qnaCommentNo", required = false) Integer qnaCommentNo,
+			@ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
+
 		System.out.println("qnaCommentNo : " + qnaCommentNo);
 		System.out.println("userNo : " + userNo);
 		System.out.println("qnaNo : " + qnaNo);
 		System.out.println("qnaComment : " + qnaComment);
-		
 
-		if(qnaCommentNo > 0) {
+		if (qnaCommentNo > 0) {
 			System.out.println("	    if (qnaComment != null) 통과 ");
-	    	QnaComment qnaCommentObj = new QnaComment();
-	    	qnaCommentObj.setQnaNo(qnaNo);
-	    	qnaCommentObj.setQnaComment(qnaComment);
-	    	qnaCommentObj.setUserNo(userNo);
-	    	qnaCommentObj.setQnaCommentNo(qnaCommentNo);
-	    	
+			QnaComment qnaCommentObj = new QnaComment();
+			qnaCommentObj.setQnaNo(qnaNo);
+			qnaCommentObj.setQnaComment(qnaComment);
+			qnaCommentObj.setUserNo(userNo);
+			qnaCommentObj.setQnaCommentNo(qnaCommentNo);
+
 //	    	if (userNo < ) {
 //	    	    qnaCommentObj.setUserNo(userNo);
 //	    	}
-	    	
-	        int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
 
-	        System.out.println("qnaUpdateResult : " + qnaUpdateResult);
-	        System.out.println("qnaCommentObj :" +qnaCommentObj);
+			int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
 
-	        if (qnaUpdateResult > 0) {
-	            ra.addFlashAttribute("message", "성공");
-	            
-	            Qna qnaFlUpdate = service.updateAnswer(qnaNo);
-	            
-	            if (qnaFlUpdate != null) {
-	                ra.addFlashAttribute("message", "성공");
-	                return "redirect:/adminQnaRead" + "/" + qnaNo;
-	            } else {
-	                ra.addFlashAttribute("message", "실패");
-	                return "redirect:/adminQnaRead" + "/" + qnaNo;
-	            }
-	            
-	        
-	        } else {
-	            ra.addFlashAttribute("message", "실패");
-	            
-	         
-	        }
-	    } else {
-	      
-	        QnaComment qnaCommentInsert = new QnaComment();
-	        qnaCommentInsert.setQnaNo(qnaNo);
-	        qnaCommentInsert.setQnaComment(qnaComment);
-	        qnaCommentInsert.setUserNo(userNo);
-	       
-	      
-	        // 결과값 (0,1)
-	        int qnaResult = service.qnaAnswerInsert(qnaCommentInsert);
+			System.out.println("qnaUpdateResult : " + qnaUpdateResult);
+			System.out.println("qnaCommentObj :" + qnaCommentObj);
 
-	        System.out.println("qnaCommentInsert :" + qnaCommentInsert);
-	      
+			if (qnaUpdateResult > 0) {
+				ra.addFlashAttribute("message", "성공");
 
-	        System.out.println("qnaResult : " + qnaResult);
+				Qna qnaFlUpdate = service.updateAnswer(qnaNo);
 
-	        if (qnaResult > 0) {
-	            ra.addFlashAttribute("message", "성공");
-	            
-	            // 결과(update)
-	            Qna  qnaFlUpdate = service.updateAnswer(qnaNo);
-	            
-	            if (qnaFlUpdate != null) {
-	                ra.addFlashAttribute("message", "성공");
-	                return "redirect:/adminQnaRead" + "/" + qnaNo;
-	            } else {
-	                ra.addFlashAttribute("message", "실패");
-	                return "redirect:/adminQnaRead" + "/" + qnaNo;
-	            }
-	            
-	          
-	        } else {
-	            ra.addFlashAttribute("message", "실패");
-	            
-	            
-	        }
-	    }
+				if (qnaFlUpdate != null) {
+					ra.addFlashAttribute("message", "성공");
+					return "redirect:/adminQnaRead" + "/" + qnaNo;
+				} else {
+					ra.addFlashAttribute("message", "실패");
+					return "redirect:/adminQnaRead" + "/" + qnaNo;
+				}
 
-		return "redirect:/adminQnaRead" +"/" + qnaNo;
-	
+			} else {
+				ra.addFlashAttribute("message", "실패");
+
+			}
+		} else {
+
+			QnaComment qnaCommentInsert = new QnaComment();
+			qnaCommentInsert.setQnaNo(qnaNo);
+			qnaCommentInsert.setQnaComment(qnaComment);
+			qnaCommentInsert.setUserNo(userNo);
+
+			// 결과값 (0,1)
+			int qnaResult = service.qnaAnswerInsert(qnaCommentInsert);
+
+			System.out.println("qnaCommentInsert :" + qnaCommentInsert);
+
+			System.out.println("qnaResult : " + qnaResult);
+
+			if (qnaResult > 0) {
+				ra.addFlashAttribute("message", "성공");
+
+				// 결과(update)
+				Qna qnaFlUpdate = service.updateAnswer(qnaNo);
+
+				if (qnaFlUpdate != null) {
+					ra.addFlashAttribute("message", "성공");
+					return "redirect:/adminQnaRead" + "/" + qnaNo;
+				} else {
+					ra.addFlashAttribute("message", "실패");
+					return "redirect:/adminQnaRead" + "/" + qnaNo;
+				}
+
+			} else {
+				ra.addFlashAttribute("message", "실패");
+
+			}
+		}
+
+		return "redirect:/adminQnaRead" + "/" + qnaNo;
+
 	}
-	
 
 	// 6-2. 1:1 문의사항 게시글 수정화면 전환 230614
 	@GetMapping("/adminQnaUpdate/{qnaNo}")
@@ -592,17 +579,17 @@ public class AdminController {
 
 	// 6-5 1:1 문의 게시글 검색
 	@GetMapping("/getSearchList")
-	public String getSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+	public String getSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		
 		Qna condition = new Qna();
-		
+
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object>  adminQnaMap = service.getSearchList(condition,cp);
-		model.addAttribute("adminQnamap", adminQnaMap); 
-		
+		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
+		model.addAttribute("adminQnamap", adminQnaMap);
+
 		System.out.println(condition);
 		System.out.println(adminQnaMap);
 
@@ -612,14 +599,14 @@ public class AdminController {
 
 	// 7. FAQ 리스트 조회
 	@GetMapping("/adminFaq") //
-	public String faqList(Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+	public String faqList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
 
+		if (paramMap.get("key") == null) {
 
-		if(paramMap.get("key") == null) {	
-			
-		Map<String, Object> adminFaqMap = service.adminFaqList(cp);
+			Map<String, Object> adminFaqMap = service.adminFaqList(cp);
 
-		model.addAttribute("adminFaqMap", adminFaqMap);
+			model.addAttribute("adminFaqMap", adminFaqMap);
 		}
 		return "admin/admin_FAQ";
 	}
@@ -635,14 +622,14 @@ public class AdminController {
 		return "admin/admin_FAQ_read";
 	}
 
-	
-	  // 7-2. FAQ 게시글 쓰기 화면
-	  
-	  @GetMapping("/adminFaqWrite") public String faqWrite() {
+	// 7-2. FAQ 게시글 쓰기 화면
 
-	  return "admin/admin_FAQ_Write"; 
-	
-}
+	@GetMapping("/adminFaqWrite")
+	public String faqWrite() {
+
+		return "admin/admin_FAQ_Write";
+
+	}
 	// 7-2-1. 1:1 문의사항 게시글 쓰기 - 삽입 230614
 
 	@PostMapping("/adminFaqWriteInsert")
@@ -653,9 +640,7 @@ public class AdminController {
 		model.addAttribute("Faq", faq);
 
 		return "admin/admin_FAQ_read";
-}
-	  
-	 
+	}
 
 	// 7-2. FAQ게시글 수정 불러오기 (select)
 	@GetMapping("/adminFaqUpdate/{FAQNo}")
@@ -734,30 +719,28 @@ public class AdminController {
 	@PostMapping(value = "/adminFaq/deleteFaqList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public int deleteFaqList(@RequestBody Map<String, Integer> request) {
-	    int FAQNo = request.get("FAQNo");
-	    System.out.println(FAQNo);
+		int FAQNo = request.get("FAQNo");
+		System.out.println(FAQNo);
 
-	    return service.deleteFaq(FAQNo);
+		return service.deleteFaq(FAQNo);
 	}
 
 	// 7-4.공지사항 게시글 검색
 	@GetMapping("/getFaqSearchList")
-	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		
 		FAQ condition = new FAQ();
-		
+
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object>  adminFaqMap = service.getFaqSearchList(condition,cp);
+		Map<String, Object> adminFaqMap = service.getFaqSearchList(condition, cp);
 		model.addAttribute("adminFaqMap", adminFaqMap);
-		
 
 		return "admin/admin_faq";
 
 	}
-	
 
 	// 8. 신고하기 리스트 조회
 	@GetMapping("/adminReport") //

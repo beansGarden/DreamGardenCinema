@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
@@ -248,6 +249,11 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
+
+
+
+
+	List<SalesByPeriod> getSalesByDay();
 
 
 

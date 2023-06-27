@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.admin.model.dao.AdminMapper;
+import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.dto.Pagination;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -556,6 +557,12 @@ public class AdminServiceImpl implements AdminService {
 		adminFaqMap.put("adminFaqList", adminFaqList);
 		
 		return adminFaqMap;
+	}
+
+	// 지난 주 요일별 매출
+	@Override
+	public List<SalesByPeriod> getSalesByDay() {
+		return mapper.getSalesByDay();
 	}
 
 
