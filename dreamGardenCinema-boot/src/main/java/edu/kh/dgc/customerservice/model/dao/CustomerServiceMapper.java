@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.notice.model.dto.Notice;
+import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.qna.model.dto.QnaImage;
 
 @Mapper
 public interface CustomerServiceMapper {
@@ -34,6 +36,12 @@ public interface CustomerServiceMapper {
 
 	// 검색 목록 조회
 	List<Notice> noticeSearchList(Map<String, Object> param);
+
+	// 1:1문의글 등록(회원)
+	int cusQAInsert(Qna qna);
+
+	// 1:1 문의글 이미지 삽입
+	int insertQAImageList(List<QnaImage> uploadList);
 
 
 //	// 검색어 있을 경우 공지사항 목록 조회

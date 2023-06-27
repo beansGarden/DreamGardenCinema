@@ -49,3 +49,18 @@ commentBtn.addEventListener("click", () => {
     }
 
 });
+
+
+/* rating */
+const rating = document.getElementById("star");
+
+const scoreValue =
+document.getElementById("scoreValue");
+
+const ratingValue = 
+document.getElementById("ratingValue");
+
+rating.addEventListener("input", () => {
+    scoreValue.style.width = rating.value * 10 + "%";
+    ratingValue.innerText = rating.value;
+});

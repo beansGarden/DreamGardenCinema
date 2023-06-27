@@ -38,11 +38,15 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" th:each="movieInfo : ${movieList}">
                         <div>
-                            <span class="poster">
+                            <div class="poster">
                                 <img th:src="${movieInfo.poster}" alt="포스터">
                                 <em th:text="${movieInfo.rank}">순위</em>
                                 <img class="rating" th:src="${movieInfo.rating}" alt="등급">
-                            </span>
+                                <div class="movie-action">
+                                    <a class="font4" href="#">예매하기</a>
+                                    <a class="font4" th:href="@{|/movie/movieDetail=${movieInfo.movieNo}|}">상세보기</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="btm-info">
                             <strong class="title" th:text="${movieInfo.movieTitle}">제목</strong>
@@ -87,7 +91,9 @@
     </div>
 
     <section class="movie--banner">
-        <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
     </section>
 
 

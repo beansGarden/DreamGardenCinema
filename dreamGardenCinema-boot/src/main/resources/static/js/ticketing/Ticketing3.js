@@ -23,7 +23,6 @@ coupon.addEventListener("change", e=>{
     })
     .then(resp => resp.text())
     .then(resultPrice => {
-        console.log(resultPrice);
         document.querySelector(".price>div:last-child>span").innerText = resultPrice;
     })
 })

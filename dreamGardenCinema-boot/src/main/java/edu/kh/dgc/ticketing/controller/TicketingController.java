@@ -122,8 +122,8 @@ public class TicketingController {
 		model.addAttribute("resultSeatList", resultSeatList);
 		model.addAttribute("movieTheater", movieTheater);
 
-		amountPaid = resultSeatList.size() * 12000;
-		model.addAttribute("amountPaid", amountPaid);
+//		amountPaid = resultSeatList.size() * 12000;
+//		model.addAttribute("amountPaid", amountPaid);
 
 		String createTicketId = createTicketId((String) (session.getAttribute("movieTheater")), resultSeatList);
 		model.addAttribute("createTicketId", createTicketId);
@@ -202,6 +202,14 @@ public class TicketingController {
 		return realTicketId;
 	}
 
+	// 예매 3페이지 결제 시 티켓 정보 가져오는 AJAX
+	@ResponseBody
+	@PostMapping("/info")
+	public Ticket ticketInfo(@RequestBody Map<String, Integer> paramMap) {
+		return service.ticketInfo(paramMap.get("ticketNo"));
+	}
+	
+	
 //	
 //	@GetMapping("/pay")
 //	public String pay(Model model) {
@@ -211,13 +219,13 @@ public class TicketingController {
 //		return "ticketing/Ticketing3";
 //	}
 //	
-//	@GetMapping("/complete")
-//	public String complete(Model model) {
-//		
-//		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-//		
-//		return "ticketing/Ticketing4";
-//	}
+	@GetMapping("/complete")
+	public String complete(Model model) {
+		
+		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
+		
+		return "ticketing/Ticketing4";
+	}
 //	
 //	@GetMapping("/PaymentPage")
 //	public String PaymentPage(Model model) {

@@ -1,10 +1,13 @@
 package edu.kh.dgc.movie.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.movie.model.dao.CrawlingMapper;
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.Person;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService {
@@ -25,6 +28,16 @@ public class CrawlingServiceImpl implements CrawlingService {
 	@Override
 	public int selectHavingMovieNoByTitle(String movieTitle) {
 		return mapper.selectHavingMovieNoByTitle(movieTitle);
+	}
+
+	@Override
+	public int insertMoviePerson(Person person) {
+		return mapper.insertMoviePerson(person);
+	}
+
+	@Override
+	public int insertMovieStillCut(Map<String, Object> img) {
+		return mapper.insertMovieStillCut(img);
 	}
 	
 	
