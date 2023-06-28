@@ -438,6 +438,13 @@
 		GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
 		TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'), S.MOVIE_THEATER)
 	</select>
+	
+	
+	
+	<insert id="adminCinemaInsert">
+		INSERT INTO MOVIE_SCHEDULE (MOVIE_TIME, MOVIE_THEATER, MOVIE_NO)
+		VALUES (TO_DATE(#{movieTime}, 'YYYY-MM-DD HH24:MI:SS'), #{movieTheater}, #{movieNo})
+	</insert>
 
 
 	<!--////////////공지사항////////////-->

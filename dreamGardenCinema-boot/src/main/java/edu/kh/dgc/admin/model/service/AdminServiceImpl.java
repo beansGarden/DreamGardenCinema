@@ -412,6 +412,14 @@ public class AdminServiceImpl implements AdminService {
 		
 		return movieScheduleListCount;
 	}
+
+	//상영관 영화 스케쥴 삽입(insert)
+	@Override
+	public int adminCinemaInsert(Movie movie) {
+		
+		return mapper.adminCinemaInsert(movie);
+	}
+
 	
 
 	// 공지사항************************************************
@@ -619,6 +627,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		return faqListCount;
 	}
+
 
 	
 

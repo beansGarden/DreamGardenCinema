@@ -106,6 +106,8 @@ public interface AdminService {
 	//상영관 스케쥴 개수
 	int movieScheduleListCount();
 
+	//상영관 영화 스케쥴 삽입(insert)
+	int adminCinemaInsert(Movie movie);
 	
 	//공지사항 관리*******************************
 	
@@ -157,6 +159,8 @@ public interface AdminService {
 
 	//FAQ 개수
 	int faqListCount();
+
+	
 
 	
 

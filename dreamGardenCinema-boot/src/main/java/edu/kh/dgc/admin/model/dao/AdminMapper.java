@@ -156,6 +156,11 @@ public interface AdminMapper {
 	int movieScheduleListCount();
 
 
+	/**상영관 영화 스케쥴 삽입(insert)
+	 * @param movie
+	 * @return
+	 */
+	int adminCinemaInsert(Movie movie);
 	
 	//공지사항 관리*************************************************
 	
@@ -251,6 +256,11 @@ public interface AdminMapper {
 	List<FAQ> getFaqSearchList(FAQ condtion, RowBounds rowBounds);
 
 	List<SalesByPeriod> getSalesByDay();
+
+
+
+
+	
 	
 
 
