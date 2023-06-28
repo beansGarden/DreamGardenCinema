@@ -44,10 +44,14 @@
                     <span th:text="*{movieTitle}">영화 제목</span>
                 </div>
 
-                <div class="movie--audience-info font2">
+                <div class="movie--audience-info font2" th:if="*{screening} == C">
                     <span th:text="|관람객 평점|">관람객 평점</span>
                     <span th:text="|예매율|">예매율</span>
                     <span th:text="|누적관객수|">누적 관객수</span>
+                </div>
+
+                <div th:unless="*{screening} == C" style="margin-top: 20px;">
+
                 </div>
 
                 <hr>
@@ -125,8 +129,8 @@
             
 
 
-            <!-- 영화 정보 -->          <!-- menu-active -->
-            <div class="outer-info__type-info" th:object="${movie}">
+            <!-- 영화 정보 -->          
+            <div class="outer-info__type-info menu-active" th:object="${movie}">
 
                 <strong style="font-size: 20px;">시놉시스</strong>
 
@@ -182,7 +186,7 @@
 
 
             <!-- comment(평점 및 관람평) -->
-            <div class="outer-info__type-comment menu-active">
+            <div class="outer-info__type-comment">
 
                 <form class="comment-submit" th:action method="post">
 
@@ -214,7 +218,8 @@
 
                     <div class="review-write">
                         <textarea class="review-textarea" name="reviewContent" placeholder="평점 및 영화 관람평을 작성해주세요. 주제와 무관한 리뷰 또는 스포일러는 신고, 삭제될 수 있습니다."></textarea>
-                        <button class="review-btn">관람평 작성</button>
+                        <button class="review-btn" th:if="${loginUser}">관람평 작성</button>
+                        <button class="review-btn" th:unless="${loginUser}" type="button">로그인 후 <br>작성가능</button>
                     </div>
 
                 </form>
@@ -229,16 +234,18 @@
                             <div>관람객 관람평</div>
                         </div>
 
-                        <div class="comment--nav-sort">
+                        <div class="comment--nav-sort" th:unless="${movieComment.isEmpty()}">
 
-                            <div class="review-counter">
-                                총 <span>00</span> 건
+                            <div class="review-counter" >
+                                총 <span th:text="${#lists.size(movieComment)}">00</span> 건
                             </div>
                             |
                             <div>
                                 최신순
                             </div>
+                            
                         </div>
+
 
                     </div>
 
@@ -249,7 +256,50 @@
                         </div>
 
                         <div class="comment-each" th:unless="${movieComment.isEmpty()}" th:each="comment : ${movieComment}">
-                            
+                            <div class="comment-user-info">
+                                <div th:switch="${comment.score}" class="comment-user-info__left">
+
+                                    <img th:case="1" th:src="@{/images/movie/comment/rating/rating-1.png}">
+                                    <img th:case="2" th:src="@{/images/movie/comment/rating/rating-1.png}">
+                                    <img th:case="3" th:src="@{/images/movie/comment/rating/rating-2.png}">
+                                    <img th:case="4" th:src="@{/images/movie/comment/rating/rating-2.png}">
+                                    <img th:case="5" th:src="@{/images/movie/comment/rating/rating-3.png}">
+                                    <img th:case="6" th:src="@{/images/movie/comment/rating/rating-3.png}">
+                                    <img th:case="7" th:src="@{/images/movie/comment/rating/rating-4.png}">
+                                    <img th:case="8" th:src="@{/images/movie/comment/rating/rating-4.png}">
+                                    <img th:case="9" th:src="@{/images/movie/comment/rating/rating-5.png}">
+                                    <img th:case="10" th:src="@{/images/movie/comment/rating/rating-5.png}">
+                                    
+                                    <div class="comment-user-info__user-info">
+                                        <div th:text="${comment.userNickname}"></div>
+                                        <div class="comment-user-info__score">
+                                                <div class="score-comment"
+                                                th:style="|background: url(@{/images/movie/comment/starGray.png}) repeat-x;
+                                                background-size: 20px 20px;|
+                                                ">
+                                                    <span class="score-value-comment" id="scoreValue"
+                                                    th:style="|background: url(@{/images/movie/comment/star3.png}) repeat-x; 
+                                                    background-size: 20px 20px;
+                                                    width: calc(${comment.score}*10%);|
+                                                    ">
+                                                    </span>
+                                                </div>
+                                                <div th:text="${comment.score}" class="score-value-text"></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="comment-user-info__right">
+                                    <div th:text="${#strings.substring(comment.reviewDate,0,10)}"></div>
+                                </div>
+                            </div>
+
+                            <div class="comment-content" th:text="${comment.reviewContent}">
+
+                            </div>
+
                         </div>
 
                     </div>

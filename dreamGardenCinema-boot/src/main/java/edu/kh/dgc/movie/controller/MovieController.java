@@ -128,6 +128,7 @@ public class MovieController {
 		
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
+		System.out.println(movieComment);
 		
 		model.addAttribute("movie", movieInfo);
 		
@@ -163,6 +164,12 @@ public class MovieController {
 		comment.setReviewContent(reviewContent);
 		
 		int result = service.insertMovieComment(comment);
+		
+		if(result > 0) {
+			System.out.println("댓글 작성 성공");
+		}else{
+			System.out.println("댓글 작성 실패");
+		}
 		
 		String referer = request.getHeader("Referer");
 		

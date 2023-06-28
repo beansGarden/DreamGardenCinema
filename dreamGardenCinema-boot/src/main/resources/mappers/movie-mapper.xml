@@ -32,8 +32,11 @@
 		<result property="reviewDate" column="REVIEW_DATE"/>
 		<result property="reviewContent" column="REVIEW_CONTENT"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
 		<result property="movieNo" column="MOVIE_NO"/>
 	</resultMap>
+	
+	
 	
 	
 	<select id="selectMainSlideImgList">
@@ -123,9 +126,11 @@
 		AND MOVIE_IMG_ROLE = '스틸컷'
 	</select>
 	
-	<select id="selectMovieComment">
-		SELECT *
-		FROM MOVIE_REVIEW
+	<select id="selectMovieComment" resultMap="comment_rm">
+		SELECT R.REVIEW_NO, R.SCORE, R.REVIEW_DATE, R.REVIEW_CONTENT,
+		R.USER_NO, I.USER_NICKNAME, R.MOVIE_NO 
+		FROM MOVIE_REVIEW R
+		LEFT JOIN USER_INFO I ON (R.USER_NO = I.USER_NO)
 		WHERE MOVIE_NO = #{movieNo}
 		ORDER BY REVIEW_DATE DESC
 	</select>
