@@ -44,6 +44,15 @@ for(let i=0;i<10;i++){
     const innerStrong = document.createElement("strong");
     innerStrong.innerText = date;
     const em = document.createElement("em");
+    if(day=='토'){
+        innerStrong.style.color = 'blue';
+        em.style.color = 'blue';
+    }
+    if(day=='일'){
+        innerStrong.style.color = 'red';
+        em.style.color = 'red';
+    }
+
     const input = document.createElement("input");
     input.type = "radio";
     input.id = `Date${i}`;
@@ -95,19 +104,17 @@ for(let i=0;i<checkMovie.length;i++){
 
 function dateSet(){
     const choiceDate = document.querySelectorAll(".swiper-slide");
-    for(let i=0;i<choiceDate.length;i++){
-        choiceDate[i].addEventListener("click", e=>{
-            for(let j=0;j<choiceDate.length;j++){
-                choiceDate[j].classList.remove("dateActive");
-            }
-            e.currentTarget.classList.add("dateActive");
 
-            // 날짜 헤더 변경
-            let date = e.currentTarget.querySelector("a>label>input").value;
-            let day = e.currentTarget.querySelector("a>label>em").innerText;
-            headerDate.innerText = `${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}(${day})`;
-        })
+    for(let j=0;j<choiceDate.length;j++){
+        choiceDate[j].classList.remove("dateActive");
     }
+    this.classList.add("dateActive");
+    this.querySelector("input").checked = true;
+
+    // 날짜 헤더 변경
+    let date = this.querySelector("a>label>input").value;
+    let day = this.querySelector("a>label>em").innerText;
+    headerDate.innerText = `${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}(${day})`;
 }
 
 // 상영시간 / 상영관 AJAX
@@ -117,7 +124,7 @@ for(let i=0;i<checkBtn.length;i++){
         theaterChoiceajax(e.currentTarget);
     });
 };
-
+// 페이지 로딩시 상영관 AJAX
 document.addEventListener("DOMContentLoaded", function(){
     theaterChoiceajax(checkBtn[0]);
 });
@@ -126,8 +133,6 @@ document.addEventListener("DOMContentLoaded", function(){
 function theaterChoiceajax(e){
     let movieNo;
     let date;
-
-    console.log(e);
 
     if(e.nodeName == 'LABEL'){
         movieNo = e.getAttribute('for');
@@ -139,7 +144,6 @@ function theaterChoiceajax(e){
     }
 
     const data = {"movieNo" : movieNo, "date" : date};
-    console.log(data);
     fetch("/ticketing/time", {
         method : "POST",
         headers : {"Content-Type" : "application/json"},

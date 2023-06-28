@@ -1,7 +1,6 @@
 console.log(loginUser.userEmail);
 console.log(loginUser.userNickname);
 console.log(loginUser.userTel);
-
 function requestPay() {
 
     fetch("/ticketing/info", {
@@ -69,6 +68,7 @@ function requestPay() {
                         .done(function (res) {
                             if (res > 0) {
                                 alert('예매가 완료되었습니다');
+                                flag = 1;
                                 location.href = "/ticketing/complete/"+ticketNo;
                             }
                             else {
@@ -76,7 +76,6 @@ function requestPay() {
                                 location.href = "/ticketing/date";
                             }
                         })
-                        
                     })
                 } else {
                     alert("결제에 실패하였습니다.", "에러 내용: " + rsp.error_msg, "error");

@@ -34,10 +34,10 @@ public interface TicketingService {
 	// 예매 3페이지 쿠폰 AJAX
 	int couponSet(Map<String, Integer> paramMap, User user);
 	
-	// 티켓 중복 확인
+	// 예매 3페이지 티켓ID 중복 확인
 	int checkTicketId(String ticketId);
 
-	// 티켓 업데이트
+	// 예매 3페이지 생성된 티켓ID 삽입
 	int updateTicketId(String createTicketId, int ticketNo);
 
 	// 결제 취소 사유
@@ -48,6 +48,9 @@ public interface TicketingService {
 
 	// 예매 3페이지 결제API 시 티켓 정보 가져오는 AJAX
 	Ticket ticketInfo(Integer ticketNo);
+
+	// 예매 4페이지 결제완료된 티켓 정보 가져오기
+	Map<String, Object> selectResultTicket(int ticketNo);
 
 
 }

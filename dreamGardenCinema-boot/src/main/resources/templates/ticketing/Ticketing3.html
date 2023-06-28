@@ -18,8 +18,8 @@
         <div class="ticketingBox">
             <ul class="ticketingNav">
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
-                <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
-                <li class="pass"><a>02<br>인원/좌석</a></li>
+                <li class="pass"><a th:href="@{/ticketing/date/} + ${map.movie.movieNo}">01<br>상영시간</a></li>
+                <li class="pass"><a onclick="seatback()">02<br>인원/좌석</a></li>
                 <li class="active"><a>03<br>결제</a></li>
                 <li><a>04<br>결제완료</a></li>
             </ul>
@@ -71,6 +71,7 @@
         let loginUser = /*[[${session.loginUser}]]*/ "로그인유저";
         let ticketNo = /*[[${ticketNo}]]*/  "티켓번호";
         let seatList = /*[[${resultSeatList}]]*/ "좌석";
+        let movieNo = /*[[${map.movie.movieNo}]]*/ "영화번호";
         let data = {};
         data.ticketNo = ticketNo;
         data.seatList = seatList;
