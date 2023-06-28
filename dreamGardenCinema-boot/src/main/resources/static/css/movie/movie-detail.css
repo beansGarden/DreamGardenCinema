@@ -516,6 +516,17 @@ body {
     padding-left: 10px;
 }
 
+.comment-user-info__right{
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-user-info__right button{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
 .comment-content{
     padding-top: 10px;
     padding-left: 55px;

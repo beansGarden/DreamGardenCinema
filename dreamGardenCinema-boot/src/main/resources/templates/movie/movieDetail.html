@@ -293,6 +293,8 @@
 
                                 <div class="comment-user-info__right">
                                     <div th:text="${#strings.substring(comment.reviewDate,0,10)}"></div>
+                                    <button th:style="|background: url(@{/images/movie/comment/warning.png});
+                                                        background-size: cover;|"></button>
                                 </div>
                             </div>
 
