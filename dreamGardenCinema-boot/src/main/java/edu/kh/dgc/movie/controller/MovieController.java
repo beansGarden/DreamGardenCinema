@@ -128,8 +128,6 @@ public class MovieController {
 		
 		Map<String, String> advertisePoster = service.selectAdvertisePoster();
 		
-		System.out.println(movieComment);
-		
 		model.addAttribute("movie", movieInfo);
 		
 		model.addAttribute("movieDirectorName", movieDirectorName);

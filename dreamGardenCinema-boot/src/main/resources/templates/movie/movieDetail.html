@@ -204,11 +204,11 @@
                                 th:style="|background: url(@{/images/movie/comment/star3.png}) repeat-x; 
                                 background-size: 60px 60px;|
                                 ">
-                                    <input type="range" min=1 max=10 id="star" name="score" value=9>
+                                    <input type="range" min=1 max=10 id="star" name="score" value=10>
                                 </span>
                             </div>
 
-                            <div class="rating-value font0" id="ratingValue">9</div>
+                            <div class="rating-value font0" id="ratingValue">10</div>
 
                         </div>
 
@@ -294,7 +294,8 @@
                                 <div class="comment-user-info__right">
                                     <div th:text="${#strings.substring(comment.reviewDate,0,10)}"></div>
                                     <button th:style="|background: url(@{/images/movie/comment/warning.png});
-                                                        background-size: cover;|"></button>
+                                                        background-size: cover;|"
+                                            onclick="openModal()"></button>
                                 </div>
                             </div>
 
@@ -315,7 +316,7 @@
         </section>
 
         
-        
+        <th:block th:replace="~{movie/movieCommentReport}"></th:block>
         
     </div>
     
