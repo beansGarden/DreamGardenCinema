@@ -161,6 +161,12 @@ public interface AdminService {
 	int faqListCount();
 
 	
+	//신고하기***********************************************************************************
+	
+	//신고하기 Map 불러오기
+	Map<String, Object> adminReportList(int cp);
+
+	
 
 	
 

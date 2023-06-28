@@ -12,6 +12,7 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -259,8 +260,28 @@ public interface AdminMapper {
 
 
 
+//신고하기 관리******************************************************************************************
+	
+	
+
+	/**신고하기 글 개수 불러오기
+	 * @return
+	 */
+	int reportListCount();
 
 	
+	/** 신고하기 게시판 불러오기
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Report> adminReportList(RowBounds rowBounds);
+
+
+
+
+
+
+
 	
 
 

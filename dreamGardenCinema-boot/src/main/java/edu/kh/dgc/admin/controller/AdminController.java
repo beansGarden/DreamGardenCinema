@@ -41,7 +41,16 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	// 1.관리자 메인 대시보드
+	// 1.관리자 메인 대시보드----------------------------------------------------------------------------
+	
+	
+	@GetMapping("/adminMain") //
+	public String main() {
+
+		return "admin/admin_main";
+	}
+	
+	
 	@GetMapping("/admin")
 	public String dashboard(Model model) {
 
@@ -84,7 +93,7 @@ public class AdminController {
 	 * return "admin/admin_sideBar";}
 	 */
 
-	// 2.관리자 회원 관리
+	// 2.관리자 회원 관리----------------------------------------------------------------------------
 	@GetMapping("/adminUser")
 	public String adminUser(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -139,7 +148,7 @@ public class AdminController {
 	
 	
 	
-	// 3.관리자 영화 관리
+	// 3.관리자 영화 관리----------------------------------------------------------------------------
 	@GetMapping("/adminMovieManage")
 	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap,
@@ -299,7 +308,7 @@ public class AdminController {
 	
 	
 	
-	// 5.관리자 공지사항 리스트 조회
+	// 5.관리자 공지사항 리스트 조회----------------------------------------------------------------------------
 	@GetMapping("/adminNotice") //
 	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -426,7 +435,7 @@ public class AdminController {
 	
 	
 
-	// 6. 1:1 문의사항 리스트 조회 230613
+	// 6. 1:1 문의사항 리스트 조회 230613----------------------------------------------------------------------------
 	@GetMapping("/adminQna") //
 	public String qnaList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -513,7 +522,7 @@ public class AdminController {
 
 		return "admin/admin_QNA_read";
 	}
-	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615------------------------------------------------진행중6/22
+	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 
 
    @RequestMapping("/adminQnaAnswer/{qnaNo}")
    public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
@@ -705,7 +714,7 @@ public class AdminController {
 	
 	
 	
-	// 7. FAQ 리스트 조회
+	// 7. FAQ 리스트 조회----------------------------------------------------------------------------
 	@GetMapping("/adminFaq") //
 	public String faqList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -862,25 +871,45 @@ public class AdminController {
 	
 	
 
-	// 8. 신고하기 리스트 조회
+	// 8. 신고하기 리스트 조회----------------------------------------------------------------------------
 	@GetMapping("/adminReport") //
-	public String report() {
+	public String report(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
 
+			Map<String, Object> adminReportMap = service.adminReportList(cp);
+
+			model.addAttribute("adminReportMap", adminReportMap);
+		}
 		return "admin/admin_report";
 	}
 
-	@GetMapping("/adminMain") //
-	public String main() {
+	
+	
+	
 
-		return "admin/admin_main";
-	}
 
 	// 8-1. 신고하기 게시글 조회
 
 	// 8-2. 신고하기 게시글 쓰기
 
-	// 8-2. 신고하기 게시글 수정
+	// 8-3. 신고하기 게시글 수정
 
-	// 8-3. 신고하기 게시글 삭제
+	// 8-4. 신고하기 게시글 삭제
+	
+	// 9-1. 신고하기 게시글 조회------------------------------------------------------------------
+	
+	@GetMapping("/adminReivew") 
+	public String adminReivew() {
+
+		return "admin/admin_review";
+	}
+	
+	// 9-2. 신고하기 게시글 쓰기
+	
+	// 9-3. 신고하기 게시글 수정
+	
+	// 9-4. 신고하기 게시글 삭제
 
 }

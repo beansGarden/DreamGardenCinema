@@ -16,6 +16,7 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -628,6 +629,41 @@ public class AdminServiceImpl implements AdminService {
 		return faqListCount;
 	}
 
+	//신고하기*************************************************************************************
+	
+	//신고하기 Map 불러오기
+	@Override
+	public Map<String, Object> adminReportList(int cp) {
+		
+		int reportListCount = mapper.reportListCount();
+
+		Pagination pagination = new Pagination(reportListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Report> adminReportList = mapper.adminReportList(rowBounds);
+
+		Map<String, Object> adminReportMap = new HashMap<String, Object>();
+		
+		adminReportMap.put("pagination", pagination);
+		adminReportMap.put("adminReportList", adminReportList);
+
+
+		return adminReportMap;
+	}
+		
+		
+	
 
 	
 

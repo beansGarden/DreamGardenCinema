@@ -99,7 +99,35 @@
 		<result property="totalSales" column="TOTAL_SALES" />
 		<result property="ticketingDate" column="TICKETING_DATE" />
 	</resultMap>
+	
+	
+		<!--Review 영화 및 상영관-->
+<!--	<resultMap type="Review" id="review_rm">
 
+		<id property="reviewNo" column="REVIEW_NO" />
+
+		<result property="score" column="SCORE" />
+		<result property="reviewDate" column="REVIEW_DATE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="userNo" column="USER_NO" />
+		<result property="movieNo" column="MOVIE_NO" />
+	</resultMap>-->
+	
+	<!--Report 영화 및 상영관-->
+	<resultMap type="Report" id="report_rm">
+
+		<id property="reportNo" column="REVIEW_NO" />
+
+		<result property="reportTitle" column="REPORT_TITLE" />
+		<result property="reportContent" column="REPORT_CONTNENT" />
+		<result property="enrollDate" column="REPORT_ENROLL_DATE" />
+		<result property="reportFl" column="REPORT_FL" />
+		<result property="reportDeleteFl" column="REPORT_DELETE_FL" />
+		<result property="reviewNo" column="REVIEW_NO" />
+		<result property="writerNo" column="REPORT_WIRTER" />
+		<result property="reportedNo" column="REPORTED_USER_NO" />
+	</resultMap>
+	
 
 	<!--대시보드-->
 	<!--영화별 매출 불러오기-->
@@ -600,6 +628,20 @@
 		ORDER BY TRUNC(TICKETING_TIME)
 		
 	</select>
+
+
+<!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->
+
+		<!--신고하기 게시글 개수 불러오기-->
+		<select id="reportListCount" resultType="_int">
+			SELECT count(*) FROM REPORT
+		</select>
+		
+		<!--신고하기 게시판 불러오기-->
+		<select id="adminReportList" resultMap="report_rm">
+			SELECT * FROM REPORT
+		</select>
+
 
 
 </mapper>
