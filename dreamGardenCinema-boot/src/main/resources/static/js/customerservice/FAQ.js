@@ -586,7 +586,53 @@ searchBtn.addEventListener("click", (e) => {
 })
 /************************************************************************/
 
+// 상영관 아이콘 애니메이션
+const reel1 = document.getElementById("reel-1");
+const reel2 = document.getElementById("reel-2");
 
+const reel = document.getElementById("camera-loader");
+const transform = document.getElementsByClassName("transform");
+reel.addEventListener("mouseover", ()=>{
+  
+  reel1.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
+  dur="1.7s" begin="0" from="0 17.66 22.74" to="360 17.66 22.74"
+  repeatCount="indefinite" class="transform"/>`
+  
+  reel2.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
+  dur="1s" begin="0" from="0 51.4 17.7" to="360 51.4 17.7"
+  repeatCount="indefinite" class="transform"/>`
+  
+})
+reel.addEventListener("mouseout", ()=>{
+  
+  reel1.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
+  dur="0" begin="0" from="0 17.66 22.74" to="360 17.66 22.74"
+  repeatCount="indefinite" class="transform"/>`
+  
+  reel2.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
+  dur="0" begin="0" from="0 51.4 17.7" to="360 51.4 17.7"
+  repeatCount="indefinite" class="transform"/>`
+  
+})
+
+/************************************************************************/
+
+// 멤버십 아이콘 애니메이션
+
+var crown = document.querySelector("#crown");
+// var container = document.querySelector(".container");
+
+crown.addEventListener("mouseover", () => {
+  crown.style.animationDuration = "450ms";
+});
+
+
+// crown.addEventListener("mouseout", () => {
+//   crown.style.animation = "end_image 0s linear infinite";
+//   crown.style.transformOrigin = "50% 50%";
+// });
+
+/************************************************************************/
 
 
 

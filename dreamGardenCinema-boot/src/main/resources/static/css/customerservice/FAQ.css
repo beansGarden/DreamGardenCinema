@@ -4,16 +4,26 @@
     padding: 0;
 }
 
-ul,
-li {
+ul,li {
     list-style: none;
 }
 
 a {
     text-decoration: none;
     color: black;
-
 }
+
+#camera-body,
+#reel-1,
+#reel-2 {
+	fill: #fff;
+	fill-opacity: 0.95;
+	stroke: none;
+}
+
+
+
+
 
 /* 공지사항 전체 영역 */
 .customer-service-box {
@@ -103,6 +113,8 @@ a {
 
 }
 
+
+
 /* 검색영역 form태그 */
 .service-search-smt {
     width: 70vw;
@@ -110,7 +122,7 @@ a {
     flex-direction: column;
     justify-content: center;
     background-color: #0F0954;
-
+    border-radius: 10px;
     margin-top: 150px;
 }
 
@@ -153,7 +165,7 @@ a {
 
 
 /* 멤버십 아이콘 */
-.FAQ-membership>a>img {
+.FAQ-membership>a>svg {
     width: 100px;
     height: 100px;
 }
@@ -360,3 +372,41 @@ a {
     display: none;
     border-bottom: 2px solid  #ccc;
 }
+
+/* @keyframes rotate_image {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes end_image {
+    50% {
+        transform: rotate(0deg);
+    }
+} */
+
+#crown{
+    opacity: 0;
+    animation-name: bounceIn;
+    animation-duration: 0ms;
+    /* animation-timing-function: linear; */
+    animation-fill-mode: forwards;
+    }
+
+    @keyframes bounceIn{
+        0%{
+        opacity: 0;
+        transform: scale(0.3) translate3d(0,0,0);
+        }
+        50%{
+        opacity: 0.9;
+        transform: scale(1.1);
+        }
+        80%{
+        opacity: 1;
+        transform: scale(0.89);
+        }
+        100%{
+        opacity: 1;
+        transform: scale(1) translate3d(0,0,0);
+        }
+    }
