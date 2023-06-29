@@ -44,6 +44,8 @@
 		<result property="seatNo" column="SEAT_NO"/>
 		<result property="state" column="STATE"/>
 		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<!--JOIN MOVIE-->
+		<result property="poster" column="POSTER"/>
 	</resultMap>
 	
 	<resultMap type="SeatCheck" id="seatcheck_rm">

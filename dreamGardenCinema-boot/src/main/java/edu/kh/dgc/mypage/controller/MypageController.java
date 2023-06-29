@@ -1,6 +1,7 @@
 package edu.kh.dgc.mypage.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.mypage.model.service.MypageService;
 import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @SessionAttributes({"loginUser"})
@@ -29,13 +31,28 @@ public class MypageController {
 	private MypageService service;
 	
 	@GetMapping("/")
-	public String reservation() {
-			
+	public String reservation(
+			Model model
+			,@SessionAttribute("loginUser") User loginuser
+			) {
+
+		int userNo = loginuser.getUserNo();
+		
+		
+		
+		List<Ticket> reservationList = service.reservation(userNo);
+		
+		System.out.println(reservationList);
+		
+		model.addAttribute("reservationList",reservationList);
+		
 		return "myPage/my-page-reservation";
 	}
 	
 	@GetMapping("/my-page-membership")
-	public String membership() {
+	public String membership(
+			
+			) {
 		
 		return "myPage/my-page-membership";
 	}

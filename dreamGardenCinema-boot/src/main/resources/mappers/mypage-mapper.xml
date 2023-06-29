@@ -53,6 +53,25 @@
 		<result property="couponName" column="COUPON_NAME" />
 	</resultMap>
 
+	<resultMap type="Ticket" id="ticket_rm">
+		<id property="ticketNo" column="TICKET_NO" />
+		<result property="ticketingTime" column="TICKETING_TIME" />
+		<result property="payAmount" column="PAY_AMOUNT" />
+		<result property="userNo" column="USER_NO" />
+		<result property="coupon" column="COUPON" />
+		<result property="movieTime" column="MOVIE_TIME" />
+		<result property="movieTheater" column="MOVIE_THEATER" />
+		<result property="movieNo" column="MOVIE_NO" />
+		<result property="ticketFL" column="TICKET_FL" />
+		<result property="ticketId" column="TICKET_ID" />
+		<result property="ticketImpId" column="TICKEY_IMP_UID" />
+		<result property="seatNo" column="SEAT_NO" />
+		<result property="state" column="STATE" />
+		<result property="movieTitle" column="MOVIE_TITLE" />
+		<!--JOIN MOVIE-->
+		<result property="poster" column="POSTER" />
+	</resultMap>
+
 	<!--나의 1:1 문의 내역 조회-->
 	<select id="myQnaList" resultMap="qna_rm">
 		SELECT
@@ -98,12 +117,38 @@
 		WHERE USER_NO = #{userNo}
 		AND USE_FL ='N'
 	</select>
-	
+
 	<!-- 회원 탈퇴-->
 	<update id="secessionUser" parameterType="User">
 		UPDATE "USER_INFO" SET
 		USER_CLOSE = 'Y'
 		WHERE USER_NO = #{userNo}
 	</update>
+
+	<!--회원이 예매한 티켓 리스트-->
+	<select id="ticketList" resultMap="ticket_rm">
+		SELECT
+		TICKET_NO,
+		MOVIE_NO,
+		TO_CHAR(MOVIE_TIME, 'YYYY.MM.DD(""Dy"")HH24:MI:SS') AS MOVIE_TIME,
+		PAY_AMOUNT,
+		MOVIE_THEATER,
+		TICKET_ID,
+		MOVIE_TITLE,
+		POSTER,
+		USER_NO,
+		(
+		SELECT LISTAGG(SEAT_NO, ',') WITHIN GROUP (ORDER BY SEAT_NO)
+		FROM SEAT_CHECK sc
+		WHERE sc.TICKET_NO = ti.TICKET_NO
+		) AS SEAT_NO
+		FROM
+		TICKETING_INFO ti
+		JOIN MOVIE USING (MOVIE_NO)
+		WHERE
+		USER_NO = #{userNo}
+		AND TICKET_ID IS NOT NULL
+		ORDER BY TICKET_NO
+	</select>
 
 </mapper>
