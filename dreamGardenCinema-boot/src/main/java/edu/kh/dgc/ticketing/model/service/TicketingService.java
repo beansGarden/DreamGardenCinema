@@ -15,7 +15,10 @@ public interface TicketingService {
 	
 	// 예매 1페이지 영화시간,상영관 조회 AJAX
 	List<Schedule> movieTime(Map<String, Object> paramMap);
-
+	
+	// 예매 1페이지 별점순 AJAX
+	List<Movie> sortRating();
+	
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회 
 	Map<String, Object> seatInfo(Ticket ticket);
 	
@@ -51,6 +54,10 @@ public interface TicketingService {
 
 	// 예매 4페이지 결제완료된 티켓 정보 가져오기
 	Map<String, Object> selectResultTicket(int ticketNo);
+
+	
+	
+	
 
 
 }
