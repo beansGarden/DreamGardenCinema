@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,11 +39,19 @@ public class TicketingController {
 	private int amountPaid;
 
 	// 예매 1페이지 (영화목록 조회)
-	@GetMapping("/date")
+	@GetMapping("/date/{movieNo}")
 	public String date(Model model,
-			@RequestParam(value = "saveTicket", required = false, defaultValue = "null") String stringTicket) {
+			@RequestParam(value = "saveTicket", required = false, defaultValue = "null") String stringTicket,
+			@PathVariable(value = "movieNo", required=false) Integer movieNo) {
+		
 		List<Movie> movieList = service.selectMovieList(); // 영화 목록 조회
+		
 		model.addAttribute("movieList", movieList);
+		if(movieNo != 0) {
+			model.addAttribute("movieNo", movieNo);
+		} else {
+			model.addAttribute("movieNo", movieList.get(0).getMovieNo());
+		}
 		return "ticketing/Ticketing1";
 	}
 
@@ -65,11 +74,12 @@ public class TicketingController {
 
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회
 	@PostMapping("/seat")
-	public String seat(Ticket ticket, String date, Model model // 모델에 담아서 forward
+	public String seat(Ticket ticket, Model model // 모델에 담아서 forward
 			, RedirectAttributes ra, @SessionAttribute("loginUser") User loginUser, HttpSession session) {
 
+		System.out.println("왜~~~~~~~~~~~~~~~~~~~??? : "+ticket);
 		// 2023062414:00
-		String movieTime = date.split(" ")[0] + ticket.getMovieTime().split(",")[1];
+		String movieTime = ticket.getDate().split(" ")[0] + ticket.getMovieTime().split(",")[1];
 		String movieTheater = ticket.getMovieTime().split(",")[0];
 
 		ticket.setMovieTime(movieTime);
@@ -80,8 +90,8 @@ public class TicketingController {
 		Map<String, Object> map = service.seatInfo(ticket); // 티켓인포에 저장(INSERT)(SELECT), 영화정보(SELECT), 좌석정보(SELECT)
 
 		// 영화번호, 영화관, 영화시간 => 방으로 구분 (3/1/2023062414:00)
-		String changeMovieTime = date.substring(2, 4) + "." + date.substring(4, 6) + "." + date.substring(6, 8) + "("
-				+ date.substring(9) + ")";
+		String changeMovieTime = ticket.getDate().substring(2, 4) + "." + ticket.getDate().substring(4, 6) + "." + ticket.getDate().substring(6, 8) + "("
+				+ ticket.getDate().substring(9) + ")";
 
 		int runTime = Integer.parseInt((((Movie) map.get("movie")).getRunningTime()));
 
@@ -89,10 +99,24 @@ public class TicketingController {
 		int minute = Integer.parseInt(movieTime.substring(11, 13));
 
 		hour = hour + ((minute + runTime) / 60);
+		String resultHour = null;
+		String resultMinute = null;
+		if(hour<10) {
+			resultHour = "0" + hour;
+		} else {
+			resultHour = "" + hour;
+		}
+		if(minute<10) {
+			resultMinute = "0" + minute;
+		} else {
+			resultMinute = "" + minute;
+		}
+		
+		
 		minute = (minute + runTime) % 60;
 
 		// 화면단에 보여줄 러닝타임 (14:00 ~
-		String runningTime = movieTime.substring(8) + "~" + hour + ":" + minute;
+		String runningTime = movieTime.substring(8) + "~" + resultHour + ":" + resultMinute;
 
 		String room = ticket.getMovieNo() + "/" + ticket.getMovieTheater() + "/" + ticket.getMovieTime();
 
@@ -163,6 +187,7 @@ public class TicketingController {
 		return service.couponSet(paramMap, user);
 	}
 
+	
 	public String createTicketId(String movieTheater, List<String> resultSeatList) {
 
 		if (movieTheater.length() < 2) {
@@ -209,6 +234,19 @@ public class TicketingController {
 		return service.ticketInfo(paramMap.get("ticketNo"));
 	}
 	
+	@GetMapping("/complete/{ticketNo}")
+	public String complete(Model model, @PathVariable(value = "ticketNo", required = false) int ticketNo) {
+		
+		System.out.println(ticketNo);
+		
+		Map<String, Object> map = service.selectResultTicket(ticketNo);
+		
+		model.addAttribute("map", map);
+		
+		return "ticketing/Ticketing4";
+	}
+	
+	
 	
 //	
 //	@GetMapping("/pay")
@@ -219,13 +257,6 @@ public class TicketingController {
 //		return "ticketing/Ticketing3";
 //	}
 //	
-	@GetMapping("/complete")
-	public String complete(Model model) {
-		
-		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-		
-		return "ticketing/Ticketing4";
-	}
 //	
 //	@GetMapping("/PaymentPage")
 //	public String PaymentPage(Model model) {

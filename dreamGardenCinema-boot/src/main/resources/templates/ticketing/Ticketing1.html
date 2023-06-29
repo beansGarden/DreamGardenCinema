@@ -25,11 +25,11 @@
                 <div class="choiceMovie">
                     <div class="hiddenRadio" style="display: none;">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(input radio 영화번호 선택) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie, movieStat : ${movieList}">
-                            <th:block th:if="${movieStat.index==0}">
+                        <th:block th:each="movie : ${movieList}">
+                            <th:block th:if="${movie.movieNo == movieNo}">
                                 <input type="radio" name="movieNo" th:id="${movie.movieNo}" th:value="${movie.movieNo}" checked="true">
                             </th:block>
-                            <th:block th:unless="${movieStat.index==0}">
+                            <th:block th:unless="${movie.movieNo == movieNo}">
                                 <input type="radio" name="movieNo" th:id="${movie.movieNo}" th:value="${movie.movieNo}">
                             </th:block>
                         </th:block>
@@ -48,8 +48,8 @@
                     </div>
                     <div class="MovieList hamburger">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie, movieStat : ${movieList}">
-                            <label th:for="${movie.movieNo}" class="checkBtn hmbgr" th:classappend="${movieStat.index == 0} ? 'saveMovie'">
+                        <th:block th:each="movie : ${movieList}">
+                            <label th:for="${movie.movieNo}" class="checkBtn hmbgr" th:classappend="${movie.movieNo == movieNo} ? 'saveMovie'">
                                 <img class="rating" th:src="${movie.rating}">                          
                                 <span class="movieTitle" th:text="${movie.movieTitle}"></span>
                             </label>
@@ -58,8 +58,8 @@
                     </div>
                     <div class="MovieList pizza" style="display: none;">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(피자 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie, movieStat : ${movieList}">
-                            <label th:for="${movie.movieNo}" class="checkBtn pzz" th:classappend="${movieStat.index == 0} ? 'saveMovie'">
+                        <th:block th:each="movie : ${movieList}">
+                            <label th:for="${movie.movieNo}" class="checkBtn pzz" th:classappend="${movie.movieNo == movieNo} ? 'saveMovie'">
                                 <div class="poster">
                                     <img th:src="${movie.poster}">
                                 </div>
@@ -128,6 +128,7 @@
     <th:block th:replace="~{common/footer}"></th:block>
     <script th:inline="javascript">
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
+        const startMovieNo = /*[[${movieNo}]]*/ "가져온 영화번호";
     </script>
     <script th:src="@{/js/ticketing/Ticketing1.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

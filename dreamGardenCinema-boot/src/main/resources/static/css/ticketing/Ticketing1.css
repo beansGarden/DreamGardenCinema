@@ -383,7 +383,10 @@ body{
 
 .dateActive>a>label>strong{
     background-color: #0E0753;
-    color : white;
+    color : white !important;
+}
+.dateActive>a{
+    font-weight: bold;
 }
 
 .saveMovie{

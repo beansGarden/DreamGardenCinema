@@ -16,43 +16,50 @@
         <div class="ticketingBox">
             <ul class="ticketingNav">
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
-                <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
-                <li class="pass"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
-                <li class="pass"><a th:href="@{/ticketing/pay}">03<br>결제</a></li>
-                <li class="active"><a th:href="@{/ticketing/complete}">04<br>결제완료</a></li>
+                <li class="pass"><a>01<br>상영시간</a></li>
+                <li class="pass"><a>02<br>인원/좌석</a></li>
+                <li class="pass"><a>03<br>결제</a></li>
+                <li class="active"><a>04<br>결제완료</a></li>
             </ul>
             <form action="" method="POST">
                 <div class="choiceHeader">예매완료</div>
-                <div class="ticketBox">
+                <div class="ticketBox" th:object="${map}">
                     <div>예매가 완료 되었습니다</div>
                     <div class="ticket_info">
                         <div class="poster">
-                            <img th:src="@{/images/common/main/포스터/범죄도시.jpg}" alt="">
+                            <img th:src="*{ticket.poster}" alt="">
                         </div>
                         <div class="content">
                             <div>
                                 <span>예매정보</span>
-                                <span>0000-0000-0000</span>
+                                <span th:text="*{ticket.ticketId}">티켓ID</span>
                             </div>
                             <div>
                                 <span>영화</span>
-                                <span>범죄도시3</span>
+                                <span th:text="*{ticket.movieTitle}">영화제목</span>
                             </div>
                             <div>
                                 <span>일시</span>
-                                <span>2023-06-09</span>
+                                <span th:text="*{ticket.movieTime}">영화시간</span>
                             </div>
                             <div>
                                 <span>인원</span>
-                                <span>2명</span>
+                                <span>[[*{#lists.size(seatList)}]]명</span>
                             </div>
                             <div>
                                 <span>좌석</span>
-                                <span>D10, D11</span>
+                                <th:block th:each="list, listStat : ${map.seatList}">
+                                    <th:block th:if="${(#lists.size(map.seatList)-1).equals(listStat.index)}">
+                                        <span th:text="${list.seatNo}"></span>
+                                    </th:block>
+                                    <th:block th:unless="${(#lists.size(map.seatList)-1).equals(listStat.index)}">
+                                        <span th:text="${list.seatNo} + ', '"></span>
+                                    </th:block>
+                                </th:block>
                             </div>
                             <div>
                                 <span>결제금액</span>
-                                <span>18,000원</span>
+                                <span>[[*{ticket.payAmount}]]원</span>
                             </div>
                         </div>
                     </div>
@@ -67,7 +74,6 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <h1 th:text="${ticket}"></h1>
     <script th:src="@{/js/ticketing/Ticketing4.js}"></script>
 </body>
 </html>
