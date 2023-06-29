@@ -1,5 +1,6 @@
 package edu.kh.dgc.movie.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.movie.model.dto.MovieComment;
@@ -173,6 +175,43 @@ public class MovieController {
 		
 		return "redirect:"+ referer;
 	}
+	
+	@PostMapping("/movieDetail/report")
+	public String insertMovieCommentReport(int reviewNo,
+											int reportedUserNo,
+											String reportTitle,
+											String reportContent,
+											@SessionAttribute("loginUser") User loginUser,
+											HttpServletRequest request,
+											Model model,
+											RedirectAttributes ra) {
+		
+		Map<String, Object> report = new HashMap<>();
+		
+		System.out.println(reviewNo);
+		System.out.println(reportedUserNo);
+		System.out.println(reportTitle);
+		System.out.println(loginUser.getUserNo());
+		System.out.println(reportContent);
+		
+		report.put("reviewNo", reviewNo);
+		report.put("reportedUserNo", reportedUserNo);
+		report.put("reportTitle", reportTitle);
+		report.put("reportWriter", loginUser.getUserNo());
+		report.put("reportContent", reportContent);
+		
+		int result = service.insertMovieCommentReport(report);
+		String message;
+		
+		if(result > 0) message = "신고가 접수 되었습니다";
+		else			message = "신고 작성이 실패했습니다. 나중에 다시 시도해주세요";
+			
+		ra.addFlashAttribute("alertMessage", message);
+		 
+		String referer = request.getHeader("Referer");
+		return "redirect:"+ referer;
+	}
+	
 	
 	
 }

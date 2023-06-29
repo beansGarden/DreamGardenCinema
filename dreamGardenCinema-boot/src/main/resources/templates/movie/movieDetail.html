@@ -293,9 +293,12 @@
 
                                 <div class="comment-user-info__right">
                                     <div th:text="${#strings.substring(comment.reviewDate,0,10)}"></div>
-                                    <button th:style="|background: url(@{/images/movie/comment/warning.png});
+                                    <button th:if="${loginUser}"
+                                            th:style="|background: url(@{/images/movie/comment/warning.png});
                                                         background-size: cover;|"
-                                            onclick="openModal()"></button>
+                                            th:nickname="${comment.userNickname}"
+                                            th:reportedUserNo="${comment.userNo}"
+                                            th:onclick="|openModal(${comment.reviewNo}, this.getAttribute('nickname'), this.getAttribute('reportedUserNo'))|"></button>
                                 </div>
                             </div>
 
@@ -381,6 +384,12 @@
 
     <script th:src="@{/js/movie/movie-detail.js}"></script>
 
+    <script th:inline="javascript">
+        const alertMessage = /*[[${alertMessage}]]*/ "전송받은 메세지";
+        if(alertMessage != null){
+            alert(alertMessage);
+        }
+    </script>
 
 </body>
 

@@ -70,20 +70,20 @@ rating.addEventListener("input", () => {
 // Get DOM Elements
 const modal = document.querySelector('#my-modal');
 const modalBtn = document.querySelector('#modal-btn');
-const closeBtn = document.querySelector('.close');
+const reviewNoInput = document.querySelector('#reviewNo');
+const reportedUserInput = document.querySelector('#reportedUser');
+const reportedUserNoInput = document.querySelector('#reportedUserNo');
 
 // Events
-closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
 
 // Open
-function openModal() {
+function openModal(reviewNo, userNickname, reportedUserNo) {
     modal.style.display = 'block';
-}
+    reviewNoInput.value = reviewNo;
+    reportedUserInput.value = userNickname;
+    reportedUserNoInput.value = reportedUserNo;
 
-// Close
-function closeModal() {
-    modal.style.display = 'none';
 }
 
 // Close If Outside Click

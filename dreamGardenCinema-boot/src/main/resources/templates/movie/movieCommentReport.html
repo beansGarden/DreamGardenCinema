@@ -2,17 +2,27 @@
 
 <div id="my-modal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-        </div>
-        <form class="modal-body">
-            <p>This is my modal</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla repellendus nisi, sunt consectetur ipsa
-                velit
-                repudiandae aperiam modi quisquam nihil nam asperiores doloremque mollitia dolor deleniti quibusdam nemo
-                commodi ab.</p>
+        <form class="modal-body" th:action="@{/movie/movieDetail/report}" method="post">
+
+            <input type="hidden" id="reviewNo" name="reviewNo">
+
+            <div>
+                <p>신고대상</p>
+                <input type="text" id="reportedUser" name="reportedUser" readonly>
+                <input type="hidden" id="reportedUserNo" name="reportedUserNo">
+            </div>
+
+            <div>
+                <p>신고제목</p>
+                <input type="text" name="reportTitle">
+            </div>
+
+            <div>
+                <p>신고내용</p>
+                <textarea name="reportContent"></textarea>
+            </div>
+
+            <button>신고하기</button> 
         </form>
     </div>
 </div>
-
-<script th:src="@{/js/movie/movie-detail.js}"></script>

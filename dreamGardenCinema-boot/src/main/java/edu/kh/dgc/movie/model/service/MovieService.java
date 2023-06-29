@@ -94,6 +94,8 @@ public interface MovieService {
 	 */
 	int insertMovieComment(MovieComment comment);
 
+	int insertMovieCommentReport(Map<String, Object> report);
+
 
 
 	
