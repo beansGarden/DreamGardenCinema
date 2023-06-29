@@ -22,6 +22,26 @@ header {
 
 }
 
+/* 구름 */
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600';
+
+@keyframes clouds {
+    0% {
+        transform: translateX(0px);
+    }
+
+    50% {
+        transform: translateX(-50px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+
+
+
 /* 상단바 메뉴 영역 */
 .dg-menu {
     position: relative;
@@ -898,6 +918,6 @@ header {
 
 /* 드래그 방지 */
 
-.dg-membership-link{
+.dg-membership-link {
     cursor: default;
 }

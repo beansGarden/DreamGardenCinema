@@ -67,27 +67,54 @@
                     </div>
                     <!-- 회원 관련 -->
                     <div class="FAQ-member">
-                        <a class="faq-theater-list"><img th:src="@{/images/customerservice/회원 아이콘.png}"
-                                th:onclick="cusList()">
+                        <a class="faq-theater-list">
+                            <div id="FAQcontainer">
+                                <button class="face-button" th:onclick="cusList()">
+                                    <span class="face-container">
+                                        <span class="eye left"></span>
+                                        <span class="eye right"></span>
+                                        <span class="mouth"></span>
+                                    </span>
+                                </button>
+                            </div>
+                            <!-- <img th:src="@{/images/customerservice/회원 아이콘.png}" th:onclick="cusList()"> -->
                             <p>회원</p>
                         </a>
                     </div>
                     <!-- 멤버십 관련 -->
                     <div class="FAQ-membership">
                         <a class="faq-theater-list">
-
-                            <svg id="crown" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"
-                                th:onclick="memList()">
-                                <defs>
-                                    <style>
-                                        .cls-1 {
-                                            fill: #fff;
-                                        }
-                                    </style>
-                                </defs>
-                                <polygon class="cls-1" points="12.7 50 87.5 50 100 0 75 25 50 0 25.6 25 0 0 12.7 50" />
-                            </svg>
-
+                            <div class="star-container" th:onclick="memList()">
+                                <div class="star-wrapper">
+                                    <div class="star-shape star-shape-gray">
+                                        <svg viewBox="0 1 52 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <path
+                                                d="M19.1599493,39.1271248 C17.4576451,40.0218018 16.7108089,39.4773077 17.0355266,37.5846452 L18.2375322,30.5785868 L18.3264535,30.0602965 L17.9498333,29.6932963 L12.8580559,24.7315783 C11.4811669,23.3898591 11.7682637,22.5119148 13.669534,22.2357297 L20.7061974,21.2135596 L21.226418,21.1379905 L21.459124,20.6666223 L24.606016,14.2922998 C25.457074,12.5684024 26.381668,12.5700646 27.231905,14.2922998 L30.378797,20.6666223 L30.611503,21.1379905 L31.131724,21.2135596 L38.168387,22.2357297 C40.071492,22.5121813 40.355428,23.3911516 38.979865,24.7315783 L33.888088,29.6932963 L33.511468,30.0602965 L33.600389,30.5785868 L34.802395,37.5846452 C35.127425,39.4791331 34.378634,40.020939 32.677972,39.1271248 L26.384189,35.8193128 L25.918961,35.5748037 L25.453732,35.8193128 L19.1599493,39.1271248 L19.1599493,39.1271248 Z"
+                                                id="starme" sketch:type="MSShapeGroup"></path>
+                                        </svg>
+                                    </div>
+                                    <ul class="star-line-container">
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                    </ul>
+                                    <div class="star-circle"></div>
+                                </div>
+                            </div>
                             <!-- <img th:src="@{/images/myPage/멤버십 아이콘.png}" th:onclick="memList()"> -->
                             <p>멤버십</p>
                         </a>

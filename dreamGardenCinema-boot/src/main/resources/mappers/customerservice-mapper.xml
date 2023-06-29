@@ -193,7 +193,7 @@
 		<foreach collection="list" item="img" separator=" UNION ALL ">
 			SELECT 
 			#{img.qnaImgOrder} QNA_IMG_ORDER,
-			#{img.qnaImgPath} QNA_IMG_PATH,
+			#{img.qnaImgPath} || #{img.originalName} QNA_IMG_PATH,
 			#{img.qnaNo} QNA_NO
 			FROM DUAL
 		</foreach>

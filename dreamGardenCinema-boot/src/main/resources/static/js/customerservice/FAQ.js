@@ -617,20 +617,10 @@ reel.addEventListener("mouseout", ()=>{
 
 /************************************************************************/
 
-// 멤버십 아이콘 애니메이션
-
-var crown = document.querySelector("#crown");
-// var container = document.querySelector(".container");
-
-crown.addEventListener("mouseover", () => {
-  crown.style.animationDuration = "450ms";
-});
 
 
-// crown.addEventListener("mouseout", () => {
-//   crown.style.animation = "end_image 0s linear infinite";
-//   crown.style.transformOrigin = "50% 50%";
-// });
+
+
 
 /************************************************************************/
 
