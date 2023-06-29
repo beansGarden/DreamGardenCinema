@@ -1,9 +1,10 @@
 package edu.kh.dgc.review.model.dto;
 
-import groovy.transform.ToString;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -17,5 +18,8 @@ public class Review {
 	private String reviewContent;
 	private int userNo;
 	private int movieNo;
+	private String reviewDeleteFl;
 	
+	//JOIN
+	private String movieTitle;
 }

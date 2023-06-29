@@ -32,6 +32,8 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.report.model.dto.Report;
+import edu.kh.dgc.review.model.dto.Review;
 import edu.kh.dgc.user.model.dto.User;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
@@ -886,30 +888,110 @@ public class AdminController {
 	}
 
 	
-	
-	
-
-
 	// 8-1. 신고하기 게시글 조회
 
-	// 8-2. 신고하기 게시글 쓰기
+	@GetMapping("/adminReportRead/{reviewNo}")
+	public String ReportReadModel(Model model, @PathVariable(value = "reviewNo", required = false) int reviewNo, Report report) {
 
-	// 8-3. 신고하기 게시글 수정
+		List<Report> adminReportOne = service.adminReportOne(reviewNo);
 
-	// 8-4. 신고하기 게시글 삭제
-	
-	// 9-1. 신고하기 게시글 조회------------------------------------------------------------------
-	
-	@GetMapping("/adminReivew") 
-	public String adminReivew() {
+		model.addAttribute("report", adminReportOne);
+		
+		System.out.println(reviewNo);
+		System.out.println(adminReportOne);
 
-		return "admin/admin_review";
+		return "admin/admin_report_read";
 	}
 	
-	// 9-2. 신고하기 게시글 쓰기
 	
-	// 9-3. 신고하기 게시글 수정
 	
-	// 9-4. 신고하기 게시글 삭제
+	// 8-2. 신고하기 리뷰 삭제
+	@GetMapping("/adminReportDelete/{reportNo}/delete") //
+	public String ReportReviewDelete(Review review, Model model, @PathVariable(value = "reportNo") int reportNo
+										, @RequestParam(value = "reviewNo", required = false) int reviewNo, RedirectAttributes ra) {
+
+		int result = service.deleteReview(reviewNo);
+		Review reviewList = new Review();
+		reviewList.setReviewNo(reviewNo);
+
+		model.addAttribute("review", reviewList);
+		System.out.println(review);
+		System.out.println(reviewNo);
+		System.out.println(reviewList);
+		System.out.println(result);
+
+		// 삽입 성공 시
+		String message = null;
+		String path = "redirect:";
+		if (result > 0) { // 성공시
+
+			message = "게시글이 등록 되었습니다.";
+			
+			//신고글 처리여부 
+			int result2 = service.updateDeleteReport(reportNo);
+			
+			if(result2> 0) {
+				message = "신고글이 처리 되었습니다,";
+				
+				path += "redirect:";
+			}
+			path += "/adminReportRead" +"/" + reviewNo;
+		} else {
+			message = "게시글이 등록 실패 되었습니다.";
+			path += "adminReport";
+		}
+		ra.addFlashAttribute("message", message);
+		return path;
+
+	}
+	
+
+	// 8-3. 신고하기 게시글 검색
+	@GetMapping("/getReportSearchList")
+	public String getReportSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+
+		Report condition = new Report();
+
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object> adminReportMap = service.getReportSearchList(condition, cp);
+		model.addAttribute("adminReportMap", adminReportMap);
+
+		return "admin/admin_report";
+
+	}
+
+	// 9-1.  리뷰관리 게시판 조회------------------------------------------------------------------
+	
+	@GetMapping("/adminReview") 
+	public String adminReivew(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+
+			Map<String, Object> adminReviewMap = service.adminReviewList(cp);
+
+			model.addAttribute("adminReviewMap", adminReviewMap);
+		}return "admin/admin_review";
+	}
+	
+	//9-2 리뷰관리 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminReviewListAjax")
+    public int adminReviewListAjax() {
+        
+		
+		return service.reviewListCount();
+    }
+	
+	
+	
+	// 9-2. 리뷰관리 게시글 쓰기
+	
+	// 9-3. 리뷰관리 게시글 수정
+	
+	// 9-4. 리뷰관리 게시글 삭제
 
 }

@@ -13,25 +13,27 @@
 <body>
     <!--타임리프 변수 선언 -- -->
     <!--   <main th:with="pagination=${map.pagination}, boardList=${map.boardList}"></main> -->
-    <main th:with="pagination=${adminreportmap.pagination}, adminreportList=${adminreportmap.reportList}">
+    <main th:with="pagination=${adminReportMap.pagination}, adminReportList=${adminReportMap.adminReportList}">
     <!-- 사이드바 -->
     <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_reportWrap">
 
         <!-- 게시판 제목 -->
-        <span id="admin_reportTitle">1:1문의 관리</span>
+        <span id="admin_reportTitle">리뷰 신고 관리</span>
 
         <!-- 검색창 -->
         <div class="admin_reportSearchWrap">
             <!-- select랑 검색창만 감싸는 div -->
             <div class="admin_userSearchWrap2">
-                <form th:action="@{/getSearchList}" autocomplete="off">
+                <form th:action="@{/getReportSearchList}" autocomplete="off">
                     <select class="admin_reportSelect" name="type" id="">
                         <option value="reportNo">번호</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>
-                        <option value="writer">작성자</option>
+                        <option value="reportedNo">리뷰번호</option>
+                        <option value="writer">신고한 유저</option>
+                        <option value="reporedWriter">신고당한 유저</option>
                     </select>
                     <!-- 검색 input 창 -->
 
@@ -65,23 +67,23 @@
                                 onclick='userSelectAll(this)'></th>
                         <th>번호</th>
                         <th>제목</th>
-                        <th>등록일</th>
-                        <th>등록인</th>
-                        <th>삭제여부</th>
-                        <th>답변여부</th>
+                        <th>리뷰번호</th>
+                        <th>신고한 유저</th>
+                        <th>신고당한 유저</th>
+                        <th>리뷰 삭제 여부</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="list : ${adminreportList}">
+                    <tr th:each="list : ${adminReportList}">
                         <td><input type="checkbox" name="" id="" class="admin_reportCheckbox"></td>
                         <td th:text="${list.reportNo}" class="admin_report_checkbox_no"></td>
-                        <td><a th:href="@{adminreportRead/{reportNo}(reportNo=${list.reportNo})}" th:text="${list.reportTitle}">게시글
+                        <td><a th:href="@{adminReportRead/{reportNo}(reportNo=${list.reportNo})}" th:text="${list.reportTitle}">게시글
                                 번호</a></td>
-                        <td th:text="${list.reportEnrollDate}"></td>
-                        <td th:text="${list.userNickname}"></td>
-                        <td th:text="${list.reportDeleteFl}"></td>
-                        <td th:text="${list.reportCheckFl}" id="reportCheckFl"></td>
+                        <td th:text="${list.reviewNo}"></td>
+                        <td th:text="${list.writerNo}"></td>
+                        <td th:text="${list.reportedNo}"></td>
+                        <td th:text="${list.reportFl}" id="reportCheckFl"></td>
 
                     </tr>
 
@@ -139,8 +141,8 @@
 
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_reportBtn">
-            <button class="admin_reportEndBtn"><a th:href="@{adminreportWrite}">글쓰기</a></button>
-            <button class="admin_reportEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+     <!--        <button class="admin_reportEndBtn"><a th:href="@{adminreportWrite}">글쓰기</a></button> -->
+        <!--     <button class="admin_reportEndBtn" id="deleteBtn"><a href="">삭제</a></button> -->
         </div>
 
     </div>
