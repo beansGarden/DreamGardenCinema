@@ -101,7 +101,7 @@ getCinemaCount()
 
 function first() {
 
-  const CinemalistContents = document.querySelector(".admin_cinemaManageAll");
+
   const existingCinemaItems = document.querySelectorAll(".admin_cinemaOne");
   existingCinemaItems.forEach((item) => {
     /* item.remove(); */
@@ -110,14 +110,17 @@ function first() {
 
   fetch(`/adminCinemaManage/${movieTheater}`)
     .then((resp) => resp.json())
-    .then((cinemaList) => {
-      console.log(cinemaList);
+    .then((cinemaMap) => {
+      console.log(cinemaMap);
+    
+
+      const cinemaList = cinemaMap.cinemaList;
 
       for (let cList of cinemaList) {
 
 
-        /* const tbody1 = document.querySelector("#schedule-table tbody");
-        tbody1.innerHTML = ""; */
+         const tbody1 = document.querySelector("#schedule-table tbody");
+        tbody1.innerHTML = "";
 
         // 전체 감싸는 div
         const cinemaManageWrap = document.createElement("div");
@@ -130,13 +133,13 @@ function first() {
         cinemaManageWrap.appendChild(cinemaManageTitle);
 
         // 상영관별 보이기 div
-        const cinemaManageAll = document.querySelector(".admin_cinemaManageAll");
+        var cinemaManageAll = document.querySelector(".admin_cinemaManageAll");
 
       // 1관
-      const cinemaOne = document.createElement("div");
+      var cinemaOne = document.createElement("div");
       cinemaOne.classList.add("admin_cinemaOne");
       cinemaOne.id = "cinemaOne";
-      const cinemaOneLink = document.createElement("span");
+      var cinemaOneLink = document.createElement("span");
       cinemaOneLink.innerText = "1관";
       cinemaOne.appendChild(cinemaOneLink);
       cinemaManageAll.appendChild(cinemaOne);
@@ -257,7 +260,7 @@ function first() {
         const tbody = document.createElement("tbody");
          const cinemaList = []; // Replace this with your actual cinema list data
 
-         for (let list of cinemaList) {
+         for (let cList of cinemaList) {
            const cinemaTr = document.createElement("tr");
            const checkbox = document.createElement("input");
            checkbox.type = "checkbox";
@@ -265,17 +268,17 @@ function first() {
            const td1 = document.createElement("td");
            td1.appendChild(checkbox);
            const td2 = document.createElement("td");
-           td2.innerText = list.movieNo;
+           td2.innerText = cList.movieNo;
            const td3 = document.createElement("td");
-           td3.innerText = list.movieTitle;
+           td3.innerText = cList.movieTitle;
            const td4 = document.createElement("td");
-           td4.innerText = list.runningTime;
+           td4.innerText = cList.runningTime;
            const td5 = document.createElement("td");
-           td5.innerText = list.releaseDate;
+           td5.innerText = cList.releaseDate;
            const td6 = document.createElement("td");
-           td6.innerText = list.movieday;
+           td6.innerText = cList.movieday;
            const td7 = document.createElement("td");
-           td7.innerText = list.movieTime;
+           td7.innerText = cList.movieTime;
 
            cinemaTr.appendChild(td1);
            cinemaTr.appendChild(td2);
@@ -298,6 +301,71 @@ function first() {
 
   }
 
+  // 페이지네이션을 생성하는 함수
+function createPagination() {
+  // 페이지네이션 영역의 DOM 요소를 선택
+  var paginationArea = document.querySelector(".pagination-area");
+  
+  // 페이지네이션을 생성할 리스트 요소 생성
+  var paginationList = document.querySelector(".pagination");
+  paginationList.classList.add("pagination");
+
+  // 첫 페이지로 이동하는 링크 생성
+  var firstPageLink = document.createElement("a");
+  firstPageLink.href = "/adminCinemaManage?cp=1"; // 첫 페이지 URL
+  firstPageLink.innerHTML = "&lt;&lt;"; // "&lt;"는 "<" 기호를 의미
+  var firstPageListItem = document.createElement("li");
+  firstPageListItem.appendChild(firstPageLink);
+  paginationList.appendChild(firstPageListItem);
+s 
+  // 이전 페이지로 이동하는 링크 생성
+var prevPageLink = document.createElement("a");
+prevPageLink.href = "/adminCinemaManage?cp=" + cList.pagination.prevPage; // 이전 페이지 URL
+prevPageLink.innerHTML = "&lt;"; // "&lt;"는 "<" 기호를 의미
+var prevPageListItem = document.createElement("li");
+prevPageListItem.appendChild(prevPageLink);
+paginationList.appendChild(prevPageListItem);
+
+  // 각 페이지 번호를 생성
+  for (var i = pagination.startPage; i <= pagination.endPage; i++) {
+      var pageLink = document.createElement("a");
+      pageLink.href = "/adminCinemaManage?cp=" + i; // 페이지 URL
+      pageLink.innerHTML = i; // 페이지 번호
+      var pageListItem = document.createElement("li");
+      
+      if (i == pagination.currentPage) {
+          pageListItem.classList.add("current");
+          pageListItem.innerHTML = "현재 페이지";
+      }
+      
+      pageListItem.appendChild(pageLink);
+      paginationList.appendChild(pageListItem);
+  }
+
+  // 다음 페이지로 이동하는 링크 생성
+  var nextPageLink = document.createElement("a");
+  nextPageLink.href = "/adminCinemaManage?cp=" + pagination.nextPage; // 다음 페이지 URL
+  nextPageLink.innerHTML = "&gt;"; // "&gt;"는 ">" 기호를 의미
+  var nextPageListItem = document.createElement("li");
+  nextPageListItem.appendChild(nextPageLink);
+  paginationList.appendChild(nextPageListItem);
+
+  // 마지막 페이지로 이동하는 링크 생성
+  var lastPageLink = document.createElement("a");
+  lastPageLink.href = "/adminCinemaManage?cp=" + pagination.maxPage; // 마지막 페이지 URL
+  lastPageLink.innerHTML = "&gt;&gt;"; // "&gt;"는 ">" 기호를 의미
+  var lastPageListItem = document.createElement("li");
+  lastPageListItem.appendChild(lastPageLink);
+  paginationList.appendChild(lastPageListItem);
+
+  // 페이지네이션 영역에 생성한 페이지네이션 추가
+  paginationArea.appendChild(paginationList);
+}
+
+// createPagination 함수 실행
+createPagination();
+
+
 /* 2관****************************************************************************************** */
   function second() {
 
@@ -311,9 +379,12 @@ function first() {
   
     fetch("/adminCinemaManage/" + movieTheater)
       .then((resp) => resp.json())
-      .then((cinemaList) => {
-        console.log(cinemaList);
+      .then((cinemaMap) => {
+        console.log(cinemaMap);
   
+
+        const cinemaList = cinemaMap.cinemaList;
+
         for (let cList of cinemaList) {
   
   
@@ -498,6 +569,69 @@ function first() {
   
   
     }
+// 페이지네이션을 생성하는 함수
+function createPagination() {
+  // 페이지네이션 영역의 DOM 요소를 선택
+  var paginationArea = document.querySelector(".pagination-area");
+  
+  // 페이지네이션을 생성할 리스트 요소 생성
+  var paginationList = document.createElement("ul");
+  paginationList.classList.add("pagination");
+
+  // 첫 페이지로 이동하는 링크 생성
+  var firstPageLink = document.createElement("a");
+  firstPageLink.href = "/adminCinemaManage?cp=1"; // 첫 페이지 URL
+  firstPageLink.innerHTML = "&lt;&lt;"; // "&lt;"는 "<" 기호를 의미
+  var firstPageListItem = document.createElement("li");
+  firstPageListItem.appendChild(firstPageLink);
+  paginationList.appendChild(firstPageListItem);
+
+  // 이전 페이지로 이동하는 링크 생성
+  var prevPageLink = document.createElement("a");
+  prevPageLink.href = "/adminCinemaManage?cp=" + pagination.prevPage; // 이전 페이지 URL
+  prevPageLink.innerHTML = "&lt;"; // "&lt;"는 "<" 기호를 의미
+  var prevPageListItem = document.createElement("li");
+  prevPageListItem.appendChild(prevPageLink);
+  paginationList.appendChild(prevPageListItem);
+
+  // 각 페이지 번호를 생성
+  for (var i = pagination.startPage; i <= pagination.endPage; i++) {
+      var pageLink = document.createElement("a");
+      pageLink.href = "/adminCinemaManage?cp=" + i; // 페이지 URL
+      pageLink.innerHTML = i; // 페이지 번호
+      var pageListItem = document.createElement("li");
+      
+      if (i == pagination.currentPage) {
+          pageListItem.classList.add("current");
+          pageListItem.innerHTML = "현재 페이지";
+      }
+      
+      pageListItem.appendChild(pageLink);
+      paginationList.appendChild(pageListItem);
+  }
+
+  // 다음 페이지로 이동하는 링크 생성
+  var nextPageLink = document.createElement("a");
+  nextPageLink.href = "/adminCinemaManage?cp=" + pagination.nextPage; // 다음 페이지 URL
+  nextPageLink.innerHTML = "&gt;"; // "&gt;"는 ">" 기호를 의미
+  var nextPageListItem = document.createElement("li");
+  nextPageListItem.appendChild(nextPageLink);
+  paginationList.appendChild(nextPageListItem);
+
+  // 마지막 페이지로 이동하는 링크 생성
+  var lastPageLink = document.createElement("a");
+  lastPageLink.href = "/adminCinemaManage?cp=" + pagination.maxPage; // 마지막 페이지 URL
+  lastPageLink.innerHTML = "&gt;&gt;"; // "&gt;"는 ">" 기호를 의미
+  var lastPageListItem = document.createElement("li");
+  lastPageListItem.appendChild(lastPageLink);
+  paginationList.appendChild(lastPageListItem);
+
+  // 페이지네이션 영역에 생성한 페이지네이션 추가
+  paginationArea.appendChild(paginationList);
+}
+
+// createPagination 함수 실행
+createPagination();
 
 
 
@@ -514,9 +648,11 @@ function first() {
     
       fetch("/adminCinemaManage/" + movieTheater)
         .then((resp) => resp.json())
-        .then((cinemaList) => {
-          console.log(cinemaList);
+        .then((cinemaMap) => {
+          console.log(cinemaMap);
     
+          const cinemaList = cinemaMap.cinemaList;
+
           for (let cList of cinemaList) {
     
     
@@ -701,7 +837,70 @@ function first() {
     
     
       }
+  // 페이지네이션을 생성하는 함수
+function createPagination() {
+  // 페이지네이션 영역의 DOM 요소를 선택
+  var paginationArea = document.querySelector(".pagination-area");
   
+  // 페이지네이션을 생성할 리스트 요소 생성
+  var paginationList = document.createElement("ul");
+  paginationList.classList.add("pagination");
+
+  // 첫 페이지로 이동하는 링크 생성
+  var firstPageLink = document.createElement("a");
+  firstPageLink.href = "/adminCinemaManage?cp=1"; // 첫 페이지 URL
+  firstPageLink.innerHTML = "&lt;&lt;"; // "&lt;"는 "<" 기호를 의미
+  var firstPageListItem = document.createElement("li");
+  firstPageListItem.appendChild(firstPageLink);
+  paginationList.appendChild(firstPageListItem);
+
+  // 이전 페이지로 이동하는 링크 생성
+  var prevPageLink = document.createElement("a");
+  prevPageLink.href = "/adminCinemaManage?cp=" + pagination.prevPage; // 이전 페이지 URL
+  prevPageLink.innerHTML = "&lt;"; // "&lt;"는 "<" 기호를 의미
+  var prevPageListItem = document.createElement("li");
+  prevPageListItem.appendChild(prevPageLink);
+  paginationList.appendChild(prevPageListItem);
+
+  // 각 페이지 번호를 생성
+  for (var i = pagination.startPage; i <= pagination.endPage; i++) {
+      var pageLink = document.createElement("a");
+      pageLink.href = "/adminCinemaManage?cp=" + i; // 페이지 URL
+      pageLink.innerHTML = i; // 페이지 번호
+      var pageListItem = document.createElement("li");
+      
+      if (i == pagination.currentPage) {
+          pageListItem.classList.add("current");
+          pageListItem.innerHTML = "현재 페이지";
+      }
+      
+      pageListItem.appendChild(pageLink);
+      paginationList.appendChild(pageListItem);
+  }
+
+  // 다음 페이지로 이동하는 링크 생성
+  var nextPageLink = document.createElement("a");
+  nextPageLink.href = "/adminCinemaManage?cp=" + pagination.nextPage; // 다음 페이지 URL
+  nextPageLink.innerHTML = "&gt;"; // "&gt;"는 ">" 기호를 의미
+  var nextPageListItem = document.createElement("li");
+  nextPageListItem.appendChild(nextPageLink);
+  paginationList.appendChild(nextPageListItem);
+
+  // 마지막 페이지로 이동하는 링크 생성
+  var lastPageLink = document.createElement("a");
+  lastPageLink.href = "/adminCinemaManage?cp=" + pagination.maxPage; // 마지막 페이지 URL
+  lastPageLink.innerHTML = "&gt;&gt;"; // "&gt;"는 ">" 기호를 의미
+  var lastPageListItem = document.createElement("li");
+  lastPageListItem.appendChild(lastPageLink);
+  paginationList.appendChild(lastPageListItem);
+
+  // 페이지네이션 영역에 생성한 페이지네이션 추가
+  paginationArea.appendChild(paginationList);
+}
+
+// createPagination 함수 실행
+createPagination();
+
   
   
   

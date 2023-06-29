@@ -351,4 +351,7 @@ public interface AdminMapper {
 	//리뷰 게시판 불러오기
 	List<Review> adminReviewList(RowBounds rowBounds);
 
+	//리뷰 검색
+	List<Review> getReviewSearchList(RowBounds rowBounds);
+
 }

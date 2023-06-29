@@ -21,6 +21,10 @@ import edu.kh.dgc.review.model.dto.Review;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
+/**
+ * @author user1
+ *
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -706,6 +710,14 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminReportMap;
 	}
+	
+	//신고하기 개수 가져오기
+	@Override
+	public int reportListCount() {
+		
+		return  mapper.reportListCount();
+	}
+	
 
 	//리뷰관리**********************************************************************************************************
 	
@@ -747,7 +759,39 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.reviewListCount();
 	}
-	
+
+	//리뷰 관리 검색
+	@Override
+	public Map<String, Object> getReviewSearchList(Qna condition, int cp) {
+		
+		int reviewListCount = mapper.reviewListCount();
+
+		Pagination pagination = new Pagination(reviewListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Review> adminReviewList = mapper.getReviewSearchList(rowBounds);
+
+		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
+		
+		adminReviewMap.put("pagination", pagination);
+		adminReviewMap.put("adminReviewList", adminReviewList);
+
+
+		return adminReviewMap;
+	}
+
+
 
 	
 
