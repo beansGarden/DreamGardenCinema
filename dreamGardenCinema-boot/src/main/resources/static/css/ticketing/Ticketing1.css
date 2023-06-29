@@ -396,3 +396,10 @@ body{
     font-size: 30px;
     font-weight: bold;
 }
+
+.checkBtn>*{
+    pointer-events: none;
+}
+.checkBtn{
+    cursor: pointer;
+}

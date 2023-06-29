@@ -305,7 +305,7 @@
                 </div>
                 <div class="my-page-changeinfo-email">
                     <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>
-                    <input type="email" id="changeEmail" name="userEmail"  required th:value="${session.loginUser.userEmail}">
+                    <input type="email" id="changeEmail" name="userEmail" autocomplete="off"  required th:value="${session.loginUser.userEmail}">
                     <i id="emailLine" class="emailLine"></i>
                 </div>
                 
@@ -314,17 +314,17 @@
             <div class="my-page-changeinfo-pw-container">
                 
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15" name="userPw" id="userPw">
+                    <input type="password" required="required" maxlength="15" name="userPw" id="userPw" autocomplete="off">
                     <span>현재 비밀번호</span>
                     <i id="line1" class="line1"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15" name="newPw" id="newPw">
+                    <input type="password" required="required" maxlength="15" name="newPw" id="newPw" autocomplete="off">
                     <span>새 비밀번호</span>
                     <i id="line2" class="line2"></i>
                 </div>
                 <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw">
+                    <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw" autocomplete="off">
                     <span>새 비밀번호 확인</span>
                     <i id="line2" class="line2"></i>
                 </div>
@@ -340,15 +340,15 @@
                 <div class="my-page-changeinfo-address-inputbox">
                     
                     <div id="postcode-box">
-                        <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress">
+                        <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress" autocomplete="off">
                         <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
                         <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
                     </div>
                     <div>
-                        <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress">
+                        <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress" autocomplete="off">
                     </div>
                     <div>
-                        <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress">
+                        <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress" autocomplete="off">
                     </div>
                 </div>
             </div>

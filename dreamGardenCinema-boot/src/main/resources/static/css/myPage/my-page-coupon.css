@@ -35,77 +35,77 @@ ul li{
     transition: 0.5s;
     transition-delay: calc(var(--i) * 0.05s);
 }
-.one{
+.CouponList1{
     transform: translateZ(-200px) translateY(-50px);
     opacity: 0.6;
 }
-.two{
+.CouponList2{
     transform: translateZ(-140px) translateY(-80px);
     background: #eee;
 }
-.three{
+.CouponList3{
     transform: translateZ(-100px) translateY(-120px);
     background: #eee;
 }
-.four{
+.CouponList4{
     transform: translateZ(-70px) translateY(-170px);
     background: #fff;
 }
-.five{
+.CouponList5{
     transform: translateZ(-40px) translateY(-220px);
     background: white;
 }
-.six{
+.CouponList6{
     transform: translateZ(-10px) translateY(-270px);
     background: white;
 }
-.seven{
+.CouponList7{
     transform: translateZ(20px) translateY(-320px);
     background: white;
 }
-.eight{
+.CouponList8{
     transform: translateZ(60px) translateY(-360px);
     background: white;
 }
 ul:hover{
     gap:30px;
 }
-ul:hover .one{
+ul:hover .CouponList1{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .two{
+ul:hover .CouponList2{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .three{
+ul:hover .CouponList3{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .four{
+ul:hover .CouponList4{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .five{
+ul:hover .CouponList5{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .six{
+ul:hover .CouponList6{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .seven{
+ul:hover .CouponList7{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
 }
-ul:hover .eight{
+ul:hover .CouponList8{
     opacity: 1;
     background: #fff;
     transform: translateZ(0px) translateY(0px);
@@ -145,7 +145,7 @@ body::-webkit-scrollbar-thumb {
 
 /* 쿠폰이 없을 경우 */
 #coupon-null{
-    display: none;
+    display: flex;
 }
 #coupon-null-container{
     display: flex;

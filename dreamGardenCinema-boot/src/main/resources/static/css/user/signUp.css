@@ -24,7 +24,7 @@ body{
     margin: 10px 0;
     padding-top: 10px;
     border: 0;
-    border-bottom: 1px solid #80808050;
+    border-bottom: 1px solid #80808080;
     position: relative;
 }
 /* input number 우측 화살표 제거 */
@@ -39,7 +39,7 @@ input::-webkit-inner-spin-button {
 }
 .sign-up-line{
     width: 100%;
-    border-bottom: 1px solid #80808050;
+    border-bottom: 1px solid #80808040;
     margin: 30px 0 20px 0 ;
 }
 #signUpFrmBox{
@@ -196,3 +196,4 @@ input::placeholder {
     background: #F9FAFC;
     color: #666;
 }
+

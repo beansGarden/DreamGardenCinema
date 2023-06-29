@@ -16,7 +16,7 @@
     <div class="admin_sideBarWrap">
         <!-- 로고 -->
         <div class="admin_sideBarLogoWrap">
-        <a href="/"><img src="../img/logo.png" alt="" class="admin_sideBarLogo"></a>    
+            <a th:href="@{/}"><img th:src="@{/images/common/logo/검은배경 로고.svg}" class="admin_sideBarLogo"></a>  
     </div>
 
 <!-- Admin 유저 탭 -->
@@ -27,13 +27,13 @@
 
         <div class="admin_sideBarUserTitle">
             <span id="admin_Id">Admin</span>
-            <p id="admin_Nickname" >김유민</p>
+            <p ><span id="admin_Nickname" >유저 이름</span></p>
         </div>
 
         <div class="admin_sideBarLogOut">
             <button class="admin_sideBarLogOutBtn">
                 <span class="material-symbols-outlined">
-                logout
+                    <a th:href="@{/user/logout}"  class="material-symbols-outlined" style=" margin-right: -10px">logout</a>
                 </span>
             </button>
         </div>
@@ -79,9 +79,14 @@
                 <span class="admin_sideBarList">FAQ</span>
             </a>
         </li>
+        <li class="admin_sideBarTableLi"><a th:href="@{/adminReview}">
+            <span class="material-symbols-outlined">rate_review</span>
+                <span class="admin_sideBarList">리뷰관리</span>
+        </a>
+        </li>
         <li class="admin_sideBarTableLi"><a th:href="@{/adminReport}">
             <span class="material-symbols-outlined">e911_emergency</span>
-                <span class="admin_sideBarList">신고하기</span>
+                <span class="admin_sideBarList">신고관리</span>
         </a>
         </li>
         </ul>

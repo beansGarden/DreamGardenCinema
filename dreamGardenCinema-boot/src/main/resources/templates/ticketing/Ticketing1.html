@@ -7,11 +7,6 @@
     <title>예매페이지</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing1.css}">
-    <script th:inline="javascript">
-        let day = new Date();
-
-        const mainTimeList = /*[[${timeList}]]*/ "첫 영화 시간";
-    </script>
 </head>
 <body>
 
@@ -53,8 +48,8 @@
                     </div>
                     <div class="MovieList hamburger">
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
-                        <th:block th:each="movie : ${movieList}">
-                            <label th:for="${movie.movieNo}" class="checkBtn hmbgr" th:classappend="${movie.movieNo == checkNo} ? 'saveMovie'">
+                        <th:block th:each="movie, movieStat : ${movieList}">
+                            <label th:for="${movie.movieNo}" class="checkBtn hmbgr" th:classappend="${movieStat.index == 0} ? 'saveMovie'">
                                 <img class="rating" th:src="${movie.rating}">                          
                                 <span class="movieTitle" th:text="${movie.movieTitle}"></span>
                             </label>
@@ -62,9 +57,9 @@
 <!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                     </div>
                     <div class="MovieList pizza" style="display: none;">
-<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(피자 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
                         <th:block th:each="movie, movieStat : ${movieList}">
-                            <label th:for="${movie.movieNo}" class="checkBtn pzz" th:classappend="${movie.movieNo == checkNo} ? 'saveMovie'">
+                            <label th:for="${movie.movieNo}" class="checkBtn pzz" th:classappend="${movieStat.index == 0} ? 'saveMovie'">
                                 <div class="poster">
                                     <img th:src="${movie.poster}">
                                 </div>
@@ -101,19 +96,7 @@
                         <div class="inner">
                             <div class="swiper-container">
                                 <ul class="swiper-wrapper">
-                                    <!-- 데이터 삽입(javascript에서 생성) -->
-                                    <!--
-                                    <li class="swiper-slide">
-                                        <strong>6월</strong> 맨 처음엔 현재 달 보여주기  달이 바뀌면 또 보여주기
-                                        <a href="">
-                                            <label for="Date0">
-                                                <input type="radio" id="Date0" name="radioDate" value="20230607">
-                                                <strong>7</strong>
-                                                <em>오늘 또는 요일</em>
-                                            </label>
-                                        </a>
-                                    </li>
-                                    --> 
+                                    <!-- 날짜 -->
                                 </ul>
                             </div>
                         </div>
@@ -131,42 +114,20 @@
                         </div>
                     </section>
 
-                    
-                    
                     <div class="movieChoiceTitle">
-                        <img th:src="${movieList[0].rating}">
-                        <span th:text="${movieList[0].movieTitle}"></span>
+                        <!-- 영화 제목 -->
                     </div>
                     <div class="timeSelect">
-                        <div class="nonelist" th:if="${#lists.size(timeList) == 0}">
-                            상영 중인 정보가 없습니다
-                        </div>
-                        <ul class="timelist" th:unless="${#lists.size(timeList) == 0}">
-                            <li th:each="time : ${timeList}">                                                              
-                                <label class="btn" onclick="movieTimeSub()" th:for="|${time.movieTheater},${time.movieTime}|">
-                                    <input type="radio" name="movieTime" th:id="|${time.movieTheater},${time.movieTime}|" th:value="|${time.movieTheater},${time.movieTime}|">
-                                    <div>
-                                        [[${time.movieTheater}]]관
-                                    </div>
-                                    <div>
-                                        [[${time.movieTime}]]
-                                    </div>
-                                </label>
-                            </li>
-                        </ul>
+                        <!-- 영화 시간 -->
                     </div>
-
                 </div>
             </form>
         </div>
 
-        
     </div>
     <th:block th:replace="~{common/footer}"></th:block>
     <script th:inline="javascript">
         const loginUser = /*[[${loginUser}]]*/ "로그인회원";
-        const timetime = /*[[${timeList}]]*/ "시간";
-        const saveDay = /*[[${saveTicket?.movieTime}]]*/ "저장된시간";
     </script>
     <script th:src="@{/js/ticketing/Ticketing1.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.mypage.model.dto.Coupon;
@@ -47,6 +48,10 @@ public class MypageController {
 		int userNo = loginuser.getUserNo();
 		
 		List<Coupon> couponList = service.couponList(userNo);
+		
+		int couponListSize = couponList.size();
+		
+        model.addAttribute("CouponListSize", couponListSize);
 		
 		model.addAttribute("CouponList",couponList);
 		
@@ -135,6 +140,36 @@ public class MypageController {
 		}
 		
 		ra.addFlashAttribute("message",message);
+		
+		return path;
+	}
+	
+	// 회원 탈퇴
+	@GetMapping("/secession")
+	public String secessionUser(
+			@SessionAttribute("loginUser") User loginUser
+			,RedirectAttributes ra
+			,SessionStatus status
+			) {
+
+		String message = null;
+		String path = "redirect:";
+		
+		int userNo = loginUser.getUserNo();
+		
+		int result = service.secessionUser(userNo);
+		
+		if(result > 0) {
+			message = "탈퇴되었습니다.";
+			path += "/";
+			status.setComplete();
+		}else {
+			message = "다시 시도해주세요";
+			path += "/myPage/";
+		}
+		
+		ra.addFlashAttribute("message",message);
+		
 		
 		return path;
 	}

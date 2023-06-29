@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.dgc.admin.model.dao.AdminMapper;
+import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.dto.Pagination;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.report.model.dto.Report;
+import edu.kh.dgc.review.model.dto.Review;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @Service
@@ -23,6 +27,23 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminMapper mapper;
 
+	
+	//대시보드
+	//영화별 매출 불러오기
+	@Override
+	public List<Ticket> ticketList(String movieNo) {
+		
+		return mapper.ticketList(movieNo);
+	}
+	
+	//1:1 문의사항 qna 대시보드 불러오기
+	@Override
+	public List<Qna> adminQnaList5() {
+
+		return mapper.adminQnaList5();
+	}
+	
+	
 	// 관리자 사이드바 로그인 보여주기
 	@Override
 	public List<User> getAdminDetails() {
@@ -32,9 +53,32 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1문의 게시판 조회
 	@Override
-	public List<Qna> adminQnaList() {
+	public Map<String, Object> adminQnaList(int cp) {
+		
+		int qnalistCount = mapper.qnaListCount();
 
-		return mapper.adminQnaList();
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaList(rowBounds);
+
+		Map<String, Object> adminQnamap = new HashMap<String, Object>();
+		adminQnamap.put("pagination", pagination);
+		adminQnamap.put("qnaList", qnaList);
+
+		return adminQnamap;
+
 	}
 
 	// 1:1문의 게시글 읽기 조회
@@ -65,14 +109,14 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1문의 게시글 답변 쓰기(삽입)
 	@Override
-	public int qnaAnswerInsert(QnaComment qnaComment) {
+	public int qnaAnswerInsert(QnaComment qnaCommentObj) {
 
-		return mapper.qnaAnswerInsert(qnaComment);
+		return mapper.qnaAnswerInsert(qnaCommentObj);
 	}
 
 	// 1:1문의 게시글 답변 등록 확인(업데이트)
 	@Override
-	public QnaComment updateAnswer(int qnaNo) {
+	public int updateAnswer(int qnaNo) {
 
 		return mapper.updateAnswer(qnaNo);
 	}
@@ -93,10 +137,43 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1 문의사항 검색
 	@Override
-	public List<Qna> getSearchList(Qna qnaList) {
+	public Map<String, Object> getSearchList(Qna conditon, int cp) {
+		
+		int qnalistCount = mapper.qnaListCount();
 
-		return mapper.getSearchList(qnaList);
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.getSearchList(rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
 	}
+	
+
+	//1:1문의 Qna 게시판 
+	@Override
+	public int qnaListCount() {
+		
+		int qnalistCount = mapper.qnaListCount();
+		
+		return qnalistCount;
+	}
+
 
 	// 회원****************************************************
 
@@ -156,7 +233,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<User> userList = mapper.getUserSearchList(rowBounds);
+		List<User> userList = mapper.getUserSearchList(condition,rowBounds);
 
 		Map<String, Object> getUserSearchList = new HashMap<String, Object>();
 		getUserSearchList.put("pagination", pagination);
@@ -165,20 +242,91 @@ public class AdminServiceImpl implements AdminService {
 		return getUserSearchList;
 	}
 
+
+	//회원 전체 개수 가져오기
+	@Override
+	public int userListCount() {
+		
+		int userlistCount = mapper.userListCount();
+		
+		return userlistCount;
+	}
+
+	
+	
 	// 영화***************************************************
 
 	// 영화 List 조회
 	@Override
-	public List<Movie> adminMovieList() {
+	public Map<String, Object> adminMovieList(int cp) {
+		
+		int movieListCount = mapper.movieListCount();
+		
+		Pagination pagination = new Pagination(movieListCount, cp);
 
-		return mapper.adminMovieList();
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Movie> adminMovieList = mapper.adminMovieList(rowBounds);
+
+		Map<String, Object> adminMovieMap = new HashMap<String, Object>();
+		adminMovieMap.put("pagination", pagination);
+		adminMovieMap.put("adminMovieList", adminMovieList);
+
+
+		return adminMovieMap;
+	}
+	
+	//영화전체 개수 가져오기
+	@Override
+	public int movieListCount() {
+		
+		int movieListCount = mapper.movieListCount();
+		
+		return movieListCount;
 	}
 
+
+	
+	//영화검색
+	@Override
+	public Map<String, Object> getMovieSearchList(Movie condition, int cp) {
+
+		int movieListCount = mapper.movieListCount();
+
+		Pagination pagination = new Pagination(movieListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Movie> adminMovieList = mapper.getMovieSearchList(condition,rowBounds);
+
+		Map<String, Object> adminMovieMap = new HashMap<String, Object>();
+		adminMovieMap.put("pagination", pagination);
+		adminMovieMap.put("adminMovieList", adminMovieList);
+
+		return adminMovieMap;
+	}
+		
+
+		
 	// 상영관**************************************************
 
 	// 상영관 영화 List 조회
 	@Override
-	public Map<String, Object> adminCinemaList(int cp) {
+	public Map<String, Object> adminCinemaList(Movie condition,int cp) {
 		
 		int movieScheduleListCount = mapper.movieScheduleListCount();
 
@@ -196,21 +344,52 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<User> MovieScheduleList = mapper.MovieScheduleList(rowBounds);
+		List<Movie> MovieScheduleList = mapper.MovieScheduleList(condition,rowBounds);
 
+		System.out.println(MovieScheduleList);
+		
 		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
 		adminCinemaMap.put("pagination", pagination);
 		adminCinemaMap.put("cinemaList", MovieScheduleList);
 
+	
+		
 
 		return adminCinemaMap;
 	}
 
 	// 2관 페이지 이동
 	@Override
-	public List<Movie> adminCinemaTwo(String movieTheaterNo) {
+	public Map<String, Object> adminCinemaTwo(String movieTheaterNo,int cp) {
+		
+		int movieScheduleListCount = mapper.movieScheduleListCount();
 
-		return mapper.adminCinemaTwo(movieTheaterNo);
+		Pagination pagination = new Pagination(movieScheduleListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Movie> adminCinemaTwo = mapper.adminCinemaTwo(movieTheaterNo,rowBounds);
+
+		System.out.println(adminCinemaTwo);
+		
+		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
+		adminCinemaMap.put("pagination", pagination);
+		adminCinemaMap.put("cinemaList", adminCinemaTwo);
+
+	
+		
+
+		return adminCinemaMap;
 	}
 
 	// 상영관 등록 영화 불러오기
@@ -226,6 +405,24 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.cinemaListInsert(movie);
 	}
+	
+	//상영관 스케쥴 개수
+	@Override
+	public int movieScheduleListCount() {
+		
+		int movieScheduleListCount = mapper.movieScheduleListCount();
+		
+		return movieScheduleListCount;
+	}
+
+	//상영관 영화 스케쥴 삽입(insert)
+	@Override
+	public int adminCinemaInsert(Movie movie) {
+		
+		return mapper.adminCinemaInsert(movie);
+	}
+
+	
 
 	// 공지사항************************************************
 
@@ -283,19 +480,75 @@ public class AdminServiceImpl implements AdminService {
 
 	// 공지사항 게시글 검색
 	@Override
-	public List<Notice> getNoticeSearchList(Notice noticeList) {
+	public 	Map<String, Object> getNoticeSearchList(Notice condition, int cp) {
 
-		return mapper.getNoticeSearchList(noticeList);
+		int noticeListCount = mapper.noticeListCount();
+
+		Pagination pagination = new Pagination(noticeListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Notice> adminNoticeList = mapper.getNoticeSearchList(condition,rowBounds);
+
+		Map<String, Object> getNoticeSearchMap = new HashMap<String, Object>();
+		getNoticeSearchMap.put("pagination", pagination);
+		getNoticeSearchMap.put("adminNoticeList", adminNoticeList);
+
+		return getNoticeSearchMap;
 	}
 
+	//공지사항 전체 개수
+	@Override
+	public int noticeListCount() {
+		
+		int noticeListCount = mapper.noticeListCount();
+	
+		return noticeListCount;
+	}
+	
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
 	// FAQ 게시판 List 조회
 	@Override
-	public List<FAQ> adminFaqList() {
+	public Map<String , Object> adminFaqList(int cp) {
 
-		return mapper.adminFaqList();
+		int faqListCount = mapper.faqListCount();
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList = mapper.adminFaqList(rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+
+
+		return adminFaqMap;
 	}
+	
 
 	// FAQ (자주 찾는 질문) 게시글 조회
 	@Override
@@ -334,9 +587,175 @@ public class AdminServiceImpl implements AdminService {
 
 	// FAQ 게시글 검색
 	@Override
-	public List<FAQ> getFaqSearchList(FAQ faqList) {
+	public Map<String, Object> getFaqSearchList(FAQ condtion, int cp) {
 
-		return mapper.getFaqSearchList(faqList);
+		int faqListCount = mapper.faqListCount();
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList =  mapper.getFaqSearchList(condtion,rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+		
+		return adminFaqMap;
 	}
 
+	// 지난 주 요일별 매출
+	@Override
+	public List<SalesByPeriod> getSalesByDay() {
+		return mapper.getSalesByDay();
+	}
+
+	//FAQ 개수
+	@Override
+	public int faqListCount() {
+		
+		int faqListCount = mapper.faqListCount();
+		
+		return faqListCount;
+	}
+
+	//신고하기*************************************************************************************
+	
+	//신고하기 Map 불러오기
+	@Override
+	public Map<String, Object> adminReportList(int cp) {
+		
+		int reportListCount = mapper.reportListCount();
+
+		Pagination pagination = new Pagination(reportListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Report> adminReportList = mapper.adminReportList(rowBounds);
+
+		Map<String, Object> adminReportMap = new HashMap<String, Object>();
+		
+		adminReportMap.put("pagination", pagination);
+		adminReportMap.put("adminReportList", adminReportList);
+
+
+		return adminReportMap;
+	}
+
+	//신고하기 게시글 불러오기
+	@Override
+	public List<Report> adminReportOne(int reportNo) {
+	
+		return mapper.adminReportOne(reportNo);
+	}
+
+	//신고관리에서 리뷰 삭제하기
+	@Override
+	public int deleteReview(int reviewNo) {
+	
+		return mapper.deleteReview(reviewNo);
+	}
+
+	//신고글 처리여부 
+	@Override
+	public int updateDeleteReport(int reportNo) {
+		
+		return mapper.updateDeleteReport(reportNo);
+	}
+
+	//신고관리 검색
+	@Override
+	public Map<String, Object> getReportSearchList(Report condition, int cp) {
+		
+		int reportListCount = mapper.reportListCount();
+
+		Pagination pagination = new Pagination(reportListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Report> adminReportList =  mapper.getReportSearchList(condition,rowBounds);
+
+		Map<String, Object> adminReportMap = new HashMap<String, Object>();
+		
+		adminReportMap.put("pagination", pagination);
+		adminReportMap.put("adminReportList", adminReportList);
+		
+		return adminReportMap;
+	}
+
+	//리뷰관리**********************************************************************************************************
+	
+	
+	//리뷰하기 불러오기
+	@Override
+	public Map<String, Object> adminReviewList(int cp) {
+	
+		int reviewListCount = mapper.reviewListCount();
+
+		Pagination pagination = new Pagination(reviewListCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Review> adminReviewList = mapper.adminReviewList(rowBounds);
+
+		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
+		
+		adminReviewMap.put("pagination", pagination);
+		adminReviewMap.put("adminReviewList", adminReviewList);
+
+
+		return adminReviewMap;
+	}
+
+	//리뷰 개수 조회
+	@Override
+	public int reviewListCount() {
+		
+		return mapper.reviewListCount();
+	}
+	
+
+	
+
+	
+
+
+
+
+
+	
 }

@@ -19,20 +19,20 @@
             <ul class="ticketingNav">
                 <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
                 <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
-                <li class="pass"><a th:href="@{/ticketing/seat}">02<br>인원/좌석</a></li>
+                <li class="pass"><a>02<br>인원/좌석</a></li>
                 <li class="active"><a>03<br>결제</a></li>
                 <li><a>04<br>결제완료</a></li>
             </ul>
-            <form th:action="@{/ticketing/complete}" method="POST">
+            <form th:action="@{/ticketing/complete}" method="POST" th:object="${map}" id="frm">
                 <div class="choiceHeader">예매내역</div>
                 <div class="ticketing_info">
                     <div>
                         <div class="poster">
-                            <img th:src="${movie.poster}">
+                            <img th:src="*{movie.poster}">
                         </div>
                         <div class="title">
-                            <img th:src="${movie.rating}">
-                            <span th:text="${movie.movieTitle}"></span>
+                            <img th:src="*{movie.rating}">
+                            <span th:text="*{movie.movieTitle}"></span>
                         </div>
                         <div class="date">
                             <span th:text="${saveday}"></span>
@@ -43,13 +43,16 @@
                             <span th:text="${resultSeatList}"></span>
                         </div>
                         <select name="coupon" id="coupon">
-                            <option value="">쿠폰 적용하기</option>
+                            <option class="chkopt" th:value="0">쿠폰 적용하기</option>
+                            <th:block th:each="coupon : *{couponList}">
+                                <option class="chkopt" th:value="${coupon.userCouponNo}" th:text="${coupon.couponName}"></option>
+                            </th:block>
                         </select>
                     </div>
                 </div>
                 <div class="price">
                     <div>결제금액</div>
-                    <div>총 <span th:text="(${#lists.size(resultSeatList)} * ${movie.moviePrice})"></span>원</div>
+                    <div>총 <span th:text="(${#lists.size(resultSeatList)} * *{movie.moviePrice})"></span>원</div>
                 </div>
                 <button type="button" class="btn_payment" onclick="requestPay()">
                     <div class="liquidate">
@@ -65,31 +68,15 @@
     
     <script th:inline="javascript">
 
-        let loginUser = /*[[${session.loginUser}]]*/ "";
-        if(loginUser == null)loginUser = "";
+        let loginUser = /*[[${session.loginUser}]]*/ "로그인유저";
+        let ticketNo = /*[[${ticketNo}]]*/  "티켓번호";
+        let seatList = /*[[${resultSeatList}]]*/ "좌석";
         let data = {};
-        data.movieNo = /*[[${movie.movieNo}]]*/ "영화번호";
-        data.saveday = /*[[${saveday}]]*/ "날짜";
-        data.runningTime = /*[[${runningTime}]]*/ "러닝타임";
-        data.movieTheater = /*[[${movieTheater}]]*/ "영화관";
-        data.seatList = /*[[${resultSeatList}]]*/ "좌석";
+        data.ticketNo = ticketNo;
+        data.seatList = seatList;
 
-        console.log(data);
-        
-        $(window).on("beforeunload", function(){
-
-            fetch("/ticketing/out", {
-                method : 'POST',
-                headers : {'Content-Type': 'application/json'},
-                body : JSON.stringify(data)
-            })
-            .then(resp => resp.text())
-            .then(result => {
-                alert("예매 취소");
-            })
-
-        });
-
+        const frm = document.getElementById("frm");
+        const btnPayment = document.querySelector(".btn_payment");
     </script>
 
     <script th:src="@{/js/ticketing/Ticketing3.js}"></script>

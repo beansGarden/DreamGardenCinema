@@ -7,6 +7,7 @@
     <title>movieManage</title>
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="/css/admin/admin_movieManage.css">
+>
 
 </head>
 <body>
@@ -15,24 +16,28 @@
     <!-- 전체 감싸는 div -->
     <div class="admin_movieManageWrap">
 
+        <main th:with="pagination=${adminMovieList.pagination}, adminMovieList=${adminMovieList.adminMovieList}">
+        
               <!-- 게시판 제목 -->
               <span id="admin_movieManageTitle">영화 관리</span>
 
         <!-- 검색창 -->
         <div class="admin_movieSearchWrap">
             <div  class="admin_moiveSearchWrap2"> 
-            <select class="admin_movieManageSelect" name="" id="">
+                <form th:action="@{/getMovieSearchList}" autocomplete="off">
+            <select class="admin_movieManageSelect" name="type" id="">
+                <option value="number">번호</option>
                 <option value="title">제목</option>
-                <option value="director">감독</option>
-                <option value="actor">배우</option>
+                <option value="director">감독 및 배우</option>
             </select>
             <!-- 검색 input 창 -->
-                <input type="text" name="" id="" class="admin_movieManageInput">
+                <input type="text" name="keyword" id="" class="admin_movieManageInput">
            </div>
             <!-- 검색 버튼 -->
             <div class="admin_movieManageBtnWrap">
                 <button type="button" class="admin_movieSearchBtn">검색</button>
             </div>
+        </form>
         </div>
             <!-- 목록 count -->
             <div class="admin_movieManageList">
@@ -47,7 +52,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th><input type="checkbox" name="" id="" class="admin_movieCheckboxAll"></th>
+                       
                         <th>번호</th>
                         <th>제목</th>
                         <th>감독</th>
@@ -57,7 +62,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="list : ${adminMovieList}">
-                        <td><input type="checkbox" name="" id="" class="admin_movieCheckbox"></td>
+                      
                         <td th:text="${list.movieNo}">1</td>
                         <td th:text="${list.movieTitle}">범죄도시3</td>
                         <td th:text="${list.producer}">이상용</td>
@@ -69,13 +74,58 @@
                 </table>
             </div>
 
-                <!-- 페이지 네이션 -->
+                  <!-- 페이지 네이션 -->
+
+            <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
+            <div class="pagination-area">
+
+                <!--              검색 X인 경우의 페이지 네이션 -->
+                <ul class="pagination">
+
+                    <!-- 첫 페이지로 이동 -->
+                    <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
+                    <li><a th:href="@{/adminMovieManage(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+
+                    <!-- 이전 목록 마지막 번호로 이동 -->
+                    <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
+                    <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
+
+                    <!-- 특정 페이지로 이동 -->
+                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                        <li th:if="${i == pagination.currentPage}">
+                            <a class="current" th:text="${i}">현재 페이지</a>
+                        </li>
+                        <li th:unless="${i == pagination.currentPage}">
+                            <a th:text="${i}" th:href="@{/adminMovieManage(cp=${i})}"></a>
+                        </li>
+                    </th:block>
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${i==pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${i == pagination.currentPage}">
+                        <a th:href="@{/adminMovieManage(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                    </li>
+                    </th:block>
+
+                    <!-- 다음 목록 시작 번호로 이동 -->
+                    <!--   <li th:if="${i==pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                   -->
+                    <!-- 끝 페이지로 이동 -->
+                    <li><a th:href="@{/adminMovieManage(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                </ul>
+            </div>
 
                 <!-- 등록,수정,삭제 버튼 -->
                 <div class="admin_movieBtn">
                     <button class="admin_movieEndBtn"><a th:href="@{/adminMovieRegister}">등록</a></button>
-                    <button class="admin_movieEndBtn"><a href="">수정</a></button>
-                    <button class="admin_movieEndBtn"><a href="">삭제</a></button>
+           <!--          <button class="admin_movieEndBtn"><a href="">수정</a></button>
+                    <button class="admin_movieEndBtn"><a href="">삭제</a></button> -->
                 </div>
             
 
@@ -87,6 +137,8 @@
 
     </div>    
 
+   
+    <script th:src="@{\js\admin\admin_movieManage.js}"></script
 
 </body>
 </html>

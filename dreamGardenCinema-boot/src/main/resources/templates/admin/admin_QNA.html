@@ -13,7 +13,7 @@
 <body>
     <!--타임리프 변수 선언 -- -->
     <!--   <main th:with="pagination=${map.pagination}, boardList=${map.boardList}"></main> -->
-
+    <main th:with="pagination=${adminQnamap.pagination}, adminQnaList=${adminQnamap.qnaList}">
     <!-- 사이드바 -->
     <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
@@ -68,6 +68,7 @@
                         <th>등록일</th>
                         <th>등록인</th>
                         <th>삭제여부</th>
+                        <th>답변여부</th>
 
                     </tr>
                 </thead>
@@ -80,6 +81,7 @@
                         <td th:text="${list.qnaEnrollDate}"></td>
                         <td th:text="${list.userNickname}"></td>
                         <td th:text="${list.qnaDeleteFl}"></td>
+                        <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
 
                     </tr>
 
@@ -89,21 +91,51 @@
         </div>
 
         <!-- 페이지 네이션 -->
-        <ul class="pagination">
-            <li><a href="#">
-                    </a>
-            </li>
-            <li><a href="#"><</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">></a></li>
-        </ul>
+         <!-- 페이지 네이션 -->
+        <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
+        <div class="pagination-area">
+
+            <!--              검색 X인 경우의 페이지 네이션 -->
+            <ul class="pagination">
+
+                <!-- 첫 페이지로 이동 -->
+                <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
+                <li><a th:href="@{/adminQna(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
+                <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
+
+                <!-- 특정 페이지로 이동 -->
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                    <li th:if="${i == pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                    <li th:unless="${i == pagination.currentPage}">
+                        <a th:text="${i}" th:href="@{/adminQna(cp=${i})}"></a>
+                    </li>
+                </th:block>
+
+                <!-- 현재 보고있는 페이지 -->
+                <li th:if="${i==pagination.currentPage}">
+                    <a class="current" th:text="${i}">현재 페이지</a>
+                </li>
+
+                <!-- 현재 페이지를 제외한 나머지 -->
+                <li th:unless="${i == pagination.currentPage}">
+                    <a th:href="@{/adminQna(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                </li>
+                </th:block>
+
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <!--   <li th:if="${i==pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                   -->
+                <!-- 끝 페이지로 이동 -->
+                <li><a th:href="@{/adminQna(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+            </ul>
+        </div>
 
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_qnaBtn">
