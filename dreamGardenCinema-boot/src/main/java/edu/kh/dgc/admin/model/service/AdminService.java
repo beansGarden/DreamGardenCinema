@@ -180,6 +180,12 @@ public interface AdminService {
 	//신고관리 검색
 	Map<String, Object> getReportSearchList(Report condition, int cp);
 
+	//신고하기 개수 조회
+	int reportListCount();
+
+	
+
+	
 	
 	//리뷰관리***********************************************************************************************
 	
@@ -189,9 +195,9 @@ public interface AdminService {
 	//리뷰 개수 조회
 	int reviewListCount();
 
-	
+	//리뷰관리 검색
+	Map<String, Object> getReviewSearchList(Qna condition, int cp);
 
-	
 
 	
 

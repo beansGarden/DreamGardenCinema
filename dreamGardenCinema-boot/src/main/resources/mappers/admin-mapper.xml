@@ -670,6 +670,7 @@
 			WHERE REVIEW_NO = #{reviewNo}
 		</update>
 
+	<!--신고하기 검색-->
 		<select id="getReportSearchList" parameterType="Report" resultMap="report_rm"> 
 				SELECT REPORT_NO,REPORT_TITLE,REPORT_CONTNENT,REVIEW_NO,REPORT_WIRTER,REPORTED_USER_NO
 				FROM REPORT
@@ -726,6 +727,42 @@
 		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
 		ORDER BY MR.REVIEW_NO DESC
 		</select>
+		
+		
+		<!--리뷰관리 검색-->
+		<select id="getReviewSearchList" parameterType="Review" resultMap="review_rm"> 
+				SELECT REVIEW_NO,SCORE,REVIEW_CONTENT,USER_NO,MOVIE_TITLE
+				FROM REPORT
+				<where>
+					<choose>
+						<when test="type != null and type.equals('reviewNo')">
+							<if test="keyword != null and keyword != ''">
+								AND REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('movie')">
+							<if test="keyword != null and keyword != ''">
+								AND MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('user')">
+							<if test="keyword != null and keyword != ''">
+								AND USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('score')">
+							<if test="keyword != null and keyword != ''">
+								AND SCORE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
+							</when>
+					</choose>
+				</where>
+			</select>
 		
 		
 </mapper>
