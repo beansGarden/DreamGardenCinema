@@ -75,14 +75,14 @@
     <div class="announcement">
         <article>
             <span>|공지사항|</span>
-            <a href="">더보기&gt;</a>
+            <a th:href="@{/customerservice/notice}">더보기&gt;</a>
             <div>
                 <span>공지 내용</span>
                 <span>일자</span>
             </div>
             <div class="announContent">
                 <div th:each="notice : ${noticeList}">
-                    <span th:text="${notice.NOTICE_TITLE}"></span>
+                    <a th:href="@{/customerservice/noticeCon/} + ${notice.NOTICE_NO}" th:text="${notice.NOTICE_TITLE}"></a>
                     <span th:text="${notice.NOTICE_ENROLL_DATE}"></span>
                 </div>
             </div>

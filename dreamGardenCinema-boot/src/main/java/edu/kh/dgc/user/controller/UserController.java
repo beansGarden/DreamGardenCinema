@@ -218,14 +218,16 @@ public class UserController {
 		String message = null;
 		
 		int result = service.changePw(inputUser.getUserPw(), inputUser.getUserRePw(), inputUser.getUserId());
-		
+		System.out.println("changePassword : " + result);
 		if(result > 0) {
 			session.removeAttribute("cngPwUserId");
+			System.out.println("pw변경 성공");
 			message = "비밀번호 변경에 성공했습니다.";
 			ra.addFlashAttribute("message", message);
-			path += "/login";
+			path += "/user/login";
 		}else {
 			message = "비밀번호 변경에 실패했습니다.";
+			System.out.println("pw변경 실패");
 			ra.addFlashAttribute("message", message);
 			path += "/user/changePw";
 		}

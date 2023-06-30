@@ -73,13 +73,13 @@ function requestPay() {
                             }
                             else {
                                 alert('예매 실패!');
-                                location.href = "/ticketing/date";
+                                location.href = "/ticketing/date/0";
                             }
                         })
                     })
                 } else {
                     alert("결제에 실패하였습니다.", "에러 내용: " + rsp.error_msg, "error");
-                    location.href = "/ticketing/date";
+                    location.href = "/ticketing/date/0";
                 }
             });
         } else {

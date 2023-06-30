@@ -194,7 +194,7 @@ body{
     font-size: 14px;
 }
 
-.announContent>div>span:first-child{
+.announContent>div>a:first-child{
     width: 80%;
 }
 .announContent>div>span:last-child{
