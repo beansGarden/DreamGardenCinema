@@ -1,68 +1,74 @@
 /* 사이드바 */
-html{
+body {
     width: 300px;
-    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
 }
+
 
 /* 사이드바 전체 */
-.admin_sideBarWrap{
-    width: 250px;
-    height: 1000px;
-    border: 1px solid black;
+.admin_sideBarWrap {
+    width: 100%;
     display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #0F0954;
+    flex-direction: column;
+    gap: 31px;
+
+
 }
 
+.admin_sideBarLogoWrap {
+    display: flex;
+    height: 100px;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
 
 /* 사이드바 로고 */
-.admin_sideBarUserWrap{
-padding: 20px 30px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  border-bottom: 1px solid rgba(47,128,237,0.1);
+.admin_sideBarUserWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 17px;
 }
 
-.admin_sideBarLogo{
-    width: 150px;
+
+
+.admin_sideBarLogo {
+    width: 100px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    height: 70px;
-    padding: 0 30px;
-    position: relative;
-      border-bottom: 1px solid rgba(47,128,237,0.1);
-    
+    height: 100px;
 }
 
 
 /* 사이드바 회원 */
-.admin_sideBarUserWrap{
-    padding: 20px 30px;
+.admin_sideBarUserWrap {
     width: 100%;
+    height: 100px;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
-    border-bottom: 1px solid rgba(47,128,237,0.1);
+    justify-content: center;
 }
 
-.admin_sideBarUserTitle{
+.admin_sideBarUserTitle {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    
+
 
 }
 
-.admin_sideBarUserTitle span{
+.admin_sideBarUserTitle span {
     display: block;
     color: #0e0d0d;
     font-size: 12px;
@@ -70,7 +76,8 @@ padding: 20px 30px;
     color: white;
 
 }
-.admin_sideBarUserTitle p{
+
+.admin_sideBarUserTitle p {
     color: #181616;
     display: block;
     font-size: 16px;
@@ -80,76 +87,86 @@ padding: 20px 30px;
     color: white;
 }
 
-.admin_sideBarLogOut{
+.admin_sideBarLogOut {
     width: 100px;
 }
 
-.admin_sideBarLogOutBtn{
+.admin_sideBarLogOutBtn {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 40px;
-    border-radius: 10px;
-    background-color: #151f30;
-    margin-left: 100px;
-    color: white;
-    
+    /* height: 50px;
+    width: 50px; */
+    background-color: black;
+    margin-left: 70px;
 }
 
 
 /* 사이드바 카테고리 */
-.admin_sideBarTableWrap{
-   
+.admin_sideBarTableWrap {
+    margin-left: 40px;
+    font-size: 18px;
 }
 
 /* 사이드바 로그아웃 아이콘 */
-.material-symbols-outlined{
+.material-symbols-outlined {
     color: white;
-    margin-right: 10px;
-
-    
+    /* margin-right: 10px; */
 }
 
-#logout{
+
+
+#adminLogout:hover{
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 0 3px rgba(240, 186, 88, 2));
+}
+
+
+.admin-sideBar-firstList>li>a{
+    gap: 15px;
+}
+
+
+.material-symbols-outlined a {
+    color: white;
     margin-right: 0px;
 }
 
-.material-symbols-outlined a{
-    color: white;
-    margin-right: 0px;
-
-    
-}
-
-.admin_sideBarList{
+.admin_sideBarList {
     color: white;
 }
 
-.admin_sideBarTableLi{
+.admin_sideBarTableLi {
     margin-bottom: 10px;
     margin-left: 20px;
     padding: 5px;
+    height: 30px;
 }
 
-.admin_sideBarTableLi a{
-   margin: 0px;
-   padding: 0px;
-   display: flex;
-   align-items: center;
+.admin_sideBarTableLi:hover{
+    filter: drop-shadow(0 0 3px rgba(240, 186, 88, 2));
+    font-size: 20px;
+}
+
+
+.admin_sideBarTableLi a {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
 }
 
 
 /* 사이드바 카피라이트 */
-.admin_sideBarCopyRight{
+.admin_sideBarCopyRight {
     height: 800px;
     margin-top: 630px;
     color: white;
 }
 
 /* 사이드바 로그인 이름 */
-#admin_Nickname{
+#admin_Nickname {
     font-size: 15px;
     margin-top: 10px;
 }

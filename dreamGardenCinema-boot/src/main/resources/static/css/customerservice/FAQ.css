@@ -312,6 +312,13 @@ button.face-button {
     margin: 20px 30px 0 0;
 }
 
+#query:focus{
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
+    outline: none;
+}
+
 
 
 /* 검색 버튼 */
@@ -371,7 +378,7 @@ button.face-button {
 .Qicon {
     width: 20px;
     height: 20px;
-
+    filter: sepia(1);
     margin-right: 10px;
 }
 
@@ -466,11 +473,10 @@ button.face-button {
     display: flex;
     width: 70%;
     justify-content: center;
-    margin-top: 25px;
+    margin: 15px 0 6px 12vw;
     height: 100%;
     overflow: auto;
-
-    margin-left: 12vw;
+    max-height: 300px;
 
 }
 
@@ -481,13 +487,13 @@ button.face-button {
     height: 20px;
 }
 
-.FAQ-answer>pre {
-    font-size: 14px;
+.FAQ-answer>span {
+    font-size: 15px;
 
 }
 
 .FAQ-answer-box {
-    width: 100%;
+    width: 60vw;
     display: none;
     border-bottom: 2px solid #ccc;
 }
