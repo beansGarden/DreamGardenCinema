@@ -100,4 +100,15 @@ public class PaymentController {
 		}
 		return res;
 	}
+	
+	
+	// 예매 취소
+	@PostMapping("/cancel")
+	public String cancelTicket() {
+		
+		
+		
+		return "/";
+	}
+	
 }

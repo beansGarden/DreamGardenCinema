@@ -43,7 +43,7 @@
                                 <em th:text="${movieInfo.rank}">순위</em>
                                 <img class="rating" th:src="${movieInfo.rating}" alt="등급">
                                 <div class="movie-action">
-                                    <a class="font4" href="#">예매하기</a>
+                                    <a class="font4" th:href="@{/ticketing/date/} + ${movieInfo.movieNo}">예매하기</a>
                                     <a class="font4" th:href="@{|/movie/movieDetail=${movieInfo.movieNo}|}">상세보기</a>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 </span>
                                 <span class="star">
                                     <img th:src="@{/images/common/main/포스터/star3.png}">
-                                    <em>9.2</em>
+                                    <em th:text="${movieInfo.score}"></em>
                                 </span>
                             </div>
                         </div>

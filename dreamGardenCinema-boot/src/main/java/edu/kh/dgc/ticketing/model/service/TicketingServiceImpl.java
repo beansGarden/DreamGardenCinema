@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.mypage.model.dao.MypageMapper;
@@ -35,6 +36,12 @@ public class TicketingServiceImpl implements TicketingService {
 		return mapper.movieTime(paramMap);
 	}
 
+	// 예매 1페이지 별점순 AJAX
+	@Override
+	public List<Movie> sortRating() {
+		return mapper.sortRating();
+	}
+	
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회 
 	@Override
 	public Map<String, Object> seatInfo(Ticket ticket) {
@@ -43,6 +50,7 @@ public class TicketingServiceImpl implements TicketingService {
 		Movie movie = mapper.selectMovie(ticket.getMovieNo());
 		map.put("movie", movie);
 		// 티켓정보 삽입
+		
 		int result = mapper.insertTicket(ticket);
 		map.put("ticket", ticket);
 		// 예매좌석리스트 가져오기
@@ -169,13 +177,13 @@ public class TicketingServiceImpl implements TicketingService {
 		return resultPrice;
 	}
 
-	// 티켓 중복 확인
+	// 예매 3페이지 티켓ID 중복 확인
 	@Override
 	public int checkTicketId(String ticketId) {
 		return mapper.checkTicketId(ticketId);
 	}
 
-	// 예매 3페이지 티켓ID 생성 후 삽입
+	// 예매 3페이지 생성된 티켓ID 삽입
 	@Override
 	public int updateTicketId(String createTicketId, int ticketNo) {
 		
@@ -200,6 +208,8 @@ public class TicketingServiceImpl implements TicketingService {
 		int result = mapper.updategetTicketImpUid(ticket);
 		System.out.println("서비스 임플의 ticket imp 성공 시" + result);
 		if(result>0) {
+			// 사용한 쿠폰 Y 처리
+			mapper.updateUserCoupon(ticket);
 			result = mapper.updateSeatList(ticket);			
 		} else {
 			result = 0;
@@ -212,5 +222,19 @@ public class TicketingServiceImpl implements TicketingService {
 	public Ticket ticketInfo(Integer ticketNo) {
 		return mapper.ticketInfo(ticketNo);
 	}
+
+	// 예매 4페이지 결제완료된 티켓 정보 가져오기
+	@Override
+	public Map<String, Object> selectResultTicket(int ticketNo) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("ticket", mapper.selectResultTicket(ticketNo));
+		map.put("seatList", mapper.selectResultSeatList(ticketNo));
+		
+		return map;
+	}
+
+
 
 }

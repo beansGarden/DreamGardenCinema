@@ -120,23 +120,25 @@ my_page_secession_btn2.addEventListener("click",()=>{
 
 })
 /* 문의 목록 UP/DOWN */
-const up_down_img = document.querySelector("#up-down-img");
+const up_down_img = document.querySelectorAll(".up-down-img");
 let my_page_inquiry_table_display = document.querySelectorAll(".my-page-inquiry-table-display");
 const my_page_inquiry_content = document.querySelector("#my-page-inquiry-content");
+for(let i=0;i<up_down_img.length;i++){
 
-up_down_img.addEventListener("click",()=>{
+  up_down_img[i].addEventListener("click",e=>{
+    
+    console.log(e.target.parentNode.parentNode.nextElementSibling);
+    e.target.parentNode.parentNode.nextElementSibling.classList.toggle("my-page-inquiry-table-display");
+    e.target.parentNode.parentNode.nextElementSibling.nextElementSibling.classList.toggle("my-page-inquiry-table-display");
 
-  my_page_inquiry_table_display[0].classList.toggle("my-page-inquiry-table-display");
-  my_page_inquiry_table_display[1].classList.toggle("my-page-inquiry-table-display");
-
-  if (up_down_img.src.includes("upbtn.png")) {
-    up_down_img.src = "/images/myPage/downbtn.png";
-  } else {
-    up_down_img.src = "/images/myPage/upbtn.png";
-  }
-
-})
-
+    if (up_down_img[i].src.includes("upbtn.png")) {
+      up_down_img[i].src = "/images/myPage/downbtn.png";
+    } else {
+      up_down_img[i].src = "/images/myPage/upbtn.png";
+    }
+  })
+}
+  
 /* 닉네임 수정 창에서 수정 버튼 클릭 시 */
 const changeBtn = document.querySelector("#changeBtn")
 const change_nickname_form = document.querySelector("#change-nickname-form")

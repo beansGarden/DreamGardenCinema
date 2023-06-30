@@ -20,6 +20,9 @@ public interface TicketingMapper {
 	// 예매 1페이지 영화시간,상영관 조회 AJAX
 	List<Schedule> movieTime(Map<String, Object> paramMap);
 
+	// 예매 1페이지 별점순 AJAX
+	List<Movie> sortRating();
+
 	// 예매 2페이지 영화정보 가져오기
 	Movie selectMovie(int movieNo);
 
@@ -96,10 +99,13 @@ public interface TicketingMapper {
 	// 예매 3페이지 결제API 시 SEAT_CHECK 테이블 C로 변경
 	int updateSeatList(Ticket ticket);
 
-
-
-
+	// 예매 4페이지 결제완료된 티켓 정보 가져오기
+	Ticket selectResultTicket(int ticketNo);
 	
-
+	// 예매 4페이지 결제완료된 좌석 정보 가져오기
+	List<SeatCheck> selectResultSeatList(int ticketNo);
+	
+	// 예매 3페이지 결제API 시 USER_COUPON 테이블 Y로 변경
+	void updateUserCoupon(Ticket ticket);
 
 }

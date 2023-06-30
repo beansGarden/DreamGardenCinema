@@ -129,7 +129,7 @@
                     <td th:text="${list.qnaEnrollDate}"></td>
                     <td th:if="${list.qnaCheckFl=='Y'}"><span id="result">처리완료</span></td>
                     <td th:if="${list.qnaCheckFl=='N'}"><span id="result">처리중</span></td>
-                    <td><img id="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
+                    <td><img class="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
                 </tr>
                 <tr class="my-page-inquiry-table-display">
                     <td colspan="6" id="my-page-inquiry-title" th:text="${list.qnaTitle}">문의 하신 제목: <span>파이널 파이팅~</span></td>
