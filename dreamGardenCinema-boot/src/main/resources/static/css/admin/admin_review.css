@@ -1,5 +1,5 @@
 /* 전체 감싸는 div */
-.admin_reportWrap{
+.admin_reviewWrap{
     width: 1000px;
     display: block;
     margin: 100px auto;
@@ -10,7 +10,7 @@
 }
 
 /* 게시판 제목 */
-#admin_reportTitle{
+#admin_reviewTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
@@ -18,7 +18,7 @@
 
 }
 /* 유저검색 창 */
-.admin_reportSearchWrap{
+.admin_reviewSearchWrap{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,14 +37,14 @@
 }
 
 /* select 선택창 */
-.admin_reportSelect{
+.admin_reviewSelect{
     border: none;
     outline: none;
 
 }
 
 /* 검색창 */
-.admin_reportInput{
+.admin_reviewInput{
     width: 400px;
     border: none;
     outline: none;
@@ -53,7 +53,7 @@
 
 
 /* 검색버튼 */
-.admin_reportSearchBtn{
+.admin_reviewSearchBtn{
    margin: 0px 10px;
    padding: 5px 15px;
    border-radius: 5px;
@@ -65,7 +65,7 @@
 
 
 /* 게시판 테이블 감싸는 div */
-.admin_reportBoardWrap {
+.admin_reviewBoardWrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,7 +75,7 @@
 }
 
 /* 게시판 테이블 */
-.admin_reportBoardWrap > table{
+.admin_reviewBoardWrap > table{
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
     width: 1000px;
@@ -84,7 +84,7 @@
 }
 
 /* 테이블 th,td 칸 */
-.admin_reportBoardWrap > table >th,td{
+.admin_reviewBoardWrap > table >th,td{
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
@@ -96,14 +96,14 @@
 
 
 /* 등록,수정,삭제 감싸는 div */
-.admin_reportBtn{
+.admin_reviewBtn{
     display: flex;
     margin-left: 75%;
     
 }
 
 /* 등록버튼 */
-.admin_reportEndBtn{
+.admin_reviewEndBtn{
     margin: 50px 10px;
     padding: 5px 15px;
     border-radius: 5px;
@@ -111,7 +111,7 @@
     
 }
 
-.admin_reportEndBtn a{
+.admin_reviewEndBtn a{
     color: white;
     
 }

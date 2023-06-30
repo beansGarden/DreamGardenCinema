@@ -99,7 +99,39 @@
 		<result property="totalSales" column="TOTAL_SALES" />
 		<result property="ticketingDate" column="TICKETING_DATE" />
 	</resultMap>
+	
+	
+		<!--Review 영화 및 상영관-->
+	<resultMap type="Review" id="review_rm">
 
+		<id property="reviewNo" column="REVIEW_NO" />
+
+		<result property="score" column="SCORE" />
+		<result property="reviewDate" column="REVIEW_DATE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="userNo" column="USER_NO" />
+		<result property="movieNo" column="MOVIE_NO" />
+		<result property="movieTitle" column="MOVIE_TITLE" />
+		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+	</resultMap>
+	
+	<!--Report 영화 및 상영관-->
+	<resultMap type="Report" id="report_rm">
+
+		<id property="reportNo" column="REPORT_NO" />
+
+		<result property="reportTitle" column="REPORT_TITLE" />
+		<result property="reportContent" column="REPORT_CONTNENT" />
+		<result property="enrollDate" column="REPORT_ENROLL_DATE" />
+		<result property="reportFl" column="REPORT_FL" />
+		<result property="reportDeleteFl" column="REPORT_DELETE_FL" />
+		<result property="reviewNo" column="REVIEW_NO" />
+		<result property="writerNo" column="REPORT_WIRTER" />
+		<result property="reportedNo" column="REPORTED_USER_NO" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+	</resultMap>
+	
 
 	<!--대시보드-->
 	<!--영화별 매출 불러오기-->
@@ -438,6 +470,13 @@
 		GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
 		TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'), S.MOVIE_THEATER)
 	</select>
+	
+	
+	
+	<insert id="adminCinemaInsert">
+		INSERT INTO MOVIE_SCHEDULE (MOVIE_TIME, MOVIE_THEATER, MOVIE_NO)
+		VALUES (TO_DATE(#{movieTime}, 'YYYY-MM-DD HH24:MI:SS'), #{movieTheater}, #{movieNo})
+	</insert>
 
 
 	<!--////////////공지사항////////////-->
@@ -595,4 +634,98 @@
 	</select>
 
 
+<!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->
+
+		<!--신고하기 게시글 개수 불러오기-->
+		<select id="reportListCount" resultType="_int">
+			SELECT count(*) FROM REPORT
+		</select>
+		
+		<!--신고하기 게시판 불러오기-->
+		<select id="adminReportList" resultMap="report_rm">
+			SELECT * FROM REPORT
+			ORDER BY REPORT_NO DESC
+		</select>
+		
+		<!--신고하기 게시글 불러오기-->
+		<select id="adminReportOne" resultMap="report_rm">
+			SELECT  R.REPORT_NO,R.REPORT_TITLE,R.REPORT_CONTNENT,R.REPORT_ENROLL_DATE,R.REPORT_FL,
+			R.REPORT_DELETE_FL,R.REVIEW_NO,R.REPORT_WIRTER,R.REPORTED_USER_NO,M.REVIEW_CONTENT
+			FROM REPORT R
+			JOIN MOVIE_REVIEW M ON R.REVIEW_NO = M.REVIEW_NO
+			WHERE R.REPORT_NO = #{reportNo}
+		</select>
+
+		<!--신고하기에서 리뷰삭제하기-->
+		<update id="deleteReview">
+		UPDATE MOVIE_REVIEW
+		SET	REVIEW_DELETE_FL ='Y'
+		WHERE REVIEW_NO = #{reviewNo}
+		</update>
+		
+		
+		<update id="updateDeleteReport">
+			UPDATE REPORT
+			SET	REPORT_FL ='Y'
+			WHERE REVIEW_NO = #{reviewNo}
+		</update>
+
+		<select id="getReportSearchList" parameterType="Report" resultMap="report_rm"> 
+				SELECT REPORT_NO,REPORT_TITLE,REPORT_CONTNENT,REVIEW_NO,REPORT_WIRTER,REPORTED_USER_NO
+				FROM REPORT
+				<where>
+					<choose>
+						<when test="type != null and type.equals('reportNo')">
+							<if test="keyword != null and keyword != ''">
+								AND REPORT_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('title')">
+							<if test="keyword != null and keyword != ''">
+								AND REPORT_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND REPORT_CONTNENT LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('reportedNo')">
+							<if test="keyword != null and keyword != ''">
+								AND REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('writer')">
+							<if test="keyword != null and keyword != ''">
+								AND REPORT_WIRTER LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('reporedWriter')">
+							<if test="keyword != null and keyword != ''">
+								AND REPORTED_USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+					</choose>
+				</where>
+			</select>
+
+
+<!--리뷰관리하기************************************************************************************************-->
+
+<!--리뷰 게시글 개수 불러오기-->
+		<select id="reviewListCount" resultType="_int">
+			SELECT count(*) FROM MOVIE_REVIEW
+		</select>
+
+
+	<!--리뷰관리하기 게시판 불러오기-->
+		<select id="adminReviewList" resultMap="review_rm">
+		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+       MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE 
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		ORDER BY MR.REVIEW_NO DESC
+		</select>
+		
+		
 </mapper>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,70 +8,82 @@
     <title>cinemaManage Detail</title>
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="\css\admin\admin_cinemaMangeDetail.css">
-  
+    <!-- 소스 다운 -->
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<!-- 폴리필 (구버젼 브라우저 지원) -->
+<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>
+
 <body>
-       <!-- 사이드바 -->
- <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- div 전체 감싸기 -->
     <div class="admin_cinemaManageDetailWrap">
-      
+
         <!-- 게시판 제목 -->
         <span id="admin_cinemaManageTitle">상영관 관리</span>
+        <form id="cinemaManageForm" th:action="@{/adminCinemaInsert}" method="POST"> 
+            <!-- 상영관 감싸기 -->
+            <div class="admin_cinemaManageDetailListWrap">
+                <div class="admin_cinemaManageDetaiPlList">
+                    <span class="admin_cinemaManagerSTitle">상영관 </span> <!-- s: small -->
+                    <!-- 상영관 선택 -->
+                    <select class="admin_cinemaManageDetailSelect" name="cinema" onchange="setHiddenValue1(this)" required> <!-- Place List -->
+                        <option value="0">상영관 선택</option>
+                        <option value="1">1관</option>
+                        <option value="2">2관</option>
+                        <option value="3">3관</option>
+                    </select>
+                    <input type="hidden" name="movieTheater" id="hiddenValue1" >
+                </div>
+                <!--영화 선택  -->
+                <div class="admin_cinemaManageDetail_Time">
+                    <span class="admin_cinemaManagerSTitle">상영 영화</span>
+                    <select class="admin_cinemaManageDetaiMlList" name="movie" id="" th:field="*{cinemaList}" onchange="setHiddenValue2(this)">
+                        <!-- Movie List -->
+                        <option value="0">영화를 선택해주세요</option>
+                        <option th:value="${list.movieNo}" th:each="list: ${cinemaList}" th:text="${list.movieTitle}" id="selectedMovie">영화를 선택해주세요</option>
+                    </select>
+                    <input type="hidden" name="movieNo" id="hiddenValue2">
+                    
+                </div>
+                <!-- 상영 시작 날짜 -->
+                <div class="admin_cinemaManageDetailStartDate">
+                    <span class="admin_cinemaManagerSTitle">상영 날짜 </span>
+                    <input type="date" name="movieday" id="" onchange="setHiddenValue3()">
+                </div>
+                <input type="text"  id="hiddenValue3">
+                
 
-        <!-- 상영관 감싸기 -->
-        <div class="admin_cinemaManageDetailListWrap">
-        <div class="admin_cinemaManageDetaiPlList">
-            <span class="admin_cinemaManagerSTitle">상영관  </span> <!-- s: small -->
-            <!-- 상영관 선택 -->
-            <select class="admin_cinemaManageDetailSelect" name="cinema" id=""> <!-- Place List -->
-                <option value="1">1관</option>
-                <option value="2">2관</option>
-                <option value="3">3관</option>
-            </select>
-        </div>
-        <!--영화 선택  -->
-        <div class="admin_cinemaManageDetail_Time">
-        <span class="admin_cinemaManagerSTitle">상영 영화</span>
-            <select class="admin_cinemaManageDetaiMlList" name="movie" id="" th:field="*{cinemaList}">  <!-- Movie List -->
-                <option value="0" >영화를 선택해주세요</option> 
-                <option value="1" th:each="list: ${cinemaList}" th:text="${list.movieTitle}" >영화를 선택해주세요</option> 
-            </select>
-               
-         </div>
-         <!-- 개봉 날짜 -->
-         <div class="admin_cinemaManageDetailStartDate">
-            <span class="admin_cinemaManagerSTitle">개봉 날짜  </span>
-            <input type="date" name="open" id="">
-        </div>
-         <!-- 상영 시작 날짜 -->
-         <div class="admin_cinemaManageDetailStartDate">
-            <span class="admin_cinemaManagerSTitle">상영 날짜  </span>
-            <input type="date" name="start" id="">
-        </div>
+                <!-- 상영 종료 날짜-->
 
-        <!-- 상영 종료 날짜-->
- 
-        <!-- 상영 시간 => 해시태그 -->
-    <div class="admin_cinemaManageDetailDate">
-        <span class="admin_cinemaManagerSTitle">상영 시간 </span>
-        <div class="box">
-             <span class="innerBox"></span> <!-- 해시태그 등록되는 칸 -->
-               <input type="text" name="time" id=""> <!-- 입력칸 -->
+                <!-- 상영 시간 => 해시태그 -->
+                <div class="admin_cinemaManageDetailDate">
+                    <span class="admin_cinemaManagerSTitle">상영 시간 </span>
+                    <div class="box">
+                        <span class="innerBox"></span> <!-- 해시태그 등록되는 칸 -->
+                        <input type="text" name='tags' placeholder='시간을 입력해주세요. 5분단위 ex) 12:05' onchange="setHiddenValue4(this)" >
+                        <input type="hidden" id="hiddenValue4" name="movieTime">
+                     
+                    </div>
+                </div>
+                
+
+            </div>
+            <button class="admin_reportRegister" type="submit">등록</button>
+
+        </form>
     </div>
-    </div>
-
-</div>
-
-         <button class="admin_reportRegister"><a href="">등록</a></button>
 
 
-    </div>
-
-    
 
 
     <script src="\js\admin\admin_cinemaMangeDetail.js"></script>
 
 </body>
+
 </html>

@@ -1,4 +1,5 @@
-package edu.kh.dgc.movie.model.dto;
+package edu.kh.dgc.review.model.dto;
+
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,16 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class MovieComment {
+public class Review {
+
 	private int reviewNo;
 	private int score;
 	private String reviewDate;
 	private String reviewContent;
 	private int userNo;
-	private String userNickname;
 	private int movieNo;
+	private String reviewDeleteFl;
+	
+	//JOIN
+	private String movieTitle;
 }

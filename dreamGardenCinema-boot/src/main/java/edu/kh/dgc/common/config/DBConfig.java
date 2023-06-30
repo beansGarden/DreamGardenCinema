@@ -46,7 +46,8 @@ public class DBConfig {
 
 		sessionFactoryBean.setTypeAliasesPackage("edu.kh.dgc.user.model.dto, edu.kh.dgc.movie.model.dto, "
 				+ "edu.kh.dgc.qna.model.dto, edu.kh.dgc.admin.model.dto, edu.kh.dgc.notice.model.dto, edu.kh.dgc.ticketing.model.dto, "
-				+ "edu.kh.dgc.customerservice.model.dto, edu.kh.dgc.mypage.model.dto");
+				+ "edu.kh.dgc.customerservice.model.dto, edu.kh.dgc.mypage.model.dto,edu.kh.dgc.movie.model.dto,"
+				+ "edu.kh.dgc.review.model.dto, edu.kh.dgc.report.model.dto");
 
 		// 마이바티스 설정 파일 경로 지정
 		sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
