@@ -1,5 +1,6 @@
 package edu.kh.dgc.customerservice.model.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +11,10 @@ import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.dgc.common.utility.Util;
 import edu.kh.dgc.customerservice.model.dao.CustomerServiceMapper;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.notice.model.dto.Notice;
@@ -23,12 +26,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerServiceMapper mapper;
-
-	@Value("${cus.qa.webpath}")
-	private String webPath;
-
-	@Value("${cus.qa.location}")
-	private String filePath;
+	
+	private String filePath = System.getProperty("user.dir") + "/src/main/resources/static/images/customerservice/";
+	
+	private String webPath = "/images/customerservice/";
 
 	// FAQ 게시글 전체목록 조회 서비스
 	@Override
@@ -61,14 +62,15 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	// 1:1문의글 등록(회원)
+	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int cusQAInsert(Qna qna, List<MultipartFile> images, String selectedValue) throws IllegalStateException, IOException {
+	public int cusQAInsert(Qna qna, List<MultipartFile> images, String selectedValue)
+			throws IllegalStateException, IOException {
 
-		
 		qna.setSelectedValue(selectedValue);
-		
+
 		int result = mapper.cusQAInsert(qna);
-		
+
 		System.out.println("1:1문의삽입글: " + result);
 
 		// 실패시 서비스 종료
@@ -77,7 +79,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		int qnaNo = qna.getQnaNo();
 
-		if (qnaNo > 0) { // 1:1문의글 삽입 성공시
+		System.out.println(images.size());
+
+		String nameFile = "";
+		
+		if (qnaNo > 0 ) { // 1:1문의글 삽입 성공시
 
 			List<QnaImage> uploadList = new ArrayList<QnaImage>();
 
@@ -86,33 +92,42 @@ public class CustomerServiceImpl implements CustomerService {
 				if (images.get(i).getSize() > 0) {
 
 					QnaImage img = new QnaImage();
-
+							/* "/images/customerservice/" */
 					img.setQnaImgPath(webPath); // 웹 접근 경로
 					img.setQnaNo(qnaNo); // 1:1 문의글 번호
 					img.setQnaImgOrder(i);// 이미지 순서
 
+					// 파일 원본명
+					nameFile = images.get(i).getOriginalFilename();
+					
+					img.setQnaImgOriginal(nameFile);
+					img.setQnaImgRename(Util.fileRename(nameFile));
+					
 					uploadList.add(img);
 				}
 			}
-			if(!uploadList.isEmpty()) {
+
+			if (!uploadList.isEmpty()) {
 				result = mapper.insertQAImageList(uploadList);
-				
-				for(int i = 0; i < uploadList.size(); i++) {
-					
-					uploadList.get(i).setQnaImgOrder(result);
+
+				if (result == uploadList.size()) {
+					for (int i = 0; i < uploadList.size(); i++) {
+
+						int index = uploadList.get(i).getQnaImgOrder();
+
+						System.out.println(nameFile);
+						
+						String rename = uploadList.get(i).getQnaImgRename();
+						
+						images.get(index).transferTo(new File(filePath+rename));
+						uploadList.get(i).setQnaImgOrder(result);
+					}
+				} else {
+					throw new FileUploadException(); // 예외 강제 발생
 				}
-				
-			}else {
-				throw new FileUploadException(); // 예외 강제 발생
 			}
-		} 
+		}
 		return qnaNo;
 	}
 
 }
-
-
-
-
-
-

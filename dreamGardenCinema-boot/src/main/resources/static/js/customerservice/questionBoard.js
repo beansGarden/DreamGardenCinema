@@ -77,14 +77,6 @@ QAfrm.addEventListener("submit", e => {
         return;
     }
 
-    if (fileInput.files.length === 0) {
-        alert("파일을 선택해주세요");
-        fileInput.focus();
-        e.preventDefault();
-        return;
-    }
-
-
     // 비회원 여부 체크박스가 체크되었을 때(비회원)
     if (QAmemChkBox.checked && cusName.value.trim().length == 0) {
         alert("성함을 입력해주세요");
