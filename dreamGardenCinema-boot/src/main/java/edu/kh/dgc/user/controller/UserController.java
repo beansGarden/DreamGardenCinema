@@ -53,18 +53,11 @@ public class UserController {
 		return "user/accountFind";
 	}
 	
-	@GetMapping("/copy")
-	public String error500() {
-
-		return "common/copy";
-	}
-	
-
 	@GetMapping("/changePw")
 	public String changePw(HttpSession session) {
 		
 		if(session.getAttribute("cngPwUserId") == null) {
-			return "common/error";
+			return "error/404";
 		}
 		return "user/changePw";
 	}
@@ -223,7 +216,7 @@ public class UserController {
 			session.removeAttribute("cngPwUserId");
 			message = "비밀번호 변경에 성공했습니다.";
 			ra.addFlashAttribute("message", message);
-			path += "/login";
+			path += "/user/login";
 		}else {
 			message = "비밀번호 변경에 실패했습니다.";
 			ra.addFlashAttribute("message", message);
