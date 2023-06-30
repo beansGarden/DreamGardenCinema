@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.dgc.admin.model.dao.AdminMapper;
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.dto.Pagination;
+import edu.kh.dgc.admin.model.dto.Query;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
@@ -789,6 +790,14 @@ public class AdminServiceImpl implements AdminService {
 
 
 		return adminReviewMap;
+	}
+
+	
+	// 상영관 리스트 조회(찬희)
+	@Override
+	public Map<String, Object> selectCinemaList(Query query) {
+		
+		return mapper.selectCinemaList(query);
 	}
 
 

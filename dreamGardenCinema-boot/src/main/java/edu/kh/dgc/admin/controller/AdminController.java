@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.dgc.admin.model.dto.Query;
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.service.AdminService;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
@@ -206,34 +207,54 @@ public class AdminController {
 	
 	
 	// 4.관리자 상영 관리 
-	@GetMapping("/adminCinemaManage") 
-	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
-		
-		if(paramMap.get("key") == null) {	
-		
-		Movie condition = new Movie();
-			
-		condition.setMovieday(movieday);
-			
-		Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
-		
-		model.addAttribute("cinemaList", cinemaMap);
-		
-		System.out.println(cinemaMap);
-		}
-		return "admin/admin_cinemaManage";
-	}
+//	@GetMapping("/adminCinemaManage") 
+//	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+//		
+//		if(paramMap.get("key") == null) {	
+//		
+//		Movie condition = new Movie();
+//			
+//		condition.setMovieday(movieday);
+//			
+//		Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
+//		
+//		model.addAttribute("cinemaList", cinemaMap);
+//		
+//		System.out.println(cinemaMap);
+//		}
+//		return "admin/admin_cinemaManage";
+//	}
 
 	// 1,2,3관으로 넘어가기
-	@RequestMapping(value="/adminCinemaManage/{movieTheater}", produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public Map<String, Object> cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-
-		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
-		return cinemaMap;
+//	@RequestMapping(value="/adminCinemaManage/{movieTheater}", produces = "application/json; charset=UTF-8")
+//	@ResponseBody
+//	public Map<String, Object> cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
+//			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+//
+//		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
+//		return cinemaMap;
+//	}
+	
+	
+	// 상영관 리스트 조회(찬희)
+	@GetMapping("/adminCinemaManage")
+	public Map<String, Object> selectCinemaList(@RequestParam(value="cp", required=false, defaultValue="1") int cp
+									, Model model
+									, @RequestParam Map<String, Object> paramMap) {
+		// paramMap에는 movieTheater, date, selectOpt(t,d,a) 가 담겨있음
+		System.out.println("가져온 date는 : "+paramMap.get("date"));
+		Query query = new Query();
+		query.setDate((String)paramMap.get("date"));
+		query.setMovieTheater((Integer)paramMap.get("movieTheater"));
+		query.setSelectOpt((String)paramMap.get("selectOpt"));
+		
+		
+		Map<String, Object> map = service.selectCinemaList(query);
+		return map;
 	}
 
+	
+	
 	// 4-1.관리자 상영 시간 등록
 	@GetMapping("/adminCinemaRegister")
 	public String cinemaRegister(Model model) {

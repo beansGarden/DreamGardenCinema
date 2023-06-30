@@ -1,3 +1,8 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 /* 전체 감싸는 div */
 .admin_cinemaManageWrap{
     width: 1000px;

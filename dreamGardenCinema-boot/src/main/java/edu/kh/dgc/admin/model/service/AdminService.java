@@ -3,6 +3,7 @@ package edu.kh.dgc.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import edu.kh.dgc.admin.model.dto.Query;
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -197,6 +198,10 @@ public interface AdminService {
 
 	//리뷰관리 검색
 	Map<String, Object> getReviewSearchList(Qna condition, int cp);
+
+	
+	// 상영관 리스트 조회(찬희)
+	Map<String, Object> selectCinemaList(Query query);
 
 
 	

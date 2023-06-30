@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cinemaManage</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="\css\admin\admin_cinemaManage.css">
+</head>
+
+<main>
+    <body>
+        <!-- 사이드바 -->
+        <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+            <form th:action="@{/adminCinemaManage}" method="get">
+                <div>
+                    영화관 : 
+                    <select name="movieTheater" id="theater">
+                        <option value="ALL">전체</option>
+                        <option value="1">1관</option>
+                        <option value="2">2관</option>
+                        <option value="3">3관</option>
+                    </select>
+                </div>
+
+                <div>
+                    상영날짜 : 
+                    <input type="date" name="date" id="date">
+                </div>
+                <div>
+                    검색내용 :
+                    <div>
+                        <select name="selectOpt" id="opt">
+                            <option value="t">제목</option>
+                            <option value="d">감독</option>
+                            <option value="a">배우</option>
+                        </select>
+                        <input type="text" name="content">
+                    </div>
+                </div>
+                <button>조회하기</button>
+            </form>
+            
+            
+    </body>
+
+</html>

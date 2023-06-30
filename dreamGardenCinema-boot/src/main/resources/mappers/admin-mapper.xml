@@ -444,6 +444,20 @@
 		S.MOVIE_THEATER
 		ORDER BY M.RELEASE_DATE DESC
 	</select>
+	
+	<!-- 상영관 리스트 조회(찬희) -->
+	<select id="selectCinemaList">
+		SELECT DISTINCT MOVIE_THEATER, MOVIE_TITLE, PERSON_NAME, RUNNING_TIME, TO_CHAR(MOVIE_TIME, 'YYYYMMDD')
+		FROM MOVIE_SCHEDULE
+		LEFT JOIN MOVIE USING(MOVIE_NO)
+		LEFT JOIN PERSON_INFO USING(MOVIE_NO)
+		WHERE PERSON_ROLE = '감독'
+		<if test="movieTheater != null">
+			AND MOVIETHEATER == ${movieTheater}
+		</if>
+		<if test=""></if>
+		
+	</select>
 
 	<select id="cinemaList" resultMap="movie_rm">
 		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE,MOVIE_NO

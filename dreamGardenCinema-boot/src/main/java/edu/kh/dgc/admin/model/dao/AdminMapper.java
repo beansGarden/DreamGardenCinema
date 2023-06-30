@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.dgc.admin.model.dto.Query;
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -353,5 +354,9 @@ public interface AdminMapper {
 
 	//리뷰 검색
 	List<Review> getReviewSearchList(RowBounds rowBounds);
+
+	
+	// 상영관 리스트 조회(찬희)
+	Map<String, Object> selectCinemaList(Query query);
 
 }
