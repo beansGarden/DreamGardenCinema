@@ -90,35 +90,7 @@ my_page_secession_pwcheck_btn2.addEventListener("click",()=>{
 
 })
 
-/* 회원 탈퇴 다음 버튼 클릭 시 화면 */
-/* 탈퇴 버튼 */
-const my_page_secession_pwcheck_btn = document.querySelector(".my-page-secession-pwcheck-btn>:nth-child(1)");
-/* 취소 버튼 */
-const my_page_secession_btn2 = document.querySelector(".my-page-secession-btn>:nth-child(2)");
 
-const my_page_secession_pwcheck_container = document.querySelector(".my-page-secession-pwcheck-container");
-const my_page_secession_info_bg = document.querySelector(".my-page-secession-info-bg");
-
-my_page_secession_pwcheck_btn.addEventListener("click",()=>{
-    my_page_secession_pwcheck_container.style.display="none";
-
-    my_page_secession_info_bg.style.display = "flex";
-
-    document.body.style.overflow='hidden';
-
-})
-/* 취소 버튼 클릭 시 */
-my_page_secession_btn2.addEventListener("click",()=>{
-
-    my_page_secession_area.style.display = "none";
-
-    my_page_secession_pwcheck_container.style.display="flex";
-
-    my_page_secession_info_bg.style.display = "none";
-
-    document.body.style.overflow='auto';
-
-})
 /* 문의 목록 UP/DOWN */
 const up_down_img = document.querySelectorAll(".up-down-img");
 let my_page_inquiry_table_display = document.querySelectorAll(".my-page-inquiry-table-display");
@@ -138,7 +110,7 @@ for(let i=0;i<up_down_img.length;i++){
     }
   })
 }
-  
+
 /* 닉네임 수정 창에서 수정 버튼 클릭 시 */
 const changeBtn = document.querySelector("#changeBtn")
 const change_nickname_form = document.querySelector("#change-nickname-form")
@@ -323,6 +295,104 @@ changeInfo.addEventListener("submit", e => {
   if (isValid) {
       e.target.submit();
   }
+});
+
+// 회원 탈퇴 시 비밀번호 AJAX
+
+const secessionPw = document.querySelector("#secessionPw")
+const line3 = document.querySelector("#line3")
+secessionPw.addEventListener("input",e=>{
+
+    const secessionPwValue = secessionPw.value;
+
+    const data = {
+        "secessionPwValue" : secessionPwValue
+    };
+
+    if(secessionPwValue.trim().length  > 0) { // 입력한 값이 있을 때
+        fetch("/myPage/secessionCheck", {
+            method : "POST",
+            headers : {"Content-Type": "application/json"},
+            body : JSON.stringify(data)
+
+        })
+
+        .then(resp=>resp.text())
+        .then(result=>{
+            
+            if(result>0){
+                line3.classList.add("clearPw")
+                line3.classList.remove("line3")
+                line3.classList.remove("errorPw")
+            }else{
+                line3.classList.add("errorPw")
+                line3.classList.remove("line3")
+                line3.classList.remove("clearPw")
+            }
+
+        })
+        
+    }
+})
+/* 탈퇴 버튼 */
+const my_page_secession_pwcheck_btn = document.querySelector(".my-page-secession-pwcheck-btn>:nth-child(1)");
+const my_page_secession_btn2 = document.querySelector(".my-page-secession-btn>:nth-child(2)");
+
+const my_page_secession_pwcheck_container = document.querySelector(".my-page-secession-pwcheck-container");
+const my_page_secession_info_bg = document.querySelector(".my-page-secession-info-bg");
+
+my_page_secession_pwcheck_btn.addEventListener("click", e => {
+    if (line3.classList.contains("errorPw")) {
+        e.preventDefault();
+        secessionPw.focus();
+        alert("비밀번호를 확인해주세요");
+    }
+});
+my_page_secession_pwcheck_btn.addEventListener("click", e => {
+    if (line3.classList.contains("clearPw")) {
+        /* 회원 탈퇴 다음 버튼 클릭 시 화면 */
+        my_page_secession_pwcheck_container.style.display = "none";
+
+        my_page_secession_info_bg.style.display = "flex";
+    
+        document.body.style.overflow = 'hidden';
+    }
+});
+
+secessionPw.addEventListener("focus", () => {
+    line3.classList.remove("errorPw");
+    line3.classList.remove("clearPw");
+    line3.classList.add("line3");
+});
+
+/* 취소 버튼 클릭 시 */
+my_page_secession_btn2.addEventListener("click", () => {
+
+    my_page_secession_area.style.display = "none";
+
+    my_page_secession_pwcheck_container.style.display = "flex";
+
+    my_page_secession_info_bg.style.display = "none";
+
+    document.body.style.overflow = 'auto';
+
+})
+
+const secessionCheckbox = document.querySelector("#secessionCheckbox");
+const secessionButton = document.querySelector("#secessionButton");
+
+secessionButton.addEventListener("click", (e) => {
+    if (!secessionCheckbox.checked) {
+        e.preventDefault(); 
+        alert("회원 탈퇴에 동의해야 합니다.");
+    } else {
+        if (confirm("정말로 탈퇴하시겠습니까?")) {
+
+        }else{
+            e.preventDefault();
+            alert("탈퇴 취소")
+        }
+    }
 });
 
 

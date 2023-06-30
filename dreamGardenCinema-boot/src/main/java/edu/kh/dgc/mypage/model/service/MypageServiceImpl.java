@@ -1,6 +1,7 @@
 package edu.kh.dgc.mypage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import edu.kh.dgc.mypage.model.dao.MypageMapper;
 import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.ticketing.model.dao.TicketingMapper;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @Service
@@ -100,6 +102,13 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int secessionUser(int userNo) {
 		return mapper.secessionUser(userNo);
+	}
+
+	// 예매 내역 조회
+	@Override
+	public List<Ticket> reservation(int userNo) {
+		
+		return mapper.ticketList(userNo);
 	}
 
 }

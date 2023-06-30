@@ -172,7 +172,7 @@ public class TicketingServiceImpl implements TicketingService {
 		
 		int resultPrice = 999999;
 		if(result>0) {
-			 resultPrice = mapper.selectPrice(paramMap);
+			resultPrice = mapper.selectPrice(paramMap);
 		}
 		return resultPrice;
 	}
@@ -235,6 +235,65 @@ public class TicketingServiceImpl implements TicketingService {
 		return map;
 	}
 
+	// 결제 완료 시 누적 금액 업데이트
+	@Override
+	public int updateAmount(User updateUser) {
+		return mapper.updateAmount(updateUser);
+	}
 
+	// 누적 금액 4<=?<10 일 때 
+	@Override
+	public int updateSilver(int userNo) {
+		return mapper.updateSilver(userNo);
+	}
+	// 누적 금액 10<=?<20 일 때 
+	@Override
+	public int updateGold(int userNo) {
+		return mapper.updateGold(userNo);
+	}
+	// 누적 금액 20<? 일 때 
+	@Override
+	public int updatePlatinum(int userNo) {
+		return mapper.updatePlatinum(userNo);
+	}
+
+	// 유저가 보유한 실버 쿠폰 카운트
+	@Override
+	public int silverCouponCount(int userNo) {
+		return mapper.silverCouponCount(userNo);
+	}
+
+	// 실버 쿠폰 insert
+	@Override
+	public int insertSilverCoupon(int userNo) {
+		return mapper.insertSilverCoupon(userNo);
+	}
+
+	// 유저가 보유한 골드 쿠폰 카운트
+	@Override
+	public int goldCouponCount(int userNo) {
+		return mapper.goldCouponCount(userNo);
+	}
+
+	// 골드 쿠폰 insert
+	@Override
+	public int insertGoldCoupon(int userNo) {
+		return mapper.insertGoldCoupon(userNo);
+	}
+
+	// 유저가 보유한 플래티넘 쿠폰 카운트
+	@Override
+	public int platinumCouponCount(int userNo) {
+		return mapper.platinumCouponCount(userNo);
+	}
+
+	// 플래티넘 쿠폰 insert
+	@Override
+	public int insertPlatinumCoupon(int userNo) {
+		return mapper.insertPlatinumCoupon(userNo);
+	}
+	
+	
+	
 
 }
