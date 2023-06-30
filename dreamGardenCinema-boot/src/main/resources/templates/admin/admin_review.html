@@ -26,14 +26,13 @@
         <div class="admin_reviewSearchWrap">
             <!-- select랑 검색창만 감싸는 div -->
             <div class="admin_userSearchWrap2">
-                <form th:action="@{/getreviewSearchList}" autocomplete="off">
+                <form th:action="@{/getReviewSearchList}" autocomplete="off">
                     <select class="admin_reviewSelect" name="type" id="">
-                        <option value="reviewNo">번호</option>
-                        <option value="title">제목</option>
+                        <option value="reviewNo">리뷰번호</option>
+                        <option value="movie">영화</option>
+                        <option value="user">유저</option>
+                        <option value="score">스코어</option>
                         <option value="content">내용</option>
-                        <option value="reviewedNo">리뷰번호</option>
-                        <option value="writer">신고한 유저</option>
-                        <option value="reporedWriter">신고당한 유저</option>
                     </select>
                     <!-- 검색 input 창 -->
 

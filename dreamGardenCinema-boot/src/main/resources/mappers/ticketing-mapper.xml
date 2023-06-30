@@ -15,6 +15,7 @@
 		<result property="mainPoster" column="MAIN_POSEER"/>		
 		<result property="genre" column="GENRE"/>		
 		<result property="screening" column="SCREENING"/>		
+		<result property="score" column="SCORE"/>		
 	</resultMap>
 	
 	<resultMap type="Schedule" id="schedule_rm">
@@ -44,6 +45,8 @@
 		<result property="seatNo" column="SEAT_NO"/>
 		<result property="state" column="STATE"/>
 		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<!--JOIN MOVIE-->
+		<result property="poster" column="POSTER"/>
 	</resultMap>
 	
 	<resultMap type="SeatCheck" id="seatcheck_rm">
@@ -67,14 +70,14 @@
 	
 	<!-- 예매 1페이지 (영화목록 조회) -->
 	<select id="selectMovieList" resultMap="movie_rm">
-		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER
+		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 2) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE
 		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
 				(SELECT COUNT(TICKET_NO)
 				FROM TICKETING_INFO C
-				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT
+				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, NVL((SELECT ROUND(AVG(SCORE),2) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE
 			FROM MOVIE P
 			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
-				 ON(P.MOVIE_NO = I.MOVIE_NO)
+				ON(P.MOVIE_NO = I.MOVIE_NO)
 			WHERE SCREENING = 'C'
 			ORDER BY TICKET_COUNT DESC, RELEASE_DATE)
 	</select>
@@ -88,6 +91,11 @@
 		]]>
 		AND MOVIE_NO = ${movieNo} AND TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${date}
 		ORDER BY MOVIE_TIME, MOVIE_THEATER
+	</select>
+	
+	<select id="sortTicketing" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
 	</select>
 
 	<!-- 예매 2페이지 영화정보 가져오기 -->	
@@ -199,7 +207,7 @@
 	
 	<!-- 예매 3페이지 티켓 가격 업데이트 AJAX -->
 	<update id="updatePrice">
-		UPDATE TICKETING_INFO SET PAY_AMOUNT = #{newPrice}
+		UPDATE TICKETING_INFO SET PAY_AMOUNT = #{newPrice}, COUPON = ${couponNo}
 		WHERE TICKET_NO = #{ticketNo}
 	</update>
 	
@@ -218,12 +226,14 @@
 		WHERE TICKET_NO = #{ticketNo}
 	</select>
 
+	<!-- 예매 3페이지 티켓ID 중복 확인 -->
 	<select id="checkTicketId" resultType="int">
 		SELECT COUNT(*) 
 		FROM TICKETING_INFO 
 		WHERE TICKET_ID LIKE #{ticketId}
 	</select>
 	
+	<!-- 예매 3페이지 생성된 티켓ID 삽입 -->
 	<update id="updateTicketId">
 		UPDATE TICKETING_INFO 
 		SET TICKET_ID = #{createTicketId} 
@@ -250,4 +260,114 @@
 		WHERE TICKET_NO = #{ticketNo}
 	</update>
 	
+	<!-- 예매 3페이지 결제 시 사용한 쿠폰 Y 처리 -->
+	<update id="updateUserCoupon">
+		UPDATE USER_COUPON SET USE_FL = 'Y'
+		WHERE USER_COUPON_NO = (SELECT COUPON FROM TICKETING_INFO WHERE TICKET_NO = ${ticketNo})
+	</update>
+	
+	
+	<!-- 예매 4페이지 결제완료된 티켓 정보 가져오기 -->
+	<select id="selectResultTicket" resultMap="ticket_rm">
+		SELECT POSTER, TICKET_ID, MOVIE_TITLE, TO_CHAR(MOVIE_TIME, 'YYYY"년" MM"월" DD"일"  HH24:MI') MOVIE_TIME, PAY_AMOUNT 
+		FROM TICKETING_INFO
+		JOIN MOVIE USING(MOVIE_NO)
+		WHERE TICKET_NO = ${ticketNo} AND TICKET_FL = 'Y'
+	</select>
+	
+	<select id="selectResultSeatList" resultMap="seatcheck_rm">
+		SELECT SEAT_NO
+		FROM SEAT_CHECK
+		WHERE TICKET_NO = ${ticketNo} AND STATE = 'C'
+	</select>
+	
+	<select id="sortRating" resultMap="movie_rm">
+		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 2) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE
+		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
+				(SELECT COUNT(TICKET_NO)
+				FROM TICKETING_INFO C
+				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, NVL((SELECT ROUND(AVG(SCORE),2) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE
+			FROM MOVIE P
+			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
+				ON(P.MOVIE_NO = I.MOVIE_NO)
+			WHERE SCREENING = 'C'
+			ORDER BY SCORE DESC, RELEASE_DATE)
+	</select>
+	
+	<!-- 결제 완료 시 유저 누적 금액 업데이트-->
+	<update id="updateAmount">
+		UPDATE USER_INFO SET
+		USER_AMOUNT = ${userAmount}
+		WHERE USER_NO = ${userNo}
+	</update>
+	
+	<!-- 누적 금액 4<=?<10 실버 등급-->
+	<update id="updateSilver">
+		UPDATE USER_INFO SET
+		USER_RATING = 2
+		WHERE USER_NO = ${userNo}
+	</update>
+	
+	<!-- 누적 금액 10<=?<20 골드 등급-->
+	<update id="updateGold">
+		UPDATE USER_INFO SET
+		USER_RATING = 3
+		WHERE USER_NO = ${userNo}
+	</update>
+	
+	<!-- 누적 금액 20<? 플래티넘 등급-->
+	<update id="updatePlatinum">
+		UPDATE USER_INFO SET
+		USER_RATING = 4
+		WHERE USER_NO = ${userNo}
+	</update>
+	
+	<!-- 유저가 보유한 실버 쿠폰 카운트-->
+	<select id="silverCouponCount" resultType="_int">
+		SELECT COUNT(COUPON_NO) COUPON_NO
+		FROM USER_COUPON
+		WHERE USER_NO = ${userNo}
+		AND COUPON_NO =2
+	</select>
+	
+	<!--실버 쿠폰 insert-->
+	<insert id="insertSilverCoupon">
+		INSERT ALL
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		SELECT 1 FROM DUAL
+	</insert>
+	
+	<!-- 유저가 보유한 골드 쿠폰 카운트-->
+	<select id="goldCouponCount" resultType="_int">
+		SELECT COUNT(COUPON_NO) COUPON_NO
+		FROM USER_COUPON
+		WHERE USER_NO = ${userNo}
+		AND COUPON_NO =3
+	</select>
+	
+	<!--골드 쿠폰 insert-->
+	<insert id="insertGoldCoupon">
+		INSERT ALL
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		SELECT 1 FROM DUAL
+	</insert>
+	
+	<!-- 유저가 보유한 플래티넘 쿠폰 카운트-->
+	<select id="platinumCouponCount" resultType="_int">
+		SELECT COUNT(COUPON_NO) COUPON_NO
+		FROM USER_COUPON
+		WHERE USER_NO = ${userNo}
+		AND COUPON_NO =4
+	</select>
+	
+	<!--플래티넘 쿠폰 insert-->
+	<insert id="insertPlatinumCoupon">
+		INSERT ALL
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
+		SELECT 1 FROM DUAL
+	</insert>
 </mapper>

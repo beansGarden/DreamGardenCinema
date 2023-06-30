@@ -16,7 +16,7 @@
     <div class="main">
         <div class="ticketingBox">
             <ul class="ticketingNav">
-                <li class="pass"><a th:href="@{/ticketing/date}">01<br>상영시간</a></li>
+                <li class="pass"><a th:href="@{/ticketing/date/} + ${map.movie.movieNo}">01<br>상영시간</a></li>
                 <li class="active"><a>02<br>인원/좌석</a></li>
                 <li><a>03<br>결제</a></li>
                 <li><a>04<br>결제완료</a></li>

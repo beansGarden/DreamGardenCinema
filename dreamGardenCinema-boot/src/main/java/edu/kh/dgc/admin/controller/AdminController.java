@@ -224,21 +224,14 @@ public class AdminController {
 		return "admin/admin_cinemaManage";
 	}
 
-	// 2관으로 넘어가기
-	@RequestMapping("/adminCinemaManage/{movieTheater}")
-	public String cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
+	// 1,2,3관으로 넘어가기
+	@RequestMapping(value="/adminCinemaManage/{movieTheater}", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
 		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
-
-		model.addAttribute("cinemaList", cinemaMap);
-
-		System.out.println(movieTheaterNo);
-		System.out.println(cinemaMap);
-
-		return "admin/admin_cinemaManage";
-
-		/* return "admin/admin_cinemaManage" +"/"+ movieTheaterNo; */
+		return cinemaMap;
 	}
 
 	// 4-1.관리자 상영 시간 등록
@@ -248,7 +241,7 @@ public class AdminController {
 		List<Movie> cinemaList = service.cinemaList();
 
 		model.addAttribute("cinemaList", cinemaList);
-
+		
 		return "admin/admin_cinemaMangeDetail";
 	}
 
@@ -962,6 +955,15 @@ public class AdminController {
 		return "admin/admin_report";
 
 	}
+	
+	//8-4 신고하기 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminreportListAjax")
+    public int adminreportListAjax() {
+        
+		
+		return service.reportListCount();
+    }
 
 	// 9-1.  리뷰관리 게시판 조회------------------------------------------------------------------
 	
@@ -982,13 +984,32 @@ public class AdminController {
     @GetMapping("/adminReviewListAjax")
     public int adminReviewListAjax() {
         
-		
+
 		return service.reviewListCount();
     }
 	
 	
 	
-	// 9-2. 리뷰관리 게시글 쓰기
+	// 9-2. 리뷰관리 검색
+	
+	@GetMapping("/getReviewSearchList")
+	public String getReviewSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+
+		Qna condition = new Qna();
+
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object> adminReviewMap = service.getReviewSearchList(condition, cp);
+		model.addAttribute("adminReviewMap", adminReviewMap);
+
+		System.out.println(condition);
+		System.out.println(adminReviewMap);
+
+		return "admin/admin_review";
+
+	}
 	
 	// 9-3. 리뷰관리 게시글 수정
 	
