@@ -29,7 +29,5 @@ public class Ticket {
 	private String date;
 	private String reasonCancellationPayment;
 	
-	//JOIN MOVIE
-	private String poster;
 	
 }

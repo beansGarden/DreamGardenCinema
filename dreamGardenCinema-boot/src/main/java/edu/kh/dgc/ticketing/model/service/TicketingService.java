@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
@@ -51,6 +52,36 @@ public interface TicketingService {
 
 	// 예매 4페이지 결제완료된 티켓 정보 가져오기
 	Map<String, Object> selectResultTicket(int ticketNo);
+
+	// 결제 완료 시 누적 금액 업데이트
+	int updateAmount(User updateUser);
+
+	// 누적 금액 4<=?<10 등급 실버 업데이트
+	int updateSilver(int userNo);
+
+	// 누적 금액 10<=?<20
+	int updateGold(int userNo);
+
+	// 누적 금액 20<?
+	int updatePlatinum(int userNo);
+
+	// 유저가 보유한 실버 쿠폰 카운트
+	int silverCouponCount(int userNo);
+
+	// 실버 쿠폰 insert
+	int insertSilverCoupon(int userNo);
+
+	// 유저가 보유한 골드 쿠폰 카운트
+	int goldCouponCount(int userNo);
+
+	// 골드 쿠폰 insert
+	int insertGoldCoupon(int userNo);
+
+	// 유저가 보유한 플래티넘 쿠폰 카운트
+	int platinumCouponCount(int userNo);
+
+	// 플래티넘 쿠폰 insert
+	int insertPlatinumCoupon(int userNo);
 
 
 }
