@@ -14,7 +14,8 @@ public class QnaImage {
 	private int qnaImgNo;
 	private int qnaImgOrder;
 	private String qnaImgPath;
-	private String originalName;
+	private String qnaImgOriginal;
+	private String qnaImgRename;
 	
 	private int qnaNo;
 	

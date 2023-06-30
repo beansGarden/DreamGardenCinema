@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.dgc.common.utility.Util;
 import edu.kh.dgc.customerservice.model.dao.CustomerServiceMapper;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.notice.model.dto.Notice;
@@ -91,15 +92,16 @@ public class CustomerServiceImpl implements CustomerService {
 				if (images.get(i).getSize() > 0) {
 
 					QnaImage img = new QnaImage();
-					 nameFile = images.get(i).getOriginalFilename();
 							/* "/images/customerservice/" */
-					img.setOriginalName(nameFile);
+					img.setQnaImgPath(webPath); // 웹 접근 경로
 					img.setQnaNo(qnaNo); // 1:1 문의글 번호
 					img.setQnaImgOrder(i);// 이미지 순서
 
 					// 파일 원본명
+					nameFile = images.get(i).getOriginalFilename();
 					
-					img.setQnaImgPath(webPath); // 웹 접근 경로
+					img.setQnaImgOriginal(nameFile);
+					img.setQnaImgRename(Util.fileRename(nameFile));
 					
 					uploadList.add(img);
 				}
@@ -115,7 +117,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 						System.out.println(nameFile);
 						
-						images.get(index).transferTo(new File(filePath+index));
+						String rename = uploadList.get(i).getQnaImgRename();
+						
+						images.get(index).transferTo(new File(filePath+rename));
 						uploadList.get(i).setQnaImgOrder(result);
 					}
 				} else {
