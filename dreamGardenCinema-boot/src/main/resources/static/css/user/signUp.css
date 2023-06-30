@@ -109,23 +109,6 @@ input::placeholder {
     }
 }
 
-#sendAuthKeyBtn {
-    /* background-color: #5250BE;
-    width: 400px;
-    height: 60px;
-    line-height : 60px;
-    text-align: center;
-    color: white;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-    margin-bottom: 100px;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.15); */
-}
-
 .authKeyResend {
     position: absolute;
     color: #80808099;
@@ -134,23 +117,13 @@ input::placeholder {
     font-size: 13px;
     right: 10px;
     top: 60px;
+    user-select: none;
 }
 
 .display-none {
     display: none !important;
 }
 
-#signBtn {
-    /* width: 400px;
-    height: 60px;
-    background-color: #5250BE;
-    margin-top: 80px;
-    margin-bottom: 100px;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    color: white;
-    font-size: 24px; */
-}
 
 #authKeyLifeTime {
     width: 45px;
