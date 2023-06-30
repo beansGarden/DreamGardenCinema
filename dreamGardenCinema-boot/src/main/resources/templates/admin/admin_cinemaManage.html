@@ -8,95 +8,103 @@
     <title>cinemaManage</title>
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="\css\admin\admin_cinemaManage.css">
- 
+
 </head>
 
 <main th:with="pagination=${cinemaList.pagination}, cinemaList=${cinemaList.cinemaList}">
 
-<body>
-    <!-- 사이드바 -->
-    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
-    <!-- 전체 감싸는 div -->
-    <div class="admin_cinemaManageWrap">
+    <body>
+        <!-- 사이드바 -->
+        <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+        <!-- 전체 감싸는 div -->
+        <div class="admin_cinemaManageWrap">
 
-        <!-- 게시판 제목 -->
-        <span id="admin_cinemaManageTitle">상영관 관리</span>
+            <!-- 게시판 제목 -->
+            <span id="admin_cinemaManageTitle">상영관 관리</span>
 
-        <!-- 상영관 별 보이기 -->
-        <div class="admin_cinemaManageAll">
-            <div class="admin_cinemaOne" id="cinemaOne"><a href="#">1관</a></div>
-            <div>　</div>
-            <div class="admin_cinemaOne"  id="cinemaTwo" name><a th:href="@{/adminCinemaManage/{movieTheater}(movieTheater=${movieTheater})}">2관</a></div>
-        
-            <div>　</div>
-            <div class="admin_cinemaOne"  id="cinemaThree"><a href="#">3관</a></div>
+            <!-- 상영관 별 보이기 -->
+            <div class="admin_cinemaManageAll">
+                <div class="admin_cinemaOne" id="cinemaOne">
+                    <span th:onclick="first()">1관</span>
+                </div>
+                <div>　</div>
+                <div class="admin_cinemaOne" id="cinemaTwo">
+                    <span th:onclick="second()">2관</span>
+                </div>
+
+                <div>　</div>
+                    <div class="admin_cinemaOne" id="cinemaThree">
+                        <span th:onclick="third()">3관</span>
+                    </div>
 
 
-            <!-- 상영일 선택-->
-            <div class="admin_cinemaManageDate">
-                <input type="date" id="selectedDate" onchange="setHiddenValue()">
-                <input type="hidden" name="movieday" id="hiddenValue">
+
+                <!-- 상영일 선택-->
+                <div class="admin_cinemaManageDate">
+                    <input type="date" id="selectedDate" onchange="setHiddenValue()">
+                    <input type="hidden" name="movieday" id="hiddenValue">
+                </div>
             </div>
-        </div>
-        <!-- 검색창 -->
-        <div class="admin_cinemaManageSearchWrap">
-            <div class="admin_cinemaSearchWrap2">
-                <select class="admin_cinemaManageSelect" name="" id="">
-                    <option value="title">제목</option>
-                    <option value="director">감독</option>
-                    <option value="actor">배우</option>
-                </select>
-                <!-- 검색 input 창 -->
-                <input type="text" name="" id="" class="admin_cinemaManageInput">
+            <!-- 검색창 -->
+            <div class="admin_cinemaManageSearchWrap">
+                <div class="admin_cinemaSearchWrap2">
+                    <select class="admin_cinemaManageSelect" name="" id="">
+                        <option value="title">제목</option>
+                        <option value="director">감독</option>
+                        <option value="actor">배우</option>
+                    </select>
+                    <!-- 검색 input 창 -->
+                    <input type="text" name="" id="" class="admin_cinemaManageInput">
+                </div>
+                <!-- 검색 버튼 -->
+                <div class="admin_cinemaManageBtnWrap">
+                    <button type="button" class="admin_cinemaManageSearchBtn">검색</button>
+                </div>
             </div>
-            <!-- 검색 버튼 -->
-            <div class="admin_cinemaManageBtnWrap">
-                <button type="button" class="admin_cinemaManageSearchBtn">검색</button>
+            <!-- 목록 count -->
+            <div class="admin_cinemaList">
+                <span>목록</span>
+                <span>( 총</span>
+                <span class="admin_cinemaCount">0</span>
+                <span> / </span>
+                <span class="admin_cinemaCountAll">0</span>
+                <span>개)</span>
+
             </div>
-        </div>
-        <!-- 목록 count -->
-        <div class="admin_cinemaList">
-            <span>목록</span>
-            <span>( 총</span>
-            <span class="admin_cinemaCount">0</span>
-            <span> / </span>
-            <span class="admin_cinemaCountAll">0</span>
-            <span>개)</span>
+            <!-- 게시판 -->
+            <div class="admin_cinemaManageBoardWrap">
+                <table id="schedule-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" name="" id="" class="admin_cinemaCheckboxAll"
+                                    onclick='cinemaSelectAll(this)'></th>
+                            <th>영화 번호</th>
+                            <th>제목</th>
+                            <th>러닝타임 (분)</th>
+                            <th>개봉일</th>
+                            <th>상영일</th>
+                            <th>상영시간</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="list : ${cinemaList}">
+                            <td><input type="checkbox" name="" id="" class="admin_cinemaCheckbox"></td>
+                            <td th:text="${list.movieNo}">1</td>
+                            <td th:text="${list.movieTitle}">범죄도시3</td>
+                            <td th:text="${list.runningTime}">120분</td>
+                            <td th:text="${list.releaseDate}">2023.05.31</td>
+                            <td th:text="${list.movieday}">2023.05.31</td>
+                            <td th:text="${list.movieTime}">12:00,16:00</td>
+                        </tr>
+                        <tr th:if="${cinemaList.isEmpty()}">
+                            <td colspan="7">데이터가 없습니다.</td>
+                        </tr>
+                    </tbody>
 
-        </div>
-        <!-- 게시판 -->
-        <div class="admin_cinemaManageBoardWrap">
-            <table id="schedule-table'">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" name="" id="" class="admin_cinemaCheckboxAll" onclick='cinemaSelectAll(this)'></th>
-                        <th>영화 번호</th>
-                        <th>제목</th>
-                        <th>러닝타임 (분)</th>
-                        <th>개봉일</th>
-                        <th>상영일</th>
-                        <th>상영시간</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="list : ${cinemaList}">
-                        <td><input type="checkbox" name="" id="" class="admin_cinemaCheckbox"></td>
-                        <td th:text="${list.movieNo}">1</td>
-                        <td th:text="${list.movieTitle}">범죄도시3</td>
-                        <td th:text="${list.runningTime}">120분</td>
-                        <td th:text="${list.releaseDate}">2023.05.31</td>
-                        <td th:text="${list.movieday}">2023.05.31</td>
-                        <td th:text="${list.movieTime}">12:00,16:00</td>
-                    </tr>
-                    <tr th:if="${cinemaList.isEmpty()}">
-                        <td colspan="7">데이터가 없습니다.</td>
-                      </tr>
-                </tbody>
+                </table>
+            </div>
 
-            </table>
-        </div>
-
-         <!-- 페이지 네이션 -->
+            <!-- 페이지 네이션 -->
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div class="pagination-area">
 
@@ -109,7 +117,7 @@
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
-           <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
+                    <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
 
                     <!-- 특정 페이지로 이동 -->
                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -142,7 +150,7 @@
 
 
                     <!-- 다음 목록 시작 번호로 이동 -->
-                  <!--   <li th:if="${i==pagination.currentPage}">
+                    <!--   <li th:if="${i==pagination.currentPage}">
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
                    -->
@@ -156,26 +164,26 @@
             </div>
 
 
-        <!-- 등록,수정,삭제 버튼 -->
-        <div class="admin_cinemaManageBtn">
-            <button class="admin_cinemaManageEndBtn"><a th:href="@{/adminCinemaRegister}">등록</a></button>
-            <button class="admin_cinemaManageEndBtn"><a href="">수정</a></button>
-            <button class="admin_cinemaManageEndBtn"><a href="">삭제</a></button>
+            <!-- 등록,수정,삭제 버튼 -->
+            <div class="admin_cinemaManageBtn">
+                <button class="admin_cinemaManageEndBtn"><a th:href="@{/adminCinemaRegister}">등록</a></button>
+                <button class="admin_cinemaManageEndBtn"><a href="">수정</a></button>
+                <button class="admin_cinemaManageEndBtn"><a href="">삭제</a></button>
+            </div>
+
+
+
+
+
+
+
+
+
+
         </div>
 
+        <script src="\js\admin\admin_cinemaManage.js"></script>
 
-
-
-
-
-
-
-        
-        
-    </div>
-    
-    <script src="\js\admin\admin_cinemaManage.js"></script>
-
-</body>
+    </body>
 
 </html>

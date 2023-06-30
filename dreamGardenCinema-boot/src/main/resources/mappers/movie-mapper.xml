@@ -16,6 +16,7 @@
 		<result property="screening" column="SCREENING"/>
 		<result property="rank" column="ROWNUM"/>
 		<result property="ratio" column="RATIO"/>
+		<result property="score" column="SCORE"/>
 	</resultMap>
 	
 	<resultMap type="Person" id="person_rm">
@@ -32,8 +33,11 @@
 		<result property="reviewDate" column="REVIEW_DATE"/>
 		<result property="reviewContent" column="REVIEW_CONTENT"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
 		<result property="movieNo" column="MOVIE_NO"/>
 	</resultMap>
+	
+	
 	
 	
 	<select id="selectMainSlideImgList">
@@ -51,11 +55,11 @@
 	
 	<!-- 메인 작은 슬라이드 예매율, 별점 계산해서 가져오기 -->
 	<select id="selectMovieListCurrent" resultMap="movie_rm">
-		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER
+		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 2) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE
 		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
 				(SELECT COUNT(TICKET_NO)
 				FROM TICKETING_INFO C
-				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT
+				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, NVL((SELECT ROUND(AVG(SCORE),2) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE
 			FROM MOVIE P
 			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
 				 ON(P.MOVIE_NO = I.MOVIE_NO)
@@ -123,17 +127,26 @@
 		AND MOVIE_IMG_ROLE = '스틸컷'
 	</select>
 	
-	<select id="selectMovieComment">
-		SELECT *
-		FROM MOVIE_REVIEW
+	<select id="selectMovieComment" resultMap="comment_rm">
+		SELECT R.REVIEW_NO, R.SCORE, R.REVIEW_DATE, R.REVIEW_CONTENT,
+		R.USER_NO, I.USER_NICKNAME, R.MOVIE_NO 
+		FROM MOVIE_REVIEW R
+		LEFT JOIN USER_INFO I ON (R.USER_NO = I.USER_NO)
 		WHERE MOVIE_NO = #{movieNo}
+		AND REVIEW_DELETE_FL = 'N'
 		ORDER BY REVIEW_DATE DESC
 	</select>
 	
 	<insert id="insertMovieComment">
 		INSERT INTO "beansGarden".MOVIE_REVIEW
-		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO)
-		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo})
+		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO, REVIEW_DELETE_FL)
+		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo}, DEFAULT)
+	</insert>
+	
+	<insert id="insertMovieCommentReport">
+		INSERT INTO "beansGarden".REPORT
+		(REPORT_NO, REPORT_TITLE, REPORT_CONTNENT, REPORT_ENROLL_DATE, REPORT_FL, REPORT_DELETE_FL, REVIEW_NO, REPORT_WIRTER, REPORTED_USER_NO)
+		VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportTitle}, #{reportContent}, DEFAULT, DEFAULT, DEFAULT, #{reviewNo}, #{reportWriter}, #{reportedUserNo})
 	</insert>
 	
 </mapper>

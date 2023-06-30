@@ -1,0 +1,88 @@
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    margin: 250px auto;
+    width: 30%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    animation-name: modalopen;
+    animation-duration: all 1s;
+}
+
+.modal-body {
+    padding: 50px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.modal-body div {
+    width: 100%;
+}
+
+.modal-body input {
+    margin-top: 5px;
+    width: 100%;
+    height: 30px;
+    padding: 15px 5px;
+}
+
+.modal-body textarea{
+    width: 100%;
+    height: 100px;
+    margin-top: 5px;
+    resize: none;
+}
+
+.modal-body button{
+    background-color: #5250BE;
+    width: 100%;
+    border-radius: 3px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+}
+
+.close {
+    color: #ccc;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    margin-top: 30px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes modalopen {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

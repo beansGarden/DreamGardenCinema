@@ -39,6 +39,8 @@ public interface MovieMapper {
 
 	public int insertMovieComment(MovieComment comment);
 
+	public int insertMovieCommentReport(Map<String, Object> report);
+
 
 
 

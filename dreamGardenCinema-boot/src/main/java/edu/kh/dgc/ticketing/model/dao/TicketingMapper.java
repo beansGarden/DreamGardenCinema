@@ -10,6 +10,7 @@ import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.SeatCheck;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 @Mapper
 public interface TicketingMapper {
@@ -19,6 +20,9 @@ public interface TicketingMapper {
 	
 	// 예매 1페이지 영화시간,상영관 조회 AJAX
 	List<Schedule> movieTime(Map<String, Object> paramMap);
+
+	// 예매 1페이지 별점순 AJAX
+	List<Movie> sortRating();
 
 	// 예매 2페이지 영화정보 가져오기
 	Movie selectMovie(int movieNo);
@@ -96,10 +100,43 @@ public interface TicketingMapper {
 	// 예매 3페이지 결제API 시 SEAT_CHECK 테이블 C로 변경
 	int updateSeatList(Ticket ticket);
 
-
-
-
+	// 예매 4페이지 결제완료된 티켓 정보 가져오기
+	Ticket selectResultTicket(int ticketNo);
 	
+	// 예매 4페이지 결제완료된 좌석 정보 가져오기
+	List<SeatCheck> selectResultSeatList(int ticketNo);
+	
+	// 예매 3페이지 결제API 시 USER_COUPON 테이블 Y로 변경
+	void updateUserCoupon(Ticket ticket);
 
+	// 결제 완료시 회원 누적 금액 업데이트
+	int updateAmount(User updateUser);
+
+	// 누적 금액이 4<=?<10
+	int updateSilver(int userNo);
+	
+	// 누적 금액이 10<=?<20
+	int updateGold(int userNo);
+	
+	// 누적 금액이 20<?
+	int updatePlatinum(int userNo);
+
+	// 유저가 보유한 실버 쿠폰 카운트
+	int silverCouponCount(int userNo);
+
+	// 실버 쿠폰 insert
+	int insertSilverCoupon(int userNo);
+
+	// 유저가 보유한 골드 쿠폰 카운트
+	int goldCouponCount(int userNo);
+
+	// 골드 쿠폰 insert
+	int insertGoldCoupon(int userNo);
+
+	// 유저가 보유한 플래티넘 쿠폰 카운트
+	int platinumCouponCount(int userNo);
+
+	// 플래티넘 쿠폰 insert
+	int insertPlatinumCoupon(int userNo);
 
 }

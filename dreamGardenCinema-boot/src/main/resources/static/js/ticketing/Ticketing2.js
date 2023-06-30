@@ -69,6 +69,195 @@ if(ticket.movieTheater == 1){
     })()
 }
 
+// 좌석 만들기 2관
+if(ticket.movieTheater == 2){
+    const movieSeat = document.querySelector(".movieSeat");
+    movieSeat.style.width = '700px';
+    let alpha = 'A';
+    (function () {
+        let count = 12;
+        let margin = 0;
+        for(let i=0;i<10;i++){
+            const lineDiv = document.createElement("div");
+            lineDiv.classList.add("seatLine");
+            lineDiv.classList.add(`col${i}`);
+            if(i<3){   
+                for(let j=0;j<count;j++){
+                    if(j==0){
+                        const span = document.createElement('span');
+                        span.innerText = alpha;
+                        lineDiv.append(span);
+                        alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                    } else{
+                        const seatNo = document.createElement("a");
+                        seatNo.classList.add("seat");
+                        // 예매된 좌석이 있으면 클래스 추가("alreadyChk")
+                        for(let x=0;x<chkSeatList.length;x++){
+                            if(chkSeatList[x].seatNo == alpha+j){
+                                seatNo.classList.add("alreadyChk");
+                            }
+                        }
+                        const seatSpan = document.createElement('span');
+                        seatSpan.innerText = j;
+                        if(j==1){
+                            seatNo.style.marginLeft = `${114 - margin}px`;
+                        }
+                        if(j==count/2-1 | j==count/2+2){
+                            seatNo.style.marginLeft = "30px"
+                        }
+                        if(j==count-1){
+                            seatNo.style.marginRight = `${114 - margin}px`;
+                        }
+                        
+    
+                        const inputcb = document.createElement("input");
+                        inputcb.type = 'checkbox';
+                        inputcb.name = 'seatList';
+                        inputcb.value = alpha+j;
+    
+                        seatNo.setAttribute("seatNo", alpha+j);
+                        seatNo.setAttribute("onclick",'seatClick(this)');
+                        seatNo.append(seatSpan, inputcb);
+                        lineDiv.append(seatNo);
+                    }
+                }    
+                margin = margin + 38;
+                count = count + 2;
+            } else {
+                for(let j=0;j<18;j++){
+                    if(j==0){
+                        const span = document.createElement('span');
+                        span.innerText = alpha;
+                        lineDiv.append(span);
+                        alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                    } else{
+                        const seatNo = document.createElement("a");
+                        seatNo.classList.add("seat");
+                        // 예매된 좌석이 있으면 클래스 추가("alreadyChk")
+                        for(let x=0;x<chkSeatList.length;x++){
+                            if(chkSeatList[x].seatNo == alpha+j){
+                                seatNo.classList.add("alreadyChk");
+                            }
+                        }
+                        const seatSpan = document.createElement('span');
+                        seatSpan.innerText = j;
+                        if(j==8 | j==11){
+                            seatNo.style.marginLeft = "30px"
+                        }
+    
+                        const inputcb = document.createElement("input");
+                        inputcb.type = 'checkbox';
+                        inputcb.name = 'seatList';
+                        inputcb.value = alpha+j;
+    
+                        seatNo.setAttribute("seatNo", alpha+j);
+                        seatNo.setAttribute("onclick",'seatClick(this)');
+                        seatNo.append(seatSpan, inputcb);
+                        lineDiv.append(seatNo);
+                    }
+                }
+            }
+            movieSeat.append(lineDiv);
+        }
+    })()
+}
+
+// 좌석 만들기 3관
+if(ticket.movieTheater == 3){
+    const movieSeat = document.querySelector(".movieSeat");
+    let alpha = 'A';
+    (function () {
+        for(let i=0;i<8;i++){
+            const lineDiv = document.createElement("div");
+            lineDiv.classList.add("seatLine");
+            lineDiv.classList.add(`col${i}`);
+            if(i<3){   
+                for(let j=0;j<13;j++){
+                    if(i==0 && j==12){
+                        continue;
+                    }
+
+                    if(j==0){
+                        const span = document.createElement('span');
+                        span.innerText = alpha;
+                        lineDiv.append(span);
+                        alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                    } else{
+                        const seatNo = document.createElement("a");
+                        seatNo.classList.add("seat");
+                        // 예매된 좌석이 있으면 클래스 추가("alreadyChk")
+                        for(let x=0;x<chkSeatList.length;x++){
+                            if(chkSeatList[x].seatNo == alpha+j){
+                                seatNo.classList.add("alreadyChk");
+                            }
+                        }
+                        const seatSpan = document.createElement('span');
+                        seatSpan.innerText = j;
+
+                        if(i==0 && j==8){
+                            seatNo.style.marginLeft = "38px"
+                        }
+                        
+                        if(j==4){
+                            seatNo.style.marginLeft = "30px"
+                        }
+                        if(i==0 && j==11){
+                            seatNo.style.marginRight = "138px"
+                        }
+                        if(j==12){
+                            seatNo.style.marginRight = "138px"
+                        }
+    
+                        const inputcb = document.createElement("input");
+                        inputcb.type = 'checkbox';
+                        inputcb.name = 'seatList';
+                        inputcb.value = alpha+j;
+    
+                        seatNo.setAttribute("seatNo", alpha+j);
+                        seatNo.setAttribute("onclick",'seatClick(this)');
+                        seatNo.append(seatSpan, inputcb);
+                        lineDiv.append(seatNo);
+                    }
+                }    
+            } else {
+                for(let j=0;j<16;j++){
+                    if(j==0){
+                        const span = document.createElement('span');
+                        span.innerText = alpha;
+                        lineDiv.append(span);
+                        alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                    } else{
+                        const seatNo = document.createElement("a");
+                        seatNo.classList.add("seat");
+                        // 예매된 좌석이 있으면 클래스 추가("alreadyChk")
+                        for(let x=0;x<chkSeatList.length;x++){
+                            if(chkSeatList[x].seatNo == alpha+j){
+                                seatNo.classList.add("alreadyChk");
+                            }
+                        }
+                        const seatSpan = document.createElement('span');
+                        seatSpan.innerText = j;
+                        if(j==4 | j==13){
+                            seatNo.style.marginLeft = "30px"
+                        }
+    
+                        const inputcb = document.createElement("input");
+                        inputcb.type = 'checkbox';
+                        inputcb.name = 'seatList';
+                        inputcb.value = alpha+j;
+    
+                        seatNo.setAttribute("seatNo", alpha+j);
+                        seatNo.setAttribute("onclick",'seatClick(this)');
+                        seatNo.append(seatSpan, inputcb);
+                        lineDiv.append(seatNo);
+                    }
+                }
+            }
+            movieSeat.append(lineDiv);
+        }
+    })()
+}
+
 let socket = new SockJS("/click");
 const pay = document.querySelector(".pay");
 // 좌석 선택

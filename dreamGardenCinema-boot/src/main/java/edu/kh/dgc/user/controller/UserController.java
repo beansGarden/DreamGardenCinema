@@ -53,6 +53,12 @@ public class UserController {
 		return "user/accountFind";
 	}
 	
+	@GetMapping("/copy")
+	public String error500() {
+
+		return "common/copy";
+	}
+	
 
 	@GetMapping("/changePw")
 	public String changePw(HttpSession session) {

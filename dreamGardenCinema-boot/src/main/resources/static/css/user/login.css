@@ -349,21 +349,42 @@ body {
     border: 0;
     border-bottom: 2px solid #5250BE80;
 }
-.login-btn{
+
+.login-btn {
+    position: relative;
+    background: none;
+    border: solid 1px #5250BE;
+    transition: linear 250ms;
     width: 400px;
     height: 60px;
-    border-radius: 50px;
-    background-color: #0F0954;
-    margin-bottom: 30px;
-    color: white;
-    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
     font-weight: bold;
+    color: #0F0954;
+    border-radius: 50px;
+    margin-bottom: 30px;
 }
 
-.login-btn:hover{
-    background-color: #015871;
+.login-btn:is(:hover, :focus) {
+    color: #fff;
+    background-color: #5250BE;
+    border-radius: 50px;
 }
 
+.login-btn::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    z-index: -1;
+    transition: linear 50ms;
+    border-radius: 50px;
+}
+
+.login-btn:is(:hover, :focus)::after {
+    transform: scale(1);
+}
 
 .login-check{
     margin-bottom: 25px;

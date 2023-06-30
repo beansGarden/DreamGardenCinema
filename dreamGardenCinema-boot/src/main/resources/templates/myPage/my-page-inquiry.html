@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my-page-inquiry</title>
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" th:href="@{/css/myPage/my-page-inquiry.css}">
     <link rel="stylesheet" th:href="@{/css/myPage/my-page-changeinfo.css}">
     <link rel="stylesheet" th:href="@{/css/common/header-white.css}">
@@ -37,18 +39,18 @@
 
             <!-- 멤버십 등급에 따라 이미지 변경 브론즈-실버-골드-플래티넘 -->
             <a th:href="@{/myPage/my-page-membership}" class="my-page-membership-grade">
-                    <th:block th:if="${session.loginUser.userRating==1}">
-                        <img th:src="@{/images/myPage/브론즈.png}">
-                    </th:block>
-                    <th:block th:if="${session.loginUser.userRating==2}">
-                        <img th:src="@{/images/myPage/실버.png}">
-                    </th:block>
-                    <th:block th:if="${session.loginUser.userRating==3}">
-                        <img th:src="@{/images/myPage/골드.png}">
-                    </th:block>
-                    <th:block th:if="${session.loginUser.userRating==4}">
-                        <img th:src="@{/images/myPage/플래티넘.png}">
-                    </th:block>
+                <th:block th:if="${session.loginUser.userRating==1}">
+                    <img th:src="@{/images/myPage/브론즈.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==2}">
+                    <img th:src="@{/images/myPage/실버.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==3}">
+                    <img th:src="@{/images/myPage/골드.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==4}">
+                    <img th:src="@{/images/myPage/플래티넘.png}">
+                </th:block>
             </a>
 
             <ul class="my-page-R">
@@ -102,11 +104,11 @@
                 <th></th>
             </tr>
             <!-- each 로 반복 구간 -->
-            <th:block th:each="list:${myQnaList}">
+            <th:block th:each="list, index: ${myQnaList}">
 
                 <tr class="my-page-inquiry-content"><!-- 증가에 따라 페이지네이션 기능 구현 -->
                     <td th:text="${list.qnaNo}">문의 번호</td>
-                    
+
                     <th:block th:if="${list.qnaCategory=='U'}">
                         <td>[멤버십]</td>
                     </th:block>
@@ -129,32 +131,34 @@
                     <td th:text="${list.qnaEnrollDate}"></td>
                     <td th:if="${list.qnaCheckFl=='Y'}"><span id="result">처리완료</span></td>
                     <td th:if="${list.qnaCheckFl=='N'}"><span id="result">처리중</span></td>
-                    <td><img id="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
+                    <td><img class="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
                 </tr>
                 <tr class="my-page-inquiry-table-display">
-                    <td colspan="6" id="my-page-inquiry-title" th:text="${list.qnaTitle}">문의 하신 제목: <span>파이널 파이팅~</span></td>
+                    <td colspan="6" id="my-page-inquiry-title" th:text="${list.qnaTitle}">문의 하신 제목: <span>파이널
+                            파이팅~</span></td>
                 </tr>
-                <tr class="my-page-inquiry-table-display" >
-                    <td colspan="6" id="my-page-inquiry-content">답변 내용: 
+                <tr class="my-page-inquiry-table-display">
+                    <td colspan="6" id="my-page-inquiry-content">답변 내용:
                         <span th:if="${list.qnaComment != null}" th:text="${list.qnaComment}"></span>
                         <span th:unless="${list.qnaComment != null}">현재 처리중 입니다</span>
                     </td>
                 </tr>
+
             </th:block>
             <!-- each 로 반복 구간 -->
         </table>
-        
+
         <!-- 문의 내역이 없을 경우 -->
 
-            <div class="my-page-contents-box" th:if="${#lists.size(myQnaList)==0}">
-                <div class="my-page-contents">
-                    <img th:src="@{/images/myPage/느낌표.png}">
-                    <p>문의 내역이 존재하지 않습니다.</p>
-                </div>
+        <div class="my-page-contents-box" th:if="${#lists.size(myQnaList)==0}">
+            <div class="my-page-contents">
+                <img th:src="@{/images/myPage/느낌표.png}">
+                <p>문의 내역이 존재하지 않습니다.</p>
             </div>
-            
+        </div>
+
     </div>
-    
+
     <div class="pagination" th:unless="${#lists.size(myQnaList)==0}">
         <i class="fa-solid fa-arrow-left"></i>
         <ol id="paginationNumbers">
@@ -197,8 +201,8 @@
                 비밀 번호 확인
             </div>
             <div class="my-page-secession-inputbox">
-                <input type="text">
-                <i></i>
+                <input type="password" id="secessionPw" maxlength="15" autocomplete="off">
+                <i id="line3" class="line3"></i>
             </div>
             <div class="my-page-secession-pwcheck-btn">
                 <button>다음</button>
@@ -220,20 +224,20 @@
             </div>
             <p id="secession-notice-detail">
                 <span>제 1 조 ( 계약 해지)</span> <br>
-                회원이 서비스 이용 계약을 해지 하고자 할 때는 개인정보수정의 '회원탈퇴' 메뉴에서 
+                회원이 서비스 이용 계약을 해지 하고자 할 때는 개인정보수정의 '회원탈퇴' 메뉴에서
                 회원탈퇴를 신청하시면 됩니다. 탈퇴를 신청하시면 즉시 탈퇴처리가 완료되며, 탈퇴 후
                 회사에 다시 가입하실 수 없습니다.
                 <br>
                 <br>
-                <span>제 2조 (탈퇴 회원의 개인정보 이용)</span> 
+                <span>제 2조 (탈퇴 회원의 개인정보 이용)</span>
                 <br>
-                1.회사는 회원정보를 회원이 탈퇴하는 시점으로부터 1년까지 보유할 수 있습니다. 
+                1.회사는 회원정보를 회원이 탈퇴하는 시점으로부터 1년까지 보유할 수 있습니다.
                 <br>
                 2.회사가 보관하고 있는 탈퇴 회원의 정보는 회원의 가입이력관리와 지적재산권 관리,
                 개인정보보호를 위해서만 활용할 수 있습니다. <br>
-                3.단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 아래와 같이 관계법령에서 
+                3.단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 아래와 같이 관계법령에서
                 정한 일정한 기간 동안 회원정보를 보관합니다. <br>
-                
+
                 -표시/광고에 관한 기록 : 6개월
                 <br>
                 -계약 또는 청약철회 등에 관한 기록 : 5년
@@ -244,7 +248,7 @@
                 <span>제 3조 (자격 상실)</span><br>
 
                 다음 각 항의 사유에 해당하는 경우 회사는 사전 통보 없이,<br>
-                이용계약을 해지하거나 기간을 정하여 서비스 이용을 중지 <br> 
+                이용계약을 해지하거나 기간을 정하여 서비스 이용을 중지 <br>
                 또는 이용계약 해지 후 무기한 가입제한 할 수 있습니다.
                 <br>
                 1.가입시 또는 정보변경시 제6조 3항의 회원정보를 누락시키거나 허위 기재한 경우<br>
@@ -263,10 +267,12 @@
             <div class="my-page-secession-checkbox">
                 <input type="checkbox"><span>위 유의사항을 모두 확인하였고 회원 탈퇴에 동의합니다</span>
             </div>
-            <div class="my-page-secession-btn">
-                <button>탈퇴</button>
-                <button>취소</button>
-            </div>
+            <form th:action="@{/myPage/secession}" method="get">
+                <div class="my-page-secession-btn">
+                    <button id="secessionButton">탈퇴</button>
+                    <button type="button">취소</button>
+                </div>
+            </form>
         </div>
 
     </div>
@@ -279,105 +285,113 @@
         <div class="my-page-changeinfo-border">
 
 
-        <div class="my-page-changeinfo-top">
-            <span>회원 정보변경</span> 
-            <p>회원 정보를<br>
-                <span>정확하게 입력해 주세요.</span>
-            </p>
-        </div>
-        <div class="my-page-changeinfo-container">
-            <span>Dream Garden Cinema</span>
-    
-            <p>회원 정보 입력<span class="my-page-changeinfo-guide-text"> *는 필수입력 항목입니다</span></p>
-        </div>
-        <form th:action="@{/myPage/change-info}" method="post" id="changeInfo">
-        <div class="my-page-changeinfo-contentbox">
-    
-            <div class="my-page-changeinfo-back">
-                
-                <div class="my-page-changeinfo-name">
-                    <p class="my-page-changeinfo-guide-text">*  <span>닉네임</span></p>
-                    <span th:text="${session.loginUser.userNickname}"></span>
-                </div>
-                <div class="my-page-changeinfo-id">
-                    <p class="my-page-changeinfo-guide-text">*  <span>아이디</span></p>
-                    <span th:text="${session.loginUser.userId}"></span>
-                </div>
-                <div class="my-page-changeinfo-email">
-                    <p class="my-page-changeinfo-guide-text">*  <span>Email</span></p>
-                    <input type="email" id="changeEmail" name="userEmail" autocomplete="off"  required th:value="${session.loginUser.userEmail}">
-                    <i id="emailLine" class="emailLine"></i>
-                </div>
-                
+            <div class="my-page-changeinfo-top">
+                <span>회원 정보변경</span>
+                <p>회원 정보를<br>
+                    <span>정확하게 입력해 주세요.</span>
+                </p>
             </div>
-            
-            <div class="my-page-changeinfo-pw-container">
-                
-                <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15" name="userPw" id="userPw" autocomplete="off">
-                    <span>현재 비밀번호</span>
-                    <i id="line1" class="line1"></i>
-                </div>
-                <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15" name="newPw" id="newPw" autocomplete="off">
-                    <span>새 비밀번호</span>
-                    <i id="line2" class="line2"></i>
-                </div>
-                <div class="my-page-changeinfo-pw">
-                    <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw" autocomplete="off">
-                    <span>새 비밀번호 확인</span>
-                    <i id="line2" class="line2"></i>
-                </div>
-                <p class="my-page-changeinfo-guide-text">* 8-15 자리의 영문/숫자/특수문자를 함께 입력해주세요</p>
-                
+            <div class="my-page-changeinfo-container">
+                <span>Dream Garden Cinema</span>
+
+                <p>회원 정보 입력<span class="my-page-changeinfo-guide-text"> *는 필수입력 항목입니다</span></p>
             </div>
-            
-            <div class="my-page-changeinfo-address-container">
-                <div>
-                    <p class="my-page-changeinfo-guide-text">* <span>주소</span></p>
-                </div>
-                
-                <div class="my-page-changeinfo-address-inputbox">
-                    
-                    <div id="postcode-box">
-                        <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress" autocomplete="off">
-                        <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
-                        <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()" id="my-page-changeinfo-address-btn">
+            <form th:action="@{/myPage/change-info}" method="post" id="changeInfo">
+                <div class="my-page-changeinfo-contentbox">
+
+                    <div class="my-page-changeinfo-back">
+
+                        <div class="my-page-changeinfo-name">
+                            <p class="my-page-changeinfo-guide-text">* <span>닉네임</span></p>
+                            <span th:text="${session.loginUser.userNickname}"></span>
+                        </div>
+                        <div class="my-page-changeinfo-id">
+                            <p class="my-page-changeinfo-guide-text">* <span>아이디</span></p>
+                            <span th:text="${session.loginUser.userId}"></span>
+                        </div>
+                        <div class="my-page-changeinfo-email">
+                            <p class="my-page-changeinfo-guide-text">* <span>Email</span></p>
+                            <input type="email" id="changeEmail" name="userEmail" autocomplete="off" required
+                                th:value="${session.loginUser.userEmail}">
+                            <i id="emailLine" class="emailLine"></i>
+                        </div>
+
                     </div>
-                    <div>
-                        <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress" autocomplete="off">
+
+                    <div class="my-page-changeinfo-pw-container">
+
+                        <div class="my-page-changeinfo-pw">
+                            <input type="password" required="required" maxlength="15" name="userPw" id="userPw"
+                                autocomplete="off">
+                            <span>현재 비밀번호</span>
+                            <i id="line1" class="line1"></i>
+                        </div>
+                        <div class="my-page-changeinfo-pw">
+                            <input type="password" required="required" maxlength="15" name="newPw" id="newPw"
+                                autocomplete="off">
+                            <span>새 비밀번호</span>
+                            <i id="line2" class="line2"></i>
+                        </div>
+                        <div class="my-page-changeinfo-pw">
+                            <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw"
+                                autocomplete="off">
+                            <span>새 비밀번호 확인</span>
+                            <i id="line2" class="line2"></i>
+                        </div>
+                        <p class="my-page-changeinfo-guide-text">* 8-15 자리의 영문/숫자/특수문자를 함께 입력해주세요</p>
+
                     </div>
-                    <div>
-                        <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress" autocomplete="off">
+
+                    <div class="my-page-changeinfo-address-container">
+                        <div>
+                            <p class="my-page-changeinfo-guide-text">* <span>주소</span></p>
+                        </div>
+
+                        <div class="my-page-changeinfo-address-inputbox">
+
+                            <div id="postcode-box">
+                                <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress"
+                                    autocomplete="off">
+                                <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
+                                <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()"
+                                    id="my-page-changeinfo-address-btn">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress"
+                                    autocomplete="off">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-page-changeinfo-update-btn">
+                        <button id="myPageBtn">수정</button>
+                        <button type="button">취소</button>
                     </div>
                 </div>
-            </div>
-            
-            <div class="my-page-changeinfo-update-btn">
-                    <button id="myPageBtn">수정</button>
-                    <button  type="button">취소</button>
-            </div>
+            </form>
         </div>
-    </form>
-    </div>
-    
+
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
 
     <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}"><!-- js에서 사용하기 (로그인한 회원 비밀번호) -->
 
-    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>   
+    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
     <script th:src="@{/js/myPage/my-page-inquiry.js}"></script>
 
     <script th:inline="javascript">
-        
+
         const loginUser = /*[[${session.loginUser}]]*/"로그인한 회원정보";
 
-        if(loginUser.userAddress != null){
+        if (loginUser.userAddress != null) {
             const arr = loginUser.userAddress.split("^^^");
 
-            document.querySelectorAll("input[name='memberAddress']").forEach((item,i)=>{
+            document.querySelectorAll("input[name='memberAddress']").forEach((item, i) => {
                 item.value = arr[i];
             });
         }

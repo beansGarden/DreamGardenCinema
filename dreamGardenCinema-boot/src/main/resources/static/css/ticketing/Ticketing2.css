@@ -91,6 +91,7 @@ body{
     display: flex;
     align-items: center;
     padding-left: 20px;
+    position: relative;
 }
 
 .poster img{
@@ -112,8 +113,13 @@ body{
     padding-left: 4px;
     font-size: 20px;
     padding-bottom: 4px;
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .date{
+    width: 240px;
     display: flex;
     padding-top: 4px;
 }
@@ -127,6 +133,10 @@ body{
     font-weight: bold;
 }
 .movie_info>div:last-child{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -274,7 +284,7 @@ body{
     text-decoration: none;
 }
 .alreadyChk{
-    background-color: #3B3B3B;
+    background-color: #3B3B3B !important;
     color : white;
 }
 
