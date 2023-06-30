@@ -141,13 +141,12 @@ public class AdminController {
 	
 	//2-3 회원 전체 개수 가져오기
 	@ResponseBody
-    @GetMapping("/adminUserListAjax")
-    public int adminUserListAjax() {
-        
-		
-		return service.userListCount();
-    }
-	
+	@GetMapping("/adminUserListAjax")
+	public int adminUserListAjax() {
+	   
+			return service.userListCount();
+	}
+
 	
 	
 	// 3.관리자 영화 관리----------------------------------------------------------------------------

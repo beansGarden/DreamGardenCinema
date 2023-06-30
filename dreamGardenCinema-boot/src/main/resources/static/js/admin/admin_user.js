@@ -83,7 +83,7 @@ var totalItems = document.querySelectorAll('.admin_userCheckbox').length;
 countAll.textContent = totalItems.toString();
 
 //회원전체 불러오기
-
+/* 
   // Ajax 요청 함수
   function ajaxRequest(url, method, successCallback) {
     var xhr = new XMLHttpRequest();
@@ -93,33 +93,44 @@ countAll.textContent = totalItems.toString();
             successCallback(xhr.responseText);
         }
     };
-    xhr.send();
+    xhr.send(JSON.stringify(data));
+}
+
+
+// 영화 개수 가져오기
+function getUserCount() {
+  var type = document.querySelector('#type').value; // 선택한 검색 유형
+  var keyword = document.querySelector('#keyword').value; // 입력한 검색 키워드
+
+  var data = {
+      type: type,
+      keyword: keyword
+  };
+
+  ajaxRequest('/adminUserListAjax', 'POST', data, function(response) {
+      var countElement = document.querySelector('.admin_userCountAll');
+      countElement.textContent = response;
+  });
+}
+ */
+
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
 }
 
 // 영화 개수 가져오기
 function getUserCount() {
-    ajaxRequest('/adminUserListAjax', 'GET', function(response) {
-        var countElement = document.querySelector('.admin_userCountAll');
-        countElement.textContent = response;
-    });
+  ajaxRequest('/adminUserListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminUserCountAll');
+      countElement.textContent = response;
+  });
 }
-
-// 페이지 로드 시 영화 개수 가져오기 호출
-getUserCount();
-
-/*  // 영화 개수 가져오기
-function getUserCount() {
-  var searchForm = document.getElementById('searchForm');
-  var formData = new FormData(searchForm);
-
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/getUserSearchCount', true);
-  xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-          var countElement = document.querySelector('.admin_userCountAll');
-          countElement.textContent = xhr.responseText;
-      }
-  };
-  xhr.send(formData);
-}
-  */
+getUserCount()

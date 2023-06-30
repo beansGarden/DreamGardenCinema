@@ -109,6 +109,8 @@ public interface AdminMapper {
 	 */
 	List<User> getUserSearchList(User condition, RowBounds rowBounds);
 
+	
+
 	// 영화 관리******************************************************
 
 	/**
@@ -363,6 +365,10 @@ public interface AdminMapper {
 	int movieCinemaCount();
 
 	int movieCinemaCount(String movieTheaterNo);
+
+	int userfilterListCount(User condition);
+
+	
 
 
 

@@ -25,7 +25,7 @@
             <div class="admin_userSearchWrap">
                 <!-- select랑 검색창만 감싸는 div -->
                 <div class="admin_userSearchWrap2">
-                    <select class="admin_userSelect"  name="type" id="">
+                    <select class="admin_userSelect"  name="type" id="type">
                         <option value="number">번호</option>
                         <option value="id">아이디</option>
                         <option value="name">닉네임</option>
@@ -34,7 +34,7 @@
                     </select>
                     <!-- 검색 input 창 -->
 
-                    <input type="text" name="keyword" id="" class="admin_userInput">
+                    <input type="text" name="keyword" id="keyword" class="admin_userInput">
                 </div>
 
                 <!-- 검색 버튼 -->
@@ -51,7 +51,11 @@
                 <span> / </span>
                 <span class="admin_userCountAll">0</span>
                 <span>개)</span>
+            </div>
 
+            <div>
+                <span>총 회원 수 : </span>
+                <span class="adminUserCountAll">0</span>
             </div>
             <!-- 게시판 -->
             <div class="admin_userBoardWrap">

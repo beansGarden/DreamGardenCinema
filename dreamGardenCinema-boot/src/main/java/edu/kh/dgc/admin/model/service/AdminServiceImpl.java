@@ -230,7 +230,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getUserSearchList(User condition, int cp) {
 
-		int userlistCount = mapper.userListCount();
+		int userlistCount = mapper.userfilterListCount(condition);
 
 		Pagination pagination = new Pagination(userlistCount, cp);
 
@@ -264,6 +264,8 @@ public class AdminServiceImpl implements AdminService {
 		
 		return userlistCount;
 	}
+
+	
 
 	
 	

@@ -85,6 +85,9 @@ public interface AdminService {
 	//회원 전체 개수 가져오기
 	int userListCount();
 
+
+
+	
 	//영화 관리***********************************
 	
 	//영화 List 조회
@@ -202,6 +205,7 @@ public interface AdminService {
 	//리뷰관리 검색
 	Map<String, Object> getReviewSearchList(Qna condition, int cp);
 
+	
 	
 
 
