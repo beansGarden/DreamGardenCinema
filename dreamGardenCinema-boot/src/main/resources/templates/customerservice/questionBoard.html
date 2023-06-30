@@ -204,14 +204,14 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <script th:inline="javascript">
+    <!-- <script th:inline="javascript">
 
         /* Natural Template  */
         const message = /*[[${message}]]*/ "전달 받은 message";
         // 타임리프 해석             값(자료형이 알아서 해석)       사라짐(설명) 
 
         if (message != null) alert(message);
-    </script>
+    </script> -->
 
     <script th:src="@{/js/customerservice/questionBoard.js}"></script>
 

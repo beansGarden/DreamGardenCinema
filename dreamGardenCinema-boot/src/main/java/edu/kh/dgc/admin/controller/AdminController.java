@@ -1,11 +1,17 @@
 package edu.kh.dgc.admin.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,6 +32,8 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.report.model.dto.Report;
+import edu.kh.dgc.review.model.dto.Review;
 import edu.kh.dgc.user.model.dto.User;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
@@ -34,7 +43,16 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	// 1.관리자 메인 대시보드
+	// 1.관리자 메인 대시보드----------------------------------------------------------------------------
+	
+	
+	@GetMapping("/adminMain") //
+	public String main() {
+
+		return "admin/admin_main";
+	}
+	
+	
 	@GetMapping("/admin")
 	public String dashboard(Model model) {
 
@@ -77,7 +95,7 @@ public class AdminController {
 	 * return "admin/admin_sideBar";}
 	 */
 
-	// 2.관리자 회원 관리
+	// 2.관리자 회원 관리----------------------------------------------------------------------------
 	@GetMapping("/adminUser")
 	public String adminUser(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -132,7 +150,7 @@ public class AdminController {
 	
 	
 	
-	// 3.관리자 영화 관리
+	// 3.관리자 영화 관리----------------------------------------------------------------------------
 	@GetMapping("/adminMovieManage")
 	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap,
@@ -187,7 +205,7 @@ public class AdminController {
     }
 	
 	
-	// 4.관리자 상영 관리 -구현 완-
+	// 4.관리자 상영 관리 
 	@GetMapping("/adminCinemaManage") 
 	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
 		
@@ -206,31 +224,24 @@ public class AdminController {
 		return "admin/admin_cinemaManage";
 	}
 
-	// 2관으로 넘어가기
-	@RequestMapping("/adminCinemaManage/{movieTheater}")
-	public String cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
+	// 1,2,3관으로 넘어가기
+	@RequestMapping(value="/adminCinemaManage/{movieTheater}", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> cinema(Model model, @PathVariable(value = "movieTheater", required = false) String movieTheaterNo,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
 		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
-
-		model.addAttribute("cinemaList", cinemaMap);
-
-		System.out.println(movieTheaterNo);
-		System.out.println(cinemaMap);
-
-		return "admin/admin_cinemaManage";
-
-		/* return "admin/admin_cinemaManage" +"/"+ movieTheaterNo; */
+		return cinemaMap;
 	}
 
 	// 4-1.관리자 상영 시간 등록
 	@GetMapping("/adminCinemaRegister")
-	public String cinemaRegister(Model model, Movie movie) {
+	public String cinemaRegister(Model model) {
 
 		List<Movie> cinemaList = service.cinemaList();
 
 		model.addAttribute("cinemaList", cinemaList);
-
+		
 		return "admin/admin_cinemaMangeDetail";
 	}
 
@@ -253,11 +264,46 @@ public class AdminController {
 		return service.movieScheduleListCount();
     }
 	
+	//상영관 영화 등록 시간 받기
+	@RequestMapping(value = "/adminCinemaInsert", method = RequestMethod.POST, produces = "application/json;")
+	public String adminCinemaInsert(Movie movie) {
+	    // Movie 객체에서 영화 시간과 날짜를 가져옵니다.
+	    String movieTime = movie.getMovieTime();
+	    LocalDate movieDay = LocalDate.parse(movie.getMovieday());
+	    
+	    // 날짜와 시간을 조합하기 위해 DateTimeFormatter를 정의합니다.
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    
+	    // movieTime을 개별 시간으로 분할하여 배열로 저장합니다.
+	    String[] movieTimes = movieTime.split(",");
+	    
+	    // 각 시간을 영화 날짜와 조합합니다.
+	    for (String time : movieTimes) {
+	        LocalDateTime combinedDateTime = LocalDateTime.of(movieDay, LocalTime.parse(time));
+	        String combinedTime = combinedDateTime.format(formatter);
+	        
+	        // 조합된 시간을 Movie 객체에 설정합니다.
+	        movie.setMovieTime(combinedTime);
+	        
+	        // 디버깅을 위해 출력합니다.
+	        System.out.println(movie);
+	        System.out.println(movieTimes);
+	        System.out.println(combinedTime);
+	        
+	        // 영화 정보를 데이터베이스에 추가합니다.
+	        int result = service.adminCinemaInsert(movie);
+	    }
+	    
+	    // 영화 관리 페이지로 리다이렉트합니다.
+	    return "redirect:/adminCinemaManage";
+	}
+
+
 	
 	
 	
 	
-	// 5.관리자 공지사항 리스트 조회
+	// 5.관리자 공지사항 리스트 조회----------------------------------------------------------------------------
 	@GetMapping("/adminNotice") //
 	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -384,7 +430,7 @@ public class AdminController {
 	
 	
 
-	// 6. 1:1 문의사항 리스트 조회 230613
+	// 6. 1:1 문의사항 리스트 조회 230613----------------------------------------------------------------------------
 	@GetMapping("/adminQna") //
 	public String qnaList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -471,7 +517,7 @@ public class AdminController {
 
 		return "admin/admin_QNA_read";
 	}
-	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 - 삽입 230615------------------------------------------------진행중6/22
+	// 6-2-1. 1:1 문의사항 답변 게시글 쓰기 
 
    @RequestMapping("/adminQnaAnswer/{qnaNo}")
    public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
@@ -663,7 +709,7 @@ public class AdminController {
 	
 	
 	
-	// 7. FAQ 리스트 조회
+	// 7. FAQ 리스트 조회----------------------------------------------------------------------------
 	@GetMapping("/adminFaq") //
 	public String faqList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
@@ -820,25 +866,153 @@ public class AdminController {
 	
 	
 
-	// 8. 신고하기 리스트 조회
+	// 8. 신고하기 리스트 조회----------------------------------------------------------------------------
 	@GetMapping("/adminReport") //
-	public String report() {
+	public String report(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
 
+			Map<String, Object> adminReportMap = service.adminReportList(cp);
+
+			model.addAttribute("adminReportMap", adminReportMap);
+		}
 		return "admin/admin_report";
 	}
 
-	@GetMapping("/adminMain") //
-	public String main() {
-
-		return "admin/admin_main";
-	}
-
+	
 	// 8-1. 신고하기 게시글 조회
 
-	// 8-2. 신고하기 게시글 쓰기
+	@GetMapping("/adminReportRead/{reviewNo}")
+	public String ReportReadModel(Model model, @PathVariable(value = "reviewNo", required = false) int reviewNo, Report report) {
 
-	// 8-2. 신고하기 게시글 수정
+		List<Report> adminReportOne = service.adminReportOne(reviewNo);
 
-	// 8-3. 신고하기 게시글 삭제
+		model.addAttribute("report", adminReportOne);
+		
+		System.out.println(reviewNo);
+		System.out.println(adminReportOne);
+
+		return "admin/admin_report_read";
+	}
+	
+	
+	
+	// 8-2. 신고하기 리뷰 삭제
+	@GetMapping("/adminReportDelete/{reportNo}/delete") //
+	public String ReportReviewDelete(Review review, Model model, @PathVariable(value = "reportNo") int reportNo
+										, @RequestParam(value = "reviewNo", required = false) int reviewNo, RedirectAttributes ra) {
+
+		int result = service.deleteReview(reviewNo);
+		Review reviewList = new Review();
+		reviewList.setReviewNo(reviewNo);
+
+		model.addAttribute("review", reviewList);
+		System.out.println(review);
+		System.out.println(reviewNo);
+		System.out.println(reviewList);
+		System.out.println(result);
+
+		// 삽입 성공 시
+		String message = null;
+		String path = "redirect:";
+		if (result > 0) { // 성공시
+
+			message = "게시글이 등록 되었습니다.";
+			
+			//신고글 처리여부 
+			int result2 = service.updateDeleteReport(reportNo);
+			
+			if(result2> 0) {
+				message = "신고글이 처리 되었습니다,";
+				
+				path += "redirect:";
+			}
+			path += "/adminReportRead" +"/" + reviewNo;
+		} else {
+			message = "게시글이 등록 실패 되었습니다.";
+			path += "adminReport";
+		}
+		ra.addFlashAttribute("message", message);
+		return path;
+
+	}
+	
+
+	// 8-3. 신고하기 게시글 검색
+	@GetMapping("/getReportSearchList")
+	public String getReportSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+
+		Report condition = new Report();
+
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object> adminReportMap = service.getReportSearchList(condition, cp);
+		model.addAttribute("adminReportMap", adminReportMap);
+
+		return "admin/admin_report";
+
+	}
+	
+	//8-4 신고하기 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminreportListAjax")
+    public int adminreportListAjax() {
+        
+		
+		return service.reportListCount();
+    }
+
+	// 9-1.  리뷰관리 게시판 조회------------------------------------------------------------------
+	
+	@GetMapping("/adminReview") 
+	public String adminReivew(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+
+			Map<String, Object> adminReviewMap = service.adminReviewList(cp);
+
+			model.addAttribute("adminReviewMap", adminReviewMap);
+		}return "admin/admin_review";
+	}
+	
+	//9-2 리뷰관리 전체 개수 가져오기
+	@ResponseBody
+    @GetMapping("/adminReviewListAjax")
+    public int adminReviewListAjax() {
+        
+
+		return service.reviewListCount();
+    }
+	
+	
+	
+	// 9-2. 리뷰관리 검색
+	
+	@GetMapping("/getReviewSearchList")
+	public String getReviewSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+
+		Qna condition = new Qna();
+
+		condition.setType(type);
+		condition.setKeyword(keyword);
+
+		Map<String, Object> adminReviewMap = service.getReviewSearchList(condition, cp);
+		model.addAttribute("adminReviewMap", adminReviewMap);
+
+		System.out.println(condition);
+		System.out.println(adminReviewMap);
+
+		return "admin/admin_review";
+
+	}
+	
+	// 9-3. 리뷰관리 게시글 수정
+	
+	// 9-4. 리뷰관리 게시글 삭제
 
 }

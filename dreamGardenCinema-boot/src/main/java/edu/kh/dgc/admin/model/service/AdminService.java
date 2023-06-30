@@ -9,6 +9,8 @@ import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
+import edu.kh.dgc.report.model.dto.Report;
+import edu.kh.dgc.review.model.dto.Review;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -106,6 +108,8 @@ public interface AdminService {
 	//상영관 스케쥴 개수
 	int movieScheduleListCount();
 
+	//상영관 영화 스케쥴 삽입(insert)
+	int adminCinemaInsert(Movie movie);
 	
 	//공지사항 관리*******************************
 	
@@ -159,6 +163,41 @@ public interface AdminService {
 	int faqListCount();
 
 	
+	//신고하기***********************************************************************************
+	
+	//신고하기 Map 불러오기
+	Map<String, Object> adminReportList(int cp);
+
+	//신고하기 게시글 불러오기
+	List<Report> adminReportOne(int reportNo);
+
+	//신고관리에서 리뷰 삭제하기
+	int deleteReview(int reviewNo);
+
+	//신고글 처리여부 
+	int updateDeleteReport(int reportNo);
+
+	//신고관리 검색
+	Map<String, Object> getReportSearchList(Report condition, int cp);
+
+	//신고하기 개수 조회
+	int reportListCount();
+
+	
+
+	
+	
+	//리뷰관리***********************************************************************************************
+	
+	//리뷰 게시글 조회
+	Map<String, Object> adminReviewList(int cp);
+
+	//리뷰 개수 조회
+	int reviewListCount();
+
+	//리뷰관리 검색
+	Map<String, Object> getReviewSearchList(Qna condition, int cp);
+
 
 	
 

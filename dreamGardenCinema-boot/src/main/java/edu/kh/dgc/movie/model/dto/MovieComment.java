@@ -15,5 +15,6 @@ public class MovieComment {
 	private String reviewDate;
 	private String reviewContent;
 	private int userNo;
+	private String userNickname;
 	private int movieNo;
 }

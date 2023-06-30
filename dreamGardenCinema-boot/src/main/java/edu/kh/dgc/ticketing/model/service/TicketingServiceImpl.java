@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.mypage.model.dao.MypageMapper;
@@ -35,6 +36,12 @@ public class TicketingServiceImpl implements TicketingService {
 		return mapper.movieTime(paramMap);
 	}
 
+	// 예매 1페이지 별점순 AJAX
+	@Override
+	public List<Movie> sortRating() {
+		return mapper.sortRating();
+	}
+	
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회 
 	@Override
 	public Map<String, Object> seatInfo(Ticket ticket) {
@@ -165,7 +172,7 @@ public class TicketingServiceImpl implements TicketingService {
 		
 		int resultPrice = 999999;
 		if(result>0) {
-			 resultPrice = mapper.selectPrice(paramMap);
+			resultPrice = mapper.selectPrice(paramMap);
 		}
 		return resultPrice;
 	}

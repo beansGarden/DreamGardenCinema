@@ -140,7 +140,14 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	
+	@Override
+	public int insertMovieCommentReport(Map<String, Object> report) {
+		// TODO Auto-generated method stub
+		return mapper.insertMovieCommentReport(report);
+	}
 
+	
+	
 
 
 

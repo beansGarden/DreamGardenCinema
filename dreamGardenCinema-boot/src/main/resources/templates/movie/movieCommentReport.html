@@ -1,0 +1,28 @@
+<link rel="stylesheet" th:href="@{/css/movie/comment-report.css}">
+
+<div id="my-modal" class="modal">
+    <div class="modal-content">
+        <form class="modal-body" th:action="@{/movie/movieDetail/report}" method="post">
+
+            <input type="hidden" id="reviewNo" name="reviewNo">
+
+            <div>
+                <p>신고대상</p>
+                <input type="text" id="reportedUser" name="reportedUser" readonly>
+                <input type="hidden" id="reportedUserNo" name="reportedUserNo">
+            </div>
+
+            <div>
+                <p>신고제목</p>
+                <input type="text" name="reportTitle">
+            </div>
+
+            <div>
+                <p>신고내용</p>
+                <textarea name="reportContent"></textarea>
+            </div>
+
+            <button>신고하기</button> 
+        </form>
+    </div>
+</div>

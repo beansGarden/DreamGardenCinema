@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +64,29 @@ public class TicketingController {
 		String date = dateList.split(" ")[0];
 		paramMap.put("date", date);
 		return service.movieTime(paramMap);
+	}
+	
+	// 예매 1페이지 예매순, 별점순 AJAX
+	@ResponseBody
+	@PostMapping("/sort")
+	public Map<String, Object> sortList(@RequestBody Map<String, String> paramMap) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<Movie> movieList = null;
+		
+		if(paramMap.get("sortOption").equals("ticketing")) {   // 예매순일 때
+			movieList = service.selectMovieList();
+		}
+		if(paramMap.get("sortOption").equals("rating")) {  // 별점순일 때
+			movieList = service.sortRating();
+		}
+		
+		map.put("movieList", movieList);
+		
+		map.put("movieNo", paramMap.get("movieNo"));
+		
+		return map;
 	}
 
 	// 예매 2페이지 선택 시 기존 정보를 갖고 보여주는 창

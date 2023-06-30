@@ -64,3 +64,31 @@ rating.addEventListener("input", () => {
     scoreValue.style.width = rating.value * 10 + "%";
     ratingValue.innerText = rating.value;
 });
+
+
+/* report modal */
+// Get DOM Elements
+const modal = document.querySelector('#my-modal');
+const modalBtn = document.querySelector('#modal-btn');
+const reviewNoInput = document.querySelector('#reviewNo');
+const reportedUserInput = document.querySelector('#reportedUser');
+const reportedUserNoInput = document.querySelector('#reportedUserNo');
+
+// Events
+window.addEventListener('click', outsideClick);
+
+// Open
+function openModal(reviewNo, userNickname, reportedUserNo) {
+    modal.style.display = 'block';
+    reviewNoInput.value = reviewNo;
+    reportedUserInput.value = userNickname;
+    reportedUserNoInput.value = reportedUserNo;
+
+}
+
+// Close If Outside Click
+function outsideClick(e) {
+    if (e.target == modal) {
+        modal.style.display = 'none';
+    }
+}

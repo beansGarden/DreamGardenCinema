@@ -21,6 +21,9 @@ public interface TicketingMapper {
 	// 예매 1페이지 영화시간,상영관 조회 AJAX
 	List<Schedule> movieTime(Map<String, Object> paramMap);
 
+	// 예매 1페이지 별점순 AJAX
+	List<Movie> sortRating();
+
 	// 예매 2페이지 영화정보 가져오기
 	Movie selectMovie(int movieNo);
 
@@ -135,12 +138,5 @@ public interface TicketingMapper {
 
 	// 플래티넘 쿠폰 insert
 	int insertPlatinumCoupon(int userNo);
-
-
-
-
-
-	
-
 
 }
