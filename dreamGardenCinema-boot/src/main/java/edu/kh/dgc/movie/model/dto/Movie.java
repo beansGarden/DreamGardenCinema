@@ -34,4 +34,6 @@ public class Movie {
 	//검색필터
 	private  String type;
 	private String keyword;
+	
+	private int score;
 }

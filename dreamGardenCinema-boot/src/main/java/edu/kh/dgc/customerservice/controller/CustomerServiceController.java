@@ -24,8 +24,8 @@ import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.user.model.dto.User;
 
-@RequestMapping("/customerservice")
 @Controller
+@RequestMapping("/customerservice")
 @SessionAttributes({"loginUser"})
 public class CustomerServiceController {
 

@@ -28,6 +28,11 @@ body{
     border-right: 1px solid #666666;
     width: 400px;
 }
+.choiceMovie>div:nth-child(3)>div:last-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .ticketingNav{
     width: 80px;
     padding: 0;
@@ -205,6 +210,7 @@ body{
 }
 
 /* 날짜 슬라이드 */
+
 .sub_slide {
     display: flex;
     align-items: center;
@@ -214,7 +220,6 @@ body{
     border-bottom: 1px solid #666666;
 }
 .sub_slide .inner {
-    overflow: hidden;
     height: 100%;
     position: relative;
     display: flex;
@@ -271,7 +276,7 @@ body{
 }
 .swiper-slide>strong{
     height: 30px;
-    font-size: 10px;
+    font-size: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -281,7 +286,7 @@ body{
     justify-content: center;
     align-items: center;
     color : black;
-    font-size: 12px;
+    font-size: 14px;
 }
 .swiper-slide em{
     height: 30px;
@@ -289,7 +294,7 @@ body{
     justify-content: center;
     align-items: center;
     font-style: normal;
-    font-size: normal;
+    font-size: 14px;
 }
 
 .swiper-slide input{
@@ -383,7 +388,10 @@ body{
 
 .dateActive>a>label>strong{
     background-color: #0E0753;
-    color : white;
+    color : white !important;
+}
+.dateActive>a{
+    font-weight: bold;
 }
 
 .saveMovie{

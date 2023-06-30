@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.mypage.model.dao.MypageMapper;
@@ -35,6 +36,12 @@ public class TicketingServiceImpl implements TicketingService {
 		return mapper.movieTime(paramMap);
 	}
 
+	// 예매 1페이지 별점순 AJAX
+	@Override
+	public List<Movie> sortRating() {
+		return mapper.sortRating();
+	}
+	
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회 
 	@Override
 	public Map<String, Object> seatInfo(Ticket ticket) {
@@ -43,6 +50,7 @@ public class TicketingServiceImpl implements TicketingService {
 		Movie movie = mapper.selectMovie(ticket.getMovieNo());
 		map.put("movie", movie);
 		// 티켓정보 삽입
+		
 		int result = mapper.insertTicket(ticket);
 		map.put("ticket", ticket);
 		// 예매좌석리스트 가져오기
@@ -164,18 +172,18 @@ public class TicketingServiceImpl implements TicketingService {
 		
 		int resultPrice = 999999;
 		if(result>0) {
-			 resultPrice = mapper.selectPrice(paramMap);
+			resultPrice = mapper.selectPrice(paramMap);
 		}
 		return resultPrice;
 	}
 
-	// 티켓 중복 확인
+	// 예매 3페이지 티켓ID 중복 확인
 	@Override
 	public int checkTicketId(String ticketId) {
 		return mapper.checkTicketId(ticketId);
 	}
 
-	// 예매 3페이지 티켓ID 생성 후 삽입
+	// 예매 3페이지 생성된 티켓ID 삽입
 	@Override
 	public int updateTicketId(String createTicketId, int ticketNo) {
 		
@@ -200,6 +208,8 @@ public class TicketingServiceImpl implements TicketingService {
 		int result = mapper.updategetTicketImpUid(ticket);
 		System.out.println("서비스 임플의 ticket imp 성공 시" + result);
 		if(result>0) {
+			// 사용한 쿠폰 Y 처리
+			mapper.updateUserCoupon(ticket);
 			result = mapper.updateSeatList(ticket);			
 		} else {
 			result = 0;
@@ -212,5 +222,78 @@ public class TicketingServiceImpl implements TicketingService {
 	public Ticket ticketInfo(Integer ticketNo) {
 		return mapper.ticketInfo(ticketNo);
 	}
+
+	// 예매 4페이지 결제완료된 티켓 정보 가져오기
+	@Override
+	public Map<String, Object> selectResultTicket(int ticketNo) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("ticket", mapper.selectResultTicket(ticketNo));
+		map.put("seatList", mapper.selectResultSeatList(ticketNo));
+		
+		return map;
+	}
+
+	// 결제 완료 시 누적 금액 업데이트
+	@Override
+	public int updateAmount(User updateUser) {
+		return mapper.updateAmount(updateUser);
+	}
+
+	// 누적 금액 4<=?<10 일 때 
+	@Override
+	public int updateSilver(int userNo) {
+		return mapper.updateSilver(userNo);
+	}
+	// 누적 금액 10<=?<20 일 때 
+	@Override
+	public int updateGold(int userNo) {
+		return mapper.updateGold(userNo);
+	}
+	// 누적 금액 20<? 일 때 
+	@Override
+	public int updatePlatinum(int userNo) {
+		return mapper.updatePlatinum(userNo);
+	}
+
+	// 유저가 보유한 실버 쿠폰 카운트
+	@Override
+	public int silverCouponCount(int userNo) {
+		return mapper.silverCouponCount(userNo);
+	}
+
+	// 실버 쿠폰 insert
+	@Override
+	public int insertSilverCoupon(int userNo) {
+		return mapper.insertSilverCoupon(userNo);
+	}
+
+	// 유저가 보유한 골드 쿠폰 카운트
+	@Override
+	public int goldCouponCount(int userNo) {
+		return mapper.goldCouponCount(userNo);
+	}
+
+	// 골드 쿠폰 insert
+	@Override
+	public int insertGoldCoupon(int userNo) {
+		return mapper.insertGoldCoupon(userNo);
+	}
+
+	// 유저가 보유한 플래티넘 쿠폰 카운트
+	@Override
+	public int platinumCouponCount(int userNo) {
+		return mapper.platinumCouponCount(userNo);
+	}
+
+	// 플래티넘 쿠폰 insert
+	@Override
+	public int insertPlatinumCoupon(int userNo) {
+		return mapper.insertPlatinumCoupon(userNo);
+	}
+	
+	
+	
 
 }

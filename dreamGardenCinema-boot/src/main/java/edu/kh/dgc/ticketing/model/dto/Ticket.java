@@ -25,7 +25,9 @@ public class Ticket {
 	private String seatNo;
 	private String state;
 	private String movieTitle;
-	
+	private String poster;
+	private String date;
 	private String reasonCancellationPayment;
+	
 	
 }

@@ -1,9 +1,11 @@
 package edu.kh.dgc.mypage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 public interface MypageService {
@@ -52,5 +54,7 @@ public interface MypageService {
 	 * @return
 	 */
 	int secessionUser(int userNo);
+
+	List<Ticket> reservation(int userNo);
 
 }

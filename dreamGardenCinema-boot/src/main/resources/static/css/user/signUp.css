@@ -23,12 +23,12 @@ body {
 /* 회원가입 모든 input */
 .input-wrapper>label>input {
     display: block;
-    width: 400px;
+    width: 35vw;
     height: 45px;
     margin: 10px 0;
     padding-top: 10px;
     border: 0;
-    border-bottom: 1px solid #80808080;
+    border-bottom: 1px solid #80808050;
     position: relative;
 }
 
@@ -43,11 +43,10 @@ input::-webkit-inner-spin-button {
     outline: none;
     border-bottom: 2px solid #5250BE80;
 }
-
-.sign-up-line {
-    width: 100%;
-    border-bottom: 1px solid #80808040;
-    margin: 30px 0 20px 0;
+.sign-up-line{
+    width: 50vw;
+    border-bottom: 1px solid #80808050;
+    margin: 30px 0 20px 0 ;
 }
 
 #signUpFrmBox {
@@ -58,7 +57,8 @@ input::-webkit-inner-spin-button {
 }
 
 /* input div */
-.input-wrapper {
+.input-wrapper{
+    margin-top: 10px;
     position: relative;
 }
 
@@ -109,23 +109,6 @@ input::placeholder {
     }
 }
 
-#sendAuthKeyBtn {
-    /* background-color: #5250BE;
-    width: 400px;
-    height: 60px;
-    line-height : 60px;
-    text-align: center;
-    color: white;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-    margin-bottom: 100px;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.15); */
-}
-
 .authKeyResend {
     position: absolute;
     color: #80808099;
@@ -134,23 +117,13 @@ input::placeholder {
     font-size: 13px;
     right: 10px;
     top: 60px;
+    user-select: none;
 }
 
 .display-none {
     display: none !important;
 }
 
-#signBtn {
-    /* width: 400px;
-    height: 60px;
-    background-color: #5250BE;
-    margin-top: 80px;
-    margin-bottom: 100px;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    color: white;
-    font-size: 24px; */
-}
 
 #authKeyLifeTime {
     width: 45px;
@@ -289,3 +262,36 @@ input::placeholder {
 #signBtn:is(:hover, :focus)::after {
     transform: scale(1);
 }
+/*******************************************************/
+.id-pw-box{
+    width: 45vw;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25vh;
+}
+
+.email-nickname-box{
+    width: 45vw;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 32vh;
+}
+
+.tel-box{
+    width: 45vw;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 17vh;
+
+}
+
+/*******************************************************/

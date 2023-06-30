@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
 @Mapper
@@ -53,5 +54,10 @@ public interface MypageMapper {
 	 */
 	public int secessionUser(int userNo);
 
+	/** 회원이 예매한 티켓 조회
+	 * @param userNo
+	 * @return
+	 */
+	public List<Ticket> ticketList(int userNo);
 
 }

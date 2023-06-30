@@ -1,6 +1,7 @@
 package edu.kh.dgc.ticketing.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,15 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
+import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.ticketing.model.service.PaymentService;
 import edu.kh.dgc.ticketing.model.service.TicketingService;
+import edu.kh.dgc.user.model.dto.User;
 import jakarta.servlet.http.HttpSession;
 
 @PropertySource("classpath:/config2.properties")
@@ -54,7 +58,9 @@ public class PaymentController {
 
 	@ResponseBody
 	@PostMapping("/complete")
-	public int paymentComplete(HttpSession session,@RequestBody Ticket ticket)
+	public int paymentComplete(HttpSession session,@RequestBody Ticket ticket
+			,@SessionAttribute("loginUser") User user
+			,User updateUser)
 			throws Exception {
 		
 //		int amountPaid = ticketingController.getAmountPaid();
@@ -91,13 +97,104 @@ public class PaymentController {
 			}
 			return res;
 		}
+		int userAmount = user.getUserAmount();
+		int totalAmount = userAmount + Integer.parseInt(amount);
 		
-		// 결제 성공 시
+		updateUser.setUserAmount(totalAmount);
+		updateUser.setUserNo(user.getUserNo());
+		
+		// 결제 성공 시 
+		// and 누적 금액 += , 등급 update -> 쿠폰 insert
 		int result2 = TicketingService.updategetTicketImpUid(ticket);
 		System.out.println("결제 성공 시 ============="+ result2);
-		if(result2 == 0) {  // 결제 성공 후 정보가 업데이트 되지 않았으면
+		if(result2>0) {
+			int	updateAmount = TicketingService.updateAmount(updateUser);
+				
+				if(updateAmount>0) {
+					
+					user.setUserAmount(updateUser.getUserAmount());
+					
+					int userRating = user.getUserRating();
+					
+					int afterAmount = user.getUserAmount();
+					
+					int userNo = user.getUserNo();
+					
+					System.out.println(afterAmount);
+					
+					if(40000<=afterAmount && afterAmount<100000 && user.getUserRating()!=2) {
+						int updateSilver = TicketingService.updateSilver(userNo);
+							
+							if(updateSilver>0) {
+								int silverCouponCount = TicketingService.silverCouponCount(userNo);
+								
+								System.out.println(silverCouponCount);
+								
+									if(silverCouponCount == 0) {
+										int insertSilverCoupon = TicketingService.insertSilverCoupon(userNo);
+											if(insertSilverCoupon ==0) {
+												System.out.println("insertSilverCoupon : 실패");
+											}
+									}
+									
+							}else {
+								System.out.println("updateSilver : 실패");
+							}
+						
+					}
+					if(100000<=afterAmount && afterAmount<200000 && user.getUserRating()!=3) {
+						int updateGold = TicketingService.updateGold(userNo);
+							if(updateGold>0) {
+								int goldCouponCount = TicketingService.goldCouponCount(userNo);
+									
+								System.out.println(goldCouponCount);
+
+									if(goldCouponCount == 0) {
+										int insertGoldCoupon = TicketingService.insertGoldCoupon(userNo);
+											if(insertGoldCoupon==0) {
+												System.out.println("insertGoldCoupon : 실패");
+											}
+									}
+							}else {
+								System.out.println("updateGold : 실패");
+							}
+					}
+					if(afterAmount>=2000000 && user.getUserRating()!=4) {
+						int updatePlatinum = TicketingService.updatePlatinum(userNo);
+							if(updatePlatinum>0) {
+								int platinumCouponCount = TicketingService.platinumCouponCount(userNo);
+									
+									System.out.println(platinumCouponCount);
+								
+									if(platinumCouponCount == 0) {
+										int insertPlatinumCoupon = TicketingService.insertPlatinumCoupon(userNo);
+											if(insertPlatinumCoupon==0) {
+												System.out.println("insertPlatinumCoupon : 실패");
+											}
+									}
+							}else {
+								System.out.println("updatePlatinum : 실패");
+							}
+					}
+					
+				}else {
+					System.out.println("updateAmount : 실패");
+				}
+		}
+		else{  // 결제 성공 후 정보가 업데이트 되지 않았으면
 			res = 0;
 		}
 		return res;
 	}
+	
+	
+	// 예매 취소
+	@PostMapping("/cancel")
+	public String cancelTicket() {
+		
+		
+		
+		return "/";
+	}
+	
 }
