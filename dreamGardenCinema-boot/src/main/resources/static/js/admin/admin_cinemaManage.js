@@ -118,6 +118,7 @@ function first() {
 
       for (let cList of cinemaList) {
 
+      
 
          const tbody1 = document.querySelector("#schedule-table tbody");
         tbody1.innerHTML = "";
@@ -131,18 +132,23 @@ function first() {
         cinemaManageTitle.id = "admin_cinemaManageTitle";
         cinemaManageTitle.innerText = cList.innerText
         cinemaManageWrap.appendChild(cinemaManageTitle);
-
+        
+        
         // 상영관별 보이기 div
-        var cinemaManageAll = document.querySelector(".admin_cinemaManageAll");
+        const cinemaManageAll1 = document.createElement("div")
+        cinemaManageAll1.classList.add("admin_cinemaManageAll")
 
-      // 1관
-      var cinemaOne = document.createElement("div");
-      cinemaOne.classList.add("admin_cinemaOne");
-      cinemaOne.id = "cinemaOne";
-      var cinemaOneLink = document.createElement("span");
-      cinemaOneLink.innerText = "1관";
-      cinemaOne.appendChild(cinemaOneLink);
-      cinemaManageAll.appendChild(cinemaOne);
+        console.log(cinemaManageAll1);
+
+        const cinemaOne = document.createElement("div");
+        cinemaOne.classList.add("admin_cinemaOne");
+        cinemaOne.id = "cinemaOne";
+        const cinemaOneLink = document.createElement("span");
+        cinemaOneLink.innerText = "1관";
+        cinemaOne.appendChild(cinemaOneLink);
+        cinemaManageAll1.appendChild(cinemaOne);
+
+   
 
       // 2관
       const cinemaTwo = document.createElement("div");
@@ -151,7 +157,7 @@ function first() {
       const cinemaTwoLink = document.createElement("span");
       cinemaTwoLink.innerText = "2관";
       cinemaTwo.appendChild(cinemaTwoLink);
-      cinemaManageAll.appendChild(cinemaTwo);
+      cinemaManageAll1.appendChild(cinemaTwo);
 
       // 3관
       const cinemaThree = document.createElement("div");
@@ -160,7 +166,7 @@ function first() {
       const cinemaThreeLink = document.createElement("span");
       cinemaThreeLink.innerText = "3관";
       cinemaThree.appendChild(cinemaThreeLink);
-      cinemaManageAll.appendChild(cinemaThree);
+      cinemaManageAll1.appendChild(cinemaThree);
 
 
               // 상영 날짜
@@ -169,9 +175,9 @@ function first() {
         const dateInput = document.createElement("input");
         dateInput.type = "date";
         cinemaManageDate.appendChild(dateInput);
-        cinemaManageAll.appendChild(cinemaManageDate);
+        cinemaManageAll1.appendChild(cinemaManageDate);
 
-        cinemaManageWrap.appendChild(cinemaManageAll);
+        cinemaManageWrap.appendChild(cinemaManageAll1);
 
         // 검색창
         const cinemaManageSearchWrap = document.createElement("div");
@@ -301,10 +307,14 @@ function first() {
 
   }
 
-  // 페이지네이션을 생성하는 함수
+  // 페이지네이션을 생성하는 함수***********************************************************************
 function createPagination() {
   // 페이지네이션 영역의 DOM 요소를 선택
   var paginationArea = document.querySelector(".pagination-area");
+
+  var pagination = [];
+  var pagination = cinemaMap.pagination;
+console.log(pagination); 
   
   // 페이지네이션을 생성할 리스트 요소 생성
   var paginationList = document.querySelector(".pagination");
@@ -369,7 +379,7 @@ createPagination();
 /* 2관****************************************************************************************** */
   function second() {
 
-    const CinemalistContents = document.querySelector(".admin_cinemaManageAll");
+
     const existingCinemaItems = document.querySelectorAll(".admin_cinemaOne");
     existingCinemaItems.forEach((item) => {
       // item.remove();
@@ -387,7 +397,7 @@ createPagination();
 
         for (let cList of cinemaList) {
   
-  
+      
           const tbody1 = document.querySelector("#schedule-table tbody");
           tbody1.innerHTML = "";
   
@@ -402,16 +412,21 @@ createPagination();
           cinemaManageWrap.appendChild(cinemaManageTitle);
   
           // 상영관별 보이기 div
-          const cinemaManageAll = document.querySelector(".admin_cinemaManageAll");
+        var cinemaManageAll = document.getElementsByClassName(".admin_cinemaManageAll");
   
         // 1관
+        const cinemaManageAll1 = document.createElement("div")
+        cinemaManageAll1.classList.add("admin_cinemaManageAll")
+
+        console.log(cinemaManageAll1);
+
         const cinemaOne = document.createElement("div");
         cinemaOne.classList.add("admin_cinemaOne");
         cinemaOne.id = "cinemaOne";
         const cinemaOneLink = document.createElement("span");
         cinemaOneLink.innerText = "1관";
         cinemaOne.appendChild(cinemaOneLink);
-        cinemaManageAll.appendChild(cinemaOne);
+        cinemaManageAll1.appendChild(cinemaOne);
   
         // 2관
         const cinemaTwo = document.createElement("div");
@@ -420,7 +435,7 @@ createPagination();
         const cinemaTwoLink = document.createElement("span");
         cinemaTwoLink.innerText = "2관";
         cinemaTwo.appendChild(cinemaTwoLink);
-        cinemaManageAll.appendChild(cinemaTwo);
+        cinemaManageAll1.appendChild(cinemaTwo);
   
         // 3관
         const cinemaThree = document.createElement("div");
@@ -429,7 +444,7 @@ createPagination();
         const cinemaThreeLink = document.createElement("span");
         cinemaThreeLink.innerText = "3관";
         cinemaThree.appendChild(cinemaThreeLink);
-        cinemaManageAll.appendChild(cinemaThree);
+        cinemaManageAll1.appendChild(cinemaThree);
   
   
                 // 상영 날짜
@@ -438,9 +453,9 @@ createPagination();
           const dateInput = document.createElement("input");
           dateInput.type = "date";
           cinemaManageDate.appendChild(dateInput);
-          cinemaManageAll.appendChild(cinemaManageDate);
+          cinemaManageAll1.appendChild(cinemaManageDate);
   
-          cinemaManageWrap.appendChild(cinemaManageAll);
+          cinemaManageWrap.appendChild(cinemaManageAll1);
   
           // 검색창
           const cinemaManageSearchWrap = document.createElement("div");
@@ -529,7 +544,7 @@ createPagination();
           const tbody = document.createElement("tbody");
            const cinemaList = []; // Replace this with your actual cinema list data
   
-           for (let list of cinemaList) {
+           for (let ist of cinemaList) {
              const cinemaTr = document.createElement("tr");
              const checkbox = document.createElement("input");
              checkbox.type = "checkbox";
@@ -537,17 +552,17 @@ createPagination();
              const td1 = document.createElement("td");
              td1.appendChild(checkbox);
              const td2 = document.createElement("td");
-             td2.innerText = list.movieNo;
+             td2.innerHTML = list.movieNo;
              const td3 = document.createElement("td");
-             td3.innerText = list.movieTitle;
+             td3.innerHTML = list.movieTitle;
              const td4 = document.createElement("td");
-             td4.innerText = list.runningTime;
+             td4.innerHTML = list.runningTime;
              const td5 = document.createElement("td");
-             td5.innerText = list.releaseDate;
+             td5.innerHTML = list.releaseDate;
              const td6 = document.createElement("td");
-             td6.innerText = list.movieday;
+             td6.innerHTML = list.movieday;
              const td7 = document.createElement("td");
-             td7.innerText = list.movieTime;
+             td7.innerHTML = list.movieTime;
   
              cinemaTr.appendChild(td1);
              cinemaTr.appendChild(td2);
@@ -569,10 +584,15 @@ createPagination();
   
   
     }
-// 페이지네이션을 생성하는 함수
+// 페이지네이션을 생성하는 함수****************************************************************************
 function createPagination() {
   // 페이지네이션 영역의 DOM 요소를 선택
   var paginationArea = document.querySelector(".pagination-area");
+
+  var pagination = [];
+  var pagination = cinemaMap.pagination;
+  console.log(pagination) 
+
   
   // 페이지네이션을 생성할 리스트 요소 생성
   var paginationList = document.createElement("ul");
@@ -655,6 +675,7 @@ createPagination();
 
           for (let cList of cinemaList) {
     
+           
     
             const tbody1 = document.querySelector("#schedule-table tbody");
             tbody1.innerHTML = "";
@@ -670,17 +691,18 @@ createPagination();
             cinemaManageWrap.appendChild(cinemaManageTitle);
     
             // 상영관별 보이기 div
-            const cinemaManageAll = document.querySelector(".admin_cinemaManageAll");
-    
-          // 1관
-          const cinemaOne = document.createElement("div");
-          cinemaOne.classList.add("admin_cinemaOne");
-          cinemaOne.id = "cinemaOne";
-          const cinemaOneLink = document.createElement("span");
-          cinemaOneLink.innerText = "1관";
-          cinemaOne.appendChild(cinemaOneLink);
-          cinemaManageAll.appendChild(cinemaOne);
-    
+            const cinemaManageAll1 = document.createElement("div")
+        cinemaManageAll1.classList.add("admin_cinemaManageAll")
+
+        console.log(cinemaManageAll1);
+
+        const cinemaOne = document.createElement("div");
+        cinemaOne.classList.add("admin_cinemaOne");
+        cinemaOne.id = "cinemaOne";
+        const cinemaOneLink = document.createElement("span");
+        cinemaOneLink.innerText = "1관";
+        cinemaOne.appendChild(cinemaOneLink);
+        cinemaManageAll1.appendChild(cinemaOne);
           // 2관
           const cinemaTwo = document.createElement("div");
           cinemaTwo.classList.add("admin_cinemaOne");
@@ -688,7 +710,7 @@ createPagination();
           const cinemaTwoLink = document.createElement("span");
           cinemaTwoLink.innerText = "2관";
           cinemaTwo.appendChild(cinemaTwoLink);
-          cinemaManageAll.appendChild(cinemaTwo);
+          cinemaManageAll1.appendChild(cinemaTwo);
     
           // 3관
           const cinemaThree = document.createElement("div");
@@ -697,7 +719,7 @@ createPagination();
           const cinemaThreeLink = document.createElement("span");
           cinemaThreeLink.innerText = "3관";
           cinemaThree.appendChild(cinemaThreeLink);
-          cinemaManageAll.appendChild(cinemaThree);
+          cinemaManageAll1.appendChild(cinemaThree);
     
     
                   // 상영 날짜
@@ -706,9 +728,9 @@ createPagination();
             const dateInput = document.createElement("input");
             dateInput.type = "date";
             cinemaManageDate.appendChild(dateInput);
-            cinemaManageAll.appendChild(cinemaManageDate);
-    
-            cinemaManageWrap.appendChild(cinemaManageAll);
+            cinemaManageAll1.appendChild(cinemaManageDate);
+
+            cinemaManageWrap.appendChild(cinemaManageAll1);
     
             // 검색창
             const cinemaManageSearchWrap = document.createElement("div");
@@ -805,17 +827,17 @@ createPagination();
                const td1 = document.createElement("td");
                td1.appendChild(checkbox);
                const td2 = document.createElement("td");
-               td2.innerText = list.movieNo;
+               td2.innerHTML = list.movieNo;
                const td3 = document.createElement("td");
-               td3.innerText = list.movieTitle;
+               td3.innerHTML = list.movieTitle;
                const td4 = document.createElement("td");
-               td4.innerText = list.runningTime;
+               td4.innerHTML = list.runningTime;
                const td5 = document.createElement("td");
-               td5.innerText = list.releaseDate;
+               td5.innerHTML = list.releaseDate;
                const td6 = document.createElement("td");
-               td6.innerText = list.movieday;
+               td6.innerHTML = list.movieday;
                const td7 = document.createElement("td");
-               td7.innerText = list.movieTime;
+               td7.innerHTML = list.movieTime;
     
                cinemaTr.appendChild(td1);
                cinemaTr.appendChild(td2);
@@ -837,10 +859,16 @@ createPagination();
     
     
       }
-  // 페이지네이션을 생성하는 함수
+  // 페이지네이션을 생성하는 함수*********************************************************************
 function createPagination() {
+
+  
   // 페이지네이션 영역의 DOM 요소를 선택
   var paginationArea = document.querySelector(".pagination-area");
+
+  var pagination = [];
+  var pagination = cinemaMap.pagination;
+  console.log(pagination); 
   
   // 페이지네이션을 생성할 리스트 요소 생성
   var paginationList = document.createElement("ul");
