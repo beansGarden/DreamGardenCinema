@@ -21,7 +21,7 @@
             <!-- 게시판 제목 -->
             <span id="admin_userTitle">회원 관리</span>
             <!-- 검색창 -->
-            <form th:action="@{/getUserSearchList}" autocomplete="off">
+            <form th:action="@{/getUserSearchList}" autocomplete="off" onsubmit="getUserCount();">
             <div class="admin_userSearchWrap">
                 <!-- select랑 검색창만 감싸는 div -->
                 <div class="admin_userSearchWrap2">
@@ -39,7 +39,7 @@
 
                 <!-- 검색 버튼 -->
                 <div class="admin_userBtnWrap">
-                    <button type="submit" class="admin_userBtn" value="검색">검색</button>
+                    <button type="submit"  class="admin_userBtn" value="검색">검색</button>
                 </div>
             </form>
             </div>
@@ -88,7 +88,7 @@
 
                 </table>
             </div>
-
+            <footer>
             <!-- 페이지 네이션 -->
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div class="pagination-area">
@@ -147,7 +147,7 @@
 
 
             </div>
-
+        </footer>
 
 
 

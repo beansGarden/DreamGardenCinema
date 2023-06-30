@@ -1,8 +1,11 @@
 /* 사이드바 */
 html{
     width: 300px;
+    height: 100px;    
     
 }
+
+body {overflow-y: hidden; overflow-x: hidden;}
 
 /* 사이드바 전체 */
 .admin_sideBarWrap{

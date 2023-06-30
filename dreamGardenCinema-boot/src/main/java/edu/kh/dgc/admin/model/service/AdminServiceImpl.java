@@ -34,6 +34,15 @@ public class AdminServiceImpl implements AdminService {
 	
 	//대시보드
 	//영화별 매출 불러오기
+	
+	//영화 상역작만 불러오기
+	@Override
+	public List<Movie> cinemaCurrentList() {
+	
+		return  mapper.cinemaCurrentList();
+	}
+	
+	
 	@Override
 	public List<Ticket> ticketList(String movieNo) {
 		
@@ -366,9 +375,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> adminCinemaTwo(String movieTheaterNo,int cp) {
 		
-		int movieScheduleListCount = mapper.movieScheduleListCount();
+		int movieCinemaCount = mapper.movieCinemaCount(movieTheaterNo);
 
-		Pagination pagination = new Pagination(movieScheduleListCount, cp);
+		Pagination pagination = new Pagination(movieCinemaCount, cp);
 
 		// 3. 특정 게시판에서
 		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
@@ -384,7 +393,7 @@ public class AdminServiceImpl implements AdminService {
 
 		List<Movie> adminCinemaTwo = mapper.adminCinemaTwo(movieTheaterNo,rowBounds);
 
-		System.out.println(adminCinemaTwo);
+	
 		
 		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
 		adminCinemaMap.put("pagination", pagination);

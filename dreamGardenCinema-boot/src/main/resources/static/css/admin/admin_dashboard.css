@@ -1,62 +1,68 @@
-html, body {
-    height:100%;
+html,
+body {
+    height: 100%;
     background-color: rgba(199, 198, 198, 0.068);
 }
 
 
 
 /* 전체 감싸는 div */
-.admin_dashboardWrap{
-    position:relative;
-    width:1300px; /* wrap에 속한 div의 넓이+margin값을 더한 넓이와 높이값 */
-    height:0px;
-    top:-1000px;
-    left:1000px;
-    transform: translate(-50%, -50%); /* 중앙정렬 */
+.admin_dashboardWrap {
+    position: relative;
+    width: 1300px;
+    /* wrap에 속한 div의 넓이+margin값을 더한 넓이와 높이값 */
+    height: 0px;
+    top: -1000px;
+    left: 1000px;
+    transform: translate(-50%, -50%);
+    /* 중앙정렬 */
 }
 
 /* 영화 총 매출 */
-.admin_dashboardSalesforMovie{
-    width:500px;
-    height:200px;
-    float:left;
+.admin_dashboardSalesforMovie {
+    width: 500px;
+    height: 200px;
+    float: left;
     margin-top: 50px;
-    box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+    box-sizing: border-box;
+    /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
 
 }
 
 /* span 감사는 태그 */
-.admin_dashboardSalesforMovie_title{
+.admin_dashboardSalesforMovie_title {
     border: 1px solid rgba(148, 148, 148, 0.452);
     background-color: #0f09545e;
-    color:  #0F0954;;
+    color: #0F0954;
+    ;
     padding: 10px;
     border-bottom: none;
-    
+
 
 }
 
 /* 각 div 제목 span 태그 */
-.admin_dashboardSalesforMovie>span{
-    background-color:  #0F0954;
+.admin_dashboardSalesforMovie>span {
+    background-color: #0F0954;
     color: white;
 }
 
 
-    /* 영화 총 매출 내부 div */
-.admin_dashboardSalesforMovie-in{
+/* 영화 총 매출 내부 div */
+.admin_dashboardSalesforMovie-in {
     padding: 30px 10px;
     text-align: right;
     background-color: white;
     font-size: 20px;
     font-weight: bold;
-    color:  #0F0954;;
+    color: #0F0954;
     height: 100px;
     box-shadow: 5px 5px 5px rgba(173, 173, 173, 0.267);
+    
 }
 
 /* 영화 총 매출 select */
-.admin_dashboardSalesforMovie-in>select{
+.admin_dashboardSalesforMovie-in>select {
     border: none;
     outline: none;
     width: 400px;
@@ -64,67 +70,94 @@ html, body {
     background-color: rgba(148, 148, 148, 0);
     font-size: 15px;
 
+
 }
 
 /* 영화 분기 매출 */
-.admin_dashboardSalesforQuater{
-    width:500px;
-    height:200px;
-    float:left;
+.admin_dashboardSalesforQuater {
+    width: 500px;
+    height: 200px;
+    float: left;
     margin-top: 50px;
-    box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+    box-sizing: border-box;
+    /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
 }
 
-.admin_dashboardSalesforQuater_title{
+.admin_dashboardSalesforQuater_title {
     border: 1px solid rgba(148, 148, 148, 0.452);
     background-color: white;
     background-color: #0f09545e;
-    color:  #0F0954;;
+    color: #0F0954;
     padding: 10px;
     border-left: none;
     border-bottom: none;
 
 }
+
 /* 분기별 매출 제목 span */
-.admin_dashboardSalesforQuater>span{
-    border:1px solid #333;
+.admin_dashboardSalesforQuater>span {
+    border: 1px solid #333;
     border-radius: 15px;
     padding: 5px;
-    background-color:  #0F0954;
+    background-color: #0F0954;
     color: white;
 }
 
 
 
 /* 영화 분기 매출 내부 div */
-.admin_dashboardSalesforQuater-in{
+.admin_dashboardSalesforQuater-in {
     padding: 30px 10px;
     text-align: right;
     background-color: white;
     font-size: 20px;
     font-weight: bold;
-    color:  #0F0954;
+    color: #0F0954;
     height: 100px;
     border-left: none;
     box-shadow: 5px 5px 5px rgba(173, 173, 173, 0.267);
+  
+}
+
+#saleQuaterSelect{
+    border: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 15px;
+    background-color:#0f095400;
+    
+    
 }
 
 
 /* 1:1 문의 사항 리스트*/
-.admin_dashboardQnaList{
-    width:500px;
-    height:500px;
-    float:left;
+.admin_dashboardQnaList {
+    width: 500px;
+    height: 355px;
+    float: left;
     margin: 0px 0px;
-    box-sizing:border-box; //* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
-    
+    box-sizing: border-box; //* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+
+
 }
 
-.admin_dashboardQnaList_title{
+.admin_dashboardQnaList-in {
+    height: 355px;
+
+}
+.admin_dashboardQnaList-in table{
+    margin: auto;    
+}
+
+
+.admin_dashboardQnaList_title {
     border: 1px solid rgba(148, 148, 148, 0.452);
     background-color: white;
     background-color: #0f09545e;
-    color:  #0F0954;;
+    color: #0F0954;
+    ;
     padding: 10px;
     border-left: none;
     border-bottom: none;
@@ -133,23 +166,24 @@ html, body {
 }
 
 /* 1:1문의 리스트 span */
-.admin_dashboardQnaList>span{
-    border:1px solid #333;
+.admin_dashboardQnaList>span {
+    border: 1px solid #333;
     border-radius: 15px;
     padding: 5px;
-    background-color:  #0F0954;
+    background-color: #0F0954;
     color: white;
-    
+
 }
 
-.admin_dashboardQnaList-in{
+.admin_dashboardQnaList-in {
     padding: 40px 40px;
     background-color: rgba(255, 255, 255, 0.425);
     box-shadow: 5px 5px 5px rgba(173, 173, 173, 0.267);
 }
 
 
-th,td{
+th,
+td {
     border-bottom: 1px solid rgba(136, 136, 136, 0.411);
     text-align: center;
     padding: 6px;
@@ -157,41 +191,45 @@ th,td{
 
 
 /* 그래프 */
-.admin_dashboardSalesforLastweek{
-    width:500px;
-    height:300px;
-    float:left;
+.admin_dashboardSalesforLastweek {
+    width: 500px;
+    height: 300px;
+    float: left;
     margin: 00px 0px;
-    box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
+    box-sizing: border-box;
+    /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
 }
 
-.admin_dashboardSalesforLastweek_title{
+.admin_dashboardSalesforLastweek_title {
     border: 1px solid rgba(148, 148, 148, 0.452);
     background-color: #0f09545e;
-    color:  #0F0954;;
+    color: #0F0954;
+    ;
     padding: 10px;
     border-left: none;
     border-bottom: none;
 }
 
-.admin_dashboardSalesforLastweek>span{
-    border:1px solid #333;
+.admin_dashboardSalesforLastweek>span {
+    border: 1px solid #333;
     border-radius: 15px;
     padding: 5px;
-    background-color:  #0F0954;
+    background-color: #0F0954;
     color: white;
 }
 
-.admin_dashboardSalesforLastweek-in{
+.admin_dashboardSalesforLastweek-in {
     background-color: white;
     padding: 0px 0px;
     margin: 0px;
-    border-left:none;
+    border-left: none;
     height: 355px;
     box-shadow: 5px 5px 5px rgba(173, 173, 173, 0.267);
 }
 
-#myChart{
+#myChart {
     width: 400px;
     height: 300px;
+    padding: 10px 30px 10px 10px;
+
 }

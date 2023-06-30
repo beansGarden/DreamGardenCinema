@@ -76,7 +76,7 @@
 .admin_userBoardWrap > table{
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
-    width: 1000px;
+    width: 100%;
 
 
 }
@@ -88,6 +88,11 @@
     margin: 10px;
     text-align: center;
 
+    
+}
+/* 체크박스 */
+body > main > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(1){
+    width: 53px;
 }
 
 body > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(4){
@@ -95,6 +100,29 @@ body > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nt
 
 }
 
+/* 번호 */
+body > main > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(2){
+    width: 60px;
+}
+
+/* 아이디 */
+body > main > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(3){
+    width: 130px;
+}
+
+/* 구분 */
+body > main > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(4){
+    width: 93px;
+}
+
+/* 이메일 */
+body > main > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(5){
+    width: 250px;
+}
+/* 닉네임 */
+body > main > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nth-child(6){
+    width: 140;
+}
 
 
 /* 등록버튼 */
@@ -136,4 +164,10 @@ body > div.admin_userWrap > div.admin_userBoardWrap > table > thead > tr > th:nt
     color: #0F0954;
 }
 
+footer{
+    position: fixed;
+    margin: auto auto;
+    display: contents;
+    bottom: 0;
+}
  

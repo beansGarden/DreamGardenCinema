@@ -21,22 +21,32 @@
     <div class="admin_dashboardWrap" layout:fragment="content">
 
         <div class="admin_dashboardSalesforMovie">
-            <div class="admin_dashboardSalesforMovie_title"><span>영화별 총 매출</span></div>
+            <div class="admin_dashboardSalesforMovie_title"><span>영화별 총 매출[현재 상영작]</span></div>
             <div class="admin_dashboardSalesforMovie-in" th:field="*{cinemaList}">
                 <select onchange="getTicketAmount(this)">
+                    <option>영화를 선택해주세요</option>
                     <option th:each="list: ${cinemaList}" th:value="${list.movieNo}" th:text="${list.movieTitle}">영화를
                         선택해주세요</option>
                 </select>
-                <input type="hidden" name="movieNo" id="selectedMovie" />
-                <span id="ticketAmount" th:text="${ticketAmount}">₩5,000,000</span>
-                <!-- <span id="ticketAmount">₩5,000,000</span> -->
+                <input type="hidden" name="movieNo" id="selectedMovie"/>
+                <div class="ticketAmountWrap">
+                    <span id="ticketAmount" th:text="${ticketAmount}">₩5,000,000</span>
+                </div>
+
             </div>
         </div>
 
 
         <div class="admin_dashboardSalesforQuater">
-            <div class="admin_dashboardSalesforQuater_title"><span>1분기 총 매출</span></div>
+            <div class="admin_dashboardSalesforQuater_title">
+                <select name="salesQuater" id="saleQuaterSelect">
+                    <option value="1">　1분기 매출　</option>
+                    <option value="2">　2분기 매출　</option>
+                    <option value="3">　3분기 매출　</option>
+                    <option value="4">　4분기 매출　</option>
+                </select></div>
             <div class="admin_dashboardSalesforQuater-in">
+
                 <span>￦50,000,000</span>
             </div>
         </div>
@@ -53,7 +63,8 @@
                             <th>회원</th>
                         </tr>
                         <tr th:each="list: ${adminQnaList}">
-                            <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">지갑 잃어버렸어요</a></td>
+                            <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">지갑
+                                    잃어버렸어요</a></td>
                             <td th:text="${list.userNickname}" style="width: 100px">유저일</td>
                         </tr>
                     </tbody>
@@ -69,7 +80,7 @@
             <div class="admin_dashboardSalesforLastweek-in">
                 <div>
                     <!--차트가 그려질 부분-->
-                    <canvas id="myChart" style="width: 400px;"></canvas>
+                    <canvas id="myChart" style="width: 400px;height: 250px;"></canvas>
                 </div>
             </div>
         </div>
@@ -85,12 +96,12 @@
         /*[# th:each="sales : ${salesByPeriod}"]*/
         salesByPeriod.push(/*[[${sales.totalSales}]]*/);
         /*[/]*/
-        
+
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="\js\admin\admin_dashborad.js"></script>
-    
+
 
 
 </body>

@@ -32,6 +32,11 @@ public interface AdminMapper {
 	List<User> getAdminDetails();
 
 	// *****대시보드********************************************************
+
+	//영화 상역작 불러오기
+	List<Movie> cinemaCurrentList();
+
+	
 	// 영화별 매출 불러오기
 	List<Ticket> ticketList(String movieNo);
 
@@ -353,5 +358,12 @@ public interface AdminMapper {
 
 	//리뷰 검색
 	List<Review> getReviewSearchList(RowBounds rowBounds);
+
+	//영화 관 별 개수
+	int movieCinemaCount();
+
+	int movieCinemaCount(String movieTheaterNo);
+
+
 
 }

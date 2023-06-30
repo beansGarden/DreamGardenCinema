@@ -134,6 +134,18 @@
 	
 
 	<!--대시보드-->
+	
+	<!--영화별 상역작만 불러오기-->
+	
+	<select id="cinemaCurrentList" resultMap="movie_rm">
+	SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE,MOVIE_NO
+	FROM MOVIE
+	WHERE SCREENING = 'C'
+	ORDER BY MOVIE_NO DESC
+	</select>
+	
+	
+	
 	<!--영화별 매출 불러오기-->
 	<select id="ticketList" resultType="_int">
 		SELECT SUM(PAY_AMOUNT) AS TOTAL_AMOUNT
@@ -295,7 +307,7 @@
 
 
 	<select id="adminUserList" resultMap="user_rm">
-		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE,USER_ROLE
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
 		ORDER BY USER_NO DESC
 	</select>
@@ -310,7 +322,7 @@
 	 <!--회원 검색-->
     
    <select id="getUserSearchList" parameterType="User" resultMap="user_rm">
-       SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
+       SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT, USER_CLOSE
        FROM USER_INFO
         <where>
           <choose>
@@ -324,14 +336,14 @@
                AND USER_INFO.USER_NICKNAME LIKE '%' || #{keyword} || '%'
               </if>
             </when>
-            <when test="type != null and type.equals('id')">
-              <if test="keyword != null and keyword != ''">
-               AND USER_INFO.USER_ID LIKE '%' || #{keyword} || '%'
-              </if>
-            </when>
+           <when test="type != null and type.equals('id')">
+			  <if test="keyword != null and keyword != ''">
+			    AND LOWER(USER_INFO.USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+			  </if>
+			</when>
             <when test="type != null and type.equals('email')">
               <if test="keyword != null and keyword != ''">
-               AND USER_INFO.USER_EMAIL LIKE '%' || #{keyword} || '%'
+               AND LOWER(USER_INFO.USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
               </if>
             </when>
             <when test="type != null and type.equals('rating')">
@@ -372,27 +384,27 @@
 		 SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
 		FROM MOVIE M
 		JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
-	
-		  <where>
-		    <choose>
-		      <when test="type != null and type.equals('number')">
-		        <if test="keyword != null and keyword != ''">
-		          AND M.MOVIE_NO LIKE  #{keyword}
-		        </if>
-		      </when>
-		      <when test="type != null and type.equals('title')">
-		        <if test="keyword != null and keyword != ''">
-		          AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
-		        </if>
-		      </when>
-		     <when test="type != null and type.equals('director')">
-		        <if test="keyword != null and keyword != ''">
-		          AND P.PERSON_NAME LIKE '%' || #{keyword} || '%'
-		        </if>
-		      </when>
-		    </choose>
-		  </where>
-		  	GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+		<where>
+		  <choose>
+		    <when test="type != null and type.equals('number')">
+		      <if test="keyword != null and keyword != ''">
+		        AND M.MOVIE_NO LIKE  #{keyword}
+		      </if>
+		    </when>
+		    <when test="type != null and type.equals('title')">
+		      <if test="keyword != null and keyword != ''">
+		        AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+		      </if>
+		    </when>
+		    <when test="type != null and type.equals('director')">
+		      <if test="keyword != null and keyword != ''">
+		        AND P.PERSON_ROLE = '감독'
+		        AND P.PERSON_NAME LIKE '%' || #{keyword} || '%'
+		      </if>
+		    </when>
+		  </choose>
+		</where>
+		GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
 		</select>
 	 
 	 
@@ -477,6 +489,23 @@
 		INSERT INTO MOVIE_SCHEDULE (MOVIE_TIME, MOVIE_THEATER, MOVIE_NO)
 		VALUES (TO_DATE(#{movieTime}, 'YYYY-MM-DD HH24:MI:SS'), #{movieTheater}, #{movieNo})
 	</insert>
+
+
+
+	<select id="movieCinemaCount" resultType="int">
+		SELECT COUNT(*) AS movie_count
+		FROM (
+		SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
+		TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+		LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+		S.MOVIE_THEATER
+		FROM MOVIE M
+		JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+		WHERE S.MOVIE_THEATER = #{movieTheater}
+		GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
+		TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'), S.MOVIE_THEATER)
+	</select>
+
 
 
 	<!--////////////공지사항////////////-->

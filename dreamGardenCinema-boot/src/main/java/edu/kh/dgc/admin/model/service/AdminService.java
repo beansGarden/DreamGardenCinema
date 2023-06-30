@@ -19,8 +19,12 @@ public interface AdminService {
 	
 	//대시보드 
 	
+	//영화 상역작만 불러오기
+	List<Movie> cinemaCurrentList();
+	
 	//영화별 매출 리스트 불러오기
 	List<Ticket> ticketList(String movieNo);
+	
 	
 	//대시보드 1:1문의 최신 5개만 오게하기
 	List<Qna> adminQnaList5();
@@ -197,6 +201,8 @@ public interface AdminService {
 
 	//리뷰관리 검색
 	Map<String, Object> getReviewSearchList(Qna condition, int cp);
+
+	
 
 
 	

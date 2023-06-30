@@ -57,7 +57,7 @@ public class AdminController {
 	public String dashboard(Model model) {
 
 		// 대시보드 영화 리스트 불러오기
-		List<Movie> cinemaList = service.cinemaList();
+		List<Movie> cinemaList = service.cinemaCurrentList();
 		model.addAttribute("cinemaList", cinemaList);
 
 		// 대시보드 QNA 최신 5개 보여지기
@@ -231,6 +231,11 @@ public class AdminController {
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
 		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
+		
+		
+		System.out.println(movieTheaterNo);
+		System.out.println(cinemaMap);
+		
 		return cinemaMap;
 	}
 

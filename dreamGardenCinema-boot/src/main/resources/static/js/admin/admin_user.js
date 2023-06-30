@@ -106,3 +106,20 @@ function getUserCount() {
 
 // 페이지 로드 시 영화 개수 가져오기 호출
 getUserCount();
+
+/*  // 영화 개수 가져오기
+function getUserCount() {
+  var searchForm = document.getElementById('searchForm');
+  var formData = new FormData(searchForm);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/getUserSearchCount', true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          var countElement = document.querySelector('.admin_userCountAll');
+          countElement.textContent = xhr.responseText;
+      }
+  };
+  xhr.send(formData);
+}
+  */

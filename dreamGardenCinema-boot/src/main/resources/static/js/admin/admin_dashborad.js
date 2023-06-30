@@ -65,6 +65,8 @@ function getTicketAmount(selectElement) {
     // 선택한 영화 번호를 input 요소에 할당
     selectedMovieElement.value = selectedMovieNo;
 
+    
+
     // AJAX 요청 보내기
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/ticketAmount?movieNo=" + selectedMovieNo, true);
