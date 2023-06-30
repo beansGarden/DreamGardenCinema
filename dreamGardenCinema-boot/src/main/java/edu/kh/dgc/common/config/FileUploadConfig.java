@@ -51,7 +51,7 @@ public class FileUploadConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		String webPath = "/images/**";
-		String resourcePath = "file:" + System.getProperty("user.dir") + "/src/main/resources/static/images/customerservice/";
+		String resourcePath = "file:" + System.getProperty("user.dir") + "/src/main/resources/static/images/";
 		System.out.println(resourcePath);
 
 		registry.addResourceHandler(webPath).addResourceLocations(resourcePath);
