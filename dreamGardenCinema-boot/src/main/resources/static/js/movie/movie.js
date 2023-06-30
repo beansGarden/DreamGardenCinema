@@ -123,7 +123,7 @@ if (movieType != "") {
                             <img class="movie-poster" th:src="${movie.poster}">
                             <img class="movie-rating" th:src="${movie.rating}">
                             <div class="movie-action">
-                                <a class="font4" href="#">예매하기</a>
+                                <a class="font4" href="@{/ticketing/date/} + ${movieInfo.movieNo}">예매하기</a>
                                 <a class="font4" th:href="@{/movie/?movie=${movie.movieNo}}">상세보기</a>
                             </div>
                         </div> 
@@ -152,7 +152,7 @@ if (movieType != "") {
 
                     ticket.classList.add("font4")
                     ticket.innerText = "예매하기";
-                    ticket.setAttribute("href", "#");
+                    ticket.setAttribute("href", "/ticketing/date/" + movie.movieNo);
                     
                     movieAction.append(ticket);
                     
@@ -199,22 +199,12 @@ if (movieType != "") {
 
 /* 
             <button>개봉일순</button>
-            |
-            <button>예매순</button>
-            |
-            <button>보고싶어요순</button>
  */
 
-        const byRelease = document.createElement("button");
+        const byRelease = document.createElement("div");
         byRelease.innerText = "개봉일순";
 
-        const byTicket = document.createElement("button");
-        byTicket.innerText = "예매순";
-        
-
         navMenu.append(byRelease);
-        navMenu.innerHTML += " | ";
-        navMenu.append(byTicket);
 
         moreBtn.style.display = 'flex';
 
@@ -353,7 +343,7 @@ if (movieType != "") {
 
                     ticket.classList.add("font4")
                     ticket.innerText = "예매하기";
-                    ticket.setAttribute("href", "#");
+                    movieRating.setAttribute("src", movie.rating);
                     
                     movieAction.append(ticket);
                     }

@@ -209,9 +209,9 @@ public class MovieController {
 		ra.addFlashAttribute("alertMessage", message);
 		 
 		String referer = request.getHeader("Referer");
+		
 		return "redirect:"+ referer;
+		
 	}
-	
-	
 	
 }

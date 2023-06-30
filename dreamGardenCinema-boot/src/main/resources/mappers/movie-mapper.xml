@@ -71,6 +71,7 @@
 		SELECT *
 		FROM MOVIE
 		WHERE SCREENING = 'P'
+		ORDER BY RELEASE_DATE
 	</select>
 	
 	<!-- 영화 슬라이드 이미지 리스트 뽑아오기 --> 
@@ -150,3 +151,4 @@
 	</insert>
 	
 </mapper>
+
