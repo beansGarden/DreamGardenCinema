@@ -344,7 +344,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getMovieSearchList(Movie condition, int cp) {
 
-		int movieListCount = mapper.movieListCount();
+		int movieListCount = mapper.movieFilterListCount(condition);
 
 		Pagination pagination = new Pagination(movieListCount, cp);
 

@@ -49,19 +49,33 @@ const checkboxNo = document.getElementsByClassName("admin_faq_checkbox_no"); //�
 
 delBtn.addEventListener(('click'),()=>{
 
+  const flCheck = document.querySelectorAll(".flCheck");
+  
+  for(let i=0; i<flCheck.length;i++){
+    
+  if(flCheck[i].innerText === 'Y')
+ 
+   confirm("이미 삭제된 게시글 입니다")
 
-if (confirm("정말 삭제 하시겠습니까?")) {
+   return;
+
+} 
+   
+  if (confirm("정말 삭제 하시겠습니까?")) {
   for(let i=0; i<checkbox.length; i++){
     if (checkbox[i].checked) {
  var faqNo = document.getElementsByClassName("admin_faq_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
 
 } if(checkbox!=null){
 faqDelete(faqNo);
-}
-}
+
+}}
+
 }else return;
 
-});
+}
+);
+
 
 function faqDelete(faqNo){
 

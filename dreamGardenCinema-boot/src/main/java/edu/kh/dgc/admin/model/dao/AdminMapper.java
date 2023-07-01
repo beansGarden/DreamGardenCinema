@@ -401,6 +401,9 @@ public interface AdminMapper {
 	//리뷰 복구
 	int restoreReview(int reviewNo);
 
+	//영화 검색에 따른 개수 불러오기
+	int movieFilterListCount(Movie condition);
+
 	
 
 	

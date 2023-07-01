@@ -537,32 +537,60 @@
 		ORDER BY MOVIE_NO DESC
 	 </select>
 	 
-	 <select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
-		 SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
-		FROM MOVIE M
-		JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
-		<where>
-		  <choose>
-		    <when test="type != null and type.equals('number')">
-		      <if test="keyword != null and keyword != ''">
-		        AND M.MOVIE_NO LIKE  #{keyword}
-		      </if>
-		    </when>
-		    <when test="type != null and type.equals('title')">
-		      <if test="keyword != null and keyword != ''">
-		        AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
-		      </if>
-		    </when>
-		    <when test="type != null and type.equals('director')">
-		      <if test="keyword != null and keyword != ''">
-		        AND P.PERSON_ROLE = '감독'
-		        AND P.PERSON_NAME LIKE '%' || #{keyword} || '%'
-		      </if>
-		    </when>
-		  </choose>
-		</where>
-		GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
-		</select>
+	<select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
+	  SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
+	  FROM MOVIE M
+	  JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	  WHERE P.PERSON_ROLE = '감독'
+	    AND M.MOVIE_NO IN (
+	      <choose>
+	        <when test="type != null and type.equals('number')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_NO LIKE #{keyword}
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('title')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('director')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM PERSON_INFO WHERE PERSON_ROLE = '감독' AND PERSON_NAME LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	      </choose>
+	    )
+	  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+	</select>
+	
+	<select id="movieFilterListCount" parameterType="Movie" resultType="_int">
+	  SELECT COUNT(*)
+	  FROM MOVIE M
+	  JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	  WHERE P.PERSON_ROLE = '감독'
+	    AND M.MOVIE_NO IN (
+	      <choose>
+	        <when test="type != null and type.equals('number')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_NO LIKE #{keyword}
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('title')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('director')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM PERSON_INFO WHERE PERSON_ROLE = '감독' AND PERSON_NAME LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	      </choose>
+	    )
+	  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+	</select>
+
 	 
 	 
 	 <!--///////////////상영관//////////////-->

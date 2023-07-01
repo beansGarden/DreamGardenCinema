@@ -232,7 +232,7 @@ public class AdminController {
 	@ResponseBody
     @GetMapping("/adminMovieListAjax")
     public int adminMovieListAjax() {
-        
+		
 		
 		return service.movieListCount();
     }
