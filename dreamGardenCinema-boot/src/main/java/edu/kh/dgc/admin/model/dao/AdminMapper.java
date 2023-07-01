@@ -398,6 +398,9 @@ public interface AdminMapper {
 
 	int userOutListCount();
 
+	//리뷰 복구
+	int restoreReview(int reviewNo);
+
 	
 
 	

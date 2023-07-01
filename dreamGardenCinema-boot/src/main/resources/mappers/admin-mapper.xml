@@ -905,6 +905,13 @@
 		WHERE REVIEW_NO = #{reviewNo}
 		</update>
 		
+		<!--신고하기에서 리뷰삭제하기-->
+		<update id="restoreReview">
+		UPDATE MOVIE_REVIEW
+		SET	REVIEW_DELETE_FL ='N'
+		WHERE REVIEW_NO = #{reviewNo}
+		</update>
+		
 		
 		<update id="updateDeleteReport">
 			UPDATE REPORT

@@ -850,6 +850,13 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.userOutListCount();
 	}
 
+	//리뷰복구
+	@Override
+	public int restoreReview(int reviewNo) {
+		
+		return mapper.restoreReview(reviewNo);
+	}
+
 
 
 

@@ -1051,6 +1051,31 @@ public class AdminController {
 	
 	// 9-3. 리뷰관리 게시글 수정
 	
-	// 9-4. 리뷰관리 게시글 삭제
+	
+	// 9-4. 리뷰관리 게시글 선택 삭제
+	@PostMapping(value = "adminReivew/deleteReviewList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int deleteReviewList(@RequestBody Map<String, Integer> request) {
+		int reviewNo = request.get("reviewNo");
+		
+		System.out.println(reviewNo);
+		
+		
 
+		return service.deleteReview(reviewNo);
+	}
+	
+	// 9-5. 리뷰관리 게시글 선택 복구
+	@PostMapping(value = "adminReivew/restoreReviewList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreReviewList(@RequestBody Map<String, Integer> request) {
+		int reviewNo = request.get("reviewNo");
+		
+		System.out.println(reviewNo);
+		
+		
+		
+		return service.restoreReview(reviewNo);
+	}
+	
 }

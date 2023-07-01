@@ -106,3 +106,74 @@ function getReviewCount() {
   });
 }
 getReviewCount()
+
+/* 삭제 버튼 선택 삭제하기 */
+const delBtn = document.getElementById("deleteBtn"); // 삭제 버튼
+const checkbox = document.getElementsByClassName("admin_reviewCheckbox"); // 체크박스
+const checkboxNo = document.getElementsByClassName("admin_review_checkbox_no"); // 번호
+
+delBtn.addEventListener('click', () => {
+  if (confirm("정말 삭제하시겠습니까?")) {
+    for (let i = 0; i < checkbox.length; i++) {
+      if (checkbox[i].checked) {
+        var reviewNo = document.getElementsByClassName("admin_review_checkbox_no")[i].innerText; // 체크박스 옆 숫자 = 리뷰 번호
+        if (checkboxNo != null) {
+          reviewDelete(reviewNo);
+        }
+      }
+    }
+  } else {
+    return;
+  }
+});
+
+function reviewDelete(reviewNo) {
+  fetch("/adminReivew/deleteReviewList", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({"reviewNo": parseInt(reviewNo)})
+  })
+  .then(resp => resp.text())
+  .then(result => {
+    console.log(result);
+    console.log(reviewNo); // 번호 나옴
+    alert("리뷰가 삭제되었습니다."); // 삭제 완료 메시지
+ 
+  })
+  .catch(err => console.log(err));
+}
+
+/* 삭제 버튼 선택 삭제하기 */
+const restoreBtn = document.getElementById("restoreBtn"); // 삭제 버튼
+
+
+restoreBtn.addEventListener('click', () => {
+  if (confirm("정말 복구하시겠습니까?")) {
+    for (let i = 0; i < checkbox.length; i++) {
+      if (checkbox[i].checked) {
+        var reviewNo = document.getElementsByClassName("admin_review_checkbox_no")[i].innerText; // 체크박스 옆 숫자 = 리뷰 번호
+        if (checkboxNo != null) {
+          reviewDelete(reviewNo);
+        }
+      }
+    }
+  } else {
+    return;
+  }
+});
+
+function reviewDelete(reviewNo) {
+  fetch("/adminReivew/restoreReviewList", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({"reviewNo": parseInt(reviewNo)})
+  })
+  .then(resp => resp.text())
+  .then(result => {
+    console.log(result);
+    console.log(reviewNo); // 번호 나옴
+    alert("리뷰가 복구되었습니다."); // 삭제 완료 메시지
+ 
+  })
+  .catch(err => console.log(err));
+}
