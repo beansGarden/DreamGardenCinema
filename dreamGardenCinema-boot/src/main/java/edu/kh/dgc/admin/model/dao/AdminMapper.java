@@ -388,6 +388,16 @@ public interface AdminMapper {
 	//신고하기 검색에 따른 개수 불러오기
 	int reportFilterListCount(Report condition);
 
+	//탈퇴한 회원 수 불러오기
+	int userOutListCount(User condition);
+
+	//탈퇴한 회원 리스트 불러오기
+	List<User> adminUserOutList(User condtion,RowBounds rowBounds);
+
+	int userInListCount();
+
+	int userOutListCount();
+
 	
 
 	

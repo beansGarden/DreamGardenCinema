@@ -15,7 +15,7 @@ function userSelectAll(userSelectAll)  {
  
   delBtn.addEventListener(('click'),()=>{
  
-  if (confirm("정말 삭제 하시겠습니까?")) {
+  if (confirm("정말 탈퇴 하시겠습니까?")) {
     for(let i=0; i<checkbox.length; i++){
       if (checkbox[i].checked) { //체크박스가 선택됐을 때
    var userNo = document.getElementsByClassName("admin_user_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
@@ -28,20 +28,22 @@ userDelete(userNo);
 
 });
 
-function userDelete(userNo){
-
+function userDelete(userNo) {
   fetch("/adminUser/deleteUserList", {
-    method : "POST",
-    headers : {"Content-Type": "application/json"},
-    body : JSON.stringify({"userNo" : userNo})
-  }).then(resp=> resp.text())
-  .then(result=>{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ "userNo": userNo })
+  })
+  .then(resp => resp.text())
+  .then(result => {
     console.log(result);
     console.log(userNo);
-
-  }).catch(err=> console.log(err));
-
+    alert("회원이 탈퇴되었습니다."); // 탈퇴 완료 메시지
+  })
+  .catch(err => console.log(err));
 }
+
+
 
 //체크박스 숫자 불러오기
 function userSelectAll(checkbox) { 
@@ -113,7 +115,7 @@ function getUserCount() {
   });
 }
  */
-
+/* 전체 회원 수 불러오기 */
  // Ajax 요청 함수
  function ajaxRequest(url, method, successCallback) {
   var xhr = new XMLHttpRequest();
@@ -134,3 +136,47 @@ function getUserCount() {
   });
 }
 getUserCount()
+
+/* 전체 탈퇴 안 한 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 영화 개수 가져오기
+function getUserInCount() {
+  ajaxRequest('/adminUserInListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminUserInCountAll');
+      countElement.textContent = response;
+  });
+}
+getUserInCount()
+
+/* 전체 탈퇴한 회원 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 영화 개수 가져오기
+function getUserOutCount() {
+  ajaxRequest('/adminUserOutListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminUserOutCountAll');
+      countElement.textContent = response;
+  });
+}
+getUserOutCount()

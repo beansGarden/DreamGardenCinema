@@ -218,6 +218,40 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminUserList;
 	}
+	
+
+	/**
+	 *탈퇴한 회원 조회
+	 */
+	@Override
+	public Map<String, Object> adminUserOutList(User condition,int cp) {
+
+		int userOutlistCount = mapper.userOutListCount(condition);
+
+		Pagination pagination = new Pagination(userOutlistCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<User> userList = mapper.adminUserOutList(condition,rowBounds);
+
+		Map<String, Object> adminUserList = new HashMap<String, Object>();
+		adminUserList.put("pagination", pagination);
+		adminUserList.put("userList", userList);
+
+		return adminUserList;
+	}
+
+
 
 	// 회원 선택 삭제
 	@Override
@@ -801,6 +835,21 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminReviewMap;
 	}
+
+
+	@Override
+	public int userInListCount() {
+		
+		return mapper.userInListCount();
+	}
+
+
+	@Override
+	public int userOutListCount() {
+		
+		return mapper.userOutListCount();
+	}
+
 
 
 

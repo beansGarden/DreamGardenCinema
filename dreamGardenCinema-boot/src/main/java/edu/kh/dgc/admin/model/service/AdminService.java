@@ -75,6 +75,11 @@ public interface AdminService {
 	//회원관리 List 조회
 	Map<String, Object> adminUserList(int cp);
 	
+	
+	//탈퇴한 회원 조회
+	Map<String, Object> adminUserOutList(User condition, int cp);
+
+	
 
 	//회원 선택 삭제
 	int userDelete(int userNo);
@@ -204,6 +209,10 @@ public interface AdminService {
 
 	//리뷰관리 검색
 	Map<String, Object> getReviewSearchList(Review condition, int cp);
+
+	int userInListCount();
+
+	int userOutListCount();
 
 	
 	

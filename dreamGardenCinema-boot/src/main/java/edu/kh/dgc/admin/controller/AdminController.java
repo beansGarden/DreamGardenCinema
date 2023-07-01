@@ -111,6 +111,26 @@ public class AdminController {
 
 		return "admin/admin_user";
 	}
+	// 2.관리자 회원 관리 탈퇴한 회원만 보기-------------------------------------------------------------------------
+	@GetMapping("/adminUserOut")
+	public String adminOutUser(Model model,@Param("type") String type, @Param("keyword") String keyword, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			User condition = new User();
+			condition.setType(type);
+			condition.setKeyword(keyword);
+			
+			Map<String, Object> adminUserList = service.adminUserOutList(condition,cp);
+			
+			model.addAttribute("adminUserList", adminUserList);
+			
+			System.out.println(adminUserList);
+		}
+		
+		return "admin/admin_user";
+	}
 
 	// 2-1.관리자 회원 탈퇴 시키기
 	@PostMapping(value = "/adminUser/deleteUserList", produces = "application/json; charset=UTF-8")
@@ -145,6 +165,20 @@ public class AdminController {
 	public int adminUserListAjax() {
 	   
 			return service.userListCount();
+	}
+	//2-3 회원 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminUserInListAjax")
+	public int adminUserInListAjax() {
+		
+		return service.userInListCount();
+	}
+	//2-3 회원 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminUserOutListAjax")
+	public int adminUserOutListAjax() {
+		
+		return service.userOutListCount();
 	}
 
 	
@@ -398,7 +432,7 @@ public class AdminController {
 
 		// 삽입 성공 시
 		String message = null;
-		String path = "redirect:/adminNotice";
+		String path = "redirect:";
 		if (noticeNoCheck > 0) { // 성공시
 			message = "게시글이 삭제되었습니다.";
 		} else {
@@ -751,7 +785,7 @@ public class AdminController {
 	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
 
-//		int FAQNo = service.faqInsert(faq);
+		int FAQNo = service.faqInsert(faq);
 
 		model.addAttribute("Faq", faq);
 
@@ -818,7 +852,7 @@ public class AdminController {
 		if (faqNoCheck > 0) { // 성공시
 
 			message = "게시글이 등록 되었습니다.";
-			path += "/adminFaq";
+			path += "redirect:";
 
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";

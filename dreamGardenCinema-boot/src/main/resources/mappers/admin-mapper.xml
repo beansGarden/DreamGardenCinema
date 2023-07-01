@@ -162,40 +162,54 @@
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList" resultMap="qna_rm">
 		SELECT
-		QNA.QNA_NO,
-		QNA.QNA_TITLE,
-		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,
-		QNA.QNA_DELETE_FL,
-		QNA.QNA_CHECK_FL,
-		QNA_IMG.QNA_IMG_PATH
+		    QNA.QNA_NO,
+		    QNA.QNA_TITLE,
+		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+		    USER_INFO.USER_NICKNAME,
+		    QNA.QNA_DELETE_FL,
+		    QNA.QNA_CHECK_FL,
+		    QNA_IMG.QNA_IMG_PATH
 		FROM
-		QNA
-		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+		    QNA
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
 		LEFT JOIN (
-		SELECT
-		QNA_NO,
-		MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
-		FROM
-		QNA_IMG
-		GROUP BY
-		QNA_NO
+		    SELECT
+		        QNA_NO,
+		        MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
+		    FROM
+		        QNA_IMG
+		    GROUP BY
+		        QNA_NO
 		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
 		ORDER BY
-		QNA.QNA_NO DESC
-	</select>
+		    QNA.QNA_NO DESC
+			</select>
 
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList5" resultMap="qna_rm">
-		SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL
-		FROM (
-		SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL,
-		ROW_NUMBER() OVER (ORDER BY QNA_NO DESC) AS rn
-		FROM QNA
-		JOIN "USER_INFO" ON USER_NO = USER_NO2
-		WHERE QNA_DELETE_FL = 'N'
-		)
-		WHERE rn &lt;= 5
+		SELECT
+		    QNA.QNA_NO,
+		    QNA.QNA_TITLE,
+		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+		    USER_INFO.USER_NICKNAME,
+		    QNA.QNA_DELETE_FL,
+		    QNA.QNA_CHECK_FL,
+		    QNA_IMG.QNA_IMG_PATH
+		FROM
+		    QNA
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+		LEFT JOIN (
+		    SELECT
+		        QNA_NO,
+		        MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
+		    FROM
+		        QNA_IMG
+		    GROUP BY
+		        QNA_NO
+		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
+		ORDER BY
+		    QNA.QNA_NO DESC
+		FETCH FIRST 5 ROWS ONLY
 
 	</select>
 
@@ -333,7 +347,8 @@
 	<select id="adminUserList" resultMap="user_rm">
 		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
-		ORDER BY USER_NO DESC
+		WHERE USER_CLOSE = 'N'
+		ORDER BY USER_RATING DESC
 	</select>
 
 	<!--회원 선택 삭제-->
@@ -387,7 +402,7 @@
         <choose>
             <when test="type != null and type.equals('number')">
                 <if test="keyword != null and keyword != ''">
-                    AND USER_NO LIKE '%' || #{keyword} || '%'
+                    AND USER_NO LIKE %' || #{keyword} || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('name')">
@@ -414,7 +429,90 @@
     </where>
 </select>
 
+
+<!--탈퇴한 회원 수-->
+<select id="userOutListCount" parameterType="User" resultType="_int">
+ SELECT COUNT(*)
+    FROM "USER_INFO"
+    WHERE USER_CLOSE = 'Y'
+    <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE %' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+</select>
+	
 	 
+	 
+	 <select id="adminUserOutList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
+		FROM USER_INFO
+		WHERE USER_CLOSE = 'Y'
+		  <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE %' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+    	ORDER BY USER_RATING DESC
+</select>
+
+
+	<select id="userInListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_CLOSE = 'N'
+	</select>
+
+
+
 	 <!--////////////영화////////////-->
 
 	 
@@ -567,6 +665,8 @@
 
 
 
+
+
 	<!--////////////공지사항////////////-->
 
 	<!--공지사항 개수 세기-->
@@ -704,10 +804,13 @@
 		WHERE FAQ_NO = #{FAQNo}
 	</update>
 
-	<insert id="faqInsert">
-		INSERT INTO "FAQ"
-		VALUES (SEQ_FAQ_NO.NEXTVAL,#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
+<insert id="faqInsert" parameterType="FAQ" useGeneratedKeys="true">
+
+		<selectKey order="BEFORE" resultType="_int" keyProperty="FAQNo">
+			SELECT SEQ_FAQ_NO.NEXTVAL FROM DUAL
+		</selectKey> INSERT INTO "FAQ" VALUES (#{FAQNo},#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
 	</insert>
+
 
 	<select id="getFaqSearchList" parameterType="FAQ" resultMap="faq_rm"> 
 		SELECT FAQ.FAQ_NO, FAQ.FAQ_TITLE, FAQ_CONTENT, FAQ_DELETE_FL, FAQ_CATEGORY FROM FAQ 
