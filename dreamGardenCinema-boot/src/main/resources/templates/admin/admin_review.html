@@ -20,7 +20,7 @@
     <div class="admin_reviewWrap">
 
         <!-- 게시판 제목 -->
-        <span id="admin_reviewTitle">리뷰 신고 관리</span>
+        <span id="admin_reviewTitle">리뷰 관리</span>
 
         <!-- 검색창 -->
         <div class="admin_reviewSearchWrap">
@@ -57,9 +57,13 @@
 
         </div>
 
+        <div>
+            <span>총 게시글 개수 :</span>
+            <span class="adminReviewCountAll">0</span>
+        </div>
         <!-- 게시판 -->
         <div class="admin_reviewBoardWrap">
-            <table id="boardTable">
+            <table id="boardTable"  style='table-layout:fixed'>
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="" id="" class="admin_reviewCheckboxAll"

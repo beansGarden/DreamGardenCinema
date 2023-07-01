@@ -80,8 +80,35 @@
     border-collapse: collapse;
     width: 1000px;
 
-
 }
+/* 체크박스 */
+#boardTable > thead > tr > th:nth-child(1){
+    width: 10px;
+}
+#boardTable > thead > tr > th:nth-child(2){
+    width: 10px;
+}
+#boardTable > thead > tr > th:nth-child(3){
+    width: 50px;
+}
+#boardTable > thead > tr > th:nth-child(4){
+    width: 100px;
+}
+#boardTable > thead > tr > th:nth-child(5){
+    width: 20px;
+}
+#boardTable > thead > tr > th:nth-child(6){
+    width: 20px;
+}
+#boardTable > thead > tr > th:nth-child(7){
+    width: 60px;
+}
+#boardTable > thead > tr > th:nth-child(8){
+    width: 20px;
+}
+
+
+
 
 /* 테이블 th,td 칸 */
 .admin_reviewBoardWrap > table >th,td{
@@ -139,4 +166,10 @@
     color: #0F0954;
 }
 
- 
+.pagination {
+    display: block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+}       

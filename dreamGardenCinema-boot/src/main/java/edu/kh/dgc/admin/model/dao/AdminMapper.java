@@ -75,7 +75,7 @@ public interface AdminMapper {
 	int qnaAnswerInsert(QnaComment qnaCommentObj);
 
 	// 1:1문의 게시글 검색
-	List<Qna> getSearchList(RowBounds rowBounds);
+	List<Qna> getSearchList(Qna condition, RowBounds rowBounds);
 
 	// 회원관리*****************************************************
 
@@ -109,7 +109,11 @@ public interface AdminMapper {
 	 */
 	List<User> getUserSearchList(User condition, RowBounds rowBounds);
 
-	
+	/**회원 검색에 따른 회원 수 불러오기
+	 * @param condition
+	 * @return
+	 */
+	int userfilterListCount(User condition);
 
 	// 영화 관리******************************************************
 
@@ -225,6 +229,13 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int noticeDelete(int noticeNo);
+	
+	
+	/**공지사항 검색에 따른 게시글 개수
+	 * @param condition
+	 * @return
+	 */
+	int noticeFilterListCount(Notice condition);
 
 	/**
 	 * FAQ (자주 찾는 질문) 게시글 검색
@@ -359,14 +370,27 @@ public interface AdminMapper {
 	List<Review> adminReviewList(RowBounds rowBounds);
 
 	//리뷰 검색
-	List<Review> getReviewSearchList(RowBounds rowBounds);
+	List<Review> getReviewSearchList(Review condition, RowBounds rowBounds);
 
 	//영화 관 별 개수
 	int movieCinemaCount();
 
 	int movieCinemaCount(String movieTheaterNo);
 
-	int userfilterListCount(User condition);
+	//Qna 문의관리 검색에 따른 개수 불러오기
+	int qnaFilterListCount(Qna condition);
+
+	//FAQ 검색에 따른 개수 불러오기
+	int faqFilterListCount(FAQ condition);
+
+	int reviewFilterListCount(Review condition);
+
+	//신고하기 검색에 따른 개수 불러오기
+	int reportFilterListCount(Report condition);
+
+	
+
+	
 
 	
 

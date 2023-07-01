@@ -19,10 +19,15 @@
 .admin_faqBoardWrap > table>tr,th,td{
     border-bottom: 1px solid black;
 }
-body > div.admin_faqWrap > div > table > thead > tr:nth-child(4) > td{
-    width: 800px;
-
+table > thead > tr:nth-child(1) > th{
+    width: 100px;
 }
+
+/* 글 내용 */
+table > thead > tr:nth-child(1) > td{
+    width: 800px;
+}
+
 
 /* 내용 칸 */
 .admin_faqContent{

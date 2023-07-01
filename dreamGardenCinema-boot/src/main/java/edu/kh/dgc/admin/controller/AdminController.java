@@ -746,7 +746,7 @@ public class AdminController {
 		return "admin/admin_FAQ_Write";
 
 	}
-	// 7-2-1. 1:1 문의사항 게시글 쓰기 - 삽입 230614
+	// 7-2-1. FAQ 게시글 쓰기 - 삽입 230614
 
 	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
@@ -841,7 +841,7 @@ public class AdminController {
 		return service.deleteFaq(FAQNo);
 	}
 
-	// 7-4.공지사항 게시글 검색
+		// 7-4.FAQ 게시글 검색
 	@GetMapping("/getFaqSearchList")
 	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
@@ -932,7 +932,7 @@ public class AdminController {
 				
 				path += "redirect:";
 			}
-			path += "/adminReportRead" +"/" + reviewNo;
+			path += "/adminReportRead" +"/" + reportNo;
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";
 			path += "adminReport";
@@ -1000,7 +1000,7 @@ public class AdminController {
 	public String getReviewSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		Qna condition = new Qna();
+		Review condition = new Review();
 
 		condition.setType(type);
 		condition.setKeyword(keyword);

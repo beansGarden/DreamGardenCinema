@@ -22,4 +22,8 @@ public class Review {
 	
 	//JOIN
 	private String movieTitle;
+	
+	//검색필터
+		private  String type;
+		private String keyword;
 }

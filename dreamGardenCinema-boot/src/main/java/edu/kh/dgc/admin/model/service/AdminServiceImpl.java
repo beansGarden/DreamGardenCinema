@@ -150,9 +150,9 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1 문의사항 검색
 	@Override
-	public Map<String, Object> getSearchList(Qna conditon, int cp) {
+	public Map<String, Object> getSearchList(Qna condition, int cp) {
 		
-		int qnalistCount = mapper.qnaListCount();
+		int qnalistCount = mapper.qnaFilterListCount(condition);
 
 		Pagination pagination = new Pagination(qnalistCount, cp);
 
@@ -168,7 +168,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Qna> qnaList = mapper.getSearchList(rowBounds);
+		List<Qna> qnaList = mapper.getSearchList(condition,rowBounds);
 
 		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
 		getQnaSearchMap.put("pagination", pagination);
@@ -497,7 +497,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public 	Map<String, Object> getNoticeSearchList(Notice condition, int cp) {
 
-		int noticeListCount = mapper.noticeListCount();
+		int noticeListCount = mapper.noticeFilterListCount(condition);
 
 		Pagination pagination = new Pagination(noticeListCount, cp);
 
@@ -602,9 +602,9 @@ public class AdminServiceImpl implements AdminService {
 
 	// FAQ 게시글 검색
 	@Override
-	public Map<String, Object> getFaqSearchList(FAQ condtion, int cp) {
+	public Map<String, Object> getFaqSearchList(FAQ condition, int cp) {
 
-		int faqListCount = mapper.faqListCount();
+		int faqListCount = mapper.faqFilterListCount(condition);
 
 		Pagination pagination = new Pagination(faqListCount, cp);
 		// 1) offset 계산
@@ -613,7 +613,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<FAQ> adminFaqList =  mapper.getFaqSearchList(condtion,rowBounds);
+		List<FAQ> adminFaqList =  mapper.getFaqSearchList(condition,rowBounds);
 
 		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
 		
@@ -696,7 +696,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getReportSearchList(Report condition, int cp) {
 		
-		int reportListCount = mapper.reportListCount();
+		int reportListCount = mapper.reportFilterListCount(condition);
 
 		Pagination pagination = new Pagination(reportListCount, cp);
 
@@ -773,9 +773,9 @@ public class AdminServiceImpl implements AdminService {
 
 	//리뷰 관리 검색
 	@Override
-	public Map<String, Object> getReviewSearchList(Qna condition, int cp) {
+	public Map<String, Object> getReviewSearchList(Review condition, int cp) {
 		
-		int reviewListCount = mapper.reviewListCount();
+		int reviewListCount = mapper.reviewFilterListCount(condition);
 
 		Pagination pagination = new Pagination(reviewListCount, cp);
 
@@ -791,7 +791,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Review> adminReviewList = mapper.getReviewSearchList(rowBounds);
+		List<Review> adminReviewList = mapper.getReviewSearchList(condition,rowBounds);
 
 		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
 		

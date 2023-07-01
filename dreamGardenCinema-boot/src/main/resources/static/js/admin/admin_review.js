@@ -9,7 +9,7 @@ function userSelectAll(userSelectAll)  {
   }
 
   /* 삭제 버튼 선택 삭제하기 */
-  const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
+ /*  const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
   const checkbox = document.getElementsByClassName("admin_reviewCheckbox"); //check박스
   const checkboxNo = document.getElementsByClassName("admin_review_checkbox_no"); //번호
  
@@ -44,7 +44,7 @@ function reviewDelete(reviewNo){
 
   }).catch(err=> console.log(err));
 
-}
+} */
 
 //체크박스 숫자 불러오기
 function userSelectAll(checkbox) {
@@ -82,28 +82,27 @@ var totalItems = document.querySelectorAll('.admin_reviewCheckbox').length;
 countAll.textContent = totalItems.toString();
 
 
-
 //review 전체 불러오기
 
-  // Ajax 요청 함수
-  function ajaxRequest(url, method, successCallback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            successCallback(xhr.responseText);
-        }
-    };
-    xhr.send();
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
 }
 
 // 영화 개수 가져오기
 function getReviewCount() {
-    ajaxRequest('/adminReviewListAjax', 'GET', function(response) {
-        var countElement = document.querySelector('.admin_reviewCountAll');
-        countElement.textContent = response;
-    });
-}
+  ajaxRequest('/adminReviewListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminReviewCountAll');
+      countElement.textContent = response;
 
-// 페이지 로드 시 영화 개수 가져오기 호출
-getReviewCount();
+ 
+  });
+}
+getReviewCount()

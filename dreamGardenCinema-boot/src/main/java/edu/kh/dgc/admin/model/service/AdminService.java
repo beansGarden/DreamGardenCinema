@@ -203,7 +203,7 @@ public interface AdminService {
 	int reviewListCount();
 
 	//리뷰관리 검색
-	Map<String, Object> getReviewSearchList(Qna condition, int cp);
+	Map<String, Object> getReviewSearchList(Review condition, int cp);
 
 	
 	
