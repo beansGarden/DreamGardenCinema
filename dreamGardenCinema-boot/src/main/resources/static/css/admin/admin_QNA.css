@@ -171,10 +171,3 @@
     color: #0F0954;
 }
 
-.pagination {
-    display: block;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: fixed;
-}       
