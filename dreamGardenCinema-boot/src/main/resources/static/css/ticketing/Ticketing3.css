@@ -189,6 +189,7 @@ body{
 .display-none {
     display: none !important;
 }
+.payment-select-head{position: relative;}
 .payment-modal{
     /* display: none; //초기에 모달을 숨김 */
     position: fixed;
@@ -208,7 +209,6 @@ body{
     max-width: 600px;
     text-align: center;
     overflow: hidden;
-    height: 571px;
 }
 .payment-select-text{
     font-size: 28px;
@@ -218,7 +218,7 @@ body{
 .payment-select-line{
     width: 90%;
     height: 1px;
-    margin: 15px 0;
+    margin: 15px 0 0 0;
     display: inline-block;
     border-bottom: 1px solid #00000050;
 }
@@ -237,7 +237,7 @@ body{
     font-size: 16px;
     font-weight: normal;
     background: #fff;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #d2d2d2;
     border-radius: 4px;
     color: #777;
     box-sizing: border-box;
@@ -246,8 +246,8 @@ body{
 
 .payment-select-page input:checked + label {
     background: #fff;
-    color: #5250BE;
-    border: 1px solid #5250BE;
+    color: #0E0753 ;
+    border: 2px solid #5250BE;
 }
 
 .payment-execution{
@@ -259,3 +259,23 @@ body{
     font-size: 20px;
     color: #fff;
 }
+.btn-close {
+    position: absolute;
+    padding-right: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff00;
+    top: -10%;
+    right: 3%;
+} 
+.btn-close:before, .btn-close:after {
+    position: absolute; 
+    right:46%; 
+    top:10%; 
+    content:''; 
+    height: 40px; 
+    width:1px; 
+    background-color: #777;
+} 
+.btn-close:before {transform: rotate(45deg);} 
+.btn-close:after {transform: rotate(-45deg);}

@@ -1,6 +1,10 @@
 console.log(loginUser.userEmail);
 console.log(loginUser.userNickname);
 console.log(loginUser.userTel);
+let selectedPaymentMethod;
+function changePaymentMethod(method) {
+    selectedPaymentMethod = method;
+}
 function requestPay() {
 
     fetch("/ticketing/info", {
@@ -28,9 +32,10 @@ function requestPay() {
         // 화면의 값을 바꿨을 때 요청 X
         if(payAmount == screenPay){
             let imp_uid = '';
+            console.log(selectedPaymentMethod);
             IMP.init("imp15468635");
             IMP.request_pay({ // param
-                pg: "payco",
+                pg: selectedPaymentMethod,
                 pay_method: "card",
                 merchant_uid: ticketId,
                 name: movieTitle,
@@ -87,4 +92,14 @@ function requestPay() {
         }
     })
 }
+
+const paymentModal = document.querySelector(".payment-modal");
+const btnClose = document.querySelector(".btn-close");
+
+btnPayment.addEventListener("click", function() {
+    paymentModal.classList.remove("display-none");
+});
+btnClose.addEventListener("click", function() {
+    paymentModal.classList.add("display-none");
+});
 

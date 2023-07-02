@@ -56,37 +56,33 @@
                 </div>
                 <button type="button" class="btn_payment">
                     <div class="liquidate">
-                        <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
                         <span>결제하기</span>
                     </div>
                 </button>
-                <!-- <button type="button" class="btn_payment" onclick="requestPay()">
-                    <div class="liquidate">
-                        <img th:src="@{/images/ticketing/카카오페이1.png}" alt="">
-                        <span>결제하기</span>
-                    </div>
-                </button> -->
             </form>
         </div>
     </div>
 
-    <div class="payment-modal">
+    <div class="payment-modal display-none">
         <div class="payment-select-page">
-            <div><p class="payment-select-text">결제 수단</p></div>
+            <div class="payment-select-head">
+                <p class="payment-select-text">결제 수단</p>
+                <button type="button" class="btn-close"></button>
+            </div>
             <div class="payment-select-line"></div>
-            <input type="radio" name="payment-select" id="card" onclick="changeCheck('html5_inicis')">
+            <input type="radio" name="payment-select" id="card" onclick="changePaymentMethod('html5_inicis')" checked>
             <label for="card" class="payment-choice">카드</label>
 
-            <input type="radio" name="payment-select" id="kakaopay" onclick="changeCheck('kakaopay')">
+            <input type="radio" name="payment-select" id="kakaopay" onclick="changePaymentMethod('kakaopay')">
             <label for="kakaopay" class="payment-choice">카카오페이</label>
 
-            <input type="radio" name="payment-select" id="tosspay" onclick="changeCheck('tosspay')">
+            <input type="radio" name="payment-select" id="tosspay" onclick="changePaymentMethod('tosspay')">
             <label for="tosspay" class="payment-choice">토스페이</label>
 
-            <input type="radio" name="payment-select" id="naverpay" onclick="changeCheck('html5_inicis')">
+            <input type="radio" name="payment-select" id="naverpay" onclick="changePaymentMethod('html5_inicis')">
             <label for="naverpay" class="payment-choice">네이버페이</label>
 
-            <button type="button" class="payment-execution"><span>결제하기</span></button>
+            <button type="button" class="payment-execution" onclick="requestPay()"><span>결제하기</span></button>
         </div>
     </div>
 
