@@ -40,18 +40,22 @@ if (movieType != "") {
             <button>평점순</button>
             |
             <button>관람평 많은순</button>
-            |
-            <button>보고싶어요순</button>
         */
 
         const byTicket = document.createElement("button");
         byTicket.innerText = "예매순";
+        byTicket.className = "sort-active";
+        byTicket.id = "byTicket";
 
         const byStar = document.createElement("button");
         byStar.innerText = "평점순";
+        byStar.className = "sort-non-active";
+        byStar.id = "byStar";
         
         const byReview = document.createElement("button");
         byReview.innerText = "관람평 많은순";
+        byReview.className = "sort-non-active";
+        byReview.id = "byReview";
 
         navMenu.append(byTicket);
         navMenu.innerHTML += " | ";
@@ -267,6 +271,9 @@ if (movieType != "") {
 
     });
 
+
+
+
     /* 상영예정작 버튼을 눌렀을때 */
     promiseBtn.addEventListener("click", () => {
 
@@ -278,6 +285,7 @@ if (movieType != "") {
 
         const byRelease = document.createElement("div");
         byRelease.innerText = "개봉일순";
+        byRelease.classList.add("sort-active");
 
         navMenu.append(byRelease);
 

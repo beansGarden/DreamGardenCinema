@@ -47,6 +47,16 @@ body {
 }
 
 
+
+.sort-active{
+    font-weight: bold;
+}
+
+.sort-non-active{
+    opacity: 0.6;
+}
+
+
 /* 영화리스트 */
 
 

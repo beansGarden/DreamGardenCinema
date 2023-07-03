@@ -47,11 +47,12 @@
 
             <div class="font3 nav-menu">
 
-                <button>예매순</button>
+                <button class="sort-active" id="byTicket">예매순</button>
                 |
-                <button>평점순</button>
+                <button class="sort-non-active" id="byStar">평점순</button>
                 |
-                <button>관람평 많은순</button>
+                <button class="sort-non-active" id="byReview">관람평 많은순</button>
+            
 
             </div>
 
@@ -82,7 +83,7 @@
                         <em th:text="${movie.score}"></em>
                     </span>
                 </div>
-                
+
             </div>
 
         </div>
