@@ -9,11 +9,6 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/movie/movie.css}">
 
-    <!-- swiper css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <!-- swiper css custom -->
-    <link rel="stylesheet" th:href="@{/css/movie/silder.css}">
-
     <!-- 구글 아이콘 > 아래방향 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
@@ -21,19 +16,6 @@
 <body>
 
     <th:block th:replace="~{common/header-white}"></th:block>
-
-    <section class="movie--Top__banner">
-        <div class="swiper movie--main--slider">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" th:each="slideImg : ${movieMainSlideImgList}"><img th:src="${slideImg.MOVIE_IMG_PATH}"></div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
-
-
 
     <section class="movie--mid__List promise">
 

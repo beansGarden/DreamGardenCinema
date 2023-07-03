@@ -53,7 +53,7 @@ body {
 }
 
 .sort-non-active{
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 
@@ -63,7 +63,7 @@ body {
 /* movie List 전체에 대한 박스 */
 .movie--mid__List {
     margin: auto;
-    margin-top: 60px;
+    margin-top: 20px;
     width: 980px;
 }
 
