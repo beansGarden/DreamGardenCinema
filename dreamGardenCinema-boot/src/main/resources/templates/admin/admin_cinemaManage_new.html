@@ -13,7 +13,7 @@
 <main th:with="pagination=${map.pagination}, movieList=${map.movieList}">
     <body>
         <!-- 사이드바 -->
-        <!-- <th:block th:replace="~{/admin/admin_sideBar}"></th:block> -->
+        <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
         
         <div class="cinemaManage">
             <div id="admin_cinemaManageTitle">상영관 관리</div>
@@ -47,7 +47,7 @@
                 </div>
                 <button>조회</button>
             </form>
-            <div>총 <span th:text="${#lists.size(movieList)}"></span>개</div>
+            <div>총 <span th:text="${map.listCount}"></span>개</div>
             <table border="1px">
                 <thead>
                     <tr>
@@ -63,8 +63,8 @@
                     <tr th:each="list : ${movieList}">
                         <td><input type="checkbox"></td>
                         <td th:text="${list.movieTheater}">상영관</td>
-                        <td><a th:text="${list.movieTitle}" id="movieTt">영화제목</a></td>
-                        <td th:text="${list.runningTime}">러닝타임</td>
+                        <td><a th:text="${list.movieTitle}" id="movieTt" th:movieNo="${list.movieNo}">영화제목</a></td>
+                        <td th:text="${list.runningTime} + '분'">러닝타임</td>
                         <td th:text="${list.movieTime}">상영일</td>
                     </tr>
                 </tbody>
@@ -73,10 +73,10 @@
              <div th:if="${#lists.size(movieList) > 0}" class="pagination-area">
 
                 <!-- 검색 X인 경우의 페이지네이션 -->
-                <ul th:unless="${param.content}" class="pagination">
+                <ul th:unless="${param.content} and ${param.movieTheater} and ${param.date}" class="pagination">
 
                     <!-- 첫 페이지로 이동 -->
-                    <li><a th:href="@{/adminCinemaManage(cp=1)}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <li><a th:href="@{/adminCinemaManage(cp=${pagination.prevPage})}">&lt;</a></li>
@@ -111,10 +111,10 @@
                 <ul th:if="${param.content}" class="pagination">
                 
                     <!-- 첫 페이지로 이동 -->
-                    <li><a th:href="@{/adminCinemaManage(cp=1, key=${param.selectOpt}, query=${param.content})}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminCinemaManage(cp=1, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
-                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.prevPage}, key=${param.selectOpt}, query=${param.content})}">&lt;</a></li>
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.prevPage}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater})}">&lt;</a></li>
 
                     <!-- #numbers.sequence(시작, 끝 [,step]) -->
                     <!-- 특정 페이지로 이동 -->
@@ -126,19 +126,19 @@
 
                         <!-- 현재 페이지를 제외한 나머지 -->
                         <li th:unless="${i == pagination.currentPage}">
-                            <a th:href="@{/adminCinemaManage(cp=${i}, key=${param.selectOpt}, query=${param.content})}" th:text="${i}">현재 페이지</a>
+                            <a th:href="@{/adminCinemaManage(cp=${i}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater})}" th:text="${i}">현재 페이지</a>
                         </li>
                     </th:block>
 
                     <!-- 다음 목록 시작 번호로 이동 -->
-                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.nextPage}, key=${param.selectOpt}, query=${param.content})}">&gt;</a></li>
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.nextPage}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater})}">&gt;</a></li>
 
                     <!-- 끝 페이지로 이동 -->
-                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.maxPage}, key=${param.selectOpt}, query=${param.content})}">&gt;&gt;</a></li>
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.maxPage}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater})}">&gt;&gt;</a></li>
                 </ul>
             </div>
             <div>
-                <button>등록</button>
+                <button id="regist">등록</button>
                 <button>삭제</button>
             </div>
         </div>

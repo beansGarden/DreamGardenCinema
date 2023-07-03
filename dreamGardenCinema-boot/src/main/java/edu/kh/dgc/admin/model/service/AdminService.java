@@ -12,6 +12,7 @@ import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.review.model.dto.Review;
+import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -201,7 +202,13 @@ public interface AdminService {
 
 	
 	// 상영관 리스트 조회(찬희)
-	Map<String, Object> selectCinemaList(Map<String, Object> paramMap, int cp);
+	Map<String, Object> selectCinemaList(Map<String, Object> paramMap, String cp);
+
+	// 상영관 세부 시간 조회 AJAX(찬희)
+	List<String> selectDetailTime(Map<String, Object> paramMap);
+
+	// 상영관 세부 시간 삭제(찬희)
+	int deleteDetailTime(Schedule schedule);
 
 
 	

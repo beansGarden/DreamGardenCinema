@@ -111,7 +111,7 @@
 
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                    <li><a th:onclick="pageMove(${pagination.startPage})">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->

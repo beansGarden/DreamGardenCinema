@@ -36,6 +36,7 @@ import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.review.model.dto.Review;
 import edu.kh.dgc.user.model.dto.User;
+import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
 @Controller
@@ -238,18 +239,19 @@ public class AdminController {
 	
 	// 상영관 리스트 조회(찬희)
 	@GetMapping("/adminCinemaManage")
-	public String selectCinemaList(@RequestParam(value="cp", required=false, defaultValue="1") int cp
+	public String selectCinemaList(@RequestParam(value="cp", required=false, defaultValue="1") String cp
 									, Model model
 									, @RequestParam Map<String, Object> paramMap) {
 		// paramMap에는 movieTheater, date, selectOpt(t,d,a) 가 담겨있음
 		
 		String date = (String) paramMap.get("date");
 		
+		System.out.println(cp);
+		System.out.println(paramMap);
+		
 		if(date != null && date.equals("")) {
 			paramMap.put("date", null);
 		}
-		
-		
 		
 		Map<String, Object> map = service.selectCinemaList(paramMap, cp);
 		
@@ -257,6 +259,41 @@ public class AdminController {
 		
 		return "admin/admin_cinemaManage_new";
 	}
+	
+	// 상영관 세부 시간 조회 AJAX(찬희)
+	@ResponseBody
+	@PostMapping("/adminCinemaTimeSelect")
+	public List<String> selectDetailTime(@RequestBody Map<String, Object> paramMap) {
+		List<String> timeList = service.selectDetailTime(paramMap);
+		
+		return timeList;
+	}
+	
+	// 상영관 세부 시간 삭제(찬희)
+	@PostMapping("/adminCinemaDeleteTime")
+	public String deleteDetailTime(Schedule schedule, String cp, String selectOpt, String date, String theater, RedirectAttributes ra) {
+		
+		int result = service.deleteDetailTime(schedule);
+
+		String message = null;
+		if(result>0) {
+			if(cp.equals("null")) {
+				cp = "1";
+			}
+			ra.addAttribute("cp", cp);
+			ra.addAttribute("movieTheater", theater);
+			ra.addAttribute("selectOpt", selectOpt);
+			ra.addAttribute("date", date);
+			message = "삭제되었습니다";
+		} else {
+			message = "삭제 실패!! 이미 예약된 좌석이 있는지 확인해주세요";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/adminCinemaManage";
+	}
+	
 
 	
 	
