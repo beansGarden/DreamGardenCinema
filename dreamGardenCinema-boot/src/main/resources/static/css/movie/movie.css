@@ -86,6 +86,7 @@ body {
 
 .movieList--items {
     margin: auto;
+    margin-top: 10px;
     width: 98%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);

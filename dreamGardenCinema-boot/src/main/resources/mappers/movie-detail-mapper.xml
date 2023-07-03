@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.kh.dgc.movie.model.dao.MovieMapper">
+<mapper namespace="edu.kh.dgc.movie.model.dao.MovieDetailMapper">
 	
 	<resultMap type="Movie" id="movie_rm">
 		<id property="movieNo" column="MOVIE_NO"/>
@@ -38,55 +38,6 @@
 		<result property="movieNo" column="MOVIE_NO"/>
 	</resultMap>
 	
-	
-	
-	
-	<select id="selectMainSlideImgList">
-		SELECT *
-		FROM MOVIE_IMG
-		WHERE MOVIE_IMG_ROLE='메인슬라이드'
-		ORDER BY DBMS_RANDOM.RANDOM
-	</select>
-	
-	
-	<select id="selectMovieList" resultMap="movie_rm">
-		SELECT * 
-		FROM MOVIE
-	</select>
-	
-	<!-- 메인 작은 슬라이드 예매율, 별점 계산해서 가져오기 -->
-	<select id="selectMovieListCurrent" resultMap="movie_rm">
-		SELECT * 
-		FROM 
-		(SELECT ROWNUM AS RANK, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 1) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE
-		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
-				(SELECT COUNT(TICKET_NO)
-				FROM TICKETING_INFO C
-				JOIN SEAT_CHECK USING(TICKET_NO)
-				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, NVL((SELECT ROUND(AVG(SCORE),1) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE
-			FROM MOVIE P
-			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
-				 ON(P.MOVIE_NO = I.MOVIE_NO)
-			WHERE SCREENING = 'C'
-			ORDER BY TICKET_COUNT DESC, RELEASE_DATE))
-	</select>
-	
-	<select id="selectMovieListPromise" resultMap="movie_rm">
-		SELECT *
-		FROM MOVIE
-		WHERE SCREENING = 'P'
-		ORDER BY RELEASE_DATE
-	</select>
-	
-	<!-- 영화 슬라이드 이미지 리스트 뽑아오기 --> 
-	<select id="selectMovieMainSlideImgList" resultType="map">
-		SELECT *
-		FROM MOVIE_IMG
-		WHERE MOVIE_IMG_ROLE='영화슬라이드'
-		ORDER BY DBMS_RANDOM.RANDOM
-	</select>
-	
-	<!-- -->
 	<select id="selectAdvertisePoster" resultType="map">
 		SELECT *
 		FROM(
@@ -119,7 +70,6 @@
 		WHERE MOVIE_NO = #{movieNo}
 	</select>
 	
-	<!--영화인 정보 얻어오기-->
 	<select id="selectMoviePerson" resultMap="person_rm">
 		SELECT *
 		FROM PERSON_INFO
