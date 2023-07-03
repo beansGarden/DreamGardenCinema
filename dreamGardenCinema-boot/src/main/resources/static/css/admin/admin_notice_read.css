@@ -16,13 +16,22 @@
    
 }
 
-.admin_noticeBoardWrap > table>tr,th,td{
+ table>tr,th,td{
     border-bottom: 1px solid black;
+    
 }
-body > div.admin_noticeWrap > div > table > thead > tr:nth-child(4) > td{
-    width: 800px;
 
+
+/* 글제목 */
+table > thead > tr:nth-child(1) > th{
+    width: 100px;
 }
+
+/* 글 내용 */
+table > thead > tr:nth-child(1) > td{
+    width: 800px;
+}
+
 
 /* 내용 칸 */
 .admin_noticeContent{

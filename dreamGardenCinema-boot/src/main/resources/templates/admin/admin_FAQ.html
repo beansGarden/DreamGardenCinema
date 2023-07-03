@@ -52,9 +52,14 @@
                 <span>개)</span>
 
             </div>
+
+            <div>
+                <span>총 게시글 개수 :</span>
+                <span class="adminFaqCountAll">0</span>
+            </div>
             <!-- 게시판 -->
             <div class="admin_faqBoardWrap">
-                <table>
+                <table style='table-layout:fixed'>
                     <thead>
                         <tr>
                             <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll"
@@ -70,20 +75,16 @@
                             <td><input type="checkbox" name="" id="" class="admin_faqCheckbox"></td>
                             <td th:text="${list.FAQNo}" class="admin_faq_checkbox_no">1</td>
                             <td>
-                                <span th:if="${list.FAQCategory == 'P'}">영화관</span>
-                                <span th:if="${list.FAQCategory == 'M'}">영화</span>
+                                <span th:if="${list.FAQCategory == 'P'}">상영관</span>
+                                <span th:if="${list.FAQCategory == 'M'}">회원</span>
                                 <span th:if="${list.FAQCategory == 'U'}">멤버쉽</span>
-                                <span th:if="${list.FAQCategory == 'B'}">예매/결제</span>
-                                <span th:if="${list.FAQCategory == 'H'}">홈페이지</span>
-                                <span th:if="${list.FAQCategory == 'A'}">계정</span>
-                                <span th:if="${list.FAQCategory == '*'}">기타</span>
                             </td>
                             <td>
                                 <a th:href="@{adminFaqRead/{FAQNo}(FAQNo=${list.FAQNo})}" th:text="${list.FAQTitle}">인터넷
                                     예매
                                     후 현장에서 취소 가능한가요?</a>
                             </td>
-                            <td th:text="${list.FAQDeleteFl}">Y</td>
+                            <td class="flCheck" th:text="${list.FAQDeleteFl}">Y</td>
                         </tr>
 
                     </tbody>

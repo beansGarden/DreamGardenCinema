@@ -46,6 +46,30 @@
                             <button type="submit" class="admin_userBtn" value="검색">검색</button>
                         </div>
                 </form>
+=======
+            <!-- 검색창 -->
+            <form th:action="@{/getUserSearchList}" autocomplete="off" onsubmit="getUserCount();">
+            <div class="admin_userSearchWrap">
+                <!-- select랑 검색창만 감싸는 div -->
+                <div class="admin_userSearchWrap2">
+                    <select class="admin_userSelect"  name="type" id="type">
+                        <option value="number">번호</option>
+                        <option value="id">아이디</option>
+                        <option value="name">닉네임</option>
+                        <option value="email">이메일</option>
+                        <option value="rating">등급</option>
+                    </select>
+                    <!-- 검색 input 창 -->
+
+                    <input type="text" name="keyword" id="keyword" class="admin_userInput">
+                </div>
+
+                <!-- 검색 버튼 -->
+                <div class="admin_userBtnWrap">
+                    <button type="submit"  class="admin_userBtn" value="검색">검색</button>
+                </div>
+            </form>
+>>>>>>> origin/유민
             </div>
             <!-- 목록 count -->
             <div class="admin_userList">
@@ -55,7 +79,15 @@
                 <span> / </span>
                 <span class="admin_userCountAll">0</span>
                 <span>개)</span>
+            </div>
 
+            <div>
+                <span>총 회원 수 : </span>
+                <span class="adminUserCountAll">0</span>
+                <span>일반 회원 수 : </span>
+                <span class="adminUserInCountAll">0</span>
+                <span>탈퇴한 회원 수 : </span>
+                <span class="adminUserOutCountAll">0</span>
             </div>
             <!-- 게시판 -->
             <div class="admin_userBoardWrap">
@@ -93,8 +125,13 @@
 
                 </table>
             </div>
+<<<<<<< HEAD
 
 
+=======
+            
+            <footer>
+>>>>>>> origin/유민
             <!-- 페이지 네이션 -->
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div class="pagination-area">
@@ -151,6 +188,13 @@
                 </ul>
 
             </div>
+<<<<<<< HEAD
+=======
+        </footer>
+
+
+
+>>>>>>> origin/유민
 
             <!-- 등록,수정,삭제 버튼 -->
             <button id="admin_userSignOut"><a href="">탈퇴</a></button>

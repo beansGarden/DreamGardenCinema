@@ -56,9 +56,14 @@
 
         </div>
 
+        <div>
+            <span>총 게시글 개수 :</span>
+            <span class="adminQnaCountAll">0</span>
+        </div>
+
         <!-- 게시판 -->
         <div class="admin_qnaBoardWrap">
-            <table id="boardTable">
+            <table id="boardTable"  style='table-layout:fixed'>
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll"
@@ -139,7 +144,7 @@
 
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_qnaBtn">
-            <button class="admin_qnaEndBtn"><a th:href="@{adminQnaWrite}">글쓰기</a></button>
+<!--             <button class="admin_qnaEndBtn"><a th:href="@{adminQnaWrite}">글쓰기</a></button> -->
             <button class="admin_qnaEndBtn" id="deleteBtn"><a href="">삭제</a></button>
         </div>
 

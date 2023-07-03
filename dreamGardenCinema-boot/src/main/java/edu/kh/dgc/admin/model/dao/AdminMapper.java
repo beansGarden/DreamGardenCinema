@@ -32,6 +32,11 @@ public interface AdminMapper {
 	List<User> getAdminDetails();
 
 	// *****대시보드********************************************************
+
+	//영화 상역작 불러오기
+	List<Movie> cinemaCurrentList();
+
+	
 	// 영화별 매출 불러오기
 	List<Ticket> ticketList(String movieNo);
 
@@ -70,7 +75,7 @@ public interface AdminMapper {
 	int qnaAnswerInsert(QnaComment qnaCommentObj);
 
 	// 1:1문의 게시글 검색
-	List<Qna> getSearchList(RowBounds rowBounds);
+	List<Qna> getSearchList(Qna condition, RowBounds rowBounds);
 
 	// 회원관리*****************************************************
 
@@ -103,6 +108,12 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<User> getUserSearchList(User condition, RowBounds rowBounds);
+
+	/**회원 검색에 따른 회원 수 불러오기
+	 * @param condition
+	 * @return
+	 */
+	int userfilterListCount(User condition);
 
 	// 영화 관리******************************************************
 
@@ -211,6 +222,14 @@ public interface AdminMapper {
 	 */
 	int noticeWriteInsert(Notice notice);
 
+	
+	/**공지사항 수정
+	 * @param notice
+	 * @return
+	 */
+	int noticeUpdate(Notice notice);
+
+	
 	/**
 	 * 공지사항 게시글 삭제
 	 * 
@@ -218,6 +237,13 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int noticeDelete(int noticeNo);
+	
+	
+	/**공지사항 검색에 따른 게시글 개수
+	 * @param condition
+	 * @return
+	 */
+	int noticeFilterListCount(Notice condition);
 
 	/**
 	 * FAQ (자주 찾는 질문) 게시글 검색
@@ -352,6 +378,50 @@ public interface AdminMapper {
 	List<Review> adminReviewList(RowBounds rowBounds);
 
 	//리뷰 검색
-	List<Review> getReviewSearchList(RowBounds rowBounds);
+	List<Review> getReviewSearchList(Review condition, RowBounds rowBounds);
+
+	//영화 관 별 개수
+	int movieCinemaCount();
+
+	int movieCinemaCount(String movieTheaterNo);
+
+	//Qna 문의관리 검색에 따른 개수 불러오기
+	int qnaFilterListCount(Qna condition);
+
+	//FAQ 검색에 따른 개수 불러오기
+	int faqFilterListCount(FAQ condition);
+
+	int reviewFilterListCount(Review condition);
+
+	//신고하기 검색에 따른 개수 불러오기
+	int reportFilterListCount(Report condition);
+
+	//탈퇴한 회원 수 불러오기
+	int userOutListCount(User condition);
+
+	//탈퇴한 회원 리스트 불러오기
+	List<User> adminUserOutList(User condtion,RowBounds rowBounds);
+
+	int userInListCount();
+
+	int userOutListCount();
+
+	//리뷰 복구
+	int restoreReview(int reviewNo);
+
+	//영화 검색에 따른 개수 불러오기
+	int movieFilterListCount(Movie condition);
+
+	//리뷰 게시글 읽어오기
+	List<Review> adminReviewOne(int reviewNo);
+
+	
+	
+
+	
+
+	
+
+
 
 }

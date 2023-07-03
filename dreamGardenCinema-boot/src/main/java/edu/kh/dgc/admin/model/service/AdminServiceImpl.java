@@ -34,6 +34,15 @@ public class AdminServiceImpl implements AdminService {
 	
 	//대시보드
 	//영화별 매출 불러오기
+	
+	//영화 상역작만 불러오기
+	@Override
+	public List<Movie> cinemaCurrentList() {
+	
+		return  mapper.cinemaCurrentList();
+	}
+	
+	
 	@Override
 	public List<Ticket> ticketList(String movieNo) {
 		
@@ -141,9 +150,9 @@ public class AdminServiceImpl implements AdminService {
 
 	// 1:1 문의사항 검색
 	@Override
-	public Map<String, Object> getSearchList(Qna conditon, int cp) {
+	public Map<String, Object> getSearchList(Qna condition, int cp) {
 		
-		int qnalistCount = mapper.qnaListCount();
+		int qnalistCount = mapper.qnaFilterListCount(condition);
 
 		Pagination pagination = new Pagination(qnalistCount, cp);
 
@@ -159,7 +168,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Qna> qnaList = mapper.getSearchList(rowBounds);
+		List<Qna> qnaList = mapper.getSearchList(condition,rowBounds);
 
 		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
 		getQnaSearchMap.put("pagination", pagination);
@@ -209,6 +218,40 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminUserList;
 	}
+	
+
+	/**
+	 *탈퇴한 회원 조회
+	 */
+	@Override
+	public Map<String, Object> adminUserOutList(User condition,int cp) {
+
+		int userOutlistCount = mapper.userOutListCount(condition);
+
+		Pagination pagination = new Pagination(userOutlistCount, cp);
+
+		// 3. 특정 게시판에서
+		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
+		// (어떤 게시판(boarCode)에서
+		// 몇 페이지(pagination.currentPage)에 대한
+		// 게시글 몇 개(pagination.limit) 조회)
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<User> userList = mapper.adminUserOutList(condition,rowBounds);
+
+		Map<String, Object> adminUserList = new HashMap<String, Object>();
+		adminUserList.put("pagination", pagination);
+		adminUserList.put("userList", userList);
+
+		return adminUserList;
+	}
+
+
 
 	// 회원 선택 삭제
 	@Override
@@ -221,7 +264,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getUserSearchList(User condition, int cp) {
 
-		int userlistCount = mapper.userListCount();
+		int userlistCount = mapper.userfilterListCount(condition);
 
 		Pagination pagination = new Pagination(userlistCount, cp);
 
@@ -255,6 +298,8 @@ public class AdminServiceImpl implements AdminService {
 		
 		return userlistCount;
 	}
+
+	
 
 	
 	
@@ -299,7 +344,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getMovieSearchList(Movie condition, int cp) {
 
-		int movieListCount = mapper.movieListCount();
+		int movieListCount = mapper.movieFilterListCount(condition);
 
 		Pagination pagination = new Pagination(movieListCount, cp);
 
@@ -366,9 +411,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> adminCinemaTwo(String movieTheaterNo,int cp) {
 		
-		int movieScheduleListCount = mapper.movieScheduleListCount();
+		int movieCinemaCount = mapper.movieCinemaCount(movieTheaterNo);
 
-		Pagination pagination = new Pagination(movieScheduleListCount, cp);
+		Pagination pagination = new Pagination(movieCinemaCount, cp);
 
 		// 3. 특정 게시판에서
 		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
@@ -384,7 +429,7 @@ public class AdminServiceImpl implements AdminService {
 
 		List<Movie> adminCinemaTwo = mapper.adminCinemaTwo(movieTheaterNo,rowBounds);
 
-		System.out.println(adminCinemaTwo);
+	
 		
 		Map<String, Object> adminCinemaMap = new HashMap<String, Object>();
 		adminCinemaMap.put("pagination", pagination);
@@ -474,6 +519,13 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.noticeWriteInsert(notice);
 	}
+	
+	//공지사항 수정
+	@Override
+	public int noticeUpdate(Notice notice) {
+		
+		return mapper.noticeUpdate(notice);
+	}
 
 	// 공지사항 게시글 삭제
 	@Override
@@ -486,7 +538,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public 	Map<String, Object> getNoticeSearchList(Notice condition, int cp) {
 
-		int noticeListCount = mapper.noticeListCount();
+		int noticeListCount = mapper.noticeFilterListCount(condition);
 
 		Pagination pagination = new Pagination(noticeListCount, cp);
 
@@ -591,9 +643,9 @@ public class AdminServiceImpl implements AdminService {
 
 	// FAQ 게시글 검색
 	@Override
-	public Map<String, Object> getFaqSearchList(FAQ condtion, int cp) {
+	public Map<String, Object> getFaqSearchList(FAQ condition, int cp) {
 
-		int faqListCount = mapper.faqListCount();
+		int faqListCount = mapper.faqFilterListCount(condition);
 
 		Pagination pagination = new Pagination(faqListCount, cp);
 		// 1) offset 계산
@@ -602,7 +654,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<FAQ> adminFaqList =  mapper.getFaqSearchList(condtion,rowBounds);
+		List<FAQ> adminFaqList =  mapper.getFaqSearchList(condition,rowBounds);
 
 		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
 		
@@ -685,7 +737,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getReportSearchList(Report condition, int cp) {
 		
-		int reportListCount = mapper.reportListCount();
+		int reportListCount = mapper.reportFilterListCount(condition);
 
 		Pagination pagination = new Pagination(reportListCount, cp);
 
@@ -762,9 +814,9 @@ public class AdminServiceImpl implements AdminService {
 
 	//리뷰 관리 검색
 	@Override
-	public Map<String, Object> getReviewSearchList(Qna condition, int cp) {
+	public Map<String, Object> getReviewSearchList(Review condition, int cp) {
 		
-		int reviewListCount = mapper.reviewListCount();
+		int reviewListCount = mapper.reviewFilterListCount(condition);
 
 		Pagination pagination = new Pagination(reviewListCount, cp);
 
@@ -780,7 +832,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Review> adminReviewList = mapper.getReviewSearchList(rowBounds);
+		List<Review> adminReviewList = mapper.getReviewSearchList(condition,rowBounds);
 
 		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
 		
@@ -790,6 +842,38 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminReviewMap;
 	}
+
+
+	@Override
+	public int userInListCount() {
+		
+		return mapper.userInListCount();
+	}
+
+
+	@Override
+	public int userOutListCount() {
+		
+		return mapper.userOutListCount();
+	}
+
+	//리뷰복구
+	@Override
+	public int restoreReview(int reviewNo) {
+		
+		return mapper.restoreReview(reviewNo);
+	}
+
+	//리뷰 게시글 읽어오기
+	@Override
+	public List<Review> adminReviewOne(int reviewNo) {
+	
+		return mapper.adminReviewOne(reviewNo);
+	}
+
+
+	
+
 
 
 

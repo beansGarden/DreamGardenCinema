@@ -46,7 +46,7 @@
 
           <!-- 등록,수정,삭제 버튼 -->
           <div class="admin_noticeBtn">
-            <!-- <button class="admin_noticeEndBtn"><a href="">등록</a></button> -->
+            <button class="admin_noticeEndBtn"><a th:href="@{/adminNotice}">목록</a></button>
             <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeUpdate/{noticeNo}(noticeNo=${list.noticeNo})}">수정</a></button>
             <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeRead/{noticeNo}/delete(noticeNo=${list.noticeNo})}">삭제</a></button>
         </div>

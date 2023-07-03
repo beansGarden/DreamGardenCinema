@@ -57,7 +57,7 @@ public class AdminController {
 	public String dashboard(Model model) {
 
 		// 대시보드 영화 리스트 불러오기
-		List<Movie> cinemaList = service.cinemaList();
+		List<Movie> cinemaList = service.cinemaCurrentList();
 		model.addAttribute("cinemaList", cinemaList);
 
 		// 대시보드 QNA 최신 5개 보여지기
@@ -111,6 +111,26 @@ public class AdminController {
 
 		return "admin/admin_user";
 	}
+	// 2.관리자 회원 관리 탈퇴한 회원만 보기-------------------------------------------------------------------------
+	@GetMapping("/adminUserOut")
+	public String adminOutUser(Model model,@Param("type") String type, @Param("keyword") String keyword, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			User condition = new User();
+			condition.setType(type);
+			condition.setKeyword(keyword);
+			
+			Map<String, Object> adminUserList = service.adminUserOutList(condition,cp);
+			
+			model.addAttribute("adminUserList", adminUserList);
+			
+			System.out.println(adminUserList);
+		}
+		
+		return "admin/admin_user";
+	}
 
 	// 2-1.관리자 회원 탈퇴 시키기
 	@PostMapping(value = "/adminUser/deleteUserList", produces = "application/json; charset=UTF-8")
@@ -141,13 +161,26 @@ public class AdminController {
 	
 	//2-3 회원 전체 개수 가져오기
 	@ResponseBody
-    @GetMapping("/adminUserListAjax")
-    public int adminUserListAjax() {
-        
+	@GetMapping("/adminUserListAjax")
+	public int adminUserListAjax() {
+	   
+			return service.userListCount();
+	}
+	//2-3 회원 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminUserInListAjax")
+	public int adminUserInListAjax() {
 		
-		return service.userListCount();
-    }
-	
+		return service.userInListCount();
+	}
+	//2-3 회원 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminUserOutListAjax")
+	public int adminUserOutListAjax() {
+		
+		return service.userOutListCount();
+	}
+
 	
 	
 	// 3.관리자 영화 관리----------------------------------------------------------------------------
@@ -199,7 +232,7 @@ public class AdminController {
 	@ResponseBody
     @GetMapping("/adminMovieListAjax")
     public int adminMovieListAjax() {
-        
+		
 		
 		return service.movieListCount();
     }
@@ -231,6 +264,11 @@ public class AdminController {
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
 		Map<String, Object> cinemaMap = service.adminCinemaTwo(movieTheaterNo, cp);
+		
+		
+		System.out.println(movieTheaterNo);
+		System.out.println(cinemaMap);
+		
 		return cinemaMap;
 	}
 
@@ -380,12 +418,49 @@ public class AdminController {
 
 		List<Notice> adminNoticeList = service.adminNoticeOne(notice);
 		notice.setNoticeNo(noticeNo);
-
+		
 		model.addAttribute("adminNoticeList", adminNoticeList);
-		System.out.println(adminNoticeList);
+		
+		System.out.println("adminNoticeList :" +adminNoticeList);
+
 
 		return "admin/admin_notice_update";
 	}
+	
+	//5-3-1. 공지사항 게시글 수정 
+	@PostMapping("/adminNoticeUpdate/{noticeNo}")
+	public String noticeUpdate(Notice notice, Model model, @PathVariable(value = "noticeNo") int noticeNo, RedirectAttributes ra) {
+
+		int result = service.noticeUpdate(notice);
+
+		Notice noticeList = new Notice();
+
+		model.addAttribute("notice", noticeList);
+		
+
+		System.out.println("noticeNo : "+ noticeNo);
+		System.out.println("notice : "+ notice);
+		System.out.println("result : " + result);
+		
+
+		// 삽입 성공 시
+		String message = null;
+		String path = "redirect:";
+		if (result > 0) { // 성공시
+
+			message = "게시글이 등록 되었습니다.";
+			path += "/adminNoticeRead" + "/" + noticeNo;
+
+		} else {
+			message = "게시글이 등록 실패 되었습니다.";
+			path += "adminNoticeupdate";
+		}
+
+		ra.addFlashAttribute("message", message);
+		return path;
+
+	}
+
 
 	// 5-4. 공지사항 게시글 삭제 --- 페이지 없음
 	@GetMapping("/adminNoticeRead/{noticeNo}/delete") //
@@ -742,12 +817,12 @@ public class AdminController {
 		return "admin/admin_FAQ_Write";
 
 	}
-	// 7-2-1. 1:1 문의사항 게시글 쓰기 - 삽입 230614
+	// 7-2-1. FAQ 게시글 쓰기 - 삽입 230614
 
 	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
 
-//		int FAQNo = service.faqInsert(faq);
+		int FAQNo = service.faqInsert(faq);
 
 		model.addAttribute("Faq", faq);
 
@@ -814,7 +889,7 @@ public class AdminController {
 		if (faqNoCheck > 0) { // 성공시
 
 			message = "게시글이 등록 되었습니다.";
-			path += "/adminFaq";
+			path += "redirect:";
 
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";
@@ -837,7 +912,7 @@ public class AdminController {
 		return service.deleteFaq(FAQNo);
 	}
 
-	// 7-4.공지사항 게시글 검색
+		// 7-4.FAQ 게시글 검색
 	@GetMapping("/getFaqSearchList")
 	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
@@ -907,11 +982,10 @@ public class AdminController {
 		Review reviewList = new Review();
 		reviewList.setReviewNo(reviewNo);
 
-		model.addAttribute("review", reviewList);
-		System.out.println(review);
-		System.out.println(reviewNo);
-		System.out.println(reviewList);
-		System.out.println(result);
+		model.addAttribute("reviewList", reviewList);
+		System.out.println("review" +review);
+		System.out.println("reviewNo" +reviewNo);
+		System.out.println("result" + result);
 
 		// 삽입 성공 시
 		String message = null;
@@ -928,7 +1002,7 @@ public class AdminController {
 				
 				path += "redirect:";
 			}
-			path += "/adminReportRead" +"/" + reviewNo;
+			path += "/adminReportRead" +"/" + reportNo;
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";
 			path += "adminReport";
@@ -988,15 +1062,25 @@ public class AdminController {
 		return service.reviewListCount();
     }
 	
+	//9-3 리뷰 읽기
+	@GetMapping("/adminReviewRead/{reviewNo}") 
+	public String adminreviewRead(Model model,@PathVariable(value = "reviewNo", required = false) int reviewNo) {
+		
+		List<Review> adminReviewOne = service.adminReviewOne(reviewNo);
+
+		model.addAttribute("adminReviewList", adminReviewOne);
+		
+		return "admin/admin_review_read";
+	}
 	
 	
-	// 9-2. 리뷰관리 검색
+	// 9-4. 리뷰관리 검색
 	
 	@GetMapping("/getReviewSearchList")
 	public String getReviewSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		Qna condition = new Qna();
+		Review condition = new Review();
 
 		condition.setType(type);
 		condition.setKeyword(keyword);
@@ -1011,8 +1095,66 @@ public class AdminController {
 
 	}
 	
-	// 9-3. 리뷰관리 게시글 수정
+	// 9-5. 리뷰관리 게시글 수정
 	
-	// 9-4. 리뷰관리 게시글 삭제
+	
+	// 9-6. 리뷰관리 게시글 선택 삭제
+	@PostMapping(value = "adminReivew/deleteReviewList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String deleteReviewList(@RequestBody Map<String, Integer> request,Model model,RedirectAttributes ra, Review review,Report report) {
+		
+		int reviewNo = request.get("reviewNo");
+		
+		int result = service.deleteReview(reviewNo);
+		Review reviewList = new Review();
+		reviewList.setReviewNo(reviewNo);
 
+		model.addAttribute("reviewList :", reviewList);
+		System.out.println("review :" + review);
+		System.out.println("reviewNo :" + reviewNo);
+		System.out.println("result :" + result);
+
+		// 삽입 성공 시
+		String message = null;
+		String path = "redirect:";
+		if (result > 0) { // 성공시
+
+			message = "게시글이 등록 되었습니다.";
+			
+			//신고글 처리여부 
+			int reportNo = request.get("reportNo");
+			
+			System.out.println("reportNo :" + reportNo);
+			
+			int result2 = service.updateDeleteReport(reportNo);
+			
+			if(result2> 0) {
+				message = "신고글이 처리 되었습니다,";
+				
+				path += "redirect:";
+			}
+			path += "/adminReportRead" +"/" + reportNo;
+		} else {
+			message = "게시글이 등록 실패 되었습니다.";
+			path += "adminReport";
+		}
+		ra.addFlashAttribute("message", message);
+		
+		return path;
+		 
+	}
+	
+	// 9-7. 리뷰관리 게시글 선택 복구
+	@PostMapping(value = "adminReivew/restoreReviewList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreReviewList(@RequestBody Map<String, Integer> request) {
+		int reviewNo = request.get("reviewNo");
+		
+		System.out.println(reviewNo);
+		
+		
+		
+		return service.restoreReview(reviewNo);
+	}
+	
 }
