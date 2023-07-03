@@ -2,9 +2,8 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 
 <header>
-
     <div class="dg-menu">
-
+        
         <ul class="dg-menu-L">
             <li class="dg-menu-L1"><a th:href="@{/movie}" class="dg-movie-link">영화</a>
                 <ul class="dg-menu-drop-movie">
@@ -60,9 +59,29 @@
             <a th:href="@{/admin}"><img th:src="@{/images/common/logo/관리자 아이콘-white.png}" title="관리자"></a>
         </div>
 
-    </div>
+        <div class="dropdown-menu-box">
+            <div class="show-menu">
+                <div>
+                    <p>영화</p>
+                </div>
+                <div>
+                    <p>예매</p>
+                </div>
+                <div>
+                    <p>멤버쉽</p>
+                </div>
+                <div>
+                    <p>고객센터</p>
+                </div>
+            </div>
+            <div class="dropdown-btn-box">
+                <div class="dropdown-btn"></div>
+            </div>
+        </div>
 
+    </div>
     <hr>
     
 </header>
+<script th:src="@{/js/common/header.js}"></script>
 

@@ -46,7 +46,7 @@ input::-webkit-inner-spin-button {
 .sign-up-line{
     width: 50vw;
     border-bottom: 1px solid #80808050;
-    margin: 30px 0 20px 0 ;
+    margin: 30px 0 30px 0 ;
 }
 
 #signUpFrmBox {
@@ -67,7 +67,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     top: 10px;
     font-size: 16px;
-    color: #80808099;
+    color: #808080;
     transition: font-size 0.2s;
 }
 
@@ -264,33 +264,38 @@ input::placeholder {
 }
 /*******************************************************/
 .id-pw-box{
-    width: 45vw;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    width: 55vw;
+    border: solid #d2d2d2;
+    border-width: 1px 0 1px 0 ;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 25vh;
+    height: 28vh;
+    padding-top: 10px;
+    margin-bottom: -1px;
 }
 
 .email-nickname-box{
-    width: 45vw;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    width: 55vw;
+    border: solid #d2d2d2;
+    border-width: 1px 0 1px 0 ;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 32vh;
+    height: 35vh;
+    padding-top: 10px;
+    margin-bottom: -1px;
 }
 
 .tel-box{
-    width: 45vw;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    width: 55vw;
+    border: solid #d2d2d2;
+    border-width: 1px 0 1px 0 ;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 17vh;
+    height: 21vh;
+    padding-top: 10px;
 
 }
 
