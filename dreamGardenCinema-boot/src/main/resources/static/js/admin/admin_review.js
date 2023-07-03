@@ -135,51 +135,64 @@ function reviewDelete(reviewNos) {
 
 
 /* 복구 버튼 선택 삭제하기 */
-const restoreBtn = document.getElementById("restoreBtn"); // 삭제 버튼
-
+const restoreBtn = document.getElementById("restoreBtn"); // 복구 버튼
 
 restoreBtn.addEventListener('click', () => {
   if (confirm("정말 복구하시겠습니까?")) {
+    const selectedReviewNos = []; // 선택된 리뷰 번호들을 저장할 배열
+
     for (let i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked) {
-        var reviewNo = document.getElementsByClassName("admin_review_checkbox_no")[i].innerText; // 체크박스 옆 숫자 = 리뷰 번호
-        if (checkboxNo != null) {
-          reviewRestore(reviewNo);
-        }
+        const reviewNo = checkboxNo[i].innerText;
+        selectedReviewNos.push(reviewNo);
       }
+    }
+
+    if (selectedReviewNos.length > 0) {
+      reviewRestore(selectedReviewNos); // 선택된 리뷰 번호들을 전달하여 복구 함수 호출
     }
   } else {
     return;
   }
 });
 
-function reviewRestore(reviewNo) {
-  fetch("/adminReivew/restoreReviewList", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({"reviewNo": parseInt(reviewNo)})
-  })
-  .then(resp => resp.text())
-  .then(result => {
-    console.log(result);
-    console.log(reviewNo); // 번호 나옴
-    alert("리뷰가 복구되었습니다."); // 삭제 완료 메시지
-    
-    const tr = document.getElementsByClassName("tr");
-    const delFl = document.getElementsByClassName("deleteFl");
+function reviewRestore(reviewNos) {
+  const promises = [];
 
-    for (let i = 0; i < checkbox.length; i++) {
-      if (checkbox[i].checked) {
+  reviewNos.forEach(reviewNo => {
+    const promise = fetch("/adminReivew/restoreReviewList", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({"reviewNo": parseInt(reviewNo)})
+    })
+    .then(resp => resp.text())
+    .then(result => {
+      console.log(result);
+      console.log(reviewNo); // 번호 나옴
 
-        delFl[i].innerText = '';
-        delFl[i].innerText = 'N';
-        console.log("del" + delFl[i]);
-        console.log("tr" + tr[i]);
-    }
-    }
-  })
-  .catch(err => console.log(err));
+      const tr = document.getElementsByClassName("tr");
+      const delFl = document.getElementsByClassName("deleteFl");
 
+      for (let i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+          delFl[i].innerText = 'N';
+          console.log("del" + delFl[i]);
+          console.log("tr" + tr[i]);
+        }
+      }
+    })
+    .catch(err => console.log(err));
 
+    promises.push(promise);
+  });
 
+  Promise.all(promises)
+    .then(() => {
+      alert("리뷰가 복구되었습니다."); // 복구 완료 메시지
+      // 체크박스 선택 해제
+      for (let i = 0; i < checkbox.length; i++) {
+        checkbox[i].checked = false;
+      }
+    })
+    .catch(err => console.log(err));
 }

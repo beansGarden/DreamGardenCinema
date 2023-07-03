@@ -8,13 +8,13 @@ function userSelectAll(userSelectAll)  {
     })
   }
 
-  /* 삭제 버튼 선택 탈퇴하기 */
+  /* 복구 버튼 복구하기 */
   const delBtn = document.getElementById("admin_userSignOut"); // 삭제 버튼
   const checkbox = document.getElementsByClassName("admin_userCheckbox"); // 체크박스
   const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); // 번호
   
   delBtn.addEventListener('click', () => {
-    if (confirm("정말 탈퇴하시겠습니까?")) {
+    if (confirm("정말 복구하시겠습니까?")) {
       const selectedUserNos = []; // 선택된 회원 번호들을 저장할 배열
   
       for (let i = 0; i < checkbox.length; i++) {
@@ -25,18 +25,18 @@ function userSelectAll(userSelectAll)  {
       }
   
       if (selectedUserNos.length > 0) {
-        userDelete(selectedUserNos); // 선택된 회원 번호들을 전달하여 탈퇴 함수 호출
+        userRestore(selectedUserNos); // 선택된 회원 번호들을 전달하여 복구 함수 호출
       }
     } else {
       return;
     }
   });
   
-  function userDelete(userNos) {
+  function userRestore(userNos) {
     const promises = [];
   
     userNos.forEach(userNo => {
-      const promise = fetch("/adminUser/deleteUserList", {
+      const promise = fetch("/adminUser/restoreUserList", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({"userNo": userNo})
@@ -53,7 +53,7 @@ function userSelectAll(userSelectAll)  {
   
     Promise.all(promises)
       .then(() => {
-        alert("회원이 탈퇴되었습니다."); // 탈퇴 완료 메시지
+        alert("회원이 복구되었습니다."); // 복구 완료 메시지
         // 체크박스 선택 해제
         for (let i = 0; i < checkbox.length; i++) {
           checkbox[i].checked = false;

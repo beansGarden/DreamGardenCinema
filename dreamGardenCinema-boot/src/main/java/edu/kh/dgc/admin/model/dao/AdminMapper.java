@@ -100,6 +100,13 @@ public interface AdminMapper {
 	 */
 	int userDelete(int userNo);
 
+	
+	/**회원 선택 복구
+	 * @param userNo
+	 * @return
+	 */
+	int restoreUserList(int userNo);
+	
 	/**
 	 * 회원 검색
 	 * 
@@ -414,6 +421,8 @@ public interface AdminMapper {
 
 	//리뷰 게시글 읽어오기
 	List<Review> adminReviewOne(int reviewNo);
+
+
 
 	
 	

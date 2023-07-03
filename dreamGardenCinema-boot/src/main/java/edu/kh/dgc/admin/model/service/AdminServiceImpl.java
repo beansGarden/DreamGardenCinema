@@ -259,6 +259,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.userDelete(userNo);
 	}
+	
+	//회원 선택 복구
+	@Override
+	public int restoreUserList(int userNo) {
+
+		return mapper.restoreUserList(userNo);
+	}
+
+
+	
 
 	// 회원 검색
 	@Override
@@ -872,7 +882,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 
-	
+
 
 
 

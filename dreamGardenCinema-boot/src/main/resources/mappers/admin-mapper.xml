@@ -364,6 +364,13 @@
 		WHERE USER_NO = #{userNo}
 	 </update>
 	 
+	<!--회원 선택 복구-->
+	<update id="restoreUserList">
+		UPDATE "USER_INFO"
+		SET USER_CLOSE ='N'
+		WHERE USER_NO = #{userNo}
+	 </update>
+	 
 	 <!--회원 검색-->
     
    <select id="getUserSearchList" parameterType="User" resultMap="user_rm">
@@ -937,8 +944,8 @@
 		
 		<!--신고하기 게시글 불러오기-->
 		<select id="adminReportOne" resultMap="report_rm">
-			SELECT  R.REPORT_NO,R.REPORT_TITLE,R.REPORT_CONTNENT,R.REPORT_ENROLL_DATE,R.REPORT_FL,
-			R.REPORT_DELETE_FL,R.REVIEW_NO,R.REPORT_WIRTER,R.REPORTED_USER_NO,M.REVIEW_CONTENT
+		SELECT  R.REPORT_NO,R.REPORT_TITLE,R.REPORT_CONTNENT,R.REPORT_ENROLL_DATE,R.REPORT_FL,
+			M.REVIEW_DELETE_FL,R.REVIEW_NO,R.REPORT_WIRTER,R.REPORTED_USER_NO,M.REVIEW_CONTENT
 			FROM REPORT R
 			JOIN MOVIE_REVIEW M ON R.REVIEW_NO = M.REVIEW_NO
 			WHERE R.REPORT_NO = #{reportNo}
@@ -967,43 +974,48 @@
 
 	<!--신고하기 검색-->
 		<select id="getReportSearchList" parameterType="Report" resultMap="report_rm"> 
-				SELECT REPORT_NO,REPORT_TITLE,REPORT_CONTNENT,REVIEW_NO,REPORT_WIRTER,REPORTED_USER_NO,REPORT_FL
-				FROM REPORT
-				<where>
-					<choose>
-						<when test="type != null and type.equals('reportNo')">
-							<if test="keyword != null and keyword != ''">
-								AND REPORT_NO LIKE '%' || #{keyword} || '%'
-							</if>
-						</when>
-						<when test="type != null and type.equals('title')">
-							<if test="keyword != null and keyword != ''">
-								AND REPORT_TITLE LIKE '%' || #{keyword} || '%'
-							</if>
-						</when>
-						<when test="type != null and type.equals('content')">
-							<if test="keyword != null and keyword != ''">
-								AND REPORT_CONTNENT LIKE '%' || #{keyword} || '%'
-							</if>
-						</when>
-						<when test="type != null and type.equals('reportedNo')">
-							<if test="keyword != null and keyword != ''">
-								AND REVIEW_NO LIKE '%' || #{keyword} || '%'
-							</if>
-						</when>
-						<when test="type != null and type.equals('writer')">
-							<if test="keyword != null and keyword != ''">
-								AND REPORT_WIRTER LIKE '%' || #{keyword} || '%'
-							</if>
-						</when>
-						<when test="type != null and type.equals('reporedWriter')">
-							<if test="keyword != null and keyword != ''">
-								AND REPORTED_USER_NO LIKE '%' || #{keyword} || '%'
-							</if>
-						</when>
-					</choose>
-				</where>
-			</select>
+    SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID, M.REVIEW_DELETE_FL
+    FROM REPORT R
+    JOIN MOVIE_REVIEW M ON R.REVIEW_NO = M.REVIEW_NO
+    JOIN USER_INFO UI1 ON UI1.USER_NO = R.REPORT_WIRTER
+    JOIN USER_INFO UI2 ON UI2.USER_NO = R.REPORTED_USER_NO
+    <where>
+        <choose>
+            <when test="type != null and type.equals('reportNo')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REPORT_NO LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('title')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REPORT_TITLE LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('content')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REPORT_CONTNENT LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('reportedNo')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REVIEW_NO LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('writer')">
+                <if test="keyword != null and keyword != ''">
+                    AND UI1.USER_ID LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('reportedWriter')">
+                <if test="keyword != null and keyword != ''">
+                    AND UI2.USER_ID LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+</select>
+
+			
 	<!--신고하기 검색-->
 		<select id="reportFilterListCount" parameterType="Report" resultType="_int"> 
 				SELECT COUNT(*)

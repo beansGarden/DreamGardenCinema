@@ -129,15 +129,22 @@ public class AdminController {
 			System.out.println(adminUserList);
 		}
 		
-		return "admin/admin_user";
+		return "admin/admin_userOut";
 	}
 
-	// 2-1.관리자 회원 탈퇴 시키기
+	// 2-1.관리자 회원 선택 탈퇴 시키기
 	@PostMapping(value = "/adminUser/deleteUserList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public int deleteUserList(@RequestBody User user) {
 
 		return service.userDelete(user.getUserNo());
+	}
+	// 2-1-1.관리자 회원 선택 복구 시키기
+	@PostMapping(value = "/adminUser/restoreUserList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreUserList(@RequestBody User user) {
+		
+		return service.restoreUserList(user.getUserNo());
 	}
 
 	// 2-2.관리자 회원 게시글 검색
@@ -889,7 +896,7 @@ public class AdminController {
 		if (faqNoCheck > 0) { // 성공시
 
 			message = "게시글이 등록 되었습니다.";
-			path += "redirect:";
+			path += "/adminFaq";
 
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";
@@ -994,14 +1001,6 @@ public class AdminController {
 
 			message = "게시글이 등록 되었습니다.";
 			
-			//신고글 처리여부 
-			int result2 = service.updateDeleteReport(reportNo);
-			
-			if(result2> 0) {
-				message = "신고글이 처리 되었습니다,";
-				
-				path += "redirect:";
-			}
 			path += "/adminReportRead" +"/" + reportNo;
 		} else {
 			message = "게시글이 등록 실패 되었습니다.";
