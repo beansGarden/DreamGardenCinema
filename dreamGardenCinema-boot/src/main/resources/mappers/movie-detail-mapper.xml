@@ -107,17 +107,5 @@
 		ORDER BY REVIEW_DATE DESC
 	</select>
 	
-	<insert id="insertMovieComment">
-		INSERT INTO "beansGarden".MOVIE_REVIEW
-		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO, REVIEW_DELETE_FL)
-		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo}, DEFAULT)
-	</insert>
-	
-	<insert id="insertMovieCommentReport">
-		INSERT INTO "beansGarden".REPORT
-		(REPORT_NO, REPORT_TITLE, REPORT_CONTNENT, REPORT_ENROLL_DATE, REPORT_FL, REPORT_DELETE_FL, REVIEW_NO, REPORT_WIRTER, REPORTED_USER_NO)
-		VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportTitle}, #{reportContent}, DEFAULT, DEFAULT, DEFAULT, #{reviewNo}, #{reportWriter}, #{reportedUserNo})
-	</insert>
-	
 </mapper>
 

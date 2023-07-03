@@ -1,6 +1,5 @@
 package edu.kh.dgc.movie.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,19 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.movie.model.dto.MovieComment;
 import edu.kh.dgc.movie.model.dto.Person;
 import edu.kh.dgc.movie.model.service.MovieDetailService;
 import edu.kh.dgc.movie.model.service.MovieListService;
-import edu.kh.dgc.user.model.dto.User;
-import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/movie")
 @SessionAttributes({"loginUser"})
