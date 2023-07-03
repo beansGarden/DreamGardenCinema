@@ -14,7 +14,7 @@
 		<result property="qnaCheckFl" column="QNA_CHECK_FL" />
 		<result property="qnaCategory" column="QNA_CATEGORY" />
 		<result property="userNo" column="USER_NO" />
-		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userId" column="USER_ID" />
 		<result property="qnaImage" column="QNA_IMG_PATH" />
 		<result property="qnaImageNo" column="QNA_IMG_NO" />
 		
@@ -171,7 +171,7 @@
 		    QNA.QNA_NO,
 		    QNA.QNA_TITLE,
 		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		    USER_INFO.USER_NICKNAME,
+		    USER_INFO.USER_NICKNAME,  USER_INFO.USER_ID,
 		    QNA.QNA_DELETE_FL,
 		    QNA.QNA_CHECK_FL,
 		    QNA_IMG.QNA_IMG_PATH
@@ -225,7 +225,7 @@
 		QNA.QNA_NO,
 		QNA.QNA_TITLE,QNA.QNA_CATEGORY,
 		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,
+		USER_INFO.USER_NICKNAME,USER_INFO.USER_ID,
 		QNA.QNA_DELETE_FL,
 		QNA.QNA_CHECK_FL,
 		QNA_IMG.QNA_IMG_PATH
@@ -295,7 +295,9 @@
 	<!--QNA 검색하기-->
 	<select id="getSearchList" parameterType="Qna" resultMap="qna_rm"> 
 		SELECT QNA.QNA_NO, QNA.QNA_TITLE, TO_CHAR(QNA.QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,QNA_DELETE_FL FROM QNA JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		USER_INFO.USER_NICKNAME,QNA.QNA_DELETE_FL
+		FROM QNA 
+		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
 		<choose>
 			
 			<when test="type != null and type.equals('qnaNo')">

@@ -30,6 +30,7 @@ public class Qna {
 	
 	//JOIN USER_INFO
 	private int userRating;
+	private String userId;
 	
 	//JOIN QNA_IMG
 	private String qnaImage;
