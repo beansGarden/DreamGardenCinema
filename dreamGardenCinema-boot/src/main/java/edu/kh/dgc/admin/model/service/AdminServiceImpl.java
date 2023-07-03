@@ -7,10 +7,12 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.dgc.admin.model.dao.AdminMapper;
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.dto.Pagination;
+import edu.kh.dgc.admin.model.dto.Query;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
 import edu.kh.dgc.notice.model.dto.Notice;
@@ -18,6 +20,7 @@ import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.review.model.dto.Review;
+import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -791,15 +794,50 @@ public class AdminServiceImpl implements AdminService {
 		return adminReviewMap;
 	}
 
-
-
 	
+	// 상영관 리스트 조회(찬희)
+	@Override
+	public Map<String, Object> selectCinemaList(Map<String, Object> paramMap, String beforecp) {
+		
+		int listCount = mapper.getListCount(paramMap);
+		
+		int cp = Integer.parseInt(beforecp);
 
+		Pagination pagination = new Pagination(listCount, cp);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Movie> movieList = mapper.selectCinemaList(paramMap, rowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("movieList", movieList);
+		map.put("pagination", pagination);
+		map.put("listCount", listCount);
+		
+		return map;
+	}
+
+	// 상영관 세부 시간 조회 AJAX(찬희)
+	@Override
+	public List<String> selectDetailTime(Map<String, Object> paramMap) {
+		return mapper.selectDetailTime(paramMap);
+	}
+
+	// 상영관 세부 시간 삭제(찬희)
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteDetailTime(Schedule schedule) {
+		
+		int count = mapper.selectTicketing(schedule);
+		int result = 0;
+		if(count==0) {
+			result = mapper.deleteDetailTime(schedule);
+		}
+		
+		return mapper.deleteDetailTime(schedule);
+	}
 	
-
-
-
-
-
 	
 }

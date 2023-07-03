@@ -49,8 +49,7 @@ header {
     width: 100%;
     height: 120px;
     background-color: white;
-    border-bottom: 1px solid #0F0954;
-    /* background-color: rgba(0, 0, 0, 0.2); */
+    
 }
 
 /* 상단바 메뉴 왼쪽 영역(영화, 예매, 멤버십)*/
@@ -102,8 +101,9 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
-
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
+    
     top: 25px;
     left: 0;
     transform-origin: left;
@@ -117,7 +117,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -145,12 +146,9 @@ header {
     margin-top: 10px;
     position: absolute;
     margin-left: -70px;
-    padding-left: 0;
     background-color: rgba(180, 180, 180, 0.7);
-
     height: 35px;
     align-items: center;
-
     border-radius: 7px;
 
 }
@@ -205,6 +203,9 @@ header {
 /* 홈 */
 .dg-menu-drop-movie>li:nth-child(1) {
     width: 25px;
+    margin-right: -5px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .dg-menu-drop-movie>li:nth-child(1)>a {
@@ -219,7 +220,8 @@ header {
 
 /* 상영 예정작 */
 .dg-menu-drop-movie>li:nth-child(2) {
-    width: 98px;
+    width: 110px;
+    margin-right: -10px;
 }
 
 .dg-menu-drop-movie>li:nth-child(2)>a {
@@ -234,7 +236,8 @@ header {
 
 /* 현재 상영작  */
 .dg-menu-drop-movie>li:nth-child(3) {
-    width: 98px;
+    width: 110px;
+    margin-left: -5px;
 }
 
 .dg-menu-drop-movie>li:nth-child(3)>a {
@@ -280,7 +283,6 @@ header {
 .dg-menu-drop-reservation>li {
     display: none;
     right: 39px;
-    margin-right: 7px;
     text-align: center;
 }
 
@@ -332,7 +334,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -347,7 +350,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -402,8 +406,6 @@ header {
     display: none;
     right: 39px;
     /* margin-top: 14px; */
-    margin-right: 7px;
-
     text-align: center;
 }
 
@@ -455,7 +457,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -470,7 +473,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -496,7 +500,6 @@ header {
 
 .dg-logo>a>img {
     height: 120px;
-    margin-top: 10px;
 }
 
 /* 상단바 메뉴 오른쪽 영역(고객센터, 로그인, 회원가입) */
@@ -564,8 +567,6 @@ header {
 .dg-menu-customer-service>li {
     display: none;
     right: 39px;
-    margin-right: 6px;
-
     text-align: center;
 }
 
@@ -582,6 +583,7 @@ header {
 
 .dg-menu-customer-service>li:nth-child(1) {
     width: 50px;
+    margin-left: 5px;
 }
 
 .dg-menu-customer-service>li:nth-child(2) {
@@ -610,7 +612,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -625,7 +628,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -674,7 +678,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -689,7 +694,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -737,7 +743,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -752,7 +759,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -803,7 +811,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -818,7 +827,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;
@@ -868,7 +878,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     top: 25px;
     left: 0;
@@ -883,7 +894,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #0F0954;
+    background-color: #DDA03C;
+    filter: drop-shadow(0 0 2px rgba(240, 186, 88, 1));
 
     bottom: 28px;
     left: 0;

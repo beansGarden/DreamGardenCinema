@@ -1,18 +1,18 @@
-html, body {
-    height:100%;
-    background-color: rgba(199, 198, 198, 0.068);
-}
-
-
-
 /* 전체 감싸는 div */
 .admin_dashboardWrap{
-    position:relative;
-    width:1300px; /* wrap에 속한 div의 넓이+margin값을 더한 넓이와 높이값 */
-    height:0px;
-    top:-1000px;
-    left:1000px;
-    transform: translate(-50%, -50%); /* 중앙정렬 */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: fixed;
+    width: 80vw;
+    top: 10%;
+    left: 443px;
+}
+
+/* 분기별 매출 및 영화 매출 박스 */
+.admin-things-box{
+    display: flex;
+    
 }
 
 /* 영화 총 매출 */
@@ -20,7 +20,6 @@ html, body {
     width:500px;
     height:200px;
     float:left;
-    margin-top: 50px;
     box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
 
 }
@@ -71,7 +70,6 @@ html, body {
     width:500px;
     height:200px;
     float:left;
-    margin-top: 50px;
     box-sizing:border-box; /* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 */
 }
 
@@ -109,6 +107,11 @@ html, body {
     box-shadow: 5px 5px 5px rgba(173, 173, 173, 0.267);
 }
 
+
+/* 1:1 문의 사항 리스트 및 그래프 박스 */
+.admin-second-things-box{
+    display: flex;
+}
 
 /* 1:1 문의 사항 리스트*/
 .admin_dashboardQnaList{
