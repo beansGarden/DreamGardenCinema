@@ -163,7 +163,7 @@ public class PaymentController {
 							}
 							
 					}
-					if(afterAmount>=2000000 && user.getUserRating()!=4) {
+					if(afterAmount>=200000 && user.getUserRating()!=4) {
 						int updatePlatinum = TicketingService.updatePlatinum(userNo);
 						
 							if(updatePlatinum>0) {

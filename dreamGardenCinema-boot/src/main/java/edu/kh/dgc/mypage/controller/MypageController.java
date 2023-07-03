@@ -38,11 +38,7 @@ public class MypageController {
 
 		int userNo = loginuser.getUserNo();
 		
-		
-		
 		List<Ticket> reservationList = service.reservation(userNo);
-		
-		System.out.println(reservationList);
 		
 		model.addAttribute("reservationList",reservationList);
 		
@@ -74,10 +70,13 @@ public class MypageController {
 		
 		return "myPage/my-page-coupon.html";
 	}
+	
+	//나의 문의 내역
 	@GetMapping("/my-page-inquiry")
 	public String inquiry(
 			Model model,
 			@SessionAttribute("loginUser") User loginuser
+			,Qna qna
 			) {
 
 		int userNo = loginuser.getUserNo();

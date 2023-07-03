@@ -157,18 +157,36 @@ userPw.addEventListener("input", () => {
     const regex = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-z\d$@$!%*#?&]{8,}$/;
     const userPwValue = userPw.value;
 
-    if (regex.test(userPwValue)) {
-        line1.classList.add("clear")
-        line1.classList.remove("line1")
-        line1.classList.remove("error")
-        checkObj.userPw = true;
-    } else {
-        line1.classList.add("error")
-        line1.classList.remove("line1")
-        line1.classList.remove("clear")
-        checkObj.userPw = false;
+    const data = {
+        "secessionPwValue" : userPwValue
+    };
+    if(userPwValue.trim().length  > 0) {
+        fetch("/myPage/secessionCheck", {
+            method : "POST",
+            headers : {"Content-Type": "application/json"},
+            body : JSON.stringify(data)
+
+        })
+
+    .then(resp=>resp.text())
+    .then(result=>{
+
+
+        if (regex.test(userPwValue)&&result>0) {
+            line1.classList.add("clear")
+            line1.classList.remove("line1")
+            line1.classList.remove("error")
+            checkObj.userPw = true;
+        } else {
+            line1.classList.add("error")
+            line1.classList.remove("line1")
+            line1.classList.remove("clear")
+            checkObj.userPw = false;
+        }
+    })
     }
 })
+
 userPw.addEventListener("focus", () => {
     line1.classList.remove("error");
     line1.classList.remove("clear");
@@ -322,6 +340,12 @@ secessionPw.addEventListener("input",e=>{
         
     }
 })
+
+secessionPw.addEventListener("focus", () => {
+    line3.classList.remove("errorPw");
+    line3.classList.remove("clearPw");
+    line3.classList.add("line3");
+});
 /* 탈퇴 버튼 */
 const my_page_secession_pwcheck_btn = document.querySelector(".my-page-secession-pwcheck-btn>:nth-child(1)");
 const my_page_secession_btn2 = document.querySelector(".my-page-secession-btn>:nth-child(2)");
@@ -347,11 +371,6 @@ my_page_secession_pwcheck_btn.addEventListener("click", e => {
     }
 });
 
-secessionPw.addEventListener("focus", () => {
-    line3.classList.remove("errorPw");
-    line3.classList.remove("clearPw");
-    line3.classList.add("line3");
-});
 
 /* 취소 버튼 클릭 시 */
 my_page_secession_btn2.addEventListener("click", () => {
