@@ -1,8 +1,9 @@
 
-let currentPage = 0;
-
 /* 영화유형 ->  현재 상영 : current, 상영 예정 : promise */
 var movieType = "";
+
+/* 분류방식 -> 예매순 : byTicket, 평점순 : byStar, 관람평 많은 순 : byReviewNum */
+var sortType = "";
 
 document.onload = checkType();
 
@@ -10,76 +11,39 @@ document.onload = checkType();
 function checkType() {
 
     if (location.pathname == "/movie/current") {
-        movieType = "current";
+        releaseType = "current";
     }
 
     if (location.pathname == "/movie/promise") {
-        movieType = "promise";
+        releaseType = "promise";
     }
 
-    return movieType;
+    return releaseType;
 }
 
 
-/*  타입(현재 상영, 상영예정)별 비동기 요청  */
-const currentBtn = document.getElementById("typeCurrent");
-const promiseBtn = document.getElementById("typePromise");
-const navMenu = document.querySelector(".nav-menu");
+if (releaseType != "") {
 
-if (movieType != "") {
+    /*  개봉종류(현재 상영, 상영예정)별 비동기 요청  */
+    const currentBtn = document.getElementById("releaseCurrent");
+    const promiseBtn = document.getElementById("releasePromise");
+    const navMenu = document.querySelector(".nav-menu");
 
-    /* 현재 상영작 버튼을 눌렀을 때 */
-    currentBtn.addEventListener("click", () => {
+    /* 현재 상영 리스트 ajax 함수 */
+    function currentReleaseAjax(sortType){
 
-        navMenu.innerHTML = "";
-
-        /* 
-            <button>예매순</button>
-            |
-            <button>평점순</button>
-            |
-            <button>관람평 많은순</button>
-        */
-
-        const byTicket = document.createElement("button");
-        byTicket.innerText = "예매순";
-        byTicket.className = "sort-active";
-        byTicket.id = "byTicket";
-
-        const byStar = document.createElement("button");
-        byStar.innerText = "평점순";
-        byStar.className = "sort-non-active";
-        byStar.id = "byStar";
-        
-        const byReview = document.createElement("button");
-        byReview.innerText = "관람평 많은순";
-        byReview.className = "sort-non-active";
-        byReview.id = "byReview";
-
-        navMenu.append(byTicket);
-        navMenu.innerHTML += " | ";
-        navMenu.append(byStar);
-        navMenu.innerHTML += " | ";
-        navMenu.append(byReview);
-
-
-        currentPage = 0;
-
-        if (movieType = "promise") {
-
+        if (releaseType = "promise") {
             currentBtn.classList.replace("non-active", "active");
             promiseBtn.classList.replace("active", "non-active");
-
-
         }
 
-        movieType = "current";
+        releaseType = "current";
 
         document.querySelector(".movieList--items").innerHTML = "";
 
         const data = {
-            "currentPage": currentPage,
-            "movieType": movieType
+            "releaseType": releaseType,
+            "sortType" : sortType
         };
 
         fetch("/movie/list", {
@@ -271,11 +235,102 @@ if (movieType != "") {
             })
 
             .catch(err => console.log(err));
+        };
+    
 
+    /* 현재 상영작 버튼을 눌렀을 때 */
+    currentBtn.addEventListener("click", () => {
 
+        sortType = "byTicket";
+
+        navMenu.innerHTML = "";
+
+        /* 
+            <button>예매순</button>
+            |
+            <button>평점순</button>
+            |
+            <button>관람평 많은순</button>
+        */
+
+        const byTicket = document.createElement("button");
+        byTicket.innerText = "예매순";
+        byTicket.className = "sort-active";
+        byTicket.id = "byTicket";
+        byTicket.setAttribute("onclick", "byTicketBtn()");
+
+        const byStar = document.createElement("button");
+        byStar.innerText = "평점순";
+        byStar.className = "sort-non-active";
+        byStar.id = "byStar";
+        byStar.setAttribute("onclick", "byStarBtn()");
+        
+        const byReviewNum = document.createElement("button");
+        byReviewNum.innerText = "관람평 많은순";
+        byReviewNum.className = "sort-non-active";
+        byReviewNum.id = "byReviewNum";
+        byReviewNum.setAttribute("onclick", "byReviewNumBtn()");
+
+        navMenu.append(byTicket);
+        navMenu.innerHTML += " | ";
+        navMenu.append(byStar);
+        navMenu.innerHTML += " | ";
+        navMenu.append(byReviewNum);
+
+        currentReleaseAjax(sortType);
     });
 
+    /* 예매순 버튼 눌렀을 때 */
+    function byTicketBtn(){
+        sortType = "byTicket";
 
+        const byTicket = document.getElementById("byTicket");
+        byTicket.className = "sort-active";
+
+        const byStar = document.getElementById("byStar");
+        byStar.className = "sort-non-active";
+
+        const byReviewNum = document.getElementById("byReviewNum");
+        byReviewNum.className = "sort-non-active";
+
+        currentReleaseAjax(sortType);
+    };
+
+    /* 평점순 버튼 눌렀을 때 */
+    function byStarBtn(){
+
+        sortType = "byStar";
+
+        const byTicket = document.getElementById("byTicket");
+        byTicket.className = "sort-non-active";
+
+        const byStar = document.getElementById("byStar");
+        byStar.className = "sort-active";
+
+        const byReviewNum = document.getElementById("byReviewNum");
+        byReviewNum.className = "sort-non-active";
+
+        currentReleaseAjax(sortType);
+
+    }
+
+    /* 리뷰많은순 버튼 눌렀을 때 */
+    function byReviewNumBtn(){
+
+        sortType = "byReviewNum";
+
+        const byTicket = document.getElementById("byTicket");
+        byTicket.className = "sort-non-active";
+
+        const byStar = document.getElementById("byStar");
+        byStar.className = "sort-non-active";
+
+        const byReviewNum = document.getElementById("byReviewNum");
+        byReviewNum.className = "sort-active";
+
+        currentReleaseAjax(sortType);
+
+    }
 
 
     /* 상영예정작 버튼을 눌렀을때 */
@@ -293,23 +348,19 @@ if (movieType != "") {
 
         navMenu.append(byRelease);
 
-
-        currentPage = 0;
-
-        if (movieType = "current") {
+        if (releaseType = "current") {
 
             currentBtn.classList.replace("active", "non-active");
             promiseBtn.classList.replace("non-active", "active");
 
         }
 
-        movieType = "promise";
+        releaseType = "promise";
 
         document.querySelector(".movieList--items").innerHTML = "";
 
         const data = {
-            "currentPage": currentPage,
-            "movieType": movieType
+            "releaseType": releaseType
         };
 
         fetch("/movie/list", {

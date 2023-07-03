@@ -21,19 +21,19 @@
 
             <ul class="font1 movie-type">
 
-                <li><button id="typeCurrent" class="font1 active" th:href="@{/movie/current}">현재 상영작</button></li>
+                <li><button id="releaseCurrent" class="font1 active" th:href="@{/movie/current}">현재 상영작</button></li>
 
-                <li><button id="typePromise" class="font1 non-active" th:href="@{/movie/promise}">상영 예정작</button></li>
+                <li><button id="releasePromise" class="font1 non-active" th:href="@{/movie/promise}">상영 예정작</button></li>
 
             </ul>
 
             <div class="font3 nav-menu">
 
-                <button class="sort-active" id="byTicket">예매순</button>
+                <button class="sort-active" id="byTicket" onclick="byTicketBtn()">예매순</button>
                 |
-                <button class="sort-non-active" id="byStar">평점순</button>
+                <button class="sort-non-active" id="byStar" onclick="byStarBtn()">평점순</button>
                 |
-                <button class="sort-non-active" id="byReview">관람평 많은순</button>
+                <button class="sort-non-active" id="byReviewNum" onclick="byReviewNumBtn()">관람평 많은순</button>
             
 
             </div>

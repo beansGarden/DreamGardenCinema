@@ -65,8 +65,8 @@ public class MovieListServiceImpl implements MovieListService{
 
 	// 영화 정보 불러오기 (비동기)
 	@Override
-	public List<Movie> selectMovieList(String movieType) {
-		if(movieType.equals("current")) return mapper.selectMovieListCurrent();
+	public List<Movie> selectMovieList(String releaseType, String sortType) {
+		if(releaseType.equals("current")) return mapper.selectMovieListCurrent(sortType);
 		else return mapper.selectMovieListPromise();
 	}
 

@@ -17,6 +17,8 @@ public interface MovieListMapper {
 	
 	public List<Movie> selectMovieListCurrent();
 	
+	public List<Movie> selectMovieListCurrent(String sortType);
+	
 	public List<Movie> selectMovieListCurrent(Object object, RowBounds rowBounds);
 	
 	public List<Movie> selectMovieListPromise();
@@ -24,5 +26,6 @@ public interface MovieListMapper {
 	public List<Movie> selectMovieListPromise(Object object, RowBounds rowBounds);
 
 	public Map<String, String> selectAdvertisePoster();
+
 
 }

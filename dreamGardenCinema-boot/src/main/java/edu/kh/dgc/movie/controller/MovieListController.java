@@ -85,9 +85,10 @@ public class MovieListController {
 	@ResponseBody
 	public List<Movie> ajaxList(@RequestBody Map<String,String> data) {
 		
-		String movieType = data.get("movieType");
+		String releaseType = data.get("releaseType");
+		String sortType = data.get("sortType");
 		
-		return service.selectMovieList(movieType);
+		return service.selectMovieList(releaseType, sortType);
 	}
 	
 	

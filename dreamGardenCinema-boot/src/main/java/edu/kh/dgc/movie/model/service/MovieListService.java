@@ -48,9 +48,10 @@ public interface MovieListService {
 	Map<String, String> selectAdvertisePoster();
 
 	/** 영화 정보 불러오기(비동기)
+	 * @param sortType 
 	 * @return
 	 */
-	List<Movie> selectMovieList(String movieType);
+	List<Movie> selectMovieList(String releaseType, String sortType);
 	
 	
 
