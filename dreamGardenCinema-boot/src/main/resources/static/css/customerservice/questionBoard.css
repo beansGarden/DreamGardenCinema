@@ -108,7 +108,7 @@ a {
     height: 50px;
     margin-left: -415px;
     top: -20px;
-
+    filter: sepia(1);
 }
 
 .QA-top-notice {
