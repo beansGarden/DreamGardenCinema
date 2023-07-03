@@ -446,17 +446,61 @@
 	</select>
 	
 	<!-- 상영관 리스트 조회(찬희) -->
-	<select id="selectCinemaList">
-		SELECT DISTINCT MOVIE_THEATER, MOVIE_TITLE, PERSON_NAME, RUNNING_TIME, TO_CHAR(MOVIE_TIME, 'YYYYMMDD')
+	<select id="selectCinemaList" resultMap="movie_rm">
+		SELECT DISTINCT MOVIE_THEATER, MOVIE_TITLE, RUNNING_TIME, TO_CHAR(MOVIE_TIME, 'YYYYMMDD') MOVIE_TIME
 		FROM MOVIE_SCHEDULE
 		LEFT JOIN MOVIE USING(MOVIE_NO)
 		LEFT JOIN PERSON_INFO USING(MOVIE_NO)
-		WHERE PERSON_ROLE = '감독'
-		<if test="movieTheater != null">
-			AND MOVIETHEATER == ${movieTheater}
+		WHERE ROWNUM != 0
+		<if test='movieTheater != null and movieTheater != "ALL"'>
+			AND MOVIE_THEATER = ${movieTheater}
 		</if>
-		<if test=""></if>
-		
+		<if test='date != null'>
+			AND TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{date}
+		</if>
+		<if test="selectOpt != null">
+			<choose>
+				<when test='selectOpt == "t"'>
+					AND MOVIE_TITLE LIKE '%${content}%' 
+				</when>
+				<when test='selectOpt == "d"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+				<when test='selectOpt == "a"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER
+	</select>
+	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM(SELECT DISTINCT MOVIE_THEATER, MOVIE_TITLE, RUNNING_TIME, TO_CHAR(MOVIE_TIME, 'YYYYMMDD') MOVIE_TIME
+		FROM MOVIE_SCHEDULE
+		LEFT JOIN MOVIE USING(MOVIE_NO)
+		LEFT JOIN PERSON_INFO USING(MOVIE_NO)
+		WHERE ROWNUM != 0
+		<if test='movieTheater != null and movieTheater != "ALL"'>
+			AND MOVIE_THEATER = ${movieTheater}
+		</if>
+		<if test='date != null'>
+			AND TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{date}
+		</if>
+		<if test="selectOpt != null">
+			<choose>
+				<when test='selectOpt == "t"'>
+					AND MOVIE_TITLE LIKE '%${content}%' 
+				</when>
+				<when test='selectOpt == "d"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+				<when test='selectOpt == "a"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER)
 	</select>
 
 	<select id="cinemaList" resultMap="movie_rm">

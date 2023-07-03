@@ -1,7 +1,9 @@
-body{
+body>main{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
+
+
 
 /* 전체 감싸는 div */
 .admin_cinemaManageWrap{

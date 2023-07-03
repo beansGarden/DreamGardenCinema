@@ -14,5 +14,5 @@ public class Query {
 	private int movieTheater;
 	private String date;
 	private String selectOpt;
-	
+	private String content;
 }

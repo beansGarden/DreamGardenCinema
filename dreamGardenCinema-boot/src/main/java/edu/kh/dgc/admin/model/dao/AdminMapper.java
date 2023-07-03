@@ -357,6 +357,9 @@ public interface AdminMapper {
 
 	
 	// 상영관 리스트 조회(찬희)
-	Map<String, Object> selectCinemaList(Query query);
+	List<Movie> selectCinemaList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	// 상영관 리스트 갯수 조회
+	int getListCount(Map<String, Object> paramMap);
 
 }

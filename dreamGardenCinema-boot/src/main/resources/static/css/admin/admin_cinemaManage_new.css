@@ -1,0 +1,105 @@
+.cinemaManage{
+    width: 800px;
+}
+
+#admin_cinemaManageTitle{
+    margin-bottom: 10px;
+}
+
+#selectCont{
+    display: flex;
+}
+
+form>div>div{
+    margin-bottom: 4px;
+}
+
+#admin_cinemaManageTitle{
+    color:#0F0954;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+form span{
+    font-size: 16px;
+}
+
+.movieTheaterOpt>span{
+    margin-right: 14px;
+}
+
+.queryBox{
+    display: flex;
+}
+
+.query{
+    margin-left: 4px;
+    display: flex;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 2px;
+}
+.query>*{
+    border: none;
+    border-radius: 2px;
+}
+input:focus, select:focus, option:focus, textarea:focus, button:focus{
+	outline: none;
+}
+#theater, #date{
+    width: 152px;
+    text-align: center;
+}
+#opt{
+    width: 50px;
+    text-align: center;
+}
+#content{
+    width: 100px;
+}
+form button{
+    background-color: #0F0954;
+    color: white;
+    border-radius: 4px;
+    width: 50px;
+    margin-left: 20px;
+}
+table{
+    width: 800px;
+}
+table>*{
+    text-align: center;
+}
+table th:first-child{width: 5%;}
+table th:nth-child(2){width: 10%;}
+table th:nth-child(3){width: 50%;}
+table th:nth-child(4){width: 15%;}
+table th:last-child{width: 20%;}
+
+
+
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.current{
+    font-weight: bold;
+    background-color: #455ba8;
+    border-radius: 50%;
+    color: white !important;
+    letter-spacing: 0 !important;
+}

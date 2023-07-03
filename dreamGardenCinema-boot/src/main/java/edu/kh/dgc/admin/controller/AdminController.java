@@ -238,19 +238,24 @@ public class AdminController {
 	
 	// 상영관 리스트 조회(찬희)
 	@GetMapping("/adminCinemaManage")
-	public Map<String, Object> selectCinemaList(@RequestParam(value="cp", required=false, defaultValue="1") int cp
+	public String selectCinemaList(@RequestParam(value="cp", required=false, defaultValue="1") int cp
 									, Model model
 									, @RequestParam Map<String, Object> paramMap) {
 		// paramMap에는 movieTheater, date, selectOpt(t,d,a) 가 담겨있음
-		System.out.println("가져온 date는 : "+paramMap.get("date"));
-		Query query = new Query();
-		query.setDate((String)paramMap.get("date"));
-		query.setMovieTheater((Integer)paramMap.get("movieTheater"));
-		query.setSelectOpt((String)paramMap.get("selectOpt"));
+		
+		String date = (String) paramMap.get("date");
+		
+		if(date != null && date.equals("")) {
+			paramMap.put("date", null);
+		}
 		
 		
-		Map<String, Object> map = service.selectCinemaList(query);
-		return map;
+		
+		Map<String, Object> map = service.selectCinemaList(paramMap, cp);
+		
+		model.addAttribute("map", map);
+		
+		return "admin/admin_cinemaManage_new";
 	}
 
 	

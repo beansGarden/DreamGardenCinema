@@ -201,7 +201,7 @@ public interface AdminService {
 
 	
 	// 상영관 리스트 조회(찬희)
-	Map<String, Object> selectCinemaList(Query query);
+	Map<String, Object> selectCinemaList(Map<String, Object> paramMap, int cp);
 
 
 	

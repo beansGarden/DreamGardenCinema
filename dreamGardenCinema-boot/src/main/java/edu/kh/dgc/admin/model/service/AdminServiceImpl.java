@@ -795,9 +795,23 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 상영관 리스트 조회(찬희)
 	@Override
-	public Map<String, Object> selectCinemaList(Query query) {
+	public Map<String, Object> selectCinemaList(Map<String, Object> paramMap, int cp) {
 		
-		return mapper.selectCinemaList(query);
+		int listCount = mapper.getListCount(paramMap);
+
+		Pagination pagination = new Pagination(listCount, cp);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Movie> movieList = mapper.selectCinemaList(paramMap, rowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("movieList", movieList);
+		map.put("pagination", pagination);
+		
+		return map;
 	}
 
 
