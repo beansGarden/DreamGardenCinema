@@ -36,10 +36,11 @@ header {
 /* 상단바 메뉴 왼쪽 영역(영화, 예매, 멤버십)*/
 .dg-menu-L {
     width: 50%;
+    height: 35px;
+    z-index: 1;
     display: flex;
     margin-top: 85px;
     justify-content: space-evenly;
-
     list-style: none;
     padding-left: 0px;
 }
@@ -128,7 +129,6 @@ header {
     margin-top: 10px;
     position: absolute;
     margin-left: -95px;
-    padding-left: 0;
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     height: 35px;
@@ -189,6 +189,9 @@ header {
 /* 홈 */
 .dg-menu-drop-movie>li:nth-child(1) {
     width: 25px;
+    margin-right: -5px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .dg-menu-drop-movie>li:nth-child(1)>a {
@@ -203,8 +206,8 @@ header {
 
 /* 상영 예정작 */
 .dg-menu-drop-movie>li:nth-child(2) {
-
-    width: 120px;
+    width: 110px;
+    margin-right: -10px;
 }
 
 .dg-menu-drop-movie>li:nth-child(2)>a {
@@ -220,6 +223,7 @@ header {
 /* 현재 상영작  */
 .dg-menu-drop-movie>li:nth-child(3) {
     width: 110px;
+    margin-left: -5px;
 }
 
 .dg-menu-drop-movie>li:nth-child(3)>a {
@@ -267,7 +271,6 @@ header {
 .dg-menu-drop-reservation>li {
     display: none;
     right: 39px;
-    margin-right: 7px;
     text-align: center;
 }
 
@@ -386,8 +389,6 @@ header {
     display: none;
     right: 39px;
     /* margin-top: 14px; */
-    margin-right: 7px;
-
     text-align: center;
 }
 
@@ -477,8 +478,10 @@ header {
 /* 상단바 로고 영역 */
 
 .dg-logo>a>img {
-    height: 120px;
-    margin-top: 10px;
+    width: 120px;
+}
+.dg-logo>a{
+    display: inline-block;
 }
 
 /* 상단바 메뉴 오른쪽 영역(고객센터, 로그인, 회원가입) */
@@ -488,7 +491,8 @@ header {
     display: flex;
     margin-top: 85px;
     justify-content: space-evenly;
-
+    height: 35px;
+    z-index: 1;
     list-style: none;
     text-decoration: none;
 
@@ -543,8 +547,6 @@ header {
 .dg-menu-customer-service>li {
     display: none;
     right: 39px;
-    margin-right: 6px;
-
     text-align: center;
 }
 
@@ -902,4 +904,42 @@ hr {
 
 .dg-membership-link{
     cursor: default;
+}
+
+.dropdown-menu-box{
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dropdown-btn-box{
+    width: 100%;
+    text-align: center;
+    margin-top: -2px;
+}
+.dropdown-btn{
+    width: 100px;
+    height: 15px;
+    background-color: #ff0000;
+    border-radius: 0 0 20px 20px;
+    display: inline-block;
+    z-index: 10;
+}
+.show-menu{
+    text-align: center;
+    width: 100%;
+    height: 150px;
+    background-color: #00000090;
+}
+.show-menu>div{
+    color: blanchedalmond;
+    display: inline-block;
+    width: 150px;
+    height: 100%;
+    margin: 0 20px;
+    border: 1px solid floralwhite;
+}
+.display-none {
+    display: none !important;
 }

@@ -212,8 +212,16 @@ table img{
 #my-page-inquiry-content{
     font-size: 15px;
     text-align: left;
-    height: 200px;
+    height: 250px;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+
+}
+.my-page-myInquiry{
+    height: 100px;
+    margin-top: 15px;
+    border-top: 1px solid black;
 }
 .my-page-inquiry-table-display{
     width: 100%;
@@ -706,4 +714,13 @@ table img{
     100%{
         background-position-x: 250px;
     }
+}
+
+/* 나의 문의 내역 이미지 */
+.my-page-myInquiry-imgBox>img{
+
+    height: 150px;
+    width: 150px;
+    margin-top: 15px;
+    
 }

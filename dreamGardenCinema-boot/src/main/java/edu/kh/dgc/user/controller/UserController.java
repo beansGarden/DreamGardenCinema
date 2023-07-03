@@ -53,18 +53,11 @@ public class UserController {
 		return "user/accountFind";
 	}
 	
-	@GetMapping("/copy")
-	public String error500() {
-
-		return "common/copy";
-	}
-	
-
 	@GetMapping("/changePw")
 	public String changePw(HttpSession session) {
 		
 		if(session.getAttribute("cngPwUserId") == null) {
-			return "common/error";
+			return "error/404";
 		}
 		return "user/changePw";
 	}
