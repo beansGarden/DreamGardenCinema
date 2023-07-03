@@ -40,18 +40,22 @@ if (movieType != "") {
             <button>평점순</button>
             |
             <button>관람평 많은순</button>
-            |
-            <button>보고싶어요순</button>
         */
 
         const byTicket = document.createElement("button");
         byTicket.innerText = "예매순";
+        byTicket.className = "sort-active";
+        byTicket.id = "byTicket";
 
         const byStar = document.createElement("button");
         byStar.innerText = "평점순";
+        byStar.className = "sort-non-active";
+        byStar.id = "byStar";
         
         const byReview = document.createElement("button");
         byReview.innerText = "관람평 많은순";
+        byReview.className = "sort-non-active";
+        byReview.id = "byReview";
 
         navMenu.append(byTicket);
         navMenu.innerHTML += " | ";
@@ -105,6 +109,17 @@ if (movieType != "") {
                         </div>
                         
                         <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
+
+                        <div class="movie-data">
+                            <span class="ratio">
+                                예매율
+                                <em th:text="${movie.ratio}+'%'">예매율</em>
+                            </span>
+                            <span class="star">
+                                <img th:src="@{/images/common/main/포스터/star3.png}">
+                                <em th:text="${movie.score}"></em>
+                            </span>
+                        </div>
     
                     </div>
     
@@ -123,8 +138,18 @@ if (movieType != "") {
                             <img class="movie-poster" th:src="${movie.poster}">
                             <img class="movie-rating" th:src="${movie.rating}">
                             <div class="movie-action">
-                                <a class="font4" href="#">예매하기</a>
+                                <a class="font4" href="@{/ticketing/date/} + ${movieInfo.movieNo}">예매하기</a>
                                 <a class="font4" th:href="@{/movie/?movie=${movie.movieNo}}">상세보기</a>
+                            </div>
+                            <div class="movie-data">
+                                <span class="ratio">
+                                    예매율
+                                    <em th:text="${movie.ratio}+'%'">예매율</em>
+                                </span>
+                                <span class="star">
+                                    <img th:src="@{/images/common/main/포스터/star3.png}">
+                                    <em th:text="${movie.score}"></em>
+                                </span>
                             </div>
                         </div> 
                     */
@@ -152,7 +177,7 @@ if (movieType != "") {
 
                     ticket.classList.add("font4")
                     ticket.innerText = "예매하기";
-                    ticket.setAttribute("href", "#");
+                    ticket.setAttribute("href", "/ticketing/date/" + movie.movieNo);
                     
                     movieAction.append(ticket);
                     
@@ -180,6 +205,60 @@ if (movieType != "") {
 
                     movieItem.append(movieTitle);
 
+                    /* 
+                    <div class="movie-data">
+                        <span class="ratio">
+                            예매율
+                            <em th:text="${movie.ratio}+'%'">예매율</em>
+                        </span>
+                        <span class="star">
+                            <img th:src="@{/images/common/main/포스터/star3.png}">
+                            <em th:text="${movie.score}"></em>
+                        </span>
+                    </div> 
+                    */
+                    
+                    const movieData = document.createElement("div");
+
+                    movieData.classList.add("movie-data");
+
+                    /* 
+                    <span class="ratio">
+                        예매율
+                        <em th:text="${movie.ratio}+'%'">예매율</em>
+                    </span> 
+                    */
+                    const ratio = document.createElement("span");
+                    ratio.classList.add("ratio")
+                    ratio.innerText = "예매율";
+
+                    const ratioInnerData = document.createElement("em")
+                    ratioInnerData.innerText = movie.ratio + "%";
+
+                    ratio.append(ratioInnerData);
+
+                    /*
+                    <span class="star">
+                        <img th:src="@{/images/common/main/포스터/star3.png}">
+                        <em th:text="${movie.score}"></em>
+                    </span>
+                    */
+                    const star = document.createElement("span");
+                    star.classList.add("star");
+
+                    const starImg = document.createElement("img");
+                    starImg.setAttribute("src", "/images/common/main/포스터/star3.png")
+                    star.append(starImg);
+
+                    const starScore = document.createElement("em");
+                    starScore.innerText = movie.score;
+                    star.append(starScore);
+                    
+                    movieData.append(ratio);
+                    movieData.append(star);                    
+
+                    movieItem.append(movieData);
+
 
                     document.querySelector(".movieList--items").append(movieItem);
                 }
@@ -192,6 +271,9 @@ if (movieType != "") {
 
     });
 
+
+
+
     /* 상영예정작 버튼을 눌렀을때 */
     promiseBtn.addEventListener("click", () => {
 
@@ -199,22 +281,13 @@ if (movieType != "") {
 
 /* 
             <button>개봉일순</button>
-            |
-            <button>예매순</button>
-            |
-            <button>보고싶어요순</button>
  */
 
-        const byRelease = document.createElement("button");
+        const byRelease = document.createElement("div");
         byRelease.innerText = "개봉일순";
-
-        const byTicket = document.createElement("button");
-        byTicket.innerText = "예매순";
-        
+        byRelease.classList.add("sort-active");
 
         navMenu.append(byRelease);
-        navMenu.innerHTML += " | ";
-        navMenu.append(byTicket);
 
         moreBtn.style.display = 'flex';
 
@@ -353,7 +426,7 @@ if (movieType != "") {
 
                     ticket.classList.add("font4")
                     ticket.innerText = "예매하기";
-                    ticket.setAttribute("href", "#");
+                    movieRating.setAttribute("src", movie.rating);
                     
                     movieAction.append(ticket);
                     }
@@ -377,6 +450,38 @@ if (movieType != "") {
                     movieTitle.innerText = movie.movieTitle;
 
                     movieItem.append(movieTitle);
+
+                    if(movieType = "current"){
+                    
+                    const movieData = document.createElement("div");
+
+                    movieData.classList.add("movie-data");
+
+                    const ratio = document.createElement("span");
+                    ratio.classList.add("ratio")
+                    ratio.innerText = "예매율";
+
+                    const ratioInnerData = document.createElement("em")
+                    ratioInnerData.innerText = movie.ratio + "%";
+
+                    ratio.append(ratioInnerData);
+
+                    const star = document.createElement("span");
+                    star.classList.add("star");
+
+                    const starImg = document.createElement("img");
+                    starImg.setAttribute("src", "/images/common/main/포스터/star3.png")
+                    star.append(starImg);
+
+                    const starScore = document.createElement("em");
+                    starScore.innerText = movie.score;
+                    star.append(starScore);
+                    
+                    movieData.append(ratio);
+                    movieData.append(star);                    
+
+                    movieItem.append(movieData);
+                    }
 
 
                     document.querySelector(".movieList--items").append(movieItem);

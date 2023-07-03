@@ -28,7 +28,6 @@ public class MainController {
 		// 현재 상영작 정보 얻어오기
 		List<Movie> movieList = movieService.selectMovieListCurrent();
 		
-		
 		List<Notice> noticeList = noticeService.selectNoticeList();
 		
 		// 메인슬라이더 이미지 얻어오기
