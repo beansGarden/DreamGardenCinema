@@ -113,6 +113,9 @@
 		<result property="movieNo" column="MOVIE_NO" />
 		<result property="movieTitle" column="MOVIE_TITLE" />
 		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userId" column="USER_ID" />
+		<result property="reportNo" column="REPORT_NO" />
 	</resultMap>
 	
 	<!--Report 영화 및 상영관-->
@@ -129,7 +132,10 @@
 		<result property="writerNo" column="REPORT_WIRTER" />
 		<result property="reportedNo" column="REPORTED_USER_NO" />
 		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reportDeleteFl" column="REPORT_DELETE_FL" />
 		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+		<result property="reportWriter" column="REPORT_WRITER" />
+		<result property="reportedId" column="REPORTED_USER_ID" />
 	</resultMap>
 	
 
@@ -225,7 +231,7 @@
 		QNA_IMG.QNA_IMG_PATH
 		FROM
 		QNA
-		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
 		LEFT JOIN (
 		SELECT QNA_NO, MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
 		FROM QNA_IMG
@@ -716,6 +722,14 @@
 		FROM NOTICE
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
+	
+	
+	<update id="noticeUpdate">
+		UPDATE NOTICE
+		SET NOTICE_TITLE  = #{noticeTitle},
+			NOTICE_CONTENT = #{noticeContent}
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
 
 	<!--공지사항 글쓰기-->
 	<insert id="noticeWriteInsert" parameterType="Notice" useGeneratedKeys="true">
@@ -913,8 +927,12 @@
 		
 		<!--신고하기 게시판 불러오기-->
 		<select id="adminReportList" resultMap="report_rm">
-			SELECT * FROM REPORT
-			ORDER BY REPORT_NO DESC
+			SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID,MR.REVIEW_DELETE_FL
+			FROM REPORT R
+			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
+			JOIN USER_INFO UI1 ON UI1.USER_NO = R.REPORT_WIRTER
+			JOIN USER_INFO UI2 ON UI2.USER_NO = R.REPORTED_USER_NO
+			ORDER BY R.REPORT_NO DESC
 		</select>
 		
 		<!--신고하기 게시글 불러오기-->
@@ -933,7 +951,7 @@
 		WHERE REVIEW_NO = #{reviewNo}
 		</update>
 		
-		<!--신고하기에서 리뷰삭제하기-->
+		<!--신고하기에서 리뷰복구하기-->
 		<update id="restoreReview">
 		UPDATE MOVIE_REVIEW
 		SET	REVIEW_DELETE_FL ='N'
@@ -1031,16 +1049,34 @@
 
 <!--리뷰 게시글 개수 불러오기-->
 		<select id="reviewListCount" resultType="_int">
-			SELECT count(*) FROM MOVIE_REVIEW
+		SELECT COUNT(*)
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		ORDER BY MR.REVIEW_NO DESC
 		</select>
 
 
 	<!--리뷰관리하기 게시판 불러오기-->
 		<select id="adminReviewList" resultMap="review_rm">
 		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
-       MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE 
+ 		MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE, UI.USER_ID
 		FROM MOVIE_REVIEW MR
 		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		ORDER BY MR.REVIEW_NO DESC
+
+
+		</select>
+		
+	<!--리뷰관리하기 게시글 불러오기-->
+		<select id="adminReviewOne" resultMap="review_rm">
+		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+        MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE, UI.USER_ID
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		WHERE REVIEW_NO = #{reviewNo}
 		ORDER BY MR.REVIEW_NO DESC
 		</select>
 		

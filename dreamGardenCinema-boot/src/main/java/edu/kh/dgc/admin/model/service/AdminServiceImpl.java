@@ -519,6 +519,13 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.noticeWriteInsert(notice);
 	}
+	
+	//공지사항 수정
+	@Override
+	public int noticeUpdate(Notice notice) {
+		
+		return mapper.noticeUpdate(notice);
+	}
 
 	// 공지사항 게시글 삭제
 	@Override
@@ -856,6 +863,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.restoreReview(reviewNo);
 	}
+
+	//리뷰 게시글 읽어오기
+	@Override
+	public List<Review> adminReviewOne(int reviewNo) {
+	
+		return mapper.adminReviewOne(reviewNo);
+	}
+
+
+	
 
 
 

@@ -133,6 +133,10 @@ public interface AdminService {
 
 	//공지사항 게시글 쓰기
 	int noticeWriteInsert(Notice notice);
+	
+	//공지사항 수정
+	int noticeUpdate(Notice notice);
+
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
@@ -216,6 +220,10 @@ public interface AdminService {
 
 	//리뷰 복구
 	int restoreReview(int reviewNo);
+
+	//리뷰 게시글 읽어오기
+	List<Review> adminReviewOne(int reviewNo);
+
 
 	
 	

@@ -8,43 +8,7 @@ function userSelectAll(userSelectAll)  {
     })
   }
 
-  /* 삭제 버튼 선택 삭제하기 */
- /*  const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
-  const checkbox = document.getElementsByClassName("admin_reviewCheckbox"); //check박스
-  const checkboxNo = document.getElementsByClassName("admin_review_checkbox_no"); //번호
- 
-  delBtn.addEventListener(('click'),()=>{
 
- 
-  if (confirm("정말 삭제 하시겠습니까?")) {
-    for(let i=0; i<checkbox.length; i++){
-      if (checkbox[i].checked) {
-   var reviewNo = document.getElementsByClassName("admin_review_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
-  
-} if(checkbox!=null){
-reviewDelete(reviewNo);
-}
-}
-}else return;
-
-});
-
-function reviewDelete(reviewNo){
-
-  
-
-  fetch("/adminreview/deletereviewList", {
-    method : "POST",
-    headers : {"Content-Type": "application/json"},
-    body : JSON.stringify({"reviewNo" : reviewNo})
-  }).then(resp=> resp.text())
-  .then(result=>{
-    console.log(result);
-    console.log(reviewNo);
-
-  }).catch(err=> console.log(err));
-
-} */
 
 //체크박스 숫자 불러오기
 function userSelectAll(checkbox) {
@@ -114,36 +78,63 @@ const checkboxNo = document.getElementsByClassName("admin_review_checkbox_no"); 
 
 delBtn.addEventListener('click', () => {
   if (confirm("정말 삭제하시겠습니까?")) {
+    const selectedReviewNos = []; // 선택된 리뷰 번호들을 저장할 배열
+
     for (let i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked) {
-        var reviewNo = document.getElementsByClassName("admin_review_checkbox_no")[i].innerText; // 체크박스 옆 숫자 = 리뷰 번호
-        if (checkboxNo != null) {
-          reviewDelete(reviewNo);
-        }
+        const reviewNo = checkboxNo[i].innerText;
+        selectedReviewNos.push(reviewNo);
       }
+    }
+
+    if (selectedReviewNos.length > 0) {
+      reviewDelete(selectedReviewNos); // 선택된 리뷰 번호들을 전달하여 삭제 함수 호출
     }
   } else {
     return;
   }
 });
 
-function reviewDelete(reviewNo) {
-  fetch("/adminReivew/deleteReviewList", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({"reviewNo": parseInt(reviewNo)})
-  })
-  .then(resp => resp.text())
-  .then(result => {
-    console.log(result);
-    console.log(reviewNo); // 번호 나옴
-    alert("리뷰가 삭제되었습니다."); // 삭제 완료 메시지
- 
-  })
-  .catch(err => console.log(err));
+function reviewDelete(reviewNos) {
+  const promises = [];
+
+  reviewNos.forEach(reviewNo => {
+    const promise = fetch("/adminReivew/deleteReviewList", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({"reviewNo": parseInt(reviewNo)})
+    })
+    .then(resp => resp.text())
+    .then(result => {
+      console.log(result);
+      console.log(reviewNo); // 번호 나옴
+
+      const tr = document.getElementsByClassName("tr");
+      const delFl = document.getElementsByClassName("deleteFl");
+
+      for (let i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+          delFl[i].innerText = '';
+          delFl[i].innerText = 'Y';
+          console.log("del" + delFl[i]);
+          console.log("tr" + tr[i]);
+        }
+      }
+    })
+    .catch(err => console.log(err));
+
+    promises.push(promise);
+  });
+
+  Promise.all(promises)
+    .then(() => {
+      alert("리뷰가 삭제되었습니다."); // 삭제 완료 메시지
+    })
+    .catch(err => console.log(err));
 }
 
-/* 삭제 버튼 선택 삭제하기 */
+
+/* 복구 버튼 선택 삭제하기 */
 const restoreBtn = document.getElementById("restoreBtn"); // 삭제 버튼
 
 
@@ -153,7 +144,7 @@ restoreBtn.addEventListener('click', () => {
       if (checkbox[i].checked) {
         var reviewNo = document.getElementsByClassName("admin_review_checkbox_no")[i].innerText; // 체크박스 옆 숫자 = 리뷰 번호
         if (checkboxNo != null) {
-          reviewDelete(reviewNo);
+          reviewRestore(reviewNo);
         }
       }
     }
@@ -162,7 +153,7 @@ restoreBtn.addEventListener('click', () => {
   }
 });
 
-function reviewDelete(reviewNo) {
+function reviewRestore(reviewNo) {
   fetch("/adminReivew/restoreReviewList", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -173,7 +164,22 @@ function reviewDelete(reviewNo) {
     console.log(result);
     console.log(reviewNo); // 번호 나옴
     alert("리뷰가 복구되었습니다."); // 삭제 완료 메시지
- 
+    
+    const tr = document.getElementsByClassName("tr");
+    const delFl = document.getElementsByClassName("deleteFl");
+
+    for (let i = 0; i < checkbox.length; i++) {
+      if (checkbox[i].checked) {
+
+        delFl[i].innerText = '';
+        delFl[i].innerText = 'N';
+        console.log("del" + delFl[i]);
+        console.log("tr" + tr[i]);
+    }
+    }
   })
   .catch(err => console.log(err));
+
+
+
 }

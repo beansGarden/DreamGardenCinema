@@ -222,6 +222,14 @@ public interface AdminMapper {
 	 */
 	int noticeWriteInsert(Notice notice);
 
+	
+	/**공지사항 수정
+	 * @param notice
+	 * @return
+	 */
+	int noticeUpdate(Notice notice);
+
+	
 	/**
 	 * 공지사항 게시글 삭제
 	 * 
@@ -404,6 +412,10 @@ public interface AdminMapper {
 	//영화 검색에 따른 개수 불러오기
 	int movieFilterListCount(Movie condition);
 
+	//리뷰 게시글 읽어오기
+	List<Review> adminReviewOne(int reviewNo);
+
+	
 	
 
 	

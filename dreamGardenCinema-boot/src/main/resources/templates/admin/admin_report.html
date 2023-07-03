@@ -86,9 +86,9 @@
                         <td><a th:href="@{adminReportRead/{reportNo}(reportNo=${list.reportNo})}" th:text="${list.reportTitle}">게시글
                                 번호</a></td>
                         <td th:text="${list.reviewNo}"></td>
-                        <td th:text="${list.writerNo}"></td>
-                        <td th:text="${list.reportedNo}"></td>
-                        <td th:text="${list.reportFl}" id="reportCheckFl"></td>
+                        <td th:text="${list.reportWriter}"></td>
+                        <td th:text="${list.reportedId}"></td>
+                        <td th:text="${list.reviewDeleteFl}" id="reportCheckFl"></td>
 
                     </tr>
 

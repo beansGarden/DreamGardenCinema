@@ -83,10 +83,10 @@
 }
 /* 체크박스 */
 #boardTable > thead > tr > th:nth-child(1){
-    width: 10px;
+    width: 20px;
 }
 #boardTable > thead > tr > th:nth-child(2){
-    width: 10px;
+    width: 20px;
 }
 #boardTable > thead > tr > th:nth-child(3){
     width: 50px;
@@ -95,13 +95,13 @@
     width: 100px;
 }
 #boardTable > thead > tr > th:nth-child(5){
-    width: 20px;
+    width: 50px;
 }
 #boardTable > thead > tr > th:nth-child(6){
     width: 20px;
 }
 #boardTable > thead > tr > th:nth-child(7){
-    width: 60px;
+    width: 40px;
 }
 #boardTable > thead > tr > th:nth-child(8){
     width: 20px;
