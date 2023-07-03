@@ -72,7 +72,17 @@
                 </div>
                 
                 <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
-
+                <div class="movie-data">
+                    <span class="ratio">
+                        예매율
+                        <em th:text="${movie.ratio}+'%'">예매율</em>
+                    </span>
+                    <span class="star">
+                        <img th:src="@{/images/common/main/포스터/star3.png}">
+                        <em th:text="${movie.score}"></em>
+                    </span>
+                </div>
+                
             </div>
 
         </div>

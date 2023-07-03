@@ -84,7 +84,7 @@ body {
 
 
 .movieItem {
-    height: 300px;
+    height: 310px;
     margin: auto;
     text-align: center;
 }
@@ -115,7 +115,15 @@ body {
 }
 
 .movieItem .movie-title{
+    margin: auto;
     margin-top: 10px;
+    width: 156px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .movie-poster-container em{
@@ -126,6 +134,25 @@ body {
     bottom: 0px;
     left: 6px;
     text-shadow: 1px 1px 1px gray;
+}
+
+.movie-data{
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star{
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star img {
+    width: 10px;
+    height: 10px;
 }
 
 

@@ -105,6 +105,17 @@ if (movieType != "") {
                         </div>
                         
                         <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
+
+                        <div class="movie-data">
+                            <span class="ratio">
+                                예매율
+                                <em th:text="${movie.ratio}+'%'">예매율</em>
+                            </span>
+                            <span class="star">
+                                <img th:src="@{/images/common/main/포스터/star3.png}">
+                                <em th:text="${movie.score}"></em>
+                            </span>
+                        </div>
     
                     </div>
     
@@ -125,6 +136,16 @@ if (movieType != "") {
                             <div class="movie-action">
                                 <a class="font4" href="@{/ticketing/date/} + ${movieInfo.movieNo}">예매하기</a>
                                 <a class="font4" th:href="@{/movie/?movie=${movie.movieNo}}">상세보기</a>
+                            </div>
+                            <div class="movie-data">
+                                <span class="ratio">
+                                    예매율
+                                    <em th:text="${movie.ratio}+'%'">예매율</em>
+                                </span>
+                                <span class="star">
+                                    <img th:src="@{/images/common/main/포스터/star3.png}">
+                                    <em th:text="${movie.score}"></em>
+                                </span>
                             </div>
                         </div> 
                     */
@@ -179,6 +200,60 @@ if (movieType != "") {
                     movieTitle.innerText = movie.movieTitle;
 
                     movieItem.append(movieTitle);
+
+                    /* 
+                    <div class="movie-data">
+                        <span class="ratio">
+                            예매율
+                            <em th:text="${movie.ratio}+'%'">예매율</em>
+                        </span>
+                        <span class="star">
+                            <img th:src="@{/images/common/main/포스터/star3.png}">
+                            <em th:text="${movie.score}"></em>
+                        </span>
+                    </div> 
+                    */
+                    
+                    const movieData = document.createElement("div");
+
+                    movieData.classList.add("movie-data");
+
+                    /* 
+                    <span class="ratio">
+                        예매율
+                        <em th:text="${movie.ratio}+'%'">예매율</em>
+                    </span> 
+                    */
+                    const ratio = document.createElement("span");
+                    ratio.classList.add("ratio")
+                    ratio.innerText = "예매율";
+
+                    const ratioInnerData = document.createElement("em")
+                    ratioInnerData.innerText = movie.ratio + "%";
+
+                    ratio.append(ratioInnerData);
+
+                    /*
+                    <span class="star">
+                        <img th:src="@{/images/common/main/포스터/star3.png}">
+                        <em th:text="${movie.score}"></em>
+                    </span>
+                    */
+                    const star = document.createElement("span");
+                    star.classList.add("star");
+
+                    const starImg = document.createElement("img");
+                    starImg.setAttribute("src", "/images/common/main/포스터/star3.png")
+                    star.append(starImg);
+
+                    const starScore = document.createElement("em");
+                    starScore.innerText = movie.score;
+                    star.append(starScore);
+                    
+                    movieData.append(ratio);
+                    movieData.append(star);                    
+
+                    movieItem.append(movieData);
 
 
                     document.querySelector(".movieList--items").append(movieItem);
@@ -367,6 +442,38 @@ if (movieType != "") {
                     movieTitle.innerText = movie.movieTitle;
 
                     movieItem.append(movieTitle);
+
+                    if(movieType = "current"){
+                    
+                    const movieData = document.createElement("div");
+
+                    movieData.classList.add("movie-data");
+
+                    const ratio = document.createElement("span");
+                    ratio.classList.add("ratio")
+                    ratio.innerText = "예매율";
+
+                    const ratioInnerData = document.createElement("em")
+                    ratioInnerData.innerText = movie.ratio + "%";
+
+                    ratio.append(ratioInnerData);
+
+                    const star = document.createElement("span");
+                    star.classList.add("star");
+
+                    const starImg = document.createElement("img");
+                    starImg.setAttribute("src", "/images/common/main/포스터/star3.png")
+                    star.append(starImg);
+
+                    const starScore = document.createElement("em");
+                    starScore.innerText = movie.score;
+                    star.append(starScore);
+                    
+                    movieData.append(ratio);
+                    movieData.append(star);                    
+
+                    movieItem.append(movieData);
+                    }
 
 
                     document.querySelector(".movieList--items").append(movieItem);
