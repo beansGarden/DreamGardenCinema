@@ -2,8 +2,7 @@
 .admin_userWrap {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    position: fixed;
+    position: absolute;
     width: 80vw;
     top: 3%;
     left: 415px;
@@ -27,8 +26,9 @@
 
 /*  게시판만 감싸는 박스 */
 .admin_mem-board-box {
-    position: relative;
-    left: -100px;
+    position: absolute;
+    left: -7px;
+    top: 75px;
 }
 
 /* 유저검색 창 */
@@ -92,8 +92,8 @@
 .admin_userList{
     width: 10vw;
     position: relative;
-    left: 130px;
-    margin-top: 40px;
+    left: 15px;
+    margin-top: 48px;
     margin-bottom: -15px;
 }
 

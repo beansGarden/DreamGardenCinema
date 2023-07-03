@@ -15,7 +15,7 @@ th,td{
 .admin_dashboardWrap{
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: absolute;
     width: 80vw;
     top: 10%;
     left: 515px;
