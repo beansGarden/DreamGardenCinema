@@ -1,6 +1,5 @@
 body{
     background-color: #80808050;
- 
 }
 /************************************************************************/
 @import url('https://fonts.googleapis.com/css?family=Arima+Madurai:300');
@@ -311,6 +310,14 @@ body {
     font-weight: bold;
     font-size: 32px;
     margin-bottom: 20px;
+}
+.login-logo-box{
+}
+.login-logo{
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .first-Visit-text{
     font-size: 16px;

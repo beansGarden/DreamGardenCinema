@@ -59,14 +59,25 @@
                 <div class="movie-poster-container">
                     <img class="movie-poster" th:src="${movie.poster}">
                     <img class="movie-rating" th:src="${movie.rating}">
+                    <em th:text="${movie.rank}">순위</em>
                     <div class="movie-action">
-                        <a class="font4" href="#">예매하기</a>
+                        <a class="font4" th:href="@{/ticketing/date/} + ${movie.movieNo}">예매하기</a>
                         <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}|}">상세보기</a>
                     </div>
                 </div>
                 
 
                 <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
+                <div class="movie-data">
+                    <span class="ratio">
+                        예매율
+                        <em th:text="${movie.ratio}+'%'">예매율</em>
+                    </span>
+                    <span class="star">
+                        <img th:src="@{/images/common/main/포스터/star3.png}">
+                        <em th:text="${movie.score}"></em>
+                    </span>
+                </div>
 
             </div>
 
@@ -100,7 +111,6 @@
                     <img class="movie-poster" th:src="${movie.poster}">
                     <img class="movie-rating" th:src="${movie.rating}">
                     <div class="movie-action">
-                        <a class="font4" href="#">예매하기</a>
                         <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}|}">상세보기</a>
                     </div>
                 </div>

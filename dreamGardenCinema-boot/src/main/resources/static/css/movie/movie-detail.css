@@ -88,6 +88,20 @@ body {
     gap: 20px;
 }
 
+.movie--audience-info :nth-child(1){
+    margin-right: 5px;
+    font-weight: 400;
+}
+
+.movie--audience-info :last-child{
+    font-weight: bold;
+}
+
+.movie--audience-info img{
+    width: 10px;
+    height: 10px;
+}
+
 /* 영화 단순 정보 */
 .movie--simple-info{
     padding: 20px;

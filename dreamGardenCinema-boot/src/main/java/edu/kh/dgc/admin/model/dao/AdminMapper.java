@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.dgc.admin.model.dto.Query;
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -14,6 +15,7 @@ import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.review.model.dto.Review;
+import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -423,5 +425,21 @@ public interface AdminMapper {
 	
 
 
+
+	
+	// 상영관 리스트 조회(찬희)
+	List<Movie> selectCinemaList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	// 상영관 리스트 갯수 조회(페이지네이션용)(찬희)
+	int getListCount(Map<String, Object> paramMap);
+
+	// 상영관 세부 시간 조회 AJAX(찬희)
+	List<String> selectDetailTime(Map<String, Object> paramMap);
+	
+	// 상영관 세부 시간 삭제(찬희)
+	int deleteDetailTime(Schedule schedule);
+
+	// 예약된 좌석이 있는지 확인(찬희)
+	int selectTicketing(Schedule schedule);
 
 }

@@ -134,13 +134,27 @@
                     <td><img class="up-down-img" th:src="@{/images/myPage/downbtn.png}"></td>
                 </tr>
                 <tr class="my-page-inquiry-table-display">
-                    <td colspan="6" id="my-page-inquiry-title" th:text="${list.qnaTitle}">문의 하신 제목: <span>파이널
-                            파이팅~</span></td>
+                    <td colspan="6" id="my-page-inquiry-title" th:text="|문의 제목 : ${list.qnaTitle}|"></td>
                 </tr>
-                <tr class="my-page-inquiry-table-display">
-                    <td colspan="6" id="my-page-inquiry-content">답변 내용:
-                        <span th:if="${list.qnaComment != null}" th:text="${list.qnaComment}"></span>
-                        <span th:unless="${list.qnaComment != null}">현재 처리중 입니다</span>
+                <tr class="my-page-inquiry-table-display">  
+                    <td colspan="6" >
+                        <div id="my-page-inquiry-content">
+                            <div>
+                                <span th:text="|문의 내용 : ${list.qnaContent}|">문의 내용:</span>
+                            </div>
+
+                            <div class="my-page-myInquiry">
+                                <span>답변 내용:</span>
+                                <span th:if="${list.qnaComment != null}" th:text="${list.qnaComment}"></span>
+                                <span th:unless="${list.qnaComment != null}">현재 처리중 입니다</span>
+                                <div class="my-page-myInquiry-imgBox">
+                                    <!-- <img th:src="@{/images/myPage/고죠 사토루.jpg}" onclick="window.open(this.src)">
+                                    <img th:src="@{/images/myPage/고죠 사토루.jpg}">
+                                    <img th:src="@{/images/myPage/고죠 사토루.jpg}"> -->
+                                </div>
+                                
+                            </div>
+                        </div>
                     </td>
                 </tr>
 

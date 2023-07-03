@@ -147,16 +147,33 @@ userPw.addEventListener("input", () => {
     const regex = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-z\d$@$!%*#?&]{8,}$/;
     const userPwValue = userPw.value;
 
-    if (regex.test(userPwValue)) {
-        line1.classList.add("clear")
-        line1.classList.remove("line1")
-        line1.classList.remove("error")
-        checkObj.userPw = true;
-    } else {
-        line1.classList.add("error")
-        line1.classList.remove("line1")
-        line1.classList.remove("clear")
-        checkObj.userPw = false;
+    const data = {
+        "secessionPwValue" : userPwValue
+    };
+    if(userPwValue.trim().length  > 0) {
+        fetch("/myPage/secessionCheck", {
+            method : "POST",
+            headers : {"Content-Type": "application/json"},
+            body : JSON.stringify(data)
+
+        })
+
+    .then(resp=>resp.text())
+    .then(result=>{
+
+
+        if (regex.test(userPwValue)&&result>0) {
+            line1.classList.add("clear")
+            line1.classList.remove("line1")
+            line1.classList.remove("error")
+            checkObj.userPw = true;
+        } else {
+            line1.classList.add("error")
+            line1.classList.remove("line1")
+            line1.classList.remove("clear")
+            checkObj.userPw = false;
+        }
+    })
     }
 })
 userPw.addEventListener("focus", () => {

@@ -105,61 +105,61 @@
                 </div>
             </div>
 
-            <div class="sign-up-line"></div>
+            <!-- <div class="sign-up-line"></div> -->
 
             <div class="email-nickname-box">
-            <div class="input-wrapper user-email">
-                <label>
-                    <input type="email" name="userEmail" id="userEmail" class="">
-                    <span aria-hidden="true">이메일</span>
-                </label>
-            </div>
-            <div class="input-wrapper user-nickname">
-                <label>
-                    <input type="text" name="userNickname" id="userNickname" class="">
-                    <span aria-hidden="true">닉네임</span>
-                </label>
-            </div>
-            <div class="input-wrapper user-birth1">
-                <label>
-                    <input type="text" name="userBirth1" id="userBirth1" class="" maxlength="8"
-                        placeholder="ex&#41; 20001231">
-                    <span aria-hidden="true">생년월일 8자리</span>
-                </label>
-            </div>
-            <div class="input-wrapper gender-box">
-                <div class="form_toggle row-vh d-flex flex-row justify-content-between">
-                    <div class="form_radio_btn radio_male">
-                        <input id="radio-1" type="radio" name="userGender" class="userGender" value="M">
-                        <label for="radio-1">남자</label>
-                    </div>
-                    <div class="form_radio_btn">
-                        <input id="radio-2" type="radio" name="userGender" class="userGender" value="F">
-                        <label for="radio-2">여자</label>
+                <div class="input-wrapper user-email">
+                    <label>
+                        <input type="email" name="userEmail" id="userEmail" class="">
+                        <span aria-hidden="true">이메일</span>
+                    </label>
+                </div>
+                <div class="input-wrapper user-nickname">
+                    <label>
+                        <input type="text" name="userNickname" id="userNickname" class="">
+                        <span aria-hidden="true">닉네임</span>
+                    </label>
+                </div>
+                <div class="input-wrapper user-birth1">
+                    <label>
+                        <input type="text" name="userBirth1" id="userBirth1" class="" maxlength="8"
+                            placeholder="ex&#41; 20001231">
+                        <span aria-hidden="true">생년월일 8자리</span>
+                    </label>
+                </div>
+                <div class="input-wrapper gender-box">
+                    <div class="form_toggle row-vh d-flex flex-row justify-content-between">
+                        <div class="form_radio_btn radio_male">
+                            <input id="radio-1" type="radio" name="userGender" class="userGender" value="M">
+                            <label for="radio-1">남자</label>
+                        </div>
+                        <div class="form_radio_btn">
+                            <input id="radio-2" type="radio" name="userGender" class="userGender" value="F">
+                            <label for="radio-2">여자</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-            <div class="sign-up-line"></div>
+            <!-- <div class="sign-up-line"></div> -->
 
             <div class="tel-box">
-            <div class="input-wrapper user-tel">
-                <label>
-                    <input type="text" name="userTel" id="userTel" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'
-                        maxlength="11">
-                    <span aria-hidden="true">휴대폰 번호</span>
-                </label>
+                <div class="input-wrapper user-tel">
+                    <label>
+                        <input type="text" name="userTel" id="userTel" class="" placeholder='"-" 를 제외한 숫자만 입력해 주세요.'
+                            maxlength="11">
+                        <span aria-hidden="true">휴대폰 번호</span>
+                    </label>
+                </div>
+                <div class="input-wrapper auth-key">
+                    <label>
+                        <input type="text" name="authKey" id="authKey" class="">
+                        <span aria-hidden="true">인증번호</span>
+                    </label>
+                    <div id="authKeyLifeTime" class="authKey-green-text display-none">05:00</div>
+                    <div id="" class="authKeyResend display-none">재요청</div>
+                </div>
             </div>
-            <div class="input-wrapper auth-key">
-                <label>
-                    <input type="text" name="authKey" id="authKey" class="">
-                    <span aria-hidden="true">인증번호</span>
-                </label>
-                <div id="authKeyLifeTime" class="authKey-green-text display-none">05:00</div>
-                <div id="" class="authKeyResend display-none">재요청</div>
-            </div>
-        </div>
 
             <button type="button" id="sendAuthKeyBtn" class="">인증 요청</button>
             <button id="signBtn" class="display-none">회원가입</button><!-- 회원가입 및 인증번호 검사 -->
@@ -169,6 +169,9 @@
 
     <script th:inline="javascript">
 
+        const message =   /*[[${message}]]*/  "전달 받은 message";
+    
+        if (message != null) alert(message);
     </script>
 
 </body>

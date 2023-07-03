@@ -25,7 +25,7 @@
                 <div class="choiceHeader">예매완료</div>
                 <div class="ticketBox" th:object="${map}">
                     <div>예매가 완료 되었습니다</div>
-                    <div class="ticket_info">
+                    <div class="ticket_info" id="ticketInfo">
                         <div class="poster">
                             <img th:src="*{ticket.poster}" alt="">
                         </div>
@@ -64,8 +64,8 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <a href="">예매정보 출력</a>
-                        <a href="">예매확인/취소</a>
+                        <a onclick="print()">예매정보 출력</a>
+                        <a th:href="@{/myPage/}">예매확인/취소</a>
                     </div>
                 </div>
             </form>

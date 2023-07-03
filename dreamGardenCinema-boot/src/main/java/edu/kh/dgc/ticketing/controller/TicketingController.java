@@ -90,11 +90,11 @@ public class TicketingController {
 	}
 
 	// 예매 2페이지 선택 시 기존 정보를 갖고 보여주는 창
-	@GetMapping("/seat")
-	public String seat(Ticket ticket, String date, Model model, RedirectAttributes ra) {
-
-		return "ticketing/Ticketing2";
-	}
+//	@GetMapping("/seat")
+//	public String seat(Ticket ticket, String date, Model model, RedirectAttributes ra) {
+//
+//		return "ticketing/Ticketing2";
+//	}
 
 	// 예매 2페이지 선택한 영화정보, 선택or예매완료 좌석 조회
 	@PostMapping("/seat")
@@ -123,6 +123,8 @@ public class TicketingController {
 		int minute = Integer.parseInt(movieTime.substring(11, 13));
 
 		hour = hour + ((minute + runTime) / 60);
+		minute = (minute + runTime) % 60;
+		
 		String resultHour = null;
 		String resultMinute = null;
 		if(hour<10) {
@@ -136,9 +138,6 @@ public class TicketingController {
 			resultMinute = "" + minute;
 		}
 		
-		
-		minute = (minute + runTime) % 60;
-
 		// 화면단에 보여줄 러닝타임 (14:00 ~
 		String runningTime = movieTime.substring(8) + "~" + resultHour + ":" + resultMinute;
 

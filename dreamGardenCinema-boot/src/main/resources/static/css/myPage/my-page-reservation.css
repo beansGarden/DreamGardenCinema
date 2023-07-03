@@ -199,23 +199,45 @@
     margin-left: 25px;
 }
 .my-page-movie-img>img{
-    width: 183px;
-    height: 213px;
-    margin-right: 35px;
+    width: 218px;
+    height: 300px;
+    margin-right: 20px;
+    box-shadow: rgba(0,0,0,0.3) 0px 19px 38px, rgba(0,0,0,0.22) 0px 15px 12px;
+    border-radius: 5px;
 }
 /* 예매 상세 내역 */
+.ticket-background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.ticket-container{
+    display: flex;
+    background: white;
+    box-shadow: rgba(0,0,0,0.3) 0px 19px 38px,
+                rgba(0,0,0,0.22) 0px 15px 12px;
+    margin: 20px;
+    width: 70%;
+    border-radius: 15px;
+}
+.ticket-img-box{
+    padding-top: 5px;
+    border-right: 1px dashed #404040;
+}
 .my-page-movie-info{
     display: flex;
     width: 100%;
 }
 .my-page-contents-info{
     width: 100%;
+    margin-left: 20px;
 }
 .my-page-contents-info-date{
     display: grid;
     grid-template-columns: 0.5fr 1.5fr 0.5fr 1.5fr;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 10px;
+    margin-bottom: 39px;
 }
 .my-page-contents-info-title{
     display: flex;
@@ -241,22 +263,19 @@
 .my-page-payment-detail{
     font-weight: bold;
     font-size: 20px;
-    margin-left: 241px;
-    margin-top: 30px;
 }
 /* 결제 금액 구역 */
 .my-page-payment-detail-box{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 83%;
-    height: 200px;
+    width: 97%;
+    height: 120px;
     border: 1px solid #8D9FBE;
     border-radius: 15px;
     padding-left: 30px;
     padding-right: 30px;
-    margin-left: 241px;
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 #total-pay{
@@ -278,15 +297,13 @@
 }
 /* 예매 취소 버튼 */
 .my-page-contents-btn{
-    position: absolute;
-    right: 20px;
-    margin-top: 20px;
-    margin-bottom: 100px;
+    width: 80px;
     font-weight: bold;
     font-size: 16px;
     background-color: white;
-    border: 3px solid black;
+    border: 1px solid black;
     border-radius: 5px;
+    align-self: end;
 
 }
 .my-page-contents{

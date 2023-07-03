@@ -647,6 +647,86 @@
 		S.MOVIE_THEATER
 		ORDER BY M.RELEASE_DATE DESC
 	</select>
+	
+	<!-- 상영관 리스트 조회(찬희) -->
+	<select id="selectCinemaList" resultMap="movie_rm">
+		SELECT DISTINCT MOVIE_NO, MOVIE_THEATER, MOVIE_TITLE, RUNNING_TIME, TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') MOVIE_TIME
+		FROM MOVIE_SCHEDULE
+		LEFT JOIN MOVIE USING(MOVIE_NO)
+		LEFT JOIN PERSON_INFO USING(MOVIE_NO)
+		WHERE ROWNUM != 0
+		<if test='movieTheater != null and movieTheater != "ALL" and movieTheater != ""'>
+			AND MOVIE_THEATER = ${movieTheater}
+		</if>
+		<if test='date != null'>
+			AND TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{date}
+		</if>
+		<if test="selectOpt != null">
+			<choose>
+				<when test='selectOpt == "t"'>
+					AND MOVIE_TITLE LIKE '%${content}%' 
+				</when>
+				<when test='selectOpt == "d"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+				<when test='selectOpt == "a"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER
+	</select>
+	
+	<!-- 상영관 리스트 갯수 조회(페이지네이션용)(찬희) -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM(SELECT DISTINCT MOVIE_THEATER, MOVIE_TITLE, RUNNING_TIME, TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') MOVIE_TIME
+		FROM MOVIE_SCHEDULE
+		LEFT JOIN MOVIE USING(MOVIE_NO)
+		LEFT JOIN PERSON_INFO USING(MOVIE_NO)
+		WHERE ROWNUM != 0
+		<if test='movieTheater != null and movieTheater != "ALL" and movieTheater != ""'>
+			AND MOVIE_THEATER = ${movieTheater}
+		</if>
+		<if test='date != null'>
+			AND TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{date}
+		</if>
+		<if test="selectOpt != null">
+			<choose>
+				<when test='selectOpt == "t"'>
+					AND MOVIE_TITLE LIKE '%${content}%' 
+				</when>
+				<when test='selectOpt == "d"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+				<when test='selectOpt == "a"'>
+					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER)
+	</select>
+	<!-- 상영관 세부 시간 조회 AJAX(찬희) -->
+	<select id="selectDetailTime" resultType="string">
+		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI')
+		FROM MOVIE_SCHEDULE
+		JOIN MOVIE USING(MOVIE_NO)
+		WHERE MOVIE_TITLE = #{movieTitle}
+		AND MOVIE_THEATER = #{movieTheater}
+		AND TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{movieDate}
+	</select>
+	
+	<!-- 상영관 세부 시간 삭제(찬희) -->
+	<delete id="deleteDetailTime">
+		DELETE FROM MOVIE_SCHEDULE
+		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYY-MM-DDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo}
+	</delete>
+	
+	<!-- 예약된 좌석이 있는지 확인(찬희) -->
+	<select id="selectTicketing">
+		SELECT COUNT(*) FROM TIKCETING_INFO
+		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYY-MM-DDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo}
+	</select>
 
 	<select id="cinemaList" resultMap="movie_rm">
 		SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE,MOVIE_NO

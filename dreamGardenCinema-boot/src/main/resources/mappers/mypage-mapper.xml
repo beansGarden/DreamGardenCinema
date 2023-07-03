@@ -72,6 +72,15 @@
 		<result property="poster" column="POSTER" />
 	</resultMap>
 
+	<resultMap type="QnaImage" id="qnaImg_rm">
+		<id property="qnaImgNo" column="QNA_IMG_NO" />
+		<result property="qnaImgOrder" column="QNA_IMG_ORDER" />
+		<result property="qnaImgPath" column="QNA_IMG_PATH" />
+		<result property="qnaNo" column="QNA_NO" />
+		<result property="qnaImgOriginal" column="QNA_IMG_ORIGINAL" />
+		<result property="qnaImgRename" column="QNA_IMG_RENAME" />
+	</resultMap>
+
 	<!--나의 1:1 문의 내역 조회-->
 	<select id="myQnaList" resultMap="qna_rm">
 		SELECT
@@ -80,6 +89,7 @@
 		JOIN USER_INFO U ON (U.USER_NO = USER_NO2)
 		LEFT JOIN "QNA _COMMENT" C ON (Q.QNA_NO = C.QNA_NO)
 		WHERE USER_NO2 = #{userNo}
+		ORDER BY Q.QNA_NO DESC
 	</select>
 
 	<!-- 나의 닉네임 변경-->
@@ -148,7 +158,17 @@
 		WHERE
 		USER_NO = #{userNo}
 		AND TICKET_ID IS NOT NULL
-		ORDER BY TICKET_NO
+		AND TICKET_FL = 'Y'
+		ORDER BY TICKET_NO DESC
 	</select>
 
+	<!--나의 문의 내역 이미지 리스트-->
+	<select id="myqnaImageList" resultMap="qnaImg_rm">
+		SELECT QNA_IMG_NO ,QNA_IMG_ORDER ,QNA_IMG_PATH ,QNA_NO ,QNA_IMG_ORIGINAL
+		,QNA_IMG_RENAME, USER_NO
+		FROM QNA_IMG qi
+		JOIN QNA USING(QNA_NO)
+		JOIN USER_INFO ON (USER_NO2 = USER_NO)
+		WHERE QNA_NO = #{qnano}
+	</select>
 </mapper>
