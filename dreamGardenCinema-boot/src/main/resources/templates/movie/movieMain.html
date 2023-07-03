@@ -40,7 +40,7 @@
         <div class="movieList--nav">
 
             <div class="font1">
-                현재 상영작
+                현재 상영작<span class="font5">(예매순)</span>
             </div>
 
             <div>
@@ -92,7 +92,7 @@
         <div class="movieList--nav">
 
             <div class="font1">
-                상영 예정작
+                상영 예정작<span class="font5">(개봉일순)</span>
             </div>
 
             <div>
@@ -110,6 +110,7 @@
                 <div class="movie-poster-container">
                     <img class="movie-poster" th:src="${movie.poster}">
                     <img class="movie-rating" th:src="${movie.rating}">
+                    <em th:text="${movie.rank}">순위</em>
                     <div class="movie-action">
                         <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}|}">상세보기</a>
                     </div>

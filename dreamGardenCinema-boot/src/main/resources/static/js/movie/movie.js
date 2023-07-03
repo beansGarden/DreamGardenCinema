@@ -100,6 +100,7 @@ if (movieType != "") {
                         <div class="movie-poster-container">
                             <img class="movie-poster" th:src="${movie.poster}">
                             <img class="movie-rating" th:src="${movie.rating}">
+                            <em th:text="${movie.rank}">순위</em>
                             <div class="movie-action">
                                 <a class="font4" href="#">예매하기</a>
                                 <a class="font4" th:href="@{/movie/?movie=${movie.movieNo}}">상세보기</a>
@@ -135,6 +136,7 @@ if (movieType != "") {
                         <div class="movie-poster-container">
                             <img class="movie-poster" th:src="${movie.poster}">
                             <img class="movie-rating" th:src="${movie.rating}">
+                            <em th:text="${movie.rank}">순위</em>
                             <div class="movie-action">
                                 <a class="font4" href="@{/ticketing/date/} + ${movieInfo.movieNo}">예매하기</a>
                                 <a class="font4" th:href="@{/movie/?movie=${movie.movieNo}}">상세보기</a>
@@ -167,6 +169,10 @@ if (movieType != "") {
                     movieRating.classList.add("movie-rating");
                     movieRating.setAttribute("src", movie.rating);
                     moviePosterContainer.append(movieRating);
+
+                    const movieRank = document.createElement("em");
+                    movieRank.innerText = movie.rank;
+                    moviePosterContainer.append(movieRank);
                     
                     const movieAction = document.createElement("div");
                     movieAction.classList.add("movie-action");
@@ -336,6 +342,10 @@ if (movieType != "") {
                     movieRating.classList.add("movie-rating");
                     movieRating.setAttribute("src", movie.rating);
                     moviePosterContainer.append(movieRating);
+
+                    const movieRank = document.createElement("em");
+                    movieRank.innerText = movie.rank;
+                    moviePosterContainer.append(movieRank);
 
                     movieItem.append(moviePosterContainer);
 
