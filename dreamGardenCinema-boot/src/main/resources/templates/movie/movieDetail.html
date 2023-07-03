@@ -45,9 +45,19 @@
                 </div>
 
                 <div class="movie--audience-info font2" th:if="*{screening} == C">
-                    <span th:text="|관람객 평점|">관람객 평점</span>
-                    <span th:text="|예매율|">예매율</span>
-                    <span th:text="|누적관객수|">누적 관객수</span>
+                    <div>
+                        <span th:text="|관람객 평점|">관람객 평점</span> 
+                        <img th:src="@{/images/common/main/포스터/star3.png}"> 
+                        <span th:text="*{score}"></span>
+                    </div>
+                    <div>
+                        <span th:text="|예매율 *{rank}위 |">예매율</span> 
+                        <span th:text="| *{ratio} %|"></span>
+                    </div>
+                    <div>
+                        <span th:text="|누적관객수|">누적 관객수</span>
+                        <span th:text="|*{ticketCount} 명|"></span>
+                    </div>
                 </div>
 
                 <div th:unless="*{screening} == C" style="margin-top: 20px;">

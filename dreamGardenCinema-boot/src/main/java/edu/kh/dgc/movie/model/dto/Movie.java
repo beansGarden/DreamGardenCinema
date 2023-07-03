@@ -24,6 +24,8 @@ public class Movie {
 	private String screening;
 	private int rank;
 	private float ratio;
+	private float score;
+	private int ticketCount;
 	
 	//Movie schedule 조인 상영관
 	private String movieTheater;
@@ -35,5 +37,4 @@ public class Movie {
 	private  String type;
 	private String keyword;
 	
-	private float score;
 }
