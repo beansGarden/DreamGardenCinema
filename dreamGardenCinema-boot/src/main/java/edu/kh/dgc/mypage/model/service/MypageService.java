@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.qna.model.dto.QnaImage;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -56,5 +57,7 @@ public interface MypageService {
 	int secessionUser(int userNo);
 
 	List<Ticket> reservation(int userNo);
+
+	List<QnaImage> myqnaImageList(int qnano);
 
 }

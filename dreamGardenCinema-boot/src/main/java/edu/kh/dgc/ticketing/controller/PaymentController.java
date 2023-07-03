@@ -126,6 +126,8 @@ public class PaymentController {
 						int updateSilver = TicketingService.updateSilver(userNo);
 							
 							if(updateSilver>0) {
+								
+								user.setUserRating(2);
 								int silverCouponCount = TicketingService.silverCouponCount(userNo);
 								
 								System.out.println(silverCouponCount);
@@ -145,6 +147,7 @@ public class PaymentController {
 					if(100000<=afterAmount && afterAmount<200000 && user.getUserRating()!=3) {
 						int updateGold = TicketingService.updateGold(userNo);
 							if(updateGold>0) {
+								user.setUserRating(3);
 								int goldCouponCount = TicketingService.goldCouponCount(userNo);
 									
 								System.out.println(goldCouponCount);
@@ -158,10 +161,14 @@ public class PaymentController {
 							}else {
 								System.out.println("updateGold : 실패");
 							}
+							
 					}
-					if(afterAmount>=2000000 && user.getUserRating()!=4) {
+					if(afterAmount>=200000 && user.getUserRating()!=4) {
 						int updatePlatinum = TicketingService.updatePlatinum(userNo);
+						
 							if(updatePlatinum>0) {
+								
+								user.setUserRating(4);
 								int platinumCouponCount = TicketingService.platinumCouponCount(userNo);
 									
 									System.out.println(platinumCouponCount);
