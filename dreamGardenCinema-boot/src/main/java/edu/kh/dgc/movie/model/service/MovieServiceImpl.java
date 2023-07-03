@@ -26,14 +26,6 @@ public class MovieServiceImpl implements MovieService{
 	
 	
 
-	@Override
-	public List<Movie> selectMovieListCurrent() {
-		// TODO Auto-generated method stub
-		return mapper.selectMovieListCurrent();
-	}
-
-
-
 	// 영화 메인페이지에 슬라이드에 쓰일 이미지 조회
 	@Override
 	public List<Map<String, String>> selectMovieMainSlideImgList() {
@@ -58,16 +50,14 @@ public class MovieServiceImpl implements MovieService{
 	
 	// 현재 상영작 조회
 	@Override
-	public List<Movie> selectMovieListCurrent(int currentPage) {
-		RowBounds rowBounds = new RowBounds(currentPage, 10);
-		return mapper.selectMovieListCurrent(null, rowBounds);
+	public List<Movie> selectMovieListCurrent() {
+		return mapper.selectMovieListCurrent();
 	}
 	
 	// 상영 예정작 조회
 	@Override
-	public List<Movie> selectMovieListPromise(int currentPage) {
-		RowBounds rowBounds = new RowBounds(currentPage, 10);
-		return mapper.selectMovieListPromise(null, rowBounds);
+	public List<Movie> selectMovieListPromise() {
+		return mapper.selectMovieListPromise();
 	}
 	
 	// 광고 포스터 조회(랜덤하게 하나)
@@ -79,12 +69,10 @@ public class MovieServiceImpl implements MovieService{
 
 	// 영화 정보 불러오기 (비동기)
 	@Override
-	public List<Movie> selectMovieList(int currentPage, String movieType) {
+	public List<Movie> selectMovieList(String movieType) {
 		
-		RowBounds rowBounds = new RowBounds(currentPage*10, 10);
-		
-		if(movieType.equals("current")) return mapper.selectMovieListCurrent(null, rowBounds);
-		else return mapper.selectMovieListPromise(null, rowBounds);
+		if(movieType.equals("current")) return mapper.selectMovieListCurrent();
+		else return mapper.selectMovieListPromise();
 		
 		
 	}
@@ -142,7 +130,6 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public int insertMovieCommentReport(Map<String, Object> report) {
-		// TODO Auto-generated method stub
 		return mapper.insertMovieCommentReport(report);
 	}
 

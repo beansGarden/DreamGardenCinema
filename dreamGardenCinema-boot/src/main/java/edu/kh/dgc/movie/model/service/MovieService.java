@@ -14,8 +14,6 @@ public interface MovieService {
 	 */
 	List<Map<String, String>> selectMainSlideImgList();
 	
-	List<Movie> selectMovieListCurrent();
-	
 	/** 영화 메인페이지에 슬라이드에 쓰일 이미지 조회
 	 * @return Map<String, String>
 	 */
@@ -34,12 +32,12 @@ public interface MovieService {
 	/** 현재 상영작 조회
 	 * @return List<Movie>
 	 */
-	List<Movie> selectMovieListCurrent(int currentPage);
+	List<Movie> selectMovieListCurrent();
 
 	/** 상영 예정작 조회
 	 * @return List<Movie>
 	 */
-	List<Movie> selectMovieListPromise(int currentPage);
+	List<Movie> selectMovieListPromise();
 
 	/** 광고 포스터 조회(랜덤하게 하나)
 	 * @return
@@ -49,7 +47,7 @@ public interface MovieService {
 	/** 영화 정보 불러오기(비동기)
 	 * @return
 	 */
-	List<Movie> selectMovieList(int currentPage, String movieType);
+	List<Movie> selectMovieList(String movieType);
 	
 	
 	/** 영화 상세 정보 불러오기

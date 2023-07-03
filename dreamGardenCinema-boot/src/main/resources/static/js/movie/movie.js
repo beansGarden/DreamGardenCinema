@@ -24,7 +24,6 @@ function checkType() {
 /*  타입(현재 상영, 상영예정)별 비동기 요청  */
 const currentBtn = document.getElementById("typeCurrent");
 const promiseBtn = document.getElementById("typePromise");
-const moreBtn = document.getElementById("listMore");
 const navMenu = document.querySelector(".nav-menu");
 
 if (movieType != "") {
@@ -63,7 +62,6 @@ if (movieType != "") {
         navMenu.innerHTML += " | ";
         navMenu.append(byReview);
 
-        moreBtn.style.display = 'flex';
 
         currentPage = 0;
 
@@ -233,7 +231,7 @@ if (movieType != "") {
                     ratio.innerText = "예매율";
 
                     const ratioInnerData = document.createElement("em")
-                    ratioInnerData.innerText = movie.ratio + "%";
+                    ratioInnerData.innerText = movie.ratio.toFixed(1) + "%";
 
                     ratio.append(ratioInnerData);
 
@@ -251,7 +249,7 @@ if (movieType != "") {
                     star.append(starImg);
 
                     const starScore = document.createElement("em");
-                    starScore.innerText = movie.score;
+                    starScore.innerText = movie.score.toFixed(1);
                     star.append(starScore);
                     
                     movieData.append(ratio);
@@ -289,7 +287,6 @@ if (movieType != "") {
 
         navMenu.append(byRelease);
 
-        moreBtn.style.display = 'flex';
 
         currentPage = 0;
 
@@ -374,130 +371,5 @@ if (movieType != "") {
             .catch(err => console.log(err));
 
     });
-
-    /* 펼처보기(more)버튼을 눌렀을 때 */
-    moreBtn.addEventListener("click", () => {
-
-        currentPage += 1;
-
-        const data = {
-            "currentPage": currentPage,
-            "movieType": movieType
-        };
-
-        fetch("/movie/list", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        })
-
-            .then(response => response.json())
-
-            .then(movieList => {
-
-                for (let movie of movieList) {
-
-                    const movieItem = document.createElement("div");
-
-                    movieItem.classList.add("movieItem");
-
-                    const moviePosterContainer = document.createElement("div");
-
-                    moviePosterContainer.classList.add("movie-poster-container");
-
-                    const moviePoster = document.createElement("img");
-
-                    moviePoster.classList.add("movie-poster");
-                    moviePoster.setAttribute("src", movie.poster);
-                    moviePosterContainer.append(moviePoster);
-
-                    const movieRating = document.createElement("img");
-                    movieRating.classList.add("movie-rating");
-                    movieRating.setAttribute("src", movie.rating);
-                    moviePosterContainer.append(movieRating);
-
-                    movieItem.append(moviePosterContainer);
-
-                    const movieAction = document.createElement("div");
-                    movieAction.classList.add("movie-action");
-                    
-                    if(movieType == "current"){
-                    const ticket = document.createElement("a");
-
-                    ticket.classList.add("font4")
-                    ticket.innerText = "예매하기";
-                    movieRating.setAttribute("src", movie.rating);
-                    
-                    movieAction.append(ticket);
-                    }
-
-                    const detail = document.createElement("a");
-                    
-                    detail.classList.add("font4")
-                    detail.innerText = "상세보기";
-                    detail.setAttribute("href", "/movie/movieDetail=" + movie.movieNo);
-
-                    movieAction.append(detail);
-
-                    moviePosterContainer.append(movieAction);
-
-
-                    const movieTitle = document.createElement("div");
-
-                    movieTitle.classList.add("movie-title");
-                    movieTitle.classList.add("font5");
-
-                    movieTitle.innerText = movie.movieTitle;
-
-                    movieItem.append(movieTitle);
-
-                    if(movieType = "current"){
-                    
-                    const movieData = document.createElement("div");
-
-                    movieData.classList.add("movie-data");
-
-                    const ratio = document.createElement("span");
-                    ratio.classList.add("ratio")
-                    ratio.innerText = "예매율";
-
-                    const ratioInnerData = document.createElement("em")
-                    ratioInnerData.innerText = movie.ratio + "%";
-
-                    ratio.append(ratioInnerData);
-
-                    const star = document.createElement("span");
-                    star.classList.add("star");
-
-                    const starImg = document.createElement("img");
-                    starImg.setAttribute("src", "/images/common/main/포스터/star3.png")
-                    star.append(starImg);
-
-                    const starScore = document.createElement("em");
-                    starScore.innerText = movie.score;
-                    star.append(starScore);
-                    
-                    movieData.append(ratio);
-                    movieData.append(star);                    
-
-                    movieItem.append(movieData);
-                    }
-
-
-                    document.querySelector(".movieList--items").append(movieItem);
-                }
-
-                if(movieList.length != 10){
-                    moreBtn.style.display = 'none';
-                }
-
-
-
-            })
-
-            .catch(err => console.log(err));
-
-
-    })
 
 }
