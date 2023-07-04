@@ -31,9 +31,9 @@ public interface AdminService {
 	//대시보드 1:1문의 최신 5개만 오게하기
 	List<Qna> adminQnaList5();
 	
-	//영화 개수 가져오기
-	int movieListCount();
-
+	/*
+	 * //영화 개수 가져오기 int movieListCount();
+	 */
 	//------------------------------------------
 	//관리자 사이드바 로그인 보여주기
 	List<User> getAdminDetails();
@@ -255,6 +255,12 @@ public interface AdminService {
 
 	// 체크한 상영정보 삭제하기
 	int deleteTotalTime(List<Map<String, String>> dataList);
+
+	// 공지사항 삭제 안 한 게시글
+	int noticeInListCount();
+	
+	//공지사항 삭제 한 게시글
+	int noticeOutListCount();
 
 
 

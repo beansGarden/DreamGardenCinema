@@ -423,37 +423,7 @@ public class AdminController {
 	    return "redirect:/adminCinemaManage";
 
 	}
-	public String adminCinemaInsert(Movie movie) {
-		// Movie 객체에서 영화 시간과 날짜를 가져옵니다.
-		String movieTime = movie.getMovieTime();
-		LocalDate movieDay = LocalDate.parse(movie.getMovieday());
-
-		// 날짜와 시간을 조합하기 위해 DateTimeFormatter를 정의합니다.
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-		// movieTime을 개별 시간으로 분할하여 배열로 저장합니다.
-		String[] movieTimes = movieTime.split(",");
-
-		// 각 시간을 영화 날짜와 조합합니다.
-		for (String time : movieTimes) {
-			LocalDateTime combinedDateTime = LocalDateTime.of(movieDay, LocalTime.parse(time));
-			String combinedTime = combinedDateTime.format(formatter);
-
-			// 조합된 시간을 Movie 객체에 설정합니다.
-			movie.setMovieTime(combinedTime);
-
-			// 디버깅을 위해 출력합니다.
-			System.out.println(movie);
-			System.out.println(movieTimes);
-			System.out.println(combinedTime);
-
-			// 영화 정보를 데이터베이스에 추가합니다.
-			int result = service.adminCinemaInsert(movie);
-		}
-
-		// 영화 관리 페이지로 리다이렉트합니다.
-		return "redirect:/adminCinemaManage";
-	}
+	
 
 	// 5.관리자 공지사항 리스트
 	// 조회----------------------------------------------------------------------------
@@ -644,6 +614,25 @@ public class AdminController {
 
 		return service.noticeListCount();
 	}
+	
+	//5-8 공지사항 삭제 안 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminNoticeInListAjax")
+	public int adminNoticeInListAjax() {
+		
+		return service.noticeInListCount();
+	}
+	
+	//5-8 공지사항 삭제 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminNoticeOutListAjax")
+	public int adminNoticeOutListAjax() {
+		
+		return service.noticeOutListCount();
+	}
+	
+	
+	
 
 	// 6. 1:1 문의사항 리스트 조회
 	// 230613----------------------------------------------------------------------------

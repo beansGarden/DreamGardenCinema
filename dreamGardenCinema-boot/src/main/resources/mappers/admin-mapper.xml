@@ -821,6 +821,17 @@
 		SELECT COUNT(*) FROM "NOTICE"
 	</select>
 	
+		<!--삭제된 공지사항 개수 세기-->
+		<select id="noticeInListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
+		WHERE NOTICE_FL = 'N'
+		</select>
+
+<!--삭제된 공지사항 개수 세기-->
+		<select id="noticeOutListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
+		WHERE NOTICE_FL = 'Y'
+		</select>
 	
 
 	

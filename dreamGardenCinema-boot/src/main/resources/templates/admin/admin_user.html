@@ -99,7 +99,11 @@
                             <td th:text="${list.userClose}">정상</td>
                         </tr>
                     </tbody>
-
+                    <tbody th:if="${#lists.isEmpty(adminUserList)}">
+                        <tr>
+                            <td colspan="9">조회하는 결과가 없습니다.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 

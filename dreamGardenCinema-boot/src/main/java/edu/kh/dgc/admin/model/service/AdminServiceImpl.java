@@ -554,9 +554,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int noticeListCount() {
 		
-		int noticeListCount = mapper.noticeListCount();
+		return mapper.noticeListCount();
 	
-		return noticeListCount;
+	
 	}
 	
 	// FAQ (자주 찾는 질문) List 조회*****************************
@@ -880,30 +880,96 @@ public class AdminServiceImpl implements AdminService {
 		int result = 0;
 		if(count==0) {
 			result = mapper.deleteTotalTime(dataList);
-		}
-		return result;
-	}
-	
-		return mapper.userOutListCount();
-	}
+		} return result;
+	} 
 
+
+	//리뷰 선택 복구하기
 	@Override
 	public int restoreReview(int reviewNo) {
 		
 		return mapper.restoreReview(reviewNo);
 	}
 
+	//리뷰 게시글 불러오기
 	@Override
 	public List<Review> adminReviewOne(int reviewNo) {
 		
 		return mapper.adminReviewOne(reviewNo);
 	}
 
-
+	//대시보드 - 영화 현재 상영작 불러오기
+	@Override
+	public List<Movie> cinemaCurrentList() {
 	
-	
+		return mapper.cinemaCurrentList();
+	}
 
+	//
+	/* 영화 전체 개수 불러오기
+	 * @Override public int movieListCount() {
+	 * 
+	 * return mapper.movieListCount(); }
+	 */
 
+	//회원 탈퇴
+	@Override
+	public Map<String, Object> adminUserOutList(User condition, int cp) {
 
+        int userOutlistCount = mapper.userOutListCount(condition);
+        Pagination pagination = new Pagination(userOutlistCount, cp);
+        int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+        List<User> userList = mapper.adminUserOutList(condition,rowBounds);
+        
+        Map<String, Object> adminUserList = new HashMap<String, Object>();
+        adminUserList.put("pagination", pagination);
+        adminUserList.put("userList", userList);
+		
+        return adminUserList;
+	}
+
+	//공지사항 수정
+	@Override
+	public int noticeUpdate(Notice notice) {
+
+        return mapper.noticeUpdate(notice);
+	}
+
+	//탈퇴하지 않은 일반 회원 수 불러오기
+	@Override
+	public int userInListCount() {
+		
+        return mapper.userInListCount();
+	}
+
+	//탈퇴한 회원 수 불러오기
+	@Override
+	public int userOutListCount() {
+		
+        return mapper.userOutListCount();
+	}
+
+	//공지사항 삭제 안 한 게시글 
+	@Override
+	public int noticeInListCount() {
+		
+		return mapper.noticeInListCount();
+	}
+
+	@Override
+	public int noticeOutListCount() {
+		
+		return mapper.noticeOutListCount();
+	}
 	
 }
+
+
+	
+	
+
+
+
+	
+

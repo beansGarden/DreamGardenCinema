@@ -89,9 +89,12 @@
                         <td th:text="${list.reportWriter}"></td>
                         <td th:text="${list.reportedId}"></td>
                         <td th:text="${list.reviewDeleteFl}" id="reportCheckFl"></td>
-
                     </tr>
-
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminReportList)}">
+                    <tr>
+                        <td colspan="7">조회하는 결과가 없습니다.</td>
+                    </tr>
                 </tbody>
 
             </table>

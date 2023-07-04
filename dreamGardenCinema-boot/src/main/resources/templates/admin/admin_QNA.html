@@ -87,9 +87,12 @@
                         <td th:text="${list.userId}"></td>
                         <td th:text="${list.qnaDeleteFl}"></td>
                         <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
-
                     </tr>
-
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminQnaList)}">
+                    <tr>
+                        <td colspan="7">조회하는 결과가 없습니다.</td>
+                    </tr>
                 </tbody>
 
             </table>

@@ -85,9 +85,12 @@
                             </td>
                             <td class="flCheck" th:text="${list.FAQDeleteFl}">Y</td>
                         </tr>
-
                     </tbody>
-
+                    <tbody th:if="${#lists.isEmpty(adminFaqList)}">
+                        <tr>
+                            <td colspan="5">조회하는 결과가 없습니다.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <!-- 페이지 네이션 -->
