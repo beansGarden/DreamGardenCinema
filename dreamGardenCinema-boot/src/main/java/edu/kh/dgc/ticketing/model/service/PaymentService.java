@@ -116,10 +116,6 @@ public class PaymentService {
 		json.addProperty("amount", amount);
 		json.addProperty("checksum", amount);
 
-		System.out.println("payMentCancle");
-		System.out.println("check 1 : " + imp_uid);
-		System.out.println("check 2 : " + amount);
-		System.out.println(reason);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 
 		bw.write(json.toString());
