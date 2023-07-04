@@ -191,7 +191,7 @@ getUserInCount()
   xhr.send();
 }
 
-// 영화 개수 가져오기
+// 회원 수 가져오기
 function getUserOutCount() {
   ajaxRequest('/adminUserOutListAjax', 'GET', function(response) {
       var countElement = document.querySelector('.adminUserOutCountAll');

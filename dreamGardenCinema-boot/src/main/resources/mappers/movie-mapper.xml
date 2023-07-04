@@ -160,7 +160,7 @@
 	<insert id="insertMovieComment">
 		INSERT INTO "beansGarden".MOVIE_REVIEW
 		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO, REVIEW_DELETE_FL)
-		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo}, DEFAULT)
+		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo}, DEFAULT,DEFAULT)
 	</insert>
 	
 	<insert id="insertMovieCommentReport">

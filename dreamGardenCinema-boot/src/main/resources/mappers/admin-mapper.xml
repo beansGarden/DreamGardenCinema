@@ -295,29 +295,32 @@
 	<!--QNA 검색하기-->
 	<select id="getSearchList" parameterType="Qna" resultMap="qna_rm"> 
 		SELECT QNA.QNA_NO, QNA.QNA_TITLE, TO_CHAR(QNA.QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,QNA.QNA_DELETE_FL
+		USER_INFO.USER_ID,QNA.QNA_DELETE_FL
 		FROM QNA 
 		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
 		<choose>
-			
 			<when test="type != null and type.equals('qnaNo')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_NO LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('title')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('content')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('writer')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND USER_INFO.USER_NICKNAME LIKE #{keyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				 AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
 			</when>
-
 		</choose>
 	</select>
+	
 	<!--검색에 따른 수 불러오기-->
 	<select id="qnaFilterListCount" parameterType="Qna" resultType="_int"> 
 		SELECT COUNT(*)
@@ -325,19 +328,23 @@
 		<choose>
 			
 			<when test="type != null and type.equals('qnaNo')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_NO LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('title')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('content')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('writer')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND USER_INFO.USER_NICKNAME LIKE #{keyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
 			</when>
 
 		</choose>
@@ -410,14 +417,14 @@
       </select>
       
       <!--회원 검색 시 회원 수-->
-	      <select id="userfilterListCount" parameterType="User" resultType="_int">
+	<select id="userfilterListCount" parameterType="User" resultType="_int">
     SELECT COUNT(*)
     FROM "USER_INFO"
     <where>
         <choose>
             <when test="type != null and type.equals('number')">
                 <if test="keyword != null and keyword != ''">
-                    AND USER_NO LIKE %' || #{keyword} || '%'
+                    AND USER_NO LIKE '%' || #{keyword} || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('name')">
@@ -796,12 +803,30 @@
 	<select id="noticeListCount" resultType="_int">
 		SELECT COUNT(*) FROM "NOTICE"
 	</select>
+	
+	
+
+	
+	<!--삭제된 공지사항 개수 세기-->
+		<select id="noticeDeletedListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
+		WHERE NOTICE_FL = 'Y'
+		</select>
 
 
 	<!--공지사항 게시판 리스트 조회-->
 	<select id="adminNoticeList" resultMap="notice_rm">
 		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD') AS NOTICE_ENROLL_DATE,NOTICE_FL
 		FROM NOTICE
+		WHERE NOTICE_FL = 'N'
+		ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<!--삭제된 공지사항 게시판 리스트 조회-->
+	<select id="adminNoticeDeletedList" resultMap="notice_rm">
+		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD') AS NOTICE_ENROLL_DATE,NOTICE_FL
+		FROM NOTICE
+		WHERE NOTICE_FL = 'Y'
 		ORDER BY NOTICE_NO DESC
 	</select>
 
@@ -844,6 +869,16 @@
 		SET NOTICE_FL = 'Y'
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
+
+
+
+<!--공지사항 게시글 삭제-->
+	<update id="noticeRestore">
+		UPDATE NOTICE
+		SET NOTICE_FL = 'N'
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+
 
 	<!--공지사항 검색하기-->
 	<select id="getNoticeSearchList" parameterType="Notice" resultMap="notice_rm"> 
@@ -1085,12 +1120,12 @@
             </when>
             <when test="type != null and type.equals('writer')">
                 <if test="keyword != null and keyword != ''">
-                    AND UI1.USER_ID LIKE '%' || #{keyword} || '%'
+                    AND LOWER(UI1.USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('reportedWriter')">
                 <if test="keyword != null and keyword != ''">
-                    AND UI2.USER_ID LIKE '%' || #{keyword} || '%'
+                    AND LOWER(UI2.USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
                 </if>
             </when>
         </choose>
@@ -1178,9 +1213,10 @@
 		<!--리뷰관리 검색-->
 		<select id="getReviewSearchList" parameterType="Review" resultMap="review_rm"> 
 				SELECT  MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
-       			MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE 
+       			MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE,UI.USER_ID
 				FROM  MOVIE_REVIEW MR
 				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+				JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
 				<where>
 					<choose>
 						<when test="type != null and type.equals('reviewNo')">

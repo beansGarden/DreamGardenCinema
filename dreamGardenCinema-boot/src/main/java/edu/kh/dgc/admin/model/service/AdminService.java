@@ -78,6 +78,7 @@ public interface AdminService {
 	Map<String, Object> adminUserList(int cp);
 	
 	
+	
 	//탈퇴한 회원 조회
 	Map<String, Object> adminUserOutList(User condition, int cp);
 
@@ -132,6 +133,10 @@ public interface AdminService {
 	//공지사항 List 조회
 	Map<String, Object>  adminNoticeList(int cp);
 
+	//삭제된 공지사항 조회
+	Map<String, Object> adminNoticeDeletedList(int cp);
+
+	
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
 
@@ -144,6 +149,10 @@ public interface AdminService {
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
+	
+	//공지사항 게시글 선택 복구
+	int noticeRestore(int noticeNo);
+
 	
 	//공지사항 게시글 검색
 	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
@@ -243,6 +252,10 @@ public interface AdminService {
 
 	// 상영관 세부 시간 삭제(찬희)
 	int deleteDetailTime(Schedule schedule);
+
+
+
+
 
 
 	

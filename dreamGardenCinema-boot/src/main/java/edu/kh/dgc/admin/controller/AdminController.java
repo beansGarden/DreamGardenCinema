@@ -36,6 +36,7 @@ import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.review.model.dto.Review;
 import edu.kh.dgc.user.model.dto.User;
+import jakarta.servlet.http.HttpServletRequest;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 
@@ -58,7 +59,7 @@ public class AdminController {
 	public String dashboard(Model model) {
 
 		// 대시보드 영화 리스트 불러오기
-		List<Movie> cinemaList = service.cinemaList();
+		List<Movie> cinemaList = service.cinemaCurrentList();
 		model.addAttribute("cinemaList", cinemaList);
 
 		// 대시보드 QNA 최신 5개 보여지기
@@ -179,6 +180,27 @@ public class AdminController {
 
 		return service.userListCount();
 	}
+	
+	
+	// 2-4 탈퇴한 회원 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminUserInListAjax")
+	public int adminUserInListAjax() {
+		
+		return service.userInListCount();
+	}
+	
+	// 2-4 탈퇴한 회원 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminUserOutListAjax")
+	public int adminUserOutListAjax() {
+		
+		return service.userOutListCount();
+	}
+	
+	
+	
+	
 
 	// 3.관리자 영화
 	// 관리----------------------------------------------------------------------------
@@ -401,6 +423,20 @@ public class AdminController {
 		}
 		return "admin/admin_notice";
 	}
+	
+	@GetMapping("/adminNoticeDeleted") //
+	public String noticeDeleted(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminNoticeMap = service.adminNoticeDeletedList(cp);
+			
+			model.addAttribute("adminNoticeMap", adminNoticeMap);
+			
+		}
+		return "admin/admin_notice_deleted";
+	}
 
 	// 5-1.공지사항 게시글 조회
 	@GetMapping("/adminNoticeRead/{noticeNo}")
@@ -444,7 +480,7 @@ public class AdminController {
 	// 5-2. 공지사항 게시글 쓰기 - 삽입
 
 	@PostMapping("/adminNoticeWriteInsert")
-	public String noticeWriteInsert(Notice notice, Model model) {
+	public String noticeWriteInsert(Notice notice, Model model, HttpServletRequest request) {
 
 		int result = service.noticeWriteInsert(notice);
 
@@ -453,8 +489,17 @@ public class AdminController {
 		System.out.println(noticeNo);
 
 		model.addAttribute("notice", notice);
+		
+		// 이전 페이지의 URL을 가져옴
+	    String referer = request.getHeader("Referer");
 
-		return "redirect:/adminNoticeRead" + "/" + noticeNo;
+	    // 이전 페이지의 URL이 null이 아니면서 "/adminNoticeWrite"를 포함하고 있다면 "/adminNotice" 페이지로 이동
+	    if (referer != null && referer.contains("/adminNoticeWrite")) {
+	        return "redirect:/adminNotice";
+	    }
+
+	    // 이전 페이지의 URL이 없거나 "/adminNoticeWrite"를 포함하지 않는다면 "/adminNoticeRead" 페이지로 이동
+	    return "redirect:/adminNoticeRead/" + noticeNo;
 	}
 
 	// 5-3. 공지사항 게시글 수정 화면 전환
@@ -470,6 +515,38 @@ public class AdminController {
 
 		return "admin/admin_notice_update";
 	}
+	
+	
+    //5-3-1. 공지사항 게시글 수정 
+    @PostMapping("/adminNoticeUpdate/{noticeNo}")
+    public String noticeUpdate(Notice notice, Model model, @PathVariable(value = "noticeNo") int noticeNo, RedirectAttributes ra) {
+    	
+        int result = service.noticeUpdate(notice);
+        Notice noticeList = new Notice();
+        model.addAttribute("notice", noticeList);
+        
+        System.out.println("noticeNo : "+ noticeNo);
+        System.out.println("notice : "+ notice);
+        System.out.println("result : " + result);
+        
+        // 삽입 성공 시
+        String message = null;
+        String path = "redirect:";
+        if (result > 0) { // 성공시
+        	
+            message = "게시글이 등록 되었습니다.";
+            path += "/adminNoticeRead" + "/" + noticeNo;
+        } else {
+            message = "게시글이 등록 실패 되었습니다.";
+            path += "adminNoticeupdate";
+            
+        }
+        
+        ra.addFlashAttribute("message", message);
+        return path;
+    }
+            
+	
 
 	// 5-4. 공지사항 게시글 삭제 --- 페이지 없음
 	@GetMapping("/adminNoticeRead/{noticeNo}/delete") //
@@ -500,8 +577,20 @@ public class AdminController {
 
 		return service.noticeDelete(noticeNo);
 	}
+	// 5-6 공지사항 게시글 선택 복구
+	
+	@PostMapping(value = "/adminNotice/restoreNoticeList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreNoticeList(@RequestBody Map<String, Integer> request) {
+		
+		int noticeNo = request.get("noticeNo");
+		
+		System.out.println("noticeNo :"+noticeNo);
+		
+		return service.noticeRestore(noticeNo);
+	}
 
-	// 5-6 공지사항 전체 개수 가져오기
+	// 5-7 공지사항 전체 개수 가져오기
 	@ResponseBody
 	@GetMapping("/adminNoticeListAjax")
 	public int adminNoticeListAjax() {
@@ -813,7 +902,7 @@ public class AdminController {
 		return "admin/admin_FAQ_Write";
 
 	}
-	// 7-2-1. 1:1 문의사항 게시글 쓰기 - 삽입 230614
+	// 7-2-1. FAQ 게시글 쓰기 - 삽입 230614
 
 	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
@@ -908,7 +997,7 @@ public class AdminController {
 		return service.deleteFaq(FAQNo);
 	}
 
-	// 7-4.공지사항 게시글 검색
+	// 7-4.FAQ 게시글 검색
 	@GetMapping("/getFaqSearchList")
 	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
@@ -1046,13 +1135,13 @@ public class AdminController {
 		return service.reviewListCount();
 	}
 
-	// 9-2. 리뷰관리 검색
+	// 9-3. 리뷰관리 검색
 
 	@GetMapping("/getReviewSearchList")
 	public String getReviewSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
-		Qna condition = new Qna();
+		Review condition = new Review();
 
 		condition.setType(type);
 		condition.setKeyword(keyword);
@@ -1067,8 +1156,73 @@ public class AdminController {
 
 	}
 
-	// 9-3. 리뷰관리 게시글 수정
+    //9-4 리뷰 읽기
+    @GetMapping("/adminReviewRead/{reviewNo}") 
+    public String adminreviewRead(Model model,@PathVariable(value = "reviewNo", required = false) int reviewNo) {
+        List<Review> adminReviewOne = service.adminReviewOne(reviewNo);
+        model.addAttribute("adminReviewList", adminReviewOne);
+        return "admin/admin_review_read";
+    }
 
-	// 9-4. 리뷰관리 게시글 삭제
-
+	// 9-5. 리뷰관리 게시글 삭제
+    @PostMapping(value = "adminReivew/deleteReviewList", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String deleteReviewList(@RequestBody Map<String, Integer> request,Model model,RedirectAttributes ra, Review review,Report report) {
+        int reviewNo = request.get("reviewNo");
+        
+        int result = service.deleteReview(reviewNo);
+        Review reviewList = new Review();
+        reviewList.setReviewNo(reviewNo);
+        
+        
+        model.addAttribute("reviewList :", reviewList);
+        System.out.println("review :" + review);
+        System.out.println("reviewNo :" + reviewNo);
+        System.out.println("result :" + result);
+        
+        // 삽입 성공 시
+        String message = null;
+        String path = "redirect:";
+        if (result > 0) { // 성공시
+        	
+            message = "게시글이 등록 되었습니다.";
+            
+            //신고글 처리여부 
+            int reportNo = request.get("reportNo");
+            
+            System.out.println("reportNo :" + reportNo);
+            
+            int result2 = service.updateDeleteReport(reportNo);
+            
+            if(result2> 0) {
+                message = "신고글이 처리 되었습니다,";
+                
+                path += "redirect:";
+            }
+            path += "/adminReportRead" +"/" + reportNo;
+        } else {
+            message = "게시글이 등록 실패 되었습니다.";
+            path += "adminReport";
+        }
+        ra.addFlashAttribute("message", message);
+        
+        return path;
+        
+    }   
+        // 9-6. 리뷰관리 게시글 선택 복구
+        
+        @PostMapping(value = "adminReivew/restoreReviewList", produces = "application/json; charset=UTF-8")
+        @ResponseBody
+        public int restoreReviewList(@RequestBody Map<String, Integer> request) {
+            int reviewNo = request.get("reviewNo");
+            
+            System.out.println(reviewNo);
+        	
+            return service.restoreReview(reviewNo);
+        
+        
+        
+    }
+    
+    
 }

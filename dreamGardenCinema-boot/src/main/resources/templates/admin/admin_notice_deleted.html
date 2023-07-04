@@ -50,10 +50,6 @@
             <div>
                 <span>총 게시글 개수 :</span>
                 <span class="adminNoticeCountAll">0</span>
-                <span>공지사항 수 : </span>
-                <span class="adminNoticeInCountAll">0</span>
-                <span>삭제된 공지사항 수 : </span>
-                <span class="adminNoticeOutCountAll">0</span>
             </div>
 
         </div>
@@ -137,15 +133,15 @@
 
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_noticeBtn">
-            <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeWrite}">글쓰기</a></button>
+        <!--     <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeWrite}">글쓰기</a></button> -->
             <!--                     <button class="admin_noticeEndBtn"><a href="">수정</a></button> -->
-            <button class="admin_noticeEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+            <button class="admin_noticeEndBtn" id="restoreBtn"><a href="">복구</a></button>
         </div>
 
 
     </div>
 
-    <script src="\js\admin\admin_notice.js"></script>
+    <script src="\js\admin\admin_notice_deleted.js"></script>
 </body>
 
 </html>
