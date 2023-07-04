@@ -881,14 +881,6 @@ header {
     transform: scaleX(1);
 }
 
-hr {
-
-    margin-block-start: -4.5em;
-    margin-block-end: 4.5em;
-    overflow: visible;
-
-}
-
 /* 관리자 아이콘 */
 .admin-control-space{
     position: absolute;
@@ -906,6 +898,7 @@ hr {
     cursor: default;
 }
 
+/* dropdown */
 .dropdown-menu-box{
     position: absolute;
     width: 100%;
@@ -921,7 +914,7 @@ hr {
 .dropdown-btn{
     width: 100px;
     height: 15px;
-    background-color: #ff0000;
+    background-color: #d2d2d2;
     border-radius: 0 0 20px 20px;
     display: inline-block;
     z-index: 10;
@@ -929,17 +922,51 @@ hr {
 .show-menu{
     text-align: center;
     width: 100%;
-    height: 150px;
     background-color: #00000090;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    transition: height 0.15s ease-in-out;
+    height: 0; 
+    overflow: hidden;
+}
+.show-menu.visible {
+    height: 150px; 
 }
 .show-menu>div{
-    color: blanchedalmond;
     display: inline-block;
     width: 150px;
-    height: 100%;
     margin: 0 20px;
-    border: 1px solid floralwhite;
+}
+.show-menu > div > p:first-child{
+    font-size: 20px;
+    padding: 5px 0;
+    border: solid #aaaaaa;
+    border-width: 0 0 1px 0;
+    color: #fff;
+}
+.show-menu > div > a{
+    display: block;
+    font-size: 16px;
+    color: #d2d2d2;
+    margin: 8px 0;
+}
+.show-menu > div > a:hover{
+    color: #64DFE4;
+    text-decoration: underline ;
+    user-select: none; 
+    cursor: pointer;
 }
 .display-none {
     display: none !important;
+}
+.top-line{
+    width: 100%;
+    border: solid #fff;
+    border-width: 1px 0 0 0;
+    height: 1px;
+    position: absolute;
+    top: 120px;
+    z-index: 15;
 }
