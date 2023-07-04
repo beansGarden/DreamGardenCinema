@@ -520,9 +520,26 @@
 	</delete>
 	
 	<!-- 예약된 좌석이 있는지 확인(찬희) -->
-	<select id="selectTicketing">
-		SELECT COUNT(*) FROM TIKCETING_INFO
+	<select id="selectTicketing" resultType="_int">
+		SELECT COUNT(*) FROM TICKETING_INFO
 		WHERE MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYY-MM-DDHH24:MI') AND MOVIE_THEATER = ${movieTheater} AND MOVIE_NO = ${movieNo}
+	</select>
+	
+	<!-- 체크한 상영정보 삭제하기(찬희) -->
+	<delete id="deleteTotalTime">
+		DELETE FROM MOVIE_SCHEDULE
+		WHERE
+		<foreach collection="list" item="item" open="" close="" separator="OR">
+			MOVIE_NO = #{item.movieNo}
+			AND MOVIE_THEATER = #{item.movieTheater}
+			AND TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{item.movieTime}			
+		</foreach>
+	</delete>
+	
+	<!-- 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희) -->
+	<select id="selectToTalTicketing" resultType="_int">
+		SELECT COUNT(*) FROM TICKETING_INFO
+		WHERE TO_CHAR(MOVIE_TIME, 'YYYY-MM-DD') = #{movieTime} AND MOVIE_THEATER = #{movieTheater} AND MOVIE_NO = #{movieNo}
 	</select>
 
 	<select id="cinemaList" resultMap="movie_rm">

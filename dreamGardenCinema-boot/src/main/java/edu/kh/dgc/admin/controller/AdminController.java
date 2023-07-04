@@ -1,17 +1,16 @@
 package edu.kh.dgc.admin.controller;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.kh.dgc.admin.model.dto.Query;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.service.AdminService;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
@@ -35,9 +36,9 @@ import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.qna.model.dto.QnaComment;
 import edu.kh.dgc.report.model.dto.Report;
 import edu.kh.dgc.review.model.dto.Review;
-import edu.kh.dgc.user.model.dto.User;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.user.model.dto.User;
 
 @Controller
 public class AdminController {
@@ -294,6 +295,22 @@ public class AdminController {
 		return "redirect:/adminCinemaManage";
 	}
 	
+	// 체크한 상영정보 삭제하기
+	@PostMapping("/adminCinemaDelete")
+	public String deleteTotalTime(String formData) {
+		System.out.println(formData);
+		
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Map<String, String>>>(){}.getType();
+		List<Map<String, String>> dataList = gson.fromJson(formData, type);
+		
+		System.out.println(dataList);
+		
+		int result = service.deleteTotalTime(dataList);
+		
+		return "redirect:/adminCinemaManage";
+	}
+	
 
 	
 	
@@ -331,6 +348,7 @@ public class AdminController {
 	@RequestMapping(value = "/adminCinemaInsert", method = RequestMethod.POST, produces = "application/json;")
 	public String adminCinemaInsert(Movie movie) {
 	    // Movie 객체에서 영화 시간과 날짜를 가져옵니다.
+		System.out.println(movie);
 	    String movieTime = movie.getMovieTime();
 	    LocalDate movieDay = LocalDate.parse(movie.getMovieday());
 	    

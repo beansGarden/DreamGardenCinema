@@ -61,7 +61,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="list : ${movieList}">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" class="chkbx"></td>
                         <td th:text="${list.movieTheater}">상영관</td>
                         <td><a th:text="${list.movieTitle}" id="movieTt" th:movieNo="${list.movieNo}">영화제목</a></td>
                         <td th:text="${list.runningTime} + '분'">러닝타임</td>
@@ -139,7 +139,7 @@
             </div>
             <div>
                 <button id="regist">등록</button>
-                <button>삭제</button>
+                <button id="delete">삭제</button>
             </div>
         </div>
             
