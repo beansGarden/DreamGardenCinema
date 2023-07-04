@@ -40,8 +40,6 @@ header {
 }
 
 
-
-
 /* 상단바 메뉴 영역 */
 .dg-menu {
     position: relative;
@@ -49,7 +47,6 @@ header {
     width: 100%;
     height: 120px;
     background-color: white;
-    
 }
 
 /* 상단바 메뉴 왼쪽 영역(영화, 예매, 멤버십)*/
@@ -146,11 +143,10 @@ header {
     margin-top: 10px;
     position: absolute;
     margin-left: -70px;
-    background-color: rgba(180, 180, 180, 0.7);
+    background-color: #4a4a4ab3;
     height: 35px;
     align-items: center;
     border-radius: 7px;
-
 }
 
 /* 상단바 메뉴 왼쪽 영역 - 드롭다운 리스트 전체 영역 */
@@ -201,6 +197,10 @@ header {
 
 
 /* 홈 */
+.dg-menu-drop-movie a{
+    color: white;
+}
+
 .dg-menu-drop-movie>li:nth-child(1) {
     width: 25px;
     margin-right: -5px;
@@ -209,7 +209,6 @@ header {
 }
 
 .dg-menu-drop-movie>li:nth-child(1)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -225,7 +224,6 @@ header {
 }
 
 .dg-menu-drop-movie>li:nth-child(2)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -241,7 +239,6 @@ header {
 }
 
 .dg-menu-drop-movie>li:nth-child(3)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -251,13 +248,18 @@ header {
 }
 
 /* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(예약) */
+
+.dg-menu-drop-reservation a{
+    color: white;
+}
+
 .dg-menu-drop-reservation {
     display: flex;
     list-style: none;
     position: absolute;
     margin-top: 10px;
     margin-left: -5px;
-    background-color: rgba(180, 180, 180, 0.7);
+    background-color: #4a4a4ab3;
     padding-left: 0;
 
     height: 35px;
@@ -292,7 +294,6 @@ header {
 }
 
 .dg-menu-drop-reservation>li:nth-child(1)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -308,7 +309,6 @@ header {
 }
 
 .dg-menu-drop-reservation>li:nth-child(2)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -374,13 +374,17 @@ header {
 
 
 /* 상단바 메뉴 왼쪽 영역 - 드롭다운 영역(멤버십) */
+.dg-menu-drop-membership a{
+    color: white;
+}
+
 .dg-menu-drop-membership {
     display: flex;
     list-style: none;
     position: absolute;
     margin-top: 10px;
     margin-left: -30px;
-    background-color: rgba(180, 180, 180, 0.7);
+    background-color: #4a4a4ab3;
     padding-left: 0;
 
     height: 35px;
@@ -417,7 +421,6 @@ header {
 }
 
 .dg-menu-drop-membership>li:nth-child(1)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -432,7 +435,6 @@ header {
 }
 
 .dg-menu-drop-membership>li:nth-child(2)>a {
-    color: black;
     text-decoration: none;
 }
 
@@ -519,23 +521,23 @@ header {
 
 .dg-menu-R>li>a {
     text-decoration: none;
-    color: black;
 }
 
 /* 고객센터 탭 영역 */
+
+.dg-menu-customer-service a{
+    color: white;
+}
 
 .dg-menu-customer-service {
     height: 35px;
     list-style: none;
     display: flex;
     position: absolute;
-    margin-top: 10px;
-    margin-left: -62px;
-    background-color: rgba(180, 180, 180, 0.7);
+    margin: 10px 0 0 -60px;
+    background-color: #4a4a4ab3;
     border-radius: 7px;
-
     align-items: center;
-
     padding-left: 0;
 
 }
@@ -572,7 +574,6 @@ header {
 
 .dg-menu-customer-service>li>a {
     text-decoration: none;
-    color: black;
     margin-top: 10px;
 }
 
@@ -925,10 +926,84 @@ header {
     position: absolute;
     width: 30px;
     height: 30px;
+    filter: sepia();
 }
 
 /* 드래그 방지 */
 
 .dg-membership-link {
     cursor: default;
+}
+
+/* dropdown */
+.dropdown-menu-box{
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dropdown-btn-box{
+    width: 100%;
+    text-align: center;
+    margin-top: -2px;
+}
+.dropdown-btn{
+    width: 100px;
+    height: 15px;
+    background-color: #d2d2d2;
+    border-radius: 0 0 20px 20px;
+    display: inline-block;
+    z-index: 10;
+}
+.show-menu{
+    text-align: center;
+    width: 100%;
+    background-color: #00000090;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    transition: height 0.15s ease-in-out;
+    height: 0; 
+    overflow: hidden;
+}
+.show-menu.visible {
+    height: 150px; 
+}
+.show-menu>div{
+    display: inline-block;
+    width: 150px;
+    margin: 0 20px;
+}
+.show-menu > div > p:first-child{
+    font-size: 20px;
+    padding: 5px 0;
+    border: solid #aaaaaa;
+    border-width: 0 0 1px 0;
+    color: #fff;
+}
+.show-menu > div > a{
+    display: block;
+    font-size: 16px;
+    color: #d2d2d2;
+    margin: 8px 0;
+}
+.show-menu > div > a:hover{
+    color: white;
+    text-decoration: underline ;
+    user-select: none; 
+    cursor: pointer;
+}
+.display-none {
+    display: none !important;
+}
+.top-line{
+    width: 100%;
+    border: solid #c8c8c8;
+    border-width: 1px 0 0 0;
+    height: 1px;
+    position: absolute;
+    top: 120px;
+    z-index: 15;
 }

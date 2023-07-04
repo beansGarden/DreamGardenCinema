@@ -80,14 +80,13 @@ header {
 }
 
 .dg-movie-link::after {
-
     content: '';
     position: absolute;
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -102,8 +101,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -128,9 +127,8 @@ header {
 .dg-menu-drop-movie {
     display: flex;
     list-style: none;
-    margin-top: 10px;
+    margin: 10px 0 0 -80px;
     position: absolute;
-    margin-left: -95px;
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     height: 35px;
@@ -144,9 +142,6 @@ header {
     text-align: center;
     display: none;
 }
-
-
-
 
 .dg-menu-L1:hover .dg-menu-drop-movie li {
     display: block;
@@ -322,8 +317,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -338,8 +333,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -424,9 +419,6 @@ header {
     font-size: 17px;
 }
 
-
-
-
 /* 상단 메뉴 호버시, 라인 생성(멤버십 탭) */
 
 .dg-membership-link {
@@ -441,8 +433,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -457,8 +449,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -594,8 +586,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -610,8 +602,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -660,8 +652,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -676,8 +668,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -727,8 +719,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -743,8 +735,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -794,8 +786,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -810,8 +802,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -860,8 +852,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -876,8 +868,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #fff;
-    filter: drop-shadow(0 0 2px rgba(122, 115, 90, 1));
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -897,14 +889,6 @@ header {
     transform: scaleX(1);
 }
 
-hr {
-
-    margin-block-start: -4.5em;
-    margin-block-end: 4.5em;
-    overflow: visible;
-
-}
-
 /* 관리자 아이콘 */
 .admin-control-space{
     position: absolute;
@@ -916,12 +900,14 @@ hr {
     position: absolute;
     width: 30px;
     height: 30px;
+    filter: sepia();
 }
 
 .dg-membership-link{
     cursor: default;
 }
 
+/* dropdown */
 .dropdown-menu-box{
     position: absolute;
     width: 100%;
@@ -937,7 +923,7 @@ hr {
 .dropdown-btn{
     width: 100px;
     height: 15px;
-    background-color: #ff0000;
+    background-color: #d2d2d2;
     border-radius: 0 0 20px 20px;
     display: inline-block;
     z-index: 10;
@@ -945,17 +931,51 @@ hr {
 .show-menu{
     text-align: center;
     width: 100%;
-    height: 150px;
     background-color: #00000090;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    transition: height 0.15s ease-in-out;
+    height: 0; 
+    overflow: hidden;
+}
+.show-menu.visible {
+    height: 150px; 
 }
 .show-menu>div{
-    color: blanchedalmond;
     display: inline-block;
     width: 150px;
-    height: 100%;
     margin: 0 20px;
-    border: 1px solid floralwhite;
+}
+.show-menu > div > p:first-child{
+    font-size: 20px;
+    padding: 5px 0;
+    border: solid #aaaaaa;
+    border-width: 0 0 1px 0;
+    color: #fff;
+}
+.show-menu > div > a{
+    display: block;
+    font-size: 16px;
+    color: #d2d2d2;
+    margin: 8px 0;
+}
+.show-menu > div > a:hover{
+    color: #64DFE4;
+    text-decoration: underline ;
+    user-select: none; 
+    cursor: pointer;
 }
 .display-none {
     display: none !important;
+}
+.top-line{
+    width: 100%;
+    border: solid #fff;
+    border-width: 1px 0 0 0;
+    height: 1px;
+    position: absolute;
+    top: 120px;
+    z-index: 15;
 }
