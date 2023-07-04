@@ -20,8 +20,11 @@ public class MovieDetailServiceImpl implements MovieDetailService {
 
 	// 영화 상세 정보 불러오기
 	@Override
-	public Movie selectMovieDetail(int movieNo) {
-		return mapper.selectMovieDetail(movieNo);
+	public Movie selectMovieDetail(int movieNo, String screen) {
+		
+		if(screen.equals("current")) return mapper.selectMovieDetailCurrent(movieNo);
+		else return mapper.selectMovieDetailPromise(movieNo);
+		
 	}
 
 	// 영화인 정보 불러오기

@@ -13,7 +13,9 @@ import edu.kh.dgc.movie.model.dto.Person;
 @Mapper
 public interface MovieDetailMapper {
 
-	public Movie selectMovieDetail(int movieNo);
+	public Movie selectMovieDetailCurrent(int movieNo);
+	
+	public Movie selectMovieDetailPromise(int movieNo);
 
 	public List<Person> selectMoviePerson(int movieNo);
 

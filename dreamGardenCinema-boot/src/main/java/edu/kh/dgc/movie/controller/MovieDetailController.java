@@ -28,11 +28,12 @@ public class MovieDetailController {
 	@Autowired
 	private MovieDetailService service;
 	
-	@GetMapping("/movieDetail={movieNo}")
+	@GetMapping("/movieDetail={movieNo}&screen={screen}")
 	public String selectMovieDetail(@PathVariable("movieNo") int movieNo,
+									@PathVariable("screen") String screen,
 									Model model) {
 		
-		Movie movieInfo = service.selectMovieDetail(movieNo);
+		Movie movieInfo = service.selectMovieDetail(movieNo, screen);
 		String story = movieInfo.getSynopsis();
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		

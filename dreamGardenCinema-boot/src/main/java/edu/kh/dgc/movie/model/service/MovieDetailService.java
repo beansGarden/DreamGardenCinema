@@ -11,9 +11,10 @@ public interface MovieDetailService {
 	
 	/** 영화 상세 정보 불러오기
 	 * @param movieNo
+	 * @param screen 
 	 * @return
 	 */
-	Movie selectMovieDetail(int movieNo);
+	Movie selectMovieDetail(int movieNo, String screen);
 
 	/** 영화와 관련된 영화인 정보 불러오기
 	 * @param movieNo

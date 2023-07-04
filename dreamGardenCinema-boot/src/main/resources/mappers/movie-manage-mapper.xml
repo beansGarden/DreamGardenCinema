@@ -19,16 +19,13 @@
 		<result property="movieTime" column="MOVIE_TIME" />
 		<result property="movieday" column="MOVIE_DAY" />
 		<result property="producer" column="PERSON_NAME" />
+		
 	</resultMap>
 	
-	<!--////////////영화////////////-->
-
-	 
 	  <select id="movieListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MOVIE
 	</select>
-
 
 	<select id="adminMovieList" resultMap="movie_rm">
 		SELECT

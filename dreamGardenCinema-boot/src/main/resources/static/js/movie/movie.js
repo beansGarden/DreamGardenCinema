@@ -153,7 +153,7 @@ if (releaseType != "") {
                     
                     detail.classList.add("font4")
                     detail.innerText = "상세보기";
-                    detail.setAttribute("href", "/movie/movieDetail=" + movie.movieNo);
+                    detail.setAttribute("href", "/movie/movieDetail=" + movie.movieNo + "&screen=current");
 
                     movieAction.append(detail);
 
@@ -407,7 +407,7 @@ if (releaseType != "") {
                     
                     detail.classList.add("font4")
                     detail.innerText = "상세보기";
-                    detail.setAttribute("href", "/movie/movieDetail=" + movie.movieNo);
+                    detail.setAttribute("href", "/movie/movieDetail=" + movie.movieNo+ "&screen=promise");
 
                     movieAction.append(detail);
 

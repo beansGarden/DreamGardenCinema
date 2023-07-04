@@ -41,7 +41,7 @@
                     <img class="movie-rating" th:src="${movie.rating}">
                     <em th:text="${movie.rank}">순위</em>
                     <div class="movie-action">
-                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}|}">상세보기</a>
+                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}&screen=promise|}">상세보기</a>
                     </div>
                 </div>
 

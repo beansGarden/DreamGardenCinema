@@ -1,4 +1,4 @@
-package edu.kh.dgc.admin.controller;
+	package edu.kh.dgc.admin.controller;
 
 import java.util.Map;
 
@@ -36,12 +36,14 @@ public class AdminMovieManageController {
 			return "admin/admin_movieManage";
 		}
 
+		
 		@GetMapping("/adminMovieRegister")
 		public String movieRegister() {
 
 			return "admin/admin_movieManageDetail";
 		}
 
+		
 		@GetMapping("/getMovieSearchList")
 		public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
@@ -61,6 +63,7 @@ public class AdminMovieManageController {
 
 		}
 		
+		
 		@ResponseBody
 	    @GetMapping("/adminMovieListAjax")
 	    public int adminMovieListAjax() {
@@ -68,4 +71,5 @@ public class AdminMovieManageController {
 			
 			return service.movieListCount();
 	    }
+		
 }
