@@ -97,11 +97,11 @@ public interface AdminService {
 	
 	//영화 관리***********************************
 	
-	//영화 List 조회
-	Map<String, Object> adminMovieList(int cp);
-
-	//영화 검색
-	Map<String, Object> getMovieSearchList(Movie condition, int cp);
+//	//영화 List 조회
+//	Map<String, Object> adminMovieList(int cp);
+//
+//	//영화 검색
+//	Map<String, Object> getMovieSearchList(Movie condition, int cp);
 
 
 	
