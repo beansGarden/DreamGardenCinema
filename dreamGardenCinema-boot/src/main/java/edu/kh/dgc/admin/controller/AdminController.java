@@ -1,17 +1,16 @@
 package edu.kh.dgc.admin.controller;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.kh.dgc.admin.model.dto.Query;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import edu.kh.dgc.admin.model.dto.SalesByPeriod;
 import edu.kh.dgc.admin.model.service.AdminService;
 import edu.kh.dgc.customerservice.model.dto.FAQ;
@@ -39,6 +40,7 @@ import edu.kh.dgc.user.model.dto.User;
 import jakarta.servlet.http.HttpServletRequest;
 import edu.kh.dgc.ticketing.model.dto.Schedule;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+
 
 @Controller
 public class AdminController {
@@ -200,82 +202,79 @@ public class AdminController {
 	
 	
 	
+//	// 3.관리자 영화 관리----------------------------------------------------------------------------
+//	@GetMapping("/adminMovieManage")
+//	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+//			@RequestParam Map<String, Object> paramMap,
+//			@RequestParam(value = "movieday", required = false) String movieNo) {
+//
+//		if (paramMap.get("key") == null) {
+//
+//			Map<String, Object> adminMovieMap = service.adminMovieList(cp);
+//
+//			model.addAttribute("adminMovieList", adminMovieMap);
+//
+//			System.out.println(adminMovieMap);
+//		}
+//
+//		return "admin/admin_movieManage";
+//	}
+//
+//	// 3-1.관리자 영화 등록
+//	@GetMapping("/adminMovieRegister")
+//	public String movieRegister() {
+//
+//		return "admin/admin_movieManageDetail";
+//	}
+//
+//	// 3-2 영화 검색
+//	@GetMapping("/getMovieSearchList")
+//	public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+//			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+//
+//		Movie condition = new Movie();
+//
+//		condition.setType(type);
+//		condition.setKeyword(keyword);
+//
+//		Map<String, Object> adminMovieMap = service.getMovieSearchList(condition, cp);
+//		model.addAttribute("adminMovieList", adminMovieMap);
+//
+//		System.out.println(condition);
+//		System.out.println(adminMovieMap);
+//
+//		return "admin/admin_movieManage";
+//
+//	}
+//	
+//	//3-3 영화 개수 가져오기
+//	@ResponseBody
+//    @GetMapping("/adminMovieListAjax")
+//    public int adminMovieListAjax() {
+//        
+//		
+//		return service.movieListCount();
+//    }
+//	
 	
-
-	// 3.관리자 영화
-	// 관리----------------------------------------------------------------------------
-	@GetMapping("/adminMovieManage")
-	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-			@RequestParam Map<String, Object> paramMap,
-			@RequestParam(value = "movieday", required = false) String movieNo) {
-
-		if (paramMap.get("key") == null) {
-
-			Map<String, Object> adminMovieMap = service.adminMovieList(cp);
-
-			model.addAttribute("adminMovieList", adminMovieMap);
-
-			System.out.println(adminMovieMap);
-		}
-
-		return "admin/admin_movieManage";
-	}
-
-	// 3-1.관리자 영화 등록
-	@GetMapping("/adminMovieRegister")
-	public String movieRegister() {
-
-		return "admin/admin_movieManageDetail";
-	}
-
-	// 3-2 영화 검색
-	@GetMapping("/getMovieSearchList")
-	public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-
-		Movie condition = new Movie();
-
-		condition.setType(type);
-		condition.setKeyword(keyword);
-
-		Map<String, Object> adminMovieMap = service.getMovieSearchList(condition, cp);
-		model.addAttribute("adminMovieList", adminMovieMap);
-
-		System.out.println(condition);
-		System.out.println(adminMovieMap);
-
-		return "admin/admin_movieManage";
-
-	}
-
-	// 3-3 영화 개수 가져오기
-	@ResponseBody
-	@GetMapping("/adminMovieListAjax")
-	public int adminMovieListAjax() {
-
-		return service.movieListCount();
-	}
-
-	// 4.관리자 상영 관리
-	// @GetMapping("/adminCinemaManage")
-	// public String cinemaManage(Model model,@Param("movieday") String
-	// movieday,@RequestParam(value="cp", required=false, defaultValue="1") int
-	// cp,@RequestParam Map<String, Object> paramMap) {
-	//
-	// if(paramMap.get("key") == null) {
-	//
-	// Movie condition = new Movie();
-	//
-	// condition.setMovieday(movieday);
-	//
-	// Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
-	//
-	// model.addAttribute("cinemaList", cinemaMap);
-	//
-	// System.out.println(cinemaMap);
-	// }
-	// return "admin/admin_cinemaManage";
-	// }
+	// 4.관리자 상영 관리 
+//	@GetMapping("/adminCinemaManage") 
+//	public String cinemaManage(Model model,@Param("movieday") String movieday,@RequestParam(value="cp", required=false, defaultValue="1") int cp,@RequestParam Map<String, Object> paramMap) {
+//		
+//		if(paramMap.get("key") == null) {	
+//		
+//		Movie condition = new Movie();
+//			
+//		condition.setMovieday(movieday);
+//			
+//		Map<String, Object> cinemaMap = service.adminCinemaList(condition,cp);
+//		
+//		model.addAttribute("cinemaList", cinemaMap);
+//		
+//		System.out.println(cinemaMap);
+//		}
+//		return "admin/admin_cinemaManage";
+//	}
 
 	// 1,2,3관으로 넘어가기
 	// @RequestMapping(value="/adminCinemaManage/{movieTheater}", produces =
@@ -345,6 +344,23 @@ public class AdminController {
 
 		return "redirect:/adminCinemaManage";
 	}
+	
+	// 체크한 상영정보 삭제하기
+	@PostMapping("/adminCinemaDelete")
+	public String deleteTotalTime(String formData) {
+		System.out.println(formData);
+		
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Map<String, String>>>(){}.getType();
+		List<Map<String, String>> dataList = gson.fromJson(formData, type);
+		
+		System.out.println(dataList);
+		
+		int result = service.deleteTotalTime(dataList);
+		
+		return "redirect:/adminCinemaManage";
+	}
+	
 
 	// 4-1.관리자 상영 시간 등록
 	@GetMapping("/adminCinemaRegister")
@@ -374,8 +390,39 @@ public class AdminController {
 		return service.movieScheduleListCount();
 	}
 
-	// 상영관 영화 등록 시간 받기
-	@RequestMapping(value = "/adminCinemaInsert", method = RequestMethod.POST, produces = "application/json;")
+	public String adminCinemaInsert(Movie movie) {
+	    // Movie 객체에서 영화 시간과 날짜를 가져옵니다.
+		System.out.println(movie);
+	    String movieTime = movie.getMovieTime();
+	    LocalDate movieDay = LocalDate.parse(movie.getMovieday());
+	    
+	    // 날짜와 시간을 조합하기 위해 DateTimeFormatter를 정의합니다.
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    
+	    // movieTime을 개별 시간으로 분할하여 배열로 저장합니다.
+	    String[] movieTimes = movieTime.split(",");
+	    
+	    // 각 시간을 영화 날짜와 조합합니다.
+	    for (String time : movieTimes) {
+	        LocalDateTime combinedDateTime = LocalDateTime.of(movieDay, LocalTime.parse(time));
+	        String combinedTime = combinedDateTime.format(formatter);
+	        
+	        // 조합된 시간을 Movie 객체에 설정합니다.
+	        movie.setMovieTime(combinedTime);
+	        
+	        // 디버깅을 위해 출력합니다.
+	        System.out.println(movie);
+	        System.out.println(movieTimes);
+	        System.out.println(combinedTime);
+	        
+	        // 영화 정보를 데이터베이스에 추가합니다.
+	        int result = service.adminCinemaInsert(movie);
+	    }
+	    
+	    // 영화 관리 페이지로 리다이렉트합니다.
+	    return "redirect:/adminCinemaManage";
+
+	}
 	public String adminCinemaInsert(Movie movie) {
 		// Movie 객체에서 영화 시간과 날짜를 가져옵니다.
 		String movieTime = movie.getMovieTime();

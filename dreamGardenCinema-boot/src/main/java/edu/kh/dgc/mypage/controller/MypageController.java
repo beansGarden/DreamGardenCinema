@@ -1,5 +1,8 @@
 package edu.kh.dgc.mypage.controller;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +23,8 @@ import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.mypage.model.service.MypageService;
 import edu.kh.dgc.qna.model.dto.Qna;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
+import edu.kh.dgc.ticketing.model.service.PaymentService;
+import edu.kh.dgc.ticketing.model.service.TicketingService;
 import edu.kh.dgc.user.model.dto.User;
 
 @SessionAttributes({"loginUser"})
@@ -29,6 +34,12 @@ public class MypageController {
 
 	@Autowired
 	private MypageService service;
+	
+	@Autowired
+	private PaymentService PaymentService;
+	
+	@Autowired
+	private TicketingService TicketingService;
 	
 	@GetMapping("/")
 	public String reservation(
@@ -43,6 +54,22 @@ public class MypageController {
 		model.addAttribute("reservationList",reservationList);
 		
 		return "myPage/my-page-reservation";
+	}
+	
+	
+	@GetMapping("/my-page-cancle-reservation")
+	public String cancle(
+			Model model
+			,@SessionAttribute("loginUser") User loginuser
+			) {
+		
+		int userNo = loginuser.getUserNo();
+		
+		List<Ticket> cancleList = service.cancleReservation(userNo);
+		
+		model.addAttribute("cancleList",cancleList);
+		
+		return "myPage/my-page-cancle-reservation";
 	}
 	
 	@GetMapping("/my-page-membership")
@@ -187,6 +214,77 @@ public class MypageController {
 		ra.addFlashAttribute("message",message);
 		
 		
+		return path;
+	}
+	
+	// 예매 취소
+	@PostMapping("/cancel")
+	public String ticketCancle(
+			@SessionAttribute("loginUser") User loginUser
+			,RedirectAttributes ra
+			,String ticketId
+			,String ticketImpId
+			,String payAmount
+			,String ticketNo
+			,Ticket ticket
+			) throws Exception {
+		
+		
+		String token = PaymentService.getToken();
+		
+		String message = null;
+		String path = "redirect:";
+		
+		System.out.println(ticketId);
+		System.out.println(ticketImpId);
+		System.out.println(payAmount);
+		
+		LocalDateTime movieTime = service.movieTime(ticketId);
+		
+		// 취소할 티켓 해당 영화 시간
+		System.out.println(movieTime);
+		
+		// 현재 시간
+		LocalDateTime currentTime = LocalDateTime.now();
+		// 현재 시간에서 -10분
+        LocalDateTime previousTime = currentTime.minus(10, ChronoUnit.MINUTES);
+        System.out.println("현재 시간: " + currentTime);
+        System.out.println("이전 시간: " + previousTime);
+		
+        int tNo = Integer.parseInt(ticketNo);
+        
+        ticket.setTicketNo(tNo);
+        
+        
+        if (movieTime.compareTo(previousTime) < 0) {
+            // movieTime은 previousTime보다 이전입니다.
+        	// 상영 시작 후(상영 시간 10분 안남음)
+        	
+        	message = "취소 가능 시간이 지났습니다";
+			path += "/myPage/";
+        	
+            System.out.println("movieTime은 previousTime보다 이전입니다.");
+        } else if (movieTime.compareTo(previousTime) > 0 || movieTime.compareTo(previousTime) == 0) {
+            // dateTime1은 dateTime2보다 이후입니다.
+        	// 아직 상영 10분 전
+            String reasonCancellationPayment = "회원 취소";
+			PaymentService.payMentCancle(token, ticketImpId, payAmount, reasonCancellationPayment);
+			ticket.setReasonCancellationPayment(reasonCancellationPayment);
+			int result1 = TicketingService.updateReasonCancellationPayment(ticket);
+        	
+			if(result1>0) {
+				// 취소 티켓 좌석 정보 삭제
+				int deleteSeat = TicketingService.deleteSeat(ticketNo);
+			}
+			
+			message = "취소되었습니다";
+			path += "/myPage/my-page-cancle-reservation";
+            
+			System.out.println("movieTime은 previousTime보다 이후입니다.");
+        }
+        
+        ra.addFlashAttribute("message",message);
+        
 		return path;
 	}
 }

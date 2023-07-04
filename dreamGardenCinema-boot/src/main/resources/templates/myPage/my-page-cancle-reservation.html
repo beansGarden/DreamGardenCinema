@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my-page-reservation</title>
+    <title>my-page-cancle-reservation</title>
 
-    <link rel="stylesheet" th:href="@{/css/myPage/my-page-reservation.css}">
+    <link rel="stylesheet" th:href="@{/css/myPage/my-page-cancle-reservation.css}">
     <link rel="stylesheet" th:href="@{/css/myPage/my-page-changeinfo.css}">
     <link rel="stylesheet" th:href="@{/css/common/header-white.css}">
 </head>
@@ -70,11 +70,11 @@
     <div class="my-page-nav">
         <ul class="my-page-nav-list">
             <li>
-                <a th:href="@{#}">예매 내역</a>
+                <a th:href="@{/myPage/}">예매 내역</a>
             </li>
 
             <li>
-                <a th:href="@{/myPage/my-page-cancle-reservation}">취소 내역</a>
+                <a th:href="@{#}">취소 내역</a>
             </li>
 
             <li>
@@ -89,33 +89,26 @@
 
     <!-- 예매 내역이 있을 경우 -->
     <div class="my-page-contents-box2">
-        <span>나의 예매 내역</span>
+        <span>취소 예매 내역</span>
     </div>
     <div class="my-page-contents-guide">
-        <span>현장에서 발권하실 경우 꼭</span><span>예매번호</span><span>를 확인하세요.</span>
+        <span>예매를 취소하신 후 재예매를 원하실 경우</span><span>예매 페이지</span><span>를 처음부터 이용해주세요.</span>
     </div>
 
-    <p class="my-page-contents-guide2">티켓판매기에서 예매번호를 입력하면 티켓을 발급받을 수 있습니다.</p>
+    <p class="my-page-contents-guide2">예매 취소가 이루어지지 않거나 불편사항,문의사항 접수는 고객센터를 이용해주세요.</p>
 
     <!-- each문 -->
-    <th:block th:each="reservation : ${reservationList}">
-        <form th:action="@{/myPage/cancel}" method="post">
+    <th:block th:each="cancle : ${cancleList}">
+        <div class="ticket-background">
 
-            <div class="ticket-background">
-                
             <div class="ticket-container">
 
                 <div class="ticket-img-box">
 
                     <span class="my-page-tiket">예매번호</span> <span class="my-page-tiket-number"
-                        th:text="${reservation.ticketId}"></span>
-                        <input type="hidden" name="ticketId" th:value="${reservation.ticketId}">
-                        <input type="hidden" name="ticketImpId" th:value="${reservation.ticketImpId}">
-                        <input type="hidden" name="payAmount" th:value="${reservation.payAmount}">
-                        <input type="hidden" name="ticketNo" th:value="${reservation.ticketNo}">
-
+                        th:text="${cancle.ticketId}"></span>
                     <div class="my-page-movie-img">
-                        <img th:src="${reservation.poster}">
+                        <img th:src="${cancle.poster}">
                     </div>
 
                 </div>
@@ -125,17 +118,18 @@
                     <div class="my-page-contents-info">
 
                         <div class="my-page-contents-info-title">
-                            <span th:text="${reservation.movieTitle}"></span>
+                            <span th:text="${cancle.movieTitle}"></span>
                         </div>
 
                         <div class="my-page-contents-info-date">
-                            <span>관람일시</span><span id="text-color" th:text="${reservation.movieTime}"></span>
+                            <span>관람일시</span><span id="text-color" th:text="${cancle.movieTime}"></span>
                         </div>
 
                         <div class="my-page-contents-info-date">
-                            <span>상영관</span><span th:text="|${reservation.movieTheater}관|"></span> <span>관람좌석</span>
-                            <span th:text="${reservation.seatNo}">G11,G10</span>
+                            <span>상영관</span><span th:text="|${cancle.movieTheater}관|"></span> <span>관람좌석</span>
+                            <span th:text="${cancle.seatNo}">G11,G10</span>
                         </div>
+
                         <!-- 결제 내역  -->
                         <div class="my-page-payment-detail">
                             <span>결제 내역</span>
@@ -143,26 +137,24 @@
 
                         <div class="my-page-payment-detail-box">
                             <div id="total-pay">
-                                <span>총 결제 금액</span> <span th:text="|${reservation.payAmount}원|">20,000원</span>
+                                <span>총 결제 금액</span> <span th:text="|${cancle.payAmount}원|">20,000원</span>
                             </div>
-                            <button class="my-page-contents-btn">예매 취소</button>
                         </div>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-    </form>
-        
+
     </th:block>
     <!-- each문 끝 -->
-    
+
     <!-- 예매 내역이 없을 경우 -->
-    <div class="my-page-contents-box" th:if="${reservationList.size()==0}">
+    <div class="my-page-contents-box" th:if="${cancleList.size()==0}">
         <div class="my-page-contents">
             <img th:src="@{/images/myPage/느낌표.png}">
-            <p>예매 내역이 존재하지 않습니다.</p>
+            <p>예매 취소 내역이 존재하지 않습니다.</p>
         </div>
     </div>
 

@@ -126,29 +126,29 @@ public interface AdminMapper {
 
 	// 영화 관리******************************************************
 
-	/**
-	 * 영화 개수
-	 * 
-	 * @return
-	 */
-	int movieListCount();
-
-	/**
-	 * 영화 List 조회
-	 * 
-	 * @param rowBounds
-	 * @return
-	 */
-	List<Movie> adminMovieList(RowBounds rowBounds);
-
-	/**
-	 * 영화 검색
-	 * 
-	 * @param condition
-	 * @param rowBounds
-	 * @return
-	 */
-	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
+//	/**
+//	 * 영화 개수
+//	 * 
+//	 * @return
+//	 */
+//	int movieListCount();
+//
+//	/**
+//	 * 영화 List 조회
+//	 * 
+//	 * @param rowBounds
+//	 * @return
+//	 */
+//	List<Movie> adminMovieList(RowBounds rowBounds);
+//
+//	/**
+//	 * 영화 검색
+//	 * 
+//	 * @param condition
+//	 * @param rowBounds
+//	 * @return
+//	 */
+//	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
 
 	// 상영관 List 조회************************************************
 	/**
@@ -462,12 +462,13 @@ public interface AdminMapper {
 	// 상영관 세부 시간 삭제(찬희)
 	int deleteDetailTime(Schedule schedule);
 
-	// 예약된 좌석이 있는지 확인(찬희)
+	// 삭제할 세부 시간에 예약된 좌석이 있는지 확인(찬희)
 	int selectTicketing(Schedule schedule);
 
+	// 체크한 상영정보 삭제하기(찬희)
+	int deleteTotalTime(List<Map<String, String>> dataList);
 
-
-
-
+	// 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희)
+	int selectToTalTicketing(Map<String, String> map);
 
 }

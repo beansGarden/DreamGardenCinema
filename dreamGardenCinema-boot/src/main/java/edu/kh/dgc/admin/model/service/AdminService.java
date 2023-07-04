@@ -100,11 +100,11 @@ public interface AdminService {
 	
 	//영화 관리***********************************
 	
-	//영화 List 조회
-	Map<String, Object> adminMovieList(int cp);
-
-	//영화 검색
-	Map<String, Object> getMovieSearchList(Movie condition, int cp);
+//	//영화 List 조회
+//	Map<String, Object> adminMovieList(int cp);
+//
+//	//영화 검색
+//	Map<String, Object> getMovieSearchList(Movie condition, int cp);
 
 
 	
@@ -252,6 +252,9 @@ public interface AdminService {
 
 	// 상영관 세부 시간 삭제(찬희)
 	int deleteDetailTime(Schedule schedule);
+
+	// 체크한 상영정보 삭제하기
+	int deleteTotalTime(List<Map<String, String>> dataList);
 
 
 

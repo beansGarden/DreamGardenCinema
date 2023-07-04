@@ -1,68 +1,35 @@
 /* 전체 감싸는 div */
-.admin_movieManageWrap{
-    width: 1000px;
-    display: block;
-    margin: 100px auto;
-    height: auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+.admin_movieManageWrap {
+    display: flex;
+    top: 50px;
+    left: 500px;
+    position: absolute;
+    flex-wrap: wrap;
+    width: 800px;
 }
 
 /* 게시판 제목 */
-#admin_movieManageTitle{
-    color:#0F0954;
+#admin_movieManageTitle {
+    color: #0F0954;
     font-size: 30px;
     font-weight: bold;
-
-
 }
-/* 유저검색 창 */
-.admin_movieSearchWrap{
+
+/* screen 상태 버튼 */
+.movie-screening-flow{
     display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 100px;
     justify-content: center;
     align-items: center;
-    margin: 30px;
-    width: 100%;
-    padding: 0px;
-    height: 0px;
 }
 
-/* 검색창 감싸는 div */
-.admin_moiveSearchWrap2{
-    border: 1px solid black;
-    width: 70%;
-    padding: 10px;
-
+.movie-screening-flow button{
+    width: 110px;
+    height: 60px;
+    border-radius: 5px;
 }
-
-/* select 선택창 */
-.admin_movieManageSelect{
-    border: none;
-    outline: none;
-
-}
-
-/* 검색창 */
-.admin_movieManageInput{
-    width: 400px;
-    border: none;
-    outline: none;
-}
-
-
-
-/* 검색버튼 */
-.admin_movieSearchBtn{
-   margin: 0px 10px;
-   padding: 5px 15px;
-   border-radius: 5px;
-   background-color: #0F0954;
-   color: white;
-}
-
-
-
 
 /* 게시판 테이블 감싸는 div */
 .admin_movieManageBoardWrap {
@@ -70,72 +37,54 @@
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-  
-
 }
 
 /* 게시판 테이블 */
-.admin_movieManageBoardWrap > table{
+.admin_movieManageBoardWrap>table {
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
-    width: 1000px;
-
-
+    width: 800px;
 }
 
 /* 테이블 th,td 칸 */
-.admin_movieManageBoardWrap > table >th,td{
+.admin_movieManageBoardWrap>table>th,
+td {
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
     text-align: center;
-
 }
 
-
-/* 등록,수정,삭제 감싸는 div */
-.admin_movieBtn{
-    display: flex;
-    margin-left: 75%;
-    
-}
-
-/* 등록버튼 */
-.admin_movieEndBtn{
-    margin: 50px 10px;
-    padding: 5px 15px;
+.movieStatus button{
     border-radius: 5px;
-    background-color: #0F0954;
-    
+    margin: 0 5px;
 }
 
-.admin_movieEndBtn a{
-    color: white;
-    
+.movieStatus button:hover{
+    background-color: #A8A7DE;
 }
 
 
 /* 페이지네이션 */
-.pagination{
+.pagination {
     text-decoration: none;
     text-align: center;
     list-style: none;
     margin-top: 30px;
 }
 
-.pagination li{
+.pagination li {
     display: inline;
 
 }
 
-.pagination a{
+.pagination a {
     text-decoration: none;
 }
 
-.pagination a:active{
+.pagination a:active {
     font-weight: bold;
     text-decoration: underline;
     color: #0F0954;
 }
 
- 
