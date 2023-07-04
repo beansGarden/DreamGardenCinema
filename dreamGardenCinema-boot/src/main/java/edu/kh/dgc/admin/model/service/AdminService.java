@@ -210,6 +210,9 @@ public interface AdminService {
 	// 상영관 세부 시간 삭제(찬희)
 	int deleteDetailTime(Schedule schedule);
 
+	// 체크한 상영정보 삭제하기
+	int deleteTotalTime(List<Map<String, String>> dataList);
+
 
 	
 

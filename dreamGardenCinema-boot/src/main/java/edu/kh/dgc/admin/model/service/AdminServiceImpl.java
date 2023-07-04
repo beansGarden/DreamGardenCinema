@@ -838,6 +838,21 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.deleteDetailTime(schedule);
 	}
+
+	// 체크한 상영정보 삭제하기(찬희)
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteTotalTime(List<Map<String, String>> dataList) {
+		int count = 0;
+		for(int i=0;i<dataList.size();i++) {
+			count = count + mapper.selectToTalTicketing(dataList.get(i));
+		}
+		int result = 0;
+		if(count==0) {
+			result = mapper.deleteTotalTime(dataList);
+		}
+		return result;
+	}
 	
 	
 }
