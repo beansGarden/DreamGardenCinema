@@ -4,7 +4,9 @@
 }
 
 body{
-    background-color: #918FAC;
+    background-image: url('/images/ticketing/예매 배경.png');
+    background-size : 520px;
+    background-color: rgb(0 0 0 / 20%);
 }
 .main{
     width: 100%;
@@ -30,14 +32,16 @@ body{
     flex-direction: column;
     justify-content: space-between;
     border-collapse : collapse;
+    border-right: 1px solid #c8c8c8;
 }
 .ticketingNav li{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+
     box-sizing: border-box;
-    border: 1px solid #666666;
+    border-bottom: 1px solid #c8c8c8;
     border-top: none;
     
 }
@@ -46,7 +50,7 @@ body{
     color : white;
 }
 .ticketingNav li.active{
-    background-color: #0E0753;
+    background-color: #dda03c;
     color : white;
     font-weight: bold;
 }
@@ -64,10 +68,12 @@ body{
 }
 .ticketingNav li:nth-child(3){
     height: 25%;
+    
 }
 .ticketingNav li:last-child{
     height: 25%;
     border-bottom-left-radius: 15px;
+    border-bottom: none;
 }
 .ticketingBox>form{
     display: flex;
@@ -227,7 +233,7 @@ body{
 }
 
 .choiceSeat{  /* 선택 좌석 */
-    background-color: #5250BE !important;
+    background-color: #dda03c !important;
     color : white;
 }
 
@@ -253,7 +259,7 @@ body{
     margin-left: 20px;
     margin-right: 5px;
 }
-.ex1{ background-color: #5250BE;}
+.ex1{ background-color: #dda03c;}
 .ex2{ background-color: #D9D9D9;}
 .ex3{ background-color: #3B3B3B;}
 
@@ -275,7 +281,7 @@ body{
     margin-left: 10px;
 }
 .liquidate>button{
-    background-color: #0E0753;
+    background-color: #dda03c;
     border-bottom-right-radius: 15px;
     font-size: 20px;
     color: white;

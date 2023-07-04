@@ -80,13 +80,13 @@ header {
 }
 
 .dg-movie-link::after {
-
     content: '';
     position: absolute;
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -101,7 +101,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -126,9 +127,8 @@ header {
 .dg-menu-drop-movie {
     display: flex;
     list-style: none;
-    margin-top: 10px;
+    margin: 10px 0 0 -80px;
     position: absolute;
-    margin-left: -95px;
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     height: 35px;
@@ -142,9 +142,6 @@ header {
     text-align: center;
     display: none;
 }
-
-
-
 
 .dg-menu-L1:hover .dg-menu-drop-movie li {
     display: block;
@@ -320,7 +317,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -335,7 +333,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -420,9 +419,6 @@ header {
     font-size: 17px;
 }
 
-
-
-
 /* 상단 메뉴 호버시, 라인 생성(멤버십 탭) */
 
 .dg-membership-link {
@@ -437,7 +433,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -452,7 +449,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -588,7 +586,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -603,7 +602,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -652,7 +652,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -667,7 +668,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -717,7 +719,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -732,7 +735,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -782,7 +786,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -797,7 +802,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -846,7 +852,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     top: 25px;
     left: 0;
@@ -861,7 +868,8 @@ header {
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: #64DFE4;
+    background-color: #c8c8c8;
+    filter: drop-shadow(0 0 2px rgba(225, 225, 225, 1));
 
     bottom: 28px;
     left: 0;
@@ -892,6 +900,7 @@ header {
     position: absolute;
     width: 30px;
     height: 30px;
+    filter: sepia();
 }
 
 .dg-membership-link{
