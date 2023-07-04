@@ -932,3 +932,76 @@ header {
 .dg-membership-link {
     cursor: default;
 }
+
+/* dropdown */
+.dropdown-menu-box{
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dropdown-btn-box{
+    width: 100%;
+    text-align: center;
+    margin-top: -2px;
+}
+.dropdown-btn{
+    width: 100px;
+    height: 15px;
+    background-color: #d2d2d2;
+    border-radius: 0 0 20px 20px;
+    display: inline-block;
+    z-index: 10;
+}
+.show-menu{
+    text-align: center;
+    width: 100%;
+    background-color: #00000090;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    transition: height 0.15s ease-in-out;
+    height: 0; 
+    overflow: hidden;
+}
+.show-menu.visible {
+    height: 150px; 
+}
+.show-menu>div{
+    display: inline-block;
+    width: 150px;
+    margin: 0 20px;
+}
+.show-menu > div > p:first-child{
+    font-size: 20px;
+    padding: 5px 0;
+    border: solid #aaaaaa;
+    border-width: 0 0 1px 0;
+    color: #fff;
+}
+.show-menu > div > a{
+    display: block;
+    font-size: 16px;
+    color: #d2d2d2;
+    margin: 8px 0;
+}
+.show-menu > div > a:hover{
+    color: #64DFE4;
+    text-decoration: underline ;
+    user-select: none; 
+    cursor: pointer;
+}
+.display-none {
+    display: none !important;
+}
+.top-line{
+    width: 100%;
+    border: solid #000000;
+    border-width: 1px 0 0 0;
+    height: 1px;
+    position: absolute;
+    top: 120px;
+    z-index: 15;
+}

@@ -58,20 +58,33 @@
         <div class="admin-control-space"  th:if="${session.loginUser != null and  session.loginUser.userRole == 'A'}">
             <a th:href="@{/admin}"><img th:src="@{/images/common/logo/관리자 아이콘-white.png}" title="관리자"></a>
         </div>
-
+        <div class="top-line"></div>
+        
         <div class="dropdown-menu-box">
             <div class="show-menu">
                 <div>
                     <p>영화</p>
+                    <a th:href="@{/movie/current}">현재 상영작</a>
+                    <a th:href="@{/movie/promise}">상영 예정작</a>
                 </div>
                 <div>
                     <p>예매</p>
+                    <a th:href="@{/ticketing/date/0}">예매하기</a>
                 </div>
                 <div>
-                    <p>멤버쉽</p>
+                    <p>멤버십</p>
+                    <th:block th:unless="${session.loginUser}">
+                        <a th:href="@{/customerservice/terms}">멤버십 이용 약관</a>
+                    </th:block>
+                    <th:block th:if="${session.loginUser}">
+                        <a th:href="@{/myPage/my-page-membership}">나의 멤버십</a>
+                    </th:block>
                 </div>
                 <div>
                     <p>고객센터</p>
+                    <a th:href="@{/customerservice/}">FAQ</a>
+                    <a th:href="@{/customerservice/notice}">공지사항</a>
+                    <a th:href="@{/customerservice/service}">1:1 문의</a>
                 </div>
             </div>
             <div class="dropdown-btn-box">
@@ -80,7 +93,6 @@
         </div>
 
     </div>
-    <hr>
     
 </header>
 <script th:src="@{/js/common/header.js}"></script>
