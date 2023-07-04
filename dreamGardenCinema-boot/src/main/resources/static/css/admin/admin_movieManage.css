@@ -1,12 +1,11 @@
 /* 전체 감싸는 div */
 .admin_movieManageWrap{
-    width: 1000px;
-    display: block;
-    margin: 100px auto;
-    height: auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+    width: 75vw;
+    height: 70px;
+    display: flex;
+    top: 70px;
+    left: 500px;
+    position: absolute;
 }
 
 /* 게시판 제목 */
