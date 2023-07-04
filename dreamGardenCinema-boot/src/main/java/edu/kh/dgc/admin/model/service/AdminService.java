@@ -21,8 +21,12 @@ public interface AdminService {
 	
 	//대시보드 
 	
+	//영화 상역작만 불러오기
+	List<Movie> cinemaCurrentList();
+	
 	//영화별 매출 리스트 불러오기
 	List<Ticket> ticketList(String movieNo);
+	
 	
 	//대시보드 1:1문의 최신 5개만 오게하기
 	List<Qna> adminQnaList5();
@@ -73,6 +77,11 @@ public interface AdminService {
 	//회원관리 List 조회
 	Map<String, Object> adminUserList(int cp);
 	
+	
+	//탈퇴한 회원 조회
+	Map<String, Object> adminUserOutList(User condition, int cp);
+
+	
 
 	//회원 선택 삭제
 	int userDelete(int userNo);
@@ -83,13 +92,16 @@ public interface AdminService {
 	//회원 전체 개수 가져오기
 	int userListCount();
 
+
+
+	
 	//영화 관리***********************************
 	
-	//영화 List 조회
-	Map<String, Object> adminMovieList(int cp);
-
-	//영화 검색
-	Map<String, Object> getMovieSearchList(Movie condition, int cp);
+//	//영화 List 조회
+//	Map<String, Object> adminMovieList(int cp);
+//
+//	//영화 검색
+//	Map<String, Object> getMovieSearchList(Movie condition, int cp);
 
 
 	
@@ -123,6 +135,10 @@ public interface AdminService {
 
 	//공지사항 게시글 쓰기
 	int noticeWriteInsert(Notice notice);
+	
+	//공지사항 수정
+	int noticeUpdate(Notice notice);
+
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
@@ -198,7 +214,21 @@ public interface AdminService {
 	int reviewListCount();
 
 	//리뷰관리 검색
-	Map<String, Object> getReviewSearchList(Qna condition, int cp);
+	Map<String, Object> getReviewSearchList(Review condition, int cp);
+
+	int userInListCount();
+
+	int userOutListCount();
+
+	//리뷰 복구
+	int restoreReview(int reviewNo);
+
+	//리뷰 게시글 읽어오기
+	List<Review> adminReviewOne(int reviewNo);
+
+
+	
+	
 
 	
 	// 상영관 리스트 조회(찬희)

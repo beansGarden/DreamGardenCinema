@@ -153,60 +153,60 @@ public class AdminController {
 	
 	
 	
-	// 3.관리자 영화 관리----------------------------------------------------------------------------
-	@GetMapping("/adminMovieManage")
-	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-			@RequestParam Map<String, Object> paramMap,
-			@RequestParam(value = "movieday", required = false) String movieNo) {
-
-		if (paramMap.get("key") == null) {
-
-			Map<String, Object> adminMovieMap = service.adminMovieList(cp);
-
-			model.addAttribute("adminMovieList", adminMovieMap);
-
-			System.out.println(adminMovieMap);
-		}
-
-		return "admin/admin_movieManage";
-	}
-
-	// 3-1.관리자 영화 등록
-	@GetMapping("/adminMovieRegister")
-	public String movieRegister() {
-
-		return "admin/admin_movieManageDetail";
-	}
-
-	// 3-2 영화 검색
-	@GetMapping("/getMovieSearchList")
-	public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-
-		Movie condition = new Movie();
-
-		condition.setType(type);
-		condition.setKeyword(keyword);
-
-		Map<String, Object> adminMovieMap = service.getMovieSearchList(condition, cp);
-		model.addAttribute("adminMovieList", adminMovieMap);
-
-		System.out.println(condition);
-		System.out.println(adminMovieMap);
-
-		return "admin/admin_movieManage";
-
-	}
-	
-	//3-3 영화 개수 가져오기
-	@ResponseBody
-    @GetMapping("/adminMovieListAjax")
-    public int adminMovieListAjax() {
-        
-		
-		return service.movieListCount();
-    }
-	
+//	// 3.관리자 영화 관리----------------------------------------------------------------------------
+//	@GetMapping("/adminMovieManage")
+//	public String movieManage(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+//			@RequestParam Map<String, Object> paramMap,
+//			@RequestParam(value = "movieday", required = false) String movieNo) {
+//
+//		if (paramMap.get("key") == null) {
+//
+//			Map<String, Object> adminMovieMap = service.adminMovieList(cp);
+//
+//			model.addAttribute("adminMovieList", adminMovieMap);
+//
+//			System.out.println(adminMovieMap);
+//		}
+//
+//		return "admin/admin_movieManage";
+//	}
+//
+//	// 3-1.관리자 영화 등록
+//	@GetMapping("/adminMovieRegister")
+//	public String movieRegister() {
+//
+//		return "admin/admin_movieManageDetail";
+//	}
+//
+//	// 3-2 영화 검색
+//	@GetMapping("/getMovieSearchList")
+//	public String getMovieSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+//			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+//
+//		Movie condition = new Movie();
+//
+//		condition.setType(type);
+//		condition.setKeyword(keyword);
+//
+//		Map<String, Object> adminMovieMap = service.getMovieSearchList(condition, cp);
+//		model.addAttribute("adminMovieList", adminMovieMap);
+//
+//		System.out.println(condition);
+//		System.out.println(adminMovieMap);
+//
+//		return "admin/admin_movieManage";
+//
+//	}
+//	
+//	//3-3 영화 개수 가져오기
+//	@ResponseBody
+//    @GetMapping("/adminMovieListAjax")
+//    public int adminMovieListAjax() {
+//        
+//		
+//		return service.movieListCount();
+//    }
+//	
 	
 	// 4.관리자 상영 관리 
 //	@GetMapping("/adminCinemaManage") 

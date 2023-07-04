@@ -19,7 +19,7 @@
     <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_qnaWrap">
-        [[${Qna}]]
+
         <!-- 게시판 제목 -->
         <span id="admin_qnaTitle">1:1문의 관리</span>
         <form th:action="@{/adminQnaAnswer/{qnaNo}(qnaNo=${Qna.qnaNo})}" method="POST" id="qnaSubmit">
@@ -116,16 +116,7 @@
 
     </div>
     <script src="\js\admin\admin_QNA_read.js"></script>
-    <script>
-        // 메인화면 페이지 로드 함수
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                placeholder: '내용을 작성하세요',
-                height: 400,
-                maxHeight: 400
-            });
-        });
-    </script>
+  
 </body>
 
 </html>

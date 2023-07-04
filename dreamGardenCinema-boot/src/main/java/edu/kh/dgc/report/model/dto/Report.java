@@ -25,6 +25,8 @@ public class Report {
 	//reivew join
 	private String reviewContent;
 	private String reviewDeleteFl;
+	private String reportWriter; //신고한 유저
+	private String reportedId; //신고된 유저
 	
 	//검색필터
 	private  String type;

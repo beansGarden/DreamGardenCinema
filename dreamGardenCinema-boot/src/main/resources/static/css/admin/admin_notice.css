@@ -15,7 +15,6 @@
     font-size: 30px;
     font-weight: bold;
 
-
 }
 /* 유저검색 창 */
 .admin_noticeSearchWrap{
@@ -79,7 +78,7 @@
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
     width: 1000px;
-
+    table-layout: fixed;
 
 }
 
@@ -91,6 +90,31 @@
     text-align: center;
 
 }
+/* input */
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(1){
+    width: 30px;
+}
+
+/* 번호 */
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(2){
+    width: 30px;
+}
+
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(3){
+    width: 350px;
+}
+
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(4){
+    width: 80px;
+}
+
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(5){
+    width: 50px;
+}
+
+
+
+
 
 
 /* 등록,수정,삭제 감싸는 div */
@@ -137,4 +161,3 @@
     color: #0F0954;
 }
 
- 
