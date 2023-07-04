@@ -6,7 +6,17 @@
 }
 
 #admin_cinemaManageTitle{
-    margin-bottom: 10px;
+    color: #ffffff;
+    background-color: black;
+    font-size: 25px;
+    width: 12vw;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
 
 #selectCont{
@@ -15,12 +25,6 @@
 
 form>div>div{
     margin-bottom: 4px;
-}
-
-#admin_cinemaManageTitle{
-    color:#0F0954;
-    font-size: 30px;
-    font-weight: bold;
 }
 
 form span{
