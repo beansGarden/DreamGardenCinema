@@ -1,12 +1,3 @@
-/* 체크박스 전체선택 */
-function userSelectAll(userSelectAll)  {
-    const checkboxes 
-       = document.querySelectorAll('input[type="checkbox"]'); //체크박스 전체 불러오기
-    
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = userSelectAll.checked
-    })
-  }
 
   // Ajax 요청 함수
   function ajaxRequest(url, method, successCallback) {
@@ -21,6 +12,9 @@ function userSelectAll(userSelectAll)  {
 }
 
 // 영화 개수 가져오기
+
+
+
 function getMovieCount() {
     ajaxRequest('/adminMovieListAjax', 'GET', function(response) {
         var countElement = document.querySelector('.admin_movieManageCount');

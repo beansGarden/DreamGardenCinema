@@ -58,14 +58,15 @@ body > div.admin_reportWrap > table > thead > tr:nth-child(8) > td{
 .admin_reportBoardWrap > table>tr,th,td{
     border-bottom: 1px solid black;
 }
-body > div.admin_reportWrap > div > table > thead > tr:nth-child(4) > td{
-    width: 800px;
 
+
+body > div.admin_reportWrap > table > thead > tr:nth-child(6) > td{
+    height: 400px;
 }
 
 /* 내용 칸 */
 .admin_reportContent{
-    height: 500px;
+    height: 300px;
 }
 
 

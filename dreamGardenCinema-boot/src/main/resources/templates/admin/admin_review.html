@@ -20,7 +20,7 @@
     <div class="admin_reviewWrap">
 
         <!-- 게시판 제목 -->
-        <span id="admin_reviewTitle">리뷰 신고 관리</span>
+        <span id="admin_reviewTitle">리뷰 관리</span>
 
         <!-- 검색창 -->
         <div class="admin_reviewSearchWrap">
@@ -57,9 +57,13 @@
 
         </div>
 
+        <div>
+            <span>총 게시글 개수 :</span>
+            <span class="adminReviewCountAll">0</span>
+        </div>
         <!-- 게시판 -->
         <div class="admin_reviewBoardWrap">
-            <table id="boardTable">
+            <table id="boardTable"  style='table-layout:fixed'>
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="" id="" class="admin_reviewCheckboxAll"
@@ -69,26 +73,31 @@
                         <th>영화</th>
                         <th>유저</th>
                         <th>스코어</th>
-                        <th>내용</th>
                         <th>리뷰 삭제여부</th>
+
+       
+                   
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="list : ${adminReviewList}">
+                    <tr th:each="list : ${adminReviewList}" class="tr">
                         <td><input type="checkbox" name="" id="" class="admin_reviewCheckbox"></td>
                         <td th:text="${list.reviewNo}" class="admin_review_checkbox_no"></td>
-                        <td  th:text="${list.reviewDate}"></td>
-                        <td  th:text="${list.movieTitle}"></td>
-                        <td th:text="${list.userNo}"></td>
-                        <td th:text="${list.score}"></td>
-                        <td th:text="${list.reviewContent}"></td>
-                        <td th:text="${list.reviewDeleteFl}"></td>
+                        <td th:text="${list.reviewDate}"></td>
+                        <td><a th:href="@{adminReviewRead/{reviewNo}(reviewNo=${list.reviewNo})}"  th:text="${list.movieTitle}"></a></td>
+                        <td th:text="${list.userId}"></td>
+                        <td th:text="${list.score}"></td>   
+                        <td th:text="${list.reviewDeleteFl}" class="deleteFl">    </td>
+
+                    
+                       
+                        
 
                     </tr>
 
                 </tbody>
-
+        
             </table>
         </div>
 
@@ -141,8 +150,8 @@
 
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_reviewBtn">
-     <!--        <button class="admin_reviewEndBtn"><a th:href="@{adminreviewWrite}">글쓰기</a></button> -->
-        <!--     <button class="admin_reviewEndBtn" id="deleteBtn"><a href="">삭제</a></button> -->
+             <button class="admin_reviewEndBtn" id="restoreBtn">복구</button> 
+             <button class="admin_reviewEndBtn" id="deleteBtn">삭제</button> 
         </div>
 
     </div>

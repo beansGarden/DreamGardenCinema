@@ -89,8 +89,30 @@
     padding: 10px 20px;
     margin: 10px;
     text-align: center;
+    table-layout: fixed;
 
 }
+/* input */
+table > thead > tr > th:nth-child(1){
+    width: 30px;
+}
+/*  번호 */
+table > thead > tr > th:nth-child(2){
+    width: 30px;
+}
+/* 카테고리 */
+table > thead > tr > th:nth-child(3){
+    width: 70px;
+}
+/* 제목 */
+table > thead > tr > th:nth-child(4){
+    width: 400px;
+}
+/* 삭제여부 */
+table > thead > tr > th:nth-child(5){
+    width: 50px;
+}
+
 
 
 /* 등록,수정,삭제 감싸는 div */
@@ -136,6 +158,5 @@
     font-weight: bold;
     text-decoration: underline;
     color: #0F0954;
-}
 
- 
+}

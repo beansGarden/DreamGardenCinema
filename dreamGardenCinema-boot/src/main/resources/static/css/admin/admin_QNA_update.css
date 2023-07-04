@@ -36,12 +36,13 @@
 /* 글쓰기 textarea */
 #summernote{
     width: 1000px;
+    height: 500px;
     margin: 20px 10px;
-    border: none;
-    padding:0px
+    border: 1px solid black;
+    padding:0px;
+    resize: none;
 
 }
-
 /* 등록버튼 */
 .admin_qnaRegister{
     margin-left: 90%;

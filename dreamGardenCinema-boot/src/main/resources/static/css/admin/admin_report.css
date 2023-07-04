@@ -92,7 +92,34 @@
 
 }
 
-/*  */
+/* input*/
+
+#boardTable > thead > tr > th:nth-child(1){
+    width: 20px;
+}
+
+#boardTable > thead > tr > th:nth-child(2){
+    width: 20px;
+}
+
+#boardTable > thead > tr > th:nth-child(3){
+    width: 230px;
+}
+
+#boardTable > thead > tr > th:nth-child(4){
+    width: 50px;
+}
+
+#boardTable > thead > tr > th:nth-child(5){
+    width: 50px;
+}
+
+#boardTable > thead > tr > th:nth-child(6){
+    width: 50px;
+}
+#boardTable > thead > tr > th:nth-child(7){
+    width: 60px;
+}
 
 
 /* 등록,수정,삭제 감싸는 div */
@@ -139,4 +166,3 @@
     color: #0F0954;
 }
 
- 

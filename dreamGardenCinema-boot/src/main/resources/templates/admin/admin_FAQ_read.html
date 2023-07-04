@@ -60,6 +60,7 @@
 
           <!-- 등록,수정,삭제 버튼 -->
           <div class="admin_faqBtn">
+            <button class="admin_faqEndBtn"><a th:href="@{/adminFaq}">목록</a></button>
             <button class="admin_faqEndBtn"><a th:href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}" >수정</a></button>
             <button class="admin_faqEndBtn"><a th:href="@{/adminFaqDelete/{FAQNo}(FAQNo=${list.FAQNo})}">삭제</a></button>
         </div>

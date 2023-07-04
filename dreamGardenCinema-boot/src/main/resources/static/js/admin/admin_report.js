@@ -8,43 +8,7 @@ function userSelectAll(userSelectAll)  {
     })
   }
 
-  /* 삭제 버튼 선택 삭제하기 */
-  const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
-  const checkbox = document.getElementsByClassName("admin_reportCheckbox"); //check박스
-  const checkboxNo = document.getElementsByClassName("admin_report_checkbox_no"); //번호
- 
-  delBtn.addEventListener(('click'),()=>{
-
- 
-  if (confirm("정말 삭제 하시겠습니까?")) {
-    for(let i=0; i<checkbox.length; i++){
-      if (checkbox[i].checked) {
-   var reportNo = document.getElementsByClassName("admin_report_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
   
-} if(checkbox!=null){
-reportDelete(reportNo);
-}
-}
-}else return;
-
-});
-
-function reportDelete(reportNo){
-
-  
-
-  fetch("/adminreport/deletereportList", {
-    method : "POST",
-    headers : {"Content-Type": "application/json"},
-    body : JSON.stringify({"reportNo" : reportNo})
-  }).then(resp=> resp.text())
-  .then(result=>{
-    console.log(result);
-    console.log(reportNo);
-
-  }).catch(err=> console.log(err));
-
-}
 
 //체크박스 숫자 불러오기
 function userSelectAll(checkbox) {
@@ -100,9 +64,11 @@ countAll.textContent = totalItems.toString();
 // 영화 개수 가져오기
 function getreportCount() {
     ajaxRequest('/adminreportListAjax', 'GET', function(response) {
-        var countElement = document.querySelector('.admin_reportCountAll');
+        var countElement = document.querySelector('.adminReportCountAll');
         countElement.textContent = response;
     });
+    console.log(response);
+    console.log(countElement);
 }
 
 // 페이지 로드 시 영화 개수 가져오기 호출
