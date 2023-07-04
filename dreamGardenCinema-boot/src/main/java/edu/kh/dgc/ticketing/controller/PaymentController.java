@@ -3,6 +3,7 @@ package edu.kh.dgc.ticketing.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -194,14 +196,5 @@ public class PaymentController {
 		return res;
 	}
 	
-	
-	// 예매 취소
-	@PostMapping("/cancel")
-	public String cancelTicket() {
-		
-		
-		
-		return "/";
-	}
 	
 }

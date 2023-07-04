@@ -86,5 +86,8 @@ public interface TicketingService {
 	// 플래티넘 쿠폰 insert
 	int insertPlatinumCoupon(int userNo);
 
+	// 예매 취소 시 좌석 정보 삭제
+	int deleteSeat(String ticketNo);
+
 
 }

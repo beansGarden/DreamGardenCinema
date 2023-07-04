@@ -1,5 +1,6 @@
 package edu.kh.dgc.mypage.model.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -66,5 +67,17 @@ public interface MypageMapper {
 	 * @return
 	 */
 	public List<QnaImage> myqnaImageList(int qnano);
+
+	/** 취소 내역 조회
+	 * @param userNo
+	 * @return
+	 */
+	public List<Ticket> cancleReservation(int userNo);
+
+	/** 해당 예매 내역의 영화 시간 조회
+	 * @param ticketId
+	 * @return
+	 */
+	public LocalDateTime movieTime(String ticketId);
 
 }
