@@ -1,5 +1,6 @@
 package edu.kh.dgc.mypage.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -59,5 +60,16 @@ public interface MypageService {
 	List<Ticket> reservation(int userNo);
 
 	List<QnaImage> myqnaImageList(int qnano);
+
+	/** 예매 취소 내역
+	 * @param userNo
+	 * @return
+	 */
+	List<Ticket> cancleReservation(int userNo);
+
+	/** 해당 예매 내역의 영화 시간 조회
+	 * @return
+	 */
+	LocalDateTime movieTime(String ticketId);
 
 }

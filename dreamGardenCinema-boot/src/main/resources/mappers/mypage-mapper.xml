@@ -145,6 +145,7 @@
 		MOVIE_THEATER,
 		TICKET_ID,
 		MOVIE_TITLE,
+		TICKEY_IMP_UID,
 		POSTER,
 		USER_NO,
 		(
@@ -170,5 +171,40 @@
 		JOIN QNA USING(QNA_NO)
 		JOIN USER_INFO ON (USER_NO2 = USER_NO)
 		WHERE QNA_NO = #{qnano}
+	</select>
+
+	<!--취소 내역 조회-->
+	<select id="cancleReservation" resultMap="ticket_rm">
+		SELECT
+		TICKET_NO,
+		MOVIE_NO,
+		TO_CHAR(MOVIE_TIME, 'YYYY.MM.DD(""Dy"")HH24:MI:SS') AS MOVIE_TIME,
+		PAY_AMOUNT,
+		MOVIE_THEATER,
+		TICKET_ID,
+		MOVIE_TITLE,
+		POSTER,
+		TICKEY_IMP_UID,
+		USER_NO,
+		(
+		SELECT LISTAGG(SEAT_NO, ',') WITHIN GROUP (ORDER BY SEAT_NO)
+		FROM SEAT_CHECK sc
+		WHERE sc.TICKET_NO = ti.TICKET_NO
+		) AS SEAT_NO
+		FROM
+		TICKETING_INFO ti
+		JOIN MOVIE USING (MOVIE_NO)
+		WHERE
+		USER_NO = #{userNo}
+		AND TICKET_ID IS NOT NULL
+		AND TICKET_FL = 'C'
+		ORDER BY TICKET_NO DESC
+	</select>
+
+	<!--취소할 영화 시간 조회-->
+	<select id="movieTime" parameterType="String" resultType="java.time.LocalDateTime">
+		SELECT MOVIE_TIME
+		FROM TICKETING_INFO
+		WHERE TICKET_ID =#{ticketId}
 	</select>
 </mapper>

@@ -372,4 +372,10 @@
 			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
 		SELECT 1 FROM DUAL
 	</insert>
+	
+	<!--취소한 티켓 좌석 정보 삭제-->
+	<delete id="deleteSeat">
+		DELETE SEAT_CHECK sc2
+		WHERE TICKET_NO = #{ticketNo}
+	</delete>
 </mapper>
