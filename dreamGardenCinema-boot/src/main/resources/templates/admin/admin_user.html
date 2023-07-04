@@ -20,40 +20,36 @@
         <div class="admin_userWrap">
             <!-- 게시판 제목 -->
             <span id="admin_userTitle">회원 관리</span>
-            <!-- 검색창 -->
-            <form th:action="@{/getUserSearchList}" autocomplete="off" onsubmit="getUserCount();">
-            <div class="admin_userSearchWrap">
-                <!-- select랑 검색창만 감싸는 div -->
-                <div class="admin_userSearchWrap2">
-                    <select class="admin_userSelect"  name="type" id="type">
-                        <option value="number">번호</option>
-                        <option value="id">아이디</option>
-                        <option value="name">닉네임</option>
-                        <option value="email">이메일</option>
-                        <option value="rating">등급</option>
-                    </select>
-                    <!-- 검색 input 창 -->
 
-                    <input type="text" name="keyword" id="keyword" class="admin_userInput">
-                </div>
+            <!--  게시판만 감싸는  박스 -->
+            <div class="admin_mem-board-box">
+                <!-- 검색창 -->
 
-                <!-- 검색 버튼 -->
-                <div class="admin_userBtnWrap">
-                    <button type="submit"  class="admin_userBtn" value="검색">검색</button>
-                </div>
-            </form>
+                <form th:action="@{/getUserSearchList}" autocomplete="off" onsubmit="getUserCount();">
+                    <div class="admin_userSearchWrap">
+                        <!-- select랑 검색창만 감싸는 div -->
+                        <div class="admin_userSearchWrap2">
+                            <select class="admin_userSelect" name="type" id="type">
+                                <option value="number">번호</option>
+                                <option value="id">아이디</option>
+                                <option value="name">닉네임</option>
+                                <option value="email">이메일</option>
+                                <option value="rating">등급</option>
+                            </select>
+                            <!-- 검색 input 창 -->
+
+                            <input type="text" name="keyword" id="" class="admin_userInput">
+                        </div>
+
+                        <!-- 검색 버튼 -->
+                        <div class="admin_userBtnWrap">
+                            <button type="submit" class="admin_userBtn" value="검색">검색</button>
+                        </div>
+                </form>
             </div>
             <!-- 목록 count -->
-            <div class="admin_userList">
-                <span>목록</span>
-                <span>( 총</span>
-                <span class="admin_userCount">0</span>
-                <span> / </span>
-                <span class="admin_userCountAll">0</span>
-                <span>개)</span>
-            </div>
 
-            <div>
+            <div class="admin-member-count">
                 <span>총 회원 수 : </span>
                 <span class="adminUserCountAll">0</span>
                 <span>일반 회원 수 : </span>
@@ -66,7 +62,8 @@
                 <table>
                     <thead>
                         <tr><!-- F : first -->
-                            <th><input type="checkbox" name="" id="" class="admin_userCheckboxAll" onclick='userSelectAll(this)'></th>
+                            <th><input type="checkbox" name="" id="" class="admin_userCheckboxAll"
+                                    onclick='userSelectAll(this)'></th>
                             <th>번호</th>
                             <th>아이디</th>
                             <th>구분</th>
@@ -96,8 +93,7 @@
 
                 </table>
             </div>
-            
-            <footer>
+
             <!-- 페이지 네이션 -->
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div class="pagination-area">
@@ -111,7 +107,7 @@
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
-           <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
+                    <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
 
                     <!-- 특정 페이지로 이동 -->
                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -130,47 +126,28 @@
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
 
-
-
                     <!-- 현재 페이지를 제외한 나머지 -->
                     <li th:unless="${i == pagination.currentPage}">
                         <a th:href="@{/adminUser(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                     </li>
 
 
-
                     </th:block>
 
-
-
                     <!-- 다음 목록 시작 번호로 이동 -->
-                  <!--   <li th:if="${i==pagination.currentPage}">
+                    <!--   <li th:if="${i==pagination.currentPage}">
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
-                   -->
+                -->
 
                     <!-- 끝 페이지로 이동 -->
                     <li><a th:href="@{/adminUser(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
                 </ul>
 
-
-
             </div>
-        </footer>
-
-
-
 
             <!-- 등록,수정,삭제 버튼 -->
             <button id="admin_userSignOut"><a href="">탈퇴</a></button>
-
-
-
-
-
-
-
-
 
         </div>
 

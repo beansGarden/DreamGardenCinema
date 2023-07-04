@@ -100,12 +100,13 @@
 
     const couponListSize = /*[[${CouponListSize}]]*/"리스트 사이즈";
     console.log("CouponList의 크기:", couponListSize);
-
-    if(couponListSize==1){
+    
         const CouponList1 = document.querySelector(".CouponList1");
+    if(couponListSize==1){
 
-        CouponList1.style.transform = 'translateZ(-200px) translateY(-50px)'
-        CouponList1.style.opacity = '0.0';
+        CouponList1.style.transform = 'translateZ(0px) translateY(0px)'
+        CouponList1.style.opacity = '1';
+        CouponList1.style.background = '#fff';
     }
 
     </script>

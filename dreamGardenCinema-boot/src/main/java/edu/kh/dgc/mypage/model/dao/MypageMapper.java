@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.dgc.mypage.model.dto.Coupon;
 import edu.kh.dgc.qna.model.dto.Qna;
+import edu.kh.dgc.qna.model.dto.QnaImage;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
 import edu.kh.dgc.user.model.dto.User;
 
@@ -59,5 +60,11 @@ public interface MypageMapper {
 	 * @return
 	 */
 	public List<Ticket> ticketList(int userNo);
+
+	/** 나의 문의내역 이미지 조회
+	 * @param qnano
+	 * @return
+	 */
+	public List<QnaImage> myqnaImageList(int qnano);
 
 }

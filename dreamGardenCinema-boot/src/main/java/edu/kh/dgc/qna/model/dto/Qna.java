@@ -1,5 +1,7 @@
 package edu.kh.dgc.qna.model.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +47,9 @@ public class Qna {
 	private String nonMemberTel;
 	
 	private String selectedValue;
+	
+	//IMG COLLECTION
+	private List<QnaImage> imageList;
 	
 }
 
