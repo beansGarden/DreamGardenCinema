@@ -25,7 +25,6 @@ a {
 
 
 
-
 /* 공지사항 전체 영역 */
 .customer-service-box {
 
@@ -61,11 +60,20 @@ a {
 }
 
 .service-list-choose>li>a:hover {
-    border-top: 2px solid #0F0954;
-    border-bottom: 2px solid #0F0954;
-
+    
     font-weight: bold;
 
+}
+
+body > div > div.service-list > ul > li:nth-child(1) > hr{
+    width: 23.3vw;
+    display: flex;
+    position: absolute;
+    top: 40px;
+    left: -200px;
+    height: 5px;
+    border: none;
+    background-color: #ccc;
 }
 
 
@@ -86,9 +94,7 @@ a {
 
 
 .service-list-choose>li:nth-child(1) {
-    border-top: 2px solid #0F0954;
-    border-bottom: 2px solid #0F0954;
-
+    position: relative;
 
     font-weight: bold;
 }
