@@ -123,6 +123,24 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int userfilterListCount(User condition);
+	
+	//탈퇴한 회원 수 불러오기
+	int userOutListCount(User condition);
+
+	//탈퇴한 회원 리스트 불러오기
+	List<User> adminUserOutList(User condtion,RowBounds rowBounds);
+
+	//탈퇴하지 않은 회원 수
+	int userInListCount(User condition);
+
+	//탈퇴한 회원 수
+	int userOutListCount();
+	
+	//탈퇴하지 않은 회원 수 조회
+	int userInListCount();
+
+	//탈퇴하지 않은 회원 조회
+	List<User> adminUserInList(User condition, RowBounds rowBounds);
 
 	// 영화 관리******************************************************
 
@@ -269,13 +287,19 @@ public interface AdminMapper {
 	int noticeFilterListCount(Notice condition);
 
 	/**
-	 * FAQ (자주 찾는 질문) 게시글 검색
+	 * 공지사항 게시글 검색
 	 * 
 	 * @param condition
 	 * @param noticeList
 	 * @return
 	 */
 	List<Notice> getNoticeSearchList(Notice condition, RowBounds rowBounds);
+	
+	//공지사항 삭제 안 한 게시글 
+	int noticeInListCount();
+
+	//공지사항 삭제 한 게시글
+	int noticeOutListCount();
 
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
@@ -419,30 +443,15 @@ public interface AdminMapper {
 	//신고하기 검색에 따른 개수 불러오기
 	int reportFilterListCount(Report condition);
 
-	//탈퇴한 회원 수 불러오기
-	int userOutListCount(User condition);
-
-	//탈퇴한 회원 리스트 불러오기
-	List<User> adminUserOutList(User condtion,RowBounds rowBounds);
-
-	int userInListCount();
-
-	int userOutListCount();
 
 	//리뷰 복구
 	int restoreReview(int reviewNo);
 
-	//영화 검색에 따른 개수 불러오기
-	int movieFilterListCount(Movie condition);
 
 	//리뷰 게시글 읽어오기
 	List<Review> adminReviewOne(int reviewNo);
 
-	//공지사항 삭제 안 한 게시글 
-	int noticeInListCount();
 
-	//공지사항 삭제 한 게시글
-	int noticeOutListCount();
 
 	
 	
@@ -474,6 +483,9 @@ public interface AdminMapper {
 
 	// 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희)
 	int selectToTalTicketing(Map<String, String> map);
+
+
+
 
 
 

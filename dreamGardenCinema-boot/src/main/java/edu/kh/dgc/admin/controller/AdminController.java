@@ -118,7 +118,28 @@ public class AdminController {
 	}
 
 	// 2.관리자 회원 관리 탈퇴한 회원만
-	// 보기-------------------------------------------------------------------------
+	@GetMapping("/adminUserIn")
+	public String adminInUser(Model model, @Param("type") String type, @Param("keyword") String keyword,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			User condition = new User();
+			condition.setType(type);
+			condition.setKeyword(keyword);
+			
+			Map<String, Object> adminUserList = service.adminUserInList(condition, cp);
+			
+			model.addAttribute("adminUserList", adminUserList);
+			
+			System.out.println(adminUserList);
+		}
+		
+		return "admin/admin_userIn";
+	}
+	
+	// 2.관리자 회원 관리 탈퇴한 회원만
 	@GetMapping("/adminUserOut")
 	public String adminOutUser(Model model, @Param("type") String type, @Param("keyword") String keyword,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,

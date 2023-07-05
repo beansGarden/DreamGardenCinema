@@ -36,6 +36,15 @@ public class AdminServiceImpl implements AdminService {
 
 	
 	//대시보드
+	
+	//대시보드 - 영화 현재 상영작 불러오기
+	@Override
+	public List<Movie> cinemaCurrentList() {
+	
+		return mapper.cinemaCurrentList();
+	}
+
+	
 	//영화별 매출 불러오기
 	@Override
 	public List<Ticket> ticketList(String movieNo) {
@@ -192,12 +201,6 @@ public class AdminServiceImpl implements AdminService {
 
 		Pagination pagination = new Pagination(userlistCount, cp);
 
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
-
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 
@@ -213,6 +216,31 @@ public class AdminServiceImpl implements AdminService {
 		return adminUserList;
 	}
 
+	//탈퇴하지 않은 회원 조회
+	@Override
+	public Map<String, Object> adminUserInList(User condition, int cp) {
+		
+		int userlistCount = mapper.userInListCount(condition);
+
+		Pagination pagination = new Pagination(userlistCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<User> userList = mapper.adminUserInList(condition,rowBounds);
+
+		Map<String, Object> adminUserList = new HashMap<String, Object>();
+		adminUserList.put("pagination", pagination);
+		adminUserList.put("userList", userList);
+
+		return adminUserList;
+	}
+
+	
+	
 	// 회원 선택 삭제
 	@Override
 	public int userDelete(int userNo) {
@@ -262,7 +290,41 @@ public class AdminServiceImpl implements AdminService {
 		return userlistCount;
 	}
 
-	
+	//탈퇴하지 않은 일반 회원 수 불러오기
+	@Override
+	public int userInListCount() {
+		
+        return mapper.userInListCount();
+	}
+
+	//탈퇴한 회원 수 불러오기
+	@Override
+	public int userOutListCount() {
+		
+        return mapper.userOutListCount();
+	}
+
+	//탈퇴한 회원 조회
+		@Override
+		public Map<String, Object> adminUserOutList(User condition, int cp) {
+
+	        int userOutlistCount = mapper.userOutListCount(condition);
+	        
+	        Pagination pagination = new Pagination(userOutlistCount, cp);
+	        
+	        int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+	        
+	        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+	        
+	        List<User> userList = mapper.adminUserOutList(condition,rowBounds);
+	        
+	        Map<String, Object> adminUserList = new HashMap<String, Object>();
+	        adminUserList.put("pagination", pagination);
+	        adminUserList.put("userList", userList);
+			
+	        return adminUserList;
+		}
+
 	
 	// 영화***************************************************
 
@@ -330,6 +392,9 @@ public class AdminServiceImpl implements AdminService {
 //		return adminMovieMap;
 //	}
 //		
+
+		//영화 검색에 따른 개수 불러오기
+		//int movieFilterListCount(Movie condition);	
 
 		
 	// 상영관**************************************************
@@ -505,6 +570,15 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.noticeWriteInsert(notice);
 	}
+	
+
+	//공지사항 수정
+	@Override
+	public int noticeUpdate(Notice notice) {
+
+        return mapper.noticeUpdate(notice);
+	}
+
 
 	// 공지사항 게시글 삭제
 	@Override
@@ -557,6 +631,21 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.noticeListCount();
 	
 	
+	}
+	
+
+	//공지사항 삭제 안 한 게시글 
+	@Override
+	public int noticeInListCount() {
+		
+		return mapper.noticeInListCount();
+	}
+
+	//공지사항 삭제한 게시글 수 
+	@Override
+	public int noticeOutListCount() {
+		
+		return mapper.noticeOutListCount();
 	}
 	
 	// FAQ (자주 찾는 질문) List 조회*****************************
@@ -898,70 +987,12 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.adminReviewOne(reviewNo);
 	}
 
-	//대시보드 - 영화 현재 상영작 불러오기
-	@Override
-	public List<Movie> cinemaCurrentList() {
+
+
+
+
 	
-		return mapper.cinemaCurrentList();
-	}
 
-	//
-	/* 영화 전체 개수 불러오기
-	 * @Override public int movieListCount() {
-	 * 
-	 * return mapper.movieListCount(); }
-	 */
-
-	//회원 탈퇴
-	@Override
-	public Map<String, Object> adminUserOutList(User condition, int cp) {
-
-        int userOutlistCount = mapper.userOutListCount(condition);
-        Pagination pagination = new Pagination(userOutlistCount, cp);
-        int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-        List<User> userList = mapper.adminUserOutList(condition,rowBounds);
-        
-        Map<String, Object> adminUserList = new HashMap<String, Object>();
-        adminUserList.put("pagination", pagination);
-        adminUserList.put("userList", userList);
-		
-        return adminUserList;
-	}
-
-	//공지사항 수정
-	@Override
-	public int noticeUpdate(Notice notice) {
-
-        return mapper.noticeUpdate(notice);
-	}
-
-	//탈퇴하지 않은 일반 회원 수 불러오기
-	@Override
-	public int userInListCount() {
-		
-        return mapper.userInListCount();
-	}
-
-	//탈퇴한 회원 수 불러오기
-	@Override
-	public int userOutListCount() {
-		
-        return mapper.userOutListCount();
-	}
-
-	//공지사항 삭제 안 한 게시글 
-	@Override
-	public int noticeInListCount() {
-		
-		return mapper.noticeInListCount();
-	}
-
-	@Override
-	public int noticeOutListCount() {
-		
-		return mapper.noticeOutListCount();
-	}
 	
 }
 

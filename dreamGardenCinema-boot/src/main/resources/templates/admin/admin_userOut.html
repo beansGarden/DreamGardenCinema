@@ -53,12 +53,12 @@
                 <span>개)</span>
             </div>
 
-            <div>
-                <span>총 회원 수 : </span>
+            <div class="admin-member-count">
+                <span><a th:href="@{/adminUser}">총 회원 수 :</a></span>
                 <span class="adminUserCountAll">0</span>
-                <span>일반 회원 수 : </span>
+                <span><a th:href="@{/adminUser}">일반 회원 수 :</a></span>
                 <span class="adminUserInCountAll">0</span>
-                <span>탈퇴한 회원 수 : </span>
+                <span><a th:href="@{/adminUserOut}">탈퇴한 회원 수 : </a></span>
                 <span class="adminUserOutCountAll">0</span>
             </div>
             <!-- 게시판 -->
@@ -111,7 +111,7 @@
 
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                    <li><a th:href="@{/adminUser(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminUserOut(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -123,7 +123,7 @@
                             <a class="current" th:text="${i}">현재 페이지</a>
                         </li>
                         <li th:unless="${i == pagination.currentPage}">
-                            <a th:text="${i}" th:href="@{/adminUser(cp=${i})}"></a>
+                            <a th:text="${i}" th:href="@{/adminUserOut(cp=${i})}"></a>
                         </li>
                     </th:block>
 
@@ -138,7 +138,7 @@
 
                     <!-- 현재 페이지를 제외한 나머지 -->
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:href="@{/adminUser(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                        <a th:href="@{/adminUserOut(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                     </li>
 
 
@@ -154,7 +154,7 @@
                    -->
 
                     <!-- 끝 페이지로 이동 -->
-                    <li><a th:href="@{/adminUser(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                    <li><a th:href="@{/adminUserOut(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
                 </ul>
 
 
@@ -166,7 +166,7 @@
 
 
             <!-- 등록,수정,삭제 버튼 -->
-            <button id="admin_userSignOut"><a href="">복구</a></button>
+            <button id="admin_userSignRestore"><a href="">복구</a></button>
 
 
 

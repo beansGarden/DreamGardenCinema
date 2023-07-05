@@ -213,6 +213,7 @@
 		    GROUP BY
 		        QNA_NO
 		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
+		WHERE QNA_DELETE_FL = 'N'
 		ORDER BY
 		    QNA.QNA_NO DESC
 		FETCH FIRST 5 ROWS ONLY
@@ -362,7 +363,6 @@
 	<select id="adminUserList" resultMap="user_rm">
 		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
-		WHERE USER_CLOSE = 'N'
 		ORDER BY USER_RATING DESC
 	</select>
 
@@ -489,7 +489,7 @@
 </select>
 	
 	 
-	 
+	 <!--탈퇴한 회원 조회-->
 	 <select id="adminUserOutList" resultMap="user_rm">
 		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
@@ -527,11 +527,82 @@
 </select>
 
 
-	<select id="userInListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM "USER_INFO"
+
+ <!--탈퇴한 회원 조회-->
+	 <select id="adminUserInList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
+		FROM USER_INFO
 		WHERE USER_CLOSE = 'N'
-	</select>
+		  <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE %' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+    	ORDER BY USER_RATING DESC
+</select>
+
+
+
+<!--탈퇴하지 않은 회원 수-->
+<select id="userInListCount" parameterType="User" resultType="_int">
+ SELECT COUNT(*)
+    FROM "USER_INFO"
+    WHERE USER_CLOSE = 'N'
+    <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE %' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+</select>
+	
 
 
 

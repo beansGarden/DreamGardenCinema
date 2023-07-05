@@ -74,10 +74,11 @@ public interface AdminService {
 	
 	//회원*****************************************
 	
-	//회원관리 List 조회
+	//전체 회원관리 List 조회
 	Map<String, Object> adminUserList(int cp);
 	
-	
+	//탈퇴한 회원을 제외한 회원 조회
+	Map<String, Object> adminUserInList(User condition, int cp);
 	
 	//탈퇴한 회원 조회
 	Map<String, Object> adminUserOutList(User condition, int cp);
@@ -261,6 +262,8 @@ public interface AdminService {
 	
 	//공지사항 삭제 한 게시글
 	int noticeOutListCount();
+
+
 
 
 

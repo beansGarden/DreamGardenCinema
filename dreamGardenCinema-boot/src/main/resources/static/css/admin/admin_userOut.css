@@ -131,19 +131,24 @@ table > thead > tr > th:nth-child(6){
 
 
 /* 등록버튼 */
-#admin_userSignOut{
+
+#admin_userSignRestore {
     display: flex;
-    margin-left: 90%;
-    margin-top: 50px;
-    padding: 5px 15px;
+    margin-left: 840px;
+    margin-top: -50px;
+    padding: 5px 14px;
     border-radius: 5px;
-    background-color: #0F0954;
-    
+    background-color: #14313266;
+    width: 53px;
+    height: 30px;
+    text-align: center;
+    justify-content: center;
+    color: white;
+
 }
 
-#admin_userSignOut a{
+#admin_userSignRestore a {
     color: white;
-    
 }
 
 /* 페이지네이션 */

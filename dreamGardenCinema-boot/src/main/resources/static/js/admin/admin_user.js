@@ -63,6 +63,59 @@ function userSelectAll(userSelectAll)  {
   }
   
 
+  /* 복구 버튼 복구하기 */
+  const restoreBtn = document.getElementById("admin_userSignRestore"); // 복구 버튼
+
+  
+  restoreBtn.addEventListener('click', () => {
+    if (confirm("정말 복구하시겠습니까?")) {
+      const selectedUserNos = []; // 선택된 회원 번호들을 저장할 배열
+  
+      for (let i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+          const userNo = checkboxNo[i].innerText;
+          selectedUserNos.push(userNo);
+        }
+      }
+  
+      if (selectedUserNos.length > 0) {
+        userRestore(selectedUserNos); // 선택된 회원 번호들을 전달하여 복구 함수 호출
+      }
+    } else {
+      return;
+    }
+  });
+  
+  function userRestore(userNos) {
+    const promises = [];
+  
+    userNos.forEach(userNo => {
+      const promise = fetch("/adminUser/restoreUserList", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"userNo": userNo})
+      })
+      .then(resp => resp.text())
+      .then(result => {
+        console.log(result);
+        console.log(userNo); // 번호 나옴
+      })
+      .catch(err => console.log(err));
+  
+      promises.push(promise);
+    });
+  
+    Promise.all(promises)
+      .then(() => {
+        alert("회원이 복구되었습니다."); // 복구 완료 메시지
+        // 체크박스 선택 해제
+        for (let i = 0; i < checkbox.length; i++) {
+          checkbox[i].checked = false;
+        }
+      })
+      .catch(err => console.log(err));
+  }
+  
 
 //체크박스 숫자 불러오기
 function userSelectAll(checkbox) { 
