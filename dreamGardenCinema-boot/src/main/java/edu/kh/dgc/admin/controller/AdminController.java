@@ -68,10 +68,24 @@ public class AdminController {
 		List<Qna> adminQnaList5 = service.adminQnaList5();
 		model.addAttribute("adminQnaList", adminQnaList5);
 
+		// 지난주 매출
 		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
 		model.addAttribute("salesByPeriod", salesByPeriod);
-
+		
+		// 년도별 매출
+		LocalDate currentDate = LocalDate.now();
+        String currentYear = ""+currentDate.getYear();
+        List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
+		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
+		
 		return "admin/admin_dashboard";
+	}
+	
+	// 년도별 분기 매출
+	@GetMapping("/admin/quarterlySales")
+	@ResponseBody
+	public List<SalesByPeriod> quarterlySales(String selectedYear) {
+		return service.quarterlySales(selectedYear); 
 	}
 
 	// 영화별 매출 불러오기

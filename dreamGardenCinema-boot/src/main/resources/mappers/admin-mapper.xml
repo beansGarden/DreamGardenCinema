@@ -98,6 +98,9 @@
 		<id property="ticketingDay" column="TICKETING_DAY" />
 		<result property="totalSales" column="TOTAL_SALES" />
 		<result property="ticketingDate" column="TICKETING_DATE" />
+		<result property="year" column="YEAR" />
+		<result property="quarter" column="QUARTER" />
+		<result property="quarterlySales" column="TOTAL_AMOUNT" />
 	</resultMap>
 	
 	
@@ -1057,18 +1060,33 @@
 	<!--요일 별 매출 불러오기-->
 	<select id="getSalesByDay" resultMap="salesResultMap">
 		
-		SELECT TO_CHAR(TICKETING_TIME, 'DAY', 'NLS_DATE_LANGUAGE = ENGLISH') AS TICKETING_DAY,
-			SUM(PAY_AMOUNT) AS TOTAL_SALES,
-		TRUNC(TICKETING_TIME) AS TICKETING_DATE
+		SELECT RTRIM(TO_CHAR(TICKETING_TIME, 'DAY', 'NLS_DATE_LANGUAGE = ENGLISH')) AS TICKETING_DAY, COALESCE(SUM(PAY_AMOUNT), 0) AS TOTAL_SALES, TRUNC(TICKETING_TIME) AS TICKETING_DATE
 		FROM TICKETING_INFO
+		WHERE TICKETING_TIME >= TRUNC(SYSDATE, 'IW') - 7
 		<![CDATA[
-		WHERE TICKETING_TIME >= TRUNC(SYSDATE, 'IW') - 7 AND TICKETING_TIME < TRUNC(SYSDATE, 'IW')
+		AND TICKETING_TIME < TRUNC(SYSDATE, 'IW')
 		]]>
 		GROUP BY TO_CHAR(TICKETING_TIME, 'DAY', 'NLS_DATE_LANGUAGE = ENGLISH'), TRUNC(TICKETING_TIME)
 		ORDER BY TRUNC(TICKETING_TIME)
 		
 	</select>
-
+	
+	<select id="quarterlySales" resultMap="salesResultMap">
+		SELECT
+		  TO_CHAR(TICKETING_TIME, 'YYYY') AS YEAR,
+		  TO_CHAR(TICKETING_TIME, 'Q') AS QUARTER,
+		  SUM(PAY_AMOUNT) AS TOTAL_AMOUNT
+		FROM
+		  TICKETING_INFO
+		WHERE
+		  TO_CHAR(TICKETING_TIME, 'YYYY') = #{selectedYear}
+		GROUP BY
+		  TO_CHAR(TICKETING_TIME, 'YYYY'),
+		  TO_CHAR(TICKETING_TIME, 'Q')
+		ORDER BY
+		  TO_CHAR(TICKETING_TIME, 'YYYY'),
+		  TO_CHAR(TICKETING_TIME, 'Q')
+	</select>
 
 <!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->
 
