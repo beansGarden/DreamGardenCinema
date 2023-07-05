@@ -14,7 +14,7 @@
 		<result property="qnaCheckFl" column="QNA_CHECK_FL" />
 		<result property="qnaCategory" column="QNA_CATEGORY" />
 		<result property="userNo" column="USER_NO" />
-		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userId" column="USER_ID" />
 		<result property="qnaImage" column="QNA_IMG_PATH" />
 		<result property="qnaImageNo" column="QNA_IMG_NO" />
 		
@@ -113,6 +113,9 @@
 		<result property="movieNo" column="MOVIE_NO" />
 		<result property="movieTitle" column="MOVIE_TITLE" />
 		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userId" column="USER_ID" />
+		<result property="reportNo" column="REPORT_NO" />
 	</resultMap>
 	
 	<!--Report 영화 및 상영관-->
@@ -129,11 +132,26 @@
 		<result property="writerNo" column="REPORT_WIRTER" />
 		<result property="reportedNo" column="REPORTED_USER_NO" />
 		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reportDeleteFl" column="REPORT_DELETE_FL" />
 		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+		<result property="reportWriter" column="REPORT_WRITER" />
+		<result property="reportedId" column="REPORTED_USER_ID" />
 	</resultMap>
 	
 
 	<!--대시보드-->
+	
+	<!--영화별 상역작만 불러오기-->
+	
+	<select id="cinemaCurrentList" resultMap="movie_rm">
+	SELECT MOVIE_NO || ' - ' || MOVIE_TITLE AS MOVIE_TITLE,MOVIE_NO
+	FROM MOVIE
+	WHERE SCREENING = 'C'
+	ORDER BY MOVIE_NO DESC
+	</select>
+	
+	
+	
 	<!--영화별 매출 불러오기-->
 	<select id="ticketList" resultType="_int">
 		SELECT SUM(PAY_AMOUNT) AS TOTAL_AMOUNT
@@ -150,40 +168,54 @@
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList" resultMap="qna_rm">
 		SELECT
-		QNA.QNA_NO,
-		QNA.QNA_TITLE,
-		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,
-		QNA.QNA_DELETE_FL,
-		QNA.QNA_CHECK_FL,
-		QNA_IMG.QNA_IMG_PATH
+		    QNA.QNA_NO,
+		    QNA.QNA_TITLE,
+		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+		    USER_INFO.USER_NICKNAME,  USER_INFO.USER_ID,
+		    QNA.QNA_DELETE_FL,
+		    QNA.QNA_CHECK_FL,
+		    QNA_IMG.QNA_IMG_PATH
 		FROM
-		QNA
-		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+		    QNA
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
 		LEFT JOIN (
-		SELECT
-		QNA_NO,
-		MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
-		FROM
-		QNA_IMG
-		GROUP BY
-		QNA_NO
+		    SELECT
+		        QNA_NO,
+		        MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
+		    FROM
+		        QNA_IMG
+		    GROUP BY
+		        QNA_NO
 		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
 		ORDER BY
-		QNA.QNA_NO DESC
-	</select>
+		    QNA.QNA_NO DESC
+			</select>
 
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList5" resultMap="qna_rm">
-		SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL
-		FROM (
-		SELECT QNA_NO, QNA_TITLE, QNA_ENROLL_DATE, USER_NICKNAME, QNA_DELETE_FL,
-		ROW_NUMBER() OVER (ORDER BY QNA_NO DESC) AS rn
-		FROM QNA
-		JOIN "USER_INFO" ON USER_NO = USER_NO2
-		WHERE QNA_DELETE_FL = 'N'
-		)
-		WHERE rn &lt;= 5
+		SELECT
+		    QNA.QNA_NO,
+		    QNA.QNA_TITLE,
+		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+		    USER_INFO.USER_NICKNAME,
+		    QNA.QNA_DELETE_FL,
+		    QNA.QNA_CHECK_FL,
+		    QNA_IMG.QNA_IMG_PATH
+		FROM
+		    QNA
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+		LEFT JOIN (
+		    SELECT
+		        QNA_NO,
+		        MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
+		    FROM
+		        QNA_IMG
+		    GROUP BY
+		        QNA_NO
+		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
+		ORDER BY
+		    QNA.QNA_NO DESC
+		FETCH FIRST 5 ROWS ONLY
 
 	</select>
 
@@ -193,13 +225,13 @@
 		QNA.QNA_NO,
 		QNA.QNA_TITLE,QNA.QNA_CATEGORY,
 		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,
+		USER_INFO.USER_NICKNAME,USER_INFO.USER_ID,
 		QNA.QNA_DELETE_FL,
 		QNA.QNA_CHECK_FL,
 		QNA_IMG.QNA_IMG_PATH
 		FROM
 		QNA
-		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
 		LEFT JOIN (
 		SELECT QNA_NO, MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
 		FROM QNA_IMG
@@ -263,23 +295,56 @@
 	<!--QNA 검색하기-->
 	<select id="getSearchList" parameterType="Qna" resultMap="qna_rm"> 
 		SELECT QNA.QNA_NO, QNA.QNA_TITLE, TO_CHAR(QNA.QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,QNA_DELETE_FL FROM QNA JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		USER_INFO.USER_ID,QNA.QNA_DELETE_FL
+		FROM QNA 
+		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
 		<choose>
-			
 			<when test="type != null and type.equals('qnaNo')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_NO LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('title')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('content')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
 			</when>
 			
 			<when test="type != null and type.equals('writer')">
-				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> AND USER_INFO.USER_NICKNAME LIKE #{keyword} 
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				 AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
+			</when>
+		</choose>
+	</select>
+	
+	<!--검색에 따른 수 불러오기-->
+	<select id="qnaFilterListCount" parameterType="Qna" resultType="_int"> 
+		SELECT COUNT(*)
+		FROM QNA JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		<choose>
+			
+			<when test="type != null and type.equals('qnaNo')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('title')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('content')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('writer')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
 			</when>
 
 		</choose>
@@ -295,9 +360,10 @@
 
 
 	<select id="adminUserList" resultMap="user_rm">
-		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,USER_ENROLL_DT,USER_RATING,USER_CLOSE,USER_ROLE
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
-		ORDER BY USER_NO DESC
+		WHERE USER_CLOSE = 'N'
+		ORDER BY USER_RATING DESC
 	</select>
 
 	<!--회원 선택 삭제-->
@@ -307,10 +373,17 @@
 		WHERE USER_NO = #{userNo}
 	 </update>
 	 
+	<!--회원 선택 복구-->
+	<update id="restoreUserList">
+		UPDATE "USER_INFO"
+		SET USER_CLOSE ='N'
+		WHERE USER_NO = #{userNo}
+	 </update>
+	 
 	 <!--회원 검색-->
     
    <select id="getUserSearchList" parameterType="User" resultMap="user_rm">
-       SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE, USER_ENROLL_DT, USER_CLOSE
+       SELECT USER_NO, USER_ID, USER_NICKNAME, USER_EMAIL, USER_RATING, USER_ROLE,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT, USER_CLOSE
        FROM USER_INFO
         <where>
           <choose>
@@ -324,14 +397,14 @@
                AND USER_INFO.USER_NICKNAME LIKE '%' || #{keyword} || '%'
               </if>
             </when>
-            <when test="type != null and type.equals('id')">
-              <if test="keyword != null and keyword != ''">
-               AND USER_INFO.USER_ID LIKE '%' || #{keyword} || '%'
-              </if>
-            </when>
+           <when test="type != null and type.equals('id')">
+			  <if test="keyword != null and keyword != ''">
+			    AND LOWER(USER_INFO.USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+			  </if>
+			</when>
             <when test="type != null and type.equals('email')">
               <if test="keyword != null and keyword != ''">
-               AND USER_INFO.USER_EMAIL LIKE '%' || #{keyword} || '%'
+               AND LOWER(USER_INFO.USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
               </if>
             </when>
             <when test="type != null and type.equals('rating')">
@@ -342,8 +415,126 @@
           </choose>
         </where>
       </select>
-    
+      
+      <!--회원 검색 시 회원 수-->
+	<select id="userfilterListCount" parameterType="User" resultType="_int">
+    SELECT COUNT(*)
+    FROM "USER_INFO"
+    <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+</select>
+
+
+<!--탈퇴한 회원 수-->
+<select id="userOutListCount" parameterType="User" resultType="_int">
+ SELECT COUNT(*)
+    FROM "USER_INFO"
+    WHERE USER_CLOSE = 'Y'
+    <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE %' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+</select>
+	
 	 
+	 
+	 <select id="adminUserOutList" resultMap="user_rm">
+		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
+		FROM USER_INFO
+		WHERE USER_CLOSE = 'Y'
+		  <where>
+        <choose>
+            <when test="type != null and type.equals('number')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NO LIKE %' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('name')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('id')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('email')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(USER_EMAIL) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('rating')">
+                <if test="keyword != null and keyword != ''">
+                    AND USER_RATING LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+    	ORDER BY USER_RATING DESC
+</select>
+
+
+	<select id="userInListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_CLOSE = 'N'
+	</select>
+
+
+
 	 <!--////////////영화////////////-->
 
 	 
@@ -368,32 +559,60 @@
 		ORDER BY MOVIE_NO DESC
 	 </select>
 	 
-	 <select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
-		 SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
-		FROM MOVIE M
-		JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	<select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
+	  SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
+	  FROM MOVIE M
+	  JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	  WHERE P.PERSON_ROLE = '감독'
+	    AND M.MOVIE_NO IN (
+	      <choose>
+	        <when test="type != null and type.equals('number')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_NO LIKE #{keyword}
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('title')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('director')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM PERSON_INFO WHERE PERSON_ROLE = '감독' AND PERSON_NAME LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	      </choose>
+	    )
+	  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+	</select>
 	
-		  <where>
-		    <choose>
-		      <when test="type != null and type.equals('number')">
-		        <if test="keyword != null and keyword != ''">
-		          AND M.MOVIE_NO LIKE  #{keyword}
-		        </if>
-		      </when>
-		      <when test="type != null and type.equals('title')">
-		        <if test="keyword != null and keyword != ''">
-		          AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
-		        </if>
-		      </when>
-		     <when test="type != null and type.equals('director')">
-		        <if test="keyword != null and keyword != ''">
-		          AND P.PERSON_NAME LIKE '%' || #{keyword} || '%'
-		        </if>
-		      </when>
-		    </choose>
-		  </where>
-		  	GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
-		</select>
+	<select id="movieFilterListCount" parameterType="Movie" resultType="_int">
+	  SELECT COUNT(*)
+	  FROM MOVIE M
+	  JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	  WHERE P.PERSON_ROLE = '감독'
+	    AND M.MOVIE_NO IN (
+	      <choose>
+	        <when test="type != null and type.equals('number')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_NO LIKE #{keyword}
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('title')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('director')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM PERSON_INFO WHERE PERSON_ROLE = '감독' AND PERSON_NAME LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	      </choose>
+	    )
+	  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+	</select>
+
 	 
 	 
 	 <!--///////////////상영관//////////////-->
@@ -576,18 +795,66 @@
 	</insert>
 
 
+
+	<select id="movieCinemaCount" resultType="int">
+		SELECT COUNT(*) AS movie_count
+		FROM (
+		SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
+		TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD') AS MOVIE_DAY,
+		LISTAGG(TO_CHAR(S.MOVIE_TIME, 'HH24:MI'), ', ') WITHIN GROUP (ORDER BY S.MOVIE_TIME) AS MOVIE_TIME,
+		S.MOVIE_THEATER
+		FROM MOVIE M
+		JOIN MOVIE_SCHEDULE S ON M.MOVIE_NO = S.MOVIE_NO
+		WHERE S.MOVIE_THEATER = #{movieTheater}
+		GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RUNNING_TIME, M.RELEASE_DATE,
+		TO_CHAR(S.MOVIE_TIME, 'YYYY-MM-DD'), S.MOVIE_THEATER)
+	</select>
+
+
+
+
+
 	<!--////////////공지사항////////////-->
 
 	<!--공지사항 개수 세기-->
 	<select id="noticeListCount" resultType="_int">
 		SELECT COUNT(*) FROM "NOTICE"
 	</select>
+	
+		<!--삭제된 공지사항 개수 세기-->
+		<select id="noticeInListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
+		WHERE NOTICE_FL = 'N'
+		</select>
+
+<!--삭제된 공지사항 개수 세기-->
+		<select id="noticeOutListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
+		WHERE NOTICE_FL = 'Y'
+		</select>
+	
+
+	
+	<!--삭제된 공지사항 개수 세기-->
+		<select id="noticeDeletedListCount" resultType="_int">
+		SELECT COUNT(*) FROM "NOTICE"
+		WHERE NOTICE_FL = 'Y'
+		</select>
 
 
 	<!--공지사항 게시판 리스트 조회-->
 	<select id="adminNoticeList" resultMap="notice_rm">
-		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_ENROLL_DATE,NOTICE_FL
+		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD') AS NOTICE_ENROLL_DATE,NOTICE_FL
 		FROM NOTICE
+		WHERE NOTICE_FL = 'N'
+		ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<!--삭제된 공지사항 게시판 리스트 조회-->
+	<select id="adminNoticeDeletedList" resultMap="notice_rm">
+		SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD') AS NOTICE_ENROLL_DATE,NOTICE_FL
+		FROM NOTICE
+		WHERE NOTICE_FL = 'Y'
 		ORDER BY NOTICE_NO DESC
 	</select>
 
@@ -597,6 +864,14 @@
 		FROM NOTICE
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
+	
+	
+	<update id="noticeUpdate">
+		UPDATE NOTICE
+		SET NOTICE_TITLE  = #{noticeTitle},
+			NOTICE_CONTENT = #{noticeContent}
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
 
 	<!--공지사항 글쓰기-->
 	<insert id="noticeWriteInsert" parameterType="Notice" useGeneratedKeys="true">
@@ -623,10 +898,45 @@
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 
+
+
+<!--공지사항 게시글 삭제-->
+	<update id="noticeRestore">
+		UPDATE NOTICE
+		SET NOTICE_FL = 'N'
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+
+
 	<!--공지사항 검색하기-->
 	<select id="getNoticeSearchList" parameterType="Notice" resultMap="notice_rm"> 
 		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD') AS NOTICE_ENROLL_DATE,
 				NOTICE_VIEWPOINT, NOTICE_FL FROM NOTICE 
+		<where>
+			<choose>
+				<when test="type != null and type.equals('number')">
+					<if test="keyword != null and keyword != ''">
+						AND NOTICE_NO LIKE '%' || #{keyword} || '%'
+					</if>
+				</when>
+				<when test="type != null and type.equals('title')">
+					<if test="keyword != null and keyword != ''">
+						AND NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+					</if>
+				</when>
+				<when test="type != null and type.equals('content')">
+					<if test="keyword != null and keyword != ''">
+						AND NOTICE_CONTENT LIKE '%' || #{keyword} || '%'
+					</if>
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<!--공지사항 검색하기-->
+	<select id="noticeFilterListCount" parameterType="Notice" resultType="_int"> 
+		SELECT COUNT(*)
+		FROM NOTICE 
 		<where>
 			<choose>
 				<when test="type != null and type.equals('number')">
@@ -688,10 +998,13 @@
 		WHERE FAQ_NO = #{FAQNo}
 	</update>
 
-	<insert id="faqInsert">
-		INSERT INTO "FAQ"
-		VALUES (SEQ_FAQ_NO.NEXTVAL,#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
+<insert id="faqInsert" parameterType="FAQ" useGeneratedKeys="true">
+
+		<selectKey order="BEFORE" resultType="_int" keyProperty="FAQNo">
+			SELECT SEQ_FAQ_NO.NEXTVAL FROM DUAL
+		</selectKey> INSERT INTO "FAQ" VALUES (#{FAQNo},#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
 	</insert>
+
 
 	<select id="getFaqSearchList" parameterType="FAQ" resultMap="faq_rm"> 
 		SELECT FAQ.FAQ_NO, FAQ.FAQ_TITLE, FAQ_CONTENT, FAQ_DELETE_FL, FAQ_CATEGORY FROM FAQ 
@@ -716,6 +1029,32 @@
 		</where>
 	</select>
 	
+	<select id="faqFilterListCount" parameterType="FAQ" resultType="_int"> 
+		SELECT COUNT(*)
+		FROM FAQ 
+		<where>
+			<choose>
+				<when test="type != null and type.equals('number')">
+					<if test="keyword != null and keyword != ''">
+						AND FAQ_NO LIKE '%' || #{keyword} || '%'
+					</if>
+				</when>
+				<when test="type != null and type.equals('title')">
+					<if test="keyword != null and keyword != ''">
+						AND FAQ_TITLE LIKE '%' || #{keyword} || '%'
+					</if>
+				</when>
+				<when test="type != null and type.equals('content')">
+					<if test="keyword != null and keyword != ''">
+						AND FAQ_CONTENT LIKE '%' || #{keyword} || '%'
+					</if>
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	
+	<!--요일 별 매출 불러오기-->
 	<select id="getSalesByDay" resultMap="salesResultMap">
 		
 		SELECT TO_CHAR(TICKETING_TIME, 'DAY', 'NLS_DATE_LANGUAGE = ENGLISH') AS TICKETING_DAY,
@@ -740,14 +1079,18 @@
 		
 		<!--신고하기 게시판 불러오기-->
 		<select id="adminReportList" resultMap="report_rm">
-			SELECT * FROM REPORT
-			ORDER BY REPORT_NO DESC
+			SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID,MR.REVIEW_DELETE_FL
+			FROM REPORT R
+			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
+			JOIN USER_INFO UI1 ON UI1.USER_NO = R.REPORT_WIRTER
+			JOIN USER_INFO UI2 ON UI2.USER_NO = R.REPORTED_USER_NO
+			ORDER BY R.REPORT_NO DESC
 		</select>
 		
 		<!--신고하기 게시글 불러오기-->
 		<select id="adminReportOne" resultMap="report_rm">
-			SELECT  R.REPORT_NO,R.REPORT_TITLE,R.REPORT_CONTNENT,R.REPORT_ENROLL_DATE,R.REPORT_FL,
-			R.REPORT_DELETE_FL,R.REVIEW_NO,R.REPORT_WIRTER,R.REPORTED_USER_NO,M.REVIEW_CONTENT
+		SELECT  R.REPORT_NO,R.REPORT_TITLE,R.REPORT_CONTNENT,R.REPORT_ENROLL_DATE,R.REPORT_FL,
+			M.REVIEW_DELETE_FL,R.REVIEW_NO,R.REPORT_WIRTER,R.REPORTED_USER_NO,M.REVIEW_CONTENT
 			FROM REPORT R
 			JOIN MOVIE_REVIEW M ON R.REVIEW_NO = M.REVIEW_NO
 			WHERE R.REPORT_NO = #{reportNo}
@@ -760,16 +1103,67 @@
 		WHERE REVIEW_NO = #{reviewNo}
 		</update>
 		
+		<!--신고하기에서 리뷰복구하기-->
+		<update id="restoreReview">
+		UPDATE MOVIE_REVIEW
+		SET	REVIEW_DELETE_FL ='N'
+		WHERE REVIEW_NO = #{reviewNo}
+		</update>
+		
 		
 		<update id="updateDeleteReport">
 			UPDATE REPORT
 			SET	REPORT_FL ='Y'
-			WHERE REVIEW_NO = #{reviewNo}
+			WHERE REPORT_NO = #{reportNo}
 		</update>
 
 	<!--신고하기 검색-->
 		<select id="getReportSearchList" parameterType="Report" resultMap="report_rm"> 
-				SELECT REPORT_NO,REPORT_TITLE,REPORT_CONTNENT,REVIEW_NO,REPORT_WIRTER,REPORTED_USER_NO
+    SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID, M.REVIEW_DELETE_FL
+    FROM REPORT R
+    JOIN MOVIE_REVIEW M ON R.REVIEW_NO = M.REVIEW_NO
+    JOIN USER_INFO UI1 ON UI1.USER_NO = R.REPORT_WIRTER
+    JOIN USER_INFO UI2 ON UI2.USER_NO = R.REPORTED_USER_NO
+    <where>
+        <choose>
+            <when test="type != null and type.equals('reportNo')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REPORT_NO LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('title')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REPORT_TITLE LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('content')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REPORT_CONTNENT LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('reportedNo')">
+                <if test="keyword != null and keyword != ''">
+                    AND R.REVIEW_NO LIKE '%' || #{keyword} || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('writer')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(UI1.USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+            <when test="type != null and type.equals('reportedWriter')">
+                <if test="keyword != null and keyword != ''">
+                    AND LOWER(UI2.USER_ID) LIKE '%' || LOWER(#{keyword}) || '%'
+                </if>
+            </when>
+        </choose>
+    </where>
+</select>
+
+			
+	<!--신고하기 검색-->
+		<select id="reportFilterListCount" parameterType="Report" resultType="_int"> 
+				SELECT COUNT(*)
 				FROM REPORT
 				<where>
 					<choose>
@@ -812,49 +1206,105 @@
 
 <!--리뷰 게시글 개수 불러오기-->
 		<select id="reviewListCount" resultType="_int">
-			SELECT count(*) FROM MOVIE_REVIEW
+		SELECT COUNT(*)
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		ORDER BY MR.REVIEW_NO DESC
 		</select>
 
 
 	<!--리뷰관리하기 게시판 불러오기-->
 		<select id="adminReviewList" resultMap="review_rm">
 		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
-       MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE 
+ 		MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE, UI.USER_ID
 		FROM MOVIE_REVIEW MR
 		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		ORDER BY MR.REVIEW_NO DESC
+
+
+		</select>
+		
+	<!--리뷰관리하기 게시글 불러오기-->
+		<select id="adminReviewOne" resultMap="review_rm">
+		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+        MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE, UI.USER_ID
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		WHERE REVIEW_NO = #{reviewNo}
 		ORDER BY MR.REVIEW_NO DESC
 		</select>
 		
 		
 		<!--리뷰관리 검색-->
 		<select id="getReviewSearchList" parameterType="Review" resultMap="review_rm"> 
-				SELECT REVIEW_NO,SCORE,REVIEW_CONTENT,USER_NO,MOVIE_TITLE
-				FROM REPORT
+				SELECT  MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+       			MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE,UI.USER_ID
+				FROM  MOVIE_REVIEW MR
+				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+				JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
 				<where>
 					<choose>
 						<when test="type != null and type.equals('reviewNo')">
 							<if test="keyword != null and keyword != ''">
-								AND REVIEW_NO LIKE '%' || #{keyword} || '%'
+								AND MR.REVIEW_NO LIKE '%' || #{keyword} || '%'
 							</if>
 						</when>
 						<when test="type != null and type.equals('movie')">
 							<if test="keyword != null and keyword != ''">
-								AND MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+								AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
 							</if>
 						</when>
 						<when test="type != null and type.equals('user')">
 							<if test="keyword != null and keyword != ''">
-								AND USER_NO LIKE '%' || #{keyword} || '%'
+								AND MR.USER_NO LIKE '%' || #{keyword} || '%'
 							</if>
 						</when>
 						<when test="type != null and type.equals('score')">
 							<if test="keyword != null and keyword != ''">
-								AND SCORE LIKE '%' || #{keyword} || '%'
+								AND MR.SCORE LIKE '%' || #{keyword} || '%'
 							</if>
 						</when>
 						<when test="type != null and type.equals('content')">
 							<if test="keyword != null and keyword != ''">
-								AND REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+								AND MR.REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
+							</when>
+					</choose>
+				</where>
+			</select>
+		<!--리뷰관리 검색-->
+		<select id="reviewFilterListCount" parameterType="Review" resultType="_int"> 
+				SELECT  COUNT(*)
+				FROM  MOVIE_REVIEW MR
+				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+				<where>
+					<choose>
+						<when test="type != null and type.equals('reviewNo')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('movie')">
+							<if test="keyword != null and keyword != ''">
+								AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('user')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('score')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.SCORE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
 							</if>
 							</when>
 					</choose>

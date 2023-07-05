@@ -74,7 +74,7 @@
             </li>
 
             <li>
-                <a th:href="@{#}">취소 내역</a>
+                <a th:href="@{/myPage/my-page-cancle-reservation}">취소 내역</a>
             </li>
 
             <li>
@@ -99,14 +99,21 @@
 
     <!-- each문 -->
     <th:block th:each="reservation : ${reservationList}">
-        <div class="ticket-background">
+        <form th:action="@{/myPage/cancel}" method="post">
 
+            <div class="ticket-background">
+                
             <div class="ticket-container">
 
                 <div class="ticket-img-box">
 
                     <span class="my-page-tiket">예매번호</span> <span class="my-page-tiket-number"
                         th:text="${reservation.ticketId}"></span>
+                        <input type="hidden" name="ticketId" th:value="${reservation.ticketId}">
+                        <input type="hidden" name="ticketImpId" th:value="${reservation.ticketImpId}">
+                        <input type="hidden" name="payAmount" th:value="${reservation.payAmount}">
+                        <input type="hidden" name="ticketNo" th:value="${reservation.ticketNo}">
+
                     <div class="my-page-movie-img">
                         <img th:src="${reservation.poster}">
                     </div>
@@ -142,14 +149,15 @@
                         </div>
 
                     </div>
-
+                    
                 </div>
             </div>
         </div>
-
+    </form>
+        
     </th:block>
     <!-- each문 끝 -->
-
+    
     <!-- 예매 내역이 없을 경우 -->
     <div class="my-page-contents-box" th:if="${reservationList.size()==0}">
         <div class="my-page-contents">

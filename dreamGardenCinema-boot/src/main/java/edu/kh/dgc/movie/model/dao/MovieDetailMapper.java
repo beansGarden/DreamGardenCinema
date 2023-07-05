@@ -11,21 +11,11 @@ import edu.kh.dgc.movie.model.dto.MovieComment;
 import edu.kh.dgc.movie.model.dto.Person;
 
 @Mapper
-public interface MovieMapper {
-	
-	public List<Map<String, String>> selectMainSlideImgList();
-	
-	public List<Map<String, String>> selectMovieMainSlideImgList();
-	
-	public List<Movie> selectMovieListCurrent();
-	
-	public List<Movie> selectMovieListCurrent(Object object, RowBounds rowBounds);
-	
-	public List<Movie> selectMovieListPromise(Object object, RowBounds rowBounds);
+public interface MovieDetailMapper {
 
-	public Map<String, String> selectAdvertisePoster();
-
-	public Movie selectMovieDetail(int movieNo);
+	public Movie selectMovieDetailCurrent(int movieNo);
+	
+	public Movie selectMovieDetailPromise(int movieNo);
 
 	public List<Person> selectMoviePerson(int movieNo);
 
@@ -37,9 +27,6 @@ public interface MovieMapper {
 
 	public List<MovieComment> selectMovieComment(int movieNo);
 
-	public int insertMovieComment(MovieComment comment);
-
-	public int insertMovieCommentReport(Map<String, Object> report);
 
 
 

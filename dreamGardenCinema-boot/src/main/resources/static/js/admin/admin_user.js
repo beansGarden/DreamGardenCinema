@@ -9,39 +9,60 @@ function userSelectAll(userSelectAll)  {
   }
 
   /* 삭제 버튼 선택 탈퇴하기 */
-  const delBtn = document.getElementById("admin_userSignOut"); //삭제버튼 
-  const checkbox = document.getElementsByClassName("admin_userCheckbox"); //check박스
-  const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); //번호
- 
-  delBtn.addEventListener(('click'),()=>{
- 
-  if (confirm("정말 삭제 하시겠습니까?")) {
-    for(let i=0; i<checkbox.length; i++){
-      if (checkbox[i].checked) { //체크박스가 선택됐을 때
-   var userNo = document.getElementsByClassName("admin_user_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
+  const delBtn = document.getElementById("admin_userSignOut"); // 삭제 버튼
+  const checkbox = document.getElementsByClassName("admin_userCheckbox"); // 체크박스
+  const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); // 번호
   
-} if(checkbox!=null){
-userDelete(userNo);
-}
-}
-}else return;
+  delBtn.addEventListener('click', () => {
+    if (confirm("정말 탈퇴하시겠습니까?")) {
+      const selectedUserNos = []; // 선택된 회원 번호들을 저장할 배열
+  
+      for (let i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+          const userNo = checkboxNo[i].innerText;
+          selectedUserNos.push(userNo);
+        }
+      }
+  
+      if (selectedUserNos.length > 0) {
+        userDelete(selectedUserNos); // 선택된 회원 번호들을 전달하여 탈퇴 함수 호출
+      }
+    } else {
+      return;
+    }
+  });
+  
+  function userDelete(userNos) {
+    const promises = [];
+  
+    userNos.forEach(userNo => {
+      const promise = fetch("/adminUser/deleteUserList", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"userNo": userNo})
+      })
+      .then(resp => resp.text())
+      .then(result => {
+        console.log(result);
+        console.log(userNo); // 번호 나옴
+      })
+      .catch(err => console.log(err));
+  
+      promises.push(promise);
+    });
+  
+    Promise.all(promises)
+      .then(() => {
+        alert("회원이 탈퇴되었습니다."); // 탈퇴 완료 메시지
+        // 체크박스 선택 해제
+        for (let i = 0; i < checkbox.length; i++) {
+          checkbox[i].checked = false;
+        }
+      })
+      .catch(err => console.log(err));
+  }
+  
 
-});
-
-function userDelete(userNo){
-
-  fetch("/adminUser/deleteUserList", {
-    method : "POST",
-    headers : {"Content-Type": "application/json"},
-    body : JSON.stringify({"userNo" : userNo})
-  }).then(resp=> resp.text())
-  .then(result=>{
-    console.log(result);
-    console.log(userNo);
-
-  }).catch(err=> console.log(err));
-
-}
 
 //체크박스 숫자 불러오기
 function userSelectAll(checkbox) { 
@@ -83,7 +104,7 @@ var totalItems = document.querySelectorAll('.admin_userCheckbox').length;
 countAll.textContent = totalItems.toString();
 
 //회원전체 불러오기
-
+/* 
   // Ajax 요청 함수
   function ajaxRequest(url, method, successCallback) {
     var xhr = new XMLHttpRequest();
@@ -93,16 +114,88 @@ countAll.textContent = totalItems.toString();
             successCallback(xhr.responseText);
         }
     };
-    xhr.send();
+    xhr.send(JSON.stringify(data));
+}
+
+
+// 영화 개수 가져오기
+function getUserCount() {
+  var type = document.querySelector('#type').value; // 선택한 검색 유형
+  var keyword = document.querySelector('#keyword').value; // 입력한 검색 키워드
+
+  var data = {
+      type: type,
+      keyword: keyword
+  };
+
+  ajaxRequest('/adminUserListAjax', 'POST', data, function(response) {
+      var countElement = document.querySelector('.admin_userCountAll');
+      countElement.textContent = response;
+  });
+}
+ */
+/* 전체 회원 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
 }
 
 // 영화 개수 가져오기
 function getUserCount() {
-    ajaxRequest('/adminUserListAjax', 'GET', function(response) {
-        var countElement = document.querySelector('.admin_userCountAll');
-        countElement.textContent = response;
-    });
+  ajaxRequest('/adminUserListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminUserCountAll');
+      countElement.textContent = response;
+  });
+}
+getUserCount()
+
+/* 전체 탈퇴 안 한 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
 }
 
-// 페이지 로드 시 영화 개수 가져오기 호출
-getUserCount();
+// 영화 개수 가져오기
+function getUserInCount() {
+  ajaxRequest('/adminUserInListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminUserInCountAll');
+      countElement.textContent = response;
+  });
+}
+getUserInCount()
+
+/* 전체 탈퇴한 회원 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 회원 수 가져오기
+function getUserOutCount() {
+  ajaxRequest('/adminUserOutListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminUserOutCountAll');
+      countElement.textContent = response;
+  });
+}
+getUserOutCount()

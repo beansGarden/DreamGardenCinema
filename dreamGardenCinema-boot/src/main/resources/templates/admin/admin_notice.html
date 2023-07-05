@@ -46,6 +46,15 @@
             <span> / </span>
             <span class="admin_noticeCountAll">0</span>
             <span>개)</span>
+        
+            <div>
+                <span>총 게시글 개수 :</span>
+                <span class="adminNoticeCountAll">0</span>
+                <span>공지사항 수 : </span>
+                <span class="adminNoticeInCountAll">0</span>
+                <span>삭제된 공지사항 수 : </span>
+                <span class="adminNoticeOutCountAll">0</span>
+            </div>
 
         </div>
         <!-- 게시판 -->
@@ -71,8 +80,11 @@
                                 th:text="${list.noticeTitle}">예매 정책</a></td>
                         <td th:text="${list.enrollDate}">2023.05.01</td>
                         <td th:text="${list.noticeFL}">Y</td>
-
-
+                    </tr>
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminNoticeList)}">
+                    <tr>
+                        <td colspan="5">조회하는 결과가 없습니다.</td>
                     </tr>
                 </tbody>
 

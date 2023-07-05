@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.dgc.movie.model.dao.MovieCommentMapper">
+	
+	<resultMap type="MovieComment" id="comment_rm">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="score" column="SCORE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+	</resultMap>
+	
+	<insert id="insertMovieComment">
+		INSERT INTO "beansGarden".MOVIE_REVIEW
+		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO, REVIEW_DELETE_FL)
+		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo}, DEFAULT)
+	</insert>
+	
+	<insert id="insertMovieCommentReport">
+		INSERT INTO "beansGarden".REPORT
+		(REPORT_NO, REPORT_TITLE, REPORT_CONTNENT, REPORT_ENROLL_DATE, REPORT_FL, REPORT_DELETE_FL, REVIEW_NO, REPORT_WIRTER, REPORTED_USER_NO)
+		VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportTitle}, #{reportContent}, DEFAULT, DEFAULT, DEFAULT, #{reviewNo}, #{reportWriter}, #{reportedUserNo})
+	</insert>
+	
+</mapper>
+

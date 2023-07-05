@@ -1,0 +1,171 @@
+/* 전체 감싸는 div */
+.admin_userWrap{
+    width: 1000px;
+    display: block;
+    margin: 100px auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
+}
+
+/* 게시판 제목 */
+#admin_userTitle{
+    color:#0F0954;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+/* 유저검색 창 */
+.admin_userSearchWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    width: 100%;
+    padding: 0px;
+    height: 0px;
+}
+
+/* 검색창 감싸는 div */
+.admin_userSearchWrap2{
+    border: 1px solid black;
+    width: 70%;
+    padding: 10px;
+
+}
+
+/* select 선택창 */
+.admin_userSelect{
+    border: none;
+    outline: none;
+
+}
+
+/* 검색창 */
+.admin_userInput{
+    width: 400px;
+    border: none;
+    outline: none;
+}
+
+
+
+/* 검색버튼 */
+.admin_userBtn{
+   margin: 0px 10px;
+   padding: 5px 15px;
+   border-radius: 5px;
+   background-color: #0F0954;
+   color: white;
+}
+
+
+
+
+/* 게시판 테이블 감싸는 div */
+.admin_userBoardWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  
+
+}
+
+/* 게시판 테이블 */
+.admin_userBoardWrap > table{
+    border-bottom: 1px solid rgba(142, 142, 142, 0.431);
+    border-collapse: collapse;
+    width: 100%;
+
+
+}
+
+/* 테이블 th,td 칸 */
+.admin_userBoardWrap > table >th,td{
+    border-top: 1px solid rgba(128, 125, 125, 0.446);
+    padding: 10px 20px;
+    margin: 10px;
+    text-align: center;
+
+    
+}
+/* 체크박스 */
+table > thead > tr > th:nth-child(1){
+    width: 53px;
+}
+
+table > thead > tr > th:nth-child(4){
+    width: 100px;
+
+}
+
+/* 번호 */
+table > thead > tr > th:nth-child(2){
+    width: 60px;
+}
+
+/* 아이디 */
+table > thead > tr > th:nth-child(3){
+    width: 130px;
+}
+
+/* 닉네임 */
+table > thead > tr > th:nth-child(6){
+ width: 120px;
+}
+
+/* 구분 */
+table > thead > tr > th:nth-child(4){
+    width: 93px;
+}
+
+/* 이메일 */
+table > thead > tr > th:nth-child(5){
+    width: 250px;
+}
+/* 닉네임 */
+table > thead > tr > th:nth-child(6){
+    width: 140;
+}
+
+
+/* 등록버튼 */
+#admin_userSignOut{
+    display: flex;
+    margin-left: 90%;
+    margin-top: 50px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #0F0954;
+    
+}
+
+#admin_userSignOut a{
+    color: white;
+    
+}
+
+/* 페이지네이션 */
+.pagination{
+    text-decoration: none;
+    text-align: center;
+    list-style: none;
+    margin-top: 30px;
+}
+
+.pagination li{
+    display: inline;
+
+}
+
+.pagination a{
+    text-decoration: none;
+}
+
+.pagination a:active{
+    font-weight: bold;
+    text-decoration: underline;
+    color: #0F0954;
+}
+

@@ -45,7 +45,7 @@
                                 <img class="rating" th:src="${movieInfo.rating}" alt="등급">
                                 <div class="movie-action">
                                     <a class="font4" th:href="@{/ticketing/date/} + ${movieInfo.movieNo}">예매하기</a>
-                                    <a class="font4" th:href="@{|/movie/movieDetail=${movieInfo.movieNo}|}">상세보기</a>
+                                    <a class="font4" th:href="@{|/movie/movieDetail=${movieInfo.movieNo}&screen=current|}">상세보기</a>
                                 </div>
                             </div>
                         </div>

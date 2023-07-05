@@ -1,7 +1,6 @@
-const dropdownBtn = document.querySelector(".dropdown-btn");
-const showMenu = document.querySelector(".show-menu");
+const dropdownBtn = document.querySelector('.dropdown-btn');
+const showMenu = document.querySelector('.show-menu');
 
-dropdownBtn.addEventListener('click', ()=>{
-    showMenu.classList.toggle("display-none");
+dropdownBtn.addEventListener('click', function() {
+    showMenu.classList.toggle('visible');
 });
-

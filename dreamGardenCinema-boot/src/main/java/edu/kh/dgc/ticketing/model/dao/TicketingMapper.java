@@ -139,4 +139,7 @@ public interface TicketingMapper {
 	// 플래티넘 쿠폰 insert
 	int insertPlatinumCoupon(int userNo);
 
+	// 취소한 티켓 좌석 정보 삭제
+	int deleteSeat(String ticketNo);
+
 }
