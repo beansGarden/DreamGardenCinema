@@ -327,7 +327,6 @@ function cusList() {
 
 
 
-
 /************** 멤버십 관련 게시글 목록 출력하기 **************/
 function memList() {
 
@@ -336,6 +335,8 @@ function memList() {
   existingFAQItems.forEach((item) => {
     item.remove();
   });
+
+
 
   const FAQCategory = 'U'; //M인 카테고리 타이틀
 
@@ -447,7 +448,21 @@ const searchArea = document.querySelector(".notice-search-area");
 const FAQlistContents = document.querySelector(".FAQ-list-contents");
 const searchBtn = document.querySelector(".service-search-btn");
 
+
+/* 엔터키 작동 */
+const input = document.getElementById("query");
+
+input.addEventListener("keyup", (event) => {
+
+  if (window.event.keyCode == 13) {
+    event.preventDefault();
+    searchBtn.click();
+  }
+
+})
+
 searchBtn.addEventListener("click", (e) => {
+
   const existingFAQItems = document.querySelectorAll(".FAQ-first-box");
   existingFAQItems.forEach((item) => {
     item.remove();
@@ -474,10 +489,10 @@ searchBtn.addEventListener("click", (e) => {
         noneContent.style.fontSize = "17px";
         noneContent.style.display = "flex";
         noneContent.style.justifyContent = "center";
-        noneContent.style.padding="10px 0px 10px 175px";
-        noneContent.style.borderBottom="2px solid #ccc";
-        
-        
+        noneContent.style.padding = "10px 0px 10px 175px";
+        noneContent.style.borderBottom = "2px solid #ccc";
+
+
 
         firstBox.appendChild(noneContent);
         FAQlistContents.appendChild(firstBox);
@@ -547,8 +562,8 @@ searchBtn.addEventListener("click", (e) => {
           firstBox.appendChild(answerBox);
 
           FAQlistContents.appendChild(firstBox);
-        
-          
+
+
         }
 
         if (searchFAQList.length > 0) {
@@ -576,7 +591,7 @@ searchBtn.addEventListener("click", (e) => {
 
           }
         }
-        
+
         // FAQlistContents.innerHTML = "";
 
       }
@@ -592,27 +607,27 @@ const reel2 = document.getElementById("reel-2");
 
 const reel = document.getElementById("camera-loader");
 const transform = document.getElementsByClassName("transform");
-reel.addEventListener("mouseover", ()=>{
-  
+reel.addEventListener("mouseover", () => {
+
   reel1.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
   dur="1.7s" begin="0" from="0 17.66 22.74" to="360 17.66 22.74"
   repeatCount="indefinite" class="transform"/>`
-  
+
   reel2.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
   dur="1s" begin="0" from="0 51.4 17.7" to="360 51.4 17.7"
   repeatCount="indefinite" class="transform"/>`
-  
+
 })
-reel.addEventListener("mouseout", ()=>{
-  
+reel.addEventListener("mouseout", () => {
+
   reel1.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
   dur="0" begin="0" from="0 17.66 22.74" to="360 17.66 22.74"
   repeatCount="indefinite" class="transform"/>`
-  
+
   reel2.innerHTML = `<animateTransform attributeName="transform" attributeType="XML" type="rotate"
   dur="0" begin="0" from="0 51.4 17.7" to="360 51.4 17.7"
   repeatCount="indefinite" class="transform"/>`
-  
+
 })
 
 /************************************************************************/

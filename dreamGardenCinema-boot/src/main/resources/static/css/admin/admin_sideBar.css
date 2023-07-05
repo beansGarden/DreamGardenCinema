@@ -118,7 +118,7 @@
 #adminLogout:hover{
     width: 28px;
     height: 28px;
-    filter: drop-shadow(0 0 3px rgba(240, 186, 88, 2));
+    filter: drop-shadow(0 0 2px rgba(250, 250, 250, 1));
 }
 
 
@@ -144,7 +144,7 @@
 }
 
 .admin_sideBarTableLi:hover{
-    filter: drop-shadow(0 0 3px rgba(240, 186, 88, 2));
+    filter: drop-shadow(0 0 2px rgba(250, 250, 250, 1));
     font-size: 20px;
 }
 

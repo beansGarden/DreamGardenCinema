@@ -71,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		int result = mapper.cusQAInsert(qna);
 
-		System.out.println("1:1문의삽입글: " + result);
+//		System.out.println("1:1문의삽입글: " + result);
 
 		// 실패시 서비스 종료
 		if (result == 0)
