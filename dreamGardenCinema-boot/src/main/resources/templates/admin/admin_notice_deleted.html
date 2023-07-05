@@ -56,6 +56,7 @@
                 <span class="adminNoticeOutCountAll">0</span>
             </div>
 
+
         </div>
         <!-- 게시판 -->
         <div class="admin_noticeBoardWrap">
@@ -80,11 +81,8 @@
                                 th:text="${list.noticeTitle}">예매 정책</a></td>
                         <td th:text="${list.enrollDate}">2023.05.01</td>
                         <td th:text="${list.noticeFL}">Y</td>
-                    </tr>
-                </tbody>
-                <tbody th:if="${#lists.isEmpty(adminNoticeList)}">
-                    <tr>
-                        <td colspan="5">조회하는 결과가 없습니다.</td>
+
+
                     </tr>
                 </tbody>
 
@@ -140,15 +138,15 @@
 
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_noticeBtn">
-            <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeWrite}">글쓰기</a></button>
+        <!--     <button class="admin_noticeEndBtn"><a th:href="@{/adminNoticeWrite}">글쓰기</a></button> -->
             <!--                     <button class="admin_noticeEndBtn"><a href="">수정</a></button> -->
-            <button class="admin_noticeEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+            <button class="admin_noticeEndBtn" id="restoreBtn"><a href="">복구</a></button>
         </div>
 
 
     </div>
 
-    <script src="\js\admin\admin_notice.js"></script>
+    <script src="\js\admin\admin_notice_deleted.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 package edu.kh.dgc.mypage.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -117,6 +118,19 @@ public class MypageServiceImpl implements MypageService{
 	public List<QnaImage> myqnaImageList(int qnano) {
 	
 		return mapper.myqnaImageList(qnano);
+	}
+
+	// 취소 내역 조회
+	@Override
+	public List<Ticket> cancleReservation(int userNo) {
+		
+		return mapper.cancleReservation(userNo);
+	}
+
+	// 해당 예매 내역 영화 시간 조회
+	@Override
+	public LocalDateTime movieTime(String ticketId) {
+		return mapper.movieTime(ticketId);
 	}
 
 }

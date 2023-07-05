@@ -84,12 +84,15 @@
                         <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글
                                 번호</a></td>
                         <td th:text="${list.qnaEnrollDate}"></td>
-                        <td th:text="${list.userNickname}"></td>
+                        <td th:text="${list.userId}"></td>
                         <td th:text="${list.qnaDeleteFl}"></td>
                         <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
-
                     </tr>
-
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminQnaList)}">
+                    <tr>
+                        <td colspan="7">조회하는 결과가 없습니다.</td>
+                    </tr>
                 </tbody>
 
             </table>

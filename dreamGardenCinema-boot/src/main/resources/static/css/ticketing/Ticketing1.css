@@ -4,7 +4,9 @@
 }
 
 body{
-    background-color: #A8A7DE;
+    background-image: url('/images/ticketing/예매 배경.png');
+    background-size : 520px;
+    background-color: rgb(0 0 0 / 20%);
 }
 .main{
     width: 100%;
@@ -14,6 +16,7 @@ body{
     align-items: center;
 }
 .ticketingBox{
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
     width: 1280px;
     height: 870px;
     background-color: white;
@@ -42,6 +45,7 @@ body{
     flex-direction: column;
     justify-content: space-between;
     border-collapse : collapse;
+    border-right: 1px solid #c8c8c8;
 }
 .ticketingNav li{
     display: flex;
@@ -49,16 +53,17 @@ body{
     justify-content: center;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #666666;
+    border-bottom: 1px solid #c8c8c8;
     border-top: none;
-    
 }
+
+
 .ticketingNav li.pass{
     background-color: #3B3B3B;
     color : white;
 }
 .ticketingNav li.active{
-    background-color: #0E0753;
+    background-color: #dda03c;
     color : white;
     font-weight: bold;
 }
@@ -80,6 +85,7 @@ body{
 .ticketingNav li:last-child{
     height: 25%;
     border-bottom-left-radius: 15px;
+    border-bottom: none;
 }
 
 
@@ -114,6 +120,7 @@ body{
 .choiceMovie>div:nth-child(3) img{
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .MovieList{
@@ -373,8 +380,9 @@ body{
     border-radius: 15px;
     cursor: pointer;
 }
+
 .timelist .btn:hover{
-    background-color: #0E0753;
+    background-color: black;
     color: white;
 }
 
@@ -387,7 +395,7 @@ body{
 }
 
 .dateActive>a>label>strong{
-    background-color: #0E0753;
+    background-color: #dda03c;
     color : white !important;
 }
 .dateActive>a{
@@ -395,7 +403,7 @@ body{
 }
 
 .saveMovie{
-    background-color: #0F0954;
+    background-color: #666666;
     color : white;
 }
 

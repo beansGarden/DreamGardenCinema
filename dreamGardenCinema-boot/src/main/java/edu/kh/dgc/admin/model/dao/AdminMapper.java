@@ -102,6 +102,13 @@ public interface AdminMapper {
 	 */
 	int userDelete(int userNo);
 
+	
+	/**회원 선택 복구
+	 * @param userNo
+	 * @return
+	 */
+	int restoreUserList(int userNo);
+	
 	/**
 	 * 회원 검색
 	 * 
@@ -200,6 +207,10 @@ public interface AdminMapper {
 	 */
 	int noticeListCount();
 
+	//삭제된 공지사항 개수 세기
+	int noticeDeletedListCount();
+	
+	
 	/**
 	 * 공지사항 List 조회
 	 * 
@@ -208,6 +219,10 @@ public interface AdminMapper {
 	 */
 	List<Notice> adminNoticeList(RowBounds rowBounds);
 
+	//공지사항 List 조회
+	List<Notice> adminNoticeDeletedList(RowBounds rowBounds);
+
+	
 	/**
 	 * 공지사항 게시글 조회
 	 * 
@@ -240,6 +255,12 @@ public interface AdminMapper {
 	 */
 	int noticeDelete(int noticeNo);
 	
+	
+	/**공지사항 게시글 선택 복구
+	 * @param noticeNo
+	 * @return
+	 */
+	int noticeRestore(int noticeNo);
 	
 	/**공지사항 검색에 따른 게시글 개수
 	 * @param condition
@@ -417,6 +438,12 @@ public interface AdminMapper {
 	//리뷰 게시글 읽어오기
 	List<Review> adminReviewOne(int reviewNo);
 
+	//공지사항 삭제 안 한 게시글 
+	int noticeInListCount();
+
+	//공지사항 삭제 한 게시글
+	int noticeOutListCount();
+
 	
 	
 
@@ -439,7 +466,15 @@ public interface AdminMapper {
 	// 상영관 세부 시간 삭제(찬희)
 	int deleteDetailTime(Schedule schedule);
 
-	// 예약된 좌석이 있는지 확인(찬희)
+	// 삭제할 세부 시간에 예약된 좌석이 있는지 확인(찬희)
 	int selectTicketing(Schedule schedule);
+
+	// 체크한 상영정보 삭제하기(찬희)
+	int deleteTotalTime(List<Map<String, String>> dataList);
+
+	// 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희)
+	int selectToTalTicketing(Map<String, String> map);
+
+
 
 }

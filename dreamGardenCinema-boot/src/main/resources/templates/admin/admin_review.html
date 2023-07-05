@@ -89,15 +89,13 @@
                         <td th:text="${list.userId}"></td>
                         <td th:text="${list.score}"></td>   
                         <td th:text="${list.reviewDeleteFl}" class="deleteFl">    </td>
-
-                    
-                       
-                        
-
                     </tr>
-
                 </tbody>
-        
+                <tbody th:if="${#lists.isEmpty(adminReviewList)}">
+                    <tr>
+                        <td colspan="7">조회하는 결과가 없습니다.</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
