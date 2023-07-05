@@ -1,6 +1,6 @@
 
 let screenType = "current";
-let currentPage = 1;
+let currentPage;
 let maxPage;
 
 const screenWaitBtn = document.getElementById("screenWait");
@@ -11,7 +11,9 @@ const highlightBtn  = document.getElementById("highlight");
 const wholeBtn = document.getElementById("whole");
 
 
-screenWaitBtn.addEventListener("click", () => {
+screenWaitBtn.addEventListener("click", (e) => {
+
+    
 
     screenType = "wait"; 
 
