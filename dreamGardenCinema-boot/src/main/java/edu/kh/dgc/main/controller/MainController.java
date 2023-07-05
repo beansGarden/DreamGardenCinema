@@ -1,5 +1,7 @@
 package edu.kh.dgc.main.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +43,12 @@ public class MainController {
 		model.addAttribute("movieMainSlideImgList", MainSlideImgList);
 		model.addAttribute("advertisePoster", advertisePoster);
 
+		LocalDateTime now = LocalDateTime.now();
+		
+		String formatedNow = now.format(DateTimeFormatter.ofPattern("MM.dd HH:mm 기준"));
+		
+		model.addAttribute("now", formatedNow);
+		
 		return "common/main";
 	}
 	

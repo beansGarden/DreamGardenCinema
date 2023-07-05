@@ -390,6 +390,7 @@ public class AdminController {
 		return service.movieScheduleListCount();
 	}
 
+	@PostMapping("/adminCinemaInsert")
 	public String adminCinemaInsert(Movie movie) {
 	    // Movie 객체에서 영화 시간과 날짜를 가져옵니다.
 		System.out.println(movie);

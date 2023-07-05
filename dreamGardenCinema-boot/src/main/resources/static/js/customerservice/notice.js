@@ -104,6 +104,17 @@ const serviceSearchBtn = document.querySelector(".service-search-btn"); // 검�
 const noticeContents = document.querySelector(".notice-contents");//공지사항 리스트 전체를 감싸는 박스
 const noticeListLink = document.querySelector(".service-notice-list");
 
+/* 엔터키 작동 */
+const input = document.getElementById("searchQuery");
+
+input.addEventListener("keyup", (event) => {
+
+  if (window.event.keyCode == 13) {
+    event.preventDefault();
+    serviceSearchBtn.click();
+  }
+
+})
 
 serviceSearchBtn.addEventListener("click", (e)=>{
   

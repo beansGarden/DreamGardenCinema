@@ -1,16 +1,36 @@
+*{
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 /* 전체 감싸는 div */
 .admin_cinemaManageDetailWrap{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
     width: 1000px;
-    margin: 100px auto;
-    height: auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+    left: 580px;
+    top: 120px;
+    height: 750px;
+    gap: 20px;
 }
 
 /* 제목 */
-.admin_cinemaManageTitle{
-    border: none !important;
+#admin_cinemaManageTitle{
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    width: 130px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 상영관 select, 날짜 감싸기 */
@@ -58,13 +78,6 @@ input{
     border-bottom: 1px solid rgba(121, 121, 121, 0.479);
 }
 
-/* 게시판 제목 */
-#admin_cinemaManageTitle{
-    color:#0F0954;
-    font-size: 30px;
-    font-weight: bold;
-
-}
 
 /* 상영 시간 선택 */
 .admin_cinemaManageDetaiTlList{
@@ -78,10 +91,19 @@ input{
     margin-left: 50%;
     padding: 5px 15px;
     border-radius: 5px;
-    background-color: #0F0954;
+    background-color: #59ada8;
     color: white;
-
+    width: 80px;
+    height: 35px;
     
+}
+
+.admin_reportRegister:hover{
+    background-color: #042928;
+    font-size: 15px;
+    font-weight: bold;
+    width: 80px;
+    height: 35px;
 }
 
 .admin_reportRegister a{
