@@ -93,6 +93,12 @@
 		WHERE rownum = 1
 	</select>
 	
+	<select id="selectTrailer" resultType="string">
+		SELECT TRAILER_URL
+		FROM TRAILER
+		WHERE MOVIE_NO = #{movieNo}
+	</select>
+	
 	
 </mapper>
 

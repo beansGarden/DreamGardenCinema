@@ -27,5 +27,7 @@ public interface MovieListMapper {
 
 	public Map<String, String> selectAdvertisePoster();
 
+	public String selectTrailer(String movieNo);
+
 
 }

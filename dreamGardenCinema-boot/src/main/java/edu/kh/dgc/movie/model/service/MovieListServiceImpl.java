@@ -70,6 +70,12 @@ public class MovieListServiceImpl implements MovieListService{
 		else return mapper.selectMovieListPromise();
 	}
 
+	// 예고편 가져오기 (비동기)
+	@Override
+	public String selectTrailer(String movieNo) {
+		return mapper.selectTrailer(movieNo);
+	}
+
 
 	
 	
