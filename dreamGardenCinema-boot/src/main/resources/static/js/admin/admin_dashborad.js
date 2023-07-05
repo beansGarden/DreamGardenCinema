@@ -1,6 +1,7 @@
 var context = document
     .getElementById('myChart')
     .getContext("2d");
+
 var myChart = new Chart(context, {
     type: 'line', // 차트의 형태
     data: { // 차트에 들어갈 데이터
@@ -13,15 +14,7 @@ var myChart = new Chart(context, {
                 label: '요일별 매출', //차트 제목
                 fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                 data: salesByPeriod,
-                backgroundColor: [
-                    //색상
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
                 borderColor: [
                     //경계선 색상
                     'rgba(255, 99, 132, 1)',
@@ -65,7 +58,7 @@ function getTicketAmount(selectElement) {
     // 선택한 영화 번호를 input 요소에 할당
     selectedMovieElement.value = selectedMovieNo;
 
-    
+
 
     // AJAX 요청 보내기
     var xhr = new XMLHttpRequest();
@@ -85,3 +78,64 @@ function getTicketAmount(selectElement) {
     xhr.send();
 }
 
+
+// 년별 분기 매출
+// 차트
+const ctx = document.getElementById('SalesforQuarterChart');
+let resultQuarterlySales = [];
+if(resultQuarterlySales.length < 1){
+    resultQuarterlySales = quarterlySales
+}
+var config = {
+    type: 'bar',
+    data: {
+        labels: ['1분기', '2분기', '3분기', '4분기'],
+        datasets: [{
+            label: '매출',
+            data: resultQuarterlySales,
+            borderWidth: 1,
+            backgroundColor: ['#444444', '#aaaaaa']
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+};
+var myChart = new Chart(ctx, config);
+
+// 년도
+const currentYear = new Date().getFullYear();
+for (let i = currentYear - 10; i <= currentYear; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.text = i;
+
+    if (i === currentYear) {
+        option.selected = true;
+    }
+
+    document.getElementById("yearSelect").appendChild(option);
+}
+
+// 매출 조회
+function salesForQuarter() {
+    const yearSelect = document.getElementById("yearSelect");
+    const selectedYear = yearSelect.value;
+
+    fetch('/admin/quarterlySales?selectedYear=' + selectedYear)
+        .then(response => response.json())
+        .then(result => {
+            if (true) {
+                resultQuarterlySales.length = 0;
+                for(let i = 0; i < result.length; i++){
+                    resultQuarterlySales.push(JSON.stringify(result[i].quarterlySales))
+                }
+                myChart.update();
+            } 
+        })
+        .catch(err => console.log(err));
+}

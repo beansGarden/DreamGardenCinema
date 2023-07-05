@@ -11,8 +11,14 @@ import lombok.ToString;
 @ToString
 public class SalesByPeriod {
 	
+	//지난주 매출
 	private String ticketingDay;
 	private int totalSales;
 	private LocalDate ticketingDate;
+	
+	//분기별 매출
+	private String year;
+	private String quarter;
+	private int quarterlySales;
 
 }
