@@ -37,6 +37,8 @@ public class MovieDetailController {
 		String story = movieInfo.getSynopsis();
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
+		System.out.println(movieInfo.getScreening());
+		
 		List<String> movieDirectorName = service.selectMovieDirectorName(movieNo);
 		List<String> movieActorName = service.selectMovieActorName(movieNo);
 		
@@ -52,7 +54,7 @@ public class MovieDetailController {
 		
 		model.addAttribute("movieDirectorName", movieDirectorName);
 		model.addAttribute("movieActorName", movieActorName);
-//		
+		
 		model.addAttribute("movieStillCut", movieStillCut);
 		
 		model.addAttribute("persons", moviePersons);
