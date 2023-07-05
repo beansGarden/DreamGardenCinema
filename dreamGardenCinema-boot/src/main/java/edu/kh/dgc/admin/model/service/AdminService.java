@@ -31,9 +31,9 @@ public interface AdminService {
 	//대시보드 1:1문의 최신 5개만 오게하기
 	List<Qna> adminQnaList5();
 	
-	//영화 개수 가져오기
-	int movieListCount();
-
+	/*
+	 * //영화 개수 가져오기 int movieListCount();
+	 */
 	//------------------------------------------
 	//관리자 사이드바 로그인 보여주기
 	List<User> getAdminDetails();
@@ -78,14 +78,17 @@ public interface AdminService {
 	Map<String, Object> adminUserList(int cp);
 	
 	
+	
 	//탈퇴한 회원 조회
 	Map<String, Object> adminUserOutList(User condition, int cp);
 
 	
-
 	//회원 선택 삭제
 	int userDelete(int userNo);
 
+	//회원 선택 복구
+	int restoreUserList(int userNo);
+	
 	//회원 검색
 	Map<String, Object> getUserSearchList(User condition,int cp);
 	
@@ -130,6 +133,10 @@ public interface AdminService {
 	//공지사항 List 조회
 	Map<String, Object>  adminNoticeList(int cp);
 
+	//삭제된 공지사항 조회
+	Map<String, Object> adminNoticeDeletedList(int cp);
+
+	
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
 
@@ -142,6 +149,10 @@ public interface AdminService {
 
 	//공지사항 게시글 삭제
 	int noticeDelete(int noticeNo);
+	
+	//공지사항 게시글 선택 복구
+	int noticeRestore(int noticeNo);
+
 	
 	//공지사항 게시글 검색
 	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
@@ -227,6 +238,8 @@ public interface AdminService {
 	List<Review> adminReviewOne(int reviewNo);
 
 
+
+
 	
 	
 
@@ -242,6 +255,16 @@ public interface AdminService {
 
 	// 체크한 상영정보 삭제하기
 	int deleteTotalTime(List<Map<String, String>> dataList);
+
+	// 공지사항 삭제 안 한 게시글
+	int noticeInListCount();
+	
+	//공지사항 삭제 한 게시글
+	int noticeOutListCount();
+
+
+
+
 
 
 	
