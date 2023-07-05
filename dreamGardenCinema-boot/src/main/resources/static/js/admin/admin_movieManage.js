@@ -1,5 +1,7 @@
 
 let screenType = "current";
+let currentPage = 1;
+let maxPage;
 
 const screenWaitBtn = document.getElementById("screenWait");
 const screenPromiseBtn = document.getElementById("screenPromise");
@@ -8,71 +10,102 @@ const screenDownBtn = document.getElementById("screenDown");
 const highlightBtn  = document.getElementById("highlight");
 const wholeBtn = document.getElementById("whole");
 
+
 screenWaitBtn.addEventListener("click", () => {
+
     screenType = "wait"; 
+
     screenWaitBtn.className = "colorsubbutton";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
     highlightBtn.className = "";
     wholeBtn.className = "";
+
     selectList()
+
 });
 
+
 screenPromiseBtn.addEventListener("click", () => {
+
     screenType = "promise";
+
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "colorsubbutton";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
     highlightBtn.className = "";
     wholeBtn.className = "";
+
     selectList()
+
 });
 
+
 screenCurrentBtn.addEventListener("click", () => {
+
     screenType = "current";
+
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "colorsubbutton";
     screenDownBtn.className = "";
     highlightBtn.className = "";
     wholeBtn.className = "";
+
     selectList()
+
 });
 
+
 screenDownBtn.addEventListener("click", () => {
+
     screenType = "down";
+
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "colorsubbutton";
     highlightBtn.className = "";
     wholeBtn.className = "";
+
     selectList()
+
 });
 
+
 highlightBtn.addEventListener("click", () => {
+
     screenType = "highlight";
+
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
     highlightBtn.className = "colorsubbutton";
     wholeBtn.className = "";
+
     selectList()
+
 });
 
+
 wholeBtn.addEventListener("click", () => {
+
     screenType = "all";
+
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
     highlightBtn.className = "";
     wholeBtn.className = "colorsubbutton";
+    
     selectList()
 });
+
+
 
 
 function selectList(){
@@ -80,6 +113,18 @@ function selectList(){
     const data = {
         "screenType": screenType
     };
+
+    const tbody = document.querySelector("tbody")
+
+    tbody.innerHTML = "";
+
+    fetch("/adminMovieManage/selectList", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(selectList => {
 
 /* 
     <tbody>
@@ -95,18 +140,6 @@ function selectList(){
         </tr>
     </tbody>
  */
-
-    const tbody = document.querySelector("tbody")
-
-    tbody.innerHTML = "";
-
-    fetch("/adminMovieManage/selectList", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(selectList => {
 
         for(let movie of selectList){
 

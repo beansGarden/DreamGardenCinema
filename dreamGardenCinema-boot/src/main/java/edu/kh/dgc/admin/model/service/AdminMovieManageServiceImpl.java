@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,14 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 
 	@Override
 	public List<Movie> selectmovieListCurrent() {
-//		RowBounds rowBound = new RowBounds(0, 10);
-//		return mapper.selectMovieListCurrent(null, rowBound);
-		return mapper.selectMovieListCurrent();
+		RowBounds rowBound = new RowBounds(0, 10);
+		return mapper.selectMovieListCurrent(null, rowBound);
 	}
 
 	@Override
-	public List<Movie> selectList(String screenType) {
-		return mapper.selectList(screenType);
+	public List<Movie> selectList(Map<String, Object> requestData) {
+		RowBounds rowBound = new RowBounds(0, 10);
+		return mapper.selectList(requestData, rowBound);
 	}
-	
-	
-	
-	
 	
 }

@@ -1,6 +1,7 @@
 package edu.kh.dgc.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -12,9 +13,11 @@ public interface AdminMovieManageMapper {
 
 	List<Movie> selectMovieListCurrent();
 	
-//	List<Movie> selectMovieListCurrent(Object object, RowBounds rowBound);
+	List<Movie> selectMovieListCurrent(Object object, RowBounds rowBound);
 
-	List<Movie> selectList(String screenType);
+	List<Movie> selectList(Map<String, Object> requestData);
+	
+	List<Movie> selectList(Map<String, Object> requestData, RowBounds rowBound);
 
 
 	

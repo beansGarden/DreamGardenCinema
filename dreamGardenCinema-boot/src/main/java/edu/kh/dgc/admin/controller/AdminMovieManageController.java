@@ -1,5 +1,6 @@
 	package edu.kh.dgc.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,10 @@ public class AdminMovieManageController {
 		
 		String screenType = data.get("screenType");
 		
-		return service.selectList(screenType);
+		Map<String, Object> requestData = new HashMap<>();
+		requestData.put("screenType", screenType);
+		
+		return service.selectList(requestData);
 	}
 	
 	
