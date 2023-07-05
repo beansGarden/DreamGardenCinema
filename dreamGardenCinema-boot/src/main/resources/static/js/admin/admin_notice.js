@@ -93,7 +93,7 @@ function userSelectAll(checkbox) {
   xhr.send();
 }
 
-// 영화 개수 가져오기
+// 공지사항 개수 가져오기
 function getNoticeCount() {
   ajaxRequest('/adminNoticeListAjax', 'GET', function(response) {
       var countElement = document.querySelector('.adminNoticeCountAll');
@@ -101,3 +101,48 @@ function getNoticeCount() {
   });
 }
 getNoticeCount()
+
+
+/* 전체 삭제 안 한 공지사항 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 공지사항 개수 가져오기
+function getNoticeInCount() {
+  ajaxRequest('/adminNoticeInListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminNoticeInCountAll');
+      countElement.textContent = response;
+  });
+}
+getNoticeInCount()
+
+/*  삭제한 공지사항 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 삭제한 공지사항 수 
+function getNoticeOutCount() {
+  ajaxRequest('/adminNoticeOutListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminNoticeOutCountAll');
+      countElement.textContent = response;
+  });
+}
+getNoticeOutCount()

@@ -9,40 +9,59 @@ function userSelectAll(userSelectAll)  {
   }
 
   /* 삭제 버튼 선택 탈퇴하기 */
-  const delBtn = document.getElementById("admin_userSignOut"); //삭제버튼 
-  const checkbox = document.getElementsByClassName("admin_userCheckbox"); //check박스
-  const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); //번호
- 
-  delBtn.addEventListener(('click'),()=>{
- 
-  if (confirm("정말 탈퇴 하시겠습니까?")) {
-    for(let i=0; i<checkbox.length; i++){
-      if (checkbox[i].checked) { //체크박스가 선택됐을 때
-   var userNo = document.getElementsByClassName("admin_user_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
+  const delBtn = document.getElementById("admin_userSignOut"); // 삭제 버튼
+  const checkbox = document.getElementsByClassName("admin_userCheckbox"); // 체크박스
+  const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); // 번호
   
-} if(checkbox!=null){
-userDelete(userNo);
-}
-}
-}else return;
-
-});
-
-function userDelete(userNo) {
-  fetch("/adminUser/deleteUserList", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ "userNo": userNo })
-  })
-  .then(resp => resp.text())
-  .then(result => {
-    console.log(result);
-    console.log(userNo);
-    alert("회원이 탈퇴되었습니다."); // 탈퇴 완료 메시지
-  })
-  .catch(err => console.log(err));
-}
-
+  delBtn.addEventListener('click', () => {
+    if (confirm("정말 탈퇴하시겠습니까?")) {
+      const selectedUserNos = []; // 선택된 회원 번호들을 저장할 배열
+  
+      for (let i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+          const userNo = checkboxNo[i].innerText;
+          selectedUserNos.push(userNo);
+        }
+      }
+  
+      if (selectedUserNos.length > 0) {
+        userDelete(selectedUserNos); // 선택된 회원 번호들을 전달하여 탈퇴 함수 호출
+      }
+    } else {
+      return;
+    }
+  });
+  
+  function userDelete(userNos) {
+    const promises = [];
+  
+    userNos.forEach(userNo => {
+      const promise = fetch("/adminUser/deleteUserList", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"userNo": userNo})
+      })
+      .then(resp => resp.text())
+      .then(result => {
+        console.log(result);
+        console.log(userNo); // 번호 나옴
+      })
+      .catch(err => console.log(err));
+  
+      promises.push(promise);
+    });
+  
+    Promise.all(promises)
+      .then(() => {
+        alert("회원이 탈퇴되었습니다."); // 탈퇴 완료 메시지
+        // 체크박스 선택 해제
+        for (let i = 0; i < checkbox.length; i++) {
+          checkbox[i].checked = false;
+        }
+      })
+      .catch(err => console.log(err));
+  }
+  
 
 
 //체크박스 숫자 불러오기
@@ -172,7 +191,7 @@ getUserInCount()
   xhr.send();
 }
 
-// 영화 개수 가져오기
+// 회원 수 가져오기
 function getUserOutCount() {
   ajaxRequest('/adminUserOutListAjax', 'GET', function(response) {
       var countElement = document.querySelector('.adminUserOutCountAll');

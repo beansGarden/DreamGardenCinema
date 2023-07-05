@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.dgc.admin.model.dao.AdminMovieManageMapper">
+	
+	<resultMap type="MOVIE" id="movie_rm">
+
+		<id property="movieNo" column="MOVIE_NO" />
+
+		<result property="movieTitle" column="MOVIE_TITLE" />
+		<result property="poster" column="POSTER" />
+		<result property="synopsis" column="SYNOPSIS" />
+		<result property="runningTime" column="RUNNING_TIME" />
+		<result property="rating" column="RATING" />
+		<result property="releaseDate" column="RELEASE_DATE" />
+		<result property="moviePrice" column="MOVIE_PRICE" />
+		<result property="genre" column="GENRE" />
+		<result property="screening" column="SCREENING" />
+		<result property="movieTheater" column="MOVIE_THEATER" />
+		<result property="movieTime" column="MOVIE_TIME" />
+		<result property="movieday" column="MOVIE_DAY" />
+		<result property="producer" column="PERSON_NAME" />
+		
+	</resultMap>
+	
+	  <select id="movieListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MOVIE
+	</select>
+
+	<select id="adminMovieList" resultMap="movie_rm">
+		SELECT
+		MOVIE_NO,
+		MOVIE_TITLE,
+		RELEASE_DATE,
+		MOVIE_PRICE,
+		(
+		SELECT LISTAGG(PERSON_NAME, ', ') WITHIN GROUP (ORDER BY PERSON_NAME)
+		FROM PERSON_INFO
+		WHERE PERSON_ROLE = '감독' AND MOVIE.MOVIE_NO = PERSON_INFO.MOVIE_NO
+		) AS PERSON_NAME
+		FROM MOVIE
+		ORDER BY MOVIE_NO DESC
+	 </select>
+	 
+	<select id="getMovieSearchList" parameterType="Movie" resultMap="movie_rm">
+	  SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE, LISTAGG(P.PERSON_NAME, ', ') WITHIN GROUP (ORDER BY P.PERSON_NAME) AS PERSON_NAME
+	  FROM MOVIE M
+	  JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	  WHERE P.PERSON_ROLE = '감독'
+	    AND M.MOVIE_NO IN (
+	      <choose>
+	        <when test="type != null and type.equals('number')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_NO LIKE #{keyword}
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('title')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('director')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM PERSON_INFO WHERE PERSON_ROLE = '감독' AND PERSON_NAME LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	      </choose>
+	    )
+	  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+	</select>
+	
+	<select id="movieFilterListCount" parameterType="Movie" resultType="_int">
+	  SELECT COUNT(*)
+	  FROM MOVIE M
+	  JOIN PERSON_INFO P ON M.MOVIE_NO = P.MOVIE_NO
+	  WHERE P.PERSON_ROLE = '감독'
+	    AND M.MOVIE_NO IN (
+	      <choose>
+	        <when test="type != null and type.equals('number')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_NO LIKE #{keyword}
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('title')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM MOVIE WHERE MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	        <when test="type != null and type.equals('director')">
+	          <if test="keyword != null and keyword != ''">
+	            SELECT MOVIE_NO FROM PERSON_INFO WHERE PERSON_ROLE = '감독' AND PERSON_NAME LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </when>
+	      </choose>
+	    )
+	  GROUP BY M.MOVIE_NO, M.MOVIE_TITLE, M.RELEASE_DATE
+	</select>
+	
+</mapper>
+

@@ -48,6 +48,15 @@
                 </form>
             </div>
             <!-- 목록 count -->
+            <div class="admin_reportList">
+                <span>목록</span>
+                <span>( 총</span>
+                <span class="admin_userCount"> 0 </span>
+                <span> / </span>
+                <span class="admin_userCountAll">0</span>
+                <span>개)</span>
+    
+            </div>
 
             <div class="admin-member-count">
                 <span>총 회원 수 : </span>
@@ -90,7 +99,11 @@
                             <td th:text="${list.userClose}">정상</td>
                         </tr>
                     </tbody>
-
+                    <tbody th:if="${#lists.isEmpty(adminUserList)}">
+                        <tr>
+                            <td colspan="9">조회하는 결과가 없습니다.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 

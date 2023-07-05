@@ -1,0 +1,776 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+.my-page-nav-list a{
+    color: #000000;
+}
+.my-page-nav-list>:nth-child(2){
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.my-page-container{
+    width: 100%;
+    display: grid;
+    margin-top: 5px;
+    
+}
+
+.my-page-category{
+    display: grid;
+    height: 240px;
+    width: 100%;
+    grid-auto-flow: column;
+    grid-template-columns: 1.25fr 0.5fr 1.25fr;
+}
+
+.my-page-nickname{
+    width: 100%;
+    height: 100px;
+    background-color: #0F0954;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-page-nickname>p{
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+.my-page-L{
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-L a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.my-page-membership-grade{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #0F0954;
+    align-items: center;
+    width: 100%;
+}
+
+.my-page-membership-grade>img{
+    height: 215px;
+    margin-bottom: 20px;
+}
+
+.my-page-R{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-R a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+
+}
+
+.my-page-empty-space{
+    width: 100px;
+    height: 16px;
+}
+.my-page-myinfo img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myinfo>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-myprofile img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myprofile>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-customer-service img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-customer-service>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-membership img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-membership>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+
+/* 예매내역 ,취소내역, 나의 문의내역 , 회원탈퇴 탭*/
+.my-page-nav{
+    border-bottom: 1px solid #ccc;
+}
+.my-page-nav-list{
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+    list-style: none;
+}
+.my-page-nav-list>li>a:hover{
+    border-top: 2px solid  #0F0954;
+    border-bottom: 2px solid #0F0954;
+    font-weight: bold;
+}
+
+.my-page-nav-list a{
+    text-decoration: none;
+}
+/* 예매 내역이 없을 경우 */
+.my-page-contents-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+/* 예매 내역이 있을 경우 */
+.my-page-contents-box2{
+    height: 70px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 16px;
+    border-bottom: 2px solid black;
+    margin-right: 15px;
+}
+.my-page-contents-guide{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.my-page-contents-guide>span{
+    font-size: 25px;
+    font-weight: bold;
+}
+.my-page-contents-guide>:nth-child(2){
+    color: #FF7787;
+    margin-left: 6px;
+}
+.my-page-contents-guide2{
+    color: #8D9FBE;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 32px;
+}
+.my-page-tiket{
+    margin-left: 30px;
+    font-size: 11px;
+    color: #808080;
+}
+.my-page-tiket-number{
+    font-weight: bold;
+    margin-left: 12px;
+}
+.my-page-movie-img{
+    margin-top: 10px;
+    margin-left: 25px;
+}
+.my-page-movie-img>img{
+    width: 218px;
+    height: 300px;
+    margin-right: 20px;
+    box-shadow: rgba(0,0,0,0.3) 0px 19px 38px, rgba(0,0,0,0.22) 0px 15px 12px;
+    border-radius: 5px;
+}
+/* 예매 상세 내역 */
+.ticket-background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.ticket-container{
+    display: flex;
+    background: white;
+    box-shadow: rgba(0,0,0,0.3) 0px 19px 38px,
+                rgba(0,0,0,0.22) 0px 15px 12px;
+    margin: 20px;
+    width: 70%;
+    border-radius: 15px;
+}
+.ticket-img-box{
+    padding-top: 5px;
+    border-right: 1px dashed #404040;
+}
+.my-page-movie-info{
+    display: flex;
+    width: 100%;
+}
+.my-page-contents-info{
+    width: 100%;
+    margin-left: 20px;
+}
+.my-page-contents-info-date{
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr 0.5fr 1.5fr;
+    margin-top: 10px;
+    margin-bottom: 39px;
+}
+.my-page-contents-info-title{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #808080;
+    font-weight: bold;
+    margin-right: 15px;
+}
+.my-page-contents-info-title>:nth-child(2){
+    color: #378EF0;
+}
+.my-page-contents-info-title>span{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+#text-color{
+    color: #FF7787;
+    font-weight: bold;
+}
+#text-color2{
+    font-weight: bold;
+}
+.my-page-payment-detail{
+    font-weight: bold;
+    font-size: 20px;
+}
+/* 결제 금액 구역 */
+.my-page-payment-detail-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 97%;
+    height: 120px;
+    border: 1px solid #8D9FBE;
+    border-radius: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#total-pay{
+    display: flex;
+    justify-content: space-between;
+}
+#total-pay>:nth-child(1){
+    font-weight: bold;
+    font-size: 20px;
+}
+#total-pay>:nth-child(2){
+    font-weight: bold;
+    font-size: 20px;
+    color: #378EF0;
+}
+#total-pay2{
+    display: flex;
+    justify-content: space-between;
+}
+/* 예매 취소 버튼 */
+.my-page-contents-btn{
+    width: 80px;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    align-self: end;
+
+}
+.my-page-contents{
+    display: flex;
+    flex-direction: column;
+}
+
+.my-page-contents>img{
+    width: 150px;
+    height: 150px;
+    margin: 15px;
+    align-self: center;
+}
+
+.my-page-contents>p{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* 닉네임 변경 모달 영역 */
+.my-page-change-nickname-area{
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+}
+.my-page-change-nickname-content{
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.my-page-change-nickname-content>:nth-child(1){
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+}
+.my-page-change-nickname-content input{
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+.my-page-change-nickname-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-change-nickname-content i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* 닉네임 변경 수정 / 취소 버튼 */
+
+.my-page-change-nickname-update-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-change-nickname-update-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-change-nickname-update-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+.my-page-change-nickname-update-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/* 회원 탈퇴 모달 영역*/
+.my-page-secession-area{
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+    /* 다음 버튼 클릭시 display none */
+}
+.my-page-secession-pwcheck-container{
+
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.my-page-secession-pwcheck-container>:nth-child(1){
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+.my-page-secession-pwcheck-container>:nth-child(2){
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.my-page-secession-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-secession-pwcheck-container input {
+
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+
+.my-page-secession-pwcheck-container i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+/* 비밀번호 확인 창 버튼 */
+.my-page-secession-pwcheck-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+
+.my-page-secession-pwcheck-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+
+.my-page-secession-pwcheck-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-secession-pwcheck-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.my-page-secession-pwcheck-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-secession-pwcheck-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/* 탈퇴 모달에서 다음 눌렀을 때 */
+.my-page-secession-info-bg{
+    display: none;
+    width: 70vw;
+    height: 70vh;
+    top: 0px;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    /* 다음버튼 클릭시 display flex */
+}
+
+#secession-title{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px;
+}
+.my-page-secession-info-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#secession-info{
+    font-size: 20px;
+}
+#secession-info>span{
+    color: #ED4C6B;
+    font-size: 25px;
+    font-weight: bold;
+}
+#secession-notice{
+    display: flex;
+    margin-top: 10px;
+    width: 60vw;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+#secession-notice-detail{
+    margin-top: 10px;
+    width: 60vw;
+    height: 25vh;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    overflow-y: scroll;
+}
+/* 스크롤바 css 작업 */
+#secession-notice-detail::-webkit-scrollbar {
+    width: 10px;
+}
+#secession-notice-detail::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+#secession-notice-detail>span{
+    font-weight: bold;
+}
+.my-page-secession-checkbox{
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+/* 탈퇴 / 취소 버튼 */
+.my-page-secession-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-secession-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-secession-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-secession-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.my-page-secession-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-secession-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/* 회원 탈퇴 영역 */
+.my-page-secession-inputbox>input{
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+.my-page-secession-inputbox{
+    position: relative;
+    width: 250px;
+}
+.line3{
+    position: absolute;
+    left: 155px;
+    bottom: 9px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.line3:before{
+    content: "";
+    position: absolute;
+    left: 155px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#ff1b69,#ff0,#2196f3,#9c27b0,#ff1b69);
+    animation: animateSecession 2s linear infinite;
+    transition: 0.1s;
+}
+
+
+.my-page-secession-inputbox input:valid ~ .line3::before {
+    left: -250px;
+}
+
+.my-page-secession-inputbox input:focus ~ .line3::before {
+    left: 0;
+}
+@keyframes animateSecession{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+/* 일치할 경우 class */
+
+.clearPw{
+    position: absolute;
+    left: 155px;
+    bottom: 9px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.clearPw::before{
+    content: "";
+    position: absolute;
+    left: 155%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#1becff,#5899ff,#376bff,#0056ff,#1becff);
+    animation: animateClearPw 2s linear infinite;
+    transition: 0.1s;
+}
+.my-page-secession-inputbox input:valid ~ .clearPw::before{
+    left: -250px
+}
+.my-page-secession-inputbox input:focus ~ .clearPw::before{
+    left: 0;
+}
+@keyframes animateClearPw{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+.errorPw{
+    position: absolute;
+    left: 155px;
+    bottom: 9px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.errorPw::before{
+    content: "";
+    position: absolute;
+    left: 155%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#ff000d,#ff6f6f,#fea8d5,#ff2b5c,#ff000d);
+    animation: animateClearPw 2s linear infinite;
+    transition: 0.1s;
+}
+.my-page-secession-inputbox input:valid ~ .errorPw::before{
+    left: -250px
+}
+.my-page-secession-inputbox input:focus ~ .errorPw::before{
+    left: 0;
+}
+@keyframes animateClearPw{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
