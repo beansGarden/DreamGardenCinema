@@ -14,16 +14,8 @@ var myChart = new Chart(context, {
                 label: '요일별 매출', //차트 제목
                 fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                 data: salesByPeriod,
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: [
-                    //경계선 색상
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: '#aaaaaa',
+                borderColor: '#444444',
                 borderWidth: 1 //경계선 굵기
             }
         ]
