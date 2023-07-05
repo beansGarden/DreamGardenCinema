@@ -9,30 +9,13 @@ import edu.kh.dgc.movie.model.dto.Movie;
 
 @Mapper
 public interface AdminMovieManageMapper {
+
+	List<Movie> selectMovieListCurrent();
 	
-	/**
-	 * 영화 개수
-	 * 
-	 * @return
-	 */
-	int movieListCount();
+//	List<Movie> selectMovieListCurrent(Object object, RowBounds rowBound);
 
-	/**
-	 * 영화 List 조회
-	 * 
-	 * @param rowBounds
-	 * @return
-	 */
-	List<Movie> adminMovieList(RowBounds rowBounds);
+	List<Movie> selectList(String screenType);
 
-	/**
-	 * 영화 검색
-	 * 
-	 * @param condition
-	 * @param rowBounds
-	 * @return
-	 */
-	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
 
 	
 }

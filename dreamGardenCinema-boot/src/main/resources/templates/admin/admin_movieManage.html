@@ -15,8 +15,7 @@
 
     <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
 
-    <div class="admin_movieManageWrap"
-        th:with="pagination=${adminMovieList.pagination}, adminMovieList=${adminMovieList.adminMovieList}">
+    <div class="admin_movieManageWrap">
 
         <!-- 게시판 제목 -->
         <div id="admin_movieManageTitle">영화 관리</div>
@@ -58,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="list : ${adminMovieList}">
+                    <tr th:each="list : ${movieList}">
                         <td th:text="${list.movieNo}">영화번호</td>
                         <td th:text="${list.movieTitle}">영화제목</td>
                         <td th:text="${list.releaseDate}">개봉일</td>
@@ -70,53 +69,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <!-- 페이지 네이션 -->
-
-        <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
-        <div class="pagination-area">
-
-            <!--              검색 X인 경우의 페이지 네이션 -->
-            <ul class="pagination">
-
-                <!-- 첫 페이지로 이동 -->
-                <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                <li><a th:href="@{/adminMovieManage(cp=${pagination.startPage})}">&lt;&lt;</a></li>
-
-                <!-- 이전 목록 마지막 번호로 이동 -->
-                <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
-                <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
-
-                <!-- 특정 페이지로 이동 -->
-                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
-                    <li th:if="${i == pagination.currentPage}">
-                        <a class="current" th:text="${i}">현재 페이지</a>
-                    </li>
-                    <li th:unless="${i == pagination.currentPage}">
-                        <a th:text="${i}" th:href="@{/adminMovieManage(cp=${i})}"></a>
-                    </li>
-                </th:block>
-
-                <!-- 현재 보고있는 페이지 -->
-                <li th:if="${i==pagination.currentPage}">
-                    <a class="current" th:text="${i}">현재 페이지</a>
-                </li>
-
-                <!-- 현재 페이지를 제외한 나머지 -->
-                <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/adminMovieManage(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
-                </li>
-                </th:block>
-
-                <!-- 다음 목록 시작 번호로 이동 -->
-                <!--   <li th:if="${i==pagination.currentPage}">
-                        <a class="current" th:text="${i}">현재 페이지</a>
-                    </li>
-                    -->
-                <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/adminMovieManage(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
-            </ul>
         </div>
 
     </div>
