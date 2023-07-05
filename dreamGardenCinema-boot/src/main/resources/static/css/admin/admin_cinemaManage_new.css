@@ -1,26 +1,46 @@
 .cinemaManage{
-    width: 800px;
-    position: fixed;
-    left: 500px;
-    top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    width: 1000px;
+    left: 580px;
+    top: 100px;
+    height: 750px;
+    gap: 20px;
 }
 
+
 #admin_cinemaManageTitle{
-    margin-bottom: 10px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    width: 130px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+
+    /* margin: 20px 0 15px 50px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 영화관 선택 및 날짜 박스 */
+.movie-the-date-box{
+    display: flex;
 }
 
 #selectCont{
     display: flex;
+    flex-direction: column;
 }
+
+/* 선택항목을 감싸는 div */
 
 form>div>div{
     margin-bottom: 4px;
-}
-
-#admin_cinemaManageTitle{
-    color:#0F0954;
-    font-size: 30px;
-    font-weight: bold;
 }
 
 form span{
@@ -66,12 +86,18 @@ form button{
     width: 50px;
     margin-left: 20px;
 }
-table{
-    width: 800px;
+.cinema-manage-table{
+    width: 1000px;
+    height: 550px;
+    /* border-bottom: 1px solid #c8c8c8; */
 }
-table>*{
+
+.cinema-manage-table>*{
     text-align: center;
 }
+
+
+
 table th:first-child{width: 5%;}
 table th:nth-child(2){width: 10%;}
 table th:nth-child(3){width: 50%;}
@@ -85,6 +111,7 @@ table th:last-child{width: 20%;}
     display: flex;
     justify-content: center;
     padding: 0;
+    width: 1000px;
 }
 
 .pagination li{
@@ -101,9 +128,9 @@ table th:last-child{width: 20%;}
 
 .current{
     font-weight: bold;
-    background-color: #455ba8;
-    border-radius: 50%;
-    color: white !important;
+    background-color: #666666;
+    border-radius: 20%;
+    color: white;
     letter-spacing: 0 !important;
 }
 
@@ -124,6 +151,16 @@ table th:last-child{width: 20%;}
     justify-content: center;
     align-items: center;
 }
+
+/* 버튼을 감싸는 div */
+.manage-btns{
+    width: 945px;
+    display: flex;
+    justify-content: end;
+
+    gap: 15px;
+}
+
 .timeDiv button{
     width: 10px;
     height: 10px;
@@ -131,3 +168,4 @@ table th:last-child{width: 20%;}
     align-items: center;
     justify-content: center;
 }
+

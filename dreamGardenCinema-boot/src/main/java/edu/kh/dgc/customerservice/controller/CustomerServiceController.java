@@ -74,13 +74,16 @@ public class CustomerServiceController {
 	public String cusQAInsert(Qna qna, String QAAgree 
 				, @RequestParam(value="images", required=false) List<MultipartFile> images
 				, @SessionAttribute(name="loginUser", required=false) User loginUser, RedirectAttributes ra
-				, @RequestParam(value="key", required=false)String selectedValue) throws IllegalStateException, IOException {
+				, @RequestParam(value="key", required=false)String selectedValue
+				, @RequestParam(value="first", required=false)String firstNum) throws IllegalStateException, IOException {
 
 		
 		// 1. 로그인한 회원 번호를 얻어와 Qna에 세팅
 		if(loginUser != null) {
 			qna.setUserNo(loginUser.getUserNo());
 		}
+		
+		qna.setNonMemberTel(firstNum + qna.getNonMemberTel());
 		
 		int qnaNo = service.cusQAInsert(qna, images, selectedValue);
 		
