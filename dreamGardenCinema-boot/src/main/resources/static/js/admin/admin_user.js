@@ -10,8 +10,8 @@ function userSelectAll(userSelectAll)  {
 
   /* 삭제 버튼 선택 탈퇴하기 */
   const delBtn = document.getElementById("admin_userSignOut"); // 삭제 버튼
-  const checkbox = document.getElementsByClassName("admin_userCheckbox"); // 체크박스
-  const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); // 번호
+  const checkbox = document.getElementsByClassName("admin_faqCheckbox"); // 체크박스
+  const checkboxNo = document.getElementsByClassName("admin_faq_checkbox_no"); // 번호
   
   delBtn.addEventListener('click', () => {
     if (confirm("정말 탈퇴하시겠습니까?")) {
@@ -200,7 +200,7 @@ function getUserCount() {
   xhr.send();
 }
 
-// 영화 개수 가져오기
+// 회원 개수 가져오기
 function getUserCount() {
   ajaxRequest('/adminUserListAjax', 'GET', function(response) {
       var countElement = document.querySelector('.adminUserCountAll');

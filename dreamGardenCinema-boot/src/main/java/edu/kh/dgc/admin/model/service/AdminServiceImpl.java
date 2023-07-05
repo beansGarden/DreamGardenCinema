@@ -531,6 +531,32 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminNoticeMap;
 	}
+	//삭제 안 된 공지사항 게시판 조회
+	@Override
+	public Map<String, Object> adminNoticeInList(int cp) {
+		
+		int noticeListCount = mapper.noticeInListCount();
+
+		Pagination pagination = new Pagination(noticeListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Notice> adminNoticeList = mapper.adminNoticeInList(rowBounds);
+
+		Map<String, Object> adminNoticeMap = new HashMap<String, Object>();
+		
+		adminNoticeMap.put("pagination", pagination);
+		adminNoticeMap.put("adminNoticeList", adminNoticeList);
+
+
+		return adminNoticeMap;
+	}
+
+	
 	
 	//삭제된 공지사항 조회
 	@Override
@@ -652,17 +678,11 @@ public class AdminServiceImpl implements AdminService {
 
 	// FAQ 게시판 List 조회
 	@Override
-	public Map<String , Object> adminFaqList(int cp) {
+	public Map<String , Object> adminFaqAllList(int cp) {
 
-		int faqListCount = mapper.faqListCount();
+		int faqListCount = mapper.faqListAllCount();
 
 		Pagination pagination = new Pagination(faqListCount, cp);
-
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
 
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -670,7 +690,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<FAQ> adminFaqList = mapper.adminFaqList(rowBounds);
+		List<FAQ> adminFaqList = mapper.adminFaqAllList(rowBounds);
 
 		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
 		
@@ -681,6 +701,55 @@ public class AdminServiceImpl implements AdminService {
 		return adminFaqMap;
 	}
 	
+	//FAQ 삭제 안 한 게시글 불러오기
+	@Override
+	public Map<String, Object> adminFaqList(FAQ condition,int cp) {
+		
+		int faqListCount = mapper.faqListCount(condition);
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList = mapper.adminFaqList(condition,rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+
+
+		return adminFaqMap;
+	}
+	
+	//FAQ 삭제한 게시글 불러오기
+	@Override
+	public Map<String, Object> adminFaqDeletedList(FAQ condition,int cp) {
+		int faqListCount = mapper.faqListFilterDeletedCount(condition);
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList = mapper.adminFaqDeletedList(condition,rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+
+
+		return adminFaqMap;
+	}
+
 
 	// FAQ (자주 찾는 질문) 게시글 조회
 	@Override
@@ -721,7 +790,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> getFaqSearchList(FAQ condtion, int cp) {
 
-		int faqListCount = mapper.faqFilterListCount(condtion);
+		int faqListCount = mapper.faqListCount(condtion);
 
 		Pagination pagination = new Pagination(faqListCount, cp);
 		// 1) offset 계산
@@ -739,20 +808,86 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminFaqMap;
 	}
+	
+	@Override
+	public Map<String, Object> getFaqAllSearchList(FAQ condition, int cp) {
+		
+		int faqListCount = mapper.faqFilterAllListCount(condition);
 
+		Pagination pagination = new Pagination(faqListCount, cp);
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList =  mapper.getFaqAllSearchList(condition,rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+		
+		return adminFaqMap;
+	}
+
+	//FAQ 삭제한 글 검색
+	@Override
+	public Map<String, Object> getFaqDeletedSearchList(FAQ condition, int cp) {
+		
+		int faqListCount = mapper.faqListDeletedCount(condition);
+
+		Pagination pagination = new Pagination(faqListCount, cp);
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<FAQ> adminFaqList =  mapper.getFaqDeletedSearchList(condition,rowBounds);
+
+		Map<String, Object> adminFaqMap = new HashMap<String, Object>();
+		
+		adminFaqMap.put("pagination", pagination);
+		adminFaqMap.put("adminFaqList", adminFaqList);
+		
+		return adminFaqMap;
+	}
+
+	
+	
 	// 지난 주 요일별 매출
 	@Override
 	public List<SalesByPeriod> getSalesByDay() {
 		return mapper.getSalesByDay();
 	}
 
-	//FAQ 개수
+	//FAQ 전체 개수
+	@Override
+	public int faqListAllCount() {
+		
+		return mapper.faqListAllCount();
+	}
+	//FAQ 삭제 안 한 게시글 수
 	@Override
 	public int faqListCount() {
 		
-		int faqListCount = mapper.faqListCount();
+		return mapper.faqListCount();
+	}
+
+	//FAQ 삭제한 게시글 수
+	@Override
+	public int faqListDeletedCount() {
+
+		return  mapper.faqListDeletedCount();
+	}
+
+	
+	//FAQ 선택 복구
+	@Override
+	public int restoreFaq(int FAQNo) {
 		
-		return faqListCount;
+		return mapper.restoreFaq(FAQNo);
 	}
 
 	//신고하기*************************************************************************************
@@ -986,6 +1121,22 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.adminReviewOne(reviewNo);
 	}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

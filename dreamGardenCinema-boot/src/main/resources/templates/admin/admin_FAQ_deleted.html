@@ -26,7 +26,7 @@
             <!-- 검색창 -->
             <div class="admin_faqSearchWrap">
                 <div class="admin_faqSearchWrap2">
-                    <form th:action="@{/getFaqSearchList}" autocomplete="off">
+                    <form th:action="@{/getFaqDeletedSearchList}" autocomplete="off">
                         <select class="admin_faqSelect" name="type" id="">
                             <option value="number">번호</option>
                             <option value="title">제목</option>
@@ -107,7 +107,7 @@
 
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                    <li><a th:href="@{/adminFaq(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminFAQDeleted(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -119,7 +119,7 @@
                             <a class="current" th:text="${i}">현재 페이지</a>
                         </li>
                         <li th:unless="${i == pagination.currentPage}">
-                            <a th:text="${i}" th:href="@{adminFaq/z(cp=${i})}"></a>
+                            <a th:text="${i}" th:href="@{/adminFAQDeleted(cp=${i})}"></a>
                         </li>
                     </th:block>
 
@@ -130,7 +130,7 @@
 
                     <!-- 현재 페이지를 제외한 나머지 -->
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:href="@{/adminFaq(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                        <a th:href="@{/adminFAQDeleted(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                     </li>
                     </th:block>
 
@@ -140,7 +140,7 @@
                     </li>
                    -->
                     <!-- 끝 페이지로 이동 -->
-                    <li><a th:href="@{/adminFaq(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                    <li><a th:href="@{/adminFAQDeleted(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
                 </ul>
             </div>
 
@@ -148,14 +148,14 @@
 
             <!-- 등록,수정,삭제 버튼 -->
             <div class="admin_faqBtn">
-                <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
+         <!--        <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button> -->
                 <!--                   <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button> -->
-                <button class="admin_faqEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+                <button class="admin_faqEndBtn" id="restoreBtn"><a href="">복구</a></button>
             </div>
 
         </div>
 
-        <script src="\js\admin\admin_FAQ.js"></script>
+        <script src="\js\admin\admin_FAQ_deleted.js"></script>
 
 </body>
 

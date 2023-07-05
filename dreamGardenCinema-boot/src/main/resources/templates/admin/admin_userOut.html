@@ -55,12 +55,13 @@
                 <span>개)</span>
             </div>
 
-            <div>
-                <span>총 회원 수 : </span>
+          
+            <div class="admin-member-count">
+                <span calss="admin-memberCount"><a th:href="@{/adminUser}">총 회원 수 : </a></span>
                 <span class="adminUserCountAll">0</span>
-                <span>일반 회원 수 : </span>
+                <span calss="admin-memberCount"><a th:href="@{/adminUserIn}">일반 회원 수 : </a></span>
                 <span class="adminUserInCountAll">0</span>
-                <span>탈퇴한 회원 수 : </span>
+                <span calss="admin-memberCount"><a th:href="@{/adminUserOut}">탈퇴한 회원 수 :</a></span>
                 <span class="adminUserOutCountAll">0</span>
             </div>
 
@@ -171,7 +172,7 @@
 
 
         <!-- 등록,수정,삭제 버튼 -->
-        <button id="admin_userSignOut"><a href="">복구</a></button>
+        <button id="admin_userSignRestore"><a href="">복구</a></button>
 
 
 

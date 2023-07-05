@@ -231,6 +231,8 @@ table > thead > tr > th:nth-child(6){
 
 
 
+.memberCount:hover{
+    text-decoration: underline;
 
-
+}
 

@@ -448,8 +448,8 @@ public class AdminController {
 
 	// 5.관리자 공지사항 리스트
 	// 조회----------------------------------------------------------------------------
-	@GetMapping("/adminNotice") //
-	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+	@GetMapping("/adminNoticeAll") //
+	public String noticeAll(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
 
 		if (paramMap.get("key") == null) {
@@ -458,6 +458,21 @@ public class AdminController {
 
 			model.addAttribute("adminNoticeMap", adminNoticeMap);
 
+		}
+		return "admin/admin_noticeAll";
+	}
+	
+	//삭제 안 한 게시글 게시판 조회
+	@GetMapping("/adminNotice") //
+	public String notice(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminNoticeMap = service.adminNoticeInList(cp);
+			
+			model.addAttribute("adminNoticeMap", adminNoticeMap);
+			
 		}
 		return "admin/admin_notice";
 	}
@@ -504,7 +519,7 @@ public class AdminController {
 		System.out.println(condition);
 		System.out.println(adminNoticeMap);
 
-		return "admin/admin_notice";
+		return "admin/admin_noticeAll";
 
 	}
 
@@ -533,7 +548,7 @@ public class AdminController {
 
 	    // 이전 페이지의 URL이 null이 아니면서 "/adminNoticeWrite"를 포함하고 있다면 "/adminNotice" 페이지로 이동
 	    if (referer != null && referer.contains("/adminNoticeWrite")) {
-	        return "redirect:/adminNotice";
+	        return "redirect:/adminNoticeAll";
 	    }
 
 	    // 이전 페이지의 URL이 없거나 "/adminNoticeWrite"를 포함하지 않는다면 "/adminNoticeRead" 페이지로 이동
@@ -925,19 +940,58 @@ public class AdminController {
 		return service.qnaListCount();
 	}
 
-	// 7. FAQ 리스트
-	// 조회----------------------------------------------------------------------------
-	@GetMapping("/adminFaq") //
-	public String faqList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+	// 7. FAQ 리스트 조회----------------------------------------------------------------------------
+	// FAQ 전체 조회
+	@GetMapping("/adminFaqAll") //
+	public String faqAllList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
 
 		if (paramMap.get("key") == null) {
 
-			Map<String, Object> adminFaqMap = service.adminFaqList(cp);
+			Map<String, Object> adminFaqMap = service.adminFaqAllList(cp);
 
 			model.addAttribute("adminFaqMap", adminFaqMap);
 		}
+		return "admin/admin_FAQAll";
+	}
+	// FAQ 삭제 안 한 게시글 전체 조회
+	@GetMapping("/adminFaq") //
+	public String faqList(Model model,@Param("type") String type, @Param("keyword") String keyword, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			FAQ condition = new FAQ();
+
+			condition.setType(type);
+			condition.setKeyword(keyword);
+
+			
+			Map<String, Object> adminFaqMap = service.adminFaqList(condition,cp);
+			
+			model.addAttribute("adminFaqMap", adminFaqMap);
+		}
 		return "admin/admin_FAQ";
+	}
+	
+	// FAQ 삭제 한 게시글 전체 조회
+	@GetMapping("/adminFaqDeleted") //
+	public String faqDeletedList(Model model,@Param("type") String type, @Param("keyword") String keyword, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			FAQ condition = new FAQ();
+
+			condition.setType(type);
+			condition.setKeyword(keyword);
+
+			
+			Map<String, Object> adminFaqMap = service.adminFaqDeletedList(condition,cp);
+			
+			model.addAttribute("adminFaqMap", adminFaqMap);
+		}
+		return "admin/admin_FAQ_deleted";
 	}
 
 	// 7-1. FAQ 게시글 조회
@@ -1053,22 +1107,67 @@ public class AdminController {
 
 		return service.deleteFaq(FAQNo);
 	}
+	// 7-3-1 FAQ 게시글 선택 복구
+	
+	@PostMapping(value = "/adminFaq/restoreFAQList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreFaqList(@RequestBody Map<String, Integer> request) {
+		int FAQNo = request.get("FAQNo");
+		System.out.println(FAQNo);
+		
+		int result =service.restoreFaq(FAQNo);
+		System.out.println(result);
+		return result;
+	}
 
 	// 7-4.FAQ 게시글 검색
-	@GetMapping("/getFaqSearchList")
-	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+	@GetMapping("/getFaqAllSearchList")
+	public String getFaqAllSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
+		
 		FAQ condition = new FAQ();
 
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object> adminFaqMap = service.getFaqSearchList(condition, cp);
+		Map<String, Object> adminFaqMap = service.getFaqAllSearchList(condition, cp);
 		model.addAttribute("adminFaqMap", adminFaqMap);
 
 		return "admin/admin_faq";
 
+	}
+	@GetMapping("/getFaqSearchList")
+	public String getFaqSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		
+		FAQ condition = new FAQ();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminFaqMap = service.getFaqSearchList(condition, cp);
+		model.addAttribute("adminFaqMap", adminFaqMap);
+		
+		return "admin/admin_faq";
+		
+	}
+	@GetMapping("/getFaqDeletedSearchList")
+	public String getFaqeSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		
+		FAQ condition = new FAQ();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminFaqMap = service.getFaqDeletedSearchList(condition, cp);
+		model.addAttribute("adminFaqMap", adminFaqMap);
+		
+		return "admin/admin_faq";
+		
 	}
 
 	// 7-5 FAQ 전체 개수 가져오기
@@ -1076,8 +1175,25 @@ public class AdminController {
 	@GetMapping("/adminFaqListAjax")
 	public int adminFaqListAjax() {
 
+		return service.faqListAllCount();
+	}
+	// 7-6 전체 삭제 안 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminFaqInListAjax")
+	public int adminFaqInListAjax() {
+		
 		return service.faqListCount();
 	}
+	// 7-7 FAQ 삭제 한 게시글 수  가져오기
+	@ResponseBody
+	@GetMapping("/adminFaqOutListAjax")
+	public int adminFaqOutListAjax() {
+		
+		return service.faqListDeletedCount();
+	}
+	
+	
+	
 
 	// 8. 신고하기 리스트
 	// 조회----------------------------------------------------------------------------

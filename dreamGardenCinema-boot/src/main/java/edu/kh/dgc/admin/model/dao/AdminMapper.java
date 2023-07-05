@@ -237,8 +237,12 @@ public interface AdminMapper {
 	 */
 	List<Notice> adminNoticeList(RowBounds rowBounds);
 
-	//공지사항 List 조회
+	//삭제된 게시글 공지사항 List 조회
 	List<Notice> adminNoticeDeletedList(RowBounds rowBounds);
+	
+	//삭제 안 된 게시글 공지사항 List 조회
+	List<Notice> adminNoticeInList(RowBounds rowBounds);
+
 
 	
 	/**
@@ -304,26 +308,28 @@ public interface AdminMapper {
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
 	/**
-	 * FAQ 게시판 개수
+	 * FAQ 게시판 전체 개수
 	 * 
 	 * @return
 	 */
-	int faqListCount();
+	int faqListAllCount();
 
-	/**
-	 * FAQ 게시판 List 조회
-	 * 
-	 * @param rowBounds
-	 * @return
-	 */
-	List<FAQ> adminFaqList(RowBounds rowBounds);
+	//FAQ 게시판 삭제 안 한 게시글 개수
+	int faqListCount(FAQ condition);
+	
+	//FAQ 게시판 List 조회
+	List<FAQ> adminFaqAllList(RowBounds rowBounds);
 
-	/**
-	 * FAQ (자주 찾는 질문) 게시글 조회
-	 * 
-	 * @param faq
-	 * @return
-	 */
+	//FAQ 게사판 삭제 안 한 List 조회
+	List<FAQ> adminFaqList(FAQ condition, RowBounds rowBounds);
+
+	//FAQ 삭제한 게시판 게시글 수
+	int faqListDeletedCount(FAQ condition);
+
+	//FAQ 삭제한 게시판 List 조회
+	List<FAQ> adminFaqDeletedList(FAQ condition, RowBounds rowBounds);
+
+	//FAQ (자주 찾는 질문) 게시글 조회
 	List<FAQ> adminFaqOne(FAQ faq);
 
 	/**
@@ -369,6 +375,28 @@ public interface AdminMapper {
 
 	List<SalesByPeriod> getSalesByDay();
 
+	//FAQ 게시글 선택 복구
+	int restoreFaq(int FAQNo);
+
+	//FAQ 삭제 안 한 게시글 가져오기
+	int faqListCount();
+	//FAQ 삭제 한 게시글 가져오기
+	int faqListDeletedCount();
+
+	//FAQ 전체 검색 수
+	int faqFilterAllListCount(FAQ condition);
+
+	//FAQ 검색에 따른 개수 불러오기
+	int faqFilterListCount(FAQ condition);
+	
+	//FAQ 검색에 따른 List 불러오기
+	List<FAQ> getFaqAllSearchList(FAQ condition, RowBounds rowBounds);
+
+	//FAQ 삭제한 게시글 검색에 따른 List 불러오기
+	List<FAQ> getFaqDeletedSearchList(FAQ condition, RowBounds rowBounds);
+
+	//	//FAQ 삭제한 게시글 검색에 따른 게시글 수 불러오기
+	int faqListFilterDeletedCount(FAQ condition);
 //신고하기 관리******************************************************************************************
 
 	/**
@@ -435,8 +463,7 @@ public interface AdminMapper {
 	//Qna 문의관리 검색에 따른 개수 불러오기
 	int qnaFilterListCount(Qna condition);
 
-	//FAQ 검색에 따른 개수 불러오기
-	int faqFilterListCount(FAQ condition);
+
 
 	int reviewFilterListCount(Review condition);
 
@@ -483,6 +510,20 @@ public interface AdminMapper {
 
 	// 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희)
 	int selectToTalTicketing(Map<String, String> map);
+
+	
+
+
+
+
+
+
+	
+
+
+
+
+
 
 
 

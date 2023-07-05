@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>notice</title>
     <link rel="stylesheet" href="\css\style.css">
-    <link rel="stylesheet" href="/css/admin/admin_notice.css">
+    <link rel="stylesheet" href="/css/admin/admin_noticeAll.css">
 </head>
 
 <body>
@@ -100,7 +100,7 @@
 
                 <!-- 첫 페이지로 이동 -->
                 <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                <li><a th:href="@{/adminNotice(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                <li><a th:href="@{/adminNoticeAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                 <!-- 이전 목록 마지막 번호로 이동 -->
                 <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -112,7 +112,7 @@
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:text="${i}" th:href="@{/adminNotice(cp=${i})}"></a>
+                        <a th:text="${i}" th:href="@{/adminNoticeAll(cp=${i})}"></a>
                     </li>
                 </th:block>
 
@@ -123,7 +123,7 @@
 
                 <!-- 현재 페이지를 제외한 나머지 -->
                 <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/adminNotice(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                    <a th:href="@{/adminNoticeAll(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                 </li>
                 </th:block>
 
@@ -133,7 +133,7 @@
                     </li>
                    -->
                 <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/adminNotice(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                <li><a th:href="@{/adminNoticeAll(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
             </ul>
         </div>
 
@@ -148,7 +148,7 @@
 
     </div>
 
-    <script src="\js\admin\admin_notice.js"></script>
+    <script src="\js\admin\admin_noticeAll.js"></script>
 </body>
 
 </html>

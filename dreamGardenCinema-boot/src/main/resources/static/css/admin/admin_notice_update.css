@@ -63,3 +63,7 @@
     color: white;
     
 }
+
+.noticeCount:hover{
+    text-decoration: underline;
+}

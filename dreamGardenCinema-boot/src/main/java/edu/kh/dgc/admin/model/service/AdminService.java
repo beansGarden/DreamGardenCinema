@@ -96,6 +96,7 @@ public interface AdminService {
 	//회원 전체 개수 가져오기
 	int userListCount();
 
+	
 
 
 	
@@ -137,6 +138,8 @@ public interface AdminService {
 	//삭제된 공지사항 조회
 	Map<String, Object> adminNoticeDeletedList(int cp);
 
+	//삭제 안 된 공지사항 조회
+	Map<String, Object> adminNoticeInList(int cp);
 	
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
@@ -165,7 +168,14 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 관리*****************************
 	
 	//FAQ (자주 찾는 질문) List 조회
-	Map<String , Object> adminFaqList(int cp);
+	Map<String , Object> adminFaqAllList(int cp);
+	
+	//FAQ (자주 찾는 질문) 삭제 안 한 게시글 List 조회
+	Map<String, Object> adminFaqList(FAQ condition, int cp);
+	
+	//FAQ (자주 찾는 질문) 삭제 한 게시글 List 조회
+	Map<String, Object> adminFaqDeletedList(FAQ condition, int cp);
+
 
 	//FAQ (자주 찾는 질문) 게시글 조회
 	List<FAQ> adminFaqOne(FAQ faq);
@@ -183,14 +193,31 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 게시글 선택 삭제
 	int deleteFaq(int fAQNo);
 
+	//FAQ (자주 찾는 질문) 게시글 전체 검색
+	Map<String, Object> getFaqAllSearchList(FAQ condition, int cp);
+	
 	//FAQ (자주 찾는 질문) 게시글 검색
 	Map<String, Object> getFaqSearchList(FAQ condtion, int cp);
 
 	// 지난 주 요일별 매출
 	List<SalesByPeriod> getSalesByDay();
 
-	//FAQ 개수
+	//FAQ 삭제 안 한 개수
 	int faqListCount();
+
+	//FAQ 전체 게시글 수
+	int faqListAllCount();
+
+	//FAQ 삭제 한 게시글 수
+	int faqListDeletedCount();
+
+	//FAQ 선택 복구
+	int restoreFaq(int FAQNo);
+	
+	//FAQ 삭제한 글 검색
+	Map<String, Object> getFaqDeletedSearchList(FAQ condition, int cp);
+
+
 
 	
 	//신고하기***********************************************************************************
@@ -262,6 +289,16 @@ public interface AdminService {
 	
 	//공지사항 삭제 한 게시글
 	int noticeOutListCount();
+
+
+
+
+
+	
+
+
+
+
 
 
 
