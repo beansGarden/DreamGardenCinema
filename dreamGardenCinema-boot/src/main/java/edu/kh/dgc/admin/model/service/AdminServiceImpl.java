@@ -67,19 +67,14 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getAdminDetails();
 	}
 
-	// 1:1문의 게시판 조회
+	//QNA 1:1문의하기 전체 게시글 ---------------------------------------------------------
 	@Override
-	public Map<String, Object> adminQnaList(int cp) {
+	public Map<String, Object> adminQnaAllList(int cp) {
 		
-		int qnalistCount = mapper.qnaListCount();
+		int qnalistCount = mapper.qnaListAllCount();
 
 		Pagination pagination = new Pagination(qnalistCount, cp);
 
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
 
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -87,7 +82,57 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Qna> qnaList = mapper.adminQnaList(rowBounds);
+		List<Qna> qnaList = mapper.adminQnaAllList(rowBounds);
+
+		Map<String, Object> adminQnamap = new HashMap<String, Object>();
+		adminQnamap.put("pagination", pagination);
+		adminQnamap.put("qnaList", qnaList);
+
+		return adminQnamap;
+
+	}
+
+	//QNA 1:1문의하기 삭제 게시글 
+	@Override
+	public Map<String, Object> adminQnaDeletedList(Qna condition,int cp) {
+		
+		int qnalistCount = mapper.qnaListDeletedCount(condition);
+
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaDeletedList(condition,rowBounds);
+
+		Map<String, Object> adminQnamap = new HashMap<String, Object>();
+		adminQnamap.put("pagination", pagination);
+		adminQnamap.put("qnaList", qnaList);
+
+		return adminQnamap;
+
+	}
+	
+	// 1:1문의 게시판 조회
+	@Override
+	public Map<String, Object> adminQnaList(Qna condition,int cp) {
+		
+		int qnalistCount = mapper.qnaListCount(condition);
+
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaList(condition,rowBounds);
 
 		Map<String, Object> adminQnamap = new HashMap<String, Object>();
 		adminQnamap.put("pagination", pagination);
@@ -151,7 +196,7 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.qnaAnswerUpdate(qnaCommentObj);
 	}
 
-	// qna 1:1 문의사항 검색
+	// qna 1:1 문의사항 삭제 안 한 게시글 검색
 	@Override
 	public Map<String, Object> getSearchList(Qna condition, int cp) {
 		
@@ -159,11 +204,28 @@ public class AdminServiceImpl implements AdminService {
 
 		Pagination pagination = new Pagination(qnalistCount, cp);
 
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaList(condition,rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
+	}
+	
+	// qna 1:1 문의사항 전체 게시글 검색
+	@Override
+	public Map<String, Object> getAllSearchList(Qna condition, int cp) {
+
+		int qnalistCount = mapper.qnaFilterListCount(condition);
+
+		Pagination pagination = new Pagination(qnalistCount, cp);
 
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -179,17 +241,58 @@ public class AdminServiceImpl implements AdminService {
 
 		return getQnaSearchMap;
 	}
+
+
+	// qna 1:1 문의사항 삭제한 게시글 검색
+	@Override
+	public Map<String, Object> getDeletedSearchList(Qna condition, int cp) {
+
+		int qnalistCount = mapper.qnaListDeletedCount(condition);
+
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaDeletedList(condition,rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
+	}
+
+	
 	
 
-	//1:1문의 Qna 게시판 
+	//1:1문의 Qna 게시판 전체 개수 세기
 	@Override
-	public int qnaListCount() {
+	public int qnaListAllCount() {
 		
-		int qnalistCount = mapper.qnaListCount();
+		int qnalistCount = mapper.qnaListAllCount();
 		
 		return qnalistCount;
 	}
 
+
+	@Override
+	public int qnaListCount() {
+		
+		return  mapper.qnaListCount();
+	}
+
+
+	@Override
+	public int qnaListDeletedCount() {
+		
+		return mapper.qnaListDeletedCount();
+	}
+
+	
 
 	// 회원****************************************************
 
@@ -316,6 +419,48 @@ public class AdminServiceImpl implements AdminService {
 	        
 	        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 	        
+			List<User> userList = mapper.adminUserOutList(condition,rowBounds);
+	        
+	        Map<String, Object> adminUserList = new HashMap<String, Object>();
+	        adminUserList.put("pagination", pagination);
+	        adminUserList.put("userList", userList);
+			
+	        return adminUserList;
+		}
+
+		//회원 게시글 검색 일반회원
+		@Override
+		public Map<String, Object> getUserInSearchList(User condition, int cp) {
+			
+			int userlistCount = mapper.userInListCount(condition);
+	        
+	        Pagination pagination = new Pagination(userlistCount, cp);
+	        
+	        int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+	        
+	        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+	        
+	        List<User> userList = mapper.adminUserInList(condition,rowBounds);
+	        
+	        Map<String, Object> adminUserList = new HashMap<String, Object>();
+	        adminUserList.put("pagination", pagination);
+	        adminUserList.put("userList", userList);
+			
+	        return adminUserList;
+		}
+
+		//회원 게시글 검색 탈퇴회원
+		@Override
+		public Map<String, Object> getUserOutSearchList(User condition, int cp) {
+			
+			int userOutlistCount = mapper.userOutListCount(condition);
+	        
+	        Pagination pagination = new Pagination(userOutlistCount, cp);
+	        
+	        int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+	        
+	        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+	        
 	        List<User> userList = mapper.adminUserOutList(condition,rowBounds);
 	        
 	        Map<String, Object> adminUserList = new HashMap<String, Object>();
@@ -325,6 +470,7 @@ public class AdminServiceImpl implements AdminService {
 	        return adminUserList;
 		}
 
+		
 	
 	// 영화***************************************************
 
@@ -1121,6 +1267,13 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.adminReviewOne(reviewNo);
 	}
+
+
+
+
+
+
+
 
 
 	

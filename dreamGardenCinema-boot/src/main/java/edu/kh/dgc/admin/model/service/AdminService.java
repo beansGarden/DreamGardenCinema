@@ -39,7 +39,7 @@ public interface AdminService {
 	List<User> getAdminDetails();
 	
 	//1:1문의 게시판 조회
-	Map<String, Object> adminQnaList(int cp);
+	Map<String, Object> adminQnaList(Qna condition,int cp);
 
 	//1:1 문의 게시글 읽기 조회
 	Qna  selectQnaOne(int qnaNo);
@@ -71,6 +71,26 @@ public interface AdminService {
 
 	//1:1문의 Qna 전체 개수 가져오기
 	int qnaListCount();
+
+	//QNA 1:1 문의 게시글 전체 리스트 불러오기
+	Map<String, Object> adminQnaAllList(int cp);
+
+	//QNA 1:1 문의 삭제되 게시글 전체 리스트 불러오기
+	Map<String, Object> adminQnaDeletedList(Qna condition,int cp);
+
+	//QNA 게시글 전체 수
+	int qnaListAllCount();
+
+	//QNA 삭제된 게시글 수
+	int qnaListDeletedCount();
+
+	//QNA 전체 검색된 게시글 
+	Map<String, Object> getAllSearchList(Qna condition, int cp);
+
+	//QNA 삭제된 게시글 검색
+	Map<String, Object> getDeletedSearchList(Qna condition, int cp);
+
+
 	
 	//회원*****************************************
 	
@@ -96,7 +116,12 @@ public interface AdminService {
 	//회원 전체 개수 가져오기
 	int userListCount();
 
-	
+	//회원 게시글 검색 일반 회원
+	Map<String, Object> getUserInSearchList(User condition, int cp);
+
+	//회원 게시글 검색 탈퇴 회원
+	Map<String, Object> getUserOutSearchList(User condition, int cp);
+
 
 
 	
@@ -289,8 +314,6 @@ public interface AdminService {
 	
 	//공지사항 삭제 한 게시글
 	int noticeOutListCount();
-
-
 
 
 

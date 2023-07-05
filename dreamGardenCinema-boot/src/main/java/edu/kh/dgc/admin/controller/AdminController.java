@@ -195,6 +195,42 @@ public class AdminController {
 		return "admin/admin_user";
 
 	}
+	// 2-2.관리자 회원 게시글 검색
+	@GetMapping("/getUserInSearchList")
+	public String getUserInSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		User condition = new User();
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> getUserSearchList = service.getUserInSearchList(condition, cp);
+		model.addAttribute("adminUserList", getUserSearchList);
+		
+		System.out.println(condition);
+		System.out.println(getUserSearchList);
+		
+		return "admin/admin_user";
+		
+	}
+	// 2-2.관리자 회원 게시글 검색
+	@GetMapping("/getUserOutSearchList")
+	public String getUserOutSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		User condition = new User();
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> getUserSearchList = service.getUserOutSearchList(condition, cp);
+		model.addAttribute("adminUserList", getUserSearchList);
+		
+		System.out.println(condition);
+		System.out.println(getUserSearchList);
+		
+		return "admin/admin_user";
+		
+	}
 
 	// 2-3 회원 전체 개수 가져오기
 	@ResponseBody
@@ -671,24 +707,66 @@ public class AdminController {
 	
 
 	// 6. 1:1 문의사항 리스트 조회
-	// 230613----------------------------------------------------------------------------
-	@GetMapping("/adminQna") //
-	public String qnaList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+	// QNA 1:1 문의사항 전체 조회
+	@GetMapping("/adminQnaAll") //
+	public String qnaAllList(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@RequestParam Map<String, Object> paramMap) {
 
 		if (paramMap.get("key") == null) {
 
-			Map<String, Object> adminQnamap = service.adminQnaList(cp);
+			Map<String, Object> adminQnamap = service.adminQnaAllList(cp);
 
 			model.addAttribute("adminQnamap", adminQnamap);
 
 			System.out.println(adminQnamap);
 
 		}
-		return "admin/admin_QNA";
+		return "admin/admin_QNAAll";
+	}
+	// QNA 1:1 문의사항 전체 조회
+	@GetMapping("/adminQna")
+	public String qnaList(@Param("type") String type, @Param("keyword") String keyword,Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Qna condition = new Qna();
+
+			condition.setType(type);
+			condition.setKeyword(keyword);
+			
+			Map<String, Object> adminQnamap = service.adminQnaList(condition,cp);
+			
+			model.addAttribute("adminQnamap", adminQnamap);
+			
+			System.out.println(adminQnamap);
+			
+		}
+		return "admin/admin_QNAAll";
+	}
+	// QNA 1:1 문의사항 삭제 안 한 게시글 전체 조회
+	@GetMapping("/adminQnaDeleted") //
+	public String qnaDeletedList(@Param("type") String type, @Param("keyword") String keyword,Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Qna condition = new Qna();
+
+			condition.setType(type);
+			condition.setKeyword(keyword);
+			
+			Map<String, Object> adminQnamap = service.adminQnaDeletedList(condition,cp);
+			
+			model.addAttribute("adminQnamap", adminQnamap);
+			
+			System.out.println(adminQnamap);
+			
+		}
+		return "admin/admin_QNA_deleted";
 	}
 
-	// 6-1. 1:1 문의사항 게시글 조회 230613
+	// QNA 1:1 문의사항 삭제 한 게시글 전체 조회
 	@GetMapping("/adminQnaRead/{qnaNo}") //
 	public String qnaRead(Model model, @PathVariable(value = "qnaNo", required = false) int qnaNo, Qna qna,
 			QnaComment qnaComment) {
@@ -912,7 +990,7 @@ public class AdminController {
 		return service.qnaDelete(qna.getQnaNo());
 	}
 
-	// 6-5 1:1 문의 게시글 검색
+	// 6-5 1:1  문의 삭제 안 한 게시글 검색
 	@GetMapping("/getSearchList")
 	public String getSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
@@ -922,7 +1000,7 @@ public class AdminController {
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
+		Map<String, Object> adminQnaMap = service.getAllSearchList(condition, cp);
 		model.addAttribute("adminQnamap", adminQnaMap);
 
 		System.out.println(condition);
@@ -931,14 +1009,77 @@ public class AdminController {
 		return "admin/admin_Qna";
 
 	}
+	// 6-5 1:1 문의 전체 게시글 검색
+	@GetMapping("/getAllSearchList")
+	public String getAllSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Qna condition = new Qna();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
+		model.addAttribute("adminQnamap", adminQnaMap);
+		
+		System.out.println(condition);
+		System.out.println(adminQnaMap);
+		
+		return "admin/admin_QnaAll";
+		
+	}
+	// 6-5 1:1 문의 삭제 한 게시글 검색
+	@GetMapping("/getDeletedSearchList")
+	public String getDeletedSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Qna condition = new Qna();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminQnaMap = service.getDeletedSearchList(condition, cp);
+		model.addAttribute("adminQnamap", adminQnaMap);
+		
+		System.out.println(condition);
+		System.out.println(adminQnaMap);
+		
+		return "admin/admin_Qna_deleted";
+		
+	}
 
 	// 6-6 Qna 전체 개수 가져오기
 	@ResponseBody
 	@GetMapping("/adminQnaListAjax")
 	public int adminQnaListAjax() {
 
+		return service.qnaListAllCount();
+	}
+	
+	// 6-6 Qna 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminQnaInListAjax")
+	public int adminQnaInListAjax() {
+		
 		return service.qnaListCount();
 	}
+	
+	// 6-6 Qna 전체 개수 가져오기
+	@ResponseBody
+	@GetMapping("/adminQnaOutListAjax")
+	public int adminQnaOutListAjax() {
+		
+		return service.qnaListDeletedCount();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// 7. FAQ 리스트 조회----------------------------------------------------------------------------
 	// FAQ 전체 조회

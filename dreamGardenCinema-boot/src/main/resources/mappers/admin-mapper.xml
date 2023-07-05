@@ -160,13 +160,77 @@
 	</select>
 
 	<!--Qna 개수 불러오기-->
-	<select id="qnaListCount" resultType="_int">
+	<select id="qnaListAllCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM "QNA"
 	</select>
+	
+	
+	
+	<!--	//QNA 1:1 문의 게시글 삭제 안 한 게시글 조회-->
+	<select id="qnaListCount" resultType="_int">
+			SELECT COUNT(*)
+		FROM QNA 
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		WHERE QNA_DELETE_FL = 'N'
+		<choose>
+			<when test="type != null and type.equals('qnaNo')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('title')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('content')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('writer')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				 AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
+			</when>
+		</choose>
+	</select>
+	
+	
+			<!--	//QNA 1:1 문의 게시글 삭제 한 게시글 조회-->
+	<select id="qnaListDeletedCount" resultType="_int">
+			SELECT COUNT(*)
+		FROM QNA 
+		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		WHERE QNA_DELETE_FL = 'Y'
+		<choose>
+			<when test="type != null and type.equals('qnaNo')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('title')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('content')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('writer')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				 AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
+			</when>
+		</choose>
+	</select>
+	
+	
+	
 
 	<!--QNA(1:1)문의 리스트 조회-->
-	<select id="adminQnaList" resultMap="qna_rm">
+	<select id="adminQnaAllList" resultMap="qna_rm">
 		SELECT
 		    QNA.QNA_NO,
 		    QNA.QNA_TITLE,
@@ -190,6 +254,68 @@
 		ORDER BY
 		    QNA.QNA_NO DESC
 			</select>
+			
+			<!--	//QNA 1:1 문의 게시글 삭제 안 한 게시글 조회-->
+	<select id="adminQnaList" resultMap="qna_rm">
+			SELECT QNA.QNA_NO, QNA.QNA_TITLE, TO_CHAR(QNA.QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,
+		USER_INFO.USER_ID,QNA.QNA_DELETE_FL
+		FROM QNA 
+		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		WHERE QNA_DELETE_FL = 'N'
+		<choose>
+			<when test="type != null and type.equals('qnaNo')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('title')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('content')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('writer')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				 AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
+			</when>
+		</choose>
+	</select>
+	
+			
+	<!--			//QNA 1:1 문의 게시글 삭제 한 게시글 조회-->
+	<select id="adminQnaDeletedList" resultMap="qna_rm">
+		SELECT QNA.QNA_NO, QNA.QNA_TITLE, TO_CHAR(QNA.QNA_ENROLL_DATE,'YYYY-MM-DD') QNA_ENROLL_DATE,
+		USER_INFO.USER_ID,QNA.QNA_DELETE_FL
+		FROM QNA 
+		JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO 
+		WHERE QNA_DELETE_FL = 'Y'
+		<choose>
+			<when test="type != null and type.equals('qnaNo')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				AND QNA.QNA_NO LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('title')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_TITLE LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('content')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" /> 
+				AND QNA.QNA_CONTENT LIKE #{formattedKeyword} 
+			</when>
+			
+			<when test="type != null and type.equals('writer')">
+				<bind name="formattedKeyword" value="'%' + keyword + '%'" />
+				 AND LOWER(USER_INFO.USER_ID) LIKE LOWER(#{formattedKeyword})
+			</when>
+		</choose>
+	</select>
+			
 
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList5" resultMap="qna_rm">
@@ -457,11 +583,10 @@
  SELECT COUNT(*)
     FROM "USER_INFO"
     WHERE USER_CLOSE = 'Y'
-    <where>
         <choose>
             <when test="type != null and type.equals('number')">
                 <if test="keyword != null and keyword != ''">
-                    AND USER_NO LIKE %' || #{keyword} || '%'
+                    AND USER_NO LIKE '%' || #{keyword} || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('name')">
@@ -485,7 +610,6 @@
                 </if>
             </when>
         </choose>
-    </where>
 </select>
 	
 	 
@@ -494,11 +618,10 @@
 		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
 		WHERE USER_CLOSE = 'Y'
-		  <where>
         <choose>
             <when test="type != null and type.equals('number')">
                 <if test="keyword != null and keyword != ''">
-                    AND USER_NO LIKE %' || #{keyword} || '%'
+                    AND USER_NO LIKE '%' || #{keyword} || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('name')">
@@ -522,7 +645,6 @@
                 </if>
             </when>
         </choose>
-    </where>
     	ORDER BY USER_RATING DESC
 </select>
 
@@ -532,12 +654,11 @@
 	 <select id="adminUserInList" resultMap="user_rm">
 		SELECT USER_NO,USER_ID,USER_EMAIL,USER_NICKNAME,TO_CHAR(USER_ENROLL_DT, 'YYYY-MM-DD') AS USER_ENROLL_DT ,USER_RATING,USER_CLOSE,USER_ROLE
 		FROM USER_INFO
-		WHERE USER_CLOSE = ''
-		  <where>
+		WHERE USER_CLOSE = 'N'
         <choose>
             <when test="type != null and type.equals('number')">
                 <if test="keyword != null and keyword != ''">
-                    AND USER_NO LIKE %' || #{keyword} || '%'
+                    AND USER_NO LIKE '%' || #{keyword} || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('name')">
@@ -561,7 +682,6 @@
                 </if>
             </when>
         </choose>
-    </where>
     	ORDER BY USER_RATING DESC
 </select>
 
@@ -572,11 +692,10 @@
  SELECT COUNT(*)
     FROM "USER_INFO"
     WHERE USER_CLOSE = 'N'
-    <where>
         <choose>
             <when test="type != null and type.equals('number')">
                 <if test="keyword != null and keyword != ''">
-                    AND USER_NO LIKE %' || #{keyword} || '%'
+                    AND USER_NO LIKE '%' || #{keyword} || '%'
                 </if>
             </when>
             <when test="type != null and type.equals('name')">
@@ -600,7 +719,6 @@
                 </if>
             </when>
         </choose>
-    </where>
 </select>
 	
 
@@ -1157,11 +1275,11 @@
 	</select>
 
 
-<select id="faqListDeletedCount" resultType="_int">
+		<select id="faqListDeletedCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM FAQ 
 		WHERE FAQ_DELETE_FL = 'Y'
-	</select>
+		</select>
 
 	<!--FAQ 삭제 안 한 게시글 개수 불러오기-->
 	<select id="faqListCount" resultType="_int">
@@ -1245,7 +1363,7 @@
 				</when>
 			</choose>
 				ORDER BY FAQ_NO DESC
-	</select>
+		</select>
 	
 
 
@@ -1254,27 +1372,27 @@
 			SELECT FAQ.FAQ_NO, FAQ.FAQ_TITLE, FAQ_CONTENT, FAQ_DELETE_FL, FAQ_CATEGORY 
 			FROM FAQ 
 			WHERE FAQ_DELETE_FL = 'Y'
-		<where>
-			<choose>
-				<when test="type != null and type.equals('number')">
-					<if test="keyword != null and keyword != ''">
-						AND FAQ_NO LIKE '%' || #{keyword} || '%'
-					</if>
-				</when>
-				<when test="type != null and type.equals('title')">
-					<if test="keyword != null and keyword != ''">
-						AND FAQ_TITLE LIKE '%' || #{keyword} || '%'
-					</if>
-				</when>
-				<when test="type != null and type.equals('content')">
-					<if test="keyword != null and keyword != ''">
-						AND FAQ_CONTENT LIKE '%' || #{keyword} || '%'
-					</if>
-				</when>
-			</choose>
-		</where>
-				ORDER BY FAQ_NO DESC
-	</select>
+			<where>
+				<choose>
+					<when test="type != null and type.equals('number')">
+						<if test="keyword != null and keyword != ''">
+							AND FAQ_NO LIKE '%' || #{keyword} || '%'
+						</if>
+					</when>
+					<when test="type != null and type.equals('title')">
+						<if test="keyword != null and keyword != ''">
+							AND FAQ_TITLE LIKE '%' || #{keyword} || '%'
+						</if>
+					</when>
+					<when test="type != null and type.equals('content')">
+						<if test="keyword != null and keyword != ''">
+							AND FAQ_CONTENT LIKE '%' || #{keyword} || '%'
+						</if>
+					</when>
+				</choose>
+			</where>
+					ORDER BY FAQ_NO DESC
+		</select>
 	
 	
 
@@ -1309,12 +1427,12 @@
 	</update>
 	
 
-<insert id="faqInsert" parameterType="FAQ" useGeneratedKeys="true">
+		<insert id="faqInsert" parameterType="FAQ" useGeneratedKeys="true">
 
 		<selectKey order="BEFORE" resultType="_int" keyProperty="FAQNo">
 			SELECT SEQ_FAQ_NO.NEXTVAL FROM DUAL
 		</selectKey> INSERT INTO "FAQ" VALUES (#{FAQNo},#{FAQTitle},#{FAQContent},DEFAULT,#{FAQCategory})
-	</insert>
+		</insert>
 
 
 	<select id="getFaqAllSearchList" parameterType="FAQ" resultMap="faq_rm"> 
@@ -1340,6 +1458,7 @@
 			</choose>
 		</where>
 	</select>
+	
 	<!--FAQ 삭제에 따른 검색  -->
 	<select id="getFaqSearchList" parameterType="FAQ" resultMap="faq_rm"> 
 		SELECT FAQ.FAQ_NO, FAQ.FAQ_TITLE, FAQ_CONTENT, FAQ_DELETE_FL, FAQ_CATEGORY 

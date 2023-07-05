@@ -47,10 +47,10 @@ public interface AdminMapper {
 	// ***1:1문의 Qnq*********************************************************
 
 	// 1:1문의 Qna 게시글 개수 불러오기
-	int qnaListCount();
+	int qnaListCount(Qna condition);
 
 	// 1:1문의 게시판 조회
-	List<Qna> adminQnaList(RowBounds rowBounds);
+	List<Qna> adminQnaList(Qna condition, RowBounds rowBounds);
 
 	// 1:1문의 게시글 읽기 조회
 	Qna selectQnaOne(int qnaNo);
@@ -78,6 +78,22 @@ public interface AdminMapper {
 
 	// 1:1문의 게시글 검색
 	List<Qna> getSearchList(Qna condition, RowBounds rowBounds);
+	
+	//QNA 1:1 문의 게시글 삭제 안 한 게시글 개수
+	int qnaListAllCount();
+
+	//QNA 1:1 문의 게시글 삭제 한 게시글 개수
+	int qnaListDeletedCount(Qna condition);
+
+	List<Qna> adminQnaDeletedList(Qna condition, RowBounds rowBounds);
+
+	List<Qna> adminQnaAllList(RowBounds rowBounds);
+	
+	//QNA 삭제 안 된 게시글 수
+	int qnaListCount();
+
+	List<Qna> adminQnaAllList(Qna condition, RowBounds rowBounds);
+
 
 	// 회원관리*****************************************************
 
@@ -304,6 +320,8 @@ public interface AdminMapper {
 
 	//공지사항 삭제 한 게시글
 	int noticeOutListCount();
+	
+	int qnaListDeletedCount();
 
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
@@ -510,6 +528,15 @@ public interface AdminMapper {
 
 	// 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희)
 	int selectToTalTicketing(Map<String, String> map);
+
+
+
+
+	
+
+
+
+
 
 	
 
