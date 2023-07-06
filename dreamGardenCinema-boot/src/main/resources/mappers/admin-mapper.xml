@@ -527,38 +527,26 @@
 <!--	//비회원만 보기-->
 	
 	 
-	 	<select id=" adminQnaNomemberList" resultMap="qna_rm">
-		SELECT
-		    QNA.QNA_NO,
-		    QNA.QNA_TITLE,
-		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		    USER_INFO.USER_NICKNAME,  USER_INFO.USER_ID,
-		    QNA.QNA_DELETE_FL,
-		    QNA.QNA_CHECK_FL,
-		    QNA_IMG.QNA_IMG_PATH
-		FROM
-		    QNA
-		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
-		LEFT JOIN (
-		    SELECT
-		        QNA_NO,
-		        MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
-		    FROM
-		        QNA_IMG
-		    GROUP BY
-		        QNA_NO
-		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
-		WHERE USER_NO2 IS NULL
-		AND QNA_DELETE_FL = 'N'
-		ORDER BY
-		    QNA.QNA_NO DESC
-	</select>
+	 	<select id="adminQnaNomemberList" resultMap="qna_rm">
+			SELECT
+			QNA.QNA_NO,
+			QNA.QNA_TITLE,
+			TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+			USER_INFO.USER_NICKNAME,  USER_INFO.USER_ID,
+			QNA.QNA_DELETE_FL,
+			QNA.QNA_CHECK_FL
+			FROM QNA
+			LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
+			WHERE USER_NO2 IS NULL
+			AND QNA_DELETE_FL = 'N'
+			ORDER BY QNA.QNA_NO DESC
+			</select>
 	 
 
 <!--	//답변 안 된 것만 보기-->
 
 	
-		 	<select id=" adminQnaMemberList" resultMap="qna_rm">
+		 	<select id="adminQnaMemberList" resultMap="qna_rm">
 		SELECT
 		    QNA.QNA_NO,
 		    QNA.QNA_TITLE,

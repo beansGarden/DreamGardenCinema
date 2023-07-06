@@ -186,7 +186,7 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 });
 /*  */
-//비회원 글만 보기
+/* //비회원 글만 보기
 window.addEventListener('DOMContentLoaded', function() {
   var nomemberLink = document.getElementById('nomember');
   var memberLink = document.getElementById('member');
@@ -223,4 +223,35 @@ window.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
- */
+ */ 
+
+//페이지네이션 답변 없을 때
+    const pagination = document.querySelector('.pagination');
+
+    pagination.addEventListener('click', (event) => {
+        if (event.target.tagName === 'A') {
+            event.preventDefault();
+            const currentPage = event.target.textContent;
+            const url = `/adminQnaAnswerYN?cp=${currentPage}`;
+            window.location.href = url;
+        }
+    });
+
+//페이지네이션 비회원
+    const nomemberBtn = document.getElementById('nomember');
+
+    pagination.addEventListener('click', (event) => {
+        if (event.target.tagName === 'A') {
+            event.preventDefault();
+            const currentPage = event.target.textContent;
+            const url = `/adminQnaAll?cp=${currentPage}`;
+            window.location.href = url;
+        }
+    });
+
+    nomemberBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const url = "/adminQnaNomember";
+        window.location.href = url;
+    });
+
