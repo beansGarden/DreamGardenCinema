@@ -81,7 +81,7 @@ public class AdminController {
 		return "admin/admin_dashboard";
 	}
 	
-	// 년도별 분기 매출
+	// 대시보드 년도별 분기 매출
 	@GetMapping("/admin/quarterlySales")
 	@ResponseBody
 	public List<SalesByPeriod> quarterlySales(String selectedYear) {
