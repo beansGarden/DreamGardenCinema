@@ -67,8 +67,7 @@ function getreportCount() {
         var countElement = document.querySelector('.adminReportCountAll');
         countElement.textContent = response;
     });
-    console.log(response);
-    console.log(countElement);
+
 }
 
 // 페이지 로드 시 영화 개수 가져오기 호출
@@ -115,6 +114,8 @@ function getReportOutCount() {
   ajaxRequest('/adminReportOutListAjax', 'GET', function(response) {
       var countElement = document.querySelector('.adminReportOutCountAll');
       countElement.textContent = response;
+      console.log(response);
+      
   });
 }
 getReportOutCount()

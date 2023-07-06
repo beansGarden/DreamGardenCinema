@@ -1745,16 +1745,14 @@
 			ORDER BY R.REPORT_NO DESC
 		</select>
 <!--신고하기 삭제 한 게시글 수-->
-
 	<select id="reportOutListCount" resultType="_int">
 		    SELECT COUNT(*)
 			FROM REPORT R
 			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
 			WHERE MR.REVIEW_DELETE_FL  = 'Y'
 		</select>
+		
 <!--신고하기 삭제 한 게시글 수-->
-
-
 <select id="adminReportOutList" resultMap="report_rm">
 			SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID,MR.REVIEW_DELETE_FL
 			FROM REPORT R
