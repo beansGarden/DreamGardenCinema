@@ -1391,6 +1391,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 
+	// 년도별 월 매출(첫 접속)
+   @Override
+   public List<SalesByPeriod> firstLoadingMonthlySalesByYear(String currentYear) {
+      
+      Map<String, String> year = new HashMap<>();
+      int lastYear = Integer.parseInt(currentYear)-1;
+      year.put("currentYear", currentYear);
+      year.put("lastYear", lastYear+"");
+      
+      return mapper.monthlySalesByYear(year);
+   }
+
+   // 년도별 월 매출
+   @Override
+   public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
+      
+      Map<String, String> year = new HashMap<>();
+      int lastYear = Integer.parseInt(selectedYear)-1;
+      year.put("currentYear", selectedYear);
+      year.put("lastYear", lastYear+"");
+      
+      return mapper.monthlySalesByYear(year);
+   }
+
+
 
 
 
