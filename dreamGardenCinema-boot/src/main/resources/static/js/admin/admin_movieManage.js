@@ -13,7 +13,6 @@ const wholeBtn = document.getElementById("whole");
 
 screenWaitBtn.addEventListener("click", (e) => {
 
-    
 
     screenType = "wait"; 
 
@@ -137,14 +136,14 @@ function selectList(){
             <td class="movieStatus">
                 <button>상세보기</button>
                 <button>수정</button>
-                <button>삭제</button>
+                // <button>삭제</button>
             </td>
         </tr>
     </tbody>
  */
 
         for(let movie of selectList){
-
+            
             const infoRow = document.createElement("tr");
 
             const movieNo = document.createElement("td");
@@ -167,9 +166,12 @@ function selectList(){
             const btnUpdate = document.createElement("button");
             btnUpdate.innerText = "수정";
             movieStatue.append(btnUpdate);
+            
+            if(screenType == 'wait' || screenType == 'down' || screenType == 'highlight'){
             const btnDelete = document.createElement("button");
             btnDelete.innerText = "삭제";
             movieStatue.append(btnDelete);
+            }
 
             movieStatue.classList.add("movieStatus");
 
@@ -177,7 +179,80 @@ function selectList(){
 
             tbody.append(infoRow);
         }
+
+
+
+        if(screenType == 'wait'){
+            if(selectList.length < 9 ){
+                const infoRow = document.createElement("tr");
+
+                const movieNo = document.createElement("td");
+                infoRow.append(movieNo);
+
+                const movieTitle = document.createElement("td");
+                infoRow.append(movieTitle);
+
+                const movieReleaseDate = document.createElement("td");
+                infoRow.append(movieReleaseDate)
+
+                const movieStatue = document.createElement("td");
+
+                const btnCreate = document.createElement("button");
+                btnCreate.innerText = "정보등록";
+                movieStatue.append(btnCreate);
+
+                movieStatue.classList.add("movieStatus");
+
+                infoRow.append(movieStatue);
+
+                tbody.append(infoRow);
+            }
+            const warningRow = document.createElement("tr");
+            const warning = document.createElement("td");
+            warning.setAttribute("colspan", 4);
+            warning.innerText = "임시대기정보는 최대 8개 까지 저장가능합니다."
+
+            warningRow.append(warning);
+
+            tbody.append(warningRow);
+        }
         
+        if(screenType == 'highlight'){
+            if(selectList.length < 8){
+            const infoRow = document.createElement("tr");
+
+            const movieNo = document.createElement("td");
+            infoRow.append(movieNo);
+
+            const movieTitle = document.createElement("td");
+            infoRow.append(movieTitle);
+
+            const movieReleaseDate = document.createElement("td");
+            infoRow.append(movieReleaseDate)
+
+            const movieStatue = document.createElement("td");
+
+            const btnCreate = document.createElement("button");
+            btnCreate.innerText = "정보등록";
+            movieStatue.append(btnCreate);
+
+            movieStatue.classList.add("movieStatus");
+
+            infoRow.append(movieStatue);
+
+            tbody.append(infoRow);
+            }
+
+            const warningRow = document.createElement("tr");
+            const warning = document.createElement("td");
+            warning.setAttribute("colspan", 4);
+            warning.innerText = "광고는 최대 8개 까지 등록가능합니다."
+
+            warningRow.append(warning);
+
+            tbody.append(warningRow);
+        }
+
     })
     .catch(err => console.log(err));
 

@@ -11,10 +11,6 @@ import edu.kh.dgc.movie.model.dto.Movie;
 @Mapper
 public interface AdminMovieManageMapper {
 
-	List<Movie> selectMovieListCurrent();
-	
-	List<Movie> selectMovieListCurrent(Object object, RowBounds rowBound);
-
 	List<Movie> selectList(Map<String, Object> requestData);
 	
 	List<Movie> selectList(Map<String, Object> requestData, RowBounds rowBound);

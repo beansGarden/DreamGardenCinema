@@ -20,13 +20,8 @@
 		<result property="ticketCount" column="TICKET_COUNT"/>
 	</resultMap>
 	
-	<select id="selectMovieListCurrent" resultMap="movie_rm">
-		SELECT *
-		FROM MOVIE
-		WHERE SCREENING = 'C' 
-	</select>
-	
 	<select id="selectList" resultMap="movie_rm">
+		
 		SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.SCREENING, M.RELEASE_DATE, I.MOVIE_IMG_ROLE
 		FROM MOVIE M
 		LEFT JOIN (
@@ -62,7 +57,9 @@
 			</when>
 
 		</choose>
+		
 		ORDER BY MOVIE_NO DESC
+		
 	</select>
 	
 	

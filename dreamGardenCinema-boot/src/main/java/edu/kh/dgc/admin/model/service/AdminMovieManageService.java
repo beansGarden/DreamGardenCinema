@@ -7,8 +7,6 @@ import edu.kh.dgc.movie.model.dto.Movie;
 
 public interface AdminMovieManageService {
 
-	List<Movie> selectmovieListCurrent();
-
 	List<Movie> selectList(Map<String, Object> requestData);
 	
 }

@@ -24,9 +24,15 @@ public class AdminMovieManageController {
 	@GetMapping("/adminMovieManage")
 	public String movieManage(Model model) {
 		
-		List<Movie> movieListCurrent = service.selectmovieListCurrent();
+		String screenType = "current";
 		
-		model.addAttribute("movieList", movieListCurrent);
+		Map<String, Object> requestData = new HashMap<>();
+		
+		requestData.put("screenType", screenType);
+		
+		List<Movie> responseData = service.selectList(requestData);
+		
+		model.addAttribute("movieList", responseData);
 
 		return "admin/admin_movieManage";
 	}
@@ -39,6 +45,7 @@ public class AdminMovieManageController {
 		
 		Map<String, Object> requestData = new HashMap<>();
 		requestData.put("screenType", screenType);
+		
 		
 		return service.selectList(requestData);
 	}

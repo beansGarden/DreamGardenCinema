@@ -17,12 +17,6 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 	private AdminMovieManageMapper mapper;
 
 	@Override
-	public List<Movie> selectmovieListCurrent() {
-		RowBounds rowBound = new RowBounds(0, 10);
-		return mapper.selectMovieListCurrent(null, rowBound);
-	}
-
-	@Override
 	public List<Movie> selectList(Map<String, Object> requestData) {
 		RowBounds rowBound = new RowBounds(0, 10);
 		return mapper.selectList(requestData, rowBound);
