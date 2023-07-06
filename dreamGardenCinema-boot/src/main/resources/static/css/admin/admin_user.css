@@ -185,6 +185,25 @@ table > thead > tr > th:nth-child(6){
 #admin_userSignOut a {
     color: white;
 }
+/* 복구버튼 */
+#admin_userSignRestore {
+    display: flex;
+    margin-left: 910px;
+    margin-top: -30px;
+    padding: 5px 14px;
+    border-radius: 5px;
+    background-color: #14313266;
+    width: 53px;
+    height: 30px;
+    text-align: center;
+    justify-content: center;
+    color: white;
+
+}
+
+#admin_userSignRestore a {
+    color: white;
+}
 
 /* 페이지네이션 */
 .pagination {
@@ -208,3 +227,11 @@ table > thead > tr > th:nth-child(6){
     text-decoration: underline;
     color: #0F0954;
 }
+
+
+
+.memberCount:hover{
+    text-decoration: underline;
+
+}
+

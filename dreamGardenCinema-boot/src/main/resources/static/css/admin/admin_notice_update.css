@@ -70,5 +70,9 @@
 
 .admin_noticeRegister a {
     color: white;
+    
+}
 
+.noticeCount:hover{
+    text-decoration: underline;
 }

@@ -1,22 +1,23 @@
 /* 전체 감싸는 div */
-.admin_userWrap{
+.admin_noticeWrap{
     width: 1000px;
     display: block;
     margin: 100px auto;
+    height: auto;
     top:-1000px;
     left:400px;
     position:relative;
 }
 
 /* 게시판 제목 */
-#admin_userTitle{
+#admin_noticeTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
 
 }
 /* 유저검색 창 */
-.admin_userSearchWrap{
+.admin_noticeSearchWrap{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +28,7 @@
 }
 
 /* 검색창 감싸는 div */
-.admin_userSearchWrap2{
+.admin_noticeSearchWrap2{
     border: 1px solid black;
     width: 70%;
     padding: 10px;
@@ -35,14 +36,14 @@
 }
 
 /* select 선택창 */
-.admin_userSelect{
+.admin_noticeSelect{
     border: none;
     outline: none;
 
 }
 
 /* 검색창 */
-.admin_userInput{
+.admin_noticeInput{
     width: 400px;
     border: none;
     outline: none;
@@ -51,7 +52,7 @@
 
 
 /* 검색버튼 */
-.admin_userBtn{
+.admin_noticeSearchBtn{
    margin: 0px 10px;
    padding: 5px 15px;
    border-radius: 5px;
@@ -63,7 +64,7 @@
 
 
 /* 게시판 테이블 감싸는 div */
-.admin_userBoardWrap {
+.admin_noticeBoardWrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,82 +74,68 @@
 }
 
 /* 게시판 테이블 */
-.admin_userBoardWrap > table{
+.admin_noticeBoardWrap > table{
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
-    width: 100%;
-
+    width: 1000px;
+    table-layout: fixed;
 
 }
 
 /* 테이블 th,td 칸 */
-.admin_userBoardWrap > table >th,td{
+.admin_noticeBoardWrap > table >th,td{
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
     text-align: center;
 
-    
 }
-/* 체크박스 */
-table > thead > tr > th:nth-child(1){
-    width: 53px;
-}
-
-table > thead > tr > th:nth-child(4){
-    width: 100px;
-
+/* input */
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(1){
+    width: 30px;
 }
 
 /* 번호 */
-table > thead > tr > th:nth-child(2){
-    width: 60px;
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(2){
+    width: 30px;
 }
 
-/* 아이디 */
-table > thead > tr > th:nth-child(3){
-    width: 130px;
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(3){
+    width: 350px;
 }
 
-/* 닉네임 */
-table > thead > tr > th:nth-child(6){
- width: 120px;
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(4){
+    width: 80px;
 }
 
-/* 구분 */
-table > thead > tr > th:nth-child(4){
-    width: 93px;
+body > main > div.admin_noticeWrap > div.admin_noticeBoardWrap > table > thead > tr > th:nth-child(5){
+    width: 50px;
 }
 
-/* 이메일 */
-table > thead > tr > th:nth-child(5){
-    width: 250px;
-}
-/* 닉네임 */
-table > thead > tr > th:nth-child(6){
-    width: 140;
-}
 
+
+
+
+
+/* 등록,수정,삭제 감싸는 div */
+.admin_noticeBtn{
+    display: flex;
+    margin-left: 75%;
+    
+}
 
 /* 등록버튼 */
-
-#admin_userSignRestore {
-    display: flex;
-    margin-left: 840px;
-    margin-top: -50px;
-    padding: 5px 14px;
+.admin_noticeEndBtn{
+    margin: 50px 10px;
+    padding: 5px 15px;
     border-radius: 5px;
-    background-color: #14313266;
-    width: 53px;
-    height: 30px;
-    text-align: center;
-    justify-content: center;
-    color: white;
-
+    background-color: #0F0954;
+    
 }
 
-#admin_userSignRestore a {
+.admin_noticeEndBtn a{
     color: white;
+    
 }
 
 /* 페이지네이션 */
@@ -174,3 +161,6 @@ table > thead > tr > th:nth-child(6){
     color: #0F0954;
 }
 
+.noticeCount:hover{
+    text-decoration: underline;
+}

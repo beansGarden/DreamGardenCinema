@@ -132,7 +132,7 @@ table > thead > tr > th:nth-child(6){
 
 /* 등록버튼 */
 
-#admin_userSignRestore {
+#admin_userSignOut {
     display: flex;
     margin-left: 840px;
     margin-top: -50px;
@@ -147,7 +147,7 @@ table > thead > tr > th:nth-child(6){
 
 }
 
-#admin_userSignRestore a {
+#admin_userSignOut a {
     color: white;
 }
 

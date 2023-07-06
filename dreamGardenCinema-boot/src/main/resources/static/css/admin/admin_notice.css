@@ -221,3 +221,7 @@ body>main>div.admin_noticeWrap>div.admin_noticeBoardWrap>table>thead>tr>th:nth-c
     text-decoration: underline;
     color: #0F0954;
 }
+
+.noticeCount:hover{
+    text-decoration: underline;
+}
