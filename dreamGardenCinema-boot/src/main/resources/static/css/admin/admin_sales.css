@@ -1,0 +1,9 @@
+/* 전체 감싸는 div */
+.admin_salesWrap{
+    width: 1000px;
+    display: block;
+    margin: 100px auto;
+    top:-1000px;
+    left:400px;
+    position:relative;
+}
