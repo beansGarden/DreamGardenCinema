@@ -318,8 +318,14 @@ public interface AdminService {
 	// 년도별 분기 매출
 	List<SalesByPeriod> quarterlySales(String selectedYear);
 
-	// 년도별 분기 매출(처음 들어갔을때)
+	// 년도별 분기 매출(첫 접속)
 	List<SalesByPeriod> firstLoadingQuarterlySales(String currentYear);
+
+	// 년도별 월 매출(첫 접속)
+	List<SalesByPeriod> firstLoadingMonthlySalesByYear(String currentYear);
+
+	// 년도별 월 매출
+	List<SalesByPeriod> monthlySalesByYear(String selectedYear);
 
 
 

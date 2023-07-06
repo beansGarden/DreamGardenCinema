@@ -532,6 +532,9 @@ public interface AdminMapper {
 	// 년도별 분기 매출
 	List<SalesByPeriod> quarterlySales(String selectedYear);
 
+	// 년도별 월 매출
+	List<SalesByPeriod> monthlySalesByYear(Map<String, String> year);
+
 
 
 

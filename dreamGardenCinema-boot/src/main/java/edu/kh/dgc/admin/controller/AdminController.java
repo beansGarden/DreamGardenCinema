@@ -1540,32 +1540,44 @@ public class AdminController {
     }   
         // 9-6. 리뷰관리 게시글 선택 복구
         
-        @PostMapping(value = "adminReivew/restoreReviewList", produces = "application/json; charset=UTF-8")
-        @ResponseBody
-        public int restoreReviewList(@RequestBody Map<String, Integer> request) {
-            int reviewNo = request.get("reviewNo");
-            
-            System.out.println(reviewNo);
-        	
-            return service.restoreReview(reviewNo);
+    @PostMapping(value = "adminReivew/restoreReviewList", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public int restoreReviewList(@RequestBody Map<String, Integer> request) {
+        int reviewNo = request.get("reviewNo");
+        
+        System.out.println(reviewNo);
+    	
+        return service.restoreReview(reviewNo);
         
         
         
     }
+        
+    // 매출관리***************************************************(근태)***********
     
-        
-        
-        
-      //매출관리***************************************************(근태)***********
-        
-    	@GetMapping("/adminSales") //
-    	public String adminSales() {
-
-    		return "admin/admin_sales";
-    	}
-        
-        
-        
+  	@GetMapping("/adminSales") //
+  	public String adminSales(Model model) {
+  		
+  		LocalDate currentDate = LocalDate.now();
+  		String currentYear = ""+currentDate.getYear();
+  		
+  		// 지난주 요일별 매출
+        List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
+		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
+		
+		// 년도별 월 매출
+		List<SalesByPeriod>firstLoadingMonthlySalesByYear = service.firstLoadingMonthlySalesByYear(currentYear);
+		model.addAttribute("firstLoadingMonthlySalesByYear", firstLoadingMonthlySalesByYear);
+		
+  		return "admin/admin_sales";
+  	}
+  	
+	// 년도별 월 매출
+	@GetMapping("/admin/monthlySalesByYear")
+	@ResponseBody
+	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
+		return service.monthlySalesByYear(selectedYear); 
+	}
         
         
         
