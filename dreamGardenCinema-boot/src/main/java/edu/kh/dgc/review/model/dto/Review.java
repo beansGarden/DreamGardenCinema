@@ -22,4 +22,15 @@ public class Review {
 	
 	//JOIN
 	private String movieTitle;
+	
+	//User Join
+	private String userId;
+	private String userNickname;
+	
+	//JOIN
+	private int reportNo;
+	
+	//검색필터
+		private  String type;
+		private String keyword;
 }

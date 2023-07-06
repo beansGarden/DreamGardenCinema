@@ -93,18 +93,6 @@ for(let i=0;i<movieTt.length;i++){
     })
 }
 
-// const deleteBtn = document.querySelectorAll(".deleteBtn");
-// for(let i=0;i<deleteBtn;i++){
-//     deleteBtn[i].addEventListener("click", ()=> {
-//         if(confirm("정말 삭제하시겠습니까?")){
-    
-//         }
-//         console.log(e.target.parentNode.parentNode.parentNode.previousElementSibling.innerText);
-//         console.log(e.target.parentNode.parentNode.parentNode.previousElementSibling.parentNode.nextElementSibling.nextElementSibling.innerText);
-//         console.log(e.target.parentNode.parentNode.parentNode.previousElementSibling.parentNode.previousElementSibling.innerText);
-//     });
-// };
-
 function deleteTime(e){
     if(confirm("정말 삭제하시겠습니까?")){
     
@@ -190,8 +178,47 @@ registBtn.addEventListener("click", () => {
 function cinemaSelectAll(cinemaSelectAll) { //온클릭 
     const checkboxes
       = document.querySelectorAll('input[type="checkbox"]'); //체크박스 전체 불러오기
-  
+
     checkboxes.forEach((checkbox) => { //체크박스 전체 선택
       checkbox.checked = cinemaSelectAll.checked //체크박스누르면 
     })
-  }
+}
+
+const deleteBtn = document.getElementById("delete");
+deleteBtn.addEventListener("click", () => {
+    const checkList = document.querySelectorAll(".chkbx:checked");
+
+    if(checkList.length == 0){
+        return;
+    }
+
+    if(confirm("정말 삭제하시겠습니까?")){
+        let dataList = [];
+        for(let i=0;i<checkList.length;i++){
+            let data = {}
+            let movieTheater = checkList[i].parentNode.nextElementSibling.innerText;
+            let movieNo = checkList[i].parentNode.nextElementSibling.nextElementSibling.children[0].getAttribute("movieNo");
+            let movieTime = checkList[i].parentNode.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText;
+            data.movieTheater = movieTheater;
+            data.movieNo = movieNo;
+            data.movieTime = movieTime;
+            dataList.push(data);
+        }
+        console.log(dataList);
+        let formData = JSON.stringify(dataList);
+        console.log(formData);
+        let f = document.createElement('form');
+
+        let obj;
+        obj = document.createElement('input');
+        obj.setAttribute('type', 'hidden');
+        obj.setAttribute('name', 'formData');
+        obj.setAttribute('value', formData);
+
+        f.append(obj);
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/adminCinemaDelete');
+        document.body.appendChild(f);
+        f.submit();
+    }
+})

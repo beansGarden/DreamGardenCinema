@@ -33,7 +33,7 @@
                         <option value="content">내용</option>
                         <option value="reportedNo">리뷰번호</option>
                         <option value="writer">신고한 유저</option>
-                        <option value="reporedWriter">신고당한 유저</option>
+                        <option value="reportedWriter">신고당한 유저</option>
                     </select>
                     <!-- 검색 input 창 -->
 
@@ -57,10 +57,15 @@
             <span>개)</span>
 
         </div>
+        <div>
+            <span>총 게시글 개수 :</span>
+            <span class="adminReportCountAll">0</span>
+        </div>
+
 
         <!-- 게시판 -->
         <div class="admin_reportBoardWrap">
-            <table id="boardTable">
+            <table id="boardTable" style='table-layout:fixed'>
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="" id="" class="admin_reportCheckboxAll"
@@ -81,12 +86,15 @@
                         <td><a th:href="@{adminReportRead/{reportNo}(reportNo=${list.reportNo})}" th:text="${list.reportTitle}">게시글
                                 번호</a></td>
                         <td th:text="${list.reviewNo}"></td>
-                        <td th:text="${list.writerNo}"></td>
-                        <td th:text="${list.reportedNo}"></td>
-                        <td th:text="${list.reportFl}" id="reportCheckFl"></td>
-
+                        <td th:text="${list.reportWriter}"></td>
+                        <td th:text="${list.reportedId}"></td>
+                        <td th:text="${list.reviewDeleteFl}" id="reportCheckFl"></td>
                     </tr>
-
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminReportList)}">
+                    <tr>
+                        <td colspan="7">조회하는 결과가 없습니다.</td>
+                    </tr>
                 </tbody>
 
             </table>

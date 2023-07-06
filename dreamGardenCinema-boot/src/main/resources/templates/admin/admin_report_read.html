@@ -63,7 +63,7 @@
                     <input type="hidden" th:value="${list.reviewNo}" name="reviewNo" >                    
                     <td colspan="1" th:text="${list.reviewContent}">리뷰내용</td>
                     <td  colspan="1"  th:text="${list.reportedNo}">2023.05.31</td>
-                    <td colspan="1"  th:text="${list.reportFl}">처리여부</td>
+                    <td colspan="1" class="deleteFl" th:text="${list.reviewDeleteFl}">처리여부</td>
                 </tr>
                 
                    
@@ -80,7 +80,9 @@
     <!-- 등록,수정,삭제 버튼 -->
     <div class="admin_reportBtn">
 
-        <button class="admin_reportEndBtn">   <a th:each="list : ${report}" th:href="@{/adminReportDelete/{reportNo}/delete(reportNo=${list.reportNo}, reviewNo=${list.reviewNo})}">리뷰삭제</a></button>
+        <button class="admin_reportEndBtn">  
+            <a th:each="list : ${report}" th:href="@{/adminReportDelete/{reportNo}/delete(reportNo=${list.reportNo}, reviewNo=${list.reviewNo})}">리뷰삭제</a>
+        </button>
 
     </div>
 
@@ -94,16 +96,6 @@
 
     </div>
     <script src="\js\admin\admin_report_read.js"></script>
-    <script>
-        // 메인화면 페이지 로드 함수
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                placeholder: '내용을 작성하세요',
-                height: 400,
-                maxHeight: 400
-            });
-        });
-    </script>
 </body>
 
 </html>

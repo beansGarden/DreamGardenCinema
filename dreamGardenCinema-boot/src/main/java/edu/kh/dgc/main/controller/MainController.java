@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.kh.dgc.movie.model.dto.Movie;
-import edu.kh.dgc.movie.model.service.MovieService;
+import edu.kh.dgc.movie.model.service.MovieListService;
 import edu.kh.dgc.notice.model.dto.Notice;
 import edu.kh.dgc.notice.model.service.NoticeService;
 
@@ -20,7 +20,7 @@ public class MainController {
 	private NoticeService noticeService;
 	
 	@Autowired
-	private MovieService movieService;
+	private MovieListService movieService;
 	
 	@RequestMapping("/")
 	public String mainForward(Model model) {

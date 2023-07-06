@@ -34,6 +34,11 @@ public interface AdminMapper {
 	List<User> getAdminDetails();
 
 	// *****대시보드********************************************************
+
+	//영화 상역작 불러오기
+	List<Movie> cinemaCurrentList();
+
+	
 	// 영화별 매출 불러오기
 	List<Ticket> ticketList(String movieNo);
 
@@ -72,7 +77,7 @@ public interface AdminMapper {
 	int qnaAnswerInsert(QnaComment qnaCommentObj);
 
 	// 1:1문의 게시글 검색
-	List<Qna> getSearchList(RowBounds rowBounds);
+	List<Qna> getSearchList(Qna condition, RowBounds rowBounds);
 
 	// 회원관리*****************************************************
 
@@ -97,6 +102,13 @@ public interface AdminMapper {
 	 */
 	int userDelete(int userNo);
 
+	
+	/**회원 선택 복구
+	 * @param userNo
+	 * @return
+	 */
+	int restoreUserList(int userNo);
+	
 	/**
 	 * 회원 검색
 	 * 
@@ -106,31 +118,37 @@ public interface AdminMapper {
 	 */
 	List<User> getUserSearchList(User condition, RowBounds rowBounds);
 
+	/**회원 검색에 따른 회원 수 불러오기
+	 * @param condition
+	 * @return
+	 */
+	int userfilterListCount(User condition);
+
 	// 영화 관리******************************************************
 
-	/**
-	 * 영화 개수
-	 * 
-	 * @return
-	 */
-	int movieListCount();
-
-	/**
-	 * 영화 List 조회
-	 * 
-	 * @param rowBounds
-	 * @return
-	 */
-	List<Movie> adminMovieList(RowBounds rowBounds);
-
-	/**
-	 * 영화 검색
-	 * 
-	 * @param condition
-	 * @param rowBounds
-	 * @return
-	 */
-	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
+//	/**
+//	 * 영화 개수
+//	 * 
+//	 * @return
+//	 */
+//	int movieListCount();
+//
+//	/**
+//	 * 영화 List 조회
+//	 * 
+//	 * @param rowBounds
+//	 * @return
+//	 */
+//	List<Movie> adminMovieList(RowBounds rowBounds);
+//
+//	/**
+//	 * 영화 검색
+//	 * 
+//	 * @param condition
+//	 * @param rowBounds
+//	 * @return
+//	 */
+//	List<Movie> getMovieSearchList(Movie condition, RowBounds rowBounds);
 
 	// 상영관 List 조회************************************************
 	/**
@@ -189,6 +207,10 @@ public interface AdminMapper {
 	 */
 	int noticeListCount();
 
+	//삭제된 공지사항 개수 세기
+	int noticeDeletedListCount();
+	
+	
 	/**
 	 * 공지사항 List 조회
 	 * 
@@ -197,6 +219,10 @@ public interface AdminMapper {
 	 */
 	List<Notice> adminNoticeList(RowBounds rowBounds);
 
+	//공지사항 List 조회
+	List<Notice> adminNoticeDeletedList(RowBounds rowBounds);
+
+	
 	/**
 	 * 공지사항 게시글 조회
 	 * 
@@ -213,6 +239,14 @@ public interface AdminMapper {
 	 */
 	int noticeWriteInsert(Notice notice);
 
+	
+	/**공지사항 수정
+	 * @param notice
+	 * @return
+	 */
+	int noticeUpdate(Notice notice);
+
+	
 	/**
 	 * 공지사항 게시글 삭제
 	 * 
@@ -220,6 +254,19 @@ public interface AdminMapper {
 	 * @return
 	 */
 	int noticeDelete(int noticeNo);
+	
+	
+	/**공지사항 게시글 선택 복구
+	 * @param noticeNo
+	 * @return
+	 */
+	int noticeRestore(int noticeNo);
+	
+	/**공지사항 검색에 따른 게시글 개수
+	 * @param condition
+	 * @return
+	 */
+	int noticeFilterListCount(Notice condition);
 
 	/**
 	 * FAQ (자주 찾는 질문) 게시글 검색
@@ -354,7 +401,57 @@ public interface AdminMapper {
 	List<Review> adminReviewList(RowBounds rowBounds);
 
 	//리뷰 검색
-	List<Review> getReviewSearchList(RowBounds rowBounds);
+	List<Review> getReviewSearchList(Review condition, RowBounds rowBounds);
+
+	//영화 관 별 개수
+	int movieCinemaCount();
+
+	int movieCinemaCount(String movieTheaterNo);
+
+	//Qna 문의관리 검색에 따른 개수 불러오기
+	int qnaFilterListCount(Qna condition);
+
+	//FAQ 검색에 따른 개수 불러오기
+	int faqFilterListCount(FAQ condition);
+
+	int reviewFilterListCount(Review condition);
+
+	//신고하기 검색에 따른 개수 불러오기
+	int reportFilterListCount(Report condition);
+
+	//탈퇴한 회원 수 불러오기
+	int userOutListCount(User condition);
+
+	//탈퇴한 회원 리스트 불러오기
+	List<User> adminUserOutList(User condtion,RowBounds rowBounds);
+
+	int userInListCount();
+
+	int userOutListCount();
+
+	//리뷰 복구
+	int restoreReview(int reviewNo);
+
+	//영화 검색에 따른 개수 불러오기
+	int movieFilterListCount(Movie condition);
+
+	//리뷰 게시글 읽어오기
+	List<Review> adminReviewOne(int reviewNo);
+
+	//공지사항 삭제 안 한 게시글 
+	int noticeInListCount();
+
+	//공지사항 삭제 한 게시글
+	int noticeOutListCount();
+
+	
+	
+
+	
+
+	
+
+
 
 	
 	// 상영관 리스트 조회(찬희)
@@ -369,7 +466,15 @@ public interface AdminMapper {
 	// 상영관 세부 시간 삭제(찬희)
 	int deleteDetailTime(Schedule schedule);
 
-	// 예약된 좌석이 있는지 확인(찬희)
+	// 삭제할 세부 시간에 예약된 좌석이 있는지 확인(찬희)
 	int selectTicketing(Schedule schedule);
+
+	// 체크한 상영정보 삭제하기(찬희)
+	int deleteTotalTime(List<Map<String, String>> dataList);
+
+	// 체크한 상영정보에 예약된 좌석이 있는지 확인(찬희)
+	int selectToTalTicketing(Map<String, String> map);
+
+
 
 }

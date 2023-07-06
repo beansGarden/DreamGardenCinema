@@ -89,10 +89,42 @@
     padding: 10px 20px;
     margin: 10px;
     text-align: center;
+        table-layout: fixed;
 
 }
+/* 체크박스 */
+#boardTable > thead > tr > th:nth-child(1){
+    width: 35px;
+}
+/* 번호 */
+#boardTable > thead > tr > th:nth-child(2){
+    width: 35px;
+}
 
-/*  */
+/* 내용 */
+#boardTable > thead > tr > th:nth-child(3){
+    width: 250px;
+}
+/* 등록일 */
+#boardTable > thead > tr > th:nth-child(4){
+    width: 100px;
+}
+/* 등록인 */
+#boardTable > thead > tr > th:nth-child(5){
+    width: 70px;
+}
+
+/* 삭제여부 */
+#boardTable > thead > tr > th:nth-child(6){
+    width: 35px;
+}
+
+/* 답변여부 */
+#boardTable > thead > tr > th:nth-child(7){
+    width: 35px;
+}
+
+
 
 
 /* 등록,수정,삭제 감싸는 div */
@@ -139,4 +171,3 @@
     color: #0F0954;
 }
 
- 

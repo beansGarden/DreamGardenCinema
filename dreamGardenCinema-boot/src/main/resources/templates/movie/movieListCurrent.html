@@ -10,9 +10,6 @@
     <link rel="stylesheet" th:href="@{/css/movie/movie.css}">
 
 
-    <!-- 구글 아이콘 > 아래방향 -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
 </head>
 <body>
 
@@ -24,19 +21,19 @@
 
             <ul class="font1 movie-type">
 
-                <li><button id="typeCurrent" class="font1 active" th:href="@{/movie/current}">현재 상영작</button></li>
+                <li><button id="releaseCurrent" class="font1 active" th:href="@{/movie/current}">현재 상영작</button></li>
 
-                <li><button id="typePromise" class="font1 non-active" th:href="@{/movie/promise}">상영 예정작</button></li>
+                <li><button id="releasePromise" class="font1 non-active" th:href="@{/movie/promise}">상영 예정작</button></li>
 
             </ul>
 
             <div class="font3 nav-menu">
 
-                <button class="sort-active" id="byTicket">예매순</button>
+                <button class="sort-active" id="byTicket" onclick="byTicketBtn()">예매순</button>
                 |
-                <button class="sort-non-active" id="byStar">평점순</button>
+                <button class="sort-non-active" id="byStar" onclick="byStarBtn()">평점순</button>
                 |
-                <button class="sort-non-active" id="byReview">관람평 많은순</button>
+                <button class="sort-non-active" id="byReviewNum" onclick="byReviewNumBtn()">관람평 많은순</button>
             
 
             </div>
@@ -51,9 +48,10 @@
                 <div class="movie-poster-container">
                     <img class="movie-poster" th:src="${movie.poster}">
                     <img class="movie-rating" th:src="${movie.rating}">
+                    <em th:text="${movie.rank}">순위</em>
                     <div class="movie-action">
                         <a class="font4" th:href="@{/ticketing/date/} + ${movie.movieNo}">예매하기</a>
-                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}|}">상세보기</a>
+                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}&screen=current|}">상세보기</a>
                     </div>
                 </div>
                 
@@ -73,17 +71,6 @@
 
         </div>
 
-        <div class="movieList--more">
-            <button class="font4" id="listMore">
-                
-                펼쳐보기 
-                
-                <span class="material-symbols-outlined more-icon">
-                expand_more
-                </span> 
-
-            </button>
-        </div>
     </section>
 
     <section class="movie--bot__banner">
