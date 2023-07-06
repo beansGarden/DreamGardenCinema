@@ -94,12 +94,13 @@ body{
 }
 .ticketBox{
     width: 100%;
-    height: 820px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
 .ticketBox>div:first-child{
     font-size: 40px;
     font-weight: bold;
