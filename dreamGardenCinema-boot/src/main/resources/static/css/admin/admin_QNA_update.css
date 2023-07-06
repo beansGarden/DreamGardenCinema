@@ -1,58 +1,65 @@
-
 /* 전체 감싸는 div */
-.admin_qnaWrap{
+.admin_qnaWrap {
     width: 1000px;
     display: block;
     margin: 100px auto;
     height: auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+    top: -1000px;
+    left: 400px;
+    position: relative;
 }
 
 /* 게시판 제목 */
-#admin_qnaTitle{
-    color:#0F0954;
+#admin_qnaTitle {
+    color: #0F0954;
     font-size: 30px;
     font-weight: bold;
-   
+
 }
 
 /* 제목 입력하는 칸 */
-.admin_qnaTableInput{
+.admin_qnaTableInput {
     width: 900px;
     margin: 20px;
     outline: none;
-    border:none;
-    
+    border: none;
+
 }
 
 
-.admin_qnaContentWrap{
+.admin_qnaContentWrap {
     margin: 20px;
 
 }
 
 /* 글쓰기 textarea */
-#summernote{
+#summernote {
     width: 1000px;
     height: 500px;
     margin: 20px 10px;
     border: 1px solid black;
-    padding:0px;
+    padding: 0px;
     resize: none;
 
 }
-/* 등록버튼 */
-.admin_qnaRegister{
-    margin-left: 90%;
-    padding: 5px 15px;
-    border-radius: 5px;
-    background-color: #0F0954;
 
+/* 등록버튼 */
+.admin_qnaRegister {
+    padding: 5px 6px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
 }
 
-.admin_qnaRegister{
+/* 등록버튼 hover */
+.admin_qnaRegister:hover {
+    font-size: 13px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+.admin_qnaRegister {
     color: white;
-    
+
 }

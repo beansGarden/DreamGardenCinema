@@ -101,6 +101,8 @@
 		<result property="year" column="YEAR" />
 		<result property="quarter" column="QUARTER" />
 		<result property="quarterlySales" column="TOTAL_AMOUNT" />
+		<result property="yearAndMonth" column="YEAR_AND_MONTH" />
+		<result property="monthlySalesByYear" column="MONTHLY_SALES_BY_YEAR" />
 	</resultMap>
 	
 	
@@ -1685,7 +1687,24 @@
 		  TO_CHAR(TICKETING_TIME, 'YYYY'),
 		  TO_CHAR(TICKETING_TIME, 'Q')
 	</select>
-
+	
+	<select id="monthlySalesByYear" resultMap="salesResultMap">
+		SELECT "YEAR_AND_MONTH", 
+		       CASE WHEN SUBSTR("YEAR_AND_MONTH", 1, 4) = #{currentYear} THEN "THIS_YEAR"
+		            WHEN SUBSTR("YEAR_AND_MONTH", 1, 4) = #{lastYear} THEN "LAST_YEAR"
+		            ELSE NULL
+		       END AS "MONTHLY_SALES_BY_YEAR"
+		FROM (
+		  SELECT TO_CHAR(TICKETING_TIME, 'YYYY-MM') AS "YEAR_AND_MONTH",
+		         SUM(CASE WHEN EXTRACT(YEAR FROM TICKETING_TIME) = ${currentYear} THEN PAY_AMOUNT ELSE 0 END) AS "THIS_YEAR",
+		         SUM(CASE WHEN EXTRACT(YEAR FROM TICKETING_TIME) = ${lastYear} THEN PAY_AMOUNT ELSE 0 END) AS "LAST_YEAR"
+		  FROM TICKETING_INFO
+		  GROUP BY TO_CHAR(TICKETING_TIME, 'YYYY-MM'), EXTRACT(YEAR FROM TICKETING_TIME)
+		)
+		WHERE SUBSTR("YEAR_AND_MONTH", 1, 4) IN (#{currentYear}, #{lastYear})
+		ORDER BY SUBSTR("YEAR_AND_MONTH", 6, 2) ASC, SUBSTR("YEAR_AND_MONTH", 1, 4)
+	</select>
+	
 <!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->
 
 		<!--신고하기 게시글 개수 불러오기-->

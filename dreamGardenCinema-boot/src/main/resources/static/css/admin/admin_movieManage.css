@@ -47,44 +47,38 @@
 }
 
 /* 테이블 th,td 칸 */
-.admin_movieManageBoardWrap>table>th,
-td {
+.admin_movieManageBoardWrap>table>th,td {
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
     text-align: center;
 }
 
+table th:nth-of-type(1), td:nth-of-type(1) {
+    padding: 10px 0px;
+    width: 80px;
+}
+
+table th:nth-of-type(2), td:nth-of-type(2) {
+    box-sizing: border-box;
+    width: 350px;
+}
+
+table th:nth-of-type(3), td:nth-of-type(3) {
+    padding: 10px 0;
+    width: 120px;
+}
+
+table th:nth-of-type(4), td:nth-of-type(4) {
+    width: 200px;
+}
+
 .movieStatus button{
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 0 5px;
+    padding: 5px;
 }
 
 .movieStatus button:hover{
     background-color: #A8A7DE;
 }
-
-
-/* 페이지네이션 */
-.pagination {
-    text-decoration: none;
-    text-align: center;
-    list-style: none;
-    margin-top: 30px;
-}
-
-.pagination li {
-    display: inline;
-
-}
-
-.pagination a {
-    text-decoration: none;
-}
-
-.pagination a:active {
-    font-weight: bold;
-    text-decoration: underline;
-    color: #0F0954;
-}
-

@@ -241,62 +241,16 @@ public class TicketingServiceImpl implements TicketingService {
 		return mapper.updateAmount(updateUser);
 	}
 
-	// 누적 금액 4<=?<10 일 때 
-	@Override
-	public int updateSilver(int userNo) {
-		return mapper.updateSilver(userNo);
-	}
-	// 누적 금액 10<=?<20 일 때 
-	@Override
-	public int updateGold(int userNo) {
-		return mapper.updateGold(userNo);
-	}
-	// 누적 금액 20<? 일 때 
-	@Override
-	public int updatePlatinum(int userNo) {
-		return mapper.updatePlatinum(userNo);
-	}
-
-	// 유저가 보유한 실버 쿠폰 카운트
-	@Override
-	public int silverCouponCount(int userNo) {
-		return mapper.silverCouponCount(userNo);
-	}
-
-	// 실버 쿠폰 insert
-	@Override
-	public int insertSilverCoupon(int userNo) {
-		return mapper.insertSilverCoupon(userNo);
-	}
-
-	// 유저가 보유한 골드 쿠폰 카운트
-	@Override
-	public int goldCouponCount(int userNo) {
-		return mapper.goldCouponCount(userNo);
-	}
-
-	// 골드 쿠폰 insert
-	@Override
-	public int insertGoldCoupon(int userNo) {
-		return mapper.insertGoldCoupon(userNo);
-	}
-
-	// 유저가 보유한 플래티넘 쿠폰 카운트
-	@Override
-	public int platinumCouponCount(int userNo) {
-		return mapper.platinumCouponCount(userNo);
-	}
-
-	// 플래티넘 쿠폰 insert
-	@Override
-	public int insertPlatinumCoupon(int userNo) {
-		return mapper.insertPlatinumCoupon(userNo);
-	}
-
 	// 취소한 티켓 좌석 정보 삭제
 	@Override
 	public int deleteTicketSeat(String ticketNo) {
 		return mapper.deleteTicketSeat(ticketNo);
+	}
+
+	//유저 Amount 취소한 결제금액 차감
+	@Override
+	public int updateCancelAmount(User user) {
+		return mapper.updateCancelAmount(user);
 	}
 	
 	
