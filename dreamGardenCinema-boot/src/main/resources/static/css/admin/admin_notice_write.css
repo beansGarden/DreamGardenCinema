@@ -27,6 +27,12 @@
 
 }
 
+/* 제목 입력하는 div */
+.admin_noticeTableWrap {
+    width: 1000px;
+    border-bottom: 1px solid #c8c8c8;
+}
+
 /* 제목 입력하는 칸 */
 .admin_noticeTableInput {
     width: 900px;
@@ -36,19 +42,11 @@
 
 }
 
-
-.admin_noticeContentWrap {
-    margin: 20px;
-
-}
-
 /* 글쓰기 textarea */
 #summernote {
     width: 1000px;
     height: 500px;
-    margin: 20px 10px;
-    border: 1px solid black;
-    padding: 0px;
+    border: 1px solid #c8c8c8;
     resize: none;
 }
 
