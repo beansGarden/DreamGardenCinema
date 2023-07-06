@@ -129,7 +129,7 @@ for(let i=0;i<checkBtn.length;i++){
 };
 // 페이지 로딩시 상영관 AJAX
 document.addEventListener("DOMContentLoaded", function(){
-    theaterChoiceajax(checkBtn[0]);
+    theaterChoiceajax(document.querySelectorAll(".saveMovie")[0]);
     movieChoice();
 });
 

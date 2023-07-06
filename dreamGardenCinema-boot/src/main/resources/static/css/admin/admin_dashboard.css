@@ -17,15 +17,15 @@ th,td{
     flex-direction: column;
     position: absolute;
     width: 80vw;
-    top: 10%;
+    top: 4%;
     left: 515px;
 }
 
 /* 분기별 매출 및 영화 매출 박스 */
 .admin-things-box{
-    height: 195px;
+    height: 400px;
     display: flex;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 /* 영화 총 매출 */
@@ -62,7 +62,7 @@ th,td{
     background-color: white;
     font-weight: bold;
     color: #000000;
-    height: 150px;
+    height: 355px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -122,14 +122,14 @@ th,td{
 }
 
 /* 영화 분기 매출 */
-.admin_dashboardSalesforQuater{
+.admin_dashboardSalesforQuarter{
     background-color: #f1f4f4;
     width: 500px;
     height: 190px;
     box-shadow: 6px 12px 31px -3px rgba(165, 180, 180, 0.27);
 }
 
-.admin_dashboardSalesforQuater_title{
+.admin_dashboardSalesforQuarter_title{
     border-radius: 10px;
     background-color: #000000;
     color:  #fff;;
@@ -139,7 +139,7 @@ th,td{
 }
 
 /* 분기별 매출 제목 span */
-.admin_dashboardSalesforQuater>span {
+.admin_dashboardSalesforQuarter>span {
     border: 1px solid #333;
     border-radius: 15px;
     padding: 5px;
@@ -148,7 +148,7 @@ th,td{
 }
 
 /* 분기별 매출 select */
-#saleQuaterSelect{
+#saleQuarterSelect{
     width: 12vh;
     height: 3.5vh;
     text-align: center;
@@ -161,14 +161,14 @@ th,td{
 
 
 /* 영화 분기 매출 내부 div */
-.admin_dashboardSalesforQuater-in{
+.admin_dashboardSalesforQuarter-in{
     border-radius: 10px;
     text-align: center;
     border: 1px solid #ccc;
     background-color: white;
     font-weight: bold;
     color: #000000;
-    height: 150px;
+    height: 355px;
     display: flex;
     flex-direction: column;
     justify-content: center;

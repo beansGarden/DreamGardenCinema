@@ -52,6 +52,13 @@ public interface MovieListService {
 	 * @return
 	 */
 	List<Movie> selectMovieList(String releaseType, String sortType);
+
+	
+	/** 예고편 가져오기(비동기)
+	 * @param movieNo
+	 * @return url
+	 */
+	String selectTrailer(String movieNo);
 	
 	
 

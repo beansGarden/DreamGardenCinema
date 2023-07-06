@@ -22,7 +22,7 @@
                 <div class="movieTheaterOptBox">
                     <div class="movie-the-date-box">
                         <div class="movieTheaterOpt">
-                            <span>영화관</span> :
+                            <span>영화관</span>
                             <select name="movieTheater" id="theater">
                                 <option value="ALL">전체</option>
                                 <option value="1">1관</option>
@@ -33,13 +33,13 @@
 
 
                         <div>
-                            <span>상영날짜 : </span>
+                            <span>상영날짜</span>
                             <input type="date" name="date" id="date">
                         </div>
 
                     </div>
                     <div class="queryBox">
-                        <span>검색내용 : </span>
+                        <span>검색내용</span>
                         <div class="query">
                             <select name="selectOpt" id="opt">
                                 <option value="t">제목</option>
@@ -48,13 +48,13 @@
                             </select>
                             <input type="text" name="content" id="content">
                         </div>
+                        <button>조회</button>
                     </div>
                 </div>
 
-                <button>조회</button>
             </form>
-            <div>총 <span th:text="${map.listCount}"></span>개</div>
-            <table class="cinema-manage-table" style="border: 1px solid #ccc;">
+            <div>총 <span th:text="${map.listCount}" style="font-weight: bold;"></span>개</div>
+            <table class="cinema-manage-table">
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="" id="" class="admin_cinemaCheckboxAll"

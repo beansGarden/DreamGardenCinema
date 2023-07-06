@@ -125,8 +125,12 @@ body{
 
 .MovieList{
     height: 770px;
+    overflow-y : hidden;
+}
+.MovieList:hover{
     overflow-y : auto;
 }
+
 .hamburger>label{
     height: 60px;
     display: flex;

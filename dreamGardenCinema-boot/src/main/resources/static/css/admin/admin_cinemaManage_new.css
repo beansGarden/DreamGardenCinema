@@ -5,7 +5,7 @@
     position: absolute;
     width: 1000px;
     left: 580px;
-    top: 100px;
+    top: 60px;
     height: 750px;
     gap: 20px;
 }
@@ -20,16 +20,25 @@
     height: 46px;
     text-align: center;
     border-radius: 10px;
-
-    /* margin: 20px 0 15px 50px; */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* 선택창 감사는 div */
+.movieTheaterOptBox{
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px ;
+}
+
+
 /* 영화관 선택 및 날짜 박스 */
 .movie-the-date-box{
     display: flex;
+    gap: 20px;
+    width: 1000px;
+    justify-content: center;
+    align-items: center;
 }
 
 #selectCont{
@@ -45,22 +54,43 @@ form>div>div{
 
 form span{
     font-size: 16px;
+    background-color: #ccc;
+    height: 25px;
+    width: 80px;
+    color: #000000;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    display: inline-block;
+    letter-spacing: 1px;
 }
 
-.movieTheaterOpt>span{
-    margin-right: 14px;
+button:hover{
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
 }
+
 
 .queryBox{
     display: flex;
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
 }
 
 .query{
     margin-left: 4px;
     display: flex;
-    border: 1px solid rgb(118, 118, 118);
-    border-radius: 2px;
+    border-radius: 10px;
+    height: 35px;
+    width: 352px;
+    border: 1px solid #c8c8c8;
 }
+
+
 .query>*{
     border: none;
     border-radius: 2px;
@@ -68,35 +98,52 @@ form span{
 input:focus, select:focus, option:focus, textarea:focus, button:focus{
 	outline: none;
 }
-#theater, #date{
-    width: 152px;
-    text-align: center;
-}
+
 #opt{
-    width: 50px;
+    width: 60px;
     text-align: center;
+    border-radius: 10px;
 }
 #content{
-    width: 100px;
+    width: 352px;
+    border-radius: 10px;
+    
 }
+
+/* 조회 버튼 div*/
+.searchbtn{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 form button{
-    background-color: #0F0954;
+    background-color: #59ada8;
     color: white;
     border-radius: 4px;
-    width: 50px;
-    margin-left: 20px;
+    width: 53px;
+    height: 30px;
+    margin-left: 19px;
+    letter-spacing: 1px;
 }
+
+
+/* 테이블 */
 .cinema-manage-table{
     width: 1000px;
-    height: 550px;
-    /* border-bottom: 1px solid #c8c8c8; */
+    border-collapse: collapse;
+}
+
+tr{
+    border-bottom: 1px solid rgba(142, 142, 142, 0.431);
+    height: 50px;
 }
 
 .cinema-manage-table>*{
     text-align: center;
 }
-
-
 
 table th:first-child{width: 5%;}
 table th:nth-child(2){width: 10%;}
@@ -104,8 +151,23 @@ table th:nth-child(3){width: 50%;}
 table th:nth-child(4){width: 15%;}
 table th:last-child{width: 20%;}
 
+/* 영화관 select/ 상영시간 input */
+#theater{
+    width: 100px;
+    border: 1px solid #c8c8c8;
+    border-radius: 10px;
+    height: 28px;
+    text-align: center;
+}
+#date{
+    width: 218px;
+    border: 1px solid #c8c8c8;
+    border-radius: 10px;
+    height: 28px;
+    text-align: center;
+}
 
-
+/* 페이지네이션 */
 .pagination{
     list-style: none;
     display: flex;
@@ -128,7 +190,7 @@ table th:last-child{width: 20%;}
 
 .current{
     font-weight: bold;
-    background-color: #666666;
+    background-color: #042928;
     border-radius: 20%;
     color: white;
     letter-spacing: 0 !important;
@@ -157,8 +219,24 @@ table th:last-child{width: 20%;}
     width: 945px;
     display: flex;
     justify-content: end;
-
     gap: 15px;
+    margin-top: -20px;
+}
+
+.manage-btns>button{
+    font-size: 15px;
+    width: 50px;
+    height: 35px;
+    background-color: #59ada8;
+    border-radius: 7px;
+    color: white;
+}
+
+.manage-btns>button:hover{
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+
 }
 
 .timeDiv button{

@@ -312,8 +312,15 @@ public interface AdminService {
 	// 공지사항 삭제 안 한 게시글
 	int noticeInListCount();
 	
-	//공지사항 삭제 한 게시글
+	// 공지사항 삭제 한 게시글
 	int noticeOutListCount();
+	
+	// 년도별 분기 매출
+	List<SalesByPeriod> quarterlySales(String selectedYear);
+
+	// 년도별 분기 매출(처음 들어갔을때)
+	List<SalesByPeriod> firstLoadingQuarterlySales(String currentYear);
+
 
 
 

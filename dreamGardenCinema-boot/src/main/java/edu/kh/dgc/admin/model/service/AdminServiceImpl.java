@@ -796,15 +796,6 @@ public class AdminServiceImpl implements AdminService {
 		return getNoticeSearchMap;
 	}
 
-	//공지사항 전체 개수
-	@Override
-	public int noticeListCount() {
-		
-		return mapper.noticeListCount();
-	
-	
-	}
-	
 
 	//공지사항 삭제 안 한 게시글 
 	@Override
@@ -813,13 +804,7 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.noticeInListCount();
 	}
 
-	//공지사항 삭제한 게시글 수 
-	@Override
-	public int noticeOutListCount() {
-		
-		return mapper.noticeOutListCount();
-	}
-	
+
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
 	// FAQ 게시판 List 조회
@@ -1268,35 +1253,22 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.adminReviewOne(reviewNo);
 	}
 
+	@Override
+	public int noticeOutListCount() {
+		
+		return mapper.noticeOutListCount();
+	}
 
+	// 년도별 분기 매출
+	@Override
+	public List<SalesByPeriod> quarterlySales(String selectedYear) {
+		return mapper.quarterlySales(selectedYear);
+	}
 
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
+	@Override
+	public List<SalesByPeriod> firstLoadingQuarterlySales(String currentYear) {
+		return mapper.quarterlySales(currentYear);
+	}
 	
 }
 
