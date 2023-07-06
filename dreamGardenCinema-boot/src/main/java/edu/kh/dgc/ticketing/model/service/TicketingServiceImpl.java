@@ -295,8 +295,8 @@ public class TicketingServiceImpl implements TicketingService {
 
 	// 취소한 티켓 좌석 정보 삭제
 	@Override
-	public int deleteSeat(String ticketNo) {
-		return mapper.deleteSeat(ticketNo);
+	public int deleteTicketSeat(String ticketNo) {
+		return mapper.deleteTicketSeat(ticketNo);
 	}
 	
 	

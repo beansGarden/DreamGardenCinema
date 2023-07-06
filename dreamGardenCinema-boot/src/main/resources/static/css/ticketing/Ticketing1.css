@@ -130,6 +130,9 @@ body{
 .MovieList:hover{
     overflow-y : auto;
 }
+.MovieList::-webkit-scrollbar{
+    width: 5px;
+}
 
 .hamburger>label{
     height: 60px;
