@@ -138,6 +138,91 @@ public class MypageServiceImpl implements MypageService{
 	public int countXCoupon(Ticket ticket) {
 		return mapper.countXCoupon(ticket);
 	}
+	
+	// 매달 1일 아침 5시 마다 유저 쿠폰 전체 삭제
+	@Override
+	public int deleteAllCoupon() {
+		return mapper.deleteAllCoupon();
+	}
 
+	//누적 금액 4만원 미만 고객 등급 브론즈 업데이트
+	@Override
+	public int updateAllBronze() {
+		return mapper.updateAllBronze();
+	}
+
+	//누적 금액 4만원 미만 고객 userNo전체 조회 
+	@Override
+	public List<User> selectBronzeUserNo() {
+		return mapper.selectBronzeUserNo();
+	}
+	
+	// 누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트
+	@Override
+	public int updateAllSilver() {
+		return mapper.updateAllSilver();
+	}
+
+	// 실버 등급 고객 userNo 전체 조회
+	@Override
+	public List<User> selectSilverUserNo() {
+		return mapper.selectSilverUserNo();
+	}
+
+	// 브론즈 쿠폰 1개,실버 쿠폰 2개 insert
+	@Override
+	public int insertSilverCoupon(int userNo) {
+		return mapper.insertSilverCoupon(userNo);
+	}
+
+	//누적 금액 10만원 이상 20만원 미만 고객 골드 업데이트
+	@Override
+	public int updateAllGold() {
+		return mapper.updateAllGold();
+	}
+
+	// 골드 등급 고객 userNo 전체 조회
+	@Override
+	public List<User> selectGoldUserNo() {
+		return mapper.selectGolduserNo();
+	}
+
+	//브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개 insert
+	@Override
+	public int insertAllGoldCoupon(int userNo) {
+		return mapper.insertAllGoldCoupon(userNo);
+	}
+
+	// 누적 금액 20만원 이상 고객 플래티넘 업데이트
+	@Override
+	public int updateAllPlatinum() {
+		return mapper.updateAllPlatinum();
+	}
+
+	//플래티넘 등급 고객 userNo 전체 조회
+	@Override
+	public List<User> platinumNoList() {
+		return mapper.platinumNoList();
+	}
+
+	//브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개,플래티넘 쿠폰 2개 insert
+	@Override
+	public int insertAllPlatinumCoupon(int userNo) {
+		return mapper.insertAllPlatinumCoupon(userNo);
+	}
+
+	//모든 유저 누적 금액 초기화
+	@Override
+	public int updateAllAmount() {
+		return mapper.updateAllAmount();
+	}
+
+	//유저 전체 RATING 1 업데이트
+	@Override
+	public int updateRating1() {
+		return mapper.updateRating1();
+	}
+	
+	
 
 }
