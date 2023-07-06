@@ -112,34 +112,10 @@ public interface TicketingMapper {
 	// 결제 완료시 회원 누적 금액 업데이트
 	int updateAmount(User updateUser);
 
-	// 누적 금액이 4<=?<10
-	int updateSilver(int userNo);
-	
-	// 누적 금액이 10<=?<20
-	int updateGold(int userNo);
-	
-	// 누적 금액이 20<?
-	int updatePlatinum(int userNo);
-
-	// 유저가 보유한 실버 쿠폰 카운트
-	int silverCouponCount(int userNo);
-
-	// 실버 쿠폰 insert
-	int insertSilverCoupon(int userNo);
-
-	// 유저가 보유한 골드 쿠폰 카운트
-	int goldCouponCount(int userNo);
-
-	// 골드 쿠폰 insert
-	int insertGoldCoupon(int userNo);
-
-	// 유저가 보유한 플래티넘 쿠폰 카운트
-	int platinumCouponCount(int userNo);
-
-	// 플래티넘 쿠폰 insert
-	int insertPlatinumCoupon(int userNo);
-
 	// 취소한 티켓 좌석 정보 삭제
 	int deleteTicketSeat(String ticketNo);
+
+	//유저 Amount 취소한 결제금액 차감
+	int updateCancelAmount(User user);
 
 }
