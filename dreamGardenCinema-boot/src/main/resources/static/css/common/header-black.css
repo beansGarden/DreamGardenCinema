@@ -900,6 +900,7 @@ header {
     width: 30px;
     height: 30px;
     filter: sepia();
+    z-index: 100;
 }
 
 .dg-membership-link{

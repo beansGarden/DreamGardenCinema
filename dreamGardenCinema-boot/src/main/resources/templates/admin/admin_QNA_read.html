@@ -50,10 +50,9 @@
                         </tr>
                         <tr>
                             <th>등록인</th>
-                            <td th:text="${Qna.userId}">2023.05.31</td>
-                            <td th:text="${Qna.userNo}">154541</td>
+                            <td th:text="${Qna.userId} ? ${Qna.userId} : '비회원' "></td>
+                            <td th:text="${Qna.userNo} ? ${Qna.userNo} : '-' "></td>
                             <input type="hidden" th:value="${Qna.userNo}" name="userNo">
-
                             <!--    <tr>
                             <th>사진</th>
                             <td><img th:src="${Qna.QNA_IMG_PATH}">2023.05.31</td>
@@ -65,7 +64,7 @@
                         <tr>
                             <th>내용</th>
                             <td> <!-- 내용 -->
-                                <div class="admin_qnaContent" >
+                                <div class="admin_qnaContent">
                                     [[${Qna.qnaContent}]]
                                     <img th:src="${Qna.qnaImage}">
                                 </div>
@@ -98,8 +97,8 @@
     <!-- 등록,수정,삭제 버튼 -->
     <div class="admin_qnaBtn">
 
-        <button class="admin_qnaEndBtn"><a th:href="@{adminQnaAnsweUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">답변
-                수정하기</a></button>
+        <button class="admin_qnaEndBtn"><a th:href="@{adminQnaAnsweUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">
+                답변 수정</a></button>
         <!--         <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록하기</a></button> -->
         <!-- <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button> -->
         <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
@@ -116,7 +115,7 @@
 
     </div>
     <script src="\js\admin\admin_QNA_read.js"></script>
-  
+
 </body>
 
 </html>

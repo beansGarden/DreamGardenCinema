@@ -71,7 +71,7 @@ button:hover{
     font-weight: bold;
 }
 
-
+/* 검색창 */
 .queryBox{
     display: flex;
     width: 1000px;
@@ -80,6 +80,7 @@ button:hover{
     align-items: center;
     margin-top: 15px;
 }
+
 
 .query{
     margin-left: 4px;

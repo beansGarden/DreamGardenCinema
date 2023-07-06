@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,73 +8,74 @@
 
     <title>faq_write</title>
 
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 
-<link rel="stylesheet" href="\css\style.css">
-<link rel="stylesheet" href="\css\admin\admin_FAQ_write.css">
-    
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="\css\admin\admin_FAQ_write.css">
+
     <script src="../admin/summernote-ko-KR.js"></script>
     <script src="../admin/summernote-lite.js"></script>
     <link rel="stylesheet" href="../admin/summernote-lite.css">
 </head>
+
 <body>
-       <!-- 사이드바 -->
- <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
     <div class="admin_faqWrap">
-        
-            <!-- 게시판 제목 -->
+
+        <!-- 게시판 제목 -->
 
         <form th:action="@{/adminFaqWriteInsert}" method="POST">
             <span id="admin_faqTitle">FAQ 관리</span>
-        <!-- 테이블 감싸는 div -->
-        <div class="admin_faqTableWrap "style="border-bottom: 1px solid black">
-        <table>
-            <tr>
-                <th>제목</th>
-                <td><input type="text" name="FAQTitle" id="" class="admin_faqTableInput"></td>                
-                    
-                </td>
-            </tr>
-            <tr>
-                <th>선택</th>
-                    <td>
-                    <select name="FAQCategory" id="admin_faqTableSelect">
-                        <option value="P">상영관</option>
-                        <option value="M">회원</option>
-                         <option value="U">멤버쉽</option>
+            <!-- 테이블 감싸는 div -->
+            <div class="admin_faqTableWrap " style="border-bottom: 1px solid #c8c8c8; padding-left: 33px; margin-top: 20px; ">
+                <table>
+                    <tr>
+                        <th>제목</th>
+                        <td><input type="text" name="FAQTitle" id="" class="admin_faqTableInput"></td>
 
-                </td>
-            </tr>
-        </table>
-    </div>
-    <!-- 내용 쓰는 칸 -->
-        <div class="admin_faqContentWrap">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>선택</th>
+                        <td>
+                            <select name="FAQCategory" id="admin_faqTableSelect">
+                                <option value="P">상영관</option>
+                                <option value="M">회원</option>
+                                <option value="U">멤버쉽</option>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 내용 쓰는 칸 -->
+            <div class="admin_faqContentWrap">
                 <textarea id="summernote" name="FAQContent"></textarea>
-   
-          
-          
-        </div>
 
-     
 
-                <!-- 등록 버튼 -->
-                <button class="admin_faqRegister" type="submit">등록</button>
-
-            </form>
-            
 
             </div>
- 
-        </div>
 
 
 
-    </div>    
+            <!-- 등록 버튼 -->
+            <button class="admin_faqRegister" type="submit">등록</button>
+
+        </form>
+
+
+    </div>
+
+    </div>
+
+
+
+    </div>
 
     <script>
         // 메인화면 페이지 로드 함수
@@ -85,7 +87,7 @@
             });
         });
     </script>
-    
+
     <script src="\js\admin\admin_FAQ_write.js"></script>
 </body>
 
