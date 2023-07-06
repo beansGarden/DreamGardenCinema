@@ -202,9 +202,20 @@
 	</select>
 
 	<!--취소할 영화 시간 조회-->
-	<select id="movieTime" parameterType="String" resultType="java.time.LocalDateTime">
+	<select id="movieTime" parameterType="String"
+		resultType="java.time.LocalDateTime">
 		SELECT MOVIE_TIME
 		FROM TICKETING_INFO
 		WHERE TICKET_ID =#{ticketId}
+	</select>
+
+	<!--(플래티넘)해당 티켓 보다 후에 예매한 티켓의 등급보다 높은 쿠폰 사용 여부-->
+	<select id="countXCoupon" resultMap="ticket_rm">
+		SELECT COUNT(*)
+		FROM TICKETING_INFO ti
+		JOIN USER_COUPON uc ON (ti.COUPON = uc.USER_COUPON_NO)
+		WHERE TICKET_NO > #{ticket_no}
+		AND ti.USER_NO = #{user_no}
+		AND uc.COUPON_NO = 4
 	</select>
 </mapper>
