@@ -274,7 +274,7 @@ public class MypageController {
         	
 			if(result1>0) {
 				// 취소 티켓 좌석 정보 삭제
-				int deleteSeat = TicketingService.deleteSeat(ticketNo);
+				int deleteSeat = TicketingService.deleteTicketSeat(ticketNo);
 			}
 			
 			message = "취소되었습니다";

@@ -374,7 +374,7 @@
 	</insert>
 	
 	<!--취소한 티켓 좌석 정보 삭제-->
-	<delete id="deleteSeat">
+	<delete id="deleteTicketSeat">
 		DELETE SEAT_CHECK sc2
 		WHERE TICKET_NO = #{ticketNo}
 	</delete>
