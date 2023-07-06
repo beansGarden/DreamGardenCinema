@@ -71,7 +71,7 @@
                                 <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}"
                                         th:text="${list.qnaTitle}">지갑
                                         잃어버렸어요</a></td>
-                                <td th:text="${list.userNickname}" style="width: 100px">유저일</td>
+                                <td th:text="${list.userId != null ? list.userId : '비회원'}">2023.05.31</td>
                             </tr>
                         </tbody>
                     </table>

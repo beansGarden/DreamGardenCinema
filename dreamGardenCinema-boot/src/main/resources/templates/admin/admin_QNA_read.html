@@ -50,8 +50,8 @@
                         </tr>
                         <tr>
                             <th>등록인</th>
-                            <td th:text="${Qna.userId}">2023.05.31</td>
-                            <td th:text="${Qna.userNo}">154541</td>
+                            <td  th:text="${Qna.userId} ? ${Qna.userId} : '비회원' "></td>
+                            <td th:text="${Qna.userNo} ? ${Qna.userNo} : '-' "></td>
                             <input type="hidden" th:value="${Qna.userNo}" name="userNo">
 
                             <!--    <tr>
@@ -116,7 +116,17 @@
 
     </div>
     <script src="\js\admin\admin_QNA_read.js"></script>
-  
+    <script>
+        var userId = /*[[${Qna.userId}]]*/ null;
+        var textarea = document.getElementById("summernote");
+    
+        if (!userId) {
+            textarea.value = "비회원일 경우 답변 대신 이메일로 대신합니다";
+            textarea.disabled = true; // 입력 불가능하도록 비활성화
+        } else {
+            // 기존 답변 내용 유지
+        }
+    </script>
 </body>
 
 </html>

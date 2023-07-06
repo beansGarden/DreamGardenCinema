@@ -6,7 +6,7 @@
     position: absolute;
     width: 1400px;
     left: 600px;
-    top: 130px;
+    top: 60px;
     height: 750px;
     gap: 20px;
 }
@@ -168,42 +168,50 @@ table > thead > tr > th:nth-child(6){
 
 /* 등록버튼 */
 #admin_userSignOut {
-    display: flex;
-    margin-left: 840px;
-    margin-top: -50px;
-    padding: 5px 14px;
-    border-radius: 5px;
-    background-color: #14313266;
-    width: 53px;
-    height: 30px;
-    text-align: center;
-    justify-content: center;
-    color: white;
-
+    padding: 5px 15px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    transform: translateX(750px) translateY(-40px);
 }
+
+
+#admin_userSignOut:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
 
 #admin_userSignOut a {
     color: white;
 }
 /* 복구버튼 */
 #admin_userSignRestore {
-    display: flex;
-    margin-left: 910px;
-    margin-top: -30px;
-    padding: 5px 14px;
-    border-radius: 5px;
-    background-color: #14313266;
-    width: 53px;
-    height: 30px;
-    text-align: center;
-    justify-content: center;
-    color: white;
-
+    padding: 5px 15px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    transform: translateX(850px) translateY(-90px);
+    
 }
+
+#admin_userSignRestore:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
 
 #admin_userSignRestore a {
     color: white;
+
 }
+
 
 /* 페이지네이션 */
 .pagination {

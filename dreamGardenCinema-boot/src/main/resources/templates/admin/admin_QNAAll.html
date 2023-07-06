@@ -64,7 +64,14 @@
             <span ><a th:href="@{/adminQnaDeleted}" class="qnaCount">삭제된 게시글 수 :</a></span>
             <span class="adminQnaOutCountAll">0</span>
         </div>
-
+        <div>
+            <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 여부</a></span>
+            <span >/</span>
+            <span class="nomember"><a th:href="@{/adminQnaNomember}" id="nomember">비회원</a></span>
+            <span >/</span>
+            <span class="member"><a th:href="@{/adminQnaMember}" id="member">회원</a></span>
+        </div>
+        <span>* 비회원일 경우 이메일로 답변</span>
         <!-- 게시판 -->
         <div class="admin_qnaBoardWrap">
             <table id="boardTable"  style='table-layout:fixed'>
@@ -88,7 +95,7 @@
                         <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글
                                 번호</a></td>
                         <td th:text="${list.qnaEnrollDate}"></td>
-                        <td th:text="${list.userId}"></td>
+                        <td th:text="${list.userId} ? ${list.userId} : '비회원' "></td>
                         <td th:text="${list.qnaDeleteFl}"></td>
                         <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
                     </tr>

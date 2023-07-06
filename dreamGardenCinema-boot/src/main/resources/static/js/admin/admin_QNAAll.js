@@ -150,3 +150,77 @@ function getQnaOutCount() {
   });
 }
 getQnaOutCount()
+
+//답변 여부에 따른 구분
+
+/* 
+window.addEventListener('DOMContentLoaded', function() {
+  var answerBtn = document.getElementById('answerBtn');
+  var table = document.getElementById('boardTable');
+  var rows = Array.from(table.getElementsByTagName('tr'));
+
+  rows.shift(); // 첫 번째 행은 테이블의 헤더이므로 제외
+
+  answerBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // '답변여부' 열(qnaCheckFl) 값을 기준으로 내림차순 정렬
+      rows.sort(function(a, b) {
+          var valueA = a.querySelector('#qnaCheckFl').textContent;
+          var valueB = b.querySelector('#qnaCheckFl').textContent;
+
+          if (valueA === 'N' && valueB !== 'N') {
+              return -1;
+          } else if (valueA !== 'N' && valueB === 'N') {
+              return 1;
+          } else {
+              return 0;
+          }
+      });
+
+      // 정렬된 행을 다시 테이블에 추가
+      var tbody = table.querySelector('tbody');
+      rows.forEach(function(row) {
+          tbody.appendChild(row);
+      });
+  });
+});
+/*  */
+//비회원 글만 보기
+window.addEventListener('DOMContentLoaded', function() {
+  var nomemberLink = document.getElementById('nomember');
+  var memberLink = document.getElementById('member');
+  var table = document.getElementById('boardTable');
+  var rows = Array.from(table.getElementsByTagName('tr'));
+
+  rows.shift(); // 첫 번째 행은 테이블의 헤더이므로 제외
+
+  nomemberLink.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // '등록인' 열의 텍스트를 기준으로 필터링하여 '비회원'인 행만 보이도록 설정
+      rows.forEach(function(row) {
+          var userId = row.querySelector('td:nth-child(5)').textContent;
+          if (userId === '비회원') {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      });
+  });
+
+  memberLink.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // '등록인' 열의 텍스트를 기준으로 필터링하여 '비회원'인 행을 제외한 행만 보이도록 설정
+      rows.forEach(function(row) {
+          var userId = row.querySelector('td:nth-child(5)').textContent;
+          if (userId !== '비회원') {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      });
+  });
+});
+ */

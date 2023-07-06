@@ -54,20 +54,29 @@ table>thead>tr:nth-child(1)>td {
 
 /* 등록버튼 감싸는 div */
 .admin_noticeBtn {
-    margin-left: 60%;
+    margin-left: 60%; 
 
 }
 
 /* 등록버튼 */
-.admin_noticeEndBtn {
-    margin: 50px 10px;
-    padding: 5px 15px;
-    border-radius: 5px;
-    background-color: #0F0954;
-
-}
-
 .admin_noticeEndBtn a {
     color: white;
 
+}
+
+.admin_noticeEndBtn {
+    margin: 0px 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #59ada8;
+    color: white;
+    height: 38px;
+    width: 60px;
+   transform: translateX(90px) translateY(10px);
+}
+
+.admin_noticeEndBtn:hover{
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
 }

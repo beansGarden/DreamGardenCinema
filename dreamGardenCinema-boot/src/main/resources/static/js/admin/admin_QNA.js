@@ -105,3 +105,4 @@ function getQnaCount() {
   });
 }
 getQnaCount()
+
