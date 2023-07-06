@@ -1149,13 +1149,6 @@ public class AdminServiceImpl implements AdminService {
 		int reportListCount = mapper.reportListCount();
 
 		Pagination pagination = new Pagination(reportListCount, cp);
-
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
-
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 
@@ -1172,6 +1165,55 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminReportMap;
 	}
+	
+	@Override
+	public Map<String, Object> adminReportInList(int cp) {
+		
+		int reportListCount = mapper.reportInListCount();
+
+		Pagination pagination = new Pagination(reportListCount, cp);
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Report> adminReportList = mapper.adminReportInList(rowBounds);
+
+		Map<String, Object> adminReportMap = new HashMap<String, Object>();
+		
+		adminReportMap.put("pagination", pagination);
+		adminReportMap.put("adminReportList", adminReportList);
+
+
+		return adminReportMap;
+	}
+
+
+	@Override
+	public Map<String, Object> adminReportOuList(int cp) {
+		
+		int reportListCount = mapper.reportOutListCount();
+
+		Pagination pagination = new Pagination(reportListCount, cp);
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Report> adminReportList = mapper.adminReportOutList(rowBounds);
+
+		Map<String, Object> adminReportMap = new HashMap<String, Object>();
+		
+		adminReportMap.put("pagination", pagination);
+		adminReportMap.put("adminReportList", adminReportList);
+
+
+		return adminReportMap;
+	}
+
+	
 
 	//신고하기 게시글 불러오기
 	@Override
@@ -1231,6 +1273,19 @@ public class AdminServiceImpl implements AdminService {
 		return  mapper.reportListCount();
 	}
 	
+	@Override
+	public int reportInListCount() {
+		
+		return  mapper.reportInListCount();
+	}
+
+
+	@Override
+	public int reportOutListCount() {
+		
+		return  mapper.reportOutListCount();
+	}
+	
 
 	//리뷰관리**********************************************************************************************************
 	
@@ -1242,12 +1297,6 @@ public class AdminServiceImpl implements AdminService {
 		int reviewListCount = mapper.reviewListCount();
 
 		Pagination pagination = new Pagination(reviewListCount, cp);
-
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
 
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -1266,6 +1315,75 @@ public class AdminServiceImpl implements AdminService {
 		return adminReviewMap;
 	}
 
+
+	//리뷰관리 삭제 안 게시글 게시판 조회
+	@Override
+	public Map<String, Object> adminReviewInList(int cp) {
+		
+		int reviewListCount = mapper.reviewInListCount();
+
+		Pagination pagination = new Pagination(reviewListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Review> adminReviewList = mapper.adminReviewInList(rowBounds);
+
+		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
+		
+		adminReviewMap.put("pagination", pagination);
+		adminReviewMap.put("adminReviewList", adminReviewList);
+
+
+		return adminReviewMap;
+	}
+
+	//리뷰관리 삭제한 게시글 게시판 조회
+	@Override
+	public Map<String, Object> adminReviewOutList(int cp) {
+	
+		int reviewListCount = mapper.reviewOutListCount();
+
+		Pagination pagination = new Pagination(reviewListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Review> adminReviewList = mapper.adminReviewOutList(rowBounds);
+
+		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
+		
+		adminReviewMap.put("pagination", pagination);
+		adminReviewMap.put("adminReviewList", adminReviewList);
+
+
+		return adminReviewMap;
+	}
+	
+	//리뷰관리 삭제 안 한 게시글 개수
+	@Override
+	public int reviewInListCount() {
+	
+		return mapper.reviewInListCount();
+	}
+
+	//리뷰관리 삭제 한 게시글 개수
+	@Override
+	public int reviewOutListCount() {
+		
+		return mapper.reviewOutListCount();
+	}
+
+
+	
+	
+	
 	//리뷰 개수 조회
 	@Override
 	public int reviewListCount() {
@@ -1297,6 +1415,56 @@ public class AdminServiceImpl implements AdminService {
 
 		return adminReviewMap;
 	}
+	@Override
+	public Map<String, Object> getReviewInSearchList(Review condition, int cp) {
+		
+		int reviewListCount = mapper.reviewFilterInListCount(condition);
+
+		Pagination pagination = new Pagination(reviewListCount, cp);
+
+			// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Review> adminReviewList = mapper.getReviewInSearchList(condition,rowBounds);
+
+		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
+		
+		adminReviewMap.put("pagination", pagination);
+		adminReviewMap.put("adminReviewList", adminReviewList);
+
+
+		return adminReviewMap;
+	}
+
+	@Override
+	public Map<String, Object> getReviewOutSearchList(Review condition, int cp) {
+		
+		int reviewListCount = mapper.reviewFilterOutListCount(condition);
+
+		Pagination pagination = new Pagination(reviewListCount, cp);
+
+			// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Review> adminReviewList = mapper.getReviewOutSearchList(condition,rowBounds);
+
+		Map<String, Object> adminReviewMap = new HashMap<String, Object>();
+		
+		adminReviewMap.put("pagination", pagination);
+		adminReviewMap.put("adminReviewList", adminReviewList);
+
+
+		return adminReviewMap;
+	}
+
+
+	
 
 	
 	// 상영관 리스트 조회(찬희)
@@ -1414,6 +1582,15 @@ public class AdminServiceImpl implements AdminService {
       
       return mapper.monthlySalesByYear(year);
    }
+
+
+
+
+
+
+
+
+
 
 
 

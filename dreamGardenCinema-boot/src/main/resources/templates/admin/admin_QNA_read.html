@@ -29,11 +29,12 @@
                     <thead>
                         <tr>
                             <th>번호</th>
-                            <td th:text="${Qna.qnaNo}" name="qnaNo">1</td>
+                            <td colspan="3"   th:text="${Qna.qnaNo}" name="qnaNo">1</td>
+                     
                         </tr>
                         <tr>
                             <th>카테고리</th>
-                            <td>
+                            <td colspan="3">
                                 <span th:if="${Qna.qnaCategory == 'p'}">영화관</span>
                                 <span th:if="${Qna.qnaCategory == 'm'}">영화</span>
                                 <span th:if="${Qna.qnaCategory == 'u'}">멤버쉽</span>
@@ -42,37 +43,47 @@
                                 <span th:if="${Qna.qnaCategory == 'a'}">계정</span>
                                 <span th:if="${Qna.qnaCategory == '*'}">기타</span>
                             </td>
+                  
                         </tr>
                         </tr>
                         <tr>
                             <th>등록일</th>
-                            <td th:text="${Qna.qnaEnrollDate}">2023.05.31</td>
+                            <td colspan="3" th:text="${Qna.qnaEnrollDate}">2023.05.31</td>
+                    
                         </tr>
                         <tr>
                             <th>등록인</th>
-                            <td th:text="${Qna.userId} ? ${Qna.userId} : '비회원' "></td>
-                            <td th:text="${Qna.userNo} ? ${Qna.userNo} : '-' "></td>
+                            <td colspan="3" th:text="${Qna.userId} ? ${Qna.userId} : '비회원  *답변은 이메일로 대신합니다.'  " style="width: 1px;"></td>
                             <input type="hidden" th:value="${Qna.userNo}" name="userNo">
-                            <!--    <tr>
-                            <th>사진</th>
-                            <td><img th:src="${Qna.QNA_IMG_PATH}">2023.05.31</td>
-                        </tr> -->
+                        <tr>
+                            <tr th:if="${Qna.userId} == null">
+                                <th>비회원 정보</th>
+                                <td th:text="${Qna.nonMemberName}">이름</td>
+                                <td th:text="${Qna.nonMemberEmail}">email</td>
+                                <td th:text="${Qna.nonMemberTel}">전화번호</td>
+                            </tr>
                         <tr>
                             <th>제목</th>
-                            <td th:text="${Qna.qnaTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</td>
+                            <td colspan="3" th:text="${Qna.qnaTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</td>
+
+                          
                         </tr>
                         <tr>
                             <th>내용</th>
-                            <td> <!-- 내용 -->
+                            <td colspan="3"> <!-- 내용 -->
                                 <div class="admin_qnaContent">
                                     [[${Qna.qnaContent}]]
                                     <img th:src="${Qna.qnaImage}">
                                 </div>
                             </td>
+            
+                     
                         </tr>
                         <tr>
                             <th>답변 번호</th>
-                            <td th:text="${QnaComment.qnaCommentNo}" name="qnaCommentNo">1</td>
+                            <td colspan="3" th:text="${QnaComment.qnaCommentNo}" name="qnaCommentNo">1</td>
+                
+                  
                         </tr>
                         <tr>
                             <th>답변</th>
@@ -83,9 +94,13 @@
                                     <!--        <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px;"
                                         th:text="${QnaComment.qnaComment}">답변 내용</textarea> -->
                                     <div th:text="${QnaComment.qnaComment}">답변내용</div>
+                                    <td colspan="3" ></td>
+                         
+                           
+                                </td>
         </form>
     </div>
-    </tr>
+   
 
     </thead>
     </table>
@@ -115,17 +130,8 @@
 
     </div>
     <script src="\js\admin\admin_QNA_read.js"></script>
-    <script>
-        var userId = /*[[${Qna.userId}]]*/ null;
-        var textarea = document.getElementById("summernote");
-    
-        if (!userId) {
-            textarea.value = "비회원일 경우 답변 대신 이메일로 대신합니다";
-            textarea.disabled = true; // 입력 불가능하도록 비활성화
-        } else {
-            // 기존 답변 내용 유지
-        }
-    </script>
+   
+      
 </body>
 
 </html>

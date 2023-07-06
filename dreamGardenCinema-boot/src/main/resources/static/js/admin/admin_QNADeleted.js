@@ -142,7 +142,7 @@ xhr.onreadystatechange = function() {
 xhr.send();
 }
 
-// 회원 수 가져오기
+// qna 수 가져오기
 function getQnaOutCount() {
 ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
     var countElement = document.querySelector('.adminQnaOutCountAll');
@@ -150,3 +150,50 @@ ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
 });
 }
 getQnaOutCount()
+
+
+/* 전체 삭제 안 안 한 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// QNA 개수 가져오기
+function getQnaInCount() {
+  ajaxRequest('/adminQnaInListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminQnaInCountAll');
+      countElement.textContent = response;
+  });
+}
+getQnaInCount()
+
+/* 전체 탈퇴한 회원 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 삭제한 QNA 수 가져오기
+function getQnaOutCount() {
+  ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminQnaOutCountAll');
+      countElement.textContent = response;
+  });
+}
+getQnaOutCount()
+
+

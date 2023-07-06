@@ -23,7 +23,7 @@
         <span id="admin_reportTitle">리뷰 신고 관리</span>
 
         <!-- 검색창 -->
-        <div class="admin_reportInSearchWrap">
+        <div class="admin_reportOutSearchWrap">
             <!-- select랑 검색창만 감싸는 div -->
             <div class="admin_userSearchWrap2">
                 <form th:action="@{/getReportSearchList}" autocomplete="off">
@@ -65,6 +65,8 @@
             <span ><a th:href="@{/adminReportOut}" class="reportCount">삭제한 게시글 수 :</a></span>
             <span class="adminReportOutCountAll">0</span>
         </div>
+
+
         <!-- 게시판 -->
         <div class="admin_reportBoardWrap">
             <table id="boardTable" style='table-layout:fixed'>
@@ -112,7 +114,7 @@
 
                 <!-- 첫 페이지로 이동 -->
                 <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                <li><a th:href="@{/adminReport(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                <li><a th:href="@{/adminReportOut(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                 <!-- 이전 목록 마지막 번호로 이동 -->
                 <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -124,7 +126,7 @@
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:text="${i}" th:href="@{/adminReport(cp=${i})}"></a>
+                        <a th:text="${i}" th:href="@{/adminReportOut(cp=${i})}"></a>
                     </li>
                 </th:block>
 
@@ -135,7 +137,7 @@
 
                 <!-- 현재 페이지를 제외한 나머지 -->
                 <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/adminReport(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                    <a th:href="@{/adminReportOut(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                 </li>
                 </th:block>
 
@@ -145,7 +147,7 @@
                     </li>
                    -->
                 <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/adminReport(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                <li><a th:href="@{/adminReportOut(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
             </ul>
         </div>
 

@@ -101,18 +101,19 @@ public class AdminController {
 		return response;
 	}
 
-	/*
-	 * //1-1. 관리자 로그인 화면
-	 * 
-	 * public String showAdminPage(Model model) {
-	 * 
-	 * List<User> adminUser = service.getAdminDetails();
-	 * 
-	 * if (!adminUser.isEmpty()) { User admin = adminUser.get(0); // 첫 번째 관리자 사용자
-	 * 객체를 가져옴 model.addAttribute("admin", admin); System.out.println(admin); }
-	 * 
-	 * return "admin/admin_sideBar";}
-	 */
+	
+	  //1-1. 관리자 로그인 화면
+	 
+	 public String showAdminPage(Model model) {
+	 
+	 List<User> adminUser = service.getAdminDetails();
+	  
+	  if (!adminUser.isEmpty()) { User admin = adminUser.get(0); // 첫 번째 관리자 사용자
+	 
+	  model.addAttribute("admin", admin); System.out.println(admin); }
+	
+	 return "admin/admin_sideBar";}
+	
 
 	// 2.관리자 회원
 	// 관리----------------------------------------------------------------------------
@@ -810,7 +811,7 @@ public class AdminController {
 			System.out.println(adminQnamap);
 			
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNA";
 	}
 	// QNA 1:1 문의사항 삭제 안 한 게시글 전체 조회
 	@GetMapping("/adminQnaDeleted") //
@@ -1157,7 +1158,7 @@ public class AdminController {
 			System.out.println("adminQnamap : " + adminQnamap);
 
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNAYN";
 	}
 	
 	// 1:1 문의사항 비회원 조회
@@ -1174,7 +1175,7 @@ public class AdminController {
 			System.out.println(adminQnamap);
 
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNANomember";
 	}
 	
 	// 1:1 문의사항 회원글만 조회 
@@ -1191,7 +1192,7 @@ public class AdminController {
 			System.out.println(adminQnamap);
 
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNAAllMember";
 	}
 	
 	
@@ -1470,6 +1471,31 @@ public class AdminController {
 		}
 		return "admin/admin_report";
 	}
+	
+	@GetMapping("/adminReportIn") //
+	public String reportIn(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReportMap = service.adminReportInList(cp);
+			
+			model.addAttribute("adminReportMap", adminReportMap);
+		}
+		return "admin/admin_reportIn";
+	}
+	@GetMapping("/adminReportOut") //
+	public String reportOut(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReportMap = service.adminReportOuList(cp);
+			
+			model.addAttribute("adminReportMap", adminReportMap);
+		}
+		return "admin/admin_reportOut";
+	}
 
 	// 8-1. 신고하기 게시글 조회
 
@@ -1545,8 +1571,24 @@ public class AdminController {
 		return service.reportListCount();
 	}
 
+	// 7-6 전체 삭제 안 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminReportInListAjax")
+	public int adminReportInListAjax() {
+		
+		return service.reportInListCount();
+	}
+	// 7-7 FAQ 삭제 한 게시글 수  가져오기
+	@ResponseBody
+	@GetMapping("/adminReportOutListAjax")
+	public int adminReportOutListAjax() {
+		
+		return service.reportOutListCount();
+	}
+	
+	
 	// 9-1. 리뷰관리 게시판
-	// 조회------------------------------------------------------------------
+	// 조회---------------------------------------------------------------------------------------------------------------------
 
 	@GetMapping("/adminReview")
 	public String adminReivew(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
@@ -1559,6 +1601,30 @@ public class AdminController {
 			model.addAttribute("adminReviewMap", adminReviewMap);
 		}
 		return "admin/admin_review";
+	}
+	@GetMapping("/adminReviewIn")
+	public String adminReivewIn(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReviewMap = service.adminReviewInList(cp);
+			
+			model.addAttribute("adminReviewMap", adminReviewMap);
+		}
+		return "admin/admin_reviewIn";
+	}
+	@GetMapping("/adminReviewOut")
+	public String adminReivewOut(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReviewMap = service.adminReviewOutList(cp);
+			
+			model.addAttribute("adminReviewMap", adminReviewMap);
+		}
+		return "admin/admin_reviewOut";
 	}
 
 	// 9-2 리뷰관리 전체 개수 가져오기
@@ -1588,6 +1654,42 @@ public class AdminController {
 
 		return "admin/admin_review";
 
+	}
+	@GetMapping("/getReviewInSearchList")
+	public String getReviewInSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Review condition = new Review();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReviewMap = service.getReviewInSearchList(condition, cp);
+		model.addAttribute("adminReviewMap", adminReviewMap);
+		
+		System.out.println(condition);
+		System.out.println(adminReviewMap);
+		
+		return "admin/admin_review";
+		
+	}
+	@GetMapping("/getReviewOutSearchList")
+	public String getReviewOutSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Review condition = new Review();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReviewMap = service.getReviewOutSearchList(condition, cp);
+		model.addAttribute("adminReviewMap", adminReviewMap);
+		
+		System.out.println(condition);
+		System.out.println(adminReviewMap);
+		
+		return "admin/admin_review";
+		
 	}
 
     //9-4 리뷰 읽기
@@ -1657,6 +1759,24 @@ public class AdminController {
         
         
     }
+    
+	// 7-6 전체 삭제 안 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminReviewInListAjax")
+	public int adminReviewInListAjax() {
+		
+		return service.reviewInListCount();
+	}
+	// 7-7 FAQ 삭제 한 게시글 수  가져오기
+	@ResponseBody
+	@GetMapping("/adminReviewOutListAjax")
+	public int adminReviewOutListAjax() {
+		
+		return service.reviewOutListCount();
+	}
+	
+	
+    
         
     // 매출관리***************************************************(근태)***********
     

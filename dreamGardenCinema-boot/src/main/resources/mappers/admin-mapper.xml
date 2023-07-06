@@ -17,6 +17,9 @@
 		<result property="userId" column="USER_ID" />
 		<result property="qnaImage" column="QNA_IMG_PATH" />
 		<result property="qnaImageNo" column="QNA_IMG_NO" />
+		<result property="nonMemberName" column="NONMEMBER_NAME" />
+		<result property="nonMemberEmail" column="NONMEMBER_EMAIL" />
+		<result property="nonMemberTel" column="NONMEMBER_TEL" />
 		
 	</resultMap>
 
@@ -355,16 +358,15 @@
 
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-	SELECT USER_NO,
+		SELECT USER_NO,
 		QNA.QNA_NO,
 		QNA.QNA_TITLE,QNA.QNA_CATEGORY,
 		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
 		USER_INFO.USER_NICKNAME,USER_INFO.USER_ID,
 		QNA.QNA_DELETE_FL,
 		QNA.QNA_CHECK_FL,
-		QNA_IMG.QNA_IMG_PATH
-		FROM
-		QNA
+		QNA_IMG.QNA_IMG_PATH,QNA.NONMEMBER_NAME,QNA.NONMEMBER_EMAIL,QNA.NONMEMBER_TEL
+		FROM QNA
 		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
 		LEFT JOIN (
 		SELECT QNA_NO, MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
@@ -1722,6 +1724,49 @@
 			ORDER BY R.REPORT_NO DESC
 		</select>
 		
+<!--신고하기 삭제 안 한 게시글 수-->
+
+		<select id="reportInListCount" resultType="_int">
+			SELECT COUNT(*)
+			FROM REPORT R
+			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
+			WHERE MR.REVIEW_DELETE_FL  = 'N'
+		</select>
+<!--신고하기 삭제 안 한 게시글 수-->
+
+
+	<select id="adminReportInList" resultMap="report_rm">
+			SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID,MR.REVIEW_DELETE_FL
+			FROM REPORT R
+			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
+			JOIN USER_INFO UI1 ON UI1.USER_NO = R.REPORT_WIRTER
+			JOIN USER_INFO UI2 ON UI2.USER_NO = R.REPORTED_USER_NO
+			WHERE MR.REVIEW_DELETE_FL = 'N'
+			ORDER BY R.REPORT_NO DESC
+		</select>
+<!--신고하기 삭제 한 게시글 수-->
+
+	<select id="reportOutListCount" resultType="_int">
+		    SELECT COUNT(*)
+			FROM REPORT R
+			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
+			WHERE MR.REVIEW_DELETE_FL  = 'Y'
+		</select>
+<!--신고하기 삭제 한 게시글 수-->
+
+
+<select id="adminReportOutList" resultMap="report_rm">
+			SELECT R.REPORT_NO, R.REPORT_TITLE, R.REPORT_CONTNENT, R.REVIEW_NO, UI1.USER_ID AS REPORT_WRITER, UI2.USER_ID AS REPORTED_USER_ID,MR.REVIEW_DELETE_FL
+			FROM REPORT R
+			JOIN MOVIE_REVIEW MR ON R.REVIEW_NO = MR.REVIEW_NO
+			JOIN USER_INFO UI1 ON UI1.USER_NO = R.REPORT_WIRTER
+			JOIN USER_INFO UI2 ON UI2.USER_NO = R.REPORTED_USER_NO
+			WHERE MR.REVIEW_DELETE_FL = 'Y'
+			ORDER BY R.REPORT_NO DESC
+		</select>
+
+		
+		
 		<!--신고하기 게시글 불러오기-->
 		<select id="adminReportOne" resultMap="report_rm">
 		SELECT  R.REPORT_NO,R.REPORT_TITLE,R.REPORT_CONTNENT,R.REPORT_ENROLL_DATE,R.REPORT_FL,
@@ -1857,9 +1902,54 @@
 		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
 		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
 		ORDER BY MR.REVIEW_NO DESC
-
-
 		</select>
+		
+<!--			//리뷰관리 삭제 안 한 게시글 개수-->
+	<select id="reviewInListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		WHERE MR.REVIEW_DELETE_FL = 'N'
+		ORDER BY MR.REVIEW_NO DESC
+		</select>
+
+ 
+<!--	//리뷰관리 삭제 안 한 게시글 게시판 조회-->
+       <select id="adminReviewInList" resultMap="review_rm">
+		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+ 		MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE, UI.USER_ID
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		WHERE MR.REVIEW_DELETE_FL = 'N'
+		ORDER BY MR.REVIEW_NO DESC
+		</select>
+	
+<!--	//리뷰관리 삭제 한 게시글 개수-->
+
+
+		<select id="reviewOutListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		WHERE MR.REVIEW_DELETE_FL = 'Y'
+		ORDER BY MR.REVIEW_NO DESC
+		</select>
+
+<!--	//리뷰관리 삭제 한 게시글 게시판 조회-->
+		 <select id="adminReviewOutList" resultMap="review_rm">
+		SELECT MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+ 		MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE, UI.USER_ID
+		FROM MOVIE_REVIEW MR
+		JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+		JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+		WHERE MR.REVIEW_DELETE_FL = 'Y'
+		ORDER BY MR.REVIEW_NO DESC
+		</select>
+		
+		
 		
 	<!--리뷰관리하기 게시글 불러오기-->
 		<select id="adminReviewOne" resultMap="review_rm">
@@ -1910,7 +2000,7 @@
 					</choose>
 				</where>
 			</select>
-		<!--리뷰관리 검색-->
+		<!--리뷰관리 검색 수 -->
 		<select id="reviewFilterListCount" parameterType="Review" resultType="_int"> 
 				SELECT  COUNT(*)
 				FROM  MOVIE_REVIEW MR
@@ -1945,6 +2035,161 @@
 					</choose>
 				</where>
 			</select>
+			
+<!--리뷰 검색에 따른 개수-->
+
+		<select id="reviewFilterInListCount" parameterType="Review" resultType="_int"> 
+				SELECT  COUNT(*)
+				FROM  MOVIE_REVIEW MR
+				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+						WHERE MR.REVIEW_DELETE_FL = 'N'
+					<choose>
+						<when test="type != null and type.equals('reviewNo')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('movie')">
+							<if test="keyword != null and keyword != ''">
+								AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('user')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('score')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.SCORE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
+							</when>
+					</choose>
+			</select>
+<!--리뷰 삭제 안 한 게시글 검색-->
+
+
+	<select id="getReviewInSearchList" parameterType="Review" resultMap="review_rm"> 
+				SELECT  MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+       			MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE,UI.USER_ID
+				FROM  MOVIE_REVIEW MR
+				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+				JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+				WHERE MR.REVIEW_DELETE_FL = 'N'
+					<choose>
+						<when test="type != null and type.equals('reviewNo')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('movie')">
+							<if test="keyword != null and keyword != ''">
+								AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('user')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('score')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.SCORE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
+							</when>
+					</choose>
+			</select>
+
+
+<!--	리뷰 검색에 따른 개수-->
+
+	<select id="reviewFilterOutListCount" parameterType="Review" resultType="_int"> 
+				SELECT  COUNT(*)
+				FROM  MOVIE_REVIEW MR
+				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+				WHERE MR.REVIEW_DELETE_FL = 'Y'
+										<choose>
+						<when test="type != null and type.equals('reviewNo')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('movie')">
+							<if test="keyword != null and keyword != ''">
+								AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('user')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('score')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.SCORE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
+							</when>
+					</choose>
+			</select>
+<!--	리뷰 삭제  한 게시글 검색-->
+	
+	<select id="getReviewOutSearchList" parameterType="Review" resultMap="review_rm"> 
+				SELECT  MR.REVIEW_NO, MR.SCORE, TO_CHAR(MR.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+       			MR.REVIEW_CONTENT, MR.USER_NO, MR.REVIEW_DELETE_FL, M.MOVIE_TITLE,UI.USER_ID
+				FROM  MOVIE_REVIEW MR
+				JOIN MOVIE M ON M.MOVIE_NO = MR.MOVIE_NO
+				JOIN USER_INFO UI ON UI.USER_NO = MR.USER_NO
+				WHERE MR.REVIEW_DELETE_FL = 'Y'
+					<choose>
+						<when test="type != null and type.equals('reviewNo')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('movie')">
+							<if test="keyword != null and keyword != ''">
+								AND M.MOVIE_TITLE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('user')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.USER_NO LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('score')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.SCORE LIKE '%' || #{keyword} || '%'
+							</if>
+						</when>
+						<when test="type != null and type.equals('content')">
+							<if test="keyword != null and keyword != ''">
+								AND MR.REVIEW_CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
+							</when>
+					</choose>
+			</select>
+			
+			
+			
+			
+			
+			
+			
 		
 		
 </mapper>

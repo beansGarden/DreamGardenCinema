@@ -453,6 +453,17 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<Report> adminReportList(RowBounds rowBounds);
+	
+	//신고하기 삭제 안 한 게시글 수
+	int reportInListCount();
+	//신고하기 삭제 안 한 게시글 수
+	List<Report> adminReportInList(RowBounds rowBounds);
+	//신고하기 삭제 한 게시글 수
+	int reportOutListCount();
+	//신고하기 삭제 한 게시글 수
+	List<Report> adminReportOutList(RowBounds rowBounds);
+
+	
 
 	/**
 	 * 신고하기 게시글 읽기
@@ -483,6 +494,7 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<Report> getReportSearchList(Report condition, RowBounds rowBounds);
+	
 
 	//리뷰관리하기**************************************************************************************************************
 	
@@ -491,9 +503,30 @@ public interface AdminMapper {
 
 	//리뷰 게시판 불러오기
 	List<Review> adminReviewList(RowBounds rowBounds);
+	
+	//리뷰관리 삭제 안 한 게시글 개수
+	int reviewInListCount();
+	//리뷰관리 삭제 안 한 게시글 게시판 조회
+	List<Review> adminReviewInList(RowBounds rowBounds);
+	//리뷰관리 삭제 한 게시글 개수
+	int reviewOutListCount();
+	//리뷰관리 삭제 한 게시글 게시판 조회
+	List<Review> adminReviewOutList(RowBounds rowBounds);
+
 
 	//리뷰 검색
 	List<Review> getReviewSearchList(Review condition, RowBounds rowBounds);
+	
+	//리뷰 검색에 따른 개수
+	int reviewFilterInListCount(Review condition);
+
+	//리뷰 삭제 안 한 게시글 검색
+	List<Review> getReviewInSearchList(Review condition, RowBounds rowBounds);
+	//리뷰 검색에 따른 개수
+	int reviewFilterOutListCount(Review condition);
+	//리뷰 삭제  한 게시글 검색
+	List<Review> getReviewOutSearchList(Review condition, RowBounds rowBounds);
+
 
 	//영화 관 별 개수
 	int movieCinemaCount();
@@ -510,7 +543,11 @@ public interface AdminMapper {
 	//신고하기 검색에 따른 개수 불러오기
 	int reportFilterListCount(Report condition);
 
+	
 
+
+	
+	
 	//리뷰 복구
 	int restoreReview(int reviewNo);
 
@@ -518,9 +555,9 @@ public interface AdminMapper {
 	//리뷰 게시글 읽어오기
 	List<Review> adminReviewOne(int reviewNo);
 
-
-
 	
+
+
 	
 
 	
@@ -557,8 +594,7 @@ public interface AdminMapper {
 	// 년도별 월 매출
 	List<SalesByPeriod> monthlySalesByYear(Map<String, String> year);
 
-
-
+	
 
 
 

@@ -26,7 +26,7 @@
         <div class="admin_reviewSearchWrap">
             <!-- select랑 검색창만 감싸는 div -->
             <div class="admin_userSearchWrap2">
-                <form th:action="@{/getReviewSearchList}" autocomplete="off">
+                <form th:action="@{/getReviewOutSearchList}" autocomplete="off">
                     <select class="admin_reviewSelect" name="type" id="">
                         <option value="reviewNo">리뷰번호</option>
                         <option value="movie">영화</option>
@@ -64,6 +64,9 @@
             <span ><a th:href="@{/adminReviewOut}" class="reviewCount">삭제한 게시글 수 :</a></span>
             <span class="adminReviewOutCountAll">0</span>
         </div>
+
+        <div>
+          
         <!-- 게시판 -->
         <div class="admin_reviewBoardWrap">
             <table id="boardTable"  style='table-layout:fixed'>
@@ -111,12 +114,7 @@
             <ul class="pagination">
 
                 <!-- 첫 페이지로 이동 -->
-                <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
                 <li><a th:href="@{/adminReview(cp=${pagination.startPage})}">&lt;&lt;</a></li>
-
-                <!-- 이전 목록 마지막 번호로 이동 -->
-                <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
-                <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
 
                 <!-- 특정 페이지로 이동 -->
                 <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -140,10 +138,6 @@
                 </th:block>
 
                 <!-- 다음 목록 시작 번호로 이동 -->
-                <!--   <li th:if="${i==pagination.currentPage}">
-                        <a class="current" th:text="${i}">현재 페이지</a>
-                    </li>
-                   -->
                 <!-- 끝 페이지로 이동 -->
                 <li><a th:href="@{/adminReview(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
             </ul>
@@ -152,7 +146,7 @@
         <!-- 등록,수정,삭제 버튼 -->
         <div class="admin_reviewBtn">
              <button class="admin_reviewEndBtn" id="restoreBtn">복구</button> 
-             <button class="admin_reviewEndBtn" id="deleteBtn">삭제</button> 
+     
         </div>
 
     </div>
@@ -163,7 +157,7 @@
 
 
 
-    <script src="\js\admin\admin_review.js"></script>
+    <script src="\js\admin\admin_reviewOut.js"></script>
 </body>
 
 </html>

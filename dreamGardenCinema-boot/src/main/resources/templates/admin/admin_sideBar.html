@@ -30,7 +30,7 @@
 
             <div class="admin_sideBarUserTitle">
                 <span id="admin_Id">Admin</span>
-                <p><span id="admin_Nickname">유저 이름</span></p>
+                <p><span th:text="${session.loginUser.userNickname}"  id="admin_Nickname"></span></p>
             </div>
 
             <div class="admin_sideBarLogOut">
