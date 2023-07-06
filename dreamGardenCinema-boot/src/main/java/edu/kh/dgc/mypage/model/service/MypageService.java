@@ -72,4 +72,11 @@ public interface MypageService {
 	 */
 	LocalDateTime movieTime(String ticketId);
 
+	/** 해당 티켓 보다 후에 예매한 티켓의 등급보다 높은 쿠폰 사용 여부
+	 * @param ticket
+	 * @return
+	 */
+	int countXCoupon(Ticket ticket);
+
+
 }

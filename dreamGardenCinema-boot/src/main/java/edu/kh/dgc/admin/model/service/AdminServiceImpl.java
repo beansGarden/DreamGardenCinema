@@ -962,6 +962,17 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.noticeOutListCount();
 	}
+
+	// 년도별 분기 매출
+	@Override
+	public List<SalesByPeriod> quarterlySales(String selectedYear) {
+		return mapper.quarterlySales(selectedYear);
+	}
+
+	@Override
+	public List<SalesByPeriod> firstLoadingQuarterlySales(String currentYear) {
+		return mapper.quarterlySales(currentYear);
+	}
 	
 }
 

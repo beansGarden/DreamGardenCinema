@@ -133,4 +133,11 @@ public class MypageServiceImpl implements MypageService{
 		return mapper.movieTime(ticketId);
 	}
 
+	// 해당 티켓 보다 후에 예매한 티켓의 등급보다 높은 쿠폰 사용 여부
+	@Override
+	public int countXCoupon(Ticket ticket) {
+		return mapper.countXCoupon(ticket);
+	}
+
+
 }
