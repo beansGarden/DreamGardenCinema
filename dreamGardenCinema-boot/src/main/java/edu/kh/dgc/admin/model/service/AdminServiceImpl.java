@@ -292,8 +292,78 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.qnaListDeletedCount();
 	}
 
-	
+	//-------------------------------------------------------------------------------------------------------------------------
+	@Override
+	public Map<String, Object> adminAnswer(int cp) {
+		
+		int qnalistCount = mapper.qnaAnswerListCount();
 
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaAnswerdList(rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
+	}
+
+
+
+	@Override
+	public Map<String, Object> adminNomember(int cp) {
+		
+		int qnalistCount = mapper.qnaNomemberListCount();
+
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaNomemberList(rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
+	}
+
+
+	@Override
+	public Map<String, Object> adminMember(int cp) {
+		
+		int qnalistCount = mapper.qnaMemberListCount();
+
+		Pagination pagination = new Pagination(qnalistCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Qna> qnaList = mapper.adminQnaMemberList(rowBounds);
+
+		Map<String, Object> getQnaSearchMap = new HashMap<String, Object>();
+		getQnaSearchMap.put("pagination", pagination);
+		getQnaSearchMap.put("qnaList", qnaList);
+
+		return getQnaSearchMap;
+	}
+
+
+	
 	// 회원****************************************************
 
 	// 회원관리 조회
@@ -679,9 +749,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 	//삭제 안 된 공지사항 게시판 조회
 	@Override
-	public Map<String, Object> adminNoticeInList(int cp) {
+	public Map<String, Object> adminNoticeInList(Notice condition,int cp) {
 		
-		int noticeListCount = mapper.noticeInListCount();
+		int noticeListCount = mapper.noticeFilterInListCount(condition);
 
 		Pagination pagination = new Pagination(noticeListCount, cp);
 
@@ -691,7 +761,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Notice> adminNoticeList = mapper.adminNoticeInList(rowBounds);
+		List<Notice> adminNoticeList = mapper.adminNoticeInList(condition,rowBounds);
 
 		Map<String, Object> adminNoticeMap = new HashMap<String, Object>();
 		
@@ -706,9 +776,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	//삭제된 공지사항 조회
 	@Override
-	public Map<String, Object> adminNoticeDeletedList(int cp) {
+	public Map<String, Object> adminNoticeDeletedList(Notice condition,int cp) {
 
-		int noticeListCount = mapper.noticeDeletedListCount();
+		int noticeListCount = mapper.noticeDeletedListCount(condition);
 
 		Pagination pagination = new Pagination(noticeListCount, cp);
 
@@ -718,7 +788,7 @@ public class AdminServiceImpl implements AdminService {
 		// 2) RowBounds 객체 생성
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Notice> adminNoticeList = mapper.adminNoticeDeletedList(rowBounds);
+		List<Notice> adminNoticeList = mapper.adminNoticeDeletedList(condition,rowBounds);
 
 		Map<String, Object> adminNoticeMap = new HashMap<String, Object>();
 		
@@ -769,17 +839,11 @@ public class AdminServiceImpl implements AdminService {
 
 	// 공지사항 게시글 검색
 	@Override
-	public 	Map<String, Object> getNoticeSearchList(Notice condition, int cp) {
-
+	public Map<String, Object> getNoticeAllSearchList(Notice condition, int cp) 
+	{
 		int noticeListCount = mapper.noticeFilterListCount(condition);
 
 		Pagination pagination = new Pagination(noticeListCount, cp);
-
-		// 3. 특정 게시판에서
-		// 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
-		// (어떤 게시판(boarCode)에서
-		// 몇 페이지(pagination.currentPage)에 대한
-		// 게시글 몇 개(pagination.limit) 조회)
 
 		// 1) offset 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -796,6 +860,56 @@ public class AdminServiceImpl implements AdminService {
 		return getNoticeSearchMap;
 	}
 
+	
+	// 공지사항 삭제 안 한 게시글 검색
+	@Override
+	public 	Map<String, Object> getNoticeSearchList(Notice condition, int cp) {
+
+		int noticeListCount = mapper.noticeFilterInListCount(condition);
+
+		Pagination pagination = new Pagination(noticeListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Notice> adminNoticeList = mapper.adminNoticeInList(condition,rowBounds);
+
+		Map<String, Object> getNoticeSearchMap = new HashMap<String, Object>();
+		getNoticeSearchMap.put("pagination", pagination);
+		getNoticeSearchMap.put("adminNoticeList", adminNoticeList);
+
+		return getNoticeSearchMap;
+	}
+
+
+
+	// 공지사항 삭제 한 게시글 검색
+	@Override
+	public Map<String, Object> getNoticeDeletedSearchList(Notice condition, int cp) {
+		
+		int noticeListCount = mapper.noticeDeletedListCount(condition);
+
+		Pagination pagination = new Pagination(noticeListCount, cp);
+
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Notice> adminNoticeList = mapper.adminNoticeDeletedList(condition,rowBounds);
+
+		Map<String, Object> getNoticeSearchMap = new HashMap<String, Object>();
+		getNoticeSearchMap.put("pagination", pagination);
+		getNoticeSearchMap.put("adminNoticeList", adminNoticeList);
+
+		return getNoticeSearchMap;
+	}
+
+	
 
 	//공지사항 삭제 안 한 게시글 
 	@Override
@@ -804,6 +918,11 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.noticeInListCount();
 	}
 
+	@Override
+	public int noticeListCount() {
+		
+		return  mapper.noticeListCount();
+	}
 
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
@@ -1271,39 +1390,12 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.quarterlySales(currentYear);
 	}
 
-	// 년도별 월 매출(첫 접속)
-	@Override
-	public List<SalesByPeriod> firstLoadingMonthlySalesByYear(String currentYear) {
-		
-		Map<String, String> year = new HashMap<>();
-		int lastYear = Integer.parseInt(currentYear)-1;
-		year.put("currentYear", currentYear);
-		year.put("lastYear", lastYear+"");
-		
-		return mapper.monthlySalesByYear(year);
-	}
 
-	// 년도별 월 매출
-	@Override
-	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
-		
-		Map<String, String> year = new HashMap<>();
-		int lastYear = Integer.parseInt(selectedYear)-1;
-		year.put("currentYear", selectedYear);
-		year.put("lastYear", lastYear+"");
-		
-		return mapper.monthlySalesByYear(year);
-	}
+
+
+
+
 	
-	@Override
-	public int noticeListCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
-
 	
 }
 

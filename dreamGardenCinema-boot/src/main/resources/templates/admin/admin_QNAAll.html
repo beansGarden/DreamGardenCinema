@@ -72,10 +72,17 @@
                     </div>
                 </div>
             </div>
-
+            <div>
+                <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 여부</a></span>
+                <span >/</span>
+                <span class="nomember"><a th:href="@{/adminQnaNomember}" id="nomember">비회원</a></span>
+                <span >/</span>
+                <span class="member"><a th:href="@{/adminQnaMember}" id="member">회원</a></span>
+            </div>
+            <span>* 비회원일 경우 이메일로 답변</span>
             <!-- 게시판 -->
             <div class="admin_qnaBoardWrap">
-                <table id="boardTable" style='table-layout:fixed'>
+                <table id="boardTable"  style='table-layout:fixed'>
                     <thead>
                         <tr>
                             <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll"
@@ -86,7 +93,7 @@
                             <th>등록인</th>
                             <th>삭제여부</th>
                             <th>답변여부</th>
-
+    
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +103,7 @@
                             <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글
                                     번호</a></td>
                             <td th:text="${list.qnaEnrollDate}"></td>
-                            <td th:text="${list.userId}"></td>
+                            <td th:text="${list.userId} ? ${list.userId} : '비회원' "></td>
                             <td th:text="${list.qnaDeleteFl}"></td>
                             <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
                         </tr>

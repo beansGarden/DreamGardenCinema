@@ -90,6 +90,19 @@ public interface AdminService {
 	//QNA 삭제된 게시글 검색
 	Map<String, Object> getDeletedSearchList(Qna condition, int cp);
 
+	//QNA 답변 안 된 것만 보기
+	Map<String, Object> adminAnswer(int cp);
+
+	//비회원 글만 보기
+	Map<String, Object> adminNomember(int cp);
+
+	//회원 글만 보기
+	Map<String, Object> adminMember(int cp);
+
+
+
+
+	
 
 	
 	//회원*****************************************
@@ -161,10 +174,10 @@ public interface AdminService {
 	Map<String, Object>  adminNoticeList(int cp);
 
 	//삭제된 공지사항 조회
-	Map<String, Object> adminNoticeDeletedList(int cp);
+	Map<String, Object> adminNoticeDeletedList(Notice condition, int cp);
 
 	//삭제 안 된 공지사항 조회
-	Map<String, Object> adminNoticeInList(int cp);
+	Map<String, Object> adminNoticeInList(Notice condition, int cp);
 	
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
@@ -182,9 +195,15 @@ public interface AdminService {
 	//공지사항 게시글 선택 복구
 	int noticeRestore(int noticeNo);
 
-	
 	//공지사항 게시글 검색
+	Map<String, Object> getNoticeAllSearchList(Notice condition, int cp);
+	
+	//공지사항 삭제 안 한 게시글 검색
 	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
+
+	//공지사항 삭제 한 게시글 검색
+	Map<String, Object> getNoticeDeletedSearchList(Notice condition, int cp);
+
 
 	//공지사항 전체 개수
 	int noticeListCount();
@@ -327,10 +346,6 @@ public interface AdminService {
 	// 년도별 월 매출
 	List<SalesByPeriod> monthlySalesByYear(String selectedYear);
 
-
-
-
-	
 
 
 

@@ -94,6 +94,25 @@ public interface AdminMapper {
 
 	List<Qna> adminQnaAllList(Qna condition, RowBounds rowBounds);
 
+	//답변 안 된 것만 보기
+	int qnaAnswerListCount();
+
+	//비회원만 보기
+	int qnaNomemberListCount();
+
+	//회원만 보기
+	int qnaMemberListCount();
+
+	//답변 안 된 것만 보기
+	List<Qna> adminQnaAnswerdList(RowBounds rowBounds);
+
+	//비회원만 보기
+	List<Qna> adminQnaNomemberList(RowBounds rowBounds);
+
+	//답변 안 된 것만 보기
+	List<Qna> adminQnaMemberList(RowBounds rowBounds);
+
+
 
 	// 회원관리*****************************************************
 
@@ -242,7 +261,7 @@ public interface AdminMapper {
 	int noticeListCount();
 
 	//삭제된 공지사항 개수 세기
-	int noticeDeletedListCount();
+	int noticeDeletedListCount(Notice condition);
 	
 	
 	/**
@@ -254,10 +273,10 @@ public interface AdminMapper {
 	List<Notice> adminNoticeList(RowBounds rowBounds);
 
 	//삭제된 게시글 공지사항 List 조회
-	List<Notice> adminNoticeDeletedList(RowBounds rowBounds);
+	List<Notice> adminNoticeDeletedList(Notice condition, RowBounds rowBounds);
 	
 	//삭제 안 된 게시글 공지사항 List 조회
-	List<Notice> adminNoticeInList(RowBounds rowBounds);
+	List<Notice> adminNoticeInList(Notice condition, RowBounds rowBounds);
 
 
 	
@@ -322,6 +341,9 @@ public interface AdminMapper {
 	int noticeOutListCount();
 	
 	int qnaListDeletedCount();
+	
+	//공지사항 삭제 안 한 게시글 (검색)
+	int noticeFilterInListCount(Notice condition);
 
 	// FAQ (자주 찾는 질문) List 조회*****************************
 
@@ -534,6 +556,8 @@ public interface AdminMapper {
 
 	// 년도별 월 매출
 	List<SalesByPeriod> monthlySalesByYear(Map<String, String> year);
+
+
 
 
 

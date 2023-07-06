@@ -29,7 +29,7 @@
                     <div class="admin_qnaSearchWrap">
                         <!-- select랑 검색창만 감싸는 div -->
                         <div class="admin_userSearchWrap2">
-                            <form th:action="@{/getSearchList}" autocomplete="off">
+                            <form th:action="@{/getDeletedSearchList}" autocomplete="off">
                                 <select class="admin_qnaSelect" name="type" id="">
                                     <option value="qnaNo">번호</option>
                                     <option value="title">제목</option>
@@ -37,9 +37,7 @@
                                     <option value="writer">작성자</option>
                                 </select>
                                 <!-- 검색 input 창 -->
-
                                 <input type="text" name="keyword" id="" class="admin_qnaInput">
-
                         </div>
                         <!-- 검색 버튼 -->
                         <div class="admin_qnaBtnWrap">
@@ -118,6 +116,7 @@
                 <!--              검색 X인 경우의 페이지 네이션 -->
                 <ul class="pagination">
 
+<<<<<<< HEAD
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
                     <li><a th:href="@{/adminQnaDeleted(cp=${pagination.startPage})}">&lt;&lt;</a></li>
@@ -135,6 +134,50 @@
                             <a th:text="${i}" th:href="@{/adminQnaDeleted(cp=${i})}"></a>
                         </li>
                     </th:block>
+=======
+        <div>
+            <span ><a th:href="@{/adminQnaAll}" class="qnaCount">총 게시글 수 : </a></span>
+            <span class="adminQnaCountAll">0</span>
+            <span ><a th:href="@{/adminQna}" class="qnaCount">게시글 수 : </a></span>
+            <span class="adminQnaInCountAll">0</span>
+            <span ><a th:href="@{/adminQnaDeleted}" class="qnaCount">삭제된 게시글 수 :</a></span>
+            <span class="adminQnaOutCountAll">0</span>
+        </div>
+        <span>* 비회원일 경우 이메일로 답변</span>
+        <!-- 게시판 -->
+        <div class="admin_qnaBoardWrap">
+            <table id="boardTable"  style='table-layout:fixed'>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="admin_qnaCheckboxAll"
+                                onclick='userSelectAll(this)'></th>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                        <th>등록인</th>
+                        <th>삭제여부</th>
+                        <th>답변여부</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="list : ${adminQnaList}">
+                        <td><input type="checkbox" name="" id="" class="admin_qnaCheckbox"></td>
+                        <td th:text="${list.qnaNo}" class="admin_qna_checkbox_no"></td>
+                        <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}" th:text="${list.qnaTitle}">게시글
+                                번호</a></td>
+                        <td th:text="${list.qnaEnrollDate}"></td>
+                        <td th:text="${list.userId} ? ${list.userId} : '비회원' "></td>
+                        <td th:text="${list.qnaDeleteFl}"></td>
+                        <td th:text="${list.qnaCheckFl}" id="qnaCheckFl"></td>
+                    </tr>
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminQnaList)}">
+                    <tr>
+                        <td colspan="7">조회하는 결과가 없습니다.</td>
+                    </tr>
+                </tbody>
+>>>>>>> origin/유민
 
                     <!-- 현재 보고있는 페이지 -->
                     <li th:if="${i==pagination.currentPage}">

@@ -58,21 +58,21 @@
 
 }
 
+
 /* 등록버튼 */
 .admin_noticeRegister {
-    margin-left: 90%;
+    margin: 0px 10px;
     padding: 5px 15px;
     border-radius: 5px;
-    background-color: #0F0954;
+    background-color: #59ada8;
     color: white;
-
+    height: 38px;
+    width: 60px;
+    transform: translateX(900px);
 }
 
-.admin_noticeRegister a {
-    color: white;
-    
-}
-
-.noticeCount:hover{
-    text-decoration: underline;
+.admin_noticeRegister:hover{
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
 }
