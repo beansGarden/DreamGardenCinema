@@ -1538,5 +1538,21 @@ public class AdminController {
         
     }
     
+        
+        
+        
+      //매출관리***************************************************(근태)***********
+        
+    	@GetMapping("/adminSales") //
+    	public String adminSales() {
+
+    		return "admin/admin_sales";
+    	}
+        
+        
+        
+        
+        
+        
     
 }
