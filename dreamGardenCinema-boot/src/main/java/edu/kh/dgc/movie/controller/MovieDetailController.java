@@ -52,7 +52,7 @@ public class MovieDetailController {
 		
 		model.addAttribute("movieDirectorName", movieDirectorName);
 		model.addAttribute("movieActorName", movieActorName);
-//		
+		
 		model.addAttribute("movieStillCut", movieStillCut);
 		
 		model.addAttribute("persons", moviePersons);

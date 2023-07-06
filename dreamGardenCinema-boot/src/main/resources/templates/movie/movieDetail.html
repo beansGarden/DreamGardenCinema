@@ -58,8 +58,11 @@
                         <span th:text="|누적관객수|">누적 관객수</span>
                         <span th:text="|*{ticketCount} 명|"></span>
                     </div>
-                </div>
 
+                    <th:block th:text="${param.movieNo}"></th:block>
+
+                </div>
+                
                 <div th:unless="*{screening} == C" style="margin-top: 20px;">
 
                 </div>
@@ -109,7 +112,7 @@
 
                     <div class="movie-ticket font2">
 
-                        <a class="ticket-active" th:if="*{screening == 'C'}" href="#">예매하기</a>
+                        <a class="ticket-active" th:if="*{screening == 'C'}" href="@{/ticketing/date/} + *{movieNo}">예매하기</a>
 
                         <div class="ticket-non-active" th:unless="*{screening == 'C'}">상영예정</div>
 
