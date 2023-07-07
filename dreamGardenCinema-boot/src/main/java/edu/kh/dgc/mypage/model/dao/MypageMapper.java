@@ -80,4 +80,84 @@ public interface MypageMapper {
 	 */
 	public LocalDateTime movieTime(String ticketId);
 
+	/** 해당 티켓 보다 후에 예매한 티켓의 등급보다 높은 쿠폰 사용 여부
+	 * @param ticket
+	 * @return
+	 */
+	public int countXCoupon(Ticket ticket);
+
+	/** 매달 1일 아침 5시 마다 유저 쿠폰 전체 삭제
+	 * @return
+	 */
+	public int deleteAllCoupon();
+
+	/** 누적 금액 4만원 미만 고객 등급 브론즈 업데이트
+	 * @return
+	 */
+	public int updateAllBronze();
+
+	/** 누적 금액 4만원 미만 고객 userNo전체 조회 
+	 * @return
+	 */
+	public List<User> selectBronzeUserNo();
+
+	/** 누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트
+	 * @return
+	 */
+	public int updateAllSilver();
+
+	/** 실버 등급 고객 userNo 전체 조회
+	 * @return
+	 */
+	public List<User> selectSilverUserNo();
+
+	/** 브론즈 쿠폰 1개,실버 쿠폰 2개 insert
+	 * @param userNo
+	 * @return
+	 */
+	public int insertSilverCoupon(int userNo);
+
+	/** 누적 금액 10만원 이상 20만원 미만 고객 골드 업데이트
+	 * @return
+	 */
+	public int updateAllGold();
+
+	/** 골드 등급 고객 userNo 전체 조회
+	 * @return
+	 */
+	public List<User> selectGolduserNo();
+
+	/** 브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개 insert
+	 * @param userNo
+	 * @return
+	 */
+	public int insertAllGoldCoupon(int userNo);
+
+	/** 누적 금액 20만원 이상 고객 플래티넘 업데이트
+	 * @return
+	 */
+	public int updateAllPlatinum();
+
+	/** 플래티넘 등급 고객 userNo 전체 조회
+	 * @return
+	 */
+	public List<User> platinumNoList();
+
+	/** 브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개,플래티넘 쿠폰 2개 insert
+	 * @param userNo
+	 * @return
+	 */
+	public int insertAllPlatinumCoupon(int userNo);
+
+	/** 모든 유저 누적 금액 초기화
+	 * @return
+	 */
+	public int updateAllAmount();
+
+	/** 유저 전체 RATING 1 업데이트
+	 * @return
+	 */
+	public int updateRating1();
+
+
 }

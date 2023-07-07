@@ -20,7 +20,7 @@
         <span id="admin_noticeTitle">공지사항 관리</span>
 
         <!-- 검색창 -->
-        <form th:action="@{/getNoticeSearchList}" autocomplete="off">
+        <form th:action="@{/getNoticeDeletedSearchList}" autocomplete="off">
             <div class="admin_noticeSearchWrap">
                 <div class="admin_noticeSearchWrap2">
                     <select class="admin_noticeSelect" name="type" id="">
@@ -48,11 +48,11 @@
             <span>개)</span>
         
             <div>
-                <span>총 게시글 개수 :</span>
+                <span><a th:href="@{/adminNoticeAll}" class="noticeCount">총 게시글 개수 :</a></span>
                 <span class="adminNoticeCountAll">0</span>
-                <span>공지사항 수 : </span>
+                <span><a th:href="@{/adminNotice}" class="noticeCount">공지사항 수 : </a></span>
                 <span class="adminNoticeInCountAll">0</span>
-                <span>삭제된 공지사항 수 : </span>
+                <span><a th:href="@{/adminNoticeDeleted}" class="noticeCount">삭제된 공지사항 수 :</a></span>
                 <span class="adminNoticeOutCountAll">0</span>
             </div>
 
@@ -98,7 +98,7 @@
 
                 <!-- 첫 페이지로 이동 -->
                 <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                <li><a th:href="@{/adminNotice(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                <li><a th:href="@{/adminNoticeDeleted(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                 <!-- 이전 목록 마지막 번호로 이동 -->
                 <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -110,7 +110,7 @@
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:text="${i}" th:href="@{/adminNotice(cp=${i})}"></a>
+                        <a th:text="${i}" th:href="@{/adminNoticeDeleted(cp=${i})}"></a>
                     </li>
                 </th:block>
 
@@ -121,7 +121,7 @@
 
                 <!-- 현재 페이지를 제외한 나머지 -->
                 <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/adminNotice(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                    <a th:href="@{/adminNoticeDeleted(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                 </li>
                 </th:block>
 
@@ -131,7 +131,7 @@
                     </li>
                    -->
                 <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/adminNotice(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                <li><a th:href="@{/adminNoticeDeleted(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
             </ul>
         </div>
 

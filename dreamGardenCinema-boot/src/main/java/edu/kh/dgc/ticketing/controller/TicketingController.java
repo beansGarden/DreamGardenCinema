@@ -101,7 +101,6 @@ public class TicketingController {
 	public String seat(Ticket ticket, Model model // 모델에 담아서 forward
 			, RedirectAttributes ra, @SessionAttribute("loginUser") User loginUser, HttpSession session) {
 
-		System.out.println("왜~~~~~~~~~~~~~~~~~~~??? : "+ticket);
 		// 2023062414:00
 		String movieTime = ticket.getDate().split(" ")[0] + ticket.getMovieTime().split(",")[1];
 		String movieTheater = ticket.getMovieTime().split(",")[0];
@@ -260,31 +259,11 @@ public class TicketingController {
 	@GetMapping("/complete/{ticketNo}")
 	public String complete(Model model, @PathVariable(value = "ticketNo", required = false) int ticketNo) {
 		
-		System.out.println(ticketNo);
-		
 		Map<String, Object> map = service.selectResultTicket(ticketNo);
 		
 		model.addAttribute("map", map);
 		
 		return "ticketing/Ticketing4";
 	}
-	
-	
-	
-//	
-//	@GetMapping("/pay")
-//	public String pay(Model model) {
-//		
-//		// 페이지 보여질 때 상영관의 좌석 정보 가져와야 함 + 웹 소켓?
-//		
-//		return "ticketing/Ticketing3";
-//	}
-//	
-//	
-//	@GetMapping("/PaymentPage")
-//	public String PaymentPage(Model model) {
-//		
-//		return "ticketing/PaymentPage";
-//	}
 
 }

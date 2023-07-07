@@ -37,7 +37,9 @@ if(ticket.movieTheater == 1){
                     const span = document.createElement('span');
                     span.innerText = alpha;
                     lineDiv.append(span);
-                    alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                    if(i!=0){
+                        alpha = String.fromCharCode(alpha.charCodeAt() + 1);
+                    }
                 } else{
                     const seatNo = document.createElement("a");
                     seatNo.classList.add("seat");
@@ -295,13 +297,14 @@ function seatClick(e){
 
 // 웹소켓 메시지
 socket.onmessage = function(event) {
-
+    console.log("message");
     let result = event.data;
     let resultList = result.split(" ");
     const seat = document.querySelectorAll(".seat");
     console.log(result);
     for(let i=0;i<seat.length;i++){
         console.log(resultList[1]);
+        console.log(resultList[0]);
         console.log(resultList[1] == "alreadyChk");
         if(resultList[1] == "alreadyChk"){
             if(seat[i].getAttribute("seatno")==resultList[0]){

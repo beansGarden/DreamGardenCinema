@@ -47,9 +47,7 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		ObjectMapper objectMapper = new ObjectMapper();
 		Ticket ticket = objectMapper.readValue(message.getPayload().substring(10), Ticket.class);  // room, movieTime, movieTheater, movieNo, seatNo, userNo, checked
 		
-		System.out.println(message.getPayload().split("\"")[47]);
-		
-		ticket.setSeatNo(message.getPayload().split("\"")[47]);
+		ticket.setSeatNo(message.getPayload().split("\"")[49]);
 		
 		String seatResult = service.seatCheck(ticket);  // INSERT, DELETE 결과를 가져오는 서비스
 		
@@ -85,9 +83,6 @@ public class TicketingWebsocketHandler extends TextWebSocketHandler{
 		log.info("Socket 연결 해제");
 		
 		int userNo = ((User)session.getAttributes().get("loginUser")).getUserNo();
-		
-		System.out.println(userNo);
-		
 		
 		Map<String, Object> resultMap = service.seatDelete(userNo);
 		String seatResult = (String) resultMap.get("seatResult");

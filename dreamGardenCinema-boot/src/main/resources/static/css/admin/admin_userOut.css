@@ -1,48 +1,71 @@
 /* 전체 감싸는 div */
-.admin_userWrap{
-    width: 1000px;
-    display: block;
-    margin: 100px auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+.admin_userWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    width: 1400px;
+    left: 600px;
+    top: 60px;
+    height: 750px;
+    gap: 20px;
 }
 
 /* 게시판 제목 */
-#admin_userTitle{
-    color:#0F0954;
-    font-size: 30px;
+#admin_userTitle {
+    background-color: black;
+    color: white;
+    font-size: 25px;
     font-weight: bold;
+    width: 200px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
 
+    /* margin: 20px 0 15px 50px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
+
+/*  게시판만 감싸는 박스 */
+/* .admin_mem-board-box {
+    position: absolute;
+    width: 1300px;
+    left: -7px;
+    top: 130px;
+} */
+
 /* 유저검색 창 */
-.admin_userSearchWrap{
+.admin_userSearchWrap {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px;
+    margin-top: 30px;
     width: 100%;
-    padding: 0px;
     height: 0px;
+    left: 5px;
 }
 
-/* 검색창 감싸는 div */
-.admin_userSearchWrap2{
-    border: 1px solid black;
-    width: 70%;
-    padding: 10px;
 
+/* 검색창 감싸는 div */
+.admin_userSearchWrap2 {
+    border: 1px solid black;
+    width: 43vw;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 /* select 선택창 */
-.admin_userSelect{
+.admin_userSelect {
     border: none;
     outline: none;
 
 }
 
 /* 검색창 */
-.admin_userInput{
+.admin_userInput {
     width: 400px;
     border: none;
     outline: none;
@@ -51,15 +74,32 @@
 
 
 /* 검색버튼 */
-.admin_userBtn{
-   margin: 0px 10px;
-   padding: 5px 15px;
-   border-radius: 5px;
-   background-color: #0F0954;
-   color: white;
+.admin_userBtn {
+    width: 67px;
+    margin: 0px 10px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #000000;
+    color: white;
+    height: 45px;
+    font-size: 17px;
 }
 
+/* 검색버튼 호버 */
+.admin_userBtn:hover{
+    background-color: #aaf5f8;
+    color: #000000;
+    transition-duration: 1s;
+    font-weight: bold;
+}
 
+/* 목록 수, 회원 수 count */
+.admin-re-mem-count-box{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 
 
 /* 게시판 테이블 감싸는 div */
@@ -68,21 +108,18 @@
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-  
-
 }
 
 /* 게시판 테이블 */
-.admin_userBoardWrap > table{
+.admin_userBoardWrap>table {
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
-    width: 100%;
-
-
+    margin-top: -10px;
 }
 
 /* 테이블 th,td 칸 */
-.admin_userBoardWrap > table >th,td{
+.admin_userBoardWrap>table>th,
+td {
     border-top: 1px solid rgba(128, 125, 125, 0.446);
     padding: 10px 20px;
     margin: 10px;
@@ -95,7 +132,7 @@ table > thead > tr > th:nth-child(1){
     width: 53px;
 }
 
-table > thead > tr > th:nth-child(4){
+body>div.admin_userWrap>div.admin_userBoardWrap>table>thead>tr>th:nth-child(4) {
     width: 100px;
 
 }
@@ -129,43 +166,80 @@ table > thead > tr > th:nth-child(6){
     width: 140;
 }
 
-
 /* 등록버튼 */
-#admin_userSignOut{
-    display: flex;
-    margin-left: 90%;
-    margin-top: 50px;
+#admin_userSignOut {
     padding: 5px 15px;
-    border-radius: 5px;
-    background-color: #0F0954;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    transform: translateX(750px);
+}
+
+
+#admin_userSignOut:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+
+#admin_userSignOut a {
+    color: white;
+}
+/* 복구버튼 */
+#admin_userSignRestore {
+    padding: 5px 15px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    transform: translateX(750px);
     
 }
 
-#admin_userSignOut a{
-    color: white;
-    
+#admin_userSignRestore:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
 }
+
+
+#admin_userSignRestore a {
+    color: white;
+
+}
+
 
 /* 페이지네이션 */
-.pagination{
+.pagination {
     text-decoration: none;
     text-align: center;
     list-style: none;
     margin-top: 30px;
 }
 
-.pagination li{
+.pagination li {
     display: inline;
 
 }
 
-.pagination a{
+.pagination a {
     text-decoration: none;
 }
 
-.pagination a:active{
+.pagination a:active {
     font-weight: bold;
     text-decoration: underline;
     color: #0F0954;
+}
+
+
+
+.memberCount:hover{
+    text-decoration: underline;
+
 }
 

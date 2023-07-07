@@ -48,11 +48,11 @@
             <span>개)</span>
         
             <div>
-                <span>총 게시글 개수 :</span>
+                <span><a th:href="@{/adminNoticeAll}" class="noticeCount">총 게시글 개수 :</a></span>
                 <span class="adminNoticeCountAll">0</span>
-                <span>공지사항 수 : </span>
+                <span><a th:href="@{/adminNotice}" class="noticeCount">공지사항 수 : </a></span>
                 <span class="adminNoticeInCountAll">0</span>
-                <span>삭제된 공지사항 수 : </span>
+                <span><a th:href="@{/adminNoticeDeleted}" class="noticeCount">삭제된 공지사항 수 :</a></span>
                 <span class="adminNoticeOutCountAll">0</span>
             </div>
 

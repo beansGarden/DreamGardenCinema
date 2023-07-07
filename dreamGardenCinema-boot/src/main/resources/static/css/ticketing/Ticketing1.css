@@ -125,8 +125,31 @@ body{
 
 .MovieList{
     height: 770px;
-    overflow-y : auto;
+    overflow-y : hidden;
 }
+.MovieList:hover{
+    overflow-y : auto;
+    scroll-behavior: smooth;
+}
+@keyframes move-background {
+    from {
+        background-position: 50% 0%;
+    }
+    to {
+        background-position: 50% 100%;
+    }
+}
+
+.MovieList::-webkit-scrollbar{
+    width: 10px;
+}
+.MovieList::-webkit-scrollbar-thumb{
+    background-color: #dda03c;
+    border-radius: 5px;
+    background-clip: padding-box;
+    border-radius: 2px solid transparent;
+}
+
 .hamburger>label{
     height: 60px;
     display: flex;
@@ -342,7 +365,7 @@ body{
 }
 
 .timeSelect{
-    width: 735px;
+    width: 100%;
     height: 659px;
     border-bottom-right-radius: 15px;
     display: flex;
@@ -408,9 +431,16 @@ body{
 }
 
 .nonelist{
-    height: 200px;
+    max-height: 580px;
     font-size: 30px;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.nonelist>div{
+    margin-top: 20px;
 }
 
 .checkBtn>*{

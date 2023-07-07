@@ -80,7 +80,7 @@
 			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
 				ON(P.MOVIE_NO = I.MOVIE_NO)
 			WHERE SCREENING = 'C'
-			ORDER BY TICKET_COUNT DESC, RELEASE_DATE)
+			ORDER BY TICKET_COUNT DESC, RELEASE_DATE DESC)
 	</select>
 	
 	<!-- 예매 1페이지 영화시간,상영관 조회 AJAX -->
@@ -293,7 +293,7 @@
 			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
 				ON(P.MOVIE_NO = I.MOVIE_NO)
 			WHERE SCREENING = 'C'
-			ORDER BY SCORE DESC, RELEASE_DATE)
+			ORDER BY SCORE DESC, RELEASE_DATE DESC)
 	</select>
 	
 	<!-- 결제 완료 시 유저 누적 금액 업데이트-->
@@ -303,79 +303,16 @@
 		WHERE USER_NO = ${userNo}
 	</update>
 	
-	<!-- 누적 금액 4<=?<10 실버 등급-->
-	<update id="updateSilver">
-		UPDATE USER_INFO SET
-		USER_RATING = 2
-		WHERE USER_NO = ${userNo}
-	</update>
-	
-	<!-- 누적 금액 10<=?<20 골드 등급-->
-	<update id="updateGold">
-		UPDATE USER_INFO SET
-		USER_RATING = 3
-		WHERE USER_NO = ${userNo}
-	</update>
-	
-	<!-- 누적 금액 20<? 플래티넘 등급-->
-	<update id="updatePlatinum">
-		UPDATE USER_INFO SET
-		USER_RATING = 4
-		WHERE USER_NO = ${userNo}
-	</update>
-	
-	<!-- 유저가 보유한 실버 쿠폰 카운트-->
-	<select id="silverCouponCount" resultType="_int">
-		SELECT COUNT(COUPON_NO) COUPON_NO
-		FROM USER_COUPON
-		WHERE USER_NO = ${userNo}
-		AND COUPON_NO =2
-	</select>
-	
-	<!--실버 쿠폰 insert-->
-	<insert id="insertSilverCoupon">
-		INSERT ALL
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
-		SELECT 1 FROM DUAL
-	</insert>
-	
-	<!-- 유저가 보유한 골드 쿠폰 카운트-->
-	<select id="goldCouponCount" resultType="_int">
-		SELECT COUNT(COUPON_NO) COUPON_NO
-		FROM USER_COUPON
-		WHERE USER_NO = ${userNo}
-		AND COUPON_NO =3
-	</select>
-	
-	<!--골드 쿠폰 insert-->
-	<insert id="insertGoldCoupon">
-		INSERT ALL
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
-		SELECT 1 FROM DUAL
-	</insert>
-	
-	<!-- 유저가 보유한 플래티넘 쿠폰 카운트-->
-	<select id="platinumCouponCount" resultType="_int">
-		SELECT COUNT(COUPON_NO) COUPON_NO
-		FROM USER_COUPON
-		WHERE USER_NO = ${userNo}
-		AND COUPON_NO =4
-	</select>
-	
-	<!--플래티넘 쿠폰 insert-->
-	<insert id="insertPlatinumCoupon">
-		INSERT ALL
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
-			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
-		SELECT 1 FROM DUAL
-	</insert>
-	
-<!--	취소한 티켓 좌석 정보 삭제
-	<delete id="deleteSeat">
+	<!--취소한 티켓 좌석 정보 삭제-->
+	<delete id="deleteTicketSeat">
 		DELETE SEAT_CHECK sc2
 		WHERE TICKET_NO = #{ticketNo}
-	</delete>-->
+	</delete>
+	
+	<!--유저 Amount 취소한 결제금액 차감-->
+	<update id="updateCancelAmount">
+		UPDATE USER_INFO SET
+		USER_AMOUNT = #{userAmount}
+		WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

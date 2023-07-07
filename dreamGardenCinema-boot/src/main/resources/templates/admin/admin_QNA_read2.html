@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <th>등록인</th>
-                            <td th:text="${Qna.userId}">2023.05.31</td>
+                            <td  th:text="${Qna.userId} ? ${Qna.userId} : '비회원' "></td>
                             <td th:text="${Qna.userNo}" >154541</td>
                             <input type="hidden" th:value="${Qna.userNo}" name="userNo">
                         </tr>
@@ -59,8 +59,8 @@
                         </tr>
                         <tr>
                             <th>답변 번호</th>
-                            <td th:text="${QnaComment.qnaCommentNo}" >1</td>
-                            <input type="hidden" name="qnaCommentNo" th:value="${QnaComment.qnaCommentNo}"  >
+                            <td th:text="${QnaComment.qnaCommentNo}">1</td>
+                            <input type="hidden" name="qnaCommentNo" th:value="${QnaComment.qnaCommentNo}">
                         </tr>
                         <tr>
                             <th>답변</th>
@@ -68,9 +68,9 @@
                                 <!-- 답변 쓰는 칸 -->
                                 <div class="admin_qnaContentWrap">
 
-                                   <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px;"
+                                    <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px; resize: none;"
                                         th:text="${QnaComment.qnaComment}">답변 내용</textarea>
-                                        
+
         </form>
     </div>
     </tr>
@@ -78,13 +78,11 @@
     </thead>
     </table>
 
-
-
     <!-- 페이지 네이션 -->
 
     <!-- 등록,수정,삭제 버튼 -->
     <div class="admin_qnaBtn">
-        <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록하기</a></button>
+        <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록</a></button>
         <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
         <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
 
@@ -101,14 +99,15 @@
     </div>
     <script src="\js\admin\admin_QNA_read.js"></script>
     <script>
-        // 메인화면 페이지 로드 함수
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                placeholder: '내용을 작성하세요',
-                height: 400,
-                maxHeight: 400
-            });
-        });
+        var userId = /*[[${Qna.userId}]]*/ null;
+        var textarea = document.getElementById("summernote");
+    
+        if (!userId) {
+            textarea.value = "비회원일 경우 답변 대신 이메일로 대신합니다";
+            textarea.disabled = true; // 입력 불가능하도록 비활성화
+        } else {
+            // 기존 답변 내용 유지
+        }
     </script>
 </body>
 

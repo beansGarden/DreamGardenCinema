@@ -42,19 +42,15 @@
 
 
 
-            <div class="admin_dashboardSalesforQuater">
-                <div class="admin_dashboardSalesforQuater_title">
-                    <span class="sales-quater-title">분기별 매출</span>
-                </div>
-                <div class="admin_dashboardSalesforQuater-in">
-                    <span class="sales-quater-name">분기 선택</span>
-                    <select name="salesQuater" id="saleQuaterSelect">
-                        <option value="1">　1분기 매출　</option>
-                        <option value="2">　2분기 매출　</option>
-                        <option value="3">　3분기 매출　</option>
-                        <option value="4">　4분기 매출　</option>
+            <div class="admin_dashboardSalesforQuarter">
+                <div class="admin_dashboardSalesforQuarter_title">
+                    <select id="yearSelect" onchange="salesForQuarter()">
+                        <option value=""></option>
                     </select>
-                    <span>￦50,000,000</span>
+                    <span class="sales-Quarter-title">년 분기 매출</span>
+                </div>
+                <div class="admin_dashboardSalesforQuarter-in">
+                    <canvas id="SalesforQuarterChart"></canvas>
                 </div>
             </div>
         </div>
@@ -75,7 +71,7 @@
                                 <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}"
                                         th:text="${list.qnaTitle}">지갑
                                         잃어버렸어요</a></td>
-                                <td th:text="${list.userNickname}" style="width: 100px">유저일</td>
+                                <td th:text="${list.userId != null ? list.userId : '비회원'}">2023.05.31</td>
                             </tr>
                         </tbody>
                     </table>
@@ -102,14 +98,31 @@
 
     </div>
     <script th:inline="javascript">
+
+        const firstLoadingQuarterlySales = /*[[${firstLoadingQuarterlySales}]]*/"첫 로딩 현 년도 분기 매출";
+        let quarterlySales = [];
+        /*[# th:each="QuarterlySales : ${firstLoadingQuarterlySales}"]*/
+        quarterlySales.push(/*[[${QuarterlySales.quarterlySales}]]*/);
+        /*[/]*/
+        
+        
+        const allDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
         let salesByPeriod = [];
+        let salesByDays = [];
         /*[# th:each="sales : ${salesByPeriod}"]*/
         salesByPeriod.push(/*[[${sales.totalSales}]]*/);
+        salesByDays.push(/*[[${sales.ticketingDay}]]*/);
         /*[/]*/
-
+        for (let i = 0; i < allDays.length; i++) {
+            if (!salesByDays.includes(allDays[i])) {
+                salesByDays.splice(i, 0, allDays[i]);
+                salesByPeriod.splice(i, 0, 0);
+            }
+        }
+        
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="\js\admin\admin_dashborad.js"></script>
 
 

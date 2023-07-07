@@ -23,6 +23,7 @@ body{
     display: flex;
     flex-direction: row;
     border-radius: 15px;
+    
 }
 
 .ticketingNav{
@@ -94,12 +95,17 @@ body{
 }
 .ticketBox{
     width: 100%;
-    height: 820px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image: url('/images/ticketing/예매티켓.png');
+    background-repeat: no-repeat;
+    background-size: 103% 125%;
+    background-position: left;
 }
+
 .ticketBox>div:first-child{
     font-size: 40px;
     font-weight: bold;
