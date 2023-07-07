@@ -289,6 +289,14 @@ public interface AdminService {
 	//신고관리 검색
 	Map<String, Object> getReportSearchList(Report condition, int cp);
 
+	//신고하기 삭제 안 한 게시글 검색
+	Map<String, Object> getReportInSearchList(Report condition, int cp);
+
+	//신고하기 삭제 한 게시글 검색
+	Map<String, Object> getReportOutSearchList(Report condition, int cp);
+
+
+	
 	//신고하기 개수 조회
 	int reportListCount();
 

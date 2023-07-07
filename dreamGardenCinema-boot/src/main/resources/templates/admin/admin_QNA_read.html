@@ -82,6 +82,7 @@
                         <tr>
                             <th>답변 번호</th>
                             <td colspan="3" th:text="${QnaComment.qnaCommentNo}" name="qnaCommentNo">1</td>
+                            <input type="hidden" name="qnaCommentNo" th:value="${QnaComment.qnaCommentNo}"  >
                 
                   
                         </tr>
@@ -116,6 +117,7 @@
                 답변 수정</a></button>
         <!--         <button class="admin_qnaEndBtn"><a href="#" id="qnaAnswer">답변 등록하기</a></button> -->
         <!-- <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button> -->
+        <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
         <button class="admin_qnaEndBtn"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
 
     </div>

@@ -30,7 +30,7 @@
                     <div class="admin_qnaSearchWrap">
                         <!-- select랑 검색창만 감싸는 div -->
                         <div class="admin_userSearchWrap2">
-                            <form th:action="@{/getAllSearchList}" autocomplete="off">
+                            <form th:action="@{/getDeletedSearchList}" autocomplete="off">
                                 <select class="admin_qnaSelect" name="type" id="">
                                     <option value="qnaNo">번호</option>
                                     <option value="title">제목</option>
@@ -63,6 +63,7 @@
                     </div>
 
                     <div>
+                        
                         <span><a th:href="@{/adminQnaAll}" class="qnaCount">총 게시글 수 : </a></span>
                         <span class="adminQnaCountAll" style="font-weight: bold;">0 </span> /
                         <span><a th:href="@{/adminQna}" class="qnaCount">게시글 수 : </a></span>
@@ -73,6 +74,7 @@
                 </div>
             </div>
             <div>
+                <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 안 된 게시글 :</a></span>
                 <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 여부</a></span>
                 <span >/</span>
                 <span class="nomember"><a th:href="@{/adminQnaNomember}" id="nomember">비회원</a></span>

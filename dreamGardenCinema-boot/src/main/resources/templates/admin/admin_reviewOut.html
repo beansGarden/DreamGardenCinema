@@ -114,7 +114,7 @@
             <ul class="pagination">
 
                 <!-- 첫 페이지로 이동 -->
-                <li><a th:href="@{/adminReview(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                <li><a th:href="@{/adminReviewOut(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                 <!-- 특정 페이지로 이동 -->
                 <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -122,7 +122,7 @@
                         <a class="current" th:text="${i}">현재 페이지</a>
                     </li>
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:text="${i}" th:href="@{/adminReview(cp=${i})}"></a>
+                        <a th:text="${i}" th:href="@{/adminReviewOut(cp=${i})}"></a>
                     </li>
                 </th:block>
 
@@ -133,13 +133,13 @@
 
                 <!-- 현재 페이지를 제외한 나머지 -->
                 <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/adminReview(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                    <a th:href="@{/adminReviewOut(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                 </li>
                 </th:block>
 
                 <!-- 다음 목록 시작 번호로 이동 -->
                 <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/adminReview(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                <li><a th:href="@{/adminReviewOut(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
             </ul>
         </div>
 

@@ -1,4 +1,4 @@
-/* 체크박스 전체선택 */
+/* 체크박스 전체선택 ========================================*/
 function userSelectAll(userSelectAll)  {
     const checkboxes 
        = document.querySelectorAll('input[type="checkbox"]'); //체크박스 전체 불러오기
@@ -10,7 +10,7 @@ function userSelectAll(userSelectAll)  {
 
 
 
-//체크박스 숫자 불러오기
+//체크박스 숫자 불러오기========================================
 function userSelectAll(checkbox) {
   var checkboxes = document.getElementsByClassName('admin_reviewCheckbox');
   var count = document.getElementsByClassName('admin_reviewCount')[0];
@@ -46,7 +46,7 @@ var totalItems = document.querySelectorAll('.admin_reviewCheckbox').length;
 countAll.textContent = totalItems.toString();
 
 
-//review 전체 불러오기
+//review 전체 불러오기========================================
 
  // Ajax 요청 함수
  function ajaxRequest(url, method, successCallback) {
@@ -71,7 +71,7 @@ function getReviewCount() {
 }
 getReviewCount()
 
-/* 삭제 버튼 선택 삭제하기 */
+/* 삭제 버튼 선택 삭제하기 ========================================*/
 const delBtn = document.getElementById("deleteBtn"); // 삭제 버튼
 const checkbox = document.getElementsByClassName("admin_reviewCheckbox"); // 체크박스
 const checkboxNo = document.getElementsByClassName("admin_review_checkbox_no"); // 번호
@@ -134,7 +134,7 @@ function reviewDelete(reviewNos) {
 }
 
 
-/* 복구 버튼 선택 삭제하기 */
+/* 복구 버튼 선택 삭제하기======================================== */
 const restoreBtn = document.getElementById("restoreBtn"); // 복구 버튼
 
 restoreBtn.addEventListener('click', () => {
@@ -197,7 +197,7 @@ function reviewRestore(reviewNos) {
     .catch(err => console.log(err));
 }
 
-/* 전체 삭제 안 한 수 불러오기 */
+/* 전체 삭제 안 한 수 불러오기 ========================================*/
  // Ajax 요청 함수
  function ajaxRequest(url, method, successCallback) {
   var xhr = new XMLHttpRequest();
@@ -219,7 +219,7 @@ function getReviewInCount() {
 }
 getReviewInCount()
 
-/* 삭제한 게시글 수 불러오기 */
+/* 삭제한 게시글 수 불러오기======================================== */
  // Ajax 요청 함수
  function ajaxRequest(url, method, successCallback) {
   var xhr = new XMLHttpRequest();

@@ -911,7 +911,7 @@ public class AdminController {
 	public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
 			@RequestParam(value = "qnaComment", required = false) String qnaComment,
 			@RequestParam(value = "userNo", required = false) Integer userNo,
-			@RequestParam(value = "qnaCommentNo", required = false) Integer qnaCommentNo,
+			@RequestParam(value = "qnaCommentNo", required = false , defaultValue = "0") Integer qnaCommentNo,
 			@ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
 
 		System.out.println("qnaCommentNo : " + qnaCommentNo);
@@ -1011,6 +1011,10 @@ public class AdminController {
 		int qnaNoCheck = service.qnaUpdate(qna);
 
 		Qna qnaList = new Qna();
+		
+		System.out.println("qnaNo : " + qnaNo);
+		System.out.println("qnaList : " + qnaList);
+		System.out.println("qna :"  + qna);
 
 		model.addAttribute("Qna", qnaList);
 
@@ -1058,6 +1062,27 @@ public class AdminController {
 
 		return service.qnaDelete(qna.getQnaNo());
 	}
+	
+	// 6-5 1:1 문의 전체 게시글 검색
+	@GetMapping("/getAllSearchList")
+	public String getAllSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Qna condition = new Qna();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminQnaMap = service.getAllSearchList(condition, cp);
+		model.addAttribute("adminQnamap", adminQnaMap);
+		
+		System.out.println(condition);
+		System.out.println(adminQnaMap);
+		
+		return "admin/admin_QnaAll";
+		
+	}
+	
 
 	// 6-5 1:1  문의 삭제 안 한 게시글 검색
 	@GetMapping("/getSearchList")
@@ -1069,7 +1094,7 @@ public class AdminController {
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object> adminQnaMap = service.getAllSearchList(condition, cp);
+		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
 		model.addAttribute("adminQnamap", adminQnaMap);
 
 		System.out.println(condition);
@@ -1078,25 +1103,7 @@ public class AdminController {
 		return "admin/admin_Qna";
 
 	}
-	// 6-5 1:1 문의 전체 게시글 검색
-	@GetMapping("/getAllSearchList")
-	public String getAllSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-		
-		Qna condition = new Qna();
-		
-		condition.setType(type);
-		condition.setKeyword(keyword);
-		
-		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
-		model.addAttribute("adminQnamap", adminQnaMap);
-		
-		System.out.println(condition);
-		System.out.println(adminQnaMap);
-		
-		return "admin/admin_QnaAll";
-		
-	}
+
 	// 6-5 1:1 문의 삭제 한 게시글 검색
 	@GetMapping("/getDeletedSearchList")
 	public String getDeletedSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
@@ -1280,7 +1287,7 @@ public class AdminController {
 	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
 
-		// int FAQNo = service.faqInsert(faq);
+		int FAQNo = service.faqInsert(faq);
 
 		model.addAttribute("Faq", faq);
 
@@ -1562,6 +1569,38 @@ public class AdminController {
 		return "admin/admin_report";
 
 	}
+	// 8-3. 신고하기 삭제 안 한 게시글 검색
+	@GetMapping("/getReportInSearchList")
+	public String getReportInSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Report condition = new Report();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReportMap = service.getReportInSearchList(condition, cp);
+		model.addAttribute("adminReportMap", adminReportMap);
+		
+		return "admin/admin_reportIn";
+		
+	}
+	// 8-3. 신고하기 삭제 한 게시글 검색
+	@GetMapping("/getReportOutSearchList")
+	public String getReportOutSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Report condition = new Report();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReportMap = service.getReportOutSearchList(condition, cp);
+		model.addAttribute("adminReportMap", adminReportMap);
+		
+		return "admin/admin_reportOut";
+		
+	}
 
 	// 8-4 신고하기 전체 개수 가져오기
 	@ResponseBody
@@ -1571,14 +1610,14 @@ public class AdminController {
 		return service.reportListCount();
 	}
 
-	// 7-6 전체 삭제 안 한 게시글 수 가져오기
+	// 7-6  신고하기 전체 삭제 안 한 게시글 수 가져오기
 	@ResponseBody
 	@GetMapping("/adminReportInListAjax")
 	public int adminReportInListAjax() {
 		
 		return service.reportInListCount();
 	}
-	// 7-7 FAQ 삭제 한 게시글 수  가져오기
+	// 7-7 신고하기 FAQ 삭제 한 게시글 수  가져오기
 	@ResponseBody
 	@GetMapping("/adminReportOutListAjax")
 	public int adminReportOutListAjax() {

@@ -495,6 +495,21 @@ public interface AdminMapper {
 	 */
 	List<Report> getReportSearchList(Report condition, RowBounds rowBounds);
 	
+	//신고하기 삭제 안 한 게시글 개수 (검색)
+	int reportInFilterListCount(Report condition);
+	
+	//신고하기 삭제 안 한 게시글 게시판 조회
+	List<Report> getReportInSearchList(Report condition, RowBounds rowBounds);
+	
+	//신고하기 삭제  한 게시글 개수 (검색)
+	int reportOutFilterListCount(Report condition);
+
+	//신고하기 삭제 한 게시글 게시판 조회
+	List<Report> getReportOutSearchList(Report condition, RowBounds rowBounds);
+
+	
+
+	
 
 	//리뷰관리하기**************************************************************************************************************
 	
@@ -594,7 +609,6 @@ public interface AdminMapper {
 	// 년도별 월 매출
 	List<SalesByPeriod> monthlySalesByYear(Map<String, String> year);
 
-	
 
 
 

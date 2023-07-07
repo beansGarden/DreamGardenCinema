@@ -73,8 +73,11 @@ getReviewCount()
 
 
 
-/* 복구 버튼 선택 삭제하기 */
+/* 복구 버튼 선택 삭제하기======================================== */
 const restoreBtn = document.getElementById("restoreBtn"); // 복구 버튼
+const checkbox = document.getElementsByClassName("admin_reviewCheckbox"); // 체크박스
+const checkboxNo = document.getElementsByClassName("admin_review_checkbox_no"); // 번호
+
 
 restoreBtn.addEventListener('click', () => {
   if (confirm("정말 복구하시겠습니까?")) {
@@ -135,6 +138,7 @@ function reviewRestore(reviewNos) {
     })
     .catch(err => console.log(err));
 }
+
 /* 전체 삭제 안 한 수 불러오기 */
  // Ajax 요청 함수
  function ajaxRequest(url, method, successCallback) {
