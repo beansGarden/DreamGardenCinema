@@ -191,7 +191,7 @@ public class MypageController {
 	// 예매 취소
 	@PostMapping("/cancel")
 	public String ticketCancle(@SessionAttribute("loginUser") User loginUser, RedirectAttributes ra, String ticketId,
-			String ticketImpId, String payAmount, String ticketNo, Ticket ticket) throws Exception {
+			String ticketImpId, String payAmount, String ticketNo, Ticket ticket, User user) throws Exception {
 
 		String token = PaymentService.getToken();
 
@@ -229,99 +229,28 @@ public class MypageController {
 		} else if (movieTime.compareTo(previousTime) > 0 || movieTime.compareTo(previousTime) == 0) {
 			// movieTime1은 previousTime2보다 이후입니다.
 			// 아직 상영 10분 전
-//            String reasonCancellationPayment = "회원 취소";
-//			PaymentService.payMentCancle(token, ticketImpId, payAmount, reasonCancellationPayment);
-//			ticket.setReasonCancellationPayment(reasonCancellationPayment);
-//			int result1 = TicketingService.updateReasonCancellationPayment(ticket);
 
-			// 취소 티켓 좌석 정보 삭제
-//				int deleteTicketSeat = TicketingService.deleteTicketSeat(ticketNo);
+			 //취소 티켓 좌석 정보 삭제
+			int deleteTicketSeat = TicketingService.deleteTicketSeat(ticketNo);
 
-//			int userAmount = loginUser.getUserAmount();
-//			int userNo = loginUser.getUserNo();
-//
-//			int userCancelAmount = userAmount - Integer.parseInt(payAmount);
-//
-//			int changeRating = 0;
-//			if (userCancelAmount < 40000) {
-//				changeRating = 1;
-//			}
-//			if (userCancelAmount >= 40000 && 100000 > userCancelAmount) {
-//				changeRating = 2;
-//			}
-//			if (userCancelAmount >= 1000000 && 200000 > userCancelAmount) {
-//				changeRating = 3;
-//			}
-//			if (200000 < userCancelAmount) {
-//				changeRating = 4;
-//			}
-//			if(loginUser.getUserRating()!=changeRating) {
-//				
-//				
-//				
-//				
-//				
-//			}
-//			switch (changeRating) { 
-//			case 1:	// 브론즈로 하락 할 때
-//					// 바뀐 등급 과 현재 등급이 다를 때 
-//				if (changeRating != loginUser.getUserRating()) {
-//					
-//					ticket.setUserNo(userNo);
-//					ticket.setTicketNo(tNo);
-//					ticket.setChangeRating(changeRating);
-//					// 해당 티켓 보다 후에 예매한 티켓의 등급보다 높은 쿠폰 사용 여부
-//					int countXCoupon = service.countXCoupon(ticket);
-//					if(countXCoupon>0) {
-//						message = "해당 결제를 취소 할 경우 등급이 하락하며 ,"
-//								+ " 다른 결제 건에 등급 혜택 쿠폰을 사용하셨기 때문에 취소 할 수 없습니다";
-//						path += "/myPage/";
-//						
-//						break;
-//					}else {
-//						//사용 여부가 없을 시 취소 
-//						// 등급 하락 업데이트 +시트 삭제+ 쿠폰 환수 + userAmount 업데이트 
-//						// + 취소 + 쿠폰 사용한 예매 일 경우 쿠폰 돌려주기
-//						int updateGold = TicketingService.updateGold(userNo);
-//						int deleteCoupon = service.deleteCoupon(userNo);
-//					}
-//				}else { // 바뀐 등급과 현재 등급이 같을 때
-//					
-//				}
-//				break;
-//			case 2 : break;
-//			case 3 : break;
-//			case 4 : break;
-//			}
-/////////////////////////////////////////////////////////
-			// 플레티넘 유저) 취소했을 때 유저 등급 내려갈 때
-//				if(2000000>userCancelAmount && userCancelAmount>=10 && loginUser.getUserRating()==4){
-//					
-//					ticket.setUserNo(userNo);
-//					ticket.setTicketNo(tNo);
-//					// 해당 티켓 보다 후에 예매한 티켓의 등급보다 높은 쿠폰 사용 여부 
-//					int countXCoupon = service.countXCoupon(ticket);
-//						if(countXCoupon>0) {
-//							message = "해당 결제를 취소 할 경우 등급이 하락하며 ,"
-//									+ " 다른 결제 건에 등급 혜택 쿠폰을 사용하셨기 때문에 취소 할 수 없습니다";
-//							path += "/myPage/";
-//							
-//							ra.addFlashAttribute("message",message);
-//							
-//							return = path;
-//						}else {
-//							//사용 여부가 없을 시 취소 
-//							// 등급 하락 업데이트 +시트 삭제+ 쿠폰 환수 + userAmount 업데이트 
-//							// + 취소 + 쿠폰 사용한 예매 일 경우 쿠폰 돌려주기
-//							int updateGold = TicketingService.updateGold(userNo);
-//							int deleteCoupon = service.deleteCoupon(userNo);
-//						}
-//				}else if(10>userCancelAmount && userCancelAmount>=4 && loginUser.getUserRating()==){
-//					//골드 유저) 취소했을 때 유저 등급 내려갈 때
-//				}
+			int userAmount = loginUser.getUserAmount();
+			int userNo = loginUser.getUserNo();
 
-//			message = "취소되었습니다";
-//			path += "/myPage/my-page-cancle-reservation";
+			int userCancelAmount = userAmount - Integer.parseInt(payAmount);
+			
+			// 유저 Amount 취소한 결제금액 차감
+			user.setUserNo(userNo);
+			user.setUserAmount(userCancelAmount);
+			int updateCancelAmount = TicketingService.updateCancelAmount(user);
+			
+			// 결제 취소
+			String reasonCancellationPayment = "회원 취소";
+			PaymentService.payMentCancle(token, ticketImpId, payAmount, reasonCancellationPayment);
+			ticket.setReasonCancellationPayment(reasonCancellationPayment);
+			int result1 = TicketingService.updateReasonCancellationPayment(ticket);
+			
+			message = "취소되었습니다";
+			path += "/myPage/my-page-cancle-reservation";
 
 			System.out.println("movieTime은 previousTime보다 이후입니다.");
 		}

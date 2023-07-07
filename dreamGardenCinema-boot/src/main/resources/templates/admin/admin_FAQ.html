@@ -22,39 +22,52 @@
             <!-- 게시판 제목 -->
             <span id="admin_faqTitle">FAQ 관리</span>
 
+            <!-- 검색영역 및 목록 count 감싸는 div -->
+            <div class="admin-shr-cnt-box">
 
-            <!-- 검색창 -->
-            <div class="admin_faqSearchWrap">
-                <div class="admin_faqSearchWrap2">
-                    <form th:action="@{/getFaqSearchList}" autocomplete="off">
-                        <select class="admin_faqSelect" name="type" id="">
-                            <option value="number">번호</option>
-                            <option value="title">제목</option>
-                            <option value="content">내용</option>
-                        </select>
-                        <!-- 검색 input 창 -->
-                        <input type="text" name="keyword" id="" class="admin_faqInput">
+                <!--  검색 영역 전체 div  -->
+                <div class="admin_faqSearchWrapBox">
+                    <!-- 검색창 -->
+                    <div class="admin_faqSearchWrap">
+                        <div class="admin_faqSearchWrap2">
+                            <form th:action="@{/getFaqDeletedSearchList}" autocomplete="off">
+                                <select class="admin_faqSelect" name="type" id="">
+                                    <option value="number">번호</option>
+                                    <option value="title">제목</option>
+                                    <option value="content">내용</option>
+                                </select>
+                                <!-- 검색 input 창 -->
+                                <input type="text" name="keyword" id="" class="admin_faqInput">
+                        </div>
+                        <!-- 검색 버튼 -->
+                        <div class="admin_faqBtnWrap">
+                            <button type="submit" class="admin_faqSearchBtn" value="검색">검색</button>
+                        </div>
+                        </form>
+                    </div>
                 </div>
-                <!-- 검색 버튼 -->
-                <div class="admin_faqBtnWrap">
-                    <button type="submit" class="admin_faqSearchBtn" value="검색">검색</button>
+                <!-- 목록 count 전체를 감싸는 div -->
+                <div class="admin_countBox">
+                    <!-- 목록 count -->
+                    <div class="admin_faqList">
+                        <span>목록</span>
+                        <span>( 총</span>
+                        <span class="admin_faqCount" style="font-weight: bold;"> 0 </span>
+                        <span> / </span>
+                        <span class="admin_faqCountAll" style="font-weight: bold;">0</span>
+                        <span>개)</span>
+
+                    </div>
+
+                    <div>
+                        <span><a th:href="@{/adminFaqAll}" class="FAQCount">총 게시글 개수 : </a></span>
+                        <span class="adminFaqCountAll" style="font-weight: bold;">0</span> /
+                        <span><a th:href="@{/adminFaq}" class="FAQCount">FAQ 게시글 수 : </a></span>
+                        <span class="adminFAQInCountAll" style="font-weight: bold;">0</span> /
+                        <span><a th:href="@{/adminFaqDeleted}" class="FAQCount">삭제된 FAQ 게시글 수 : </a></span>
+                        <span class="adminFAQOutCountAll" style="font-weight: bold;">0</span> /
+                    </div>
                 </div>
-                </form>
-            </div>
-            <!-- 목록 count -->
-            <div class="admin_faqList">
-                <span>목록</span>
-                <span>( 총</span>
-                <span class="admin_faqCount"> 0 </span>
-                <span> / </span>
-                <span class="admin_faqCountAll">0</span>
-                <span>개)</span>
-
-            </div>
-
-            <div>
-                <span>총 게시글 개수 :</span>
-                <span class="adminFaqCountAll">0</span>
             </div>
             <!-- 게시판 -->
             <div class="admin_faqBoardWrap">
@@ -115,7 +128,7 @@
                             <a class="current" th:text="${i}">현재 페이지</a>
                         </li>
                         <li th:unless="${i == pagination.currentPage}">
-                            <a th:text="${i}" th:href="@{/adminQna(cp=${i})}"></a>
+                            <a th:text="${i}" th:href="@{adminFaq/z(cp=${i})}"></a>
                         </li>
                     </th:block>
 

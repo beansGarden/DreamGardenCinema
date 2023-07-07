@@ -78,5 +78,80 @@ public interface MypageService {
 	 */
 	int countXCoupon(Ticket ticket);
 
+	/** 매달 1일 유저 쿠폰 전체 삭제
+	 * @return
+	 */
+	int deleteAllCoupon();
+
+	/** 누적 금액 4만원 미만 고객 등급 브론즈 업데이트
+	 * @return
+	 */
+	int updateAllBronze();
+	
+	
+	/** 누적 금액 4만원 미만 고객 userNo전체 조회 
+	 * @return
+	 */
+	List<User> selectBronzeUserNo();
+
+	/** 누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트
+	 * @return
+	 */
+	int updateAllSilver();
+
+	
+	/**실버 등급 고객 userNo 전체 조회
+	 * @return
+	 */
+	List<User> selectSilverUserNo();
+
+	/** 브론즈 쿠폰 1개,실버 쿠폰 2개 insert
+	 * @param userNo
+	 * @return
+	 */
+	int insertSilverCoupon(int userNo);
+
+	/** 누적 금액 10만원 이상 20만원 미만 고객 골드 업데이트
+	 * @return
+	 */
+	int updateAllGold();
+
+	/** 골드 등급 고객 userNo 전체 조회
+	 * @return
+	 */
+	List<User> selectGoldUserNo();
+
+	/** 브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개 insert
+	 * @param userNo
+	 * @return
+	 */
+	int insertAllGoldCoupon(int userNo);
+
+	/** 누적 금액 20만원 이상 고객 플래티넘 업데이트
+	 * @return
+	 */
+	int updateAllPlatinum();
+
+	/** 플래티넘 등급 고객 userNo 전체 조회
+	 * @return
+	 */
+	List<User> platinumNoList();
+
+	/** 브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개,플래티넘 쿠폰 2개 insert
+	 * @param userNo
+	 * @return
+	 */
+	int insertAllPlatinumCoupon(int userNo);
+
+	/** 모든 유저 누적 금액 초기화
+	 * @return
+	 */
+	int updateAllAmount();
+
+	/** 유저 전체 RATING 1 업데이트
+	 * @return
+	 */
+	int updateRating1();
+
 
 }

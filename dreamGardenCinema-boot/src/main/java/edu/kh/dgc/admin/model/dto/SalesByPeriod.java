@@ -20,5 +20,9 @@ public class SalesByPeriod {
 	private String year;
 	private String quarter;
 	private int quarterlySales;
+	
+	//년도별 월 매출
+	private String yearAndMonth;
+	private int monthlySalesByYear;
 
 }

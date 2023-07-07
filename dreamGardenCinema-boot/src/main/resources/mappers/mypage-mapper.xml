@@ -218,4 +218,123 @@
 		AND ti.USER_NO = #{user_no}
 		AND uc.COUPON_NO = 4
 	</select>
+	<!--매달 1월 아침5시 유저 모든 쿠폰 삭제-->
+	<delete id="deleteAllCoupon">
+		DELETE
+		FROM USER_COUPON
+	</delete>
+
+	<!--누적 금액 4만원 미만 고객 등급 브론즈 업데이트-->
+	<update id="updateAllBronze">
+		UPDATE USER_INFO SET
+		USER_RATING = 1
+		WHERE USER_AMOUNT &lt; 40000
+		AND USER_ROLE = 'C'
+	</update>
+	<!--누적 금액 4만원 미만 고객 userNo전체 조회 -->
+	<select id="selectBronzeUserNo" resultMap="user_rm">
+		SELECT USER_NO
+		FROM USER_INFO
+		WHERE USER_RATING = 1
+	</select>
+	<!--누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트-->
+	<update id="updateAllSilver">
+		UPDATE USER_INFO SET
+		USER_RATING = 2
+		WHERE USER_AMOUNT &gt;= 40000
+		AND USER_AMOUNT &lt; 100000
+		AND USER_ROLE = 'C'
+	</update>
+	<!--실버 등급 고객 userNo 전체 조회-->
+	<select id="selectSilverUserNo" resultMap="user_rm">
+		SELECT USER_NO
+		FROM USER_INFO
+		WHERE USER_RATING = 2
+	</select>
+	<!-- 실버등급)브론즈 쿠폰 1개,실버 쿠폰 2개 insert-->
+	<insert id="insertSilverCoupon">
+		INSERT ALL
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 1, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		SELECT 1 FROM DUAL
+	</insert>
+	<!--누적 금액 10만원 이상 20만원 미만 고객 골드 업데이트-->
+	<update id="updateAllGold">
+		UPDATE USER_INFO SET
+		USER_RATING = 3
+		WHERE USER_AMOUNT &gt;= 100000
+		AND USER_AMOUNT &lt; 200000
+		AND USER_ROLE = 'C'
+	</update>
+	<!--골드 등급 고객 userNo 전체 조회-->
+	<select id="selectGolduserNo" resultMap="user_rm">
+		SELECT USER_NO
+		FROM USER_INFO
+		WHERE USER_RATING = 3
+	</select>
+	<!--브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개 insert-->
+	<insert id="insertAllGoldCoupon">
+		INSERT ALL
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 1, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		SELECT 1 FROM DUAL
+	</insert>
+	<!--누적 금액 20만원 이상 고객 플래티넘 업데이트-->
+	<update id="updateAllPlatinum">
+		UPDATE USER_INFO SET
+		USER_RATING = 4
+		WHERE USER_AMOUNT &gt;= 200000
+		AND USER_ROLE = 'C'
+	</update>
+	<!--플래티넘 등급 고객 userNo 전체 조회-->
+	<select id="platinumNoList" resultMap="user_rm">
+		SELECT USER_NO
+		FROM USER_INFO
+		WHERE USER_RATING = 4
+	</select>
+	<!--브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개,플래티넘 쿠폰 2개 insert-->
+	<insert id="insertAllPlatinumCoupon">
+		INSERT ALL
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 1, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 2, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 3, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
+		INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES
+		(NEXT_UC_NO(),#{userNo}, 4, DEFAULT)
+		SELECT 1 FROM DUAL
+	</insert>
+	<!--모든 유저 누적 금액 초기화-->
+	<update id="updateAllAmount">
+		UPDATE USER_INFO SET
+		USER_AMOUNT = 0
+	</update>
+	<!--유저 전체 RATING 1 업데이트-->
+	<update id="updateRating1">
+		UPDATE USER_INFO SET
+		USER_RATING = 1
+	</update>
 </mapper>

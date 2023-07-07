@@ -6,7 +6,7 @@
     position: absolute;
     width: 1400px;
     left: 600px;
-    top: 130px;
+    top: 60px;
     height: 750px;
     gap: 20px;
 }
@@ -17,7 +17,7 @@
     color: white;
     font-size: 25px;
     font-weight: bold;
-    width: 180px;
+    width: 200px;
     height: 46px;
     text-align: center;
     border-radius: 10px;
@@ -26,8 +26,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
+/*  게시판만 감싸는 박스 */
+/* .admin_mem-board-box {
+    position: absolute;
+    width: 1300px;
+    left: -7px;
+    top: 130px;
+} */
 
 /* 유저검색 창 */
 .admin_userSearchWrap {
@@ -39,6 +47,7 @@
     height: 0px;
     left: 5px;
 }
+
 
 /* 검색창 감싸는 div */
 .admin_userSearchWrap2 {
@@ -52,8 +61,8 @@
 .admin_userSelect {
     border: none;
     outline: none;
-}
 
+}
 
 /* 검색창 */
 .admin_userInput {
@@ -61,6 +70,7 @@
     border: none;
     outline: none;
 }
+
 
 
 /* 검색버튼 */
@@ -104,7 +114,7 @@
 .admin_userBoardWrap>table {
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
-    width: 100%;
+    margin-top: -10px;
 }
 
 /* 테이블 th,td 칸 */
@@ -115,65 +125,93 @@ td {
     margin: 10px;
     text-align: center;
 
-
+    
 }
-
 /* 체크박스 */
-table>thead>tr>th:nth-child(1) {
+table > thead > tr > th:nth-child(1){
     width: 53px;
 }
 
-table>thead>tr>th:nth-child(4) {
+body>div.admin_userWrap>div.admin_userBoardWrap>table>thead>tr>th:nth-child(4) {
     width: 100px;
 
 }
 
 /* 번호 */
-table>thead>tr>th:nth-child(2) {
+table > thead > tr > th:nth-child(2){
     width: 60px;
 }
 
 /* 아이디 */
-table>thead>tr>th:nth-child(3) {
+table > thead > tr > th:nth-child(3){
     width: 130px;
 }
 
 /* 닉네임 */
-table>thead>tr>th:nth-child(6) {
-    width: 120px;
+table > thead > tr > th:nth-child(6){
+ width: 120px;
 }
 
 /* 구분 */
-table>thead>tr>th:nth-child(4) {
+table > thead > tr > th:nth-child(4){
     width: 93px;
 }
 
 /* 이메일 */
-table>thead>tr>th:nth-child(5) {
+table > thead > tr > th:nth-child(5){
     width: 250px;
 }
-
 /* 닉네임 */
-table>thead>tr>th:nth-child(6) {
+table > thead > tr > th:nth-child(6){
     width: 140;
 }
 
-
 /* 등록버튼 */
 #admin_userSignOut {
-    display: flex;
-    margin-left: 90%;
-    margin-top: 50px;
     padding: 5px 15px;
-    border-radius: 5px;
-    background-color: #0F0954;
-
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    transform: translateX(750px);
 }
+
+
+#admin_userSignOut:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
 
 #admin_userSignOut a {
     color: white;
+}
+/* 복구버튼 */
+#admin_userSignRestore {
+    padding: 5px 15px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    transform: translateX(750px);
+    
+}
+
+#admin_userSignRestore:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+
+#admin_userSignRestore a {
+    color: white;
 
 }
+
 
 /* 페이지네이션 */
 .pagination {
@@ -197,3 +235,11 @@ table>thead>tr>th:nth-child(6) {
     text-decoration: underline;
     color: #0F0954;
 }
+
+
+
+.memberCount:hover{
+    text-decoration: underline;
+
+}
+

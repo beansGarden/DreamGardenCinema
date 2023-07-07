@@ -927,6 +927,7 @@ header {
     width: 30px;
     height: 30px;
     filter: sepia();
+    z-index: 100;
 }
 
 /* 드래그 방지 */

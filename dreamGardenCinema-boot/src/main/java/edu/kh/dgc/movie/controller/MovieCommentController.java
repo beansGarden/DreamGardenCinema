@@ -26,7 +26,7 @@ public class MovieCommentController {
 	@Autowired
 	private MovieCommentService service;
 	
-	@PostMapping("/movieDetail={movieNo}")
+	@PostMapping("/movieDetail={movieNo}&screen=current")
 	public String insertMovieComment(@PathVariable("movieNo") int movieNo,
 									int score,
 									String reviewContent,

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="mainHeader">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin_Sales</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin/admin_sales.css">
+
+
+
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_dashboardWrap" layout:fragment="content">
+
+        <!-- 분기별 매출 및 영화 매출 박스 -->
+        <div class="admin_sales_box_top">
+            <div class="admin_monthly_sales_by_year">
+                <div class="admin_monthly_sales_by_year_title">
+                    <select id="monthlySalesByYear" onchange="monthlySalesByYearAjax()">
+                        <option value=""></option>
+                    </select>
+                    <span>년 월 매출</span>
+                </div>
+                <div class="admin_monthly_sales_by_year_chart_box">
+                    <canvas id="monthlySalesByYearChart"></canvas>
+                </div>
+            </div>
+
+
+
+            <div class="admin_dashboardSalesforQuarter">
+                <div class="admin_dashboardSalesforQuarter_title">
+                    <select id="QuarterYearSelect" onchange="salesForQuarter()">
+                        <option value=""></option>
+                    </select>
+                    <span class="sales-Quarter-title">년 분기 매출</span>
+                </div>
+                <div class="admin_dashboardSalesforQuarter-in">
+                    <canvas id="salesForQuarterChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1:1 문의 리스트 및 그래프 박스 -->
+        <div class="admin-second-things-box">
+            <!-- 1:1 문의 List -->
+            <div class="admin_dashboardQnaList">
+                <div class="admin_dashboardQnaList_title"><span>1:1 문의 리스트</span></div>
+                <div class="admin_dashboardQnaList-in">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>제목</th>
+                                <th>회원</th>
+                            </tr>
+                            <tr th:each="list: ${adminQnaList}">
+                                <td><a th:href="@{adminQnaRead/{qnaNo}(qnaNo=${list.qnaNo})}"
+                                        th:text="${list.qnaTitle}">지갑
+                                        잃어버렸어요</a></td>
+                                <td th:text="${list.userNickname}" style="width: 100px">유저일</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin_dashboardSalesforLastweek">
+                <div class="admin_dashboardSalesforLastweek_title"><span>지난주 요일별 매출</span></div>
+                <div class="admin_dashboardSalesforLastweek-in">
+                    <div>
+                        <!--차트가 그려질 부분-->
+                        <canvas id="myChart" style="width: 400px;height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="admin_dashboardSalesforLastweek">
+                <div class="admin_dashboardSalesforLastweek_title"><span>지난주 요일별 매출</span></div>
+                <div class="admin_dashboardSalesforLastweek-in">
+                    <div>
+                        <!--차트가 그려질 부분-->
+                        <canvas id="salesForLastWeek" style="width: 400px;height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- <div style="width: 500px; height: 1000px; color: black;"> -->
+        <th:block th:each="sales : ${lastWeekSales}">
+            <div th:text="${sales.totalSales}"></div>
+        </th:block>
+        <!-- </div> -->
+
+
+    </div>
+    <script th:inline="javascript">
+
+        const firstLoadingQuarterlySales = /*[[${firstLoadingQuarterlySales}]]*/"첫 로딩 현 년도 분기 매출";
+        let quarterlySales = [];
+        /*[# th:each="QuarterlySales : ${firstLoadingQuarterlySales}"]*/
+        quarterlySales.push(/*[[${QuarterlySales.quarterlySales}]]*/);
+        /*[/]*/
+
+        const firstLoadingMonthlySalesByYear = /*[[${firstLoadingMonthlySalesByYear}]]*/"첫 로딩 현 년도 월 매출";
+        let monthlySalesByYearArr = [];
+        let monthlySalesByYearAndMonthArr = [];
+        /*[# th:each="monthlySalesByYear : ${firstLoadingMonthlySalesByYear}"]*/
+        monthlySalesByYearArr.push(/*[[${monthlySalesByYear.monthlySalesByYear}]]*/);
+        monthlySalesByYearAndMonthArr.push(/*[[${monthlySalesByYear.yearAndMonth}]]*/);
+        /*[/]*/
+        
+        
+        const allDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+        let salesByPeriod = [];
+        let salesByDays = [];
+        /*[# th:each="sales : ${salesByPeriod}"]*/
+        salesByPeriod.push(/*[[${sales.totalSales}]]*/);
+        salesByDays.push(/*[[${sales.ticketingDay}]]*/);
+        /*[/]*/
+        for (let i = 0; i < allDays.length; i++) {
+            if (!salesByDays.includes(allDays[i])) {
+                salesByDays.splice(i, 0, allDays[i]);
+                salesByPeriod.splice(i, 0, 0);
+            }
+        }
+        
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="\js\admin\admin_sales.js"></script>
+
+
+
+</body>
+
+</html>

@@ -9,11 +9,11 @@ function userSelectAll(userSelectAll)  {
   }
 
   /* 복구 버튼 복구하기 */
-  const delBtn = document.getElementById("admin_userSignOut"); // 삭제 버튼
+  const restoreBtn = document.getElementById("admin_userSignRestore"); // 복구 버튼
   const checkbox = document.getElementsByClassName("admin_userCheckbox"); // 체크박스
   const checkboxNo = document.getElementsByClassName("admin_user_checkbox_no"); // 번호
   
-  delBtn.addEventListener('click', () => {
+  restoreBtn.addEventListener('click', () => {
     if (confirm("정말 복구하시겠습니까?")) {
       const selectedUserNos = []; // 선택된 회원 번호들을 저장할 배열
   

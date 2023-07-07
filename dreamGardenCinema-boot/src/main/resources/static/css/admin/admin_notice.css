@@ -104,7 +104,6 @@ option{
 }
 
 
-
 /* 게시판 테이블 감싸는 div */
 .admin_noticeBoardWrap {
     display: flex;
@@ -167,6 +166,7 @@ body>main>div.admin_noticeWrap>div.admin_noticeBoardWrap>table>thead>tr>th:nth-c
     margin-left: 75%;
     gap: 15px;
     margin: -15px 0 0 75%;
+    
 }
 
 /* 등록버튼 */
@@ -179,7 +179,6 @@ body>main>div.admin_noticeWrap>div.admin_noticeBoardWrap>table>thead>tr>th:nth-c
 }
 
 .admin_noticeEndBtn:hover{
-
     font-size: 15px;
     background-color: #042928;
     font-weight: bold;
@@ -220,4 +219,8 @@ body>main>div.admin_noticeWrap>div.admin_noticeBoardWrap>table>thead>tr>th:nth-c
     font-weight: bold;
     text-decoration: underline;
     color: #0F0954;
+}
+
+.noticeCount:hover{
+    text-decoration: underline;
 }

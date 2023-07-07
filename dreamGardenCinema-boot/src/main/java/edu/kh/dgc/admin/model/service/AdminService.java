@@ -39,7 +39,7 @@ public interface AdminService {
 	List<User> getAdminDetails();
 	
 	//1:1문의 게시판 조회
-	Map<String, Object> adminQnaList(int cp);
+	Map<String, Object> adminQnaList(Qna condition,int cp);
 
 	//1:1 문의 게시글 읽기 조회
 	Qna  selectQnaOne(int qnaNo);
@@ -71,13 +71,47 @@ public interface AdminService {
 
 	//1:1문의 Qna 전체 개수 가져오기
 	int qnaListCount();
+
+	//QNA 1:1 문의 게시글 전체 리스트 불러오기
+	Map<String, Object> adminQnaAllList(int cp);
+
+	//QNA 1:1 문의 삭제되 게시글 전체 리스트 불러오기
+	Map<String, Object> adminQnaDeletedList(Qna condition,int cp);
+
+	//QNA 게시글 전체 수
+	int qnaListAllCount();
+
+	//QNA 삭제된 게시글 수
+	int qnaListDeletedCount();
+
+	//QNA 전체 검색된 게시글 
+	Map<String, Object> getAllSearchList(Qna condition, int cp);
+
+	//QNA 삭제된 게시글 검색
+	Map<String, Object> getDeletedSearchList(Qna condition, int cp);
+
+	//QNA 답변 안 된 것만 보기
+	Map<String, Object> adminAnswer(int cp);
+
+	//비회원 글만 보기
+	Map<String, Object> adminNomember(int cp);
+
+	//회원 글만 보기
+	Map<String, Object> adminMember(int cp);
+
+
+
+
+	
+
 	
 	//회원*****************************************
 	
-	//회원관리 List 조회
+	//전체 회원관리 List 조회
 	Map<String, Object> adminUserList(int cp);
 	
-	
+	//탈퇴한 회원을 제외한 회원 조회
+	Map<String, Object> adminUserInList(User condition, int cp);
 	
 	//탈퇴한 회원 조회
 	Map<String, Object> adminUserOutList(User condition, int cp);
@@ -94,6 +128,12 @@ public interface AdminService {
 	
 	//회원 전체 개수 가져오기
 	int userListCount();
+
+	//회원 게시글 검색 일반 회원
+	Map<String, Object> getUserInSearchList(User condition, int cp);
+
+	//회원 게시글 검색 탈퇴 회원
+	Map<String, Object> getUserOutSearchList(User condition, int cp);
 
 
 
@@ -134,8 +174,10 @@ public interface AdminService {
 	Map<String, Object>  adminNoticeList(int cp);
 
 	//삭제된 공지사항 조회
-	Map<String, Object> adminNoticeDeletedList(int cp);
+	Map<String, Object> adminNoticeDeletedList(Notice condition, int cp);
 
+	//삭제 안 된 공지사항 조회
+	Map<String, Object> adminNoticeInList(Notice condition, int cp);
 	
 	//공지사항 게시글 조회
 	List<Notice> adminNoticeOne(Notice notice);
@@ -153,9 +195,15 @@ public interface AdminService {
 	//공지사항 게시글 선택 복구
 	int noticeRestore(int noticeNo);
 
-	
 	//공지사항 게시글 검색
+	Map<String, Object> getNoticeAllSearchList(Notice condition, int cp);
+	
+	//공지사항 삭제 안 한 게시글 검색
 	Map<String, Object> getNoticeSearchList(Notice condition, int cp);
+
+	//공지사항 삭제 한 게시글 검색
+	Map<String, Object> getNoticeDeletedSearchList(Notice condition, int cp);
+
 
 	//공지사항 전체 개수
 	int noticeListCount();
@@ -164,7 +212,14 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 관리*****************************
 	
 	//FAQ (자주 찾는 질문) List 조회
-	Map<String , Object> adminFaqList(int cp);
+	Map<String , Object> adminFaqAllList(int cp);
+	
+	//FAQ (자주 찾는 질문) 삭제 안 한 게시글 List 조회
+	Map<String, Object> adminFaqList(FAQ condition, int cp);
+	
+	//FAQ (자주 찾는 질문) 삭제 한 게시글 List 조회
+	Map<String, Object> adminFaqDeletedList(FAQ condition, int cp);
+
 
 	//FAQ (자주 찾는 질문) 게시글 조회
 	List<FAQ> adminFaqOne(FAQ faq);
@@ -182,14 +237,31 @@ public interface AdminService {
 	//FAQ (자주 찾는 질문) 게시글 선택 삭제
 	int deleteFaq(int fAQNo);
 
+	//FAQ (자주 찾는 질문) 게시글 전체 검색
+	Map<String, Object> getFaqAllSearchList(FAQ condition, int cp);
+	
 	//FAQ (자주 찾는 질문) 게시글 검색
 	Map<String, Object> getFaqSearchList(FAQ condtion, int cp);
 
 	// 지난 주 요일별 매출
 	List<SalesByPeriod> getSalesByDay();
 
-	//FAQ 개수
+	//FAQ 삭제 안 한 개수
 	int faqListCount();
+
+	//FAQ 전체 게시글 수
+	int faqListAllCount();
+
+	//FAQ 삭제 한 게시글 수
+	int faqListDeletedCount();
+
+	//FAQ 선택 복구
+	int restoreFaq(int FAQNo);
+	
+	//FAQ 삭제한 글 검색
+	Map<String, Object> getFaqDeletedSearchList(FAQ condition, int cp);
+
+
 
 	
 	//신고하기***********************************************************************************
@@ -265,8 +337,20 @@ public interface AdminService {
 	// 년도별 분기 매출
 	List<SalesByPeriod> quarterlySales(String selectedYear);
 
-	// 년도별 분기 매출(처음 들어갔을때)
+	// 년도별 분기 매출(첫 접속)
 	List<SalesByPeriod> firstLoadingQuarterlySales(String currentYear);
+
+	// 년도별 월 매출(첫 접속)
+	List<SalesByPeriod> firstLoadingMonthlySalesByYear(String currentYear);
+
+	// 년도별 월 매출
+	List<SalesByPeriod> monthlySalesByYear(String selectedYear);
+
+
+
+
+
+
 
 
 
