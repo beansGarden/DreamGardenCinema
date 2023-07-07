@@ -49,6 +49,10 @@ public interface AdminService {
 
 	//1:1 문의 게시글 삭제
 	int qnaDelete(int qnaNo);
+	
+	//1:1 문의 선택 복구
+	int qnaRestore(int qnaNo);
+
 
 	//1:1 문의 게시글 쓰기(삽입)
 	int qnaInsert(Qna qna);

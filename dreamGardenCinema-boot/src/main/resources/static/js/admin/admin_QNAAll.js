@@ -8,6 +8,43 @@ function userSelectAll(userSelectAll)  {
     })
   }
 
+/* Restore버튼 복구 삭제하기 */
+const restoreBtn = document.getElementById("restoreBtn"); //삭제버튼 
+
+
+restoreBtn.addEventListener(('click'),()=>{
+
+
+if (confirm("정말 삭제 하시겠습니까?")) {
+  for(let i=0; i<checkbox.length; i++){
+    if (checkbox[i].checked) {
+ var qnaNo = document.getElementsByClassName("admin_qna_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
+
+} if(checkbox!=null){
+qnaRestore(qnaNo);
+}
+}
+}else return;
+
+});
+
+function qnaRestore(qnaNo){
+
+
+
+fetch("/adminQna/restoreQnaList", {
+  method : "POST",
+  headers : {"Content-Type": "application/json"},
+  body : JSON.stringify({"qnaNo" : qnaNo})
+}).then(resp=> resp.text())
+.then(result=>{
+  console.log(result);
+  console.log(qnaNo);
+
+}).catch(err=> console.log(err));
+
+}
+
   /* 삭제 버튼 선택 삭제하기 */
   const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
   const checkbox = document.getElementsByClassName("admin_qnaCheckbox"); //check박스

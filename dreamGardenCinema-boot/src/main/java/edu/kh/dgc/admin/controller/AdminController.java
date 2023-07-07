@@ -913,7 +913,8 @@ public class AdminController {
 			@RequestParam(value = "userNo", required = false) Integer userNo,
 			@RequestParam(value = "qnaCommentNo", required = false , defaultValue = "0") Integer qnaCommentNo,
 			@ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
-
+		
+		System.out.println("1=====================");
 		System.out.println("qnaCommentNo : " + qnaCommentNo);
 		System.out.println("userNo : " + userNo);
 		System.out.println("qnaNo : " + qnaNo);
@@ -932,7 +933,7 @@ public class AdminController {
 			// }
 
 			int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
-
+			System.out.println("2====================");
 			System.out.println("qnaUpdateResult : " + qnaUpdateResult);
 			System.out.println("qnaCommentObj :" + qnaCommentObj);
 
@@ -1061,6 +1062,14 @@ public class AdminController {
 	public int deleteQnaList(@RequestBody Qna qna) {
 
 		return service.qnaDelete(qna.getQnaNo());
+	}
+	// 6-4 1:1 문의 게시글 선택 삭제
+	
+	@PostMapping(value = "/adminQna/restoreQnaList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreQnaList(@RequestBody Qna qna) {
+		
+		return service.qnaRestore(qna.getQnaNo());
 	}
 	
 	// 6-5 1:1 문의 전체 게시글 검색

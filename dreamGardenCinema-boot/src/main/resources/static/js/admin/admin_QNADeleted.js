@@ -8,12 +8,12 @@ function userSelectAll(userSelectAll)  {
   })
 }
 
-/* 삭제 버튼 선택 삭제하기 */
-const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
+/* Restore버튼 복구 삭제하기 */
+const restoreBtn = document.getElementById("restoreBtn"); //삭제버튼 
 const checkbox = document.getElementsByClassName("admin_qnaCheckbox"); //check박스
 const checkboxNo = document.getElementsByClassName("admin_qna_checkbox_no"); //번호
 
-delBtn.addEventListener(('click'),()=>{
+restoreBtn.addEventListener(('click'),()=>{
 
 
 if (confirm("정말 삭제 하시겠습니까?")) {
@@ -22,18 +22,18 @@ if (confirm("정말 삭제 하시겠습니까?")) {
  var qnaNo = document.getElementsByClassName("admin_qna_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
 
 } if(checkbox!=null){
-qnaDelete(qnaNo);
+qnaRestore(qnaNo);
 }
 }
 }else return;
 
 });
 
-function qnaDelete(qnaNo){
+function qnaRestore(qnaNo){
 
 
 
-fetch("/adminQna/deleteQnaList", {
+fetch("/adminQna/restoreQnaList", {
   method : "POST",
   headers : {"Content-Type": "application/json"},
   body : JSON.stringify({"qnaNo" : qnaNo})

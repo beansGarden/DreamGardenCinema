@@ -161,6 +161,13 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.qnaDelete(qnaNo);
 	}
 
+	//1:1문의 게시글 복구
+	@Override
+	public int qnaRestore(int qnaNo) {
+		
+		return mapper.qnaRestore(qnaNo);
+	}
+	
 	// 1:1 문의 게시글 삽입
 	@Override
 	public int qnaInsert(Qna qna) {
@@ -1625,6 +1632,9 @@ public class AdminServiceImpl implements AdminService {
       
       return mapper.monthlySalesByYear(year);
    }
+
+
+
 
 
 

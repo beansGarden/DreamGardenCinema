@@ -392,6 +392,13 @@
 		SET QNA_DELETE_FL = 'Y'
 		WHERE QNA_NO =#{qnaNo}
 	</update>
+	
+	<!--QNA 글 복구-->
+	<update id="qnaRestore">
+		UPDATE "QNA"
+		SET QNA_DELETE_FL = 'N'
+		WHERE QNA_NO =#{qnaNo}
+	</update>
 
 	<!--QNA 글 삽입-->
 	<insert id="qnaInsert">
@@ -441,7 +448,7 @@
 			<choose>
 				<when test="type != null and type.equals('qnaNo')">
 					<if test="keyword != null and keyword != ''">
-					AND QNA.QNA_NO LIKELIKE '%' || #{keyword} || '%'
+					AND QNA.QNA_NO LIKE '%' || #{keyword} || '%'
 					</if>
 				</when>
 				<when test="type != null and type.equals('title')">
