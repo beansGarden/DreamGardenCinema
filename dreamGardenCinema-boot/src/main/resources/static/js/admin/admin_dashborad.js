@@ -79,7 +79,7 @@ if(resultQuarterlySales.length < 1){
     resultQuarterlySales = quarterlySales
 }
 var config = {
-    type: 'bar',
+    type: 'pie',
     data: {
         labels: ['1분기', '2분기', '3분기', '4분기'],
         datasets: [{
@@ -89,13 +89,6 @@ var config = {
             backgroundColor: ['#444444', '#aaaaaa']
         }]
     },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
 };
 var myChart = new Chart(ctx, config);
 

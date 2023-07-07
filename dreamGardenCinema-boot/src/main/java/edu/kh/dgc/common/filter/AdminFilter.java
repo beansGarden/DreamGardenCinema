@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 urlPatterns = {"/admin", "/adminMain", "/admin/*", "/ticketAmount", "/adminUser", "/adminUserOut", "/adminUser/*", "/getUserSearchList", "/adminUserListAjax", "/adminUserInListAjax"
 		,"/adminUserOutListAjax", "/adminCinemaManage", "/adminCinemaTimeSelect", "/adminCinemaDeleteTime", "/adminCinemaDelete", "/adminCinemaRegister", "/adminCinemaRegisterinsert", "/adminCinemaListAjax", "/adminCinemaInsert", "/adminNotice"
 		, "/adminNoticeDeleted", "/adminNoticeRead/*", "/getNoticeSearchList", "/adminNoticeWrite", "/adminNoticeWriteInsert", "/adminNoticeUpdate/*", "/adminNoticeRead/*", "/adminNotice/*", "/adminNoticeListAjax", "/adminNoticeInListAjax", "/adminNoticeOutListAjax"
-		, "/adminQna", "/adminQnaRead/*", "/adminQnaWrite", "/adminQnaWriteInsert", "/adminQnaAnswer/*", "/adminQnaUpdate/*", "/adminQna/*", "/getSearchList", "/adminQnaListAjax", "/adminFaq"})
+		, "/adminQna", "/adminQnaRead/*", "/adminQnaWrite", "/adminQnaWriteInsert", "/adminQnaAnswer/*", "/adminQnaUpdate/*", "/adminQna/*", "/getSearchList", "/adminQnaListAjax", "/adminFaq", "/admin/monthlySalesByYear"})
 
 public class AdminFilter implements Filter{
 

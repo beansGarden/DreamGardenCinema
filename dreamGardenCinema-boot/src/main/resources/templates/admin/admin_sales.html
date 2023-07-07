@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/admin/admin_sales.css">
 
-
-
 </head>
 
 <body>
@@ -102,6 +100,14 @@
     </div>
     <script th:inline="javascript">
 
+        function addMissingDays(inputDays, inputSales, ReferenceDate) {
+            for (let i = 0; i < ReferenceDate.length; i++) {
+                if (!inputDays.includes(ReferenceDate[i])) {
+                    inputDays.splice(i, 0, ReferenceDate[i]);
+                    inputSales.splice(i, 0, 0);
+                }
+            }
+        }
         const firstLoadingQuarterlySales = /*[[${firstLoadingQuarterlySales}]]*/"첫 로딩 현 년도 분기 매출";
         let quarterlySales = [];
         /*[# th:each="QuarterlySales : ${firstLoadingQuarterlySales}"]*/

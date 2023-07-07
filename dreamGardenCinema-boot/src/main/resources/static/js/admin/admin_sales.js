@@ -25,7 +25,8 @@ createYearOptions(monthlySalesByYear);
 let salesForLastWeekContext = document
     .getElementById('salesForLastWeek')
     .getContext("2d");
-
+console.log("salesByPeriod : " + salesByPeriod);
+console.log("salesByDays : " + salesByDays);
 let salesForLastWeekChart = new Chart(salesForLastWeekContext, {
     type: 'line',
     data: {
@@ -34,8 +35,7 @@ let salesForLastWeekChart = new Chart(salesForLastWeekContext, {
             {
                 label: '요일별 매출',
                 fill: false,
-                // data: salesByPeriod,
-                data: [310, 224, 589, 485, 341, 476, 557],
+                data: salesByPeriod,
                 backgroundColor: '#aaaaaa',
                 borderColor: '#444444',
                 borderWidth: 1
@@ -100,10 +100,6 @@ function salesForQuarter() {
 
 // 년별 월 매출
 const monthlySalesByYearCtx = document.getElementById('monthlySalesByYearChart'); // chart id
-// let resultQuarterlySales = [];
-// if (resultQuarterlySales.length < 1) {
-//     resultQuarterlySales = quarterlySales
-// }
 let selectedYear = monthlySalesByYear.value;
 let labels = [];
 for (let i = 1; i <= 12; i++) {
@@ -112,6 +108,7 @@ for (let i = 1; i <= 12; i++) {
     let label2 = `${selectedYear} ${i}월`;
     labels.push(label2);
 }
+console.log("labels : " + labels);
 let monthlySalesByYearConfig = {
     type: 'bar',
     data: {
@@ -136,15 +133,25 @@ let monthlySalesByYearChart = new Chart(monthlySalesByYearCtx, monthlySalesByYea
 
 function monthlySalesByYearAjax() {
     const selectedYear = monthlySalesByYear.value;
-
+    let YearAndMonthArrAjax = [];
+    for (let i = 1; i <= 12; i++) {
+        let label = `"${selectedYear - 1}-${i < 10 ? '0' + i : i}"`;
+        YearAndMonthArrAjax.push(label);
+        let label2 = `"${selectedYear}-${i < 10 ? '0' + i : i}"`;
+        YearAndMonthArrAjax.push(label2);
+    }
+    console.log(YearAndMonthArrAjax);
     fetch('/admin/monthlySalesByYear?selectedYear=' + selectedYear)
         .then(response => response.json())
         .then(result => {
             if (true) {
                 monthlySalesByYearArr.length = 0;
+                monthlySalesByYearAndMonthArr.length = 0;
                 for (let i = 0; i < result.length; i++) {
                     monthlySalesByYearArr.push(JSON.stringify(result[i].monthlySalesByYear))
+                    monthlySalesByYearAndMonthArr.push(JSON.stringify(result[i].yearAndMonth))
                 }
+                addMissingDays(monthlySalesByYearAndMonthArr, monthlySalesByYearArr, YearAndMonthArrAjax)
                 monthlySalesByYearChart.update();
             }
         })

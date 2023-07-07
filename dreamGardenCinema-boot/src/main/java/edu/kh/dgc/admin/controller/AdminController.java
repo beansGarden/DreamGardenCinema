@@ -72,11 +72,7 @@ public class AdminController {
 		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
 		model.addAttribute("salesByPeriod", salesByPeriod);
 		
-		// 년도별 분기 매출
-		LocalDate currentDate = LocalDate.now();
-		String currentYear = ""+currentDate.getYear();
-		List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
-		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
+		// 년도별 매출
 
 		return "admin/admin_dashboard";
 	}
@@ -1681,6 +1677,7 @@ public class AdminController {
 	@GetMapping("/admin/monthlySalesByYear")
 	@ResponseBody
 	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
+		System.out.println(service.monthlySalesByYear(selectedYear));
 		return service.monthlySalesByYear(selectedYear); 
 	}
         

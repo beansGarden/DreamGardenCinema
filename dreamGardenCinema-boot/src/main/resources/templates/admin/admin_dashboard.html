@@ -44,10 +44,7 @@
 
             <div class="admin_dashboardSalesforQuarter">
                 <div class="admin_dashboardSalesforQuarter_title">
-                    <select id="yearSelect" onchange="salesForQuarter()">
-                        <option value=""></option>
-                    </select>
-                    <span class="sales-Quarter-title">년 분기 매출</span>
+                    <span class="sales-Quarter-title">최근 세달 예매율</span>
                 </div>
                 <div class="admin_dashboardSalesforQuarter-in">
                     <canvas id="SalesforQuarterChart"></canvas>
@@ -99,11 +96,6 @@
     </div>
     <script th:inline="javascript">
 
-        const firstLoadingQuarterlySales = /*[[${firstLoadingQuarterlySales}]]*/"첫 로딩 현 년도 분기 매출";
-        let quarterlySales = [];
-        /*[# th:each="QuarterlySales : ${firstLoadingQuarterlySales}"]*/
-        quarterlySales.push(/*[[${QuarterlySales.quarterlySales}]]*/);
-        /*[/]*/
         
         
         const allDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
