@@ -15,7 +15,7 @@
 
     <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
 
-    <div class="admin_movieManageWrap">
+    <div class="admin_movieManageWrap" th:with="pagination=${responseData.pagination}, selectList=${responseData.selectList}">
 
         <!-- 게시판 제목 -->
         <div id="admin_movieManageTitle">영화 관리</div>
@@ -31,7 +31,7 @@
 
             <div>⇛</div>
 
-            <button class="colorsubbutton" id="screenCurrent" data-page="1">현재상영</button>
+            <button class="menu-active" id="screenCurrent" data-page="1">현재상영</button>
 
             <div>⇛</div>
             
@@ -43,7 +43,7 @@
 
             <button id="whole" data-page="1">전체</button>
 
-        </div>
+        </div>  
 
         <!-- 게시판 -->
         <div class="admin_movieManageBoardWrap">
@@ -57,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="list : ${movieList}">
+                    <tr th:each="list : ${selectList}">
                         <td th:text="${list.movieNo}">영화번호</td>
                         <td th:text="${list.movieTitle}">영화제목</td>
                         <td th:text="${list.releaseDate}">개봉일</td>
@@ -70,7 +70,38 @@
             </table>
         </div>
 
-        <div>
+        <div class="pagination-area">
+
+            <ul class="pagination">
+
+                <!-- 첫 페이지로 이동 -->
+                <li><button data-page="1" onclick="selectList()">&lt;&lt;</button></li>
+
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <li><button th:data-page="${pagination.prevPage}" onclick="selectList()">&lt;</button></li>
+
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${i == pagination.currentPage}">
+                        <button class="current" th:data-page="${i}" th:text="${i}" onclick="selectList()">현재 페이지</button>
+                    </li>
+
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${i == pagination.currentPage}">
+                        <button th:data-page="${i}" th:text="${i}" onclick="selectList()">나머지 페이지</button>
+                    </li>
+
+                </th:block>
+                
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <li><button th:data-page="${pagination.nextPage}" onclick="selectList()">&gt;</button></li>
+
+                <!-- 끝 페이지로 이동 -->
+                <li><button th:data-page="${pagination.maxPage}" onclick="selectList()">&gt;&gt;</button></li>
+
+
+            </ul>
 
         </div>
 

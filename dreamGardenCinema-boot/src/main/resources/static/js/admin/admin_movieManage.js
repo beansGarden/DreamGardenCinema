@@ -13,10 +13,11 @@ const wholeBtn = document.getElementById("whole");
 
 screenWaitBtn.addEventListener("click", (e) => {
 
+    currentPage = e.target.getAttribute("data-page")
 
     screenType = "wait"; 
 
-    screenWaitBtn.className = "colorsubbutton";
+    screenWaitBtn.className = "menu-active";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
@@ -28,12 +29,13 @@ screenWaitBtn.addEventListener("click", (e) => {
 });
 
 
-screenPromiseBtn.addEventListener("click", () => {
+screenPromiseBtn.addEventListener("click", (e) => {
 
     screenType = "promise";
+    currentPage = e.target.getAttribute("data-page")
 
     screenWaitBtn.className = "";
-    screenPromiseBtn.className = "colorsubbutton";
+    screenPromiseBtn.className = "menu-active";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
     highlightBtn.className = "";
@@ -44,13 +46,14 @@ screenPromiseBtn.addEventListener("click", () => {
 });
 
 
-screenCurrentBtn.addEventListener("click", () => {
+screenCurrentBtn.addEventListener("click", (e) => {
 
     screenType = "current";
+    currentPage = e.target.getAttribute("data-page")
 
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
-    screenCurrentBtn.className = "colorsubbutton";
+    screenCurrentBtn.className = "menu-active";
     screenDownBtn.className = "";
     highlightBtn.className = "";
     wholeBtn.className = "";
@@ -60,14 +63,15 @@ screenCurrentBtn.addEventListener("click", () => {
 });
 
 
-screenDownBtn.addEventListener("click", () => {
+screenDownBtn.addEventListener("click", (e) => {
 
     screenType = "down";
+    currentPage = e.target.getAttribute("data-page")
 
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
-    screenDownBtn.className = "colorsubbutton";
+    screenDownBtn.className = "menu-active";
     highlightBtn.className = "";
     wholeBtn.className = "";
 
@@ -76,15 +80,16 @@ screenDownBtn.addEventListener("click", () => {
 });
 
 
-highlightBtn.addEventListener("click", () => {
+highlightBtn.addEventListener("click", (e) => {
 
     screenType = "highlight";
+    currentPage = e.target.getAttribute("data-page")
 
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
-    highlightBtn.className = "colorsubbutton";
+    highlightBtn.className = "menu-active";
     wholeBtn.className = "";
 
     selectList()
@@ -92,16 +97,17 @@ highlightBtn.addEventListener("click", () => {
 });
 
 
-wholeBtn.addEventListener("click", () => {
+wholeBtn.addEventListener("click", (e) => {
 
     screenType = "all";
+    currentPage = e.target.getAttribute("data-page")
 
     screenWaitBtn.className = "";
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
     highlightBtn.className = "";
-    wholeBtn.className = "colorsubbutton";
+    wholeBtn.className = "menu-active";
     
     selectList()
 });
@@ -112,7 +118,8 @@ wholeBtn.addEventListener("click", () => {
 function selectList(){
 
     const data = {
-        "screenType": screenType
+        "screenType": screenType,
+        "currentPage" : currentPage
     };
 
     const tbody = document.querySelector("tbody")
@@ -125,7 +132,7 @@ function selectList(){
         body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(selectList => {
+    .then(response => {
 
 /* 
     <tbody>
@@ -142,7 +149,7 @@ function selectList(){
     </tbody>
  */
 
-        for(let movie of selectList){
+        for(let movie of response.selectList){
             
             const infoRow = document.createElement("tr");
 

@@ -20,6 +20,47 @@
 		<result property="ticketCount" column="TICKET_COUNT"/>
 	</resultMap>
 	
+	<select id="getListCount">
+		
+		SELECT COUNT(M.MOVIE_NO)
+		FROM MOVIE M
+		LEFT JOIN (
+			SELECT *
+			FROM MOVIE_IMG
+			WHERE MOVIE_IMG_ROLE = '광고'
+		) I ON (M.MOVIE_NO = I.MOVIE_NO)
+		
+		<choose>
+			
+			<when test="screenType == 'wait'">
+				WHERE SCREENING = 'W'
+			</when>
+			
+			<when test="screenType == 'promise'">
+				WHERE SCREENING = 'P'
+			</when>
+			
+			<when test="screenType == 'current'">
+				WHERE SCREENING = 'C'
+			</when>
+			
+			<when test="screenType == 'down'">
+				WHERE SCREENING = 'D'
+			</when>
+			
+			<when test="screenType == 'highlight'">
+				WHERE I.MOVIE_IMG_ROLE = '광고'
+			</when>
+			
+			<when test="screenType == 'all'">
+								
+			</when>
+
+		</choose>
+		
+		
+	</select>
+	
 	<select id="selectList" resultMap="movie_rm">
 		
 		SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.SCREENING, M.RELEASE_DATE, I.MOVIE_IMG_ROLE

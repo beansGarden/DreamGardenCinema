@@ -25,29 +25,34 @@ public class AdminMovieManageController {
 	public String movieManage(Model model) {
 		
 		String screenType = "current";
+		int currentPage = 1;
 		
 		Map<String, Object> requestData = new HashMap<>();
 		
 		requestData.put("screenType", screenType);
+		requestData.put("currentPage", currentPage);
 		
-		List<Movie> responseData = service.selectList(requestData);
+		Map<String, Object> responseData = service.selectList(requestData);
 		
-		model.addAttribute("movieList", responseData);
+		model.addAttribute("responseData", responseData);
 
 		return "admin/admin_movieManage";
 	}
 	
 	@PostMapping("/adminMovieManage/selectList")
 	@ResponseBody
-	public List<Movie> selectList(Model model, @RequestBody Map<String,String> data) {
+	public Map<String, Object> selectList(Model model, @RequestBody Map<String,String> data) {
 		
 		String screenType = data.get("screenType");
+		int currentPage = Integer.parseInt(data.get("currentPage"));
 		
 		Map<String, Object> requestData = new HashMap<>();
 		requestData.put("screenType", screenType);
+		requestData.put("currentPage", currentPage);
 		
+		Map<String, Object> responseData = service.selectList(requestData);
 		
-		return service.selectList(requestData);
+		return responseData;
 	}
 	
 	
