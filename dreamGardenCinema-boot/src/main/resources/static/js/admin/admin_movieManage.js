@@ -264,3 +264,22 @@ function selectList(){
     .catch(err => console.log(err));
 
 }
+
+
+function pagination(element){
+    
+    currentPage = element.getAttribute('data-page');
+
+    selectList();
+
+    const paginationButtons = document.querySelectorAll('.pagination button');
+
+    paginationButtons.forEach((button) => {
+        button.className = '';
+    });
+
+    const currentPaginationButtons = document.querySelector(`.pagination button[data-page='${currentPage}']`)
+
+    currentPaginationButtons.className = 'current'
+
+}
