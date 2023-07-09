@@ -20,6 +20,14 @@
 		<result property="ticketCount" column="TICKET_COUNT"/>
 	</resultMap>
 	
+	<resultMap type="Person" id="person_rm">
+		<id property="personNo" column="PERSON_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="name" column="PERSON_NAME"/>
+		<result property="role" column="PERSON_ROLE"/>
+		<result property="img" column="PERSON_IMG"/>
+	</resultMap>
+	
 	<select id="getListCount">
 		
 		SELECT COUNT(M.MOVIE_NO)
@@ -110,6 +118,19 @@
 		FROM MOVIE
 		WHERE MOVIE_NO = #{movieNo}
 		
+	</select>
+	
+	<select id="selectMovieStillCut">
+		SELECT MOVIE_IMG_PATH
+		FROM MOVIE_IMG
+		WHERE MOVIE_NO = #{movieNo}
+		AND MOVIE_IMG_ROLE = '스틸컷'
+	</select>
+	
+	<select id="selectMoviePerson" resultMap="person_rm">
+		SELECT *
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}	
 	</select>
 	
 	

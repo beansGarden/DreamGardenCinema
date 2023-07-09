@@ -83,12 +83,104 @@ ul li{
     margin-left: 20px;
 }
 
+.base-info__basic li:last-of-type span{
+    width: 80%;
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.base-info__basic li:last-of-type span::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* 스크롤바 막대 설정*/
+.base-info__basic li:last-of-type span::-webkit-scrollbar-thumb {
+    background-color: rgb(0, 0, 0);
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 10px;
+    border: 7px solid rgba(0, 0, 0);
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.base-info__basic li:last-of-type span::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
 
 .admin_movieLabel{
     float: left;
     width: 120px;
     margin: 10px 10px;
 }
+
+.stillcut{
+    height: 100px;
+}
+
+.stillcutSwiper {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+.stillcutSwiper .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stillcutSwiper .swiper-slide img {
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    user-select: none;
+}
+
+.person{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 100px;
+    user-select: none;
+}
+
+/*  */
+.person-img{
+    margin: auto;
+    width: 30%;
+}
+.person-img img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+/*  */
+.person-info{
+    padding-left: 10px;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-name{
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    width: 60%;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.info-role{
+    width: 60%;
+    font-size: 13px;
+}
+
 
 /* 등록버튼 */
 .admin_movieManageRegister{

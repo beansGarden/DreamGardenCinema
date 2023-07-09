@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>movieManageDetail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/admin/admin_movieManageDetail.css}">
 </head>
@@ -14,7 +15,7 @@
     <!-- 전체 감싸는 div -->
     <div class="admin_movieManageDetailWrap">
         <!-- 게시판 제목 -->
-        <div class="admin_movieManageTitle">영화 관리</div>
+        <a th:href="@{/adminMovieManage}"><div class="admin_movieManageTitle">영화 관리</div></a>
         
         <div class="process-type"> 
             <button id="typeCreateMovie" >영화등록</button>
@@ -23,9 +24,12 @@
             <button id="typeRead" class="process-type-active">상세보기</button>
             <button id="typeUpdate" >수정</button>
             <button id="typeDelete" >삭제</button>
+            <button onclick="location.href='/adminMovieManage'">
+                영화관리<br>페이지로
+            </button>
         </div>
 
-        <div class="admin_movieManageDetail--read" th:object="${movieInfo}">
+        <div class="admin_movieManageDetail--read" th:object="${resp.movieInfo}">
             <ul>
                 <div class="base-info">
 
@@ -38,12 +42,17 @@
                             <label class="admin_movieLabel">영화 제목</label>
                             [[*{movieTitle}]]
                         </li>
-        
+                        
                         <li>
                             <label class="admin_movieLabel">개봉일</label>
                             [[*{releaseDate}]]
                         </li>
-        
+
+                        <li>
+                            <label class="admin_movieLabel">현재상영상태</label>
+                            [[*{screening}]]
+                        </li>
+
                         <li>
                             <label class="admin_movieLabel">러닝타임</label>
                             [[*{runningTime}]]분
@@ -68,12 +77,37 @@
                 </div>
                 
                 
-                <li>
+                <li class="stillcut">
                     <label class="admin_movieLabel">스틸컷</label>
+                    <div class="swiper stillcutSwiper">
+                        <div class="swiper-wrapper" >
+                            <div class="swiper-slide" th:each="stillcut : ${resp.movieStillcut}"><img th:src="@{|${stillcut}|}"></div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                 </li>
         
-                <li>
+                <li class="person">
                     <label class="admin_movieLabel">영화인</label>
+                    <div class="swiper personSwiper">
+                        <div class="swiper-wrapper" >
+                            <div class="swiper-slide person" th:each="person : ${resp.moviePerson}">
+
+                                <div class="person-img">
+                                    <img th:src="@{|${person.img}|}">
+                                </div>
+    
+                                <div class="person-info">
+                                    <pre class="info-name" th:text="${person.name}">영화인 이름</pre>
+                                    <pre class="info-role" th:text="${person.role}">영화인 역할</pre>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                 </li>
 
             </ul>
@@ -89,5 +123,33 @@
     </div>
 
     <script th:src="@{\js\admin\admin_movieManageDetail.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        var stillCutSwiper = new Swiper(".stillcutSwiper", {
+            slidesPerView: 4,
+            spaceBetween: 30,
+            freeMode: true,
+            centeredSlides: true,
+            navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        });
+
+        var personSwiper = new Swiper(".personSwiper", {
+            slidesPerView: 4,
+            spaceBetween: 30,
+            freeMode: true,
+            centeredSlides: true,
+            navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        });
+
+
+    </script>
 </body>
 </html>

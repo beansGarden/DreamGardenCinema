@@ -59,26 +59,28 @@ public class AdminMovieManageController {
 								String type,
 								Model model) {
 		
-		Movie movieInfo = service.movieSelectOne(movieNo);
+		Map<String, Object> resp = service.movieSelectOne(movieNo);
+		Movie movieInfo = (Movie)resp.get("movieInfo");
 		String movieRating = movieInfo.getRating();
-		if(movieRating.equals("/images/common/main/ALL.png")) {
-			movieInfo.setRating("전체관람가");
-		}else if(movieRating.equals("/images/common/main/12세.png")){
-			movieInfo.setRating("만12세이상관람가");
-		}else if(movieRating.equals("/images/common/main/15세.png")) {
-			movieInfo.setRating("만15세이상관람가");
-		}else if(movieRating.equals("/images/common/main/18세.png")) {
-			movieInfo.setRating("청소년관람불가");
-		}else {
-			movieInfo.setRating("관람등급미정");
-		}
+		if(movieRating.equals("/images/common/main/ALL.png")) movieInfo.setRating("전체관람가");
+		else if(movieRating.equals("/images/common/main/12세.png")) movieInfo.setRating("만12세이상관람가");
+		else if(movieRating.equals("/images/common/main/15세.png")) movieInfo.setRating("만15세이상관람가");
+		else if(movieRating.equals("/images/common/main/18세.png")) movieInfo.setRating("청소년관람불가");
+		else movieInfo.setRating("관람등급미정");
+
+		
+		String movieScreen = movieInfo.getScreening();
+		if(movieScreen.equals("W")) movieInfo.setScreening("임시대기");
+		if(movieScreen.equals("P")) movieInfo.setScreening("상영예정");
+		if(movieScreen.equals("C")) movieInfo.setScreening("현재상영");
+		if(movieScreen.equals("D")) movieInfo.setScreening("상영종료");
+		
 		
 		String story = movieInfo.getSynopsis();
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
-		model.addAttribute("movieInfo", movieInfo);
+		model.addAttribute("resp", resp);
 		
-		System.out.println(movieInfo);
 		
 		return "admin/admin_movieManageDetail";
 	}

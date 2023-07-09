@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.dgc.admin.model.dao.AdminMovieManageMapper;
 import edu.kh.dgc.admin.model.dto.Pagination;
 import edu.kh.dgc.movie.model.dto.Movie;
+import edu.kh.dgc.movie.model.dto.Person;
 
 @Service
 public class AdminMovieManageServiceImpl implements AdminMovieManageService{
@@ -43,8 +44,19 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 	}
 
 	@Override
-	public Movie movieSelectOne(int movieNo) {
-		return mapper.movieSelectOne(movieNo);
+	public Map<String, Object> movieSelectOne(int movieNo) {
+		
+		Map<String, Object> resp = new HashMap<>();
+		
+		Movie movieInfo = mapper.movieSelectOne(movieNo);
+		List<String> movieStillcut= mapper.selectMovieStillCut(movieNo);
+		List<Person> moviePerson = mapper.selectMoviePerson(movieNo);
+		
+		resp.put("movieInfo", movieInfo);
+		resp.put("movieStillcut", movieStillcut);
+		resp.put("moviePerson", moviePerson);
+		
+		return resp;
 	}
 	
 	

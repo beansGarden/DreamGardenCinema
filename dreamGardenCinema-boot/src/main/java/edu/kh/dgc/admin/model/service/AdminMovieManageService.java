@@ -8,6 +8,6 @@ public interface AdminMovieManageService {
 
 	Map<String, Object> selectList(Map<String, Object> requestData);
 
-	Movie movieSelectOne(int movieNo);
+	Map<String, Object> movieSelectOne(int movieNo);
 	
 }
