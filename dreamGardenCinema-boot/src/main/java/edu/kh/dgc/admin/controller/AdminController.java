@@ -72,19 +72,14 @@ public class AdminController {
 		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
 		model.addAttribute("salesByPeriod", salesByPeriod);
 		
-		// 년도별 매출
+		// 근 3개월 영화별 예매건수
+		List<SalesByPeriod> reservationsEachMovieLast3Months = service.reservationsEachMovieLast3Months();
+		model.addAttribute("reservationsEachMovieLast3Months", reservationsEachMovieLast3Months);
 
 		return "admin/admin_dashboard";
+		
 	}
 	
-	// 대시보드 년도별 분기 매출
-	@GetMapping("/admin/quarterlySales")
-	@ResponseBody
-	public List<SalesByPeriod> quarterlySales(String selectedYear) {
-		return service.quarterlySales(selectedYear); 
-	}
-
-
 	// 영화별 매출 불러오기
 	@GetMapping("/ticketAmount")
 	@ResponseBody
@@ -1670,6 +1665,10 @@ public class AdminController {
 		List<SalesByPeriod>firstLoadingMonthlySalesByYear = service.firstLoadingMonthlySalesByYear(currentYear);
 		model.addAttribute("firstLoadingMonthlySalesByYear", firstLoadingMonthlySalesByYear);
 		
+		// 지난주 매출
+		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
+		model.addAttribute("salesByPeriod", salesByPeriod);
+		
   		return "admin/admin_sales";
   	}
   	
@@ -1679,6 +1678,12 @@ public class AdminController {
 	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
 		System.out.println(service.monthlySalesByYear(selectedYear));
 		return service.monthlySalesByYear(selectedYear); 
+	}
+	// 년도별 분기 매출
+	@GetMapping("/admin/quarterlySales")
+	@ResponseBody
+	public List<SalesByPeriod> quarterlySales(String selectedYear) {
+		return service.quarterlySales(selectedYear); 
 	}
         
         

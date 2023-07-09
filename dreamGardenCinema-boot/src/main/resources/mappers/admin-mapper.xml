@@ -103,6 +103,8 @@
 		<result property="quarterlySales" column="TOTAL_AMOUNT" />
 		<result property="yearAndMonth" column="YEAR_AND_MONTH" />
 		<result property="monthlySalesByYear" column="MONTHLY_SALES_BY_YEAR" />
+		<result property="movieTitle" column="MOVIE_TITLE" />
+		<result property="ticketCount" column="TICKET_COUNT" />
 	</resultMap>
 	
 	
@@ -1715,6 +1717,15 @@
 		)
 		WHERE SUBSTR("YEAR_AND_MONTH", 1, 4) IN (#{currentYear}, #{lastYear})
 		ORDER BY SUBSTR("YEAR_AND_MONTH", 6, 2) ASC, SUBSTR("YEAR_AND_MONTH", 1, 4)
+	</select>
+	
+	<select id="reservationsEachMovieLast3Months" resultMap="salesResultMap">
+		SELECT M.MOVIE_TITLE, COUNT(*) AS TICKET_COUNT
+		FROM TICKETING_INFO T
+		JOIN MOVIE M ON T.MOVIE_NO = M.MOVIE_NO
+		WHERE T.TICKETING_TIME >= ADD_MONTHS(TRUNC(SYSDATE), -3)
+		AND TICKET_FL = 'Y'
+		GROUP BY M.MOVIE_TITLE
 	</select>
 	
 <!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->

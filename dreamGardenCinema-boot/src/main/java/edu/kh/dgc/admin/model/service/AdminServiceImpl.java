@@ -1415,6 +1415,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 
+	// 근 3개월 영화별 예매건수
+	@Override
+	public List<SalesByPeriod> reservationsEachMovieLast3Months() {
+		return mapper.reservationsEachMovieLast3Months();
+	}
+
+
 
 
 

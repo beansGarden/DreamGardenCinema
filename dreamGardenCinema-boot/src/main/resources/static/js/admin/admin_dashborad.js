@@ -1,8 +1,8 @@
-var context = document
+let SalesForLastWeekChartContext = document
     .getElementById('myChart')
     .getContext("2d");
 
-var myChart = new Chart(context, {
+let SalesForLastWeekChart = new Chart(SalesForLastWeekChartContext, {
     type: 'line', // 차트의 형태
     data: { // 차트에 들어갈 데이터
         labels: [
@@ -73,38 +73,37 @@ function getTicketAmount(selectElement) {
 
 // 년별 분기 매출
 // 차트
-const ctx = document.getElementById('SalesforQuarterChart');
-let resultQuarterlySales = [];
-if(resultQuarterlySales.length < 1){
-    resultQuarterlySales = quarterlySales
-}
-var config = {
+const ctx = document.getElementById('reservationsEachMovieLast3MonthsChart');
+let reservationsEachMovieLast3MonthsConfig = {
     type: 'pie',
     data: {
-        labels: ['1분기', '2분기', '3분기', '4분기'],
+        labels: reservationsEachMovieTitle,
         datasets: [{
-            label: '매출',
-            data: resultQuarterlySales,
+            label: '예매 건수',
+            data: reservationsEachMovieTicketCount,
             borderWidth: 1,
-            backgroundColor: ['#444444', '#aaaaaa']
+            backgroundColor: ['e7e3e3', '#c3c5c5', '#919a97', '#262a2d', '#778c86', '#b4c8bb']
         }]
     },
 };
-var myChart = new Chart(ctx, config);
+let reservationsEachMovieLast3MonthsChart = new Chart(ctx, reservationsEachMovieLast3MonthsConfig);
+
+const totalTicketCountSpan = document.querySelector(".totalTicketCount");
+totalTicketCountSpan.innerText = "총 예매 건수 : " + totalTicketCount + "건";
 
 // 년도
-const currentYear = new Date().getFullYear();
-for (let i = currentYear - 10; i <= currentYear; i++) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.text = i;
+// const currentYear = new Date().getFullYear();
+// for (let i = currentYear - 10; i <= currentYear; i++) {
+//     const option = document.createElement("option");
+//     option.value = i;
+//     option.text = i;
 
-    if (i === currentYear) {
-        option.selected = true;
-    }
+//     if (i === currentYear) {
+//         option.selected = true;
+//     }
 
-    document.getElementById("yearSelect").appendChild(option);
-}
+//     document.getElementById("yearSelect").appendChild(option);
+// }
 
 // 매출 조회
 function salesForQuarter() {

@@ -346,6 +346,9 @@ public interface AdminService {
 	// 년도별 월 매출
 	List<SalesByPeriod> monthlySalesByYear(String selectedYear);
 
+	// 근 3개월 영화별 예매건수
+	List<SalesByPeriod> reservationsEachMovieLast3Months();
+
 
 
 

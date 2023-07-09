@@ -25,8 +25,7 @@ createYearOptions(monthlySalesByYear);
 let salesForLastWeekContext = document
     .getElementById('salesForLastWeek')
     .getContext("2d");
-console.log("salesByPeriod : " + salesByPeriod);
-console.log("salesByDays : " + salesByDays);
+console.log(salesByPeriod);
 let salesForLastWeekChart = new Chart(salesForLastWeekContext, {
     type: 'line',
     data: {
@@ -108,7 +107,6 @@ for (let i = 1; i <= 12; i++) {
     let label2 = `${selectedYear} ${i}월`;
     labels.push(label2);
 }
-console.log("labels : " + labels);
 let monthlySalesByYearConfig = {
     type: 'bar',
     data: {
@@ -140,7 +138,6 @@ function monthlySalesByYearAjax() {
         let label2 = `"${selectedYear}-${i < 10 ? '0' + i : i}"`;
         YearAndMonthArrAjax.push(label2);
     }
-    console.log(YearAndMonthArrAjax);
     fetch('/admin/monthlySalesByYear?selectedYear=' + selectedYear)
         .then(response => response.json())
         .then(result => {
