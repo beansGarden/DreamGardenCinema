@@ -9,12 +9,18 @@
 }
 
 /* 게시판 제목 */
-#admin_movieManageTitle{
+.admin_movieManageTitle{
     color:#0F0954;
     font-size: 30px;
     font-weight: bold;
+    width: 100%;
 }
 
+
+.admin_movieManageDetail--read{
+    width: 100%;
+    margin-top: 10px;
+}
 
 ul>li{
     list-style: none;
