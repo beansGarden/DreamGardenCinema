@@ -37,7 +37,7 @@ screenWaitBtn.addEventListener("click", (e) => {
     wholeBtn.className = "";
 
     selectList()
-    document.querySelector('.pagination').innerHTML = '';
+    
 
 });
 
@@ -106,7 +106,6 @@ highlightBtn.addEventListener("click", (e) => {
     wholeBtn.className = "";
 
     selectList()
-    document.querySelector('.pagination').innerHTML = '';
 
 });
 
@@ -289,11 +288,16 @@ async function selectList(){
             prevPage = response.pagination.prevPage;			// 이전 페이지의 페이지 번호 맨 끝
             nextPage = response.pagination.nextPage;			// 다음 페이지의 페이지 번호 맨 앞
 
+            reloadPageList();
+            if(screenType == 'wait' || screenType == 'highlight'){
+                document.querySelector('.pagination').innerHTML = '';
+            }
         }
 
     })
-    .then(reloadPageList())
     .catch(err => console.log(err));
+
+    
 
 }
 
