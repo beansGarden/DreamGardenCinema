@@ -1,7 +1,6 @@
 	package edu.kh.dgc.admin.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +55,43 @@ public class AdminMovieManageController {
 	}
 	
 	@GetMapping("/adminMovieManage/detail")
-	public String forwardDetail() {
+	public String forwardDetail(int movieNo,
+								String type,
+								Model model) {
+		
+		Movie movieInfo = service.movieSelectOne(movieNo);
+		String movieRating = movieInfo.getRating();
+		if(movieRating.equals("/images/common/main/ALL.png")) {
+			movieInfo.setRating("전체관람가");
+		}else if(movieRating.equals("/images/common/main/12세.png")){
+			movieInfo.setRating("만12세이상관람가");
+		}else if(movieRating.equals("/images/common/main/15세.png")) {
+			movieInfo.setRating("만15세이상관람가");
+		}else if(movieRating.equals("/images/common/main/18세.png")) {
+			movieInfo.setRating("청소년관람불가");
+		}else {
+			movieInfo.setRating("관람등급미정");
+		}
+		
+		String story = movieInfo.getSynopsis();
+		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		
+		model.addAttribute("movieInfo", movieInfo);
+		
+		System.out.println(movieInfo);
 		
 		return "admin/admin_movieManageDetail";
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+

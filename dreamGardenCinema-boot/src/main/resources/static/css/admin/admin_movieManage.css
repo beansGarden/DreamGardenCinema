@@ -1,18 +1,30 @@
 /* 전체 감싸는 div */
 .admin_movieManageWrap {
     display: flex;
-    top: 50px;
-    left: 500px;
+    flex-direction: column;
+    align-items: flex-start;
     position: absolute;
-    flex-wrap: wrap;
-    width: 800px;
+    width: 1000px;
+    left: 600px;
+    top: 60px;
+    height: 750px;
+    gap: 20px;
 }
 
 /* 게시판 제목 */
 #admin_movieManageTitle {
-    color: #0F0954;
-    font-size: 30px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
     font-weight: bold;
+    width: 130px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    /* margin: 20px 0 15px 50px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* screen 상태 버튼 */
@@ -44,10 +56,10 @@
 }
 
 /* 게시판 테이블 */
-.admin_movieManageBoardWrap>table {
+.admin_movieManageBoardWrap table {
     border-bottom: 1px solid rgba(142, 142, 142, 0.431);
     border-collapse: collapse;
-    width: 800px;
+    width: 1000px;
 }
 
 /* 테이블 th,td 칸 */
@@ -60,21 +72,21 @@
 
 table th:nth-of-type(1), td:nth-of-type(1) {
     padding: 10px 0px;
-    width: 80px;
+    width: 10%;
 }
 
 table th:nth-of-type(2), td:nth-of-type(2) {
     box-sizing: border-box;
-    width: 350px;
+    width: 50%;
 }
 
 table th:nth-of-type(3), td:nth-of-type(3) {
     padding: 10px 0;
-    width: 120px;
+    width: 20%;
 }
 
 table th:nth-of-type(4), td:nth-of-type(4) {
-    width: 200px;
+    width: 20%;
 }
 
 .movieStatus button{
@@ -116,7 +128,7 @@ table th:nth-of-type(4), td:nth-of-type(4) {
 
 .current{
     font-weight: bold;
-    background-color: #455ba8 !important; 
+    background-color: #59ada8 !important; 
     border-radius: 50%;
     color: white !important;
     letter-spacing: 0 !important;

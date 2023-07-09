@@ -16,64 +16,71 @@
         <!-- 게시판 제목 -->
         <div class="admin_movieManageTitle">영화 관리</div>
         
-        <div class="admin_movieManageDetail--read">
+        <div class="process-type"> 
+            <button id="typeCreateMovie" >영화등록</button>
+            <button id="typeCreateHighlight" >광고등록</button>
+            <button id="typeUpdateHighlight" >광고수정</button>
+            <button id="typeRead" class="process-type-active">상세보기</button>
+            <button id="typeUpdate" >수정</button>
+            <button id="typeDelete" >삭제</button>
+        </div>
+
+        <div class="admin_movieManageDetail--read" th:object="${movieInfo}">
             <ul>
+                <div class="base-info">
 
+                    <div class="base-info__img">
+                        <img th:src="*{poster}">
+                    </div>
+
+                    <div class="base-info__basic">
+                        <li>
+                            <label class="admin_movieLabel">영화 제목</label>
+                            [[*{movieTitle}]]
+                        </li>
+        
+                        <li>
+                            <label class="admin_movieLabel">개봉일</label>
+                            [[*{releaseDate}]]
+                        </li>
+        
+                        <li>
+                            <label class="admin_movieLabel">러닝타임</label>
+                            [[*{runningTime}]]분
+                        </li>
+        
+                        <li>
+                            <label class="admin_movieLabel">장르</label>
+                            [[*{genre}]]
+                        </li>
+                        
+                        <li>
+                            <label class="admin_movieLabel">영화 등급</label>
+                            [[*{rating}]]
+                        </li>
+                        
+                        <li>
+                            <label class="admin_movieLabel">시놉시스</label>
+                            <span th:utext="*{synopsis}"></span>
+                        </li>
+
+                    </div>
+                </div>
+                
+                
                 <li>
-                    <label class="admin_movieLabel">개봉일</label>
-                    <input type="date" name="" id="">
+                    <label class="admin_movieLabel">스틸컷</label>
+                </li>
+        
+                <li>
+                    <label class="admin_movieLabel">영화인</label>
                 </li>
 
-                <li>
-                    <label for="" class="admin_movieLabel">러닝타임</label>
-                    <input type="text" name="" id=""><span> 분</span>
-                </li>
-
-                <li>
-                    <label for="" class="admin_movieLabel">장르</label>
-                    
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">영화 제목</label>
-                    <input type="text" name="" id="">
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">감독 이름</label>
-                    <input type="text" name="" id="">
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">배우 이름</label>
-                    <input type="text" name="" id="">
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">영화 등급</label>
-                    <select name="" id="">
-                        <option value="All">전체</option>
-                        <option value="12">12</option>
-                        <option value="15">15</option>
-                        <option value="19">19</option>
-        
-        
-                    </select>
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">영화 영상</label>
-                    <input type="file" name="" id="">
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">상세설명</label>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
-                </li>
-        
-                <li><label for="" class="admin_movieLabel">영화 포스터</label>
-                    <input type="file" name="" id="">
-                </li>
-        
             </ul>
         </div>
 
         <!-- 등록,수정,삭제 버튼 -->
-        <button class="admin_movieManageRegister"><a href="">등록</a></button>
+        <!-- <button class="admin_movieManageRegister"><a href="">등록</a></button> -->
     
     </div>
     

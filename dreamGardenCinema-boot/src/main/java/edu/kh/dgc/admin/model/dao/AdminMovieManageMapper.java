@@ -17,6 +17,8 @@ public interface AdminMovieManageMapper {
 	
 	List<Movie> selectList(Map<String, Object> requestData, RowBounds rowBound);
 
+	Movie movieSelectOne(int movieNo);
+
 
 
 	

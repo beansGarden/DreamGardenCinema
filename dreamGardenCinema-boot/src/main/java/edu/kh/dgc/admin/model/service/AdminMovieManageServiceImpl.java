@@ -41,5 +41,12 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 		
 		return responseData;
 	}
+
+	@Override
+	public Movie movieSelectOne(int movieNo) {
+		return mapper.movieSelectOne(movieNo);
+	}
+	
+	
 	
 }

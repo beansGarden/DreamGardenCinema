@@ -104,5 +104,14 @@
 	</select>
 	
 	
+	<select id="movieSelectOne" resultMap="movie_rm">
+		
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIE_NO = #{movieNo}
+		
+	</select>
+	
+	
 </mapper>
 
