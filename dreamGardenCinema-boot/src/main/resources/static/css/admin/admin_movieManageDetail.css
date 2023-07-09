@@ -1,13 +1,13 @@
 /* 전체 감싸는 div */
 .admin_movieManageDetailWrap{
-    width: 1000px;
-      display: block;
-    margin: 100px auto;
-    height: auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+    display: flex;
+    top: 50px;
+    left: 500px;
+    position: absolute;
+    flex-wrap: wrap;
+    width: 800px;
 }
+
 /* 게시판 제목 */
 #admin_movieManageTitle{
     color:#0F0954;

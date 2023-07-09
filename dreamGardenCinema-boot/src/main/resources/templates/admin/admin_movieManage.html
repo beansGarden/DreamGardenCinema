@@ -62,8 +62,17 @@
                         <td th:text="${list.movieTitle}">영화제목</td>
                         <td th:text="${list.releaseDate}">개봉일</td>
                         <td class="movieStatus">
-                            <button>상세보기</button>
-                            <button>수정</button>
+
+                            <button type="button" 
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=read'|">
+                            상세보기
+                            </button>
+
+                            <button type="button" 
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=update'|" >
+                            수정
+                            </button>
+                            
                         </td>
                     </tr>
                 </tbody>

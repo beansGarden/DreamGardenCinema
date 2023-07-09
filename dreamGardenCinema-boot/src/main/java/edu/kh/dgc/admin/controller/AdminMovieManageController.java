@@ -55,5 +55,10 @@ public class AdminMovieManageController {
 		return responseData;
 	}
 	
+	@GetMapping("/adminMovieManage/detail")
+	public String forwardDetail() {
+		
+		return "admin/admin_movieManageDetail";
+	}
 	
 }

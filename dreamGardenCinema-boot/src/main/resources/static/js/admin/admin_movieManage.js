@@ -183,14 +183,22 @@ async function selectList(){
 
             const btnSelect = document.createElement("button");
             btnSelect.innerText = "상세보기";
+            btnSelect.addEventListener('click', function() {
+                location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=read';
+            });
             movieStatue.append(btnSelect);
+
             const btnUpdate = document.createElement("button");
             btnUpdate.innerText = "수정";
+            btnSelect.addEventListener('click', function() {
+                location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=update';
+            });
             movieStatue.append(btnUpdate);
             
             if(screenType == 'wait' || screenType == 'down' || screenType == 'highlight'){
             const btnDelete = document.createElement("button");
             btnDelete.innerText = "삭제";
+            btnDelete.addEventListener('click', deleteList());
             movieStatue.append(btnDelete);
             }
 
@@ -219,7 +227,8 @@ async function selectList(){
                 const movieStatue = document.createElement("td");
 
                 const btnCreate = document.createElement("button");
-                btnCreate.innerText = "정보등록";
+                btnCreate.innerText = "영화등록";
+                btnCreate.addEventListener('click', createList());
                 movieStatue.append(btnCreate);
 
                 movieStatue.classList.add("movieStatus");
@@ -254,7 +263,8 @@ async function selectList(){
             const movieStatue = document.createElement("td");
 
             const btnCreate = document.createElement("button");
-            btnCreate.innerText = "정보등록";
+            btnCreate.innerText = "광고등록";
+            btnCreate.addEventListener('click', createList());
             movieStatue.append(btnCreate);
 
             movieStatue.classList.add("movieStatus");
@@ -417,4 +427,12 @@ function createButton(text, dataPage, clickHandler) {
     });
 
     return button;
+}
+
+function deleteList(){
+
+}
+
+function createList(){
+
 }
