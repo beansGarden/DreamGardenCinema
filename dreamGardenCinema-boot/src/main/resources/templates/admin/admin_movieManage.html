@@ -75,30 +75,30 @@
             <ul class="pagination">
 
                 <!-- 첫 페이지로 이동 -->
-                <li><button data-page="1" onclick="pagination(this)">&lt;&lt;</button></li>
+                <li><button data-page="first" onclick="pagination(this)">&lt;&lt;</button></li>
 
                 <!-- 이전 목록 마지막 번호로 이동 -->
-                <li><button th:data-page="${pagination.prevPage}" onclick="pagination(this)">&lt;</button></li>
+                <li><button th:data-page="prev" onclick="pagination(this)">&lt;</button></li>
 
                 <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
 
                     <!-- 현재 보고있는 페이지 -->
                     <li th:if="${i == pagination.currentPage}">
-                        <button class="current" th:data-page="${i}" th:text="${i}" onclick="pagination(this)">현재 페이지</button>
+                        <button class="num current" th:data-page="${i}" data-page-role="num" th:text="${i}" onclick="pagination(this)">현재 페이지</button>
                     </li>
 
                     <!-- 현재 페이지를 제외한 나머지 -->
                     <li th:unless="${i == pagination.currentPage}">
-                        <button th:data-page="${i}" th:text="${i}" onclick="pagination(this)">나머지 페이지</button>
+                        <button class="num" th:data-page="${i}" data-page-role="num" th:text="${i}"  onclick="pagination(this)">나머지 페이지</button>
                     </li>
 
                 </th:block>
                 
                 <!-- 다음 목록 시작 번호로 이동 -->
-                <li><button th:data-page="${pagination.nextPage}" onclick="pagination(this)">&gt;</button></li>
+                <li><button th:data-page="next"  onclick="pagination(this)">&gt;</button></li>
 
                 <!-- 끝 페이지로 이동 -->
-                <li><button th:data-page="${pagination.maxPage}" onclick="pagination(this)">&gt;&gt;</button></li>
+                <li><button th:data-page="max" onclick="pagination(this)">&gt;&gt;</button></li>
 
 
             </ul>
@@ -108,6 +108,23 @@
     </div>
 
     <script th:src="@{\js\admin\admin_movieManage.js}"></script>
+    <script th:inline="javascript">
+
+        currentPage = /*[[${responseData.pagination.currentPage}]]*/ "현재 페이지 번호";
+        listCount= /*[[${responseData.pagination.listCount}]]*/ "전체 게시글 수";
+
+        limit= /*[[${responseData.pagination.limit}]]*/ "한 페이지 목록에 보여지는 게시글 수";
+        pageSize= /*[[${responseData.pagination.pageSize}]]*/ "보여질 페이지 번호 개수";
+
+        maxPage= /*[[${responseData.pagination.maxPage}]]*/ "마지막 페이지 번호";
+        startPage= /*[[${responseData.pagination.startPage}]]*/ "보여지는 맨 앞 페이지 번호 ";
+        endPage= /*[[${responseData.pagination.endPage}]]*/ "보여지는 맨 뒤 페이지 번호";
+
+        prevPage= /*[[${responseData.pagination.prevPage}]]*/ "이전 페이지의 페이지 번호 맨 끝";
+        nextPage= /*[[${responseData.pagination.nextPage}]]*/ "다음 페이지의 페이지 번호 맨 앞";
+
+
+    </script>
 
 </body>
 </html>

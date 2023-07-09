@@ -1,7 +1,19 @@
 
 let screenType = "current";
-let currentPage;
-let maxPage;
+
+let currentPage;		// 현재 페이지 번호
+let listCount;			// 전체 게시글 수
+
+let limit;			// 한 페이지 목록에 보여지는 게시글 수
+let pageSize;		// 보여질 페이지 번호 개수
+
+let maxPage;			// 마지막 페이지 번호
+let startPage;			// 보여지는 맨 앞 페이지 번호 
+let endPage;			// 보여지는 맨 뒤 페이지 번호
+
+let prevPage;			// 이전 페이지의 페이지 번호 맨 끝
+let nextPage;			// 다음 페이지의 페이지 번호 맨 앞
+
 
 const screenWaitBtn = document.getElementById("screenWait");
 const screenPromiseBtn = document.getElementById("screenPromise");
@@ -25,6 +37,7 @@ screenWaitBtn.addEventListener("click", (e) => {
     wholeBtn.className = "";
 
     selectList()
+    document.querySelector('.pagination').innerHTML = '';
 
 });
 
@@ -59,7 +72,6 @@ screenCurrentBtn.addEventListener("click", (e) => {
     wholeBtn.className = "";
 
     selectList()
-
 });
 
 
@@ -76,6 +88,7 @@ screenDownBtn.addEventListener("click", (e) => {
     wholeBtn.className = "";
 
     selectList()
+    
 
 });
 
@@ -93,6 +106,7 @@ highlightBtn.addEventListener("click", (e) => {
     wholeBtn.className = "";
 
     selectList()
+    document.querySelector('.pagination').innerHTML = '';
 
 });
 
@@ -110,12 +124,13 @@ wholeBtn.addEventListener("click", (e) => {
     wholeBtn.className = "menu-active";
     
     selectList()
+    
 });
 
 
 
 
-function selectList(){
+async function selectList(){
 
     const data = {
         "screenType": screenType,
@@ -260,7 +275,24 @@ function selectList(){
             tbody.append(warningRow);
         }
 
+        {
+            currentPage = response.pagination.currentPage;		// 현재 페이지 번호
+            listCount = response.pagination.listCount;			// 전체 게시글 수
+
+            limit = response.pagination.limit;			// 한 페이지 목록에 보여지는 게시글 수
+            pageSize = response.pagination.pageSize;		// 보여질 페이지 번호 개수
+
+            maxPage = response.pagination.maxPage;			// 마지막 페이지 번호
+            startPage = response.pagination.startPage;			// 보여지는 맨 앞 페이지 번호 
+            endPage = response.pagination.endPage;			// 보여지는 맨 뒤 페이지 번호
+
+            prevPage = response.pagination.prevPage;			// 이전 페이지의 페이지 번호 맨 끝
+            nextPage = response.pagination.nextPage;			// 다음 페이지의 페이지 번호 맨 앞
+
+        }
+
     })
+    .then(reloadPageList())
     .catch(err => console.log(err));
 
 }
@@ -268,7 +300,21 @@ function selectList(){
 
 function pagination(element){
     
+
     currentPage = element.getAttribute('data-page');
+    if(currentPage == 'first'){
+        currentPage = startPage;
+    }
+    if(currentPage == 'prev'){
+        currentPage = prevPage;
+    }
+    if(currentPage == 'next'){
+        currentPage = nextPage;
+    }
+    if(currentPage == 'max'){
+        currentPage = endPage;
+    }
+
 
     selectList();
 
@@ -278,8 +324,93 @@ function pagination(element){
         button.className = '';
     });
 
-    const currentPaginationButtons = document.querySelector(`.pagination button[data-page='${currentPage}']`)
 
-    currentPaginationButtons.className = 'current'
+    const currentPaginationButton = document.querySelector(`.pagination button[data-page='${currentPage}']`)
 
+    currentPaginationButton.className = 'current'
+
+}
+
+function reloadPageList(){
+
+/*     
+    <div class="pagination-area">
+
+        <ul class="pagination">
+
+            <!-- 첫 페이지로 이동 -->
+            <li><button data-page="first" onclick="pagination(this)">&lt;&lt;</button></li>
+
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li><button th:data-page="prev" onclick="pagination(this)">&lt;</button></li>
+
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+
+                <!-- 현재 보고있는 페이지 -->
+                <li th:if="${i == pagination.currentPage}">
+                    <button class="num current" th:data-page="${i}" data-page-role="num" th:text="${i}" onclick="pagination(this)">현재 페이지</button>
+                </li>
+
+                <!-- 현재 페이지를 제외한 나머지 -->
+                <li th:unless="${i == pagination.currentPage}">
+                    <button class="num" th:data-page="${i}" data-page-role="num" th:text="${i}"  onclick="pagination(this)">나머지 페이지</button>
+                </li>
+
+            </th:block>
+            
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><button th:data-page="next"  onclick="pagination(this)">&gt;</button></li>
+
+            <!-- 끝 페이지로 이동 -->
+            <li><button th:data-page="max" onclick="pagination(this)">&gt;&gt;</button></li>
+
+
+        </ul>
+
+    </div>
+*/
+    var paginationElement = document.querySelector('.pagination');
+    paginationElement.innerHTML = '';
+
+    var firstPageButton = document.createElement('li');
+    firstPageButton.appendChild(createButton('<<', 'first', pagination));
+
+    var prevPageButton = document.createElement('li');
+    prevPageButton.appendChild(createButton('<', 'prev', pagination));
+
+    paginationElement.appendChild(firstPageButton);
+    paginationElement.appendChild(prevPageButton);
+
+    for (let i = startPage; i <= endPage; i++) {
+        var pageItem = document.createElement('li');
+        var button = createButton(i.toString(), i, pagination);
+        button.classList.add('num');
+        if (i === currentPage) {
+            button.classList.add('current');
+        }
+
+        pageItem.appendChild(button);
+        paginationElement.appendChild(pageItem);
+    }
+
+    var nextPageButton = document.createElement('li');
+    nextPageButton.appendChild(createButton('>', 'next', pagination));
+
+    var lastPageButton = document.createElement('li');
+    lastPageButton.appendChild(createButton('>>', 'max', pagination));
+
+    paginationElement.appendChild(nextPageButton);
+    paginationElement.appendChild(lastPageButton);
+
+}
+
+function createButton(text, dataPage, clickHandler) {
+    var button = document.createElement('button');
+    button.textContent = text;
+    button.dataset.page = dataPage;
+    button.addEventListener('click', function() {
+        clickHandler(this);
+    });
+
+    return button;
 }
