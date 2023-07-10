@@ -30,8 +30,10 @@ public class MembershipScheduling {
 	@Autowired
 	private UserService UserService;
 
-//	@Scheduled(cron = "0,15,30,45 * * * * *") //테스트용 15초
-	 @Scheduled(cron = "0 0 5 1 * *") //매달 1월 AM 5
+	//테스트용 15초
+//	@Scheduled(cron = "0,15,30,45 * * * * *") 
+	//매달 1월 AM 5
+	@Scheduled(cron = "0 0 5 1 * *") 
 //	@Scheduled(cron = "0 */10 * * * *") //10분 마다
 	public void membership() {
 		System.out.println("스케줄러 실행");

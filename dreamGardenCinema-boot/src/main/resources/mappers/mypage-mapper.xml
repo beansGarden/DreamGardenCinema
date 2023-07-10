@@ -331,10 +331,26 @@
 	<update id="updateAllAmount">
 		UPDATE USER_INFO SET
 		USER_AMOUNT = 0
+		WHERE USER_ROLE = 'C'
 	</update>
 	<!--유저 전체 RATING 1 업데이트-->
 	<update id="updateRating1">
 		UPDATE USER_INFO SET
 		USER_RATING = 1
+		WHERE USER_ROLE = 'C'
+	</update>
+
+	<!--해당 취소 티켓에 사용된 쿠폰 조회-->
+	<select id="selectCouponNo" parameterType="String" resultType="int">
+		SELECT COUPON
+		FROM TICKETING_INFO
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
+	
+	<!--취소시 사용한 쿠폰 환불-->
+	<update id="returnCoupon" parameterType="int">
+		UPDATE USER_COUPON SET
+		USE_FL = 'N'
+		WHERE USER_COUPON_NO = #{couponNo}
 	</update>
 </mapper>

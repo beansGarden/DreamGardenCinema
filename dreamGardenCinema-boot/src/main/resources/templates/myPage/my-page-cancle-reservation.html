@@ -126,18 +126,17 @@
                         </div>
 
                         <div class="my-page-contents-info-date">
-                            <span>상영관</span><span th:text="|${cancle.movieTheater}관|"></span> <span>관람좌석</span>
-                            <span th:text="${cancle.seatNo}">G11,G10</span>
+                            <span>상영관</span><span th:text="|${cancle.movieTheater}관|"></span> 
                         </div>
 
                         <!-- 결제 내역  -->
                         <div class="my-page-payment-detail">
-                            <span>결제 내역</span>
+                            <span>취소된 결제 내역</span>
                         </div>
 
                         <div class="my-page-payment-detail-box">
                             <div id="total-pay">
-                                <span>총 결제 금액</span> <span th:text="|${cancle.payAmount}원|">20,000원</span>
+                                <span>총 취소된 결제 금액</span> <span th:text="|${cancle.payAmount}원|">20,000원</span>
                             </div>
                         </div>
 
@@ -256,7 +255,7 @@
                 정보통신 윤리위원회 심의규정, 프로그램 보호법 및 기타관련 법령과 약관이 금지하는 행위를 한 경우
             </p>
             <div class="my-page-secession-checkbox">
-                <input type="checkbox"><span>위 유의사항을 모두 확인하였고 회원 탈퇴에 동의합니다</span>
+                <input type="checkbox" id="secessionCheckbox"><span>위 유의사항을 모두 확인하였고 회원 탈퇴에 동의합니다</span>
             </div>
             <form th:action="@{/myPage/secession}" method="get">
                 <div class="my-page-secession-btn">

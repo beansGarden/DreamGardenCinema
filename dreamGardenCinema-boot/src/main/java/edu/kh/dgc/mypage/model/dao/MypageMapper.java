@@ -159,5 +159,17 @@ public interface MypageMapper {
 	 */
 	public int updateRating1();
 
+	/** 해당 취소 티켓에 사용된 쿠폰 조회
+	 * @param ticketNo
+	 * @return
+	 */
+	public int selectCouponNo(String ticketNo);
+
+	/**취소시 사용한 쿠폰 환불
+	 * @param couponNo
+	 * @return
+	 */
+	public int returnCoupon(int couponNo);
+
 
 }

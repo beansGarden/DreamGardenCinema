@@ -154,13 +154,25 @@
     height: 600px;
 }
 /* 예매 내역이 있을 경우 */
+
+.cancel-reservation{
+    font-size: 15px;
+    font-weight: normal;
+    margin-right: 10px;
+}
+.cancel-reservation:hover{
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
 .my-page-contents-box2{
     height: 70px;
     font-size: 20px;
     font-weight: bold;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     margin-left: 16px;
     border-bottom: 2px solid black;
     margin-right: 15px;
@@ -220,6 +232,7 @@
     margin: 20px;
     width: 70%;
     border-radius: 15px;
+    z-index: 1;
 }
 .ticket-img-box{
     padding-top: 5px;
@@ -304,6 +317,7 @@
     border: 1px solid black;
     border-radius: 5px;
     align-self: end;
+    display: none;
 
 }
 .my-page-contents{
@@ -773,4 +787,26 @@
     100%{
         background-position-x: 250px;
     }
+}
+
+/* 취소 안내 문구 */
+.infoBackground{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.DGmembership-upgrade{
+    width: 69vw;
+    height: 20vh;
+
+    display: flex;
+    flex-direction: column;
+    margin: 0px 100px 20px 100px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    
+    justify-content: center;
+
+    padding-left: 70px;
 }
