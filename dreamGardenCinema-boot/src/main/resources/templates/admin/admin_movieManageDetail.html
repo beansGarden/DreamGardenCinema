@@ -21,10 +21,10 @@
             <button id="typeCreateMovie" >영화등록</button>
             <button id="typeCreateHighlight" >광고등록</button>
             <button id="typeUpdateHighlight" >광고수정</button>
-            <button id="typeRead" class="process-type-active">상세보기</button>
+            <button id="typeRead">상세보기</button>
             <button id="typeUpdate" >수정</button>
             <button id="typeDelete" >삭제</button>
-            <button onclick="location.href='/adminMovieManage'">
+            <button id="typeGoList"onclick="location.href='/adminMovieManage'">
                 영화관리<br>페이지로
             </button>
         </div>
@@ -122,8 +122,6 @@
     
     </div>
 
-    <script th:src="@{\js\admin\admin_movieManageDetail.js}"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <script>
@@ -151,5 +149,17 @@
 
 
     </script>
+
+    <script th:inline="javascript">
+
+        const movieNo = /*[[${resp.movieNo}]]*/ "영화고유번호";
+        const screenType = /*[[${resp.screen}]]*/ "상영상태";
+        const processType = /*[[${resp.type}]]*/ "영화관리종류";
+
+    </script>
+
+    <script th:src="@{\js\admin\admin_movieManageDetail.js}"></script>
+
+
 </body>
 </html>

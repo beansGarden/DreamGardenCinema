@@ -181,21 +181,23 @@ async function selectList(){
 
             const movieStatue = document.createElement("td");
 
+            if(screenType != 'highlight'){
             const btnSelect = document.createElement("button");
             btnSelect.innerText = "상세보기";
             btnSelect.addEventListener('click', function() {
-                location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=read';
+                location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=read' + '&screen=' + screenType;
             });
             movieStatue.append(btnSelect);
+            }
 
             const btnUpdate = document.createElement("button");
             btnUpdate.innerText = "수정";
-            btnSelect.addEventListener('click', function() {
-                location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=update';
+            btnUpdate.addEventListener('click', function() {
+                location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=update' + '&screen=' + screenType;
             });
             movieStatue.append(btnUpdate);
             
-            if(screenType == 'wait' || screenType == 'down' || screenType == 'highlight'){
+            if(screenType == 'wait' || screenType == 'down' || screenType == 'highlight' || screenType == 'all'){
             const btnDelete = document.createElement("button");
             btnDelete.innerText = "삭제";
             btnDelete.addEventListener('click', deleteList());

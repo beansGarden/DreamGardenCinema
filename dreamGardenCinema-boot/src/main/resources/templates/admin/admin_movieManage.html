@@ -64,12 +64,12 @@
                         <td class="movieStatus">
 
                             <button type="button" 
-                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=read'|">
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=read&screen=current'|">
                             상세보기
                             </button>
 
                             <button type="button" 
-                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=update'|" >
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=update&screen=current'|" >
                             수정
                             </button>
                             

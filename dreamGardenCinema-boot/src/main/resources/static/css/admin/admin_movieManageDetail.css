@@ -85,7 +85,7 @@ ul li{
 
 .base-info__basic li:last-of-type span{
     width: 80%;
-    height: 150px;
+    height: 145px;
     overflow-y: scroll;
 }
 
