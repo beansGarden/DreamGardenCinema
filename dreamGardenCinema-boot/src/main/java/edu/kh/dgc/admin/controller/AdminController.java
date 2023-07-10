@@ -1657,6 +1657,11 @@ public class AdminController {
   		LocalDate currentDate = LocalDate.now();
   		String currentYear = ""+currentDate.getYear();
   		
+  		LocalDate miusOneYear = currentDate.minusYears(1);
+  		
+  		String today = ""+currentDate;
+  		String oneYearAgo = ""+miusOneYear;
+  		
   		// 지난주 요일별 매출
         List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
 		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
@@ -1669,6 +1674,12 @@ public class AdminController {
 		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
 		model.addAttribute("salesByPeriod", salesByPeriod);
 		
+		// 지난주 매출
+		System.out.println(today);
+		System.out.println(oneYearAgo);
+		List<SalesByPeriod> reservationsByMovieOnSelectedDate = service.reservationsByMovieOnSelectedDate(oneYearAgo, today);
+		model.addAttribute("reservationsByMovieOnSelectedDate", reservationsByMovieOnSelectedDate);
+		
   		return "admin/admin_sales";
   	}
   	
@@ -1679,13 +1690,23 @@ public class AdminController {
 		System.out.println(service.monthlySalesByYear(selectedYear));
 		return service.monthlySalesByYear(selectedYear); 
 	}
+	
 	// 년도별 분기 매출
 	@GetMapping("/admin/quarterlySales")
 	@ResponseBody
 	public List<SalesByPeriod> quarterlySales(String selectedYear) {
 		return service.quarterlySales(selectedYear); 
 	}
-        
+	
+	// 영화별 예매 건수
+	@GetMapping("/admin/reservationsByMovieDate")
+	@ResponseBody
+	public List<SalesByPeriod> reservationsByMovieOnSelectedDate(
+			@RequestParam("dt_fr_input") String dtFrInput,
+            @RequestParam("dt_bk_input") String dtBkInput) {
+		return service.reservationsByMovieOnSelectedDate(dtFrInput, dtBkInput); 
+	}
+	        
         
         
     

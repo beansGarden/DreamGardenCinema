@@ -349,6 +349,9 @@ public interface AdminService {
 	// 근 3개월 영화별 예매건수
 	List<SalesByPeriod> reservationsEachMovieLast3Months();
 
+	// 영화별 예매건수(선택형)
+	List<SalesByPeriod> reservationsByMovieOnSelectedDate(String dtFrInput, String dtBkInput);
+
 
 
 

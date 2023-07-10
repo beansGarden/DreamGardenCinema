@@ -1421,6 +1421,17 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.reservationsEachMovieLast3Months();
 	}
 
+	// 영화별 예매건수(선택형)
+	@Override
+	public List<SalesByPeriod> reservationsByMovieOnSelectedDate(String dtFrInput, String dtBkInput) {
+		
+		Map<String, String> date = new HashMap<>();
+		date.put("dtFrInput", dtFrInput);
+		date.put("dtBkInput", dtBkInput);
+		
+		return mapper.reservationsByMovieOnSelectedDate(date);
+	}
+
 
 
 

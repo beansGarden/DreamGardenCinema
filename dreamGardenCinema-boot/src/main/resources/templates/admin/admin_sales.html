@@ -20,7 +20,7 @@
 
         <div class="admin_sales_box_top">
             <div class="admin_monthly_sales_by_year">
-                <div class="admin_monthly_sales_by_year_title">
+                <div class="admin_span_title">
                     <select id="monthlySalesByYear" onchange="monthlySalesByYearAjax()">
                         <option value=""></option>
                     </select>
@@ -31,14 +31,29 @@
                 </div>
             </div>
 
-            <div class="admin_dashboardQnaList">
-                <div class="admin_dashboardQnaList_title">
+            <div class="admin_reservationsByMovieOnSelectedDate">
+                <div class="admin_span_title">
                     <span>영화별 예매 건수</span>
                 </div>
-                <div class="admin_dashboardQnaList-in">
-                    
+                <div class="admin_reservationsByMovieOnSelectedDate-in">
+                    <div id="selectDatebuttonTab">
+                        <button type="button" class="select_data_btn select_data_css" id="dt_1year" name="dt_1year" onclick="settingDate(id)">최근 1년</button>
+                        <button type="button" class="select_data_btn select_data_css" id="dt_1week" name="dt_1week" onclick="settingDate(id)">1주일</button>
+                        <button type="button" class="select_data_btn select_data_css" id="dt_1month" name="dt_1month" onclick="settingDate(id)">1개월</button>
+                        <button type="button" class="select_data_btn select_data_css" id="dt_3month" name="dt_3month" onclick="settingDate(id)">3개월</button>
+                        <input type="date" class="select_data_input select_data_css" id="dt_fr_input" name="dt_fr_input" value="" placeholder="" onchange="">
+                        -
+                        <input type="date" class="select_data_input select_data_css" id="dt_bk_input" name="dt_bk_input" value="" placeholder="" onchange="">
+                    </div>
+                    <div id="selectDateInputTab">
+                    </div>
+                    <div id="selectDateSubmitTab">
+                        <button type="button" class="select_data_css" id="dt_inquiry_submit">조회하기</button>
+                        <p class="totalTicketCount"></p>
+                    </div>
                     <div id="ChartBox">
-
+                        <canvas id="reservationsByMovieOnSelectedDateChart"></canvas>
+                        <span class="no_information display-none">조회된 정보가 없습니다.</span>
                     </div>
                 </div>
             </div>
@@ -48,7 +63,7 @@
         <div class="admin_sales_box_bottom">
 
             <div class="admin_SalesforQuarter">
-                <div class="admin_SalesforQuarter_title">
+                <div class="admin_span_title">
                     <select id="QuarterYearSelect" onchange="salesForQuarter()">
                         <option value=""></option>
                     </select>
@@ -62,7 +77,9 @@
             </div>
 
             <div class="admin_dashboardSalesforLastweek">
-                <div class="admin_dashboardSalesforLastweek_title"><span>지난주 요일별 매출</span></div>
+                <div class="admin_span_title">
+                    <span>지난주 요일별 매출</span>
+                </div>
                 <div class="admin_dashboardSalesforLastweek-in">
                     <div>
                         <canvas id="salesForLastWeek" style="width: 400px;height: 250px;"></canvas>
@@ -74,6 +91,17 @@
     </div>
     
     <script th:inline="javascript">
+
+        // 첫 로딩 영화별 예매 건수
+        let resultMovieTitle = [];
+        let resultMovieTicketCount = [];
+        let totalTicketCount = 0;
+        /*[# th:each="reservationsMovieData : ${reservationsByMovieOnSelectedDate}"]*/
+        resultMovieTitle.push(/*[[${reservationsMovieData.movieTitle}]]*/);
+        resultMovieTicketCount.push(/*[[${reservationsMovieData.ticketCount}]]*/);
+        totalTicketCount += /*[[${reservationsMovieData.ticketCount}]]*/'totalTicketCount';
+        /*[/]*/
+        
 
         function addMissingDays(inputDays, inputSales, ReferenceDate) {
             for (let i = 0; i < ReferenceDate.length; i++) {

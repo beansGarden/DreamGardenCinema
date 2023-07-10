@@ -85,7 +85,7 @@ function salesForQuarter() {
     fetch('/admin/quarterlySales?selectedYear=' + selectedYear)
         .then(response => response.json())
         .then(result => {
-            if (true) {
+            if (result != null) {
                 resultQuarterlySales.length = 0;
                 for (let i = 0; i < result.length; i++) {
                     resultQuarterlySales.push(JSON.stringify(result[i].quarterlySales))
@@ -141,7 +141,7 @@ function monthlySalesByYearAjax() {
     fetch('/admin/monthlySalesByYear?selectedYear=' + selectedYear)
         .then(response => response.json())
         .then(result => {
-            if (true) {
+            if (result != null) {
                 monthlySalesByYearArr.length = 0;
                 monthlySalesByYearAndMonthArr.length = 0;
                 for (let i = 0; i < result.length; i++) {
@@ -154,3 +154,99 @@ function monthlySalesByYearAjax() {
         })
         .catch(err => console.log(err));
 }
+
+
+
+
+
+
+const dt_fr_input = document.getElementById("dt_fr_input");
+const dt_bk_input = document.getElementById("dt_bk_input");
+
+let endDate;
+function settingDate(id) {
+    const currentDate = new Date();
+    if (id == 'dt_1year') {
+        const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
+        endDate = oneYearAgo.toISOString().split('T')[0];
+        dt_fr_input.value = endDate;
+    }
+    if (id == 'dt_1week') {
+        const oneWeekAgo = new Date(currentDate.getTime() - (7 * 24 * 60 * 60 * 1000));
+        endDate = oneWeekAgo.toISOString().split('T')[0];
+        dt_fr_input.value = endDate;
+    }
+    if (id == 'dt_1month') {
+        const oneMonthAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
+        endDate = oneMonthAgo.toISOString().split('T')[0];
+        dt_fr_input.value = endDate;
+    }
+    if (id == 'dt_3month') {
+        const threeMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, currentDate.getDate());
+        endDate = threeMonthsAgo.toISOString().split('T')[0];
+        dt_fr_input.value = endDate;
+    }
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    dt_bk_input.value = year + "-" + month + "-" + day;
+    console.log("endDate : " + endDate);
+}
+
+
+
+const ctx = document.getElementById('reservationsByMovieOnSelectedDateChart');
+let reservationsByMovieOnSelectedDateChartConfig = {
+    type: 'pie',
+    data: {
+        labels: resultMovieTitle,
+        datasets: [{
+            label: '예매 건수',
+            data: resultMovieTicketCount,
+            borderWidth: 1,
+            backgroundColor: ['e7e3e3', '#c3c5c5', '#919a97', '#262a2d', '#778c86', '#b4c8bb']
+        }]
+    },
+};
+let reservationsByMovieOnSelectedDateChar = new Chart(ctx, reservationsByMovieOnSelectedDateChartConfig);
+
+const totalTicketCountSpan = document.querySelector(".totalTicketCount");
+totalTicketCountSpan.innerText = "총 예매 건수 : " + totalTicketCount + "건";
+
+const dt_inquiry_submit = document.getElementById("dt_inquiry_submit");
+const no_information = document.querySelector(".no_information");
+
+dt_inquiry_submit.addEventListener("click", () => {
+
+    fetch('/admin/reservationsByMovieDate?dt_fr_input=' + dt_fr_input.value + '&dt_bk_input=' + dt_bk_input.value)
+        .then(response => response.json())
+        .then(result => {
+            if (result.length != 0) {
+                no_information.classList.add("display-none");
+                console.log(result);
+                resultMovieTitle.length = 0;
+                resultMovieTicketCount.length = 0;
+                totalTicketCount = 0;
+                for (let i = 0; i < result.length; i++) {
+                    resultMovieTitle.push(JSON.stringify(result[i].movieTitle));
+                    resultMovieTicketCount.push(JSON.stringify(result[i].ticketCount));
+                    totalTicketCount += Number(JSON.stringify(result[i].ticketCount));
+                    totalTicketCountSpan.innerText = "조회된 예매 건수 : " + totalTicketCount + "건";
+                }
+                reservationsByMovieOnSelectedDateChar.update();
+            }else{
+                resultMovieTitle.length = 0;
+                resultMovieTicketCount.length = 0;
+                totalTicketCount = 0;
+                totalTicketCountSpan.innerText = "";
+                no_information.classList.remove("display-none");
+                reservationsByMovieOnSelectedDateChar.update();
+            }
+        })
+        .catch(err => console.log(err));
+});
+
+
+

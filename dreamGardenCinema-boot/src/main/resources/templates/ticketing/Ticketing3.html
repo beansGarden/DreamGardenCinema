@@ -70,17 +70,20 @@
                 <button type="button" class="btn-close"></button>
             </div>
             <div class="payment-select-line"></div>
-            <input type="radio" name="payment-select" id="card" onclick="changePaymentMethod('html5_inicis')" checked>
+            <input type="radio" name="payment-select" id="card" onclick="changePaymentMethod('html5_inicis.INIpayTest')">
             <label for="card" class="payment-choice">카드</label>
 
             <input type="radio" name="payment-select" id="kakaopay" onclick="changePaymentMethod('kakaopay')">
             <label for="kakaopay" class="payment-choice">카카오페이</label>
 
-            <input type="radio" name="payment-select" id="tosspay" onclick="changePaymentMethod('tosspay')">
+            <input type="radio" name="payment-select" id="tosspay" onclick="changePaymentMethod('tosspay.tosstest')">
             <label for="tosspay" class="payment-choice">토스페이</label>
 
             <input type="radio" name="payment-select" id="naverpay" onclick="changePaymentMethod('html5_inicis')">
             <label for="naverpay" class="payment-choice">네이버페이</label>
+
+            <input type="radio" name="payment-select" id="danaltpay" onclick="changePaymentMethod('danal_tpay')">
+            <label for="danaltpay" class="payment-choice">다날</label>
 
             <button type="button" class="payment-execution" onclick="requestPay()"><span>결제하기</span></button>
         </div>

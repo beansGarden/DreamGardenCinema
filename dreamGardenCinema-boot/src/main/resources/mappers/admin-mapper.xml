@@ -1728,6 +1728,17 @@
 		GROUP BY M.MOVIE_TITLE
 	</select>
 	
+	<select id="reservationsByMovieOnSelectedDate" resultMap="salesResultMap">
+		SELECT M.MOVIE_TITLE, COUNT(*) AS TICKET_COUNT
+		FROM TICKETING_INFO T
+		JOIN MOVIE M ON T.MOVIE_NO = M.MOVIE_NO
+		<![CDATA[
+		WHERE TICKETING_TIME >=  TO_DATE(#{dtFrInput}) AND TICKETING_TIME <  TO_DATE(#{dtBkInput})
+		]]>
+		AND TICKET_FL = 'Y'
+		GROUP BY M.MOVIE_TITLE
+	</select>
+	
 <!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->
 
 		<!--신고하기 게시글 개수 불러오기-->
