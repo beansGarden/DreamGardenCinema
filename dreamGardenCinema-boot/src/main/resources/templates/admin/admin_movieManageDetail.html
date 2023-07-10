@@ -21,10 +21,10 @@
             <button id="typeCreateMovie" >영화등록</button>
             <button id="typeCreateHighlight" >광고등록</button>
             <button id="typeUpdateHighlight" >광고수정</button>
-            <button id="typeRead">상세보기</button>
-            <button id="typeUpdate" >수정</button>
-            <button id="typeDelete" >삭제</button>
-            <button id="typeGoList"onclick="location.href='/adminMovieManage'">
+            <button id="typeRead">상세보기</button>           
+            <button id="typeUpdate">수정</button> 
+            <button id="typeDelete">삭제</button>
+            <button id="typeGoList" onclick="location.href='/adminMovieManage'">
                 영화관리<br>페이지로
             </button>
         </div>
@@ -113,7 +113,7 @@
             </ul>
         </div>
 
-        <div class="admin_movieManageDetail update detail-active" th:object="${resp.movieInfo}">
+        <div class="admin_movieManageDetail update" th:object="${resp.movieInfo}">
             <form>
                 <ul>
                     <div class="base-info">
@@ -215,7 +215,7 @@
 
                 </ul>
 
-                <button>수정</button>
+                <button id="updateSubmit">수정</button>
             </form>
         </div>
 
@@ -243,7 +243,7 @@
         });
 
         var personSwiper = new Swiper(".personSwiper", {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 30,
             freeMode: true,
             centeredSlides: true,
@@ -274,7 +274,7 @@
             });
  */
         var updatePersonSwiper = new Swiper(".updatePersonSwiper", {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 30,
             freeMode: true,
             centeredSlides: true,

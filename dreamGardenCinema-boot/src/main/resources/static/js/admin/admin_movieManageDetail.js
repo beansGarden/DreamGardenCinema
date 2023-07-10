@@ -1,3 +1,4 @@
+
 const createMovieBtn = document.getElementById("typeCreateMovie");
 const createHighlightBtn = document.getElementById("typeCreateHighlight");
 const UpdateHighlightBtn  = document.getElementById("typeUpdateHighlight");
@@ -5,6 +6,10 @@ const readBtn = document.getElementById("typeRead");
 const updateBtn = document.getElementById("typeUpdate");
 const deleteBtn = document.getElementById("typeDelete");
 const GoListBtn = document.getElementById("typeGoList");
+
+const readContent = document.querySelector(".read");
+const updateContent = document.querySelector(".update");
+
 /* 
 createMovieBtn
 createHighlightBtn
@@ -13,6 +18,7 @@ readBtn
 updateBtn
 deleteBtn
  */
+
 
 
 if(screenType == 'wait'){
@@ -63,6 +69,7 @@ if(processType == "create" ){
 
 if(processType == "read" ){
     readBtn.classList.add("process-type-active");
+    readContent.classList.add("detail-active");
 }
 
 if(processType == "update" ){
@@ -70,6 +77,7 @@ if(processType == "update" ){
         UpdateHighlightBtn.classList.add("process-type-active");
     }
     updateBtn.classList.add("process-type-active");
+    updateContent.classList.add("detail-active");
 }
 
 if(processType == "delete" ){
@@ -78,6 +86,7 @@ if(processType == "delete" ){
 
 
 createMovieBtn.addEventListener('click', () => {
+
     createMovieBtn.classList.add("process-type-active");
     createHighlightBtn.classList.remove("process-type-active");
     UpdateHighlightBtn.classList.remove("process-type-active");
@@ -105,21 +114,25 @@ UpdateHighlightBtn.addEventListener('click', () => {
 });
 
 readBtn.addEventListener('click', () => {
+    location.href="/adminMovieManage/detail?movieNo="+ movieNo +"&type=read&screen=" + screenType;
     createMovieBtn.classList.remove("process-type-active");
     createHighlightBtn.classList.remove("process-type-active");
     UpdateHighlightBtn.classList.remove("process-type-active");
     readBtn.classList.add("process-type-active");
     updateBtn.classList.remove("process-type-active");
     deleteBtn.classList.remove("process-type-active");
+    readContent.classList.add("detail-active");
 });
 
 updateBtn.addEventListener('click', () => {
+    location.href="/adminMovieManage/detail?movieNo="+ movieNo +"&type=update&screen=" + screenType;
     createMovieBtn.classList.remove("process-type-active");
     createHighlightBtn.classList.remove("process-type-active");
     UpdateHighlightBtn.classList.remove("process-type-active");
     readBtn.classList.remove("process-type-active");
     updateBtn.classList.add("process-type-active")
     deleteBtn.classList.remove("process-type-active");
+    updateContent.classList.add("detail-active");
 });
 
 deleteBtn.addEventListener('click', () => {
@@ -130,4 +143,6 @@ deleteBtn.addEventListener('click', () => {
     updateBtn.classList.remove("process-type-active");
     deleteBtn.classList.add("process-type-active")
 });
+
+
 
