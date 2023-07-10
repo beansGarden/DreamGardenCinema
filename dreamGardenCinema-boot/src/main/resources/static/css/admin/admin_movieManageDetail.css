@@ -205,9 +205,57 @@ ul li{
     background-color: rgba(0, 0, 0, 0);
 }
 
+.updateStillcut{
+    height: 100px;
+}
+
+.updateStillcutSwiper {
+    width: 80%;
+    height: 100%;
+    user-select: none;
+}
+
+.updateStillcutSwiper .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.updateStillcutSwiper .swiper-slide img {
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    user-select: none;
+}
+
+.updatePersonSwiper{
+    width: 80%;
+}
+
+.append-buttons {
+    text-align: center;
+}
 
 
+.append-buttons button {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #007aff;
+    color: #007aff;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin: 0 10px;
+    font-size: 13px;
+    width: 80px;
+}
 
+.base-info__basic select{
+    margin-right: 10px;
+}
 
 
 /* 등록버튼 */
