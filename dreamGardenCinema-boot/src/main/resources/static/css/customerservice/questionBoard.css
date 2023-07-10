@@ -187,9 +187,9 @@ a {
 }
 
 select:focus {
-    border-color: #aaa;
-    box-shadow: 0 0 1px 3px #a8a7de71;
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
     color: #222;
     outline: none;
 }
@@ -252,9 +252,9 @@ select:focus {
 }
 
 input:focus{
-    border-color: #aaa;
-    box-shadow: 0 0 1px 3px #a8a7de71;
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
     color: #222;
     outline: none;
 }
@@ -316,9 +316,9 @@ input:focus{
 
 /* 내용입력창 클릭 시, 보더 효과 */
 textarea:focus{
-    border-color: #aaa;
-    box-shadow: 0 0 1px 3px #a8a7de71;
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
     color: #222;
     outline: none;
 }
@@ -612,11 +612,14 @@ textarea:focus{
     font-size: 16px;
     width: 5vw;
     height: 5vh;
-    border: 1px solid #0F0954;
-    border-radius: 5px;
+    border: 1px solid #bd8e15;
+    border-radius: 10px;
+    background-color: #dd9f3c;
+    color: white;
 }
+
 .QA-conf-btn:hover{
-    background-color: #0f095491;
+    background-color: #f5a23f;
     color: white;
     font-weight: bold;
 }
