@@ -29,7 +29,7 @@
             </button>
         </div>
 
-        <div class="admin_movieManageDetail--read" th:object="${resp.movieInfo}">
+        <div class="admin_movieManageDetail read" th:object="${resp.movieInfo}">
             <ul>
                 <div class="base-info">
 
@@ -111,6 +111,106 @@
                 </li>
 
             </ul>
+        </div>
+
+        <div class="admin_movieManageDetail update detail-active" th:object="${resp.movieInfo}">
+            <form>
+                <ul>
+                    <div class="base-info">
+
+                        <div class="base-info__img">
+                            <img th:src="*{poster}">
+                        </div>
+
+                        <div class="base-info__basic">
+                            <li>
+                                <label class="admin_movieLabel">영화 제목</label>
+                                <input type="text" name="movieTitle" th:value="*{movieTitle}">
+                            </li>
+                            
+                            <li>
+                                <label class="admin_movieLabel">개봉일</label>
+                                <input type="text" name="releaseDate" th:value="*{releaseDate}">
+                            </li>
+
+                            <li>
+                                <label class="admin_movieLabel">현재상영상태</label>
+                                <select name="screening">
+                                    <option value="임시대기">임시대기</option>
+                                    <option value="상영예정">상영예정</option>
+                                    <option value="현재상영">현재상영</option>
+                                    <option value="상영종료">상영종료</option>
+                                </select>
+                                [[*{screening}]]
+                            </li>
+
+                            <li>
+                                <label class="admin_movieLabel">러닝타임</label>
+                                <input type="number" name="runningTime" th:value="*{runningTime}">분
+                            </li>
+            
+                            <li>
+                                <label class="admin_movieLabel">장르</label>
+                                <input type="text" name="genre" th:value="*{genre}">
+                            </li>
+                            
+                            <li>
+                                <label class="admin_movieLabel">영화 등급</label>
+                                <select name='rating'>
+                                    <option value='전체관람가'>전체관람가</option>
+                                    <option value='만12세이상관람가'>만12세이상관람가</option>
+                                    <option value='만15세이상관람가'>만15세이상관람가</option>
+                                    <option value='청소년관람불가'>청소년관람불가</option>
+                                </select>
+                                [[*{rating}]]
+                            </li>
+                            
+                            <li>
+                                <label class="admin_movieLabel">시놉시스</label>
+                                <div name="synopsis" class="synopsis-edit" th:utext="*{synopsis}" contenteditable="true"></div>
+                            </li>
+
+                        </div>
+                    </div>
+                    
+                    
+                    <li class="stillcut">
+                        <label class="admin_movieLabel">스틸컷</label>
+                        <div class="swiper stillcutSwiper">
+                            <div class="swiper-wrapper" >
+                                <div class="swiper-slide" th:each="stillcut : ${resp.movieStillcut}"><img th:src="@{|${stillcut}|}"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </li>
+            
+                    <li class="person">
+                        <label class="admin_movieLabel">영화인</label>
+                        <div class="swiper personSwiper">
+                            <div class="swiper-wrapper" >
+                                <div class="swiper-slide person" th:each="person : ${resp.moviePerson}">
+
+                                    <div class="person-img">
+                                        <img th:src="@{|${person.img}|}">
+                                    </div>
+        
+                                    <div class="person-info">
+                                        <pre class="info-name" th:text="${person.name}">영화인 이름</pre>
+                                        <pre class="info-role" th:text="${person.role}">영화인 역할</pre>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <button>수정</button>
+            </form>
         </div>
 
         <!-- 등록,수정,삭제 버튼 -->

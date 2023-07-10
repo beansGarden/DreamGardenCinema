@@ -50,10 +50,14 @@
 }
 
 
-
-.admin_movieManageDetail--read{
+.admin_movieManageDetail{
     width: 100%;
     margin-top: 10px;
+    display: none;
+}
+
+.detail-active{
+    display: block;
 }
 
 .base-info{
@@ -93,15 +97,12 @@ ul li{
     width: 10px;
 }
 
-/* 스크롤바 막대 설정*/
 .base-info__basic li:last-of-type span::-webkit-scrollbar-thumb {
     background-color: rgb(0, 0, 0);
-    /* 스크롤바 둥글게 설정    */
     border-radius: 10px;
     border: 7px solid rgba(0, 0, 0);
 }
 
-/* 스크롤바 뒷 배경 설정*/
 .base-info__basic li:last-of-type span::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
 }
@@ -180,6 +181,33 @@ ul li{
     width: 60%;
     font-size: 13px;
 }
+
+
+
+.synopsis-edit{
+    width: 80%;
+    height: 145px;
+    border: 1px solid #dcdcdc;
+    overflow-y: scroll;
+}
+
+.synopsis-edit::-webkit-scrollbar {
+    width: 10px;
+}
+
+.synopsis-edit::-webkit-scrollbar-thumb {
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    border: 7px solid rgba(0, 0, 0);
+}
+
+.synopsis-edit::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+
+
 
 
 /* 등록버튼 */
