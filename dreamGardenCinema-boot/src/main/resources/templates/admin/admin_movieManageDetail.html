@@ -136,12 +136,11 @@
                             <li>
                                 <label class="admin_movieLabel">현재상영상태</label>
                                 <select name="screening">
-                                    <option value="임시대기">임시대기</option>
-                                    <option value="상영예정">상영예정</option>
-                                    <option value="현재상영">현재상영</option>
-                                    <option value="상영종료">상영종료</option>
+                                    <option value="wait">임시대기</option>
+                                    <option value="promise">상영예정</option>
+                                    <option value="current">현재상영</option>
+                                    <option value="down">상영종료</option>
                                 </select>
-                                현재 상태 : [[*{screening}]]
                             </li>
 
                             <li>
@@ -162,7 +161,6 @@
                                     <option value='만15세이상관람가'>만15세이상관람가</option>
                                     <option value='청소년관람불가'>청소년관람불가</option>
                                 </select>
-                                현재 상태 : [[*{rating}]]
                             </li>
                             
                             <li>
@@ -299,6 +297,7 @@
         const movieNo = /*[[${resp.movieNo}]]*/ "영화고유번호";
         const screenType = /*[[${resp.screen}]]*/ "상영상태";
         const processType = /*[[${resp.type}]]*/ "영화관리종류";
+        const rating = /*[[${resp.movieInfo.rating}]]*/ "상영등급";
 
     </script>
 

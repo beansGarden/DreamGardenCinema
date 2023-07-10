@@ -145,4 +145,21 @@ deleteBtn.addEventListener('click', () => {
 });
 
 
+const selectElementScreening = document.getElementsByName('screening')[0];
+for (let i = 0; i < selectElementScreening.options.length; i++) {
+    if (selectElementScreening.options[i].value === screenType) {
+        selectElementScreening.selectedIndex = i;
+        break;
+    }
+}
+    
+
+
+const selectElementRating = document.getElementsByName('rating')[0];
+for (let i = 0; i < selectElementRating.options.length; i++) {
+    if (selectElementRating.options[i].value === rating) {
+        selectElementRating.selectedIndex = i;
+        break;
+    }
+}
 
