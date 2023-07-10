@@ -83,15 +83,22 @@
                         <th>상영일</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="list : ${movieList}">
-                        <td><input type="checkbox" class="chkbx"></td>
-                        <td th:text="${list.movieTheater}">상영관</td>
-                        <td><a th:text="${list.movieTitle}" id="movieTt" th:movieNo="${list.movieNo}">영화제목</a></td>
-                        <td th:text="${list.runningTime} + '분'">러닝타임</td>
-                        <td th:text="${list.movieTime}">상영일</td>
+                <th:block th:if="${#lists.size(movieList) == 0}">
+                    <tr>
+                        <td colspan="5">상영작이 없습니다</td>
                     </tr>
-                </tbody>
+                </th:block>    
+                <th:block th:unless="${#lists.size(movieList) == 0}">
+                    <tbody>
+                        <tr th:each="list : ${movieList}">
+                            <td><input type="checkbox" class="chkbx"></td>
+                            <td th:text="${list.movieTheater}">상영관</td>
+                            <td><a th:text="${list.movieTitle}" id="movieTt" th:movieNo="${list.movieNo}">영화제목</a></td>
+                            <td th:text="${list.runningTime} + '분'">러닝타임</td>
+                            <td th:text="${list.movieTime}">상영일</td>
+                        </tr>
+                    </tbody>
+                </th:block>
             </table>
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div th:if="${#lists.size(movieList) > 0}" class="pagination-area">

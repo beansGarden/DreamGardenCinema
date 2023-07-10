@@ -102,7 +102,6 @@ public class TicketingServiceImpl implements TicketingService {
 		
 		if(seatCheckList.size() > 0) {
 			int result = mapper.deleteEndSeat(seatCheckList.get(0));
-			
 			int ticketResult = 0;
 			if(result>0) {
 				ticketResult = mapper.deleteEndTicket(seatCheckList.get(0).getTicketNo());			

@@ -299,3 +299,8 @@ body{
 .seat input{
     display: none;
 }
+
+.btn:hover{
+    cursor: pointer;
+    background-color: #f5a23f;
+}

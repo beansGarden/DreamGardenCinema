@@ -182,6 +182,11 @@ body{
     justify-content: center;
     align-items: center;
 }
+.liquidate:hover{
+    cursor: pointer;
+    background-color: #f5a23f;
+}
+
 .liquidate img{
     height: 30px;
 }
