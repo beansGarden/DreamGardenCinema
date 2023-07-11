@@ -23,8 +23,8 @@
 
         <div class="process-type">
             <button id="typeCreateMovie">영화등록</button>
-            <button id="typeCreateHighlight">광고등록</button>
-            <button id="typeUpdateHighlight">광고수정</button>
+            <!-- <button id="typeCreateHighlight">광고등록</button>
+            <button id="typeUpdateHighlight">광고수정</button> -->
             <button id="typeRead">상세보기</button>
             <button id="typeUpdate">수정</button>
             <button id="typeDelete">삭제</button>
@@ -119,13 +119,15 @@
         </div>
 
         <div class="admin_movieManageDetail update" th:object="${resp.movieInfo}">
-            <form>
+            <form th:action="@{/adminMovieManage/update}" method="post" enctype="multipart/form-data">
                 <ul>
                     <div class="base-info">
-
+                        <input type="hidden" name="movieNo" th:value="*{movieNo}">
                         <div class="base-info__img">
-                            <label for="updatePoster"><img th:src="*{poster}" style="cursor: pointer;"></label>
-                            <input type="file" name="poster" id="updatePoster" accept="image/*" style="display: none;">
+                            <label for="updatePoster">
+                                <img id="updatePosterImage" name="updatePosterOrigin" th:src="*{poster}" style="cursor: pointer;">
+                            </label>
+                            <input type="file" name="updatePoster" id="updatePoster" accept="image/*" style="display: none;">
                             <p style="text-align: center;">포스터<br>(357*510)</p>
                         </div>
 
@@ -182,10 +184,13 @@
 
                     <li class="stillcut">
                         <label class="admin_movieLabel"><p style="text-align: center;">스틸컷<br>(980*653)</p></label>
-                        <div class="swiper updateStillcutSwiper">
+                        <div class="swiper updateStillcutSwiper" id="updateStillcutSlide">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide" th:each="stillcut : ${resp.movieStillcut}"><img
-                                        th:src="@{|${stillcut}|}"></div>
+                                <div class="swiper-slide" th:each="stillcut : ${resp.movieStillcut}">
+                                    <img th:src="@{|${stillcut}|}" onclick="openImageEditor(this)">
+                                    <input type="file" class="updateStillcut-input" accept="image/*" style="display: none;" 
+                                    onchange="updateImage(this)" th:data-original-src="@{|${stillcut}|}">
+                                </div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -206,8 +211,8 @@
                                     </div>
 
                                     <div class="person-info">
-                                        <pre class="info-name" th:text="${person.name}">영화인 이름</pre>
-                                        <pre class="info-role" th:text="${person.role}">영화인 역할</pre>
+                                        <div class="info-name update-name" th:text="${person.name}" contenteditable="true">영화인 이름</div>
+                                        <div class="info-role update-role" th:text="${person.role}" contenteditable="true">영화인 역할</div>
                                     </div>
 
                                 </div>
@@ -323,7 +328,7 @@
 
                 </ul>
 
-                <button id="updateSubmit">등록</button>
+                <button id="createSubmit">등록</button>
             </form>
         </div>
 
@@ -376,9 +381,17 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 updateStillCutSwiper.appendSlide(
-                    '<div class="swiper-slide">Slide ' + 1 + "</div>"
-                );
+                    '<div class="swiper-slide">' +
+                        '<img src="/images/movie/스틸컷/null.jpg" onclick="openImageEditor(this)" onerror="replaceWithPlaceholder(this)">' +
+                        '<input type="file" class="updateStillcut-input" accept="image/*" style="display: none;" ' +
+                        'onchange="updateImage(this)">' +
+                    '</div>'
+                    );
             });
+
+            function replaceWithPlaceholder(image) {
+                image.src = "/images/movie/스틸컷/null.jpg";
+            }
 
         var updatePersonSwiper = new Swiper(".updatePersonSwiper", {
             slidesPerView: 3,
@@ -396,7 +409,15 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 updatePersonSwiper.appendSlide(
-                    '<div class="swiper-slide">Slideasdfasdfasdf </div>'
+                    '<div class="swiper-slide person">' +
+                        '<div class="person-img">' +
+                            '<img src="/images/movie/영화인/null.png" >' +
+                        '</div>' +
+                        '<div class="person-info">' +
+                            '<div class="info-name update-name" contenteditable="true"></div>' +
+                            '<div class="info-name update-role" contenteditable="true"></div>' +
+                        '</div>' +
+                    '</div>'
                 );
             });
 

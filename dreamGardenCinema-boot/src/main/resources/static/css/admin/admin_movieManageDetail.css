@@ -242,6 +242,10 @@ ul li{
     width: 80%;
 }
 
+.update-name, .update-role{
+    border: 1px solid #dcdcdc;
+}
+
 .append-buttons {
     text-align: center;
 }
@@ -276,5 +280,19 @@ ul li{
 }
 
 #updateSubmit:hover{
+    background-color: #59ada8;
+}
+
+#createSubmit{
+    float: right;
+    width: 80px;
+    height: 50px;
+    margin-top: 20px;
+    margin-right: 30px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#createSubmit:hover{
     background-color: #59ada8;
 }

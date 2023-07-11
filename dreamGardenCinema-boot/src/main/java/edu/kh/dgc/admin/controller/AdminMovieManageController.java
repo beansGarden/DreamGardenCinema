@@ -90,6 +90,10 @@ public class AdminMovieManageController {
 		return "admin/admin_movieManageDetail";
 	}
 	
+	
+	
+	
+	
 }
 
 
