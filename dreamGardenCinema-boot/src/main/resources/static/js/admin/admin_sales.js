@@ -101,16 +101,21 @@ function salesForQuarter() {
 const monthlySalesByYearCtx = document.getElementById('monthlySalesByYearChart'); // chart id
 let selectedYear = monthlySalesByYear.value;
 let labels = [];
+
+let YearAndMonthArrLabels = [];
 for (let i = 1; i <= 12; i++) {
     let label = `${selectedYear - 1} ${i}월`;
     labels.push(label);
     let label2 = `${selectedYear} ${i}월`;
     labels.push(label2);
 }
+if (YearAndMonthArrLabels.length < 1) {
+    YearAndMonthArrLabels = labels
+}
 let monthlySalesByYearConfig = {
     type: 'bar',
     data: {
-        labels: labels,
+        labels: YearAndMonthArrLabels,
         datasets: [{
             label: ['매출'],
             data: monthlySalesByYearArr,
@@ -130,14 +135,21 @@ let monthlySalesByYearConfig = {
 let monthlySalesByYearChart = new Chart(monthlySalesByYearCtx, monthlySalesByYearConfig);
 
 function monthlySalesByYearAjax() {
-    const selectedYear = monthlySalesByYear.value;
     let YearAndMonthArrAjax = [];
+    const selectedYear = monthlySalesByYear.value;
+    YearAndMonthArrLabels.length = 0;
+    YearAndMonthArrAjax.length = 0;
     for (let i = 1; i <= 12; i++) {
         let label = `"${selectedYear - 1}-${i < 10 ? '0' + i : i}"`;
         YearAndMonthArrAjax.push(label);
         let label2 = `"${selectedYear}-${i < 10 ? '0' + i : i}"`;
         YearAndMonthArrAjax.push(label2);
+        let label3 = `${selectedYear - 1} ${i < 10 ? '0' + i : i}월`;
+        YearAndMonthArrLabels.push(label3);
+        let label4 = `${selectedYear} ${i < 10 ? '0' + i : i}월`;
+        YearAndMonthArrLabels.push(label4);
     }
+    
     fetch('/admin/monthlySalesByYear?selectedYear=' + selectedYear)
         .then(response => response.json())
         .then(result => {
@@ -154,11 +166,6 @@ function monthlySalesByYearAjax() {
         })
         .catch(err => console.log(err));
 }
-
-
-
-
-
 
 const dt_fr_input = document.getElementById("dt_fr_input");
 const dt_bk_input = document.getElementById("dt_bk_input");
