@@ -8,12 +8,12 @@ function userSelectAll(userSelectAll)  {
   })
 }
 
-/* 삭제 버튼 선택 삭제하기 */
-const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
+/* Restore버튼 복구 삭제하기 */
+const restoreBtn = document.getElementById("restoreBtn"); //삭제버튼 
 const checkbox = document.getElementsByClassName("admin_qnaCheckbox"); //check박스
 const checkboxNo = document.getElementsByClassName("admin_qna_checkbox_no"); //번호
 
-delBtn.addEventListener(('click'),()=>{
+restoreBtn.addEventListener(('click'),()=>{
 
 
 if (confirm("정말 삭제 하시겠습니까?")) {
@@ -22,18 +22,18 @@ if (confirm("정말 삭제 하시겠습니까?")) {
  var qnaNo = document.getElementsByClassName("admin_qna_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
 
 } if(checkbox!=null){
-qnaDelete(qnaNo);
+qnaRestore(qnaNo);
 }
 }
 }else return;
 
 });
 
-function qnaDelete(qnaNo){
+function qnaRestore(qnaNo){
 
 
 
-fetch("/adminQna/deleteQnaList", {
+fetch("/adminQna/restoreQnaList", {
   method : "POST",
   headers : {"Content-Type": "application/json"},
   body : JSON.stringify({"qnaNo" : qnaNo})
@@ -142,7 +142,7 @@ xhr.onreadystatechange = function() {
 xhr.send();
 }
 
-// 회원 수 가져오기
+// qna 수 가져오기
 function getQnaOutCount() {
 ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
     var countElement = document.querySelector('.adminQnaOutCountAll');
@@ -150,3 +150,50 @@ ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
 });
 }
 getQnaOutCount()
+
+
+/* 전체 삭제 안 안 한 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// QNA 개수 가져오기
+function getQnaInCount() {
+  ajaxRequest('/adminQnaInListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminQnaInCountAll');
+      countElement.textContent = response;
+  });
+}
+getQnaInCount()
+
+/* 전체 탈퇴한 회원 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 삭제한 QNA 수 가져오기
+function getQnaOutCount() {
+  ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminQnaOutCountAll');
+      countElement.textContent = response;
+  });
+}
+getQnaOutCount()
+
+

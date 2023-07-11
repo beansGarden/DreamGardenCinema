@@ -389,3 +389,32 @@ secessionButton.addEventListener("click", (e) => {
         }
     }
 });
+
+/* 예매 취소 버튼 클릭 시 */
+const cancelReservation = document.querySelector(".cancel-reservation");
+const cancelBtn = document.querySelectorAll(".my-page-contents-btn");
+const cancelForm = document.querySelectorAll(".cancelForm");
+
+cancelReservation.addEventListener("click",()=>{
+        
+    alert("취소하실 티켓의 예매 취소 버튼을 클릭해주세요")
+    
+    for(let i=0; i<cancelBtn.length; i++){
+            
+            cancelBtn[i].style.display = 'block';
+    }
+})
+
+for(let i = 0 ; i<cancelBtn.length; i++){
+
+    cancelBtn[i].addEventListener("click",e=>{
+        
+        if(confirm("정말 취소하시겠습니까?")){
+
+        }else{
+            e.preventDefault();
+            alert("선택이 취소되었습니다. 다시 시도해주세요")
+        }
+    });
+
+}

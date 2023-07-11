@@ -65,11 +65,12 @@ table>thead>tr:nth-child(1)>td {
 
 /* 등록버튼 */
 .admin_qnaEndBtn {
-    padding: 5px 6px;
+    padding: 5px -6px;
     border-radius: 6px;
     width: 80px;
     height: 36px;
     background-color: #59ada8;
+    color: white;
 }
 
 /* 등록버튼 hover */
@@ -77,6 +78,8 @@ table>thead>tr:nth-child(1)>td {
     font-size: 13px;
     background-color: #042928;
     font-weight: bold;
+    color: white;
+
 }
 
 .admin_qnaEndBtn a {

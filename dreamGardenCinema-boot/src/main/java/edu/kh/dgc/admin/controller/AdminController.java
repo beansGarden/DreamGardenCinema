@@ -72,23 +72,14 @@ public class AdminController {
 		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
 		model.addAttribute("salesByPeriod", salesByPeriod);
 		
-		// 년도별 분기 매출
-		LocalDate currentDate = LocalDate.now();
-		String currentYear = ""+currentDate.getYear();
-		List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
-		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
+		// 근 3개월 영화별 예매건수
+		List<SalesByPeriod> reservationsEachMovieLast3Months = service.reservationsEachMovieLast3Months();
+		model.addAttribute("reservationsEachMovieLast3Months", reservationsEachMovieLast3Months);
 
 		return "admin/admin_dashboard";
+		
 	}
 	
-	// 대시보드 년도별 분기 매출
-	@GetMapping("/admin/quarterlySales")
-	@ResponseBody
-	public List<SalesByPeriod> quarterlySales(String selectedYear) {
-		return service.quarterlySales(selectedYear); 
-	}
-
-
 	// 영화별 매출 불러오기
 	@GetMapping("/ticketAmount")
 	@ResponseBody
@@ -101,18 +92,19 @@ public class AdminController {
 		return response;
 	}
 
-	/*
-	 * //1-1. 관리자 로그인 화면
-	 * 
-	 * public String showAdminPage(Model model) {
-	 * 
-	 * List<User> adminUser = service.getAdminDetails();
-	 * 
-	 * if (!adminUser.isEmpty()) { User admin = adminUser.get(0); // 첫 번째 관리자 사용자
-	 * 객체를 가져옴 model.addAttribute("admin", admin); System.out.println(admin); }
-	 * 
-	 * return "admin/admin_sideBar";}
-	 */
+	
+	  //1-1. 관리자 로그인 화면
+	 
+	 public String showAdminPage(Model model) {
+	 
+	 List<User> adminUser = service.getAdminDetails();
+	  
+	  if (!adminUser.isEmpty()) { User admin = adminUser.get(0); // 첫 번째 관리자 사용자
+	 
+	  model.addAttribute("admin", admin); System.out.println(admin); }
+	
+	 return "admin/admin_sideBar";}
+	
 
 	// 2.관리자 회원
 	// 관리----------------------------------------------------------------------------
@@ -811,7 +803,7 @@ public class AdminController {
 			System.out.println(adminQnamap);
 			
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNA";
 	}
 	// QNA 1:1 문의사항 삭제 안 한 게시글 전체 조회
 	@GetMapping("/adminQnaDeleted") //
@@ -911,9 +903,10 @@ public class AdminController {
 	public String qnaAnswerInsert(Qna qna, Model model, @PathVariable(value = "qnaNo") int qnaNo,
 			@RequestParam(value = "qnaComment", required = false) String qnaComment,
 			@RequestParam(value = "userNo", required = false) Integer userNo,
-			@RequestParam(value = "qnaCommentNo", required = false) Integer qnaCommentNo,
+			@RequestParam(value = "qnaCommentNo", required = false , defaultValue = "0") Integer qnaCommentNo,
 			@ModelAttribute QnaComment qnaCommentAll, RedirectAttributes ra) {
-
+		
+		System.out.println("1=====================");
 		System.out.println("qnaCommentNo : " + qnaCommentNo);
 		System.out.println("userNo : " + userNo);
 		System.out.println("qnaNo : " + qnaNo);
@@ -932,7 +925,7 @@ public class AdminController {
 			// }
 
 			int qnaUpdateResult = service.qnaAnswerUpdate(qnaCommentObj);
-
+			System.out.println("2====================");
 			System.out.println("qnaUpdateResult : " + qnaUpdateResult);
 			System.out.println("qnaCommentObj :" + qnaCommentObj);
 
@@ -1011,6 +1004,10 @@ public class AdminController {
 		int qnaNoCheck = service.qnaUpdate(qna);
 
 		Qna qnaList = new Qna();
+		
+		System.out.println("qnaNo : " + qnaNo);
+		System.out.println("qnaList : " + qnaList);
+		System.out.println("qna :"  + qna);
 
 		model.addAttribute("Qna", qnaList);
 
@@ -1058,6 +1055,35 @@ public class AdminController {
 
 		return service.qnaDelete(qna.getQnaNo());
 	}
+	// 6-4 1:1 문의 게시글 선택 삭제
+	
+	@PostMapping(value = "/adminQna/restoreQnaList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public int restoreQnaList(@RequestBody Qna qna) {
+		
+		return service.qnaRestore(qna.getQnaNo());
+	}
+	
+	// 6-5 1:1 문의 전체 게시글 검색
+	@GetMapping("/getAllSearchList")
+	public String getAllSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Qna condition = new Qna();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminQnaMap = service.getAllSearchList(condition, cp);
+		model.addAttribute("adminQnamap", adminQnaMap);
+		
+		System.out.println(condition);
+		System.out.println(adminQnaMap);
+		
+		return "admin/admin_QnaAll";
+		
+	}
+	
 
 	// 6-5 1:1  문의 삭제 안 한 게시글 검색
 	@GetMapping("/getSearchList")
@@ -1069,7 +1095,7 @@ public class AdminController {
 		condition.setType(type);
 		condition.setKeyword(keyword);
 
-		Map<String, Object> adminQnaMap = service.getAllSearchList(condition, cp);
+		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
 		model.addAttribute("adminQnamap", adminQnaMap);
 
 		System.out.println(condition);
@@ -1078,25 +1104,7 @@ public class AdminController {
 		return "admin/admin_Qna";
 
 	}
-	// 6-5 1:1 문의 전체 게시글 검색
-	@GetMapping("/getAllSearchList")
-	public String getAllSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
-		
-		Qna condition = new Qna();
-		
-		condition.setType(type);
-		condition.setKeyword(keyword);
-		
-		Map<String, Object> adminQnaMap = service.getSearchList(condition, cp);
-		model.addAttribute("adminQnamap", adminQnaMap);
-		
-		System.out.println(condition);
-		System.out.println(adminQnaMap);
-		
-		return "admin/admin_QnaAll";
-		
-	}
+
 	// 6-5 1:1 문의 삭제 한 게시글 검색
 	@GetMapping("/getDeletedSearchList")
 	public String getDeletedSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
@@ -1158,7 +1166,7 @@ public class AdminController {
 			System.out.println("adminQnamap : " + adminQnamap);
 
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNAYN";
 	}
 	
 	// 1:1 문의사항 비회원 조회
@@ -1175,7 +1183,7 @@ public class AdminController {
 			System.out.println(adminQnamap);
 
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNANomember";
 	}
 	
 	// 1:1 문의사항 회원글만 조회 
@@ -1192,7 +1200,7 @@ public class AdminController {
 			System.out.println(adminQnamap);
 
 		}
-		return "admin/admin_QNAAll";
+		return "admin/admin_QNAAllMember";
 	}
 	
 	
@@ -1280,7 +1288,7 @@ public class AdminController {
 	@PostMapping("/adminFaqWriteInsert")
 	public String faqWriteIinsert(FAQ faq, Model model) {
 
-		// int FAQNo = service.faqInsert(faq);
+		int FAQNo = service.faqInsert(faq);
 
 		model.addAttribute("Faq", faq);
 
@@ -1471,6 +1479,31 @@ public class AdminController {
 		}
 		return "admin/admin_report";
 	}
+	
+	@GetMapping("/adminReportIn") //
+	public String reportIn(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReportMap = service.adminReportInList(cp);
+			
+			model.addAttribute("adminReportMap", adminReportMap);
+		}
+		return "admin/admin_reportIn";
+	}
+	@GetMapping("/adminReportOut") //
+	public String reportOut(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReportMap = service.adminReportOuList(cp);
+			
+			model.addAttribute("adminReportMap", adminReportMap);
+		}
+		return "admin/admin_reportOut";
+	}
 
 	// 8-1. 신고하기 게시글 조회
 
@@ -1537,6 +1570,38 @@ public class AdminController {
 		return "admin/admin_report";
 
 	}
+	// 8-3. 신고하기 삭제 안 한 게시글 검색
+	@GetMapping("/getReportInSearchList")
+	public String getReportInSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Report condition = new Report();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReportMap = service.getReportInSearchList(condition, cp);
+		model.addAttribute("adminReportMap", adminReportMap);
+		
+		return "admin/admin_reportIn";
+		
+	}
+	// 8-3. 신고하기 삭제 한 게시글 검색
+	@GetMapping("/getReportOutSearchList")
+	public String getReportOutSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Report condition = new Report();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReportMap = service.getReportOutSearchList(condition, cp);
+		model.addAttribute("adminReportMap", adminReportMap);
+		
+		return "admin/admin_reportOut";
+		
+	}
 
 	// 8-4 신고하기 전체 개수 가져오기
 	@ResponseBody
@@ -1546,8 +1611,24 @@ public class AdminController {
 		return service.reportListCount();
 	}
 
+	// 7-6  신고하기 전체 삭제 안 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminReportInListAjax")
+	public int adminReportInListAjax() {
+		
+		return service.reportInListCount();
+	}
+	// 7-7 신고하기 FAQ 삭제 한 게시글 수  가져오기
+	@ResponseBody
+	@GetMapping("/adminReportOutListAjax")
+	public int adminReportOutListAjax() {
+		
+		return service.reportOutListCount();
+	}
+	
+	
 	// 9-1. 리뷰관리 게시판
-	// 조회------------------------------------------------------------------
+	// 조회---------------------------------------------------------------------------------------------------------------------
 
 	@GetMapping("/adminReview")
 	public String adminReivew(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
@@ -1560,6 +1641,30 @@ public class AdminController {
 			model.addAttribute("adminReviewMap", adminReviewMap);
 		}
 		return "admin/admin_review";
+	}
+	@GetMapping("/adminReviewIn")
+	public String adminReivewIn(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReviewMap = service.adminReviewInList(cp);
+			
+			model.addAttribute("adminReviewMap", adminReviewMap);
+		}
+		return "admin/admin_reviewIn";
+	}
+	@GetMapping("/adminReviewOut")
+	public String adminReivewOut(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> paramMap) {
+		
+		if (paramMap.get("key") == null) {
+			
+			Map<String, Object> adminReviewMap = service.adminReviewOutList(cp);
+			
+			model.addAttribute("adminReviewMap", adminReviewMap);
+		}
+		return "admin/admin_reviewOut";
 	}
 
 	// 9-2 리뷰관리 전체 개수 가져오기
@@ -1589,6 +1694,42 @@ public class AdminController {
 
 		return "admin/admin_review";
 
+	}
+	@GetMapping("/getReviewInSearchList")
+	public String getReviewInSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Review condition = new Review();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReviewMap = service.getReviewInSearchList(condition, cp);
+		model.addAttribute("adminReviewMap", adminReviewMap);
+		
+		System.out.println(condition);
+		System.out.println(adminReviewMap);
+		
+		return "admin/admin_review";
+		
+	}
+	@GetMapping("/getReviewOutSearchList")
+	public String getReviewOutSearchList(@Param("type") String type, @Param("keyword") String keyword, Model model,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		Review condition = new Review();
+		
+		condition.setType(type);
+		condition.setKeyword(keyword);
+		
+		Map<String, Object> adminReviewMap = service.getReviewOutSearchList(condition, cp);
+		model.addAttribute("adminReviewMap", adminReviewMap);
+		
+		System.out.println(condition);
+		System.out.println(adminReviewMap);
+		
+		return "admin/admin_review";
+		
 	}
 
     //9-4 리뷰 읽기
@@ -1658,6 +1799,24 @@ public class AdminController {
         
         
     }
+    
+	// 7-6 전체 삭제 안 한 게시글 수 가져오기
+	@ResponseBody
+	@GetMapping("/adminReviewInListAjax")
+	public int adminReviewInListAjax() {
+		
+		return service.reviewInListCount();
+	}
+	// 7-7 FAQ 삭제 한 게시글 수  가져오기
+	@ResponseBody
+	@GetMapping("/adminReviewOutListAjax")
+	public int adminReviewOutListAjax() {
+		
+		return service.reviewOutListCount();
+	}
+	
+	
+    
         
     // 매출관리***************************************************(근태)***********
     
@@ -1667,6 +1826,11 @@ public class AdminController {
   		LocalDate currentDate = LocalDate.now();
   		String currentYear = ""+currentDate.getYear();
   		
+  		LocalDate miusOneYear = currentDate.minusYears(1);
+  		
+  		String today = ""+currentDate;
+  		String oneYearAgo = ""+miusOneYear;
+  		
   		// 지난주 요일별 매출
         List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
 		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
@@ -1675,6 +1839,16 @@ public class AdminController {
 		List<SalesByPeriod>firstLoadingMonthlySalesByYear = service.firstLoadingMonthlySalesByYear(currentYear);
 		model.addAttribute("firstLoadingMonthlySalesByYear", firstLoadingMonthlySalesByYear);
 		
+		// 지난주 매출
+		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
+		model.addAttribute("salesByPeriod", salesByPeriod);
+		
+		// 지난주 매출
+		System.out.println(today);
+		System.out.println(oneYearAgo);
+		List<SalesByPeriod> reservationsByMovieOnSelectedDate = service.reservationsByMovieOnSelectedDate(oneYearAgo, today);
+		model.addAttribute("reservationsByMovieOnSelectedDate", reservationsByMovieOnSelectedDate);
+		
   		return "admin/admin_sales";
   	}
   	
@@ -1682,9 +1856,26 @@ public class AdminController {
 	@GetMapping("/admin/monthlySalesByYear")
 	@ResponseBody
 	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
+		System.out.println(service.monthlySalesByYear(selectedYear));
 		return service.monthlySalesByYear(selectedYear); 
 	}
-        
+	
+	// 년도별 분기 매출
+	@GetMapping("/admin/quarterlySales")
+	@ResponseBody
+	public List<SalesByPeriod> quarterlySales(String selectedYear) {
+		return service.quarterlySales(selectedYear); 
+	}
+	
+	// 영화별 예매 건수
+	@GetMapping("/admin/reservationsByMovieDate")
+	@ResponseBody
+	public List<SalesByPeriod> reservationsByMovieOnSelectedDate(
+			@RequestParam("dt_fr_input") String dtFrInput,
+            @RequestParam("dt_bk_input") String dtBkInput) {
+		return service.reservationsByMovieOnSelectedDate(dtFrInput, dtBkInput); 
+	}
+	        
         
         
     

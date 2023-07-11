@@ -128,6 +128,7 @@
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
                     <li><a th:href="@{/adminQnaAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminQnaAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -153,12 +154,6 @@
                         <a th:href="@{/adminQnaAll(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                     </li>
                     </th:block>
-
-                    <!-- 다음 목록 시작 번호로 이동 -->
-                    <!--   <li th:if="${i==pagination.currentPage}">
-                        <a class="current" th:text="${i}">현재 페이지</a>
-                    </li>
-                    -->
                     <!-- 끝 페이지로 이동 -->
                     <li><a th:href="@{/adminQnaAll(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
                 </ul>
