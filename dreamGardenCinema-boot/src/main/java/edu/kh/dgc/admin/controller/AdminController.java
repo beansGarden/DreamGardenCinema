@@ -360,14 +360,17 @@ public class AdminController {
 
 		String date = (String) paramMap.get("date");
 
-		System.out.println(cp);
-		System.out.println(paramMap);
-
+		String content = (String) paramMap.get("content");
+		if(content == null) {
+			paramMap.put("selectOpt", "t");
+		}
+		
 		if (date != null && date.equals("")) {
 			paramMap.put("date", null);
 		}
 
 		Map<String, Object> map = service.selectCinemaList(paramMap, cp);
+		
 
 		model.addAttribute("map", map);
 
@@ -411,7 +414,7 @@ public class AdminController {
 	
 	// 체크한 상영정보 삭제하기
 	@PostMapping("/adminCinemaDelete")
-	public String deleteTotalTime(String formData) {
+	public String deleteTotalTime(String formData, RedirectAttributes ra) {
 		System.out.println(formData);
 		
 		Gson gson = new Gson();
@@ -421,6 +424,11 @@ public class AdminController {
 		System.out.println(dataList);
 		
 		int result = service.deleteTotalTime(dataList);
+		String message = null;
+		System.out.println(result);
+		if(result == 0) {
+			ra.addFlashAttribute("message", "삭제할 수 없습니다. 예매 내역이 있는지 확인해주세요.");
+		}
 		
 		return "redirect:/adminCinemaManage";
 	}
