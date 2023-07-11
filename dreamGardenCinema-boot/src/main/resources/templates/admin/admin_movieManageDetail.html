@@ -124,7 +124,9 @@
                     <div class="base-info">
 
                         <div class="base-info__img">
-                            <img th:src="*{poster}">
+                            <label for="updatePoster"><img th:src="*{poster}" style="cursor: pointer;"></label>
+                            <input type="file" name="poster" id="updatePoster" accept="image/*" style="display: none;">
+                            <p style="text-align: center;">포스터<br>(357*510)</p>
                         </div>
 
                         <div class="base-info__basic">
@@ -179,7 +181,7 @@
 
 
                     <li class="stillcut">
-                        <label class="admin_movieLabel">스틸컷</label>
+                        <label class="admin_movieLabel"><p style="text-align: center;">스틸컷<br>(980*653)</p></label>
                         <div class="swiper updateStillcutSwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" th:each="stillcut : ${resp.movieStillcut}"><img
@@ -194,7 +196,7 @@
                     </li>
 
                     <li class="person">
-                        <label class="admin_movieLabel">영화인</label>
+                        <label class="admin_movieLabel"><p style="text-align: center;">영화인<br>(144*144)</p></label>
                         <div class="swiper updatePersonSwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide person" th:each="person : ${resp.moviePerson}">
@@ -231,8 +233,9 @@
                     <div class="base-info">
 
                         <div class="base-info__img">
-                            <img src="https://dummyimage.com/196x280/000/fff">
-                            <input type="file" name="poster" accept="image/*">
+                            <label for="createPoster"><img th:src="@{/images/movie/포스터/null.jpg}" style="cursor: pointer;"></label>
+                            <input type="file" name="poster" id="createPoster" accept="image/*" style="display: none;">
+                            <p style="text-align: center;">포스터<br>(357*510)</p>
                         </div>
 
                         <div class="base-info__basic">
@@ -250,9 +253,6 @@
                                 <label class="admin_movieLabel">현재상영상태</label>
                                 <select name="screening">
                                     <option value="wait" selected>임시대기</option>
-                                    <option value="promise">상영예정</option>
-                                    <option value="current">현재상영</option>
-                                    <option value="down">상영종료</option>
                                 </select>
                             </li>
 
@@ -286,7 +286,7 @@
 
 
                     <li class="stillcut">
-                        <label class="admin_movieLabel">스틸컷</label>
+                        <label class="admin_movieLabel"><p style="text-align: center;">스틸컷<br>(980*653)</p></label>
                         <div class="swiper createStillcutSwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide"></div>
@@ -300,7 +300,7 @@
                     </li>
 
                     <li class="person">
-                        <label class="admin_movieLabel">영화인</label>
+                        <label class="admin_movieLabel"><p style="text-align: center;">영화인<br>(144*144)</p></label>
                         <div class="swiper createPersonSwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide person">
