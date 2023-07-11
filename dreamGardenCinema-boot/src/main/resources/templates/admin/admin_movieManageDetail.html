@@ -287,7 +287,7 @@
 
                     <li class="stillcut">
                         <label class="admin_movieLabel">스틸컷</label>
-                        <div class="swiper updateStillcutSwiper">
+                        <div class="swiper createStillcutSwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide"></div>
                             </div>
@@ -295,13 +295,13 @@
                             <div class="swiper-button-prev"></div>
                         </div>
                         <p class="append-buttons">
-                            <button type="button" class="append-slide" id="updateStillcutAppend">스틸컷<br> 추가</button>
+                            <button type="button" class="append-slide" id="createStillcutAppend">스틸컷<br> 추가</button>
                         </p>
                     </li>
 
                     <li class="person">
                         <label class="admin_movieLabel">영화인</label>
-                        <div class="swiper updatePersonSwiper">
+                        <div class="swiper createPersonSwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide person">
 
@@ -317,7 +317,7 @@
                             <div class="swiper-button-prev"></div>
                         </div>
                         <p class="append-buttons">
-                            <button type="button" class="append-slide" id="updatePersonAppend">인물<br> 추가</button>
+                            <button type="button" class="append-slide" id="createPersonAppend">인물<br> 추가</button>
                         </p>
                     </li>
 
@@ -395,8 +395,56 @@
             .querySelector("#updatePersonAppend")
             .addEventListener("click", function (e) {
                 e.preventDefault();
-                updatePersonSwiper.appendSlide('<div class="swiper-slide">Slideasdfasdfasdf </div>');
+                updatePersonSwiper.appendSlide(
+                    '<div class="swiper-slide">Slideasdfasdfasdf </div>'
+                );
             });
+
+
+        var createStillCutSwiper = new Swiper(".createStillcutSwiper", {
+            slidesPerView: 4,
+            spaceBetween: 30,
+            freeMode: true,
+            centeredSlides: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+        document
+            .querySelector("#createStillcutAppend")
+            .addEventListener("click", function (e) {
+                e.preventDefault();
+                createStillCutSwiper.appendSlide(
+                    '<div class="swiper-slide">Slide ' + 1 + "</div>"
+                );
+            });
+
+
+        var createPersonSwiper = new Swiper(".createPersonSwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            freeMode: true,
+            centeredSlides: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+        document
+            .querySelector("#createPersonAppend")
+            .addEventListener("click", function (e) {
+                e.preventDefault();
+                createPersonSwiper.appendSlide(
+                    '<div class="swiper-slide">Slide ' + 1 + "</div>"
+                );
+            });
+
+
+        
+        
 
     </script>
 
