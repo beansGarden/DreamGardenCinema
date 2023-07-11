@@ -94,6 +94,14 @@
     padding-bottom: 15px;
 }
 
+/* 검색 영역 전체 div */
+.admin_reviewSearchWrapBox {
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
 
 
 
@@ -190,36 +198,30 @@
 
 
 /* 페이지네이션 */
-.pagination-area{
+.pagination{
     list-style: none;
     display: flex;
     justify-content: center;
     padding: 0;
-    width: 950px;
+    width: 1000px;
 }
 
-.pagination {
-    text-decoration: none;
+.pagination li{
+    width: 20px;
+    margin: 0 5px;
     text-align: center;
-    list-style: none;
-    margin-top: 20px;
 }
 
-.pagination li {
-    display: inline;
-
+.pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
-.pagination a {
-    text-decoration: none;
-}
-
-.pagination a:active {
+.current{
     font-weight: bold;
-    text-decoration: underline;
-    color: #0F0954;
-}
-
-.reportCount:hover{
-    text-decoration: underline;
+    background-color: #042928;
+    border-radius: 20%;
+    color: white;
+    letter-spacing: 0 !important;
 }

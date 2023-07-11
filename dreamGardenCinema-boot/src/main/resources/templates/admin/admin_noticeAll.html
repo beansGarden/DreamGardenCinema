@@ -20,9 +20,10 @@
         <span id="admin_noticeTitle">공지사항 관리</span>
 
         <!-- 검색창 -->
-        <form th:action="@{/getNoticeAllSearchList}" autocomplete="off">
-            <div class="admin_noticeSearchWrap">
-                <div class="admin_noticeSearchWrap2">
+        <div class="admin_noticeSearchWrapBox">
+        <div class="admin_noticeSearchWrap">
+            <div class="admin_noticeSearchWrap2">
+                    <form th:action="@{/getNoticeAllSearchList}" autocomplete="off">
                     <select class="admin_noticeSelect" name="type" id="">
                         <option value="number">번호</option>
                         <option value="title">제목</option>
@@ -38,6 +39,7 @@
             </div>
 
         </form>
+    </div>
         <!-- 목록 count -->
         <div class="admin_noticeList">
             <span>목록</span>
