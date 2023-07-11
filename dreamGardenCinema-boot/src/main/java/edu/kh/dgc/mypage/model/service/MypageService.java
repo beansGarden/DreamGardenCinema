@@ -153,5 +153,17 @@ public interface MypageService {
 	 */
 	int updateRating1();
 
+	/** 해당 티켓에 사용된 쿠폰번호 조회
+	 * @param ticketNo
+	 * @return
+	 */
+	int selectCouponNo(String ticketNo);
+
+	/** 취소시 사용한 쿠폰 환불
+	 * @param couponNo
+	 * @return
+	 */
+	int returnCoupon(int couponNo);
+
 
 }

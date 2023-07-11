@@ -106,6 +106,8 @@
 		<result property="quarterlySales" column="TOTAL_AMOUNT" />
 		<result property="yearAndMonth" column="YEAR_AND_MONTH" />
 		<result property="monthlySalesByYear" column="MONTHLY_SALES_BY_YEAR" />
+		<result property="movieTitle" column="MOVIE_TITLE" />
+		<result property="ticketCount" column="TICKET_COUNT" />
 	</resultMap>
 	
 	
@@ -989,12 +991,19 @@
 					AND MOVIE_TITLE LIKE '%${content}%' 
 				</when>
 				<when test='selectOpt == "d"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE = '감독'
 				</when>
 				<when test='selectOpt == "a"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE != '감독'
 				</when>
 			</choose>
+		</if>
+		<if test='afterCurrent == "Y"'>
+			<![CDATA[
+			AND MOVIE_TIME >= SYSDATE
+			]]>
 		</if>
 		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER
 	</select>
@@ -1019,12 +1028,19 @@
 					AND MOVIE_TITLE LIKE '%${content}%' 
 				</when>
 				<when test='selectOpt == "d"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE = '감독'
 				</when>
 				<when test='selectOpt == "a"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE != '감독'
 				</when>
 			</choose>
+		</if>
+		<if test='afterCurrent == "Y"'>
+			<![CDATA[
+			AND MOVIE_TIME >= SYSDATE
+			]]>
 		</if>
 		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER)
 	</select>
@@ -1719,6 +1735,26 @@
 		)
 		WHERE SUBSTR("YEAR_AND_MONTH", 1, 4) IN (#{currentYear}, #{lastYear})
 		ORDER BY SUBSTR("YEAR_AND_MONTH", 6, 2) ASC, SUBSTR("YEAR_AND_MONTH", 1, 4)
+	</select>
+	
+	<select id="reservationsEachMovieLast3Months" resultMap="salesResultMap">
+		SELECT M.MOVIE_TITLE, COUNT(*) AS TICKET_COUNT
+		FROM TICKETING_INFO T
+		JOIN MOVIE M ON T.MOVIE_NO = M.MOVIE_NO
+		WHERE T.TICKETING_TIME >= ADD_MONTHS(TRUNC(SYSDATE), -3)
+		AND TICKET_FL = 'Y'
+		GROUP BY M.MOVIE_TITLE
+	</select>
+	
+	<select id="reservationsByMovieOnSelectedDate" resultMap="salesResultMap">
+		SELECT M.MOVIE_TITLE, COUNT(*) AS TICKET_COUNT
+		FROM TICKETING_INFO T
+		JOIN MOVIE M ON T.MOVIE_NO = M.MOVIE_NO
+		<![CDATA[
+		WHERE TICKETING_TIME >=  TO_DATE(#{dtFrInput}) AND TICKETING_TIME <  TO_DATE(#{dtBkInput})
+		]]>
+		AND TICKET_FL = 'Y'
+		GROUP BY M.MOVIE_TITLE
 	</select>
 	
 <!--신고하기 //////////////////////////////////////////////////////////////////////////////////////////-->

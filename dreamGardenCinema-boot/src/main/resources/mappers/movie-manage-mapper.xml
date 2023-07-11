@@ -20,6 +20,55 @@
 		<result property="ticketCount" column="TICKET_COUNT"/>
 	</resultMap>
 	
+	<resultMap type="Person" id="person_rm">
+		<id property="personNo" column="PERSON_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="name" column="PERSON_NAME"/>
+		<result property="role" column="PERSON_ROLE"/>
+		<result property="img" column="PERSON_IMG"/>
+	</resultMap>
+	
+	<select id="getListCount">
+		
+		SELECT COUNT(M.MOVIE_NO)
+		FROM MOVIE M
+		LEFT JOIN (
+			SELECT *
+			FROM MOVIE_IMG
+			WHERE MOVIE_IMG_ROLE = '광고'
+		) I ON (M.MOVIE_NO = I.MOVIE_NO)
+		
+		<choose>
+			
+			<when test="screenType == 'wait'">
+				WHERE SCREENING = 'W'
+			</when>
+			
+			<when test="screenType == 'promise'">
+				WHERE SCREENING = 'P'
+			</when>
+			
+			<when test="screenType == 'current'">
+				WHERE SCREENING = 'C'
+			</when>
+			
+			<when test="screenType == 'down'">
+				WHERE SCREENING = 'D'
+			</when>
+			
+			<when test="screenType == 'highlight'">
+				WHERE I.MOVIE_IMG_ROLE = '광고'
+			</when>
+			
+			<when test="screenType == 'all'">
+								
+			</when>
+
+		</choose>
+		
+		
+	</select>
+	
 	<select id="selectList" resultMap="movie_rm">
 		
 		SELECT M.MOVIE_NO, M.MOVIE_TITLE, M.SCREENING, M.RELEASE_DATE, I.MOVIE_IMG_ROLE
@@ -60,6 +109,28 @@
 		
 		ORDER BY MOVIE_NO DESC
 		
+	</select>
+	
+	
+	<select id="movieSelectOne" resultMap="movie_rm">
+		
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIE_NO = #{movieNo}
+		
+	</select>
+	
+	<select id="selectMovieStillCut">
+		SELECT MOVIE_IMG_PATH
+		FROM MOVIE_IMG
+		WHERE MOVIE_NO = #{movieNo}
+		AND MOVIE_IMG_ROLE = '스틸컷'
+	</select>
+	
+	<select id="selectMoviePerson" resultMap="person_rm">
+		SELECT *
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}	
 	</select>
 	
 	

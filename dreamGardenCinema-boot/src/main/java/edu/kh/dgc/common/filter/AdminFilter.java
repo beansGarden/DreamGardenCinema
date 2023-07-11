@@ -17,7 +17,9 @@ import jakarta.servlet.http.HttpSession;
 urlPatterns = {"/admin", "/adminMain", "/admin/*", "/ticketAmount", "/adminUser", "/adminUserOut", "/adminUser/*", "/getUserSearchList", "/adminUserListAjax", "/adminUserInListAjax"
 		,"/adminUserOutListAjax", "/adminCinemaManage", "/adminCinemaTimeSelect", "/adminCinemaDeleteTime", "/adminCinemaDelete", "/adminCinemaRegister", "/adminCinemaRegisterinsert", "/adminCinemaListAjax", "/adminCinemaInsert", "/adminNotice"
 		, "/adminNoticeDeleted", "/adminNoticeRead/*", "/getNoticeSearchList", "/adminNoticeWrite", "/adminNoticeWriteInsert", "/adminNoticeUpdate/*", "/adminNoticeRead/*", "/adminNotice/*", "/adminNoticeListAjax", "/adminNoticeInListAjax", "/adminNoticeOutListAjax"
-		, "/adminQna", "/adminQnaRead/*", "/adminQnaWrite", "/adminQnaWriteInsert", "/adminQnaAnswer/*", "/adminQnaUpdate/*", "/adminQna/*", "/getSearchList", "/adminQnaListAjax", "/adminFaq"})
+		, "/adminQna", "/adminQnaRead/*", "/adminQnaWrite", "/adminQnaWriteInsert", "/adminQnaAnswer/*", "/adminQnaUpdate/*", "/adminQna/*", "/getSearchList", "/adminQnaListAjax", "/adminFaq", "/adminFaqAll", "/adminFaqDeleted", "/adminFaqRead/*", "/adminFaqWrite", "/adminFaqUpdate/*"
+		, "/adminFaqDelete/*", "/adminFaq/*", "/getFaqAllSearchList", "/getFaqSearchList", "/getFaqDeletedSearchList", "/adminFaqListAjax", "/adminFaqInListAjax", "/adminReport", "/adminReportRead/*", "/adminReportDelete/*", "/getReportSearchList", "/adminreportListAjax", "/adminReview", "/adminReviewListAjax", "/getReviewSearchList"
+		, "/adminReviewRead/*", "/adminReivew/*", "/adminSales", "/admin/monthlySalesByYear"})
 
 public class AdminFilter implements Filter{
 

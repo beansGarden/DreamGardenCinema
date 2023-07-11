@@ -118,4 +118,6 @@ public interface TicketingMapper {
 	//유저 Amount 취소한 결제금액 차감
 	int updateCancelAmount(User user);
 
+
+
 }

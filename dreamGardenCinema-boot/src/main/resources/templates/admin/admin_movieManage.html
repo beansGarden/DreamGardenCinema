@@ -15,7 +15,7 @@
 
     <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
 
-    <div class="admin_movieManageWrap">
+    <div class="admin_movieManageWrap" th:with="pagination=${responseData.pagination}, selectList=${responseData.selectList}">
 
         <!-- 게시판 제목 -->
         <div id="admin_movieManageTitle">영화 관리</div>
@@ -31,7 +31,7 @@
 
             <div>⇛</div>
 
-            <button class="colorsubbutton" id="screenCurrent" data-page="1">현재상영</button>
+            <button class="menu-active" id="screenCurrent" data-page="1">현재상영</button>
 
             <div>⇛</div>
             
@@ -43,7 +43,7 @@
 
             <button id="whole" data-page="1">전체</button>
 
-        </div>
+        </div>  
 
         <!-- 게시판 -->
         <div class="admin_movieManageBoardWrap">
@@ -57,26 +57,83 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="list : ${movieList}">
+                    <tr th:each="list : ${selectList}">
                         <td th:text="${list.movieNo}">영화번호</td>
                         <td th:text="${list.movieTitle}">영화제목</td>
                         <td th:text="${list.releaseDate}">개봉일</td>
                         <td class="movieStatus">
-                            <button>상세보기</button>
-                            <button>수정</button>
+
+                            <button type="button" 
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=read&screen=current'|">
+                            상세보기
+                            </button>
+
+                            <button type="button" 
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=update&screen=current'|" >
+                            수정
+                            </button>
+                            
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div>
+        <div class="pagination-area">
+
+            <ul class="pagination">
+
+                <!-- 첫 페이지로 이동 -->
+                <li><button data-page="first" onclick="pagination(this)">&lt;&lt;</button></li>
+
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <li><button th:data-page="prev" onclick="pagination(this)">&lt;</button></li>
+
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${i == pagination.currentPage}">
+                        <button class="num current" th:data-page="${i}" data-page-role="num" th:text="${i}" onclick="pagination(this)">현재 페이지</button>
+                    </li>
+
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${i == pagination.currentPage}">
+                        <button class="num" th:data-page="${i}" data-page-role="num" th:text="${i}"  onclick="pagination(this)">나머지 페이지</button>
+                    </li>
+
+                </th:block>
+                
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <li><button th:data-page="next"  onclick="pagination(this)">&gt;</button></li>
+
+                <!-- 끝 페이지로 이동 -->
+                <li><button th:data-page="max" onclick="pagination(this)">&gt;&gt;</button></li>
+
+
+            </ul>
 
         </div>
 
     </div>
 
     <script th:src="@{\js\admin\admin_movieManage.js}"></script>
+    <script th:inline="javascript">
+
+        currentPage = /*[[${responseData.pagination.currentPage}]]*/ "현재 페이지 번호";
+        listCount= /*[[${responseData.pagination.listCount}]]*/ "전체 게시글 수";
+
+        limit= /*[[${responseData.pagination.limit}]]*/ "한 페이지 목록에 보여지는 게시글 수";
+        pageSize= /*[[${responseData.pagination.pageSize}]]*/ "보여질 페이지 번호 개수";
+
+        maxPage= /*[[${responseData.pagination.maxPage}]]*/ "마지막 페이지 번호";
+        startPage= /*[[${responseData.pagination.startPage}]]*/ "보여지는 맨 앞 페이지 번호 ";
+        endPage= /*[[${responseData.pagination.endPage}]]*/ "보여지는 맨 뒤 페이지 번호";
+
+        prevPage= /*[[${responseData.pagination.prevPage}]]*/ "이전 페이지의 페이지 번호 맨 끝";
+        nextPage= /*[[${responseData.pagination.nextPage}]]*/ "다음 페이지의 페이지 번호 맨 앞";
+
+
+    </script>
 
 </body>
 </html>
