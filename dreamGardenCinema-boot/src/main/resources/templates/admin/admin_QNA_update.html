@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,55 +8,57 @@
 
     <title>qna_write</title>
 
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 
 
     <link rel="stylesheet" href="\css\style.css">
     <link rel="stylesheet" href="/css/admin/admin_QNA_update.css">
-    
+
     <script src="../admin/summernote-ko-KR.js"></script>
     <script src="../admin/summernote-lite.js"></script>
     <link rel="stylesheet" href="../admin/summernote-lite.css">
 </head>
+
 <body>
-       <!-- 사이드바 -->
- <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
     <!-- 전체 감싸는 div -->
-  <form th:action="${qnaNo}" method="POST" >
-    
-    <div class="admin_qnaWrap">
-        
+    <form th:action="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}" method="POST" id="qnaSubmit">
+
+        <div class="admin_qnaWrap">
+
             <!-- 게시판 제목 -->
             <span id="admin_qnaTitle">1:1문의 관리</span>
-        <!-- 테이블 감싸는 div -->
-        <div class="admin_qnaTableWrap "style="border-bottom: 1px solid black">
-        <table>
-            <tr>
-                <th>번호</th>
-                <td  th:text="${Qna.qnaNo}" name="qnaNo">번호</td>
-            </tr>
-            <tr>
-                <th>제목</th>
-                <td><input type="text" id="" class="admin_qnaTableInput"  th:value="${Qna.qnaTitle}" name="qnaTitle"></td>
-            </tr>
-        </table>
-    </div>
-    <!-- 내용 쓰는 칸 -->
-        <div class="admin_qnaContentWrap" >
-            <form method="post">
-                <textarea id="summernote" name="qnaContent" th:text="${Qna.qnaContent}">글내용</textarea>
-              </form>
-        </div>
-        <!-- 등록 버튼 -->
-                <button  type="submit" class="admin_qnaRegister">등록</a></button>
+            <!-- 테이블 감싸는 div -->
+            <div class="admin_qnaTableWrap " style="border-bottom: 1px solid black">
+                <table>
+                    <tr>
+                        <th>번호</th>
+                        <td th:text="${Qna.qnaNo}" name="qnaNo">번호</td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td><input type="text" id="" class="admin_qnaTableInput" th:value="${Qna.qnaTitle}"
+                                name="qnaTitle"></td>
+                    </tr>
+                </table>
             </div>
+            <!-- 내용 쓰는 칸 -->
+            <div class="admin_qnaContentWrap">
+                <form method="post">
+                    <textarea id="summernote" name="qnaContent" th:text="${Qna.qnaContent}">글내용</textarea>
+                </form>
+            </div>
+            <!-- 등록 버튼 -->
+            <button type="submit" class="admin_qnaRegister">등록</a></button>
         </div>
-    </div>    
-</form>
+        </div>
+        </div>
+    </form>
     <script>
         // 메인화면 페이지 로드 함수
         $(document).ready(function () {
@@ -66,7 +69,7 @@
             });
         });
     </script>
-    
+
 </body>
 
 </html>

@@ -1,11 +1,6 @@
 // 기존 정보 삭제
 
-let flag =0;
 window.onbeforeunload = function(){
-
-    if(flag!=0){
-        return;
-    }
 
     fetch("/ticketing/out", {
         method : 'POST',
@@ -14,9 +9,13 @@ window.onbeforeunload = function(){
     })
     .then(resp => resp.text())
     .then(result => {
-        alert("예매 취소");
     })
 }
+if(window.performance.navigation.type === 1){
+    location.href = 'http://localhost/';
+}
+
+
 
 // 쿠폰 AJAX
 const coupon = document.querySelector("#coupon");
@@ -34,7 +33,7 @@ coupon.addEventListener("change", e=>{
     })
 })
 
-//  새로고침 막기
+// //  새로고침 막기
 document.onkeydown = function(e){
     /* F5, Ctrl+r, Ctrl+F5 */
     if(e.keyCode == 116 || e.ctrlKey == true && (e.keyCode == 82)){

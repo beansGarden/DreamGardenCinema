@@ -24,5 +24,9 @@ public class SalesByPeriod {
 	//년도별 월 매출
 	private String yearAndMonth;
 	private int monthlySalesByYear;
+	
+	//영화별 예매율
+	private String movieTitle;
+	private int ticketCount;
 
 }

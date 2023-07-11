@@ -45,11 +45,11 @@ public class MypageController {
 	public String reservation(Model model, @SessionAttribute("loginUser") User loginuser) {
 
 		int userNo = loginuser.getUserNo();
-
+		
 		List<Ticket> reservationList = service.reservation(userNo);
 
 		model.addAttribute("reservationList", reservationList);
-
+		
 		return "myPage/my-page-reservation";
 	}
 
@@ -222,7 +222,7 @@ public class MypageController {
 			// movieTime은 previousTime보다 이전입니다.
 			// 상영 시작 후(상영 시간 10분 안남음)
 
-			message = "취소 가능 시간이 지났습니다";
+			message = "해당 티켓은 취소 가능 시간이 지났습니다";
 			path += "/myPage/";
 
 			System.out.println("movieTime은 previousTime보다 이전입니다.");
@@ -230,9 +230,19 @@ public class MypageController {
 			// movieTime1은 previousTime2보다 이후입니다.
 			// 아직 상영 10분 전
 
-			 //취소 티켓 좌석 정보 삭제
+			//취소 티켓 좌석 정보 삭제
 			int deleteTicketSeat = TicketingService.deleteTicketSeat(ticketNo);
+			
+			// 해당 티켓에 사용된 쿠폰 조회 
+			int couponNo = service.selectCouponNo(ticketNo);
 
+			System.out.println(couponNo);
+			
+			if(couponNo>0) {
+				int returnCoupon = service.returnCoupon(couponNo);
+			}
+			
+			
 			int userAmount = loginUser.getUserAmount();
 			int userNo = loginUser.getUserNo();
 

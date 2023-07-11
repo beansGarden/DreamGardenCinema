@@ -209,6 +209,7 @@ body{
     padding: 50px 10px;
     position: relative;
 }
+
 .announcement>article>span{
     font-size: 26px;
     font-weight: bold;
@@ -257,7 +258,7 @@ body{
     position: absolute;
     top: 60px;
     right: 10px;
-    font-size: 10px;
+    font-size: 16px;
     color : #666666;
     text-decoration: none;
 }

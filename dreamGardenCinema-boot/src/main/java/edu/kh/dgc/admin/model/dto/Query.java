@@ -15,4 +15,5 @@ public class Query {
 	private String date;
 	private String selectOpt;
 	private String content;
+	private String afterCurrent;
 }

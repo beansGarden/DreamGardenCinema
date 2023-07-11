@@ -310,7 +310,7 @@
 /* 승급 안내 문구 영역 */
 .DGmembership-upgrade{
     width: 90vw;
-    height: 37vh;
+    height: 50vh;
 
     display: flex;
     flex-direction: column;
