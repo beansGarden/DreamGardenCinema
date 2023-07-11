@@ -230,7 +230,11 @@ async function selectList(){
 
                 const btnCreate = document.createElement("button");
                 btnCreate.innerText = "영화등록";
-                btnCreate.addEventListener('click', createList());
+                btnCreate.addEventListener('click', () => {
+
+                    location.href = '/adminMovieManage/detail?movieNo=' + 0 + '&type=create' + '&screen=wait';
+
+                });
                 movieStatue.append(btnCreate);
 
                 movieStatue.classList.add("movieStatus");

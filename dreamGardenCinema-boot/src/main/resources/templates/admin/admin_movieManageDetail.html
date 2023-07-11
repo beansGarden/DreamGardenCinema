@@ -217,8 +217,108 @@
             </form>
         </div>
 
-        <!-- 등록,수정,삭제 버튼 -->
-        <!-- <button class="admin_movieManageRegister"><a href="">등록</a></button> -->
+
+        <div class="admin_movieManageDetail create">
+            <form>
+                <ul>
+                    <div class="base-info">
+
+                        <div class="base-info__img">
+                            <img src="https://dummyimage.com/196x280/000/fff">
+                        </div>
+
+                        <div class="base-info__basic">
+                            <li>
+                                <label class="admin_movieLabel">영화 제목</label>
+                                <input type="text" name="movieTitle" >
+                            </li>
+                            
+                            <li>
+                                <label class="admin_movieLabel">개봉일</label>
+                                <input type="text" name="releaseDate" placeholder="20YY-MM-DD">
+                            </li>
+
+                            <li>
+                                <label class="admin_movieLabel">현재상영상태</label>
+                                <select name="screening">
+                                    <option value="wait" selected>임시대기</option>
+                                    <option value="promise">상영예정</option>
+                                    <option value="current">현재상영</option>
+                                    <option value="down">상영종료</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <label class="admin_movieLabel">러닝타임</label>
+                                <input type="number" name="runningTime">분
+                            </li>
+            
+                            <li>
+                                <label class="admin_movieLabel">장르</label>
+                                <input type="text" name="genre" placeholder="액션 / 한국">
+                            </li>
+                            
+                            <li>
+                                <label class="admin_movieLabel">영화 등급</label>
+                                <select name='rating'>
+                                    <option value='전체관람가' selected>전체관람가</option>
+                                    <option value='만12세이상관람가'>만12세이상관람가</option>
+                                    <option value='만15세이상관람가'>만15세이상관람가</option>
+                                    <option value='청소년관람불가'>청소년관람불가</option>
+                                </select>
+                            </li>
+                            
+                            <li>
+                                <label class="admin_movieLabel">시놉시스</label>
+                                <div name="synopsis" class="synopsis-edit" contenteditable="true"></div>
+                            </li>
+
+                        </div>
+                    </div>
+                    
+                    
+                    <li class="stillcut">
+                        <label class="admin_movieLabel">스틸컷</label>
+                        <div class="swiper updateStillcutSwiper">
+                            <div class="swiper-wrapper" >
+                                <div class="swiper-slide"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <p class="append-buttons">
+                            <button type="button" class="append-slide" id="updateStillcutAppend">스틸컷<br> 추가</button>
+                        </p>
+                    </li>
+            
+                    <li class="person">
+                        <label class="admin_movieLabel">영화인</label>
+                        <div class="swiper updatePersonSwiper">
+                            <div class="swiper-wrapper" >
+                                <div class="swiper-slide person">
+                                    
+                                    <div class="person-img">
+                                    </div>
+                                    
+                                    <div class="person-info">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <p class="append-buttons">
+                            <button type="button" class="append-slide" id="updatePersonAppend">인물<br> 추가</button>
+                        </p>
+                    </li>
+
+                </ul>
+
+                <button id="updateSubmit">등록</button>
+            </form>
+        </div>
+
     
     </div>
     

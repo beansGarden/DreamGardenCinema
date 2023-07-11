@@ -7,6 +7,7 @@ const updateBtn = document.getElementById("typeUpdate");
 const deleteBtn = document.getElementById("typeDelete");
 const GoListBtn = document.getElementById("typeGoList");
 
+const createContent = document.querySelector(".create");
 const readContent = document.querySelector(".read");
 const updateContent = document.querySelector(".update");
 
@@ -27,6 +28,7 @@ if(screenType == 'wait'){
     if(processType == 'create'){
         updateBtn.classList.add("process-type-none");
         deleteBtn.classList.add("process-type-none");
+        readBtn.classList.add("process-type-none");
     }
 }
 if(screenType == 'promise'){
@@ -65,6 +67,7 @@ if(processType == "create" ){
         createHighlightBtn.classList.add("process-type-active");
     }
     createMovieBtn.classList.add("process-type-active");
+    createContent.classList.add("detail-active");
 }
 
 if(processType == "read" ){
