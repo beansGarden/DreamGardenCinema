@@ -32,6 +32,9 @@
     border-bottom: 2px solid #c8c8c8;
 }
 
+
+
+
 /* 유저검색 창 */
 .admin_qnaSearchWrap {
     display: flex;
@@ -60,6 +63,7 @@
     width: 70%;
     padding: 10px;
 }
+
 
 /* select 선택창 */
 .admin_qnaSelect {
