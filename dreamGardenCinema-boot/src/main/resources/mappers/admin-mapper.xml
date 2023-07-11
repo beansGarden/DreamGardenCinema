@@ -992,6 +992,11 @@
 				</when>
 			</choose>
 		</if>
+		<if test='afterCurrent == "Y"'>
+			<![CDATA[
+			AND MOVIE_TIME >= SYSDATE
+			]]>
+		</if>
 		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER
 	</select>
 	
@@ -1021,6 +1026,11 @@
 					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
 				</when>
 			</choose>
+		</if>
+		<if test='afterCurrent == "Y"'>
+			<![CDATA[
+			AND MOVIE_TIME >= SYSDATE
+			]]>
 		</if>
 		ORDER BY MOVIE_TIME DESC, MOVIE_THEATER)
 	</select>

@@ -27,8 +27,40 @@
 
 /* 선택창 감사는 div */
 .movieTheaterOptBox{
-    border-bottom: 2px solid #ccc;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding-bottom: 8px ;
+}
+.movieTheaterOptBox>div:first-child{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+/* 현시간 이후 박스 */
+.afterCurrent{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.afterCurrent>a{
+    justify-self: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.afterCurrent>a>svg{
+    margin-right: 5px;
+}
+#afterCurrent{
+    display: none;
 }
 
 
@@ -44,6 +76,10 @@
 #selectCont{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
 }
 
 /* 선택항목을 감싸는 div */
@@ -202,6 +238,9 @@ table th:last-child{width: 20%;}
     text-align: left;
     padding-left: 5px;
     font-weight: bold;
+    height: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .timeDiv{
@@ -248,3 +287,9 @@ table th:last-child{width: 20%;}
     justify-content: center;
 }
 
+#movieTt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
