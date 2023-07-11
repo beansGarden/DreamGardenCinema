@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    letter-spacing: 1px;
 }
 
 ul, li {
@@ -84,13 +85,14 @@ a {
 /* 검색영역 전체를 감싸는 태그 */
 .service-search-area{
     display: flex;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 
     width: 65vw;
     height: 7vh;
     background-color: #0F0954;
     justify-content: space-around;
     align-items: center;
+    border-radius: 10px;
     
 }
 
@@ -110,8 +112,22 @@ a {
 
     text-align: center;
     font-size: 15px;
-    border-radius: 3px;
+    border-radius: 10px;
 }
+/* 옵션 선택 창 */
+option{
+    border-radius: 10px;
+    border: 1px solid bd8e15;
+}
+
+
+#serviceSearchSelect:focus{
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
+    outline: none;
+}
+
 
 /* 검색창 */
 .notice-search-area{
@@ -124,7 +140,7 @@ a {
     width: 25vw;
     height: 35px;
 
-    border-radius: 3px;
+    border-radius: 10px;
     border: none;
 
     padding-left: 20px;
@@ -132,28 +148,40 @@ a {
     font-size: 15px;
 }
 
+#searchQuery:focus{
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
+    outline: none;
+}
 
 
 /* 검색 버튼 */
 .service-search-btn{
-    background-color: #A8A7DE;
+    background-color: #F0BA58;
     width: 70px;
     height: 35px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
-    
     color: white;
-    
+    font-size: 14px;
+    letter-spacing: 1px;
+    border: 1px solid #bd8e15;
 }
 
+/* 검색버튼 호버 */
+.service-search-btn:hover{
+    background-color: #f5a23f;
+    color: white;
+    font-weight: bold;
+}
+
+
+
 /* 공지사항 목록 */
-
-
 
 .notice-list-box{
     width: 65vw;
@@ -162,20 +190,19 @@ a {
 
 }
 
-
 .service-notice-title{
     width: 65vw;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-top: 3px solid #ccc;
-    border-bottom: 3px solid #ccc;
+    background-color: #0f0954;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     display: grid;
     grid-template-columns: 0.5fr 2fr 0.5fr ;
-
     font-weight: bold;
     font-size: 16px;
-
     justify-items: center;
+    color: white;
 
 
 }
@@ -184,12 +211,10 @@ a {
 
     padding-top: 10px;
     padding-bottom: 10px;
-    border-top: 1px solid #ccc;
+    /* border-top: 1px solid #ccc; */
     border-bottom: 2px solid #ccc;
     display: grid;
     grid-template-columns: 0.5fr 2fr 0.5fr ;
-
-    /* font-weight: bold; */
     font-size: 16px;
 
     justify-items: center;
@@ -214,13 +239,13 @@ a {
 }
 #service-paginationNumbers li a{
     padding: 3px;
-    color: #92B4EC;
+    color: #f5a23f;
     margin: 0 6px;
     width: 20px;
 }
 #service-paginationNumbers li a.active{
     font-weight: bold;
-    color: #5286DC;
+    color: #0f0954;
 }
 .service-pagination i{
     color: #FFD24C;
