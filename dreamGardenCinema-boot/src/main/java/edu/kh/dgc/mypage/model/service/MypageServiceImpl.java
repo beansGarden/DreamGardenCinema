@@ -222,6 +222,18 @@ public class MypageServiceImpl implements MypageService{
 	public int updateRating1() {
 		return mapper.updateRating1();
 	}
+
+	//해당 취소 티켓에 사용된 쿠폰 조회 
+	@Override
+	public int selectCouponNo(String ticketNo) {
+		return mapper.selectCouponNo(ticketNo);
+	}
+
+	//취소시 사용한 쿠폰 환불
+	@Override
+	public int returnCoupon(int couponNo) {
+		return mapper.returnCoupon(couponNo);
+	}
 	
 	
 
