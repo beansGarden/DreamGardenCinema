@@ -8,6 +8,43 @@ function userSelectAll(userSelectAll)  {
     })
   }
 
+/* Restore버튼 복구 삭제하기 */
+const restoreBtn = document.getElementById("restoreBtn"); //삭제버튼 
+
+
+restoreBtn.addEventListener(('click'),()=>{
+
+
+if (confirm("정말 삭제 하시겠습니까?")) {
+  for(let i=0; i<checkbox.length; i++){
+    if (checkbox[i].checked) {
+ var qnaNo = document.getElementsByClassName("admin_qna_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
+
+} if(checkbox!=null){
+qnaRestore(qnaNo);
+}
+}
+}else return;
+
+});
+
+function qnaRestore(qnaNo){
+
+
+
+fetch("/adminQna/restoreQnaList", {
+  method : "POST",
+  headers : {"Content-Type": "application/json"},
+  body : JSON.stringify({"qnaNo" : qnaNo})
+}).then(resp=> resp.text())
+.then(result=>{
+  console.log(result);
+  console.log(qnaNo);
+
+}).catch(err=> console.log(err));
+
+}
+
   /* 삭제 버튼 선택 삭제하기 */
   const delBtn = document.getElementById("deleteBtn"); //삭제버튼 
   const checkbox = document.getElementsByClassName("admin_qnaCheckbox"); //check박스
@@ -142,7 +179,7 @@ getQnaInCount()
   xhr.send();
 }
 
-// 회원 수 가져오기
+// 삭제한 QNA 수 가져오기
 function getQnaOutCount() {
   ajaxRequest('/adminQnaOutListAjax', 'GET', function(response) {
       var countElement = document.querySelector('.adminQnaOutCountAll');
@@ -151,76 +188,4 @@ function getQnaOutCount() {
 }
 getQnaOutCount()
 
-//답변 여부에 따른 구분
 
-/* 
-window.addEventListener('DOMContentLoaded', function() {
-  var answerBtn = document.getElementById('answerBtn');
-  var table = document.getElementById('boardTable');
-  var rows = Array.from(table.getElementsByTagName('tr'));
-
-  rows.shift(); // 첫 번째 행은 테이블의 헤더이므로 제외
-
-  answerBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      // '답변여부' 열(qnaCheckFl) 값을 기준으로 내림차순 정렬
-      rows.sort(function(a, b) {
-          var valueA = a.querySelector('#qnaCheckFl').textContent;
-          var valueB = b.querySelector('#qnaCheckFl').textContent;
-
-          if (valueA === 'N' && valueB !== 'N') {
-              return -1;
-          } else if (valueA !== 'N' && valueB === 'N') {
-              return 1;
-          } else {
-              return 0;
-          }
-      });
-
-      // 정렬된 행을 다시 테이블에 추가
-      var tbody = table.querySelector('tbody');
-      rows.forEach(function(row) {
-          tbody.appendChild(row);
-      });
-  });
-});
-/*  */
-//비회원 글만 보기
-window.addEventListener('DOMContentLoaded', function() {
-  var nomemberLink = document.getElementById('nomember');
-  var memberLink = document.getElementById('member');
-  var table = document.getElementById('boardTable');
-  var rows = Array.from(table.getElementsByTagName('tr'));
-
-  rows.shift(); // 첫 번째 행은 테이블의 헤더이므로 제외
-
-  nomemberLink.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      // '등록인' 열의 텍스트를 기준으로 필터링하여 '비회원'인 행만 보이도록 설정
-      rows.forEach(function(row) {
-          var userId = row.querySelector('td:nth-child(5)').textContent;
-          if (userId === '비회원') {
-              row.style.display = '';
-          } else {
-              row.style.display = 'none';
-          }
-      });
-  });
-
-  memberLink.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      // '등록인' 열의 텍스트를 기준으로 필터링하여 '비회원'인 행을 제외한 행만 보이도록 설정
-      rows.forEach(function(row) {
-          var userId = row.querySelector('td:nth-child(5)').textContent;
-          if (userId !== '비회원') {
-              row.style.display = '';
-          } else {
-              row.style.display = 'none';
-          }
-      });
-  });
-});
- */

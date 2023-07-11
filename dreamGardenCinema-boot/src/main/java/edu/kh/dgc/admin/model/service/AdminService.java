@@ -49,6 +49,10 @@ public interface AdminService {
 
 	//1:1 문의 게시글 삭제
 	int qnaDelete(int qnaNo);
+	
+	//1:1 문의 선택 복구
+	int qnaRestore(int qnaNo);
+
 
 	//1:1 문의 게시글 쓰기(삽입)
 	int qnaInsert(Qna qna);
@@ -269,6 +273,14 @@ public interface AdminService {
 	//신고하기 Map 불러오기
 	Map<String, Object> adminReportList(int cp);
 
+	//신고하기 삭제 안 한 게시글 불러오기
+	Map<String, Object> adminReportInList(int cp);
+
+	//신고하기 삭제 한 게시글 불러오기
+	Map<String, Object> adminReportOuList(int cp);
+
+
+	
 	//신고하기 게시글 불러오기
 	List<Report> adminReportOne(int reportNo);
 
@@ -281,10 +293,25 @@ public interface AdminService {
 	//신고관리 검색
 	Map<String, Object> getReportSearchList(Report condition, int cp);
 
+	//신고하기 삭제 안 한 게시글 검색
+	Map<String, Object> getReportInSearchList(Report condition, int cp);
+
+	//신고하기 삭제 한 게시글 검색
+	Map<String, Object> getReportOutSearchList(Report condition, int cp);
+
+
+	
 	//신고하기 개수 조회
 	int reportListCount();
 
-	
+	//신고하기 삭제 안 한 게시글 개수 조회
+	int reportInListCount();
+
+	//신고하기 삭제 한 게시글 개수 조회
+	int reportOutListCount();
+
+
+
 
 	
 	
@@ -293,11 +320,29 @@ public interface AdminService {
 	//리뷰 게시글 조회
 	Map<String, Object> adminReviewList(int cp);
 
+	//리뷰 삭제 안 한 게시글 게시판 조회
+	Map<String, Object> adminReviewInList(int cp);
+
+	//리뷰 삭제 한 게시글 게시판 조회
+	Map<String, Object> adminReviewOutList(int cp);	
+	
 	//리뷰 개수 조회
 	int reviewListCount();
+	//리뷰 삭제 안 한 게시글 개수
+	int reviewInListCount();
+	//리뷰 삭제 한 게시글 개
+	int reviewOutListCount();
+
 
 	//리뷰관리 검색
 	Map<String, Object> getReviewSearchList(Review condition, int cp);
+	//리뷰 삭제 안 한 게시글 검색
+	Map<String, Object> getReviewInSearchList(Review condition, int cp);
+	//리뷰 삭제 한 게시글 검색
+	Map<String, Object> getReviewOutSearchList(Review condition, int cp);
+
+
+
 
 	int userInListCount();
 
@@ -309,11 +354,8 @@ public interface AdminService {
 	//리뷰 게시글 읽어오기
 	List<Review> adminReviewOne(int reviewNo);
 
-
-
-
 	
-	
+
 
 	
 	// 상영관 리스트 조회(찬희)
@@ -351,8 +393,6 @@ public interface AdminService {
 
 	// 영화별 예매건수(선택형)
 	List<SalesByPeriod> reservationsByMovieOnSelectedDate(String dtFrInput, String dtBkInput);
-
-
 
 
 

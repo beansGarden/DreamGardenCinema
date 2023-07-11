@@ -61,15 +61,61 @@ countAll.textContent = totalItems.toString();
     xhr.send();
 }
 
-// 영화 개수 가져오기
+// 게시글 개수 가져오기
 function getreportCount() {
     ajaxRequest('/adminreportListAjax', 'GET', function(response) {
         var countElement = document.querySelector('.adminReportCountAll');
         countElement.textContent = response;
     });
-    console.log(response);
-    console.log(countElement);
+
 }
 
 // 페이지 로드 시 영화 개수 가져오기 호출
 getreportCount();
+
+
+/* 전체 삭제 안 한 게시글 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+//  전체 삭제 안 한 게시글 수 가져오기
+function getReportInCount() {
+  ajaxRequest('/adminReportInListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminReportInCountAll');
+      countElement.textContent = response;
+  });
+}
+getReportInCount()
+
+/*  삭제 한 게시글 수 불러오기 */
+ // Ajax 요청 함수
+ function ajaxRequest(url, method, successCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          successCallback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
+
+// 삭제  한 게시글 수 가져오기
+function getReportOutCount() {
+  ajaxRequest('/adminReportOutListAjax', 'GET', function(response) {
+      var countElement = document.querySelector('.adminReportOutCountAll');
+      countElement.textContent = response;
+      console.log(response);
+      
+  });
+}
+getReportOutCount()

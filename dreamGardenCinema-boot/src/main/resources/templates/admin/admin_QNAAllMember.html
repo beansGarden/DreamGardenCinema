@@ -30,7 +30,7 @@
                     <div class="admin_qnaSearchWrap">
                         <!-- select랑 검색창만 감싸는 div -->
                         <div class="admin_userSearchWrap2">
-                            <form th:action="@{/getDeletedSearchList}" autocomplete="off">
+                            <form th:action="@{/getAllSearchList}" autocomplete="off">
                                 <select class="admin_qnaSelect" name="type" id="">
                                     <option value="qnaNo">번호</option>
                                     <option value="title">제목</option>
@@ -63,7 +63,6 @@
                     </div>
 
                     <div>
-                        
                         <span><a th:href="@{/adminQnaAll}" class="qnaCount">총 게시글 수 : </a></span>
                         <span class="adminQnaCountAll" style="font-weight: bold;">0 </span> /
                         <span><a th:href="@{/adminQna}" class="qnaCount">게시글 수 : </a></span>
@@ -74,7 +73,6 @@
                 </div>
             </div>
             <div>
-                
                 <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 여부</a></span>
                 <span >/</span>
                 <span class="nomember"><a th:href="@{/adminQnaNomember}" id="nomember">비회원</a></span>
@@ -129,7 +127,8 @@
 
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                    <li><a th:href="@{/adminQnaDeleted(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminQnaMember(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/adminQnaMember(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
@@ -141,7 +140,7 @@
                             <a class="current" th:text="${i}">현재 페이지</a>
                         </li>
                         <li th:unless="${i == pagination.currentPage}">
-                            <a th:text="${i}" th:href="@{/adminQnaDeleted(cp=${i})}"></a>
+                            <a th:text="${i}" th:href="@{/adminQnaMember(cp=${i})}"></a>
                         </li>
                     </th:block>
 
@@ -152,7 +151,7 @@
 
                     <!-- 현재 페이지를 제외한 나머지 -->
                     <li th:unless="${i == pagination.currentPage}">
-                        <a th:href="@{/adminQnaDeleted(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                        <a th:href="@{/adminQnaMember(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
                     </li>
                     </th:block>
 
@@ -162,14 +161,14 @@
                     </li>
                     -->
                     <!-- 끝 페이지로 이동 -->
-                    <li><a th:href="@{/adminQnaDeleted(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                    <li><a th:href="@{/adminQnaMember(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
                 </ul>
             </div>
 
             <!-- 수정,삭제 버튼 -->
             <div class="admin_qnaBtn">
                 <!--             <button class="admin_qnaEndBtn"><a th:href="@{adminQnaWrite}">글쓰기</a></button> -->
- <!--                <button class="admin_qnaEndBtn" id="deleteBtn"><a href="">삭제</a></button> -->
+                <button class="admin_qnaEndBtn" id="deleteBtn"><a href="">삭제</a></button>
                 <button class="admin_qnaEndBtn" id="restoreBtn"><a href="">복구</a></button>
             </div>
 
@@ -181,7 +180,7 @@
 
 
 
-        <script src="\js\admin\admin_QNADeleted.js"></script>
+        <script src="\js\admin\admin_QNAAll.js"></script>
 </body>
 
 </html>
