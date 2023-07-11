@@ -78,9 +78,10 @@ dependencies {
     // portone 결제 
     implementation 'com.github.iamport:iamport-rest-client-java:0.2.23'
 	
-	// json
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
 }
 
 tasks.named('test') {

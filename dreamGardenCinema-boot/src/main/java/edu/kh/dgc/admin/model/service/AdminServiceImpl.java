@@ -1390,31 +1390,47 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.quarterlySales(currentYear);
 	}
 
-
 	// 년도별 월 매출(첫 접속)
-   @Override
-   public List<SalesByPeriod> firstLoadingMonthlySalesByYear(String currentYear) {
-      
-      Map<String, String> year = new HashMap<>();
-      int lastYear = Integer.parseInt(currentYear)-1;
-      year.put("currentYear", currentYear);
-      year.put("lastYear", lastYear+"");
-      
-      return mapper.monthlySalesByYear(year);
-   }
+	@Override
+	public List<SalesByPeriod> firstLoadingMonthlySalesByYear(String currentYear) {
+		
+		Map<String, String> year = new HashMap<>();
+		int lastYear = Integer.parseInt(currentYear)-1;
+		year.put("currentYear", currentYear);
+		year.put("lastYear", lastYear+"");
+		
+		return mapper.monthlySalesByYear(year);
+	}
 
-   // 년도별 월 매출
-   @Override
-   public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
-      
-      Map<String, String> year = new HashMap<>();
-      int lastYear = Integer.parseInt(selectedYear)-1;
-      year.put("currentYear", selectedYear);
-      year.put("lastYear", lastYear+"");
-      
-      return mapper.monthlySalesByYear(year);
-   }
+	// 년도별 월 매출
+	@Override
+	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
+		
+		Map<String, String> year = new HashMap<>();
+		int lastYear = Integer.parseInt(selectedYear)-1;
+		year.put("currentYear", selectedYear);
+		year.put("lastYear", lastYear+"");
+		
+		return mapper.monthlySalesByYear(year);
+	}
 
+
+	// 근 3개월 영화별 예매건수
+	@Override
+	public List<SalesByPeriod> reservationsEachMovieLast3Months() {
+		return mapper.reservationsEachMovieLast3Months();
+	}
+
+	// 영화별 예매건수(선택형)
+	@Override
+	public List<SalesByPeriod> reservationsByMovieOnSelectedDate(String dtFrInput, String dtBkInput) {
+		
+		Map<String, String> date = new HashMap<>();
+		date.put("dtFrInput", dtFrInput);
+		date.put("dtBkInput", dtBkInput);
+		
+		return mapper.reservationsByMovieOnSelectedDate(date);
+	}
 
 
 

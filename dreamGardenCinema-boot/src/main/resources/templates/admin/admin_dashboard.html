@@ -41,16 +41,17 @@
             </div>
 
 
-
-            <div class="admin_dashboardSalesforQuarter">
-                <div class="admin_dashboardSalesforQuarter_title">
-                    <select id="yearSelect" onchange="salesForQuarter()">
-                        <option value=""></option>
-                    </select>
-                    <span class="sales-Quarter-title">년 분기 매출</span>
+            <!-- reservations_each_movie_last_3_months -->
+            <div class="admin_reservations_each_movie_last_3_months">
+                <div class="admin_reservations_each_movie_last_3_months_title_box">
+                    <span class="admin_reservations_each_movie_last_3_months_title">영화별 최근 세달 예매 건수</span>
+                    <a th:href="@{/adminSales}"><span class="more_chart">자세히 >></span></a>
                 </div>
-                <div class="admin_dashboardSalesforQuarter-in">
-                    <canvas id="SalesforQuarterChart"></canvas>
+                <div class="admin_reservations_each_movie_last_3_months-in">
+                    <span class="totalTicketCount"></span>
+                    <div id="reservationsEachMovieLast3MonthsChartBox">
+                        <canvas id="reservationsEachMovieLast3MonthsChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,12 +100,14 @@
     </div>
     <script th:inline="javascript">
 
-        const firstLoadingQuarterlySales = /*[[${firstLoadingQuarterlySales}]]*/"첫 로딩 현 년도 분기 매출";
-        let quarterlySales = [];
-        /*[# th:each="QuarterlySales : ${firstLoadingQuarterlySales}"]*/
-        quarterlySales.push(/*[[${QuarterlySales.quarterlySales}]]*/);
+        let reservationsEachMovieTitle = [];
+        let reservationsEachMovieTicketCount = [];
+        let totalTicketCount = 0;
+        /*[# th:each="reservationsEachMovie : ${reservationsEachMovieLast3Months}"]*/
+        reservationsEachMovieTitle.push(/*[[${reservationsEachMovie.movieTitle}]]*/);
+        reservationsEachMovieTicketCount.push(/*[[${reservationsEachMovie.ticketCount}]]*/);
+        totalTicketCount += /*[[${reservationsEachMovie.ticketCount}]]*/'totalTicketCount';
         /*[/]*/
-        
         
         const allDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
         let salesByPeriod = [];

@@ -72,23 +72,14 @@ public class AdminController {
 		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
 		model.addAttribute("salesByPeriod", salesByPeriod);
 		
-		// 년도별 분기 매출
-		LocalDate currentDate = LocalDate.now();
-		String currentYear = ""+currentDate.getYear();
-		List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
-		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
+		// 근 3개월 영화별 예매건수
+		List<SalesByPeriod> reservationsEachMovieLast3Months = service.reservationsEachMovieLast3Months();
+		model.addAttribute("reservationsEachMovieLast3Months", reservationsEachMovieLast3Months);
 
 		return "admin/admin_dashboard";
+		
 	}
 	
-	// 대시보드 년도별 분기 매출
-	@GetMapping("/admin/quarterlySales")
-	@ResponseBody
-	public List<SalesByPeriod> quarterlySales(String selectedYear) {
-		return service.quarterlySales(selectedYear); 
-	}
-
-
 	// 영화별 매출 불러오기
 	@GetMapping("/ticketAmount")
 	@ResponseBody
@@ -1667,6 +1658,11 @@ public class AdminController {
   		LocalDate currentDate = LocalDate.now();
   		String currentYear = ""+currentDate.getYear();
   		
+  		LocalDate miusOneYear = currentDate.minusYears(1);
+  		
+  		String today = ""+currentDate;
+  		String oneYearAgo = ""+miusOneYear;
+  		
   		// 지난주 요일별 매출
         List<SalesByPeriod> firstLoadingQuarterlySales = service.firstLoadingQuarterlySales(currentYear);
 		model.addAttribute("firstLoadingQuarterlySales", firstLoadingQuarterlySales);
@@ -1675,6 +1671,16 @@ public class AdminController {
 		List<SalesByPeriod>firstLoadingMonthlySalesByYear = service.firstLoadingMonthlySalesByYear(currentYear);
 		model.addAttribute("firstLoadingMonthlySalesByYear", firstLoadingMonthlySalesByYear);
 		
+		// 지난주 매출
+		List<SalesByPeriod> salesByPeriod = service.getSalesByDay();
+		model.addAttribute("salesByPeriod", salesByPeriod);
+		
+		// 지난주 매출
+		System.out.println(today);
+		System.out.println(oneYearAgo);
+		List<SalesByPeriod> reservationsByMovieOnSelectedDate = service.reservationsByMovieOnSelectedDate(oneYearAgo, today);
+		model.addAttribute("reservationsByMovieOnSelectedDate", reservationsByMovieOnSelectedDate);
+		
   		return "admin/admin_sales";
   	}
   	
@@ -1682,9 +1688,26 @@ public class AdminController {
 	@GetMapping("/admin/monthlySalesByYear")
 	@ResponseBody
 	public List<SalesByPeriod> monthlySalesByYear(String selectedYear) {
+		System.out.println(service.monthlySalesByYear(selectedYear));
 		return service.monthlySalesByYear(selectedYear); 
 	}
-        
+	
+	// 년도별 분기 매출
+	@GetMapping("/admin/quarterlySales")
+	@ResponseBody
+	public List<SalesByPeriod> quarterlySales(String selectedYear) {
+		return service.quarterlySales(selectedYear); 
+	}
+	
+	// 영화별 예매 건수
+	@GetMapping("/admin/reservationsByMovieDate")
+	@ResponseBody
+	public List<SalesByPeriod> reservationsByMovieOnSelectedDate(
+			@RequestParam("dt_fr_input") String dtFrInput,
+            @RequestParam("dt_bk_input") String dtBkInput) {
+		return service.reservationsByMovieOnSelectedDate(dtFrInput, dtBkInput); 
+	}
+	        
         
         
     

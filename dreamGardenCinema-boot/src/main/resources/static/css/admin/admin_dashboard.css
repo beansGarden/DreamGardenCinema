@@ -121,25 +121,53 @@ th,td{
     text-align: center;
 }
 
-/* 영화 분기 매출 */
-.admin_dashboardSalesforQuarter{
+/* 영화별 최근 세달 예매율 */
+.admin_reservations_each_movie_last_3_months{
     background-color: #f1f4f4;
     width: 500px;
-    height: 190px;
+    height: 355px;
     box-shadow: 6px 12px 31px -3px rgba(165, 180, 180, 0.27);
 }
 
-.admin_dashboardSalesforQuarter_title{
+.admin_reservations_each_movie_last_3_months_title_box{
     border-radius: 10px;
     background-color: #000000;
     color:  #fff;;
     padding: 10px;
     border-bottom: none;
-
+    display: flex;
+    justify-content: space-between;
+}
+.more_chart{
+    border-radius: 10px;
+    background-color: #000000;
+    color:  #fff;;
+    border-bottom: none;
+}
+.totalTicketCount{
+    margin-top: -10px;
+    font-weight: normal;
+}
+#reservationsEachMovieLast3MonthsChart{
+    width: 300px;
+}
+/* 영화 분기 매출 내부 div */
+.admin_reservations_each_movie_last_3_months-in{
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-weight: bold;
+    color: #000000;
+    height: 355px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 분기별 매출 제목 span */
-.admin_dashboardSalesforQuarter>span {
+.admin_reservations_each_movie_last_3_months>span {
     border: 1px solid #333;
     border-radius: 15px;
     padding: 5px;
@@ -160,20 +188,7 @@ th,td{
 }
 
 
-/* 영화 분기 매출 내부 div */
-.admin_dashboardSalesforQuarter-in{
-    border-radius: 10px;
-    text-align: center;
-    border: 1px solid #ccc;
-    background-color: white;
-    font-weight: bold;
-    color: #000000;
-    height: 355px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 
 
 /* 1:1 문의 사항 리스트 및 그래프 박스 */
