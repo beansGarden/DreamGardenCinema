@@ -97,18 +97,11 @@
     height: 50px;
 }
 
-.my-page-myinfo img:nth-child(1) {
-    position: absolute;
-    top: 244px;
-    left: 127px;
-    animation: bounce 1s ease-in infinite;
-}
 
-.my-page-myinfo img:nth-child(2) {
-    position: absolute;
-    top: 244px;
-    left: 151px;
-    animation: bounce 1s ease-in infinite;
+.face-button-qa-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .my-page-myinfo>a:nth-child(2):hover {
@@ -925,65 +918,80 @@
 }
 
 /* 내정보 변경 애니메이션 */
-.face {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: #fcfcfc;
-    border-radius: 50%;
-    border: 1px solid #777777;
-    top: 32%;
-    left: 9%;
-    z-index: 2;
-    animation: bounce 1s ease-in infinite;
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
 }
 
+button.face-button {
+    width: 6.25rem;
+    height: 6.25rem;
+    border-radius: 50%;
+    background: #fdda5f;
+    box-shadow: inset 2px -4px 18px #fd9744;
+}
+
+.face-container {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 20px;
+    margin: auto;
+}
 
 .eye {
     position: absolute;
-    width: 5px;
-    height: 5px;
-    background: #777777;
+    height: 0.5rem;
+    width: 0.5rem;
+    background: #2a2927;
     border-radius: 50%;
-    top: 40%;
-    left: 20%;
+    -webkit-animation: eyeBlink 3200ms linear infinite;
+    animation: eyeBlink 3200ms linear infinite;
 }
 
-.right {
-    left: 68%;
+.eye.left {
+    left: 0;
+}
+
+.eye.right {
+    left: 2rem;
 }
 
 .mouth {
     position: absolute;
-    top: 43%;
-    left: 41%;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
+    top: 1.125rem;
+    left: 0.8rem;
+    width: 1rem;
+    height: 0.125rem;
+    background: #2a2927;
+    border-radius: 0;
 }
 
-.happy {
-    border: 2px solid;
-    border-color: transparent #777777 #777777 transparent;
-    transform: rotate(45deg);
+.eye,
+.mouth {
+    box-shadow: inset 1px 2px 4px #121110;
 }
 
-.shadow {
-    position: absolute;
-    width: 93px;
-    height: 10px;
-    opacity: 0.5;
-    background: #777777;
-    left: 9%;
-    top: 44%;
-    border-radius: 50%;
-    z-index: 1;
+.face-button:hover .mouth,
+.face-button:active .mouth {
+    left: 1rem;
+    width: 0.5rem;
+    height: 0.4rem;
+    border-radius: 1rem 1rem 0.125rem 0.125rem;
 }
 
-.scale {
-    animation: scale 1s ease-in infinite;
+.face-button:hover .eye,
+.face-button:active .eye {
+    height: 0.375rem;
+    width: 0.375rem;
+    box-shadow: 0 0 0 0.25rem #fff;
 }
 
+<<<<<<< HEAD
 .my-page-info-icon {
 
     position: static;
@@ -995,19 +1003,124 @@
     left: 91px;
     top: 427px;
 }
+=======
+@-webkit-keyframes eyeBlink {
 
+    0%,
+    30%,
+    36%,
+    100% {
+        transform: scale(1);
+    }
+>>>>>>> origin/poodle
 
-@keyframes bounce {
-    50% {
-        transform: translateY(-10px);
+    32%,
+    34% {
+        transform: scale(1, 0);
     }
 }
 
-@keyframes scale {
-    50% {
-        transform: scale(0.9);
+@keyframes eyeBlink {
+
+    0%,
+    30%,
+    36%,
+    100% {
+        transform: scale(1);
+    }
+
+    32%,
+    34% {
+        transform: scale(1, 0);
     }
 }
+
+
+/* 닉네임변경 */
+#jello1{
+    filter: invert(1);
+}
+
+#jello1:hover {
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+}
+
+@-webkit-keyframes jello-horizontal {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes jello-horizontal {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+
 
 /* 문의사항 아이콘 */
 .cls-1,
@@ -1050,20 +1163,21 @@
     height: 100px;
 }
 
-#exclaim {
+
+#exclaim:hover {
     animation-name: hop;
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-fill-mode: forward;
     animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
-    animation-iteration-count: 2;
+    animation-iteration-count: 3;
 }
 
-#question {
+#question:hover {
     animation-name: rotate;
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-fill-mode: forward;
     animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
-    animation-iteration-count: 2;
+    animation-iteration-count: 3;
 
     transform-origin: 50% 50%;
 }
@@ -1167,4 +1281,181 @@
 
 .DGmembership-cp-title>h3 {
     margin-bottom: 10px;
+}
+
+/* 멤버십 아이콘 애니메이션 */
+svg {
+    fill: currentColor;
+}
+
+.star-container {
+    cursor: pointer;
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.star-container:hover .star-shape {
+    color: #f59f00;
+    animation-name: star-scale;
+    animation-delay: 0.1s;
+    animation-duration: 0.85s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0, 0.8);
+}
+
+.star-container:hover .star-circle {
+    animation-name: circle-scale;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0, 0.8);
+}
+
+.star-container:hover .star-line {
+    animation-name: line-emit;
+    animation-delay: 0.05s;
+    animation-duration: 0.65s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0, 0.8);
+}
+
+.star-wrapper {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.star-shape {
+    z-index: 20;
+    color: #ced4da;
+    transform: scale(0.9);
+}
+
+.star-circle {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.star-line-container {
+    position: absolute;
+    top: 0;
+    left: 48px;
+    z-index: 10;
+}
+
+.star-line-wrapper:nth-child(1) {
+    position: absolute;
+    top: 8px;
+    left: 28px;
+    transform: rotate(36deg);
+}
+
+.star-line-wrapper:nth-child(2) {
+    position: absolute;
+    top: 64px;
+    left: 48px;
+    transform: rotate(108deg);
+}
+
+.star-line-wrapper:nth-child(3) {
+    position: absolute;
+    top: 98px;
+    left: 1px;
+    transform: rotate(180deg);
+}
+
+.star-line-wrapper:nth-child(4) {
+    position: absolute;
+    top: 66px;
+    left: -47px;
+    transform: rotate(252deg);
+}
+
+.star-line-wrapper:nth-child(5) {
+    position: absolute;
+    top: 10px;
+    left: -30px;
+    transform: rotate(324deg);
+}
+
+.star-line {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 2px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f08c00;
+    transform-origin: center bottom;
+    transform: scaleY(0);
+}
+
+@keyframes star-scale {
+
+    from,
+    15% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    70% {
+        animation-timing-function: cubic-bezier(0.215, 0.6, 0.355, 1);
+        transform: scale(0.75);
+    }
+
+    to {
+        transform: scale(0.85);
+    }
+}
+
+@keyframes circle-scale {
+    from {
+        transform: scale(0);
+        border: 50px solid #fcc419;
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0.9);
+        border: 0px solid #fcc419;
+        opacity: 0;
+    }
+}
+
+@keyframes line-emit {
+    from {
+        transform-origin: center bottom;
+        transform: scaleY(0);
+    }
+
+    50% {
+        animation-timing-function: cubic-bezier(0, 0.65, 0, 0.55);
+        transform: scaleY(0.3);
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    to {
+        transform-origin: center top;
+        transform: scaleY(0);
+        opacity: 0;
+    }
 }

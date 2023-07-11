@@ -87,10 +87,6 @@ public class UserController {
 				cookie.setMaxAge(0);
 			}
 			
-//			if(loginUser.getUserRole().toUpperCase().equals("A")) { // 관리자 로그인 시 관리자페이지 이동
-//				path = "redirect:/admin";
-//			}
-
 			cookie.setPath("/");
 			resp.addCookie(cookie);
 		} else {

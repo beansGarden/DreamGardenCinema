@@ -991,10 +991,12 @@
 					AND MOVIE_TITLE LIKE '%${content}%' 
 				</when>
 				<when test='selectOpt == "d"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE = '감독'
 				</when>
 				<when test='selectOpt == "a"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE != '감독'
 				</when>
 			</choose>
 		</if>
@@ -1026,10 +1028,12 @@
 					AND MOVIE_TITLE LIKE '%${content}%' 
 				</when>
 				<when test='selectOpt == "d"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE = '감독'
 				</when>
 				<when test='selectOpt == "a"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE != '감독'
 				</when>
 			</choose>
 		</if>
