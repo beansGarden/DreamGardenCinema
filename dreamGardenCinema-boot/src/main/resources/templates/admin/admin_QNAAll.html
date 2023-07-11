@@ -127,7 +127,7 @@
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
                     <li><a th:href="@{/adminQnaAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
-                    <li><a th:href="@{/adminQnaAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+
 
                     <!-- 특정 페이지로 이동 -->
                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">

@@ -25,7 +25,7 @@
             <!-- 검색창 -->
             <div class="admin_reviewSearchWrap">
                 <!-- select랑 검색창만 감싸는 div -->
-                <div class="admin_userSearchWrap2">
+                <div class="admin_reviewSearchWrap2">
                     <form th:action="@{/getReviewSearchList}" autocomplete="off">
                         <select class="admin_reviewSelect" name="type" id="">
                             <option value="reviewNo">리뷰번호</option>
@@ -55,15 +55,16 @@
                 <span class="admin_reviewCountAll">0</span>
                 <span>개)</span>
 
-            </div>
+         
             <div class="admin-review-count">
                 <span><a th:href="@{/adminReview}" class="reviewCount">총 게시글 수 : </a></span>
-                <span class="adminReviewCountAll">0</span>
+                <span class="adminReviewCountAll" style="font-weight: bold">0</span>/
                 <span><a th:href="@{/adminReviewIn}" class="reviewCount">게시글 수 : </a></span>
-                <span class="adminReviewInCountAll">0</span>
+                <span class="adminReviewInCountAll" style="font-weight: bold">0</span>/
                 <span><a th:href="@{/adminReviewOut}" class="reviewCount">삭제한 게시글 수 :</a></span>
-                <span class="adminReviewOutCountAll">0</span>
+                <span class="adminReviewOutCountAll" style="font-weight: bold">0</span>/
             </div>
+        </div>
             <!-- 게시판 -->
             <div class="admin_reviewBoardWrap">
                 <table id="boardTable" style='table-layout:fixed'>

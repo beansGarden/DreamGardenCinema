@@ -25,7 +25,7 @@ public interface AdminService {
 	List<Movie> cinemaCurrentList();
 	
 	//영화별 매출 리스트 불러오기
-	List<Ticket> ticketList(String movieNo);
+	Long ticketList(String movieNo);
 	
 	
 	//대시보드 1:1문의 최신 5개만 오게하기

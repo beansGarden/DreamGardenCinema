@@ -40,7 +40,7 @@ public interface AdminMapper {
 
 	
 	// 영화별 매출 불러오기
-	List<Ticket> ticketList(String movieNo);
+	Long ticketList(String movieNo);
 
 	List<Qna> adminQnaList5();
 

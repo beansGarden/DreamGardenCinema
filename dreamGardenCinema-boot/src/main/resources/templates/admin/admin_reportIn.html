@@ -24,7 +24,7 @@
             <!-- 검색창 -->
             <div class="admin_reportSearchWrap">
                 <!-- select랑 검색창만 감싸는 div -->
-                <div class="admin_userSearchWrap2">
+                <div class="admin_reportSearchWrap2">
                     <form th:action="@{/getReportInSearchList}" autocomplete="off">
                         <select class="admin_reportSelect" name="type" id="">
                             option value="reportNo">번호</option>
@@ -55,15 +55,16 @@
                 <span class="admin_reportCountAll">0</span>
                 <span>개)</span>
 
-            </div>
+       
             <div class="admin-report-count">
                 <span><a th:href="@{/adminReport}" class="reportCount">총 게시글 수 : </a></span>
-                <span class="adminReportCountAll">0</span>
+                <span class="adminReportCountAll" style="font-weight: bold">0</span>/
                 <span><a th:href="@{/adminReportIn}" class="reportCount">게시글 수 : </a></span>
-                <span class="adminReportInCountAll">0</span>
+                <span class="adminReportInCountAll" style="font-weight: bold">0</span>/
                 <span><a th:href="@{/adminReportOut}" class="reportCount">삭제한 게시글 수 :</a></span>
-                <span class="adminReportOutCountAll">0</span>
+                <span class="adminReportOutCountAll" style="font-weight: bold">0</span>/
             </div>
+        </div>
             <!-- 게시판 -->
             <div class="admin_reportBoardWrap">
                 <table id="boardTable" style='table-layout:fixed'>

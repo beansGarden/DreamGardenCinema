@@ -178,8 +178,9 @@ td {
 /* 수정,삭제 감싸는 div */
 .admin_qnaBtn {
     display: flex;
+    margin-left: 50%;
     gap: 15px;
-    margin: -15px 0 0 82%;
+    margin: -15px 0 0 75%;
 }
 
 /* 등록버튼*/

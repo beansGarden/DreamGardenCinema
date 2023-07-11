@@ -166,7 +166,7 @@ body>main>div.admin_noticeWrap>div.admin_noticeBoardWrap>table>thead>tr>th:nth-c
     display: flex;
     margin-left: 75%;
     gap: 15px;
-    margin: -15px 0 0 75%;
+    margin: -15px 0 0 65%;
 }
 
 /* 등록버튼 */
