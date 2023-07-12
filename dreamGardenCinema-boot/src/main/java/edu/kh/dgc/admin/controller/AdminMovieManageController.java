@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.admin.model.service.AdminMovieManageService;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -109,12 +110,16 @@ public class AdminMovieManageController {
 								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
 								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
 								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
-								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole) {
+								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
+								RedirectAttributes ra) {
 		
-		Map<String, Object> req = new HashMap<>(); 
+		int result;
+		
 		System.out.println(movieNo);
 		
 		System.out.println(updatePoster);
+		result = service.updatePoster(movieNo,updateMovieTitle,updatePoster);
+		
 		System.out.println(updateMovieTitle);
 		System.out.println(updateReleaseDate);
 		System.out.println(updateScreening);
@@ -128,6 +133,15 @@ public class AdminMovieManageController {
 		System.out.println(updatePersonRole);
 		
 		
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 수정되었습니다.";
+		}else {
+			message = "게시글 수정 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
 		
 		return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + updateScreening;
 	}

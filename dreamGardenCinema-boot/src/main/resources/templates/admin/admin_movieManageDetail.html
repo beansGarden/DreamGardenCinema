@@ -479,6 +479,12 @@
         const processType = /*[[${resp.type}]]*/ "영화관리종류";
         const rating = /*[[${resp.movieInfo.rating}]]*/ "상영등급";
 
+        const message = /*[[${message}]]*/ "성공 실패 메세지";
+
+        if(message != null){
+            alert(message);
+        }
+
     </script>
 
     <script th:src="@{\js\admin\admin_movieManageDetail.js}"></script>
