@@ -26,13 +26,27 @@
 
         <div class="my-page-category">
             <ul class="my-page-L">
-                <li class="my-page-myinfo">
-                    <a th:href="@{#}"><img th:src="@{/images/myPage/내 정보 아이콘.png}"></a>
-                    <a th:href="@{#}">내정보 변경</a>
+                <li class="my-page-myinfo" style="margin-bottom: 35px;">
+                    <a th:href="@{#}">
+                        <div class="face-button-qa-box">
+                            <div class="face-button-qa">
+                                <img th:src="@{/images/myPage/느낌표1.png}">
+                                <img th:src="@{/images/myPage/물음표.png}">
+                            </div>
+                            <button class="face-button">
+                                <span class="face-container">
+                                    <span class="eye left"></span>
+                                    <span class="eye right"></span>
+                                    <span class="mouth"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </a>
+                    <a th:href="@{#}" style="margin-top: 6px;">내정보 변경</a>
                 </li>
 
                 <li class="my-page-myprofile">
-                    <a th:href="@{#}"><img th:src="@{/images/myPage/프로필 변경 아이콘.png}"></a>
+                    <a th:href="@{#}"><img th:src="@{/images/myPage/이름흰색.png}" class="jello-horizontal" id="jello1"></a>
                     <a th:href="@{#}">닉네임 변경</a>
                 </li>
             </ul>
@@ -54,16 +68,70 @@
             </a>
 
             <ul class="my-page-R">
-                <li class="my-page-customer-service">
-                    <a th:href="@{/customerservice/service}"><img th:src="@{/images/myPage/1TO1문의.png}"></a>
-                    <a th:href="@{/customerservice/service}">1:1문의</a>
+                <li class="my-page-customer-service" style="margin-top: 26px;">
+                    <a th:href="@{/customerservice/service}">
+                        <div id="wrap">
+                            <svg id="about" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188.64 180">
+                                <g id="exclaim" data-name="exclaim">
+                                    <g id="e">
+                                        <rect id="topstick" class="cls-1" x="131.06" y="12.36" width="24.28"
+                                            height="116.18" rx="9.59" ry="9.59" />
+                                    </g>
+                                    <g id="ecircle">
+                                        <circle id="bottomcircle" class="cls-2" cx="143.2" cy="154.59" r="11.45" />
+                                    </g>
+                                </g>
+                                <g id="question">
+                                    <g id="q">
+                                        <path class="cls-3"
+                                            d="M41.39,56a7.24,7.24,0,0,1-7.22,7.22A7.24,7.24,0,0,1,27,56,41.73,41.73,0,0,1,39.63,25.38,41.74,41.74,0,0,1,70.26,12.7,41.74,41.74,0,0,1,100.9,25.38,41.74,41.74,0,0,1,113.57,56a41.81,41.81,0,0,1-12.72,30.68L86,100.49A27.91,27.91,0,0,0,77.48,121,7.22,7.22,0,0,1,63,121,41.81,41.81,0,0,1,75.77,90.3L90.65,76.49A27.91,27.91,0,0,0,99.14,56,27.84,27.84,0,0,0,90.7,35.57a27.83,27.83,0,0,0-20.44-8.44,27.83,27.83,0,0,0-20.44,8.44A27.83,27.83,0,0,0,41.39,56Z" />
+                                    </g>
+                                    <g id="qcircle">
+                                        <circle id="bottomcircle-2" data-name="bottomcircle" class="cls-4" cx="70.26"
+                                            cy="154.59" r="11.45" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+                    <a th:href="@{/customerservice/service}" style="margin: 5px 0 0 7px">1:1문의</a>
                 </li>
 
-                <li class="my-page-membership">
+                <li class="my-page-membership" style="margin-top: 20px;">
                     <a th:href="@{/myPage/my-page-membership}">
-                        <img th:src="@{/images/myPage/멤버십 아이콘.png}">
+                        <div class="star-container">
+                            <div class="star-wrapper">
+                                <div class="star-shape star-shape-gray">
+                                    <svg viewBox="0 1 52 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                        <path
+                                            d="M19.1599493,39.1271248 C17.4576451,40.0218018 16.7108089,39.4773077 17.0355266,37.5846452 L18.2375322,30.5785868 L18.3264535,30.0602965 L17.9498333,29.6932963 L12.8580559,24.7315783 C11.4811669,23.3898591 11.7682637,22.5119148 13.669534,22.2357297 L20.7061974,21.2135596 L21.226418,21.1379905 L21.459124,20.6666223 L24.606016,14.2922998 C25.457074,12.5684024 26.381668,12.5700646 27.231905,14.2922998 L30.378797,20.6666223 L30.611503,21.1379905 L31.131724,21.2135596 L38.168387,22.2357297 C40.071492,22.5121813 40.355428,23.3911516 38.979865,24.7315783 L33.888088,29.6932963 L33.511468,30.0602965 L33.600389,30.5785868 L34.802395,37.5846452 C35.127425,39.4791331 34.378634,40.020939 32.677972,39.1271248 L26.384189,35.8193128 L25.918961,35.5748037 L25.453732,35.8193128 L19.1599493,39.1271248 L19.1599493,39.1271248 Z"
+                                            id="starme" sketch:type="MSShapeGroup"></path>
+                                    </svg>
+                                </div>
+                                <ul class="star-line-container">
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                </ul>
+                                <div class="star-circle"></div>
+                            </div>
+                        </div>
                     </a>
-                    <a th:href="@{/myPage/my-page-membership}">멤버십</a>
+                    <a th:href="@{/myPage/my-page-membership}" style="margin-top: 13px;">멤버십</a>
                 </li>
             </ul>
         </div>
@@ -136,8 +204,8 @@
                 <tr class="my-page-inquiry-table-display">
                     <td colspan="6" id="my-page-inquiry-title" th:text="|문의 제목 : ${list.qnaTitle}|"></td>
                 </tr>
-                <tr class="my-page-inquiry-table-display">  
-                    <td colspan="6" >
+                <tr class="my-page-inquiry-table-display">
+                    <td colspan="6">
                         <div id="my-page-inquiry-content">
                             <div>
                                 <span th:text="|문의 내용 : ${list.qnaContent}|">문의 내용:</span>
@@ -152,7 +220,7 @@
                                     <img th:src="@{/images/myPage/고죠 사토루.jpg}">
                                     <img th:src="@{/images/myPage/고죠 사토루.jpg}"> -->
                                 </div>
-                                
+
                             </div>
                         </div>
                     </td>

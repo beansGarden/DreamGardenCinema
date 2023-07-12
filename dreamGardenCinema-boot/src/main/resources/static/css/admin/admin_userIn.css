@@ -70,7 +70,11 @@
     border: none;
     outline: none;
 }
-
+.admin_userList{
+    width: 1000px;
+    border-bottom: 2px solid #c8c8c8;
+    padding-bottom: 15px;
+}
 
 
 /* 검색버튼 */

@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	//영화별 매출 불러오기
 	@Override
-	public List<Ticket> ticketList(String movieNo) {
+	public Long ticketList(String movieNo) {
 		
 		return mapper.ticketList(movieNo);
 	}
@@ -1551,14 +1551,15 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int deleteDetailTime(Schedule schedule) {
-		
+		System.out.println(schedule);
 		int count = mapper.selectTicketing(schedule);
+		System.out.println(count);
 		int result = 0;
 		if(count==0) {
 			result = mapper.deleteDetailTime(schedule);
 		}
 		
-		return mapper.deleteDetailTime(schedule);
+		return result;
 	}
 
 	// 체크한 상영정보 삭제하기(찬희)

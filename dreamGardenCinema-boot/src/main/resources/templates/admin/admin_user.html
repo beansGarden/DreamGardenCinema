@@ -24,7 +24,7 @@
             <!--  게시판만 감싸는  박스 -->
             <div class="admin_mem-board-box">
                 <!-- 검색창 -->
-
+                <div class="admin_userSearchWrapBox">
                 <form th:action="@{/getUserSearchList}" autocomplete="off" onsubmit="getUserCount();">
                     <div class="admin_userSearchWrap">
                         <!-- select랑 검색창만 감싸는 div -->
@@ -49,10 +49,11 @@
             </form>
             </div>
             </div>
+            </div>
 
             <div class="admin-re-mem-count-box">
                 <!-- 목록 count -->
-                <div class="admin_reportList">
+                <div class="admin_userList">
                     <span>목록</span>
                     <span>( 총</span>
                     <span class="admin_userCount"> 0 </span>
@@ -60,16 +61,17 @@
                     <span class="admin_userCountAll">0</span>
                     <span>개)</span>
 
-                </div>
+              
 
                 <div class="admin-member-count">
                     <span ><a th:href="@{/adminUser}" class="memberCount">총 회원 수 : </a></span>
-                    <span class="adminUserCountAll">0</span>
+                    <span class="adminUserCountAll" style="font-weight: bold">0</span>/
                     <span ><a th:href="@{/adminUserIn}" class="memberCount">일반 회원 수 : </a></span>
-                    <span class="adminUserInCountAll">0</span>
+                    <span class="adminUserInCountAll" style="font-weight: bold">0</span>/
                     <span ><a th:href="@{/adminUserOut}" class="memberCount">탈퇴한 회원 수 :</a></span>
-                    <span class="adminUserOutCountAll">0</span>
+                    <span class="adminUserOutCountAll" style="font-weight: bold">0</span>/
                 </div>
+            </div>
             </div>
             <!-- 게시판 -->
             <div class="admin_userBoardWrap">
