@@ -1,19 +1,29 @@
 /* 전체 감싸는 div */
-.admin_reportWrap{
+.admin_reportWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
     width: 1000px;
-      display: block;
-    margin: 100px auto;
-    height: auto;
-    top:-1000px;
-    left:400px;
-    position:relative;
+    left: 580px;
+    top: 30px;
+    height: 750px;
+    gap: 15px;
 }
+
 /* 게시판 제목 */
-#admin_reportTitle{
-    color:#0F0954;
-    font-size: 30px;
+#admin_reportTitle {
+    background-color: black;
+    color: white;
+    font-size: 25px;
     font-weight: bold;
-   
+    width: 150px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 테이블 */
@@ -77,17 +87,25 @@ body > div.admin_reportWrap > table > thead > tr:nth-child(6) > td{
 }
 
 /* 등록버튼 */
-.admin_reportEndBtn{
-    margin: 50px 10px;
-    padding: 5px 15px;
-    border-radius: 5px;
-    background-color: #0F0954;
-
-    
+.admin_reportEndBtn {
+    padding: 5px -6px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    color: white;
+    transform: translateX(300px) translateY(10px);
 }
 
-.admin_reportEndBtn a{
-
+/* 등록버튼 hover */
+.admin_reportEndBtn:hover {
+    font-size: 13px;
+    background-color: #042928;
+    font-weight: bold;
     color: white;
-    
+
+}
+
+.admin_reportEndBtn a {
+    color: white;
 }

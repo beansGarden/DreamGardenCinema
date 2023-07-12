@@ -29,7 +29,7 @@
                     <!-- 검색창 -->
                     <div class="admin_qnaSearchWrap">
                         <!-- select랑 검색창만 감싸는 div -->
-                        <div class="admin_userSearchWrap2">
+                        <div class="admin_qnaSearchWrap2">
                             <form th:action="@{/getAllSearchList}" autocomplete="off">
                                 <select class="admin_qnaSelect" name="type" id="">
                                     <option value="qnaNo">번호</option>
@@ -118,7 +118,6 @@
             </div>
 
             <!-- 페이지 네이션 -->
-            <!-- 페이지 네이션 -->
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div class="pagination-area">
 
@@ -128,11 +127,7 @@
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
                     <li><a th:href="@{/adminQnaAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
-                    <li><a th:href="@{/adminQnaAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
-                    <!-- 이전 목록 마지막 번호로 이동 -->
-                    <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
-                    <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
 
                     <!-- 특정 페이지로 이동 -->
                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">

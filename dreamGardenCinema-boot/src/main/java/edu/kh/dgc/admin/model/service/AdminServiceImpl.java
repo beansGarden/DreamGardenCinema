@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	//영화별 매출 불러오기
 	@Override
-	public List<Ticket> ticketList(String movieNo) {
+	public Long ticketList(String movieNo) {
 		
 		return mapper.ticketList(movieNo);
 	}

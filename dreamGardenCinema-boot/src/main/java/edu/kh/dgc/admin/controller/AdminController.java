@@ -86,8 +86,9 @@ public class AdminController {
 	public Map<String, Object> getTicketAmount(@RequestParam(value = "movieNo", required = false) String movieNo) {
 		Map<String, Object> response = new HashMap<>();
 
-		List<Ticket> ticketAmount = service.ticketList(movieNo);
+		Long ticketAmount = service.ticketList(movieNo);
 		response.put("ticketAmount", ticketAmount);
+		System.out.println(ticketAmount);
 
 		return response;
 	}
