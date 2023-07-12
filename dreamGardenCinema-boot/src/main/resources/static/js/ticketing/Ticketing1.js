@@ -182,7 +182,7 @@ function theaterChoiceajax(e){
                 const li = document.createElement("li");
                 const label = document.createElement("label");
                 label.classList.add("btn");
-                label.setAttribute("onclick", "movieTimeSub()");
+                label.addEventListener("click", movieTimeSub);
                 label.setAttribute("for", `${timeList[i].movieTheater},${timeList[i].movieTime}`);
 
                 const input = document.createElement("input");
@@ -215,14 +215,16 @@ function theaterChoiceajax(e){
 }
 
 // 영화시간 버튼 클릭 시 제출
-function movieTimeSub(){
+function movieTimeSub(event){
     if(loginUser == null){
         alert("로그인 후 이용해주시길 바랍니다.");
+        event.preventDefault();
         document.location.href = "/user/login";
         return;
     }
     document.getElementById('timeFrm').submit();
 }
+
 
 // 예매순, 별점순 AJAX
 const sortCont = document.getElementById("sortCont");
