@@ -1,6 +1,7 @@
 	package edu.kh.dgc.admin.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.dgc.admin.model.service.AdminMovieManageService;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -88,6 +91,41 @@ public class AdminMovieManageController {
 		
 		
 		return "admin/admin_movieManageDetail";
+	}
+	
+	
+	@PostMapping("/adminMovieManage/update")
+	public String updateMovie(int movieNo,
+								MultipartFile updatePoster,
+								String updateMovieTitle,
+								String updateReleaseDate,
+								String updateScreening,
+								int updateRunningTime,
+								String updateGenre,
+								String updateRating,
+								String updateSynopsis,
+								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
+								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
+								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
+								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole) {
+		
+		System.out.println(movieNo);
+		System.out.println(updatePoster);
+		System.out.println(updateMovieTitle);
+		System.out.println(updateReleaseDate);
+		System.out.println(updateScreening);
+		System.out.println(updateRunningTime);
+		System.out.println(updateGenre);
+		System.out.println(updateRating);
+		System.out.println(updateSynopsis);
+		System.out.println(updateStillcut);
+		System.out.println(updatePersonImg);
+		System.out.println(updatePersonName);
+		System.out.println(updatePersonRole);
+		
+		
+		
+		return "redirect:/adminMovieManage";
 	}
 	
 	
