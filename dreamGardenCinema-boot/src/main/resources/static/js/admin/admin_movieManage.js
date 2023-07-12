@@ -19,7 +19,7 @@ const screenWaitBtn = document.getElementById("screenWait");
 const screenPromiseBtn = document.getElementById("screenPromise");
 const screenCurrentBtn = document.getElementById("screenCurrent");
 const screenDownBtn = document.getElementById("screenDown");
-const highlightBtn  = document.getElementById("highlight");
+// const highlightBtn  = document.getElementById("highlight");
 const wholeBtn = document.getElementById("whole");
 
 
@@ -33,7 +33,7 @@ screenWaitBtn.addEventListener("click", (e) => {
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
-    highlightBtn.className = "";
+    // highlightBtn.className = "";
     wholeBtn.className = "";
 
     selectList()
@@ -51,7 +51,7 @@ screenPromiseBtn.addEventListener("click", (e) => {
     screenPromiseBtn.className = "menu-active";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
-    highlightBtn.className = "";
+    // highlightBtn.className = "";
     wholeBtn.className = "";
 
     selectList()
@@ -68,7 +68,7 @@ screenCurrentBtn.addEventListener("click", (e) => {
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "menu-active";
     screenDownBtn.className = "";
-    highlightBtn.className = "";
+    // highlightBtn.className = "";
     wholeBtn.className = "";
 
     selectList()
@@ -84,7 +84,7 @@ screenDownBtn.addEventListener("click", (e) => {
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "menu-active";
-    highlightBtn.className = "";
+    // highlightBtn.className = "";
     wholeBtn.className = "";
 
     selectList()
@@ -93,21 +93,21 @@ screenDownBtn.addEventListener("click", (e) => {
 });
 
 
-highlightBtn.addEventListener("click", (e) => {
+// highlightBtn.addEventListener("click", (e) => {
 
-    screenType = "highlight";
-    currentPage = e.target.getAttribute("data-page")
+//     screenType = "highlight";
+//     currentPage = e.target.getAttribute("data-page")
 
-    screenWaitBtn.className = "";
-    screenPromiseBtn.className = "";
-    screenCurrentBtn.className = "";
-    screenDownBtn.className = "";
-    highlightBtn.className = "menu-active";
-    wholeBtn.className = "";
+//     screenWaitBtn.className = "";
+//     screenPromiseBtn.className = "";
+//     screenCurrentBtn.className = "";
+//     screenDownBtn.className = "";
+//     highlightBtn.className = "menu-active";
+//     wholeBtn.className = "";
 
-    selectList()
+//     selectList()
 
-});
+// });
 
 
 wholeBtn.addEventListener("click", (e) => {
@@ -119,7 +119,7 @@ wholeBtn.addEventListener("click", (e) => {
     screenPromiseBtn.className = "";
     screenCurrentBtn.className = "";
     screenDownBtn.className = "";
-    highlightBtn.className = "";
+    // highlightBtn.className = "";
     wholeBtn.className = "menu-active";
     
     selectList()
@@ -181,14 +181,14 @@ async function selectList(){
 
             const movieStatue = document.createElement("td");
 
-            if(screenType != 'highlight'){
+            // if(screenType != 'highlight'){
             const btnSelect = document.createElement("button");
             btnSelect.innerText = "상세보기";
             btnSelect.addEventListener('click', function() {
                 location.href = '/adminMovieManage/detail?movieNo=' + movie.movieNo + '&type=read' + '&screen=' + screenType;
             });
             movieStatue.append(btnSelect);
-            }
+            // }
 
             const btnUpdate = document.createElement("button");
             btnUpdate.innerText = "수정";
@@ -197,7 +197,7 @@ async function selectList(){
             });
             movieStatue.append(btnUpdate);
             
-            if(screenType == 'wait' || screenType == 'down' || screenType == 'highlight' || screenType == 'all'){
+            if(screenType == 'wait' || screenType == 'down' /* || screenType == 'highlight' */ || screenType == 'all'){
             const btnDelete = document.createElement("button");
             btnDelete.innerText = "삭제";
             btnDelete.addEventListener('click', deleteList());
@@ -230,7 +230,11 @@ async function selectList(){
 
                 const btnCreate = document.createElement("button");
                 btnCreate.innerText = "영화등록";
-                btnCreate.addEventListener('click', createList());
+                btnCreate.addEventListener('click', () => {
+
+                    location.href = '/adminMovieManage/detail?movieNo=' + 0 + '&type=create' + '&screen=wait';
+
+                });
                 movieStatue.append(btnCreate);
 
                 movieStatue.classList.add("movieStatus");
@@ -249,42 +253,42 @@ async function selectList(){
             tbody.append(warningRow);
         }
         
-        if(screenType == 'highlight'){
-            if(selectList.length < 8){
-            const infoRow = document.createElement("tr");
+        // if(screenType == 'highlight'){
+        //     if(selectList.length < 8){
+        //     const infoRow = document.createElement("tr");
 
-            const movieNo = document.createElement("td");
-            infoRow.append(movieNo);
+        //     const movieNo = document.createElement("td");
+        //     infoRow.append(movieNo);
 
-            const movieTitle = document.createElement("td");
-            infoRow.append(movieTitle);
+        //     const movieTitle = document.createElement("td");
+        //     infoRow.append(movieTitle);
 
-            const movieReleaseDate = document.createElement("td");
-            infoRow.append(movieReleaseDate)
+        //     const movieReleaseDate = document.createElement("td");
+        //     infoRow.append(movieReleaseDate)
 
-            const movieStatue = document.createElement("td");
+        //     const movieStatue = document.createElement("td");
 
-            const btnCreate = document.createElement("button");
-            btnCreate.innerText = "광고등록";
-            btnCreate.addEventListener('click', createList());
-            movieStatue.append(btnCreate);
+        //     const btnCreate = document.createElement("button");
+        //     btnCreate.innerText = "광고등록";
+        //     btnCreate.addEventListener('click', createList());
+        //     movieStatue.append(btnCreate);
 
-            movieStatue.classList.add("movieStatus");
+        //     movieStatue.classList.add("movieStatus");
 
-            infoRow.append(movieStatue);
+        //     infoRow.append(movieStatue);
 
-            tbody.append(infoRow);
-            }
+        //     tbody.append(infoRow);
+        //     }
 
-            const warningRow = document.createElement("tr");
-            const warning = document.createElement("td");
-            warning.setAttribute("colspan", 4);
-            warning.innerText = "광고는 최대 8개 까지 등록가능합니다."
+        //     const warningRow = document.createElement("tr");
+        //     const warning = document.createElement("td");
+        //     warning.setAttribute("colspan", 4);
+        //     warning.innerText = "광고는 최대 8개 까지 등록가능합니다."
 
-            warningRow.append(warning);
+        //     warningRow.append(warning);
 
-            tbody.append(warningRow);
-        }
+        //     tbody.append(warningRow);
+        // }
 
         {
             currentPage = response.pagination.currentPage;		// 현재 페이지 번호
@@ -301,7 +305,7 @@ async function selectList(){
             nextPage = response.pagination.nextPage;			// 다음 페이지의 페이지 번호 맨 앞
 
             reloadPageList();
-            if(screenType == 'wait' || screenType == 'highlight'){
+            if(screenType == 'wait' /* || screenType == 'highlight' */){
                 document.querySelector('.pagination').innerHTML = '';
             }
         }
