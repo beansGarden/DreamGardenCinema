@@ -111,7 +111,9 @@ public class AdminMovieManageController {
 								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
 								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole) {
 		
+		Map<String, Object> req = new HashMap<>(); 
 		System.out.println(movieNo);
+		
 		System.out.println(updatePoster);
 		System.out.println(updateMovieTitle);
 		System.out.println(updateReleaseDate);
@@ -127,7 +129,7 @@ public class AdminMovieManageController {
 		
 		
 		
-		return "redirect:/adminMovieManage/detail?movieNo="+ movieNo +"&type=read&screen="+updateScreening;
+		return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + updateScreening;
 	}
 	
 	

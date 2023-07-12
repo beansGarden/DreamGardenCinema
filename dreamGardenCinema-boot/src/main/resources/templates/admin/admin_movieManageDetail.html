@@ -377,7 +377,7 @@
                 prevEl: ".swiper-button-prev",
             },
         });
-
+        
         document
             .querySelector("#updateStillcutAppend")
             .addEventListener("click", function (e) {
@@ -385,7 +385,7 @@
                 updateStillCutSwiper.appendSlide(
                     '<div class="swiper-slide">' +
                         '<img src="/images/movie/스틸컷/null.jpg" onclick="openImageEditor(this)" onerror="replaceWithPlaceholderStillcutUpdate(this)" style="cursor: pointer;">' +
-                        '<input type="file" class="updateStillcut-input" accept="image/*" style="display: none;" ' +
+                        '<input type="file" class="updateStillcut-input" name="updateStillcut" accept="image/*" style="display: none;" ' +
                         'onchange="updateImage(this)">' +
                     '</div>'
                     );
@@ -411,15 +411,14 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 updatePersonSwiper.appendSlide(
-
                     '<div class="swiper-slide person">' +
                         '<div class="person-img">' +
                             '<img src="/images/movie/영화인/null.png" onclick="openImageEditor(this)" style="cursor: pointer;">' +
-                            '<input type="file" class="updatePerson-input" accept="image/*" style="display: none;" onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">' +
+                            '<input type="file" class="updatePerson-input" name="updatePersonImg" accept="image/*" style="display: none;" onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">' +
                         '</div>' +
                         '<div class="person-info">' +
-                            '<input class="info-name update-name" placeholder="영화인 이름"></input>' +
-                            '<input class="info-role update-role" placeholder="영화인 역할"></input>' +
+                            '<input class="info-name update-name" name="updatePersonName" placeholder="영화인 이름"></input>' +
+                            '<input class="info-role update-role" name="updatePersonRole" placeholder="영화인 역할"></input>' +
                         '</div>' +
                     '</div>'
                 );

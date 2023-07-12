@@ -196,6 +196,7 @@ ul li{
     height: 145px;
     border: 1px solid #dcdcdc;
     overflow-y: scroll;
+    resize: none;
 }
 
 .synopsis-edit::-webkit-scrollbar {
