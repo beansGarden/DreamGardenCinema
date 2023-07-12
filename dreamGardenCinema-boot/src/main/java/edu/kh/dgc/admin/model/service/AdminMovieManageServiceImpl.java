@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.dgc.admin.model.dao.AdminMovieManageMapper;
 import edu.kh.dgc.admin.model.dto.Pagination;
@@ -20,11 +19,11 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 	@Autowired
 	private AdminMovieManageMapper mapper;
 	
-	private String posterFolderPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\common\\main\\포스터\\";
-	
-	private String PeopleFolderPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\movie\\영화인\\";
-	
-	private String stillCutFolderPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\movie\\스틸컷\\";
+//	private String posterFolderPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\common\\main\\포스터\\";
+//	
+//	private String PeopleFolderPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\movie\\영화인\\";
+//	
+//	private String stillCutFolderPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\movie\\스틸컷\\";
 
 	@Override
 	public Map<String, Object> selectList(Map<String, Object> requestData) {
@@ -65,16 +64,16 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 		
 		return resp;
 	}
-
-	@Override
-	public int updatePoster(int movieNo, String updateMovieTitle, MultipartFile updatePoster) {
-		
-		if(updatePoster.getSize() != 0) {
-			updatePoster.transferTo(null);
-		}
-		
-		return 0;
-	}
+//
+//	@Override
+//	public int updatePoster(int movieNo, String updateMovieTitle, MultipartFile updatePoster) {
+//		
+//		if(updatePoster.getSize() != 0) {
+//			updatePoster.transferTo(null);
+//		}
+//		
+//		return 0;
+//	}
 
 	
 	

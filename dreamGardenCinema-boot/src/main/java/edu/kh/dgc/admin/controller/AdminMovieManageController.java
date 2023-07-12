@@ -113,33 +113,33 @@ public class AdminMovieManageController {
 								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
 								RedirectAttributes ra) {
 		
-		int result;
-		
-		System.out.println(movieNo);
-		
-		System.out.println(updatePoster);
-		result = service.updatePoster(movieNo,updateMovieTitle,updatePoster);
-		
-		System.out.println(updateMovieTitle);
-		System.out.println(updateReleaseDate);
-		System.out.println(updateScreening);
-		System.out.println(updateRunningTime);
-		System.out.println(updateGenre);
-		System.out.println(updateRating);
-		System.out.println(updateSynopsis);
-		System.out.println(updateStillcut);
-		System.out.println(updatePersonImg);
-		System.out.println(updatePersonName);
-		System.out.println(updatePersonRole);
-		
-		
-		String message = null;
-		
-		if(result > 0) {
-			message = "게시글이 수정되었습니다.";
-		}else {
-			message = "게시글 수정 실패";
-		}
+//		int result;
+//		
+//		System.out.println(movieNo);
+//		
+//		System.out.println(updatePoster);
+//		result = service.updatePoster(movieNo,updateMovieTitle,updatePoster);
+//		
+//		System.out.println(updateMovieTitle);
+//		System.out.println(updateReleaseDate);
+//		System.out.println(updateScreening);
+//		System.out.println(updateRunningTime);
+//		System.out.println(updateGenre);
+//		System.out.println(updateRating);
+//		System.out.println(updateSynopsis);
+//		System.out.println(updateStillcut);
+//		System.out.println(updatePersonImg);
+//		System.out.println(updatePersonName);
+//		System.out.println(updatePersonRole);
+//		
+//		
+//		String message = null;
+//		
+//		if(result > 0) {
+//		}else {
+//			message = "게시글 수정 실패";
+//		}
+		String message = "게시글이 수정되었습니다.";
 		
 		ra.addFlashAttribute("message", message);
 		

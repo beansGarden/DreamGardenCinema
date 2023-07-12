@@ -270,6 +270,37 @@ ul li{
 }
 
 
+.createStillcut{
+    height: 100px;
+}
+
+.createStillcutSwiper {
+    width: 80%;
+    height: 100%;
+    user-select: none;
+}
+
+.createStillcutSwiper .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createStillcutSwiper .swiper-slide img {
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    user-select: none;
+}
+
+.createPersonSwiper{
+    width: 80%;
+}
+
+
 #updateSubmit{
     float: right;
     width: 80px;
