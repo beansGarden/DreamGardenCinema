@@ -476,7 +476,7 @@ searchBtn.addEventListener("click", (e) => {
 
       console.log(searchFAQList);
 
-      if (searchFAQList.length == 0) {
+      if (searchFAQList.length == 0 || query === "") {
 
         const firstBox = document.createElement("div");
         firstBox.classList.add("FAQ-first-box");
