@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터-공지사항 게시글 확인</title>
+
+    <link rel="stylesheet" th:href="@{/css/customerservice/notice-con.css}">
+</head>
+
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="customer-service-box">
+
+        <div class="service-notice">
+            <p class="notice-title">고객센터</p>
+        </div>
+        <div class="service-empty-line"></div>
+
+        <div class="service-list">
+            <ul class="service-list-choose">
+                <li><a th:href="@{/customerservice/}">FAQ</a></li>
+                <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                <li><a th:href="@{/customerservice/service}">1:1문의</a></li>
+            </ul>
+        </div>
+
+        <th:block th:each="list : ${noticeList}">
+        <div class="notice-list-title">
+            <p th:text="${list.noticeTitle}">제목</p>
+        </div>
+
+        <div class="notice-list-date">
+            <p th:text="${list.enrollDate}">등록일</p>
+        </div>
+
+        
+            <div class="notice-list-content">
+                <p th:text="${list.noticeContent}">
+                    공지사항 내용
+                </p>
+            </div>
+
+        </th:block>
+        <div class="notice-contents-empty-line"></div>
+
+        <a th:href="@{/customerservice/notice}" class="notice-list-btn"><button id="noticeListBtn">목록</button></a>
+
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+</body>
+
+</html>

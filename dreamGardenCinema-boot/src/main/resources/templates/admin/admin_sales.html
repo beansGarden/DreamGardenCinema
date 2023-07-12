@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="mainHeader">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin_Sales</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin/admin_sales.css">
+
+</head>
+
+<body>
+    
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+
+    <div class="admin_dashboardWrap" layout:fragment="content">
+
+        <div class="admin_sales_box_top">
+            <div class="admin_monthly_sales_by_year">
+                <div class="admin_span_title">
+                    <select id="monthlySalesByYear" onchange="monthlySalesByYearAjax()">
+                        <option value=""></option>
+                    </select>
+                    <span>년 월 매출</span>
+                </div>
+                <div class="admin_monthly_sales_by_year_chart_box">
+                    <canvas id="monthlySalesByYearChart"></canvas>
+                </div>
+            </div>
+
+            <div class="admin_reservationsByMovieOnSelectedDate">
+                <div class="admin_span_title">
+                    <span>영화별 예매 건수</span>
+                </div>
+                <div class="admin_reservationsByMovieOnSelectedDate-in">
+                    <div id="selectDatebuttonTab">
+                        <button type="button" class="select_data_btn select_data_css" id="dt_1year" name="dt_1year" onclick="settingDate(id)">최근 1년</button>
+                        <button type="button" class="select_data_btn select_data_css" id="dt_1week" name="dt_1week" onclick="settingDate(id)">1주일</button>
+                        <button type="button" class="select_data_btn select_data_css" id="dt_1month" name="dt_1month" onclick="settingDate(id)">1개월</button>
+                        <button type="button" class="select_data_btn select_data_css" id="dt_3month" name="dt_3month" onclick="settingDate(id)">3개월</button>
+                        <input type="date" class="select_data_input select_data_css" id="dt_fr_input" name="dt_fr_input" value="" placeholder="" onchange="">
+                        -
+                        <input type="date" class="select_data_input select_data_css" id="dt_bk_input" name="dt_bk_input" value="" placeholder="" onchange="">
+                    </div>
+                    <div id="selectDateInputTab">
+                    </div>
+                    <div id="selectDateSubmitTab">
+                        <button type="button" class="select_data_css" id="dt_inquiry_submit">조회하기</button>
+                        <p class="totalTicketCount"></p>
+                    </div>
+                    <div id="ChartBox">
+                        <canvas id="reservationsByMovieOnSelectedDateChart"></canvas>
+                        <span class="no_information display-none">조회된 정보가 없습니다.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="admin_sales_box_bottom">
+
+            <div class="admin_SalesforQuarter">
+                <div class="admin_span_title">
+                    <select id="QuarterYearSelect" onchange="salesForQuarter()">
+                        <option value=""></option>
+                    </select>
+                    <span class="sales-Quarter-title">년 분기 매출</span>
+                </div>
+                <div class="admin_SalesforQuarter-in">
+                    <div id="salesForQuarterChartBox">
+                        <canvas id="salesForQuarterChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin_dashboardSalesforLastweek">
+                <div class="admin_span_title">
+                    <span>지난주 요일별 매출</span>
+                </div>
+                <div class="admin_dashboardSalesforLastweek-in">
+                    <div>
+                        <canvas id="salesForLastWeek" style="width: 400px;height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script th:inline="javascript">
+
+        // 첫 로딩 영화별 예매 건수
+        let resultMovieTitle = [];
+        let resultMovieTicketCount = [];
+        let totalTicketCount = 0;
+        /*[# th:each="reservationsMovieData : ${reservationsByMovieOnSelectedDate}"]*/
+        resultMovieTitle.push(/*[[${reservationsMovieData.movieTitle}]]*/);
+        resultMovieTicketCount.push(/*[[${reservationsMovieData.ticketCount}]]*/);
+        totalTicketCount += /*[[${reservationsMovieData.ticketCount}]]*/'totalTicketCount';
+        /*[/]*/
+        
+
+        function addMissingDays(inputDays, inputSales, ReferenceDate) {
+            for (let i = 0; i < ReferenceDate.length; i++) {
+                if (!inputDays.includes(ReferenceDate[i])) {
+                    inputDays.splice(i, 0, ReferenceDate[i]);
+                    inputSales.splice(i, 0, 0);
+                }
+            }
+        }
+        const firstLoadingQuarterlySales = /*[[${firstLoadingQuarterlySales}]]*/"첫 로딩 현 년도 분기 매출";
+        let quarterlySales = [];
+        /*[# th:each="QuarterlySales : ${firstLoadingQuarterlySales}"]*/
+        quarterlySales.push(/*[[${QuarterlySales.quarterlySales}]]*/);
+        /*[/]*/
+
+        const firstLoadingMonthlySalesByYear = /*[[${firstLoadingMonthlySalesByYear}]]*/"첫 로딩 현 년도 월 매출";
+        let monthlySalesByYearArr = [];
+        let monthlySalesByYearAndMonthArr = [];
+        /*[# th:each="monthlySalesByYear : ${firstLoadingMonthlySalesByYear}"]*/
+        monthlySalesByYearArr.push(/*[[${monthlySalesByYear.monthlySalesByYear}]]*/);
+        monthlySalesByYearAndMonthArr.push(/*[[${monthlySalesByYear.yearAndMonth}]]*/);
+        /*[/]*/
+
+
+        const allDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+        let salesByPeriod = [];
+        let salesByDays = [];
+        /*[# th:each="sales : ${salesByPeriod}"]*/
+        salesByPeriod.push(/*[[${sales.totalSales}]]*/);
+        salesByDays.push(/*[[${sales.ticketingDay}]]*/);
+        /*[/]*/
+        for (let i = 0; i < allDays.length; i++) {
+            if (!salesByDays.includes(allDays[i])) {
+                salesByDays.splice(i, 0, allDays[i]);
+                salesByPeriod.splice(i, 0, 0);
+            }
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="\js\admin\admin_sales.js"></script>
+
+
+
+</body>
+
+</html>

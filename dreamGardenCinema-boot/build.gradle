@@ -1,0 +1,89 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'edu.kh'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //레이아웃을 위한 Dependency추가 유민 230611
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	//annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// Spring Boot JDBC 관련 라이브러리 모음
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	
+	// Spring - Mybatis 관련 라이브러리 모음
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+	
+	// 오라클 JDBC Driver
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	
+	// @ConfigurationProperties 사용 가능
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	
+    // 스프링 시큐리티
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.0'
+	
+	// 이메일
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.1.0'
+	
+	// 유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	// jsoup HTML parser library @ https://jsoup.org/
+	// 자바 크롤링 라이브러리
+	// jsoup
+	implementation 'org.jsoup:jsoup:1.16.1'
+	
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+	// selenium
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.10.0'
+	
+	implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.2.1'
+	
+	// redis 인증번호 저장 및 유효기간
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	
+	// 웹소켓
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    
+    // portone 결제 
+    implementation 'com.github.iamport:iamport-rest-client-java:0.2.23'
+	
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

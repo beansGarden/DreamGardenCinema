@@ -1,0 +1,227 @@
+*{
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 전체 감싸는 div */
+.admin_reviewWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    width: 1100px;
+    left: 580px;
+    top: 60px;
+    height: 750px;
+    gap: 17px;
+}
+
+.formbox{
+    width: 1000px;
+    justify-content: center;
+    display: flex;
+}
+
+
+/* 게시판 제목 */
+#admin_reviewTitle {
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    width: 180px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+/* 유저검색 창 */
+.admin_reviewSearchWrap{
+    display: flex;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+/* 검색창 감싸는 div */
+.admin_reviewSearchWrap2 {
+    border-radius: 10px;
+    border: 1px solid #c8c8c8;
+    width: 70%;
+    padding: 10px;
+
+}
+
+/* select 선택창 */
+.admin_reviewSelect{
+    border: none;
+    outline: none;
+
+}
+
+/* 검색창 */
+.admin_reviewInput{
+    width: 300px;
+    border: none;
+    outline: none;
+}
+
+
+
+/* 검색버튼 */
+.admin_reviewSearchBtn{
+    margin: 0px 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #59ada8;
+    color: white;
+    height: 38px;
+    width: 60px;
+}
+
+
+.admin_reviewList{
+    width: 1000px;
+    border-bottom: 2px solid #c8c8c8;
+    padding-bottom: 15px;
+}
+
+/* 검색 영역 전체 div */
+.admin_reviewSearchWrapBox {
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+
+
+
+/* 게시판 테이블 감싸는 div */
+.admin_reviewBoardWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  
+
+}
+
+/* 게시판 테이블 */
+.admin_reviewBoardWrap > table{
+    border-bottom: 1px solid rgba(142, 142, 142, 0.431);
+    border-collapse: collapse;
+    width: 1000px;
+
+}
+/* 체크박스 */
+#boardTable > thead > tr > th:nth-child(1){
+    width: 20px;
+}
+#boardTable > thead > tr > th:nth-child(2){
+    width: 20px;
+}
+#boardTable > thead > tr > th:nth-child(3){
+    width: 50px;
+}
+#boardTable > thead > tr > th:nth-child(4){
+    width: 100px;
+}
+#boardTable > thead > tr > th:nth-child(5){
+    width: 50px;
+}
+#boardTable > thead > tr > th:nth-child(6){
+    width: 20px;
+}
+#boardTable > thead > tr > th:nth-child(7){
+    width: 40px;
+}
+#boardTable > thead > tr > th:nth-child(8){
+    width: 20px;
+}
+
+
+
+
+/* 테이블 th,td 칸 */
+.admin_reviewBoardWrap > table >th,td{
+    border-top: 1px solid rgba(128, 125, 125, 0.446);
+    padding: 10px 20px;
+    margin: 10px;
+    text-align: center;
+
+}
+
+/*  */
+
+
+/* 등록,수정,삭제 감싸는 div */
+.admin_reviewBtn{
+    display: flex;
+    margin-left: 75%;
+    gap: 15px;
+    margin: -15px 0 0 75%;
+    
+}
+
+/* 등록버튼 */
+.admin_reviewEndBtn {
+    padding: 5px 15px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+    color: white;
+}
+
+.admin_reviewEndBtn:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+
+.admin_reviewEndBtn a {
+    color: white;
+
+}
+
+
+/* 페이지네이션 */
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    width: 1000px;
+}
+
+.pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.current{
+    font-weight: bold;
+    background-color: #042928;
+    border-radius: 20%;
+    color: white;
+    letter-spacing: 0 !important;
+}

@@ -1,0 +1,355 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    background-color: #A8A7DE;
+}
+.main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ticketingBox{
+    width: 1280px;
+    height: 870px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+}
+.choiceMovie{
+    border-right: 1px solid #666666;
+}
+.ticketingNav{
+    width: 80px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-collapse : collapse;
+}
+.ticketingNav li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #666666;
+    border-top: none;
+    
+}
+.ticketingNav li.pass{
+    background-color: #3B3B3B;
+    color : white;
+}
+.ticketingNav li.active{
+    background-color: #0E0753;
+    color : white;
+    font-weight: bold;
+}
+.ticketingNav li a{
+    color: inherit;
+    text-decoration: none;
+}
+
+.ticketingNav li:first-child{
+    height: 25%;
+    border-top-left-radius: 15px;
+}
+.ticketingNav li:nth-child(2){
+    height: 25%;
+}
+.ticketingNav li:nth-child(3){
+    height: 25%;
+}
+.ticketingNav li:last-child{
+    height: 25%;
+    border-bottom-left-radius: 15px;
+}
+
+
+.ticketingBox>div:first-of-type{
+    width: 40%;
+}
+
+.choiceHeader{
+    height: 50px;
+    background-color: #000000;
+    color : #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.choiceMovie>div:nth-child(3){
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #666666;
+    padding: 0px 10px 0px 20px;
+}
+.choiceMovie>div:nth-child(3) select{
+    width: 200px;
+    height: 30px;
+    font-size: 16px;
+}
+
+.choiceMovie>div:nth-child(3) img{
+    width: 30px;
+    height: 30px;
+}
+
+.MovieList{
+    height: 770px;
+    overflow-y : auto;
+}
+.hamburger>label{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.hamburger>label>img{
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+}
+.hamburger>label>span{
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.pizza>label{
+    height: 140px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.poster{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.poster>img{
+    height: 110px;
+    border-radius: 4px;
+}
+.content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+.title{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.title img{
+    width: 22px;
+    height: 22px;
+}
+.title strong{
+    margin-left: 10px;
+    font-size: 18px;
+}
+.rate{
+    margin-bottom: 4px;
+}
+.rate em{
+    font-weight: bold;
+}
+.star_info{
+    margin-left: 10px;
+    font-weight: bold;
+}
+.star_info img{  /* 별 크기 */
+    width: 10px;
+    height: 10px;
+}
+
+.choiceTime{
+    width: 800px;
+    
+}
+.choiceTime .choiceHeader{
+    border-top-right-radius: 15px;
+}
+
+/* 날짜 슬라이드 */
+.sub_slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    position: relative;
+    border-bottom: 1px solid #666666;
+}
+.sub_slide .inner {
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.sub_slide .swiper-container {
+    width:600px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.swiper-wrapper {
+    display: flex;
+    box-sizing: content-box;
+}
+
+.sub_slide_btn{  /* 버튼 감싸는 요소 */
+    position: static;
+    display: block;
+}
+.sub_slide .swiper-prev,
+.sub_slide .swiper-next {  /* 버튼 */
+    position: absolute;
+    cursor: pointer;
+    top: 28%;
+}
+.material-icons>*{  /* 버튼 색 */
+    fill: rgb(94, 94, 94);
+}
+.sub_slide .swiper-prev {  /* 이전 버튼 위치 */
+    left: 20px;
+}
+.sub_slide .swiper-next {  /* 다음 버튼 위치 */
+    right: 10px;
+}
+.sub_slide .swiper-prev>.material-icons>*:hover,
+.sub_slide .swiper-next>.material-icons>*:hover {  /* 마우스 올렸을 때 흰색 */
+    fill: white;
+}
+
+.swiper-wrapper *{  /* 글씨 하얀색 */
+    list-style: none;
+    text-decoration: none;
+    user-select: none;
+}
+.swiper-slide{
+    display: flex;
+    flex-direction: column;
+    width: 52px;
+}
+.swiper-slide *{
+    cursor: pointer;
+}
+.swiper-slide>strong{
+    height: 30px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swiper-slide>a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : black;
+    font-size: 12px;
+}
+.swiper-slide em{
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-size: normal;
+}
+
+.swiper-slide input{
+    display: none;
+}
+
+.swiper-slide label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+}
+
+.swiper-slide>a strong{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.movieChoiceTitle{
+    height: 60px;
+    display: flex;
+    margin-left: 30px;
+    align-items: center;
+}
+.movieChoiceTitle>img{
+    width: 22px;
+    height: 22px;
+}
+.movieChoiceTitle>span{
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.timeSelect{
+    width: 735px;
+    height: 659px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    justify-content: center;
+}
+.timelist{
+    width: 700px;
+    height: 60px;
+    background-color: white;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.timelist li{
+    width: 25%;
+    height: 60px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.timelist a{
+    width: 155px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color : black;
+    border: 1px solid #666666;
+    border-radius: 15px;
+}

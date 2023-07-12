@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace를 Mapper 인터페이스로 지정 -->
+<mapper namespace="edu.kh.dgc.notice.model.dao.NoticeMapper">
+		
+	<select id="selectNoticeList" resultType="map">
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, 
+			<![CDATA[
+				CASE  
+					WHEN SYSDATE - NOTICE_ENROLL_DATE < 1/24/60
+					THEN FLOOR( (SYSDATE - NOTICE_ENROLL_DATE) * 24 * 60 * 60 ) || '초 전'
+					WHEN SYSDATE - NOTICE_ENROLL_DATE < 1/24
+					THEN FLOOR( (SYSDATE - NOTICE_ENROLL_DATE) * 24 * 60) || '분 전'
+					WHEN SYSDATE - NOTICE_ENROLL_DATE < 1
+					THEN FLOOR( (SYSDATE - NOTICE_ENROLL_DATE) * 24) || '시간 전'
+					ELSE TO_CHAR(NOTICE_ENROLL_DATE, 'YYYY-MM-DD')
+				END NOTICE_ENROLL_DATE, 
+			]]>
+			NOTICE_VIEWPOINT
+		FROM (SELECT * FROM NOTICE ORDER BY NOTICE_ENROLL_DATE DESC)
+		WHERE NOTICE_FL = 'N'
+		<![CDATA[
+			AND ROWNUM <= 5
+		]]>
+	</select>
+	
+</mapper>

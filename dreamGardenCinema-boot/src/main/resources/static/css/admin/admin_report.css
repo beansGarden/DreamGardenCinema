@@ -1,0 +1,229 @@
+*{
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 전체 감싸는 div */
+.admin_reportWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    width: 1100px;
+    left: 580px;
+    top: 60px;
+    height: 750px;
+    gap: 17px;
+}
+
+/* 게시판 제목 */
+#admin_reportTitle {
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    width: 180px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.formbox{
+    width: 1000px;
+    justify-content: center;
+    display: flex;
+}
+
+/* 검색 영역 전체 div */
+.admin_reportSearchWrapBox {
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+/* 공지사항 검색창 */
+.admin_reportSearchWrap {
+    display: flex;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+
+/* 검색창 감싸는 div */
+.admin_reportSearchWrap2 {
+    border-radius: 10px;
+    border: 1px solid #c8c8c8;
+    width: 70%;
+    padding: 10px;
+
+}
+
+/* select 선택창 */
+.admin_reportSelect {
+    border: none;
+    outline: none;
+
+}
+
+option{
+    text-align: center;
+}
+
+/* 검색창 */
+.admin_reportInput {
+    width: 300px;
+    border: none;
+    outline: none;
+}
+
+
+/* 검색버튼 */
+.admin_reportSearchBtn {
+    margin: 0px 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #59ada8;
+    color: white;
+    height: 38px;
+    width: 60px;
+}
+
+.admin_reportSearchBtn:hover{
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+.admin_reportList{
+    width: 1000px;
+    border-bottom: 2px solid #c8c8c8;
+    padding-bottom: 15px;
+}
+
+
+
+/* 게시판 테이블 감싸는 div */
+.admin_reportBoardWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
+
+}
+
+/* 게시판 테이블 */
+.admin_reportBoardWrap>table {
+    border-bottom: 1px solid #c8c8c8;
+    border-collapse: collapse;
+    width: 1000px;
+    table-layout: fixed;
+
+}
+
+/* 테이블 th,td 칸 */
+.admin_reportBoardWrap>table>th,
+td {
+    border-top: 1px solid rgba(128, 125, 125, 0.446);
+    padding: 10px 20px;
+    margin: 10px;
+    text-align: center;
+
+}
+
+/* input */
+table>thead>tr>th:nth-child(1) {
+    width: 30px;
+}
+
+/* 번호 */
+table>thead>tr>th:nth-child(2) {
+    width: 40px;
+}
+
+table>thead>tr>th:nth-child(3) {
+    width: 350px;
+}
+
+table>thead>tr>th:nth-child(4) {
+    width: 80px;
+}
+
+table>thead>tr>th:nth-child(5) {
+}
+
+
+
+
+
+
+/* 등록,수정,삭제 감싸는 div */
+.admin_reportBtn {
+    display: flex;
+    margin-left: 75%;
+    gap: 15px;
+    margin: -15px 0 0 65%;
+}
+
+/* 등록버튼 */
+.admin_reportEndBtn {
+    padding: 5px 15px;
+    border-radius: 6px;
+    width: 80px;
+    height: 36px;
+    background-color: #59ada8;
+}
+
+.admin_reportEndBtn:hover{
+
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+
+.admin_reportEndBtn a {
+    color: white;
+
+}
+
+/* 페이지네이션 */
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    width: 1000px;
+}
+
+.pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.current{
+    font-weight: bold;
+    background-color: #042928;
+    border-radius: 20%;
+    color: white;
+    letter-spacing: 0 !important;
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.kh.dgc.movie.model.dao.CrawlingMapper">
+	
+	<resultMap type="Movie" id="movie_rm">
+		<id property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="poster" column="POSTER"/>
+		<result property="synopsis" column="SYNOPSIS"/>
+		<result property="runningTime" column="RUNNING_TIME"/>
+		<result property="rating" column="RATING"/>
+		<result property="releaseDate" column="RELEASE_DATE"/>
+		<result property="producer" column="PRODUCER"/>
+		<result property="moviePrice" column="MOVIE_PRICE"/>		
+		<result property="mainPoster" column="MAIN_POSEER"/>		
+		<result property="genre" column="GENRE"/>		
+		<result property="screening" column="SCREENING"/>		
+	</resultMap>
+	
+	<resultMap id="Person" type="person">
+		<id property="personNo" column="PERSON_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="name" column="PERSON_NO"/>
+		<result property="role" column="PERSON_ROLE"/>
+		<result property="img" column="PERSON_IMG"/>
+	</resultMap>
+	
+	<insert id="insertMovieInfo">
+
+		INSERT INTO "beansGarden".MOVIE
+		(MOVIE_NO, MOVIE_TITLE, POSTER, SYNOPSIS, RUNNING_TIME, RATING,
+		RELEASE_DATE, MOVIE_PRICE, SCREENING, GENRE)
+		VALUES(SEQ_MOVIE_NO.NEXTVAL, #{movieTitle}, #{poster}, #{synopsis}, 
+		#{runningTime}, #{rating}, #{releaseDate}, '12000' , #{screening} , #{genre})
+		
+	</insert>
+	
+	<select id="selectMovieNoByTitle">
+		
+		SELECT MOVIE_NO
+		FROM MOVIE
+		WHERE MOVIE_TITLE = #{movieTitle}
+		
+	</select>
+	
+	<select id="selectHavingMovieNoByTitle">
+		
+		SELECT COUNT(*)
+		FROM MOVIE
+		WHERE MOVIE_TITLE = #{movieTitle}
+		
+	</select>
+	
+	<insert id="insertMoviePerson">
+		
+		INSERT INTO "beansGarden".PERSON_INFO
+		(PERSON_NO, MOVIE_NO, PERSON_NAME, PERSON_ROLE, PERSON_IMG)
+		VALUES
+		(SEQ_PERSON_NO.NEXTVAL, #{movieNo}, #{name}, #{role}, #{img})
+		
+	</insert>
+	
+	<insert id="insertMovieStillCut">
+		
+		INSERT INTO "beansGarden".MOVIE_IMG
+		(MOVIE_IMG_NO, MOVIE_NO, MOVIE_IMG_PATH, MOVIE_IMG_ROLE)
+		VALUES
+		(SEQ_MOVIE_IMG_NO.NEXTVAL, #{movieNo}, #{imgPath}, #{role})
+		
+	</insert>
+		
+</mapper>

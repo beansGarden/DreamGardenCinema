@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 - dream garden cinema</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/movie/movie.css}">
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!-- swiper css custom -->
+    <link rel="stylesheet" th:href="@{/css/movie/silder.css}">
+
+    <!-- google material icon '>' -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+
+</head>
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <section class="movie--Top__banner">
+        <div class="swiper movie--main--slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" th:each="slideImg : ${movieMainSlideImgList}"><img th:src="${slideImg.MOVIE_IMG_PATH}"></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+
+    <!-- 현재 상영작 -->
+    <section class="movie--mid__List">
+
+        <div class="movieList--nav">
+
+            <div class="font1">
+                현재 상영작<span class="font5">(예매순)</span>
+            </div>
+
+            <div>
+                <a th:href="@{/movie/current}" class="font4 nav--more">
+                    더보기 <span class="material-symbols-outlined font4"> arrow_forward_ios </span>
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="movieList--items" >
+
+            <div class="movieItem" th:each="movie : ${MovieListMainC}">
+
+                <div class="movie-poster-container">
+                    <img class="movie-poster" th:src="${movie.poster}">
+                    <img class="movie-rating" th:src="${movie.rating}">
+                    <em th:text="${movie.rank}">순위</em>
+                    <div class="movie-action">
+                        <a class="font4" th:href="@{/ticketing/date/} + ${movie.movieNo}">예매하기</a>
+                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}&screen=current|}">상세보기</a>
+                    </div>
+                </div>
+                
+
+                <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
+                <div class="movie-data">
+                    <span class="ratio">
+                        예매율
+                        <em th:text="${movie.ratio}+'%'">예매율</em>
+                    </span>
+                    <span class="star">
+                        <img th:src="@{/images/common/main/포스터/star3.png}">
+                        <em th:text="${movie.score}"></em>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 상영예정작 -->
+    <section class="movie--mid__List">
+
+        <div class="movieList--nav">
+
+            <div class="font1">
+                상영 예정작<span class="font5">(개봉일순)</span>
+            </div>
+
+            <div>
+                <a th:href="@{/movie/promise}" class="font4 nav--more">
+                    더보기 <span class="material-symbols-outlined font4"> arrow_forward_ios </span>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="movieList--items" >
+
+            <div class="movieItem" th:each="movie : ${MovieListMainP}">
+
+                <div class="movie-poster-container">
+                    <img class="movie-poster" th:src="${movie.poster}">
+                    <img class="movie-rating" th:src="${movie.rating}">
+                    <em th:text="${movie.rank}">순위</em>
+                    <div class="movie-action">
+                        <a class="font4" th:href="@{|/movie/movieDetail=${movie.movieNo}&screen=promise|}">상세보기</a>
+                    </div>
+                </div>
+
+                <div class="movie-title font5" th:text="${movie.movieTitle}">영화 제목</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="movie--bot__banner">
+        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
+    </section>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <!-- swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- swiper.js 초기화 -->
+    <script>
+        var swiper = new Swiper(".movie--main--slider", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+    <script th:src="@{/js/movie/movie.js}"></script>
+
+</body>
+</html>

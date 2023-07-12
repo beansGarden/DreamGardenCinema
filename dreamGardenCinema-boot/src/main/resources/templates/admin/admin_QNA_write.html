@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>qna_write</title>
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+
+
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_QNA_write.css">
+    
+    <script src="../admin/summernote-ko-KR.js"></script>
+    <script src="../admin/summernote-lite.js"></script>
+    <link rel="stylesheet" href="../admin/summernote-lite.css">
+</head>
+<body>
+       <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_qnaWrap">
+        
+            <!-- 게시판 제목 -->
+            <span id="admin_qnaTitle">1:1문의 관리</span>
+        <!-- 테이블 감싸는 div -->
+        <div class="admin_qnaTableWrap">
+        <table>
+            <tr>
+                <th>제목</th>
+                <td><input type="text" name="qnaTitle" id="" class="admin_qnaTableInput" style="border-bottom: 1px solid black" ></td>
+            </tr>
+            <tr>
+                <th>카테고리</th>
+                <td  class="admin_qnaTableInput" style="border-bottom: 1px solid black">
+                    <select name="qnaCategory" id="admin_qnaTableSelect">
+                        <option value="P">영화관</option>
+                        <option value="M">영화</option>
+                        <option value="U">멤버쉽</option>
+                        <option value="B">예매/결제</option>
+                        <option value="H">홈페이지</option>
+                        <option value="A">계정</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+            
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- 내용 쓰는 칸 -->
+        <div class="admin_qnaContentWrap">
+            <form method="post">
+                <textarea id="summernote" name="qnaContent"></textarea>
+   
+              </form>
+          
+        </div>
+                <!-- 등록 버튼 -->
+                <button class="admin_qnaRegister"><a th:href="@{/adminQnaWriteInsert}">등록</a></button>
+       
+            </div>
+ 
+        </div>
+
+
+
+    </div>    
+
+    <script>
+        // 메인화면 페이지 로드 함수
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                placeholder: '내용을 작성하세요',
+                height: 400,
+                maxHeight: 400
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

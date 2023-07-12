@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(19deg, #0f095485 -4%, #F0BA58 83%)
+}
+ul{
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 500px;
+    display: flex; /* display: flex */
+    flex-direction: column;
+    gap: 0;
+    transition: 0.5s;
+}
+ul li{
+    position: relative;
+    list-style: none;
+    width: 450px;
+    height: 100px;
+    padding: 15px;
+    background: #dbdbdb;
+    gap: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 6px;
+    box-shadow: 0 -15px 25px rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+    transition-delay: calc(var(--i) * 0.05s);
+}
+.CouponList1{
+    transform: translateZ(-200px) translateY(-50px);
+    opacity: 0.6;
+}
+.CouponList2{
+    transform: translateZ(-140px) translateY(-80px);
+    background: #eee;
+}
+.CouponList3{
+    transform: translateZ(-100px) translateY(-120px);
+    background: #eee;
+}
+.CouponList4{
+    transform: translateZ(-70px) translateY(-170px);
+    background: #fff;
+}
+.CouponList5{
+    transform: translateZ(-40px) translateY(-220px);
+    background: white;
+}
+.CouponList6{
+    transform: translateZ(-10px) translateY(-270px);
+    background: white;
+}
+.CouponList7{
+    transform: translateZ(20px) translateY(-320px);
+    background: white;
+}
+.CouponList8{
+    transform: translateZ(60px) translateY(-360px);
+    background: white;
+}
+ul:hover{
+    gap:30px;
+}
+ul:hover .CouponList1{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList2{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList3{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList4{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList5{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList6{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList7{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul:hover .CouponList8{
+    opacity: 1;
+    background: #fff;
+    transform: translateZ(0px) translateY(0px);
+}
+ul li img{
+    max-width: 70px;
+    border-radius: 4px;
+}
+ul li .coupon-text{
+    width: 100%;
+}
+ul li .coupon-text h4{
+    font-weight: 600;
+    color: #333;
+}
+ul li .coupon-text span{
+    position: relative;
+    color: #333;
+    line-height: 1em;
+    width: 100%;
+}
+/* #bronze{
+    background-color: rgba(147, 129, 129, 0.667);
+} */
+
+
+/* 스크롤 바  */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+/* 쿠폰이 없을 경우 */
+#coupon-null{
+    display: flex;
+}
+#coupon-null-container{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-weight: bold;
+    font-size: 20px;
+}
+#coupon-null-container>span{
+    margin-bottom: 10px;
+    color: white;
+}

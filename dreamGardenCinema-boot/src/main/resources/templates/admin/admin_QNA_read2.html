@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qna</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_QNA_read.css">
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_qnaWrap">
+
+        <!-- 게시판 제목 -->
+        <span id="admin_qnaTitle">1:1문의 관리</span>
+        <form th:action="@{/adminQnaAnswer/{qnaNo}(qnaNo=${Qna.qnaNo})}" method="POST" id="qnaSubmit">
+            <!-- 게시판 -->
+            <div class="admin_qnaBoardWrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <td colspan="3"   th:text="${Qna.qnaNo}" name="qnaNo">1</td>
+                     
+                        </tr>
+                        <tr>
+                            <th>카테고리</th>
+                            <td colspan="3">
+                                <span th:if="${Qna.qnaCategory == 'p'}">영화관</span>
+                                <span th:if="${Qna.qnaCategory == 'm'}">영화</span>
+                                <span th:if="${Qna.qnaCategory == 'u'}">멤버쉽</span>
+                                <span th:if="${Qna.qnaCategory == 'b'}">예매/결제</span>
+                                <span th:if="${Qna.qnaCategory == 'h'}">홈페이지</span>
+                                <span th:if="${Qna.qnaCategory == 'a'}">계정</span>
+                                <span th:if="${Qna.qnaCategory == '*'}">기타</span>
+                            </td>
+                  
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th>등록일</th>
+                            <td colspan="3" th:text="${Qna.qnaEnrollDate}">2023.05.31</td>
+                    
+                        </tr>
+                        <tr>
+                            <th>등록인</th>
+                            <td colspan="3" th:text="${Qna.userId} ? ${Qna.userId} : '비회원  *답변은 이메일로 대신합니다.' " style="width: 1px;"></td>
+                            <input type="hidden" th:value="${Qna.userNo}" name="userNo">
+                        <tr>
+                                <tr th:if="${Qna.userId} == null">
+                                <th>비회원 정보</th>
+                                <td th:text="${Qna.nonMemberName}">이름</td>
+                                <td th:text="${Qna.nonMemberEmail}">email</td>
+                                <td th:text="${Qna.nonMemberTel}">전화번호</td>
+                            </tr>
+                            </tr>
+                            <th>제목</th>
+                            <td colspan="3" th:text="${Qna.qnaTitle}">인터넷 예매 후 현장에서 취소 가능한가요?</td>
+
+                          
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td colspan="3"> <!-- 내용 -->
+                                <div class="admin_qnaContent">
+                                    [[${Qna.qnaContent}]]
+                                    <img th:src="${Qna.qnaImage}">
+                                </div>
+                            </td>
+            
+                     
+                        </tr>
+                        <tr>
+                            <th>답변 번호</th>
+                            <td colspan="3" th:text="${QnaComment.qnaCommentNo}" name="qnaCommentNo">1</td>
+                            <input type="hidden" name="qnaCommentNo" th:value="${QnaComment.qnaCommentNo}"  >
+                
+                  
+                        </tr>
+                        <tr>
+                            <th>답변</th>
+                            <td colspan="3" >
+                                <!-- 답변 쓰는 칸 -->
+                                <div class="admin_qnaContentWrap">
+                                   
+                                    <textarea id="summernote" name="qnaComment" style="width: 700px; height:100px; resize: none;"
+                                        th:text="${QnaComment.qnaComment}">답변 내용
+                                    </textarea>
+                                </div>
+                            </td>
+
+        </form>
+    </div>
+    </tr>
+
+    </thead>
+    </table>
+
+    <!-- 페이지 네이션 -->
+
+    <!-- 등록,수정,삭제 버튼 -->
+    <div class="admin_qnaBtn">
+
+        <button class="admin_qnaEndBtn" id="qnaAnswer">답변 등록</button>
+        <button class="admin_qnaEndBtn" type="button"><a th:href="@{/adminQnaUpdate/{qnaNo}(qnaNo=${Qna.qnaNo})}">수정</a></button>
+        <button class="admin_qnaEndBtn" type="button"><a th:href="@{/adminQnaRead/{qnaNo}/delete(qnaNo=${Qna.qnaNo})}">삭제</a></button>
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+
+    </div>
+    <script src="\js\admin\admin_QNA_read.js"></script>
+ 
+      
+</body>
+
+</html>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.dgc.ticketing.model.dao.TicketingMapper">
+	
+	<resultMap type="Movie" id="movie_rm">
+		<id property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="poster" column="POSTER"/>
+		<result property="synopsis" column="SYNOPSIS"/>
+		<result property="runningTime" column="RUNNING_TIME"/>
+		<result property="rating" column="RATING"/>
+		<result property="releaseDate" column="RELEASE_DATE"/>
+		<result property="producer" column="PRODUCER"/>
+		<result property="moviePrice" column="MOVIE_PRICE"/>		
+		<result property="mainPoster" column="MAIN_POSEER"/>		
+		<result property="genre" column="GENRE"/>		
+		<result property="screening" column="SCREENING"/>		
+		<result property="score" column="SCORE"/>		
+	</resultMap>
+	
+	<resultMap type="Schedule" id="schedule_rm">
+		<id property="movieTime" column="MOVIE_TIME"/>
+		<id property="movieTheater" column="MOVIE_THEATER"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="checkTime" column="CHECK_TIME"/>
+	</resultMap>
+	
+	<resultMap type="Seat" id="seat_rm">
+		<id property="seatNo" column="SEAT_NO"/>
+		<result property="movieTheater" column="MOVIE_THEATER"/>
+	</resultMap>
+	
+	<resultMap type="Ticket" id="ticket_rm">
+		<id property="ticketNo" column="TICKET_NO"/>
+		<result property="ticketingTime" column="TICKETING_TIME"/>
+		<result property="payAmount" column="PAY_AMOUNT"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="coupon" column="COUPON"/>
+		<result property="movieTime" column="MOVIE_TIME"/>
+		<result property="movieTheater" column="MOVIE_THEATER"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="ticketFL" column="TICKET_FL"/>
+		<result property="ticketId" column="TICKET_ID"/>
+		<result property="ticketImpId" column="TICKEY_IMP_UID"/>
+		<result property="seatNo" column="SEAT_NO"/>
+		<result property="state" column="STATE"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<!--JOIN MOVIE-->
+		<result property="poster" column="POSTER"/>
+	</resultMap>
+	
+	<resultMap type="SeatCheck" id="seatcheck_rm">
+		<id property="movieTime" column="MOVIE_TIME"/>
+		<id property="movieTheater" column="MOVIE_THEATER"/>
+		<id property="movieNo" column="MOVIE_NO"/>
+		<id property="seatNo" column="SEAT_NO"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	
+	<resultMap type="Coupon" id="coupon_rm">
+		<!--JOIN USER_COUPON-->
+		<id property="userCouponNo" column="USER_COUPON_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="useFl" column="USE_FL" />
+		<!--COUPON-->
+		<result property="couponNo" column="COUPON_NO" />
+		<result property="couponPrice" column="COUPON_PRICE" />
+		<result property="couponName" column="COUPON_NAME" />
+	</resultMap>
+	
+	<!-- 예매 1페이지 (영화목록 조회) -->
+	<select id="selectMovieList" resultMap="movie_rm">
+		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 2) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE
+		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
+				(SELECT COUNT(TICKET_NO)
+				FROM TICKETING_INFO C
+				JOIN SEAT_CHECK USING(TICKET_NO)
+				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, NVL((SELECT ROUND(AVG(SCORE),2) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE
+			FROM MOVIE P
+			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
+				ON(P.MOVIE_NO = I.MOVIE_NO)
+			WHERE SCREENING = 'C'
+			ORDER BY TICKET_COUNT DESC, RELEASE_DATE DESC)
+	</select>
+	
+	<!-- 예매 1페이지 영화시간,상영관 조회 AJAX -->
+	<select id="movieTime" resultMap="schedule_rm">
+		SELECT TO_CHAR(MOVIE_TIME, 'HH24:MI') MOVIE_TIME, MOVIE_THEATER, TO_CHAR(MOVIE_TIME, 'YYYYMMDD HH24:MI') CHECK_TIME
+		FROM MOVIE_SCHEDULE
+		<![CDATA[
+		WHERE MOVIE_TIME > SYSDATE 
+		]]>
+		AND MOVIE_NO = ${movieNo} AND TO_CHAR(MOVIE_TIME, 'YYYYMMDD') = ${date}
+		ORDER BY MOVIE_TIME, MOVIE_THEATER
+	</select>
+	
+	<select id="sortTicketing" resultMap="movie_rm">
+		SELECT *
+		FROM MOVIE
+	</select>
+
+	<!-- 예매 2페이지 영화정보 가져오기 -->	
+	<select id="selectMovie" resultMap="movie_rm">
+		SELECT MOVIE_NO, MOVIE_TITLE, POSTER, RUNNING_TIME, RATING, RELEASE_DATE, MOVIE_PRICE, GENRE
+		FROM MOVIE
+		WHERE MOVIE_NO = ${movieNo}
+	</select>
+	
+	<!-- 예매 2페이지 티켓정보 삽입 -->
+	<insert id="insertTicket" parameterType="Ticket" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="ticketNo">
+			SELECT SEQ_TICKET_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TICKETING_INFO(TICKET_NO, USER_NO, MOVIE_TIME, MOVIE_THEATER, MOVIE_NO, TICKET_FL) VALUES(#{ticketNo}, #{userNo}, TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI'), #{movieTheater}, #{movieNo}, DEFAULT)
+	</insert>
+	
+	<!-- 예매 2페이지 선택or예매완료 좌석 확인 -->	
+	<select id="selectChkSeatList" resultMap="seatcheck_rm">
+		SELECT SEAT_NO
+		FROM SEAT_CHECK
+		JOIN TICKETING_INFO USING(TICKET_NO)
+		WHERE MOVIE_NO = ${movieNo}
+		AND MOVIE_TIME = TO_DATE(#{movieTime}, 'YYYYMMDDHH24:MI')
+		AND MOVIE_THEATER = ${movieTheater}
+	</select>
+	
+	<!-- 예매 2페이지 좌석 선택 Web Socket -->	
+	<select id="selectSeat" resultMap="ticket_rm">
+		SELECT *
+		FROM TICKETING_INFO
+		JOIN SEAT_CHECK USING(TICKET_NO)
+		WHERE TICKET_NO = ${ticketNo} AND SEAT_NO = #{seatNo} AND TICKET_FL = 'N'
+	</select>
+	
+	<!-- 예매 2페이지 좌석 Web Socket INSERT -->
+	<insert id="insertSeat">
+		INSERT INTO SEAT_CHECK VALUES(#{seatNo}, DEFAULT, ${ticketNo})
+	</insert>
+	
+	<!-- 예매 2페이지 좌석 Web Socket DELETE -->
+	<delete id="deleteSeat">
+		DELETE FROM SEAT_CHECK WHERE SEAT_NO = #{seatNo} AND STATE = 'N' AND TICKET_NO = #{ticketNo}
+	</delete>
+	
+	<!-- 예매 2페이지 웹소켓 해제 시 선택한 좌석 조회 -->
+	<select id="selectEndSeat" resultMap="ticket_rm">
+		SELECT *
+		FROM SEAT_CHECK
+		JOIN TICKETING_INFO USING(TICKET_NO)
+		WHERE USER_NO = #{userNo}
+		AND STATE = 'N'
+	</select>
+	
+	<!-- 예매 2페이지 웹소켓 해제 시 선택했던 좌석 삭제 -->
+	<delete id="deleteEndSeat">
+		DELETE FROM SEAT_CHECK WHERE TICKET_NO = ${ticketNo} AND STATE = 'N'
+	</delete>
+	
+	<!-- 예매 2페이지 웹소켓 해제 시 티켓 삭제 -->
+	<!-- 예매 3페이지 페이지 나갈 시 좌석 정보 삭제 -->
+	<delete id="deleteEndTicket">
+		DELETE FROM TICKETING_INFO WHERE TICKET_NO = ${ticketNo} AND TICKET_FL = 'N'
+	</delete>
+	
+	<!-- 예매 3페이지 SEAT_CHECK 테이블 Y로 변경 -->
+	<update id="beforePaySeat">
+		UPDATE SEAT_CHECK SET STATE = 'Y'
+		WHERE STATE = 'N' AND TICKET_NO = ${ticketNo}
+	</update>
+	
+	<!-- 예매 3페이지 TICKETING_INFO 테이블 가격 삽입 -->
+	<update id="beforePayTicket">
+		UPDATE TICKETING_INFO SET PAY_AMOUNT = 12000 * #{seatListSize}
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<!-- 예매 3페이지 로그인 유저의 사용하지 않은 쿠폰 가져오기 -->
+	<select id="couponList" resultMap="coupon_rm">
+		SELECT COUPON_NAME, COUPON_PRICE, USER_COUPON_NO
+		FROM USER_COUPON
+		LEFT JOIN COUPON USING(COUPON_NO)
+		JOIN USER_INFO USING(USER_NO)
+		WHERE USER_NO = ${userNo}
+		AND USER_RATING = COUPON_NO
+		AND USE_FL ='N'
+	</select>
+	
+	<!-- 예매 3페이지 좌석 정보 삭제 -->
+	<delete id="ticketingOut">
+		DELETE FROM SEAT_CHECK WHERE STATE = 'Y' AND TICKET_NO = #{ticketNo} 
+	</delete>
+
+	<!-- 예매 3페이지 쿠폰 가격 조회 AJAX -->
+	<select id="selectCouponPrice" resultType="_int">
+		SELECT NVL(MAX(COUPON_PRICE), 0)
+		FROM USER_COUPON
+		LEFT JOIN COUPON USING(COUPON_NO)
+		WHERE USER_COUPON_NO = #{couponNo}
+		AND USER_NO = ${userNo}
+	</select>
+	
+	<!-- 예매 3페이지 티켓 좌석 갯수 조회 AJAX -->
+	<select id="selectSeatSize">
+		SELECT COUNT(*)
+		FROM SEAT_CHECK
+		WHERE TICKET_NO = ${ticketNo}
+	</select>
+	
+	<!-- 예매 3페이지 티켓 가격 업데이트 AJAX -->
+	<update id="updatePrice">
+		UPDATE TICKETING_INFO SET PAY_AMOUNT = #{newPrice}, COUPON = ${couponNo}
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<!-- 예매 3페이지 티켓 가격 재조회 AJAX -->
+	<select id="selectPrice" resultType="_int">
+		SELECT PAY_AMOUNT
+		FROM TICKETING_INFO
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
+	
+	<!-- 예매 3페이지 결제 시 티켓 정보 가져오는 AJAX -->
+	<select id="ticketInfo" resultMap="ticket_rm">
+		SELECT MOVIE_TITLE, PAY_AMOUNT, TICKET_ID
+		FROM TICKETING_INFO A
+		LEFT JOIN MOVIE USING(MOVIE_NO)
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
+
+	<!-- 예매 3페이지 티켓ID 중복 확인 -->
+	<select id="checkTicketId" resultType="int">
+		SELECT COUNT(*) 
+		FROM TICKETING_INFO 
+		WHERE TICKET_ID LIKE #{ticketId}
+	</select>
+	
+	<!-- 예매 3페이지 생성된 티켓ID 삽입 -->
+	<update id="updateTicketId">
+		UPDATE TICKETING_INFO 
+		SET TICKET_ID = #{createTicketId} 
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<!-- 결제 취소  결제상태 C로 바꾸고 결제 취소 사유 작성 -->
+	<update id="updateReasonCancellationPayment">
+		UPDATE TICKETING_INFO 
+		SET REASON_CANCELLATION_PAYMENT = #{reasonCancellationPayment}, TICKET_FL = 'C'
+		WHERE TICKET_No = #{ticketNo}
+	</update>
+	
+	<!-- 결제 완료 : 결제상태 Y로 바꾸고 imp_uid 삽입 -->
+	<update id="updategetTicketImpUid">
+		UPDATE TICKETING_INFO 
+		SET TICKEY_IMP_UID = #{ticketImpId}, TICKET_FL = 'Y'
+		WHERE TICKET_No = #{ticketNo}
+	</update>
+	
+	<!-- SEAT_CHECK TABLE C(Complete)로 변경 -->
+	<update id="updateSeatList">
+		UPDATE SEAT_CHECK SET STATE='C'
+		WHERE TICKET_NO = #{ticketNo}
+	</update>
+	
+	<!-- 예매 3페이지 결제 시 사용한 쿠폰 Y 처리 -->
+	<update id="updateUserCoupon">
+		UPDATE USER_COUPON SET USE_FL = 'Y'
+		WHERE USER_COUPON_NO = (SELECT COUPON FROM TICKETING_INFO WHERE TICKET_NO = ${ticketNo})
+	</update>
+	
+	
+	<!-- 예매 4페이지 결제완료된 티켓 정보 가져오기 -->
+	<select id="selectResultTicket" resultMap="ticket_rm">
+		SELECT POSTER, TICKET_ID, MOVIE_TITLE, TO_CHAR(MOVIE_TIME, 'YYYY"년" MM"월" DD"일"  HH24:MI') MOVIE_TIME, PAY_AMOUNT 
+		FROM TICKETING_INFO
+		JOIN MOVIE USING(MOVIE_NO)
+		WHERE TICKET_NO = ${ticketNo} AND TICKET_FL = 'Y'
+	</select>
+	
+	<select id="selectResultSeatList" resultMap="seatcheck_rm">
+		SELECT SEAT_NO
+		FROM SEAT_CHECK
+		WHERE TICKET_NO = ${ticketNo} AND STATE = 'C'
+	</select>
+	
+	<select id="sortRating" resultMap="movie_rm">
+		SELECT ROWNUM, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 2) AS RATIO, NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE
+		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
+				(SELECT COUNT(TICKET_NO)
+				FROM TICKETING_INFO C
+				JOIN SEAT_CHECK USING(TICKET_NO)
+				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, NVL((SELECT ROUND(AVG(SCORE),2) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE
+			FROM MOVIE P
+			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
+				ON(P.MOVIE_NO = I.MOVIE_NO)
+			WHERE SCREENING = 'C'
+			ORDER BY SCORE DESC, RELEASE_DATE DESC)
+	</select>
+	
+	<!-- 결제 완료 시 유저 누적 금액 업데이트-->
+	<update id="updateAmount">
+		UPDATE USER_INFO SET
+		USER_AMOUNT = ${userAmount}
+		WHERE USER_NO = ${userNo}
+	</update>
+	
+	<!--취소한 티켓 좌석 정보 삭제-->
+	<delete id="deleteTicketSeat">
+		DELETE SEAT_CHECK sc2
+		WHERE TICKET_NO = #{ticketNo}
+	</delete>
+	
+	<!--유저 Amount 취소한 결제금액 차감-->
+	<update id="updateCancelAmount">
+		UPDATE USER_INFO SET
+		USER_AMOUNT = #{userAmount}
+		WHERE USER_NO = #{userNo}
+	</update>
+</mapper>

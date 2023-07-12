@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movieManage</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin_movieManage.css}">
+
+</head>
+
+<body>
+
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+
+    <div class="admin_movieManageWrap" th:with="pagination=${responseData.pagination}, selectList=${responseData.selectList}">
+
+        <!-- 게시판 제목 -->
+        <div id="admin_movieManageTitle">영화 관리</div>
+
+        <!-- 영화 상영 상태 -->
+        <div class="movie-screening-flow">
+
+            <button id="screenWait" data-page="1">임시대기</button>
+
+            <div>⇛</div>
+
+            <button id="screenPromise" data-page="1">상영예정</button>
+
+            <div>⇛</div>
+
+            <button class="menu-active" id="screenCurrent" data-page="1">현재상영</button>
+
+            <div>⇛</div>
+            
+            <button id="screenDown" data-page="1">상영종료</button>
+
+            <div></div>
+
+            <!-- <button id="highlight" data-page="1">광고</button> -->
+
+            <button id="whole" data-page="1">전체</button>
+
+        </div>  
+
+        <!-- 게시판 -->
+        <div class="admin_movieManageBoardWrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>고유번호</th>
+                        <th>제목</th>
+                        <th>개봉일</th>
+                        <th>상태관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="list : ${selectList}">
+                        <td th:text="${list.movieNo}">영화번호</td>
+                        <td th:text="${list.movieTitle}">영화제목</td>
+                        <td th:text="${list.releaseDate}">개봉일</td>
+                        <td class="movieStatus">
+
+                            <button type="button" 
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=read&screen=current'|">
+                            상세보기
+                            </button>
+
+                            <button type="button" 
+                            th:onclick="|location.href='/adminMovieManage/detail?movieNo=${list.movieNo}&type=update&screen=current'|" >
+                            수정
+                            </button>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination-area">
+
+            <ul class="pagination">
+
+                <!-- 첫 페이지로 이동 -->
+                <li><button data-page="first" onclick="pagination(this)">&lt;&lt;</button></li>
+
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <li><button th:data-page="prev" onclick="pagination(this)">&lt;</button></li>
+
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${i == pagination.currentPage}">
+                        <button class="num current" th:data-page="${i}" data-page-role="num" th:text="${i}" onclick="pagination(this)">현재 페이지</button>
+                    </li>
+
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${i == pagination.currentPage}">
+                        <button class="num" th:data-page="${i}" data-page-role="num" th:text="${i}"  onclick="pagination(this)">나머지 페이지</button>
+                    </li>
+
+                </th:block>
+                
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <li><button th:data-page="next"  onclick="pagination(this)">&gt;</button></li>
+
+                <!-- 끝 페이지로 이동 -->
+                <li><button th:data-page="max" onclick="pagination(this)">&gt;&gt;</button></li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <script th:src="@{\js\admin\admin_movieManage.js}"></script>
+    <script th:inline="javascript">
+
+        currentPage = /*[[${responseData.pagination.currentPage}]]*/ "현재 페이지 번호";
+        listCount= /*[[${responseData.pagination.listCount}]]*/ "전체 게시글 수";
+
+        limit= /*[[${responseData.pagination.limit}]]*/ "한 페이지 목록에 보여지는 게시글 수";
+        pageSize= /*[[${responseData.pagination.pageSize}]]*/ "보여질 페이지 번호 개수";
+
+        maxPage= /*[[${responseData.pagination.maxPage}]]*/ "마지막 페이지 번호";
+        startPage= /*[[${responseData.pagination.startPage}]]*/ "보여지는 맨 앞 페이지 번호 ";
+        endPage= /*[[${responseData.pagination.endPage}]]*/ "보여지는 맨 뒤 페이지 번호";
+
+        prevPage= /*[[${responseData.pagination.prevPage}]]*/ "이전 페이지의 페이지 번호 맨 끝";
+        nextPage= /*[[${responseData.pagination.nextPage}]]*/ "다음 페이지의 페이지 번호 맨 앞";
+
+
+    </script>
+
+</body>
+</html>

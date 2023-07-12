@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>report</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="/css/admin/admin_report_read.css">
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_reportWrap">
+
+        <!-- 게시판 제목 -->
+        <span id="admin_reportTitle">리뷰 신고 관리</span>
+        <table>
+            <thead>
+                <tr th:each="list : ${report}">
+                    <th>번호</th>
+                    <th>등록일</th>
+                    <th>신고한 유저</th>                   
+                    <th></th>                   
+                </tr>
+                <tr th:each="list : ${report}">
+                    <td th:text="${list.reportNo}">1</td>
+                    <td th:text="${list.enrollDate}">2023.05.31</td>
+                    <td th:text="${list.writerNo}">2023.05.31</td>
+                    <td></td>
+                  
+                
+                </tr>
+                <tr th:each="list : ${report}">
+                    <th colspan="4">제목</th>
+                </tr>
+                <tr th:each="list : ${report}">
+                    <td colspan="4">
+                        <span th:text="${list.reportTitle}">신고제목</span>
+                    </td>
+                </tr>
+                <tr th:each="list : ${report}">
+                    <th colspan="4">내용</th>
+                </tr>
+                <tr th:each="list : ${report}">
+                    <td colspan="4" th:text="${list.reportContent}">신고내용</td>
+                </tr>
+                <tr th:each="list : ${report}">
+                    <th>리뷰번호</th>
+                    <th colspan="1">리뷰내용</th>
+                    <th >신고된 유저</th>
+                    <th colspan="1">삭제여부</th>
+                </tr>
+                <tr th:each="list : ${report}">
+                    <td th:text="${list.reviewNo}">2023.05.31</td>
+                    <input type="hidden" th:value="${list.reviewNo}" name="reviewNo" >                    
+                    <td colspan="1" th:text="${list.reviewContent}">리뷰내용</td>
+                    <td  colspan="1"  th:text="${list.reportedNo}">2023.05.31</td>
+                    <td colspan="1" class="deleteFl" th:text="${list.reviewDeleteFl}">처리여부</td>
+                </tr>
+                
+                   
+                </tr>
+            </thead>
+        </table>
+        
+        
+
+
+
+    <!-- 페이지 네이션 -->
+
+    <!-- 등록,수정,삭제 버튼 -->
+    <div class="admin_reportBtn">
+
+        <button class="admin_reportEndBtn">  
+            <a th:each="list : ${report}" th:href="@{/adminReportDelete/{reportNo}/delete(reportNo=${list.reportNo}, reviewNo=${list.reviewNo})}">리뷰삭제</a>
+        </button>
+
+    </div>
+
+
+
+    </div>
+
+    </div>
+
+
+
+    </div>
+    <script src="\js\admin\admin_report_read.js"></script>
+</body>
+
+</html>

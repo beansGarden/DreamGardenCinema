@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cinemaManage</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="\css\admin\admin_cinemaManage_new.css">
+</head>
+
+<main th:with="pagination=${map.pagination}, movieList=${map.movieList}">
+
+    <body>
+        <!-- 사이드바 -->
+        <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+
+        <div class="cinemaManage">
+            <div id="admin_cinemaManageTitle">상영관 관리</div>
+            <form th:action="@{/adminCinemaManage}" method="get" id="selectCont">
+                <div class="movieTheaterOptBox">
+                    <div>
+                        <label class="afterCurrent button">
+                            <input type="checkbox" name="afterCurrent" value="Y" id="afterCurrent">
+                            <a>
+                                <svg width="20" height="20" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- <path d="M11.5051 31.9795L9.00781 36.4854" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                    <!-- <path d="M26.4922 31.9795L28.9895 36.4854" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                    <path d="M18.9984 33.9876C27.2754 33.9876 33.9852 27.2778 33.9852 19.0009C33.9852 10.7239 27.2754 4.01416 18.9984 4.01416C10.7215 4.01416 4.01172 10.7239 4.01172 19.0009C4.01172 27.2778 10.7215 33.9876 18.9984 33.9876Z" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <!-- <path d="M4.51479 15.006C3.36424 14.1436 2.48609 12.9684 1.98513 11.6206C1.48417 10.2729 1.38156 8.80942 1.68953 7.40493C1.99751 6.00044 2.70307 4.71421 3.72203 3.69972C4.74098 2.68523 6.0303 1.98533 7.43614 1.68353C8.84197 1.38172 10.305 1.49077 11.6505 1.99765C12.9961 2.50452 14.1674 3.38783 15.0247 4.54216" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                    <!-- <path d="M19 4.01438L19.0001 1.5166" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                    <!-- <path d="M19 11.5078V19.0011" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                    <!-- <path d="M19 19.001L24.2986 24.2996" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                    <!-- <path d="M33.4865 15.006C34.637 14.1436 35.5152 12.9684 36.0161 11.6206C36.5171 10.2729 36.6197 8.80942 36.3117 7.40493C36.0037 6.00044 35.2982 4.7142 34.2792 3.69972C33.2603 2.68523 31.9709 1.98533 30.5651 1.68353C29.1593 1.38172 27.6963 1.49077 26.3507 1.99765C25.0052 2.50452 23.8339 3.38783 22.9766 4.54216" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> -->
+                                </svg>                               
+                                현시간 이후
+                            </a>
+                        </label>
+                    </div>
+                    <div class="movie-the-date-box">
+                        <div class="movieTheaterOpt">
+                            <span>영화관</span>
+                            <select name="movieTheater" id="theater">
+                                <option value="ALL">전체</option>
+                                <option value="1">1관</option>
+                                <option value="2">2관</option>
+                                <option value="3">3관</option>
+                            </select>
+                        </div>
+
+
+                        <div>
+                            <span>상영날짜</span>
+                            <input type="date" name="date" id="date">
+                        </div>
+
+                    </div>
+                    <div class="queryBox">
+                        <span>검색내용</span>
+                        <div class="query">
+                            <select name="selectOpt" id="opt">
+                                <option value="t">제목</option>
+                                <option value="d">감독</option>
+                                <option value="a">배우</option>
+                            </select>
+                            <input type="text" name="content" id="content">
+                        </div>
+                        <button>조회</button>
+                    </div>
+                </div>
+
+            </form>
+            <div>총 <span th:text="${map.listCount}" style="font-weight: bold;"></span>개</div>
+            <table class="cinema-manage-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="admin_cinemaCheckboxAll"
+                                onclick='cinemaSelectAll(this)'></th>
+                        <th>상영관</th>
+                        <th>영화제목</th>
+                        <th>러닝타임</th>
+                        <th>상영일</th>
+                    </tr>
+                </thead>
+                <th:block th:if="${#lists.size(movieList) == 0}">
+                    <tr>
+                        <td colspan="5">상영작이 없습니다</td>
+                    </tr>
+                </th:block>    
+                <th:block th:unless="${#lists.size(movieList) == 0}">
+                    <tbody>
+                        <tr th:each="list : ${movieList}">
+                            <td><input type="checkbox" class="chkbx"></td>
+                            <td th:text="${list.movieTheater}">상영관</td>
+                            <td><a th:text="${list.movieTitle}" id="movieTt" th:movieNo="${list.movieNo}">영화제목</a></td>
+                            <td th:text="${list.runningTime} + '분'">러닝타임</td>
+                            <td th:text="${list.movieTime}">상영일</td>
+                        </tr>
+                    </tbody>
+                </th:block>
+            </table>
+            <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
+            <div th:if="${#lists.size(movieList) > 0}" class="pagination-area">
+
+                <!-- 검색 X인 경우의 페이지네이션 -->
+                <ul th:unless="${param.content} or ${param.movieTheater} or ${param.date} or ${param.afterCurrent}" class="pagination">
+
+                    <!-- 첫 페이지로 이동 -->
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+
+                    <!-- 이전 목록 마지막 번호로 이동 -->
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.prevPage})}">&lt;</a></li>
+
+                    <!-- 특정 페이지로 이동 -->
+                    <!-- #numbers.sequence(시작, 끝 [, step]) 
+                        시작 이상, 끝 이하 까지 step만큼 증가하는 숫자를 발생시켜 리스트로 반환
+                    -->
+                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                        <!-- 현재 보고있는 페이지 -->
+                        <li th:if="${i == pagination.currentPage}">
+                            <a class="current" th:text="${i}">현재 페이지</a>
+                        </li>
+
+                        <!-- 현재 페이지를 제외한 나머지 -->
+                        <li th:unless="${i == pagination.currentPage}">
+                            <a th:href="@{/adminCinemaManage(cp=${i})}" th:text="${i}">나머지 페이지</a>
+                        </li>
+                    </th:block>
+
+
+                    <!-- 다음 목록 시작 번호로 이동 -->
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.nextPage})}">&gt;</a></li>
+
+                    <!-- 끝 페이지로 이동 -->
+                    <li><a th:href="@{/adminCinemaManage(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+
+                </ul>
+
+
+                <!-- 검색 O인 경우의 페이지네이션 -->
+                <ul th:if="${param.content} or ${param.movieTheater} or ${param.date} or ${param.afterCurrent}" class="pagination">
+
+                    <!-- 첫 페이지로 이동 -->
+                    <li><a
+                            th:href="@{/adminCinemaManage(cp=1, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater}, afterCurrent=${param.afterCurrent})}">&lt;&lt;</a>
+                    </li>
+
+                    <!-- 이전 목록 마지막 번호로 이동 -->
+                    <li><a
+                            th:href="@{/adminCinemaManage(cp=${pagination.prevPage}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater}, afterCurrent=${param.afterCurrent})}">&lt;</a>
+                    </li>
+
+                    <!-- #numbers.sequence(시작, 끝 [,step]) -->
+                    <!-- 특정 페이지로 이동 -->
+                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                        <!-- 현재 보고있는 페이지 -->
+                        <li th:if="${i == pagination.currentPage}">
+                            <a class="current" th:text="${i}">현재 페이지</a>
+                        </li>
+
+                        <!-- 현재 페이지를 제외한 나머지 -->
+                        <li th:unless="${i == pagination.currentPage}">
+                            <a th:href="@{/adminCinemaManage(cp=${i}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater}, afterCurrent=${param.afterCurrent})}"
+                                th:text="${i}">현재 페이지</a>
+                        </li>
+                    </th:block>
+
+                    <!-- 다음 목록 시작 번호로 이동 -->
+                    <li><a
+                            th:href="@{/adminCinemaManage(cp=${pagination.nextPage}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater}, afterCurrent=${param.afterCurrent})}">&gt;</a>
+                    </li>
+
+                    <!-- 끝 페이지로 이동 -->
+                    <li><a
+                            th:href="@{/adminCinemaManage(cp=${pagination.maxPage}, selectOpt=${param.selectOpt}, content=${param.content}, date=${param.date}, movieTheater=${param.movieTheater}, afterCurrent=${param.afterCurrent})}">&gt;&gt;</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="manage-btns">
+                <button id="regist">등록</button>
+                <button id="delete">삭제</button>
+            </div>
+        </div>
+
+        <script th:src="@{/js/admin/admin_cinemaManage_new.js}"></script>
+        <script th:inline="javascript">
+            const message = /*[[${message}]]*/ "전달받은 message";
+            if(message != null) alert(message);
+        </script>
+    </body>
+
+</html>

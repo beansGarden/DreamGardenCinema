@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing3.css}">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+</head>
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="main">
+        <div class="ticketingBox">
+            <ul class="ticketingNav">
+                <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
+                <li class="pass"><a th:href="@{/ticketing/date/} + ${map.movie.movieNo}">01<br>상영시간</a></li>
+                <li class="pass"><a onclick="seatback()">02<br>인원/좌석</a></li>
+                <li class="active"><a>03<br>결제</a></li>
+                <li><a>04<br>결제완료</a></li>
+            </ul>
+            <form th:action="@{/ticketing/complete}" method="POST" th:object="${map}" id="frm">
+                <div class="choiceHeader">예매내역</div>
+                <div class="ticketing_info">
+                    <div>
+                        <div class="poster">
+                            <img th:src="*{movie.poster}">
+                        </div>
+                        <div class="title">
+                            <img th:src="*{movie.rating}">
+                            <span th:text="*{movie.movieTitle}"></span>
+                        </div>
+                        <div class="date">
+                            <span th:text="${saveday}"></span>
+                            <span th:text="${runningTime}"></span>
+                        </div>
+                        <div class="seat">
+                            <span><span th:text="${movieTheater} + '관'"></span> 인원<span th:text="${#lists.size(resultSeatList)}">2</span></span>
+                            <span th:text="${resultSeatList}"></span>
+                        </div>
+                        <select name="coupon" id="coupon">
+                            <option class="chkopt" th:value="0">쿠폰 적용하기</option>
+                            <th:block th:each="coupon : *{couponList}">
+                                <option class="chkopt" th:value="${coupon.userCouponNo}" th:text="${coupon.couponName}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="price">
+                    <div>결제금액</div>
+                    <div>총 <span th:text="(${#lists.size(resultSeatList)} * *{movie.moviePrice})"></span>원</div>
+                </div>
+                <button type="button" class="btn_payment">
+                    <div class="liquidate">
+                        <span>결제하기</span>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="payment-modal display-none">
+        <div class="payment-select-page">
+            <div class="payment-select-head">
+                <p class="payment-select-text">결제 수단</p>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <div class="payment-select-line"></div>
+            <input type="radio" name="payment-select" id="card" onclick="changePaymentMethod('html5_inicis.INIpayTest')">
+            <label for="card" class="payment-choice">카드</label>
+
+            <input type="radio" name="payment-select" id="kakaopay" onclick="changePaymentMethod('kakaopay')">
+            <label for="kakaopay" class="payment-choice">카카오페이</label>
+
+            <input type="radio" name="payment-select" id="tosspay" onclick="changePaymentMethod('tosspay.tosstest')">
+            <label for="tosspay" class="payment-choice">토스페이</label>
+
+            <input type="radio" name="payment-select" id="naverpay" onclick="changePaymentMethod('html5_inicis')">
+            <label for="naverpay" class="payment-choice">네이버페이</label>
+
+            <input type="radio" name="payment-select" id="danaltpay" onclick="changePaymentMethod('danal_tpay')">
+            <label for="danaltpay" class="payment-choice">다날</label>
+
+            <button type="button" class="payment-execution" onclick="requestPay()"><span>결제하기</span></button>
+        </div>
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+    
+    <script th:inline="javascript">
+
+        let loginUser = /*[[${session.loginUser}]]*/ "로그인유저";
+        let ticketNo = /*[[${ticketNo}]]*/  "티켓번호";
+        let seatList = /*[[${resultSeatList}]]*/ "좌석";
+        let movieNo = /*[[${map.movie.movieNo}]]*/ "영화번호";
+        let data = {};
+        data.ticketNo = ticketNo;
+        data.seatList = seatList;
+
+        const frm = document.getElementById("frm");
+        const btnPayment = document.querySelector(".btn_payment");
+    </script>
+
+    <script th:src="@{/js/ticketing/Ticketing3.js}"></script>
+    <script th:src="@{/js/ticketing/Payment.js}"></script>
+
+</body>
+</html>

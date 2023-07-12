@@ -1,0 +1,574 @@
+body {
+    margin: 0;
+    user-select: none;
+}
+
+/* 윗단 탑 슬라이드 */
+.movie--Top__banner {
+    width: 100%;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    background-color: black;
+}
+
+.movie--main--slider{
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    --swiper-navigation-color: #fff; 
+    --swiper-pagination-color: #fff
+}
+
+.movie--main--slider .swiper-slide{
+    background-color: black;
+}
+
+.main-swiper-slider {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+.main-swiper-slider img {
+    display: block;
+}
+
+.swiper-button-next, .swiper-button-prev{
+    color: gray;
+}
+
+
+/* 영화 정보 */
+.info-wrapper{
+    width: 980px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+/* 상단 정보란 */
+.movie--detail__basic{
+    width: 100%;
+    height: 300px;
+    display: flex;
+}
+
+.detail--movie-poster{
+    position: relative;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.detail--movie-poster img{
+    width: 205px;
+    border-radius: 5px;
+    
+    position: relative;
+    top: -80px;
+    z-index: 3;
+}
+
+.detail--movie-info{
+    width: 75%;
+    padding: 20px;
+}
+
+.movie--audience-info{
+    margin: 20px 0;
+    display: flex;
+    gap: 20px;
+}
+
+.movie--audience-info :nth-child(1){
+    margin-right: 5px;
+    font-weight: 400;
+}
+
+.movie--audience-info :last-child{
+    font-weight: bold;
+}
+
+.movie--audience-info img{
+    width: 10px;
+    height: 10px;
+}
+
+/* 영화 단순 정보 */
+.movie--simple-info{
+    padding: 20px;
+    display: flex;
+
+}
+
+.line1{
+    padding: 0 5px;
+}
+
+.movie-info{
+    width: 75%;
+}
+
+.info-line1 span{
+    padding: 0 5px;
+}
+
+
+.movie-info li{
+    margin: 5px 0;
+}
+
+.movie-ticket{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movie-ticket .ticket-active{
+    width: 80%;
+    height: 50px;
+    background-color: red;
+    color: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticket-non-active{
+    width: 80%;
+    height: 50px;
+    background-color: gray;
+    color: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* 하단 정보란 */
+.outer-info{
+
+}
+
+/* 메뉴부분 */
+.info-type-select{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.info-type-select button{
+    background-color: white;
+    border: 2px solid white;
+    font-size: 20px;
+    width: 49%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.bar-type{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+}
+
+
+.info-type-select button:focus{
+    outline: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+
+.select-active{
+    font-weight: bold;
+}
+
+.selecter-bar{
+    display: flex;
+    margin: 15px 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.selected-bar{
+    background-color: black;
+}
+
+.menu-active{
+    display: block;
+}
+
+/* 하단 정보란 각 부분 공간부여  */
+.outer-info__type-info strong{
+    display: block;
+    margin: 20px 10px;
+}
+
+
+/* ---- 영화 정보란 ---- */
+.outer-info__type-info{
+    display: none;
+}
+
+/* 스틸컷 부분 */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    object-fit: cover;
+}
+
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+/* 스틸컷 갤러리 */
+.stillCutGallary {
+    height: 133px;
+    box-sizing: border-box;
+    border: 3px solid gray;
+    margin-bottom: 20px;
+}
+
+.stillCutGallary .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+.stillCutGallary .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+}
+
+.stillCutGallary .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+
+
+/* 스틸컷 디테일 */
+.stillCutDetail {
+    height: 510px;
+    width: 100%;
+    background-color: gray;
+}
+
+.stillCutDetail .stillCutDetail-wrapper div img{
+    height: 100%;
+}
+
+.stillCutDetail .swiper-slide{
+    background-color: black;
+    background-size: none;
+    background-position: none;
+}
+
+/* 영화인 */
+
+/* 공통사항 */
+.movie-person__gird{
+    margin: auto;
+    margin-top: 40px;
+    width: 98%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 60px;
+}
+
+/* 영화인 디테일 */
+.person{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/*  */
+.person-img{
+    margin: auto;
+    width: 30%;
+}
+.person-img img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+/*  */
+.person-info{
+    padding-left: 10px;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-name{
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    width: 60%;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.info-role{
+    width: 60%;
+    font-size: 13px;
+}
+
+
+
+
+
+/* ---- 평점 및 관람평 메뉴 ---- */
+.outer-info__type-comment{
+    display: none;
+}
+
+/* 댓글 작성 부분(submit) */
+.comment-submit{
+    background-color: rgba(0, 0, 0, 0.03);
+    height: 300px;
+}
+
+.star-rating{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 350px;
+    margin: auto;
+    padding-top: 50px;
+    row-gap: 10px;
+    margin-bottom: 50px;
+}
+
+
+/* star rating 부분 */
+
+.score-container{
+    width: 350px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    column-gap: 15px;
+}
+
+.score {
+    width: 300px;
+    height: 60px;
+    /* background: url(https://upload.wikimedia.org/wikipedia/commons/b/b0/Star-.svg) repeat-x; */
+    /* background-size: 60px 60px; */
+}
+
+.score:hover{
+    filter: brightness(0.9);
+}
+
+.score-value {
+    position: relative;
+    display: inline-block;
+    height: 60px;
+    width: 100%;
+    /* background: url(https://upload.wikimedia.org/wikipedia/commons/6/63/Star%2A.svg) repeat-x; */
+    /* background-size: 60px 60px; */
+    transition: all 0.3s;
+}
+
+#star {
+    position: absolute;
+    top: -5px;
+    width: 300px;
+    height: 70px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* 리뷰 입력란 */
+.review-write{
+    display: flex;
+    width: 900px;
+    margin: auto;
+    margin-top: 20px;
+    height: 80px;
+}
+
+.review-textarea {
+    resize: none;
+    width: 85%;
+    padding: 15px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.review-btn{
+    width: 15%;
+    background-color: #0E0853;
+    color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.review-btn:hover{
+    background-color: #1f12af;
+    transition: all 0.2s;
+}
+
+
+
+/* 댓글 리스트 부분 */
+.comment-list{
+    margin-top: 10px;
+}
+/* nav */
+.comment-list__nav{
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+/* 관람객 관람평 div */
+.comment--nav-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    column-gap: 5px;
+}
+
+.comment--nav-title img{
+    width: 20px;
+    height: 20px;
+}
+
+/* 리뷰 정렬 기준 nav */
+.comment--nav-sort{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+
+/* 영화 리뷰,평점 리스트 */
+.comment-list__list{
+    margin-top: 5px;
+}
+
+
+.comment-each{
+    background-color: #A8A7DE;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.6);
+    border-radius: 2px;
+    padding: 20px;
+}
+
+.comment-user-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-user-info__left{
+    display: flex;
+    align-items: center;
+}
+
+.comment-user-info__left img{
+    width: 40px;
+    height: 40px;
+}
+
+.comment-user-info__user-info{
+    padding-left: 15px;
+}
+
+.comment-user-info__score{
+    display: flex;
+}
+
+.score-comment{
+    width: 100px;
+    height: 20px;
+}
+
+.score-value-comment{
+    display: inline-block;
+    height: 20px;
+}
+
+.score-value-text{
+    padding-left: 10px;
+}
+
+.comment-user-info__right{
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-user-info__right button{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.comment-content{
+    padding-top: 10px;
+    padding-left: 55px;
+    min-height: 60px;
+
+}
+
+.comment-none{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+}
+
+
+
+/* 아랫단 봇 배너 */
+.movie--bot__banner {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    margin-bottom: 80px;
+}
+
+
+
+
+.menu-active{
+    display: block;
+}

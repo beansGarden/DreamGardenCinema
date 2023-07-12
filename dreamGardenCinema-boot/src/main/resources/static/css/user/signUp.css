@@ -1,0 +1,302 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sign-up-box {
+    width: 1000px;
+    height: auto;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sign-up-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 회원가입 모든 input */
+.input-wrapper>label>input {
+    display: block;
+    width: 35vw;
+    height: 45px;
+    margin: 10px 0;
+    padding-top: 10px;
+    border: 0;
+    border-bottom: 1px solid #80808050;
+    position: relative;
+}
+
+/* input number 우측 화살표 제거 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-wrapper>label>input:focus {
+    outline: none;
+    border-bottom: 2px solid #5250BE80;
+}
+.sign-up-line{
+    width: 50vw;
+    border-bottom: 1px solid #80808050;
+    margin: 30px 0 30px 0 ;
+}
+
+#signUpFrmBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* input div */
+.input-wrapper{
+    margin-top: 10px;
+    position: relative;
+}
+
+/* 회원가입 모든 span */
+.input-wrapper>label>span {
+    position: absolute;
+    top: 10px;
+    font-size: 16px;
+    color: #808080;
+    transition: font-size 0.2s;
+}
+
+.input-font-size-ani {
+    animation: shrinkFontSize 0.2s;
+    transform-origin: top left;
+    animation-fill-mode: forwards;
+}
+
+.output-font-size-ani {
+    animation: expandFontSize 0.2s;
+    transform-origin: top left;
+    animation-fill-mode: forwards;
+}
+
+input::placeholder {
+    font-size: 12px;
+    color: #80808099;
+    transform: translateY(5px);
+}
+
+@keyframes shrinkFontSize {
+    from {
+        font-size: 16px;
+    }
+
+    to {
+        font-size: 12px;
+    }
+}
+
+@keyframes expandFontSize {
+    from {
+        font-size: 12px;
+    }
+
+    to {
+        font-size: 16px;
+    }
+}
+
+.authKeyResend {
+    position: absolute;
+    color: #80808099;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 13px;
+    right: 10px;
+    top: 60px;
+    user-select: none;
+}
+
+.display-none {
+    display: none !important;
+}
+
+
+#authKeyLifeTime {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+/* 입력되지 않았을 때 input 빨간줄 */
+.err-input-border {
+    border-bottom: 2px #d7373f solid !important;
+}
+
+.check-input-border {
+    border-bottom: 2px #09aa5c solid !important;
+}
+
+.authKey-green-text {
+    color: #09aa5c;
+}
+
+.authKey-red-text {
+    color: red;
+}
+
+.userErrIcon {
+    position: absolute;
+    top: 60%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.gender-box {
+    width: 400px;
+    margin-top: 20px;
+}
+
+.form_radio_btn {
+    width: 49%;
+    height: 45px;
+    border: 1px solid #80808050;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.form_radio_btn input[type=radio] {
+    display: none;
+}
+
+.form_radio_btn label {
+    display: block;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    height: -webkit-fill-available;
+    line-height: 45px;
+}
+
+/* Checked */
+.form_radio_btn input[type=radio]:checked+label {
+    background: #5250BE;
+    color: #fff;
+}
+
+/* Hover */
+.form_radio_btn label:hover {
+    color: #666;
+}
+
+/* Disabled */
+.form_radio_btn input[type=radio]+label {
+    background: #F9FAFC;
+    color: #666;
+}
+
+#sendAuthKeyBtn,#signBtn {
+    position: relative;
+    background: none;
+    border: solid 1px #5250BE;
+    transition: linear 250ms;
+    width: 400px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    margin: 60px 0 70px 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: #5250BE;
+    border-radius: 10px;
+}
+
+#sendAuthKeyBtn:is(:hover, :focus) {
+    color: #fff;
+    background-color: #5250BE;
+    transform-origin: left;
+}
+
+#sendAuthKeyBtn::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    z-index: -1;
+    background-color: #5250BE;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: linear 250ms;
+}
+
+#sendAuthKeyBtn:is(:hover, :focus)::after {
+    transform: scale(1);
+}
+#signBtn:is(:hover, :focus) {
+    color: #fff;
+    background-color: #5250BE;
+    transform-origin: left;
+}
+
+#signBtn::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    z-index: -1;
+    background-color: #5250BE;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: linear 250ms;
+}
+
+#signBtn:is(:hover, :focus)::after {
+    transform: scale(1);
+}
+/*******************************************************/
+.id-pw-box{
+    width: 55vw;
+    border: solid #d2d2d2;
+    border-width: 1px 0 1px 0 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 28vh;
+    padding-top: 10px;
+    margin-bottom: -1px;
+}
+
+.email-nickname-box{
+    width: 55vw;
+    border: solid #d2d2d2;
+    border-width: 1px 0 1px 0 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 35vh;
+    padding-top: 10px;
+    margin-bottom: -1px;
+}
+
+.tel-box{
+    width: 55vw;
+    border: solid #d2d2d2;
+    border-width: 1px 0 1px 0 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 21vh;
+    padding-top: 10px;
+
+}
+
+/*******************************************************/

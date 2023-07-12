@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.dgc.movie.model.dao.MovieDetailMapper">
+	
+	<resultMap type="Movie" id="movie_rm">
+		<id property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="poster" column="POSTER"/>
+		<result property="synopsis" column="SYNOPSIS"/>
+		<result property="runningTime" column="RUNNING_TIME"/>
+		<result property="rating" column="RATING"/>
+		<result property="releaseDate" column="RELEASE_DATE"/>
+		<result property="producer" column="PRODUCER"/>
+		<result property="moviePrice" column="MOVIE_PRICE"/>		
+		<result property="genre" column="GENRE"/>		
+		<result property="screening" column="SCREENING"/>
+		<result property="rank" column="RANK"/>
+		<result property="ratio" column="RATIO"/>
+		<result property="score" column="SCORE"/>
+		<result property="ticketCount" column="TICKET_COUNT"/>
+	</resultMap>
+	
+	<resultMap type="Person" id="person_rm">
+		<id property="personNo" column="PERSON_NO"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="name" column="PERSON_NAME"/>
+		<result property="role" column="PERSON_ROLE"/>
+		<result property="img" column="PERSON_IMG"/>
+	</resultMap>
+	
+	<resultMap type="MovieComment" id="comment_rm">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="score" column="SCORE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
+		<result property="movieNo" column="MOVIE_NO"/>
+	</resultMap>
+	
+	<select id="selectAdvertisePoster" resultType="map">
+		SELECT *
+		FROM(
+			SELECT *
+			FROM MOVIE_IMG
+			WHERE MOVIE_IMG_ROLE = '광고'
+			ORDER BY DBMS_RANDOM.RANDOM
+			)
+		WHERE rownum = 1
+	</select>
+	
+	<select id="selectMovieDetailCurrent" resultMap="movie_rm">
+		SELECT *
+		FROM
+		(SELECT ROWNUM AS RANK, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, SCREENING, RUNNING_TIME, GENRE, 
+		SYNOPSIS, ROUND(NVL(RATIO_TO_REPORT(TICKET_COUNT) OVER(),0)*100, 1) AS RATIO, 
+		NVL(MOVIE_IMG_PATH, 'null') MAIN_POSTER, SCORE, TICKET_COUNT
+		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, 
+				(SELECT COUNT(TICKET_NO)
+				FROM TICKETING_INFO C
+				JOIN SEAT_CHECK USING(TICKET_NO)
+				WHERE P.MOVIE_NO = C.MOVIE_NO) TICKET_COUNT, 
+				NVL((SELECT ROUND(AVG(SCORE),1) FROM MOVIE_REVIEW R WHERE P.MOVIE_NO = R.MOVIE_NO), 0) SCORE,
+				SCREENING, GENRE
+			FROM MOVIE P
+			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
+				 ON(P.MOVIE_NO = I.MOVIE_NO)
+			WHERE SCREENING = 'C'
+			ORDER BY TICKET_COUNT DESC, RELEASE_DATE))
+		WHERE MOVIE_NO = #{movieNo}
+	</select>
+	
+	<select id="selectMovieDetailPromise" resultMap="movie_rm">
+		SELECT * 
+		FROM 
+		(SELECT ROWNUM AS RANK, MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, GENRE
+		FROM(SELECT P.MOVIE_NO, MOVIE_TITLE, POSTER, RATING, RELEASE_DATE, RUNNING_TIME, SYNOPSIS, MOVIE_IMG_PATH, GENRE
+			FROM MOVIE P
+			LEFT JOIN (SELECT * FROM MOVIE_IMG WHERE MOVIE_IMG_ROLE='메인슬라이드') I
+				 ON(P.MOVIE_NO = I.MOVIE_NO)
+			WHERE SCREENING = 'P'
+			ORDER BY RELEASE_DATE))
+		WHERE MOVIE_NO = #{movieNo}
+	</select>
+	
+	<select id="selectMoviePerson" resultMap="person_rm">
+		SELECT *
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}	
+	</select>
+	
+	<select id="selectMovieDirectorName">
+		SELECT PERSON_NAME
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}
+		AND PERSON_ROLE = '감독'
+	</select>
+	
+	<select id="selectMovieActorName">
+		SELECT PERSON_NAME
+		FROM PERSON_INFO
+		WHERE MOVIE_NO = #{movieNo}
+		AND (PERSON_ROLE IS NULL OR PERSON_ROLE != '감독')
+	</select>
+	
+	<select id="selectMovieStillCut">
+		SELECT MOVIE_IMG_PATH
+		FROM MOVIE_IMG
+		WHERE MOVIE_NO = #{movieNo}
+		AND MOVIE_IMG_ROLE = '스틸컷'
+	</select>
+	
+	<select id="selectMovieComment" resultMap="comment_rm">
+		SELECT R.REVIEW_NO, R.SCORE, R.REVIEW_DATE, R.REVIEW_CONTENT,
+		R.USER_NO, I.USER_NICKNAME, R.MOVIE_NO 
+		FROM MOVIE_REVIEW R
+		LEFT JOIN USER_INFO I ON (R.USER_NO = I.USER_NO)
+		WHERE MOVIE_NO = #{movieNo}
+		AND REVIEW_DELETE_FL = 'N'
+		ORDER BY REVIEW_DATE DESC
+	</select>
+	
+	<insert id="insertMovieComment">
+		INSERT INTO "beansGarden".MOVIE_REVIEW
+		(REVIEW_NO, SCORE, REVIEW_DATE, REVIEW_CONTENT, USER_NO, MOVIE_NO, REVIEW_DELETE_FL)
+		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{score}, SYSDATE, #{reviewContent}, #{userNo}, #{movieNo}, DEFAULT,DEFAULT)
+	</insert>
+	
+	<insert id="insertMovieCommentReport">
+		INSERT INTO "beansGarden".REPORT
+		(REPORT_NO, REPORT_TITLE, REPORT_CONTNENT, REPORT_ENROLL_DATE, REPORT_FL, REPORT_DELETE_FL, REVIEW_NO, REPORT_WIRTER, REPORTED_USER_NO)
+		VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportTitle}, #{reportContent}, DEFAULT, DEFAULT, DEFAULT, #{reviewNo}, #{reportWriter}, #{reportedUserNo})
+	</insert>
+	
+
+</mapper>
+

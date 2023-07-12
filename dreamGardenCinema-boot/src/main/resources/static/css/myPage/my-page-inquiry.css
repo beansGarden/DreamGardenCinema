@@ -1,0 +1,1236 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+.my-page-nav-list a{
+    color: #000000;
+}
+.my-page-nav-list>:nth-child(3){
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.my-page-container{
+    width: 100%;
+    display: grid;
+    
+}
+
+.my-page-category{
+    display: grid;
+    height: 240px;
+    width: 100%;
+    grid-auto-flow: column;
+    grid-template-columns: 1.25fr 0.5fr 1.25fr;
+}
+
+.my-page-nickname{
+    width: 100%;
+    height: 100px;
+    background-color: #0F0954;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-page-nickname>p{
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+.my-page-L{
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-L a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.my-page-membership-grade{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #0F0954;
+    align-items: center;
+    width: 100%;
+}
+
+.my-page-membership-grade>img{
+    height: 215px;
+    margin-bottom: 20px;
+}
+
+.my-page-R{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    background-color: #0F0954;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.my-page-R a{
+    display: flex;
+    width: 150px;
+    justify-content: space-around;
+    text-decoration: none;
+    color: white;
+
+}
+
+.my-page-empty-space{
+    width: 100px;
+    height: 16px;
+}
+.my-page-myinfo img {
+    width: 50px;
+    height: 50px;
+}
+
+.my-page-myinfo>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-myprofile img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-myprofile>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-customer-service img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-customer-service>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+.my-page-membership img{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.my-page-membership>a:nth-child(2):hover{
+    border-bottom: 2px solid white;
+}
+
+/* 예매내역 ,취소내역, 나의 문의내역 , 회원탈퇴 탭*/
+.my-page-nav{
+    border-bottom: 1px solid #ccc;
+}
+.my-page-nav-list{
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+    list-style: none;
+}
+.my-page-nav-list>li>a:hover{
+    border-top: 2px solid  #0F0954;
+    border-bottom: 2px solid #0F0954;
+    font-weight: bold;
+}
+
+.my-page-nav-list a{
+    text-decoration: none;
+}
+.my-page-contents-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* 문의 내역이 없을 경우 */
+.my-page-contents-box{
+    /* display: flex; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+.my-page-contents{
+    display: flex;
+    flex-direction: column;
+}
+
+.my-page-contents>img{
+    width: 150px;
+    height: 150px;
+    margin: 15px;
+    align-self: center;
+}
+
+.my-page-contents>p{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* 문의 내역이 있을 경우 */
+.my-page-inquiry-table{
+    text-align: center;
+    width: 70vw;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 12px 12px 0 0;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0px 12px 5px rgba(32, 32, 32, 0.3);
+}
+th{
+    background-color: #0f0954b7;
+    color: #fff;
+}
+th,td{
+    padding: 10px 15px;
+}
+tr:nth-child(odd){
+    background-color: #eeeeee;
+}
+table img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+#my-page-inquiry-title{
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+#my-page-inquiry-content{
+    font-size: 15px;
+    text-align: left;
+    height: 250px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+
+}
+.my-page-myInquiry{
+    height: 100px;
+    margin-top: 15px;
+    border-top: 1px solid black;
+}
+.my-page-inquiry-table-display{
+    width: 100%;
+    display: none;
+}
+/* 처리중 and 답변 완료 */
+#ing{
+    width: 70px;
+    border-radius: 50px;
+    border: 1px solid black;
+    text-align: center;
+}
+/* 페이지 네이션 */
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin: 20px 80px;
+    position: relative;
+}
+.pagination ol{
+    width : 400px;
+    height: 30px;
+    text-align: center;
+}
+#paginationNumbers li{
+    display: inline-block;
+}
+#paginationNumbers li a{
+    padding: 3px;
+    color: #92B4EC;
+    margin: 0 6px;
+    width: 20px;
+}
+#paginationNumbers li a.active{
+    font-weight: bold;
+    color: #5286DC;
+}
+.pagination i{
+    color: #FFD24C;
+    line-height: 30px;
+}
+
+/* 닉네임 변경 모달 영역 */
+.my-page-change-nickname-area{
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    z-index: 1000;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+}
+.my-page-change-nickname-content{
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.my-page-change-nickname-content>:nth-child(1){
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+}
+.my-page-change-nickname-content input{
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+.my-page-change-nickname-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-change-nickname-content i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* 닉네임 변경 수정 / 취소 버튼 */
+
+.my-page-change-nickname-update-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-change-nickname-update-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-change-nickname-update-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+.my-page-change-nickname-update-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-change-nickname-update-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+/* 회원 탈퇴 모달 영역*/
+.my-page-secession-area{
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+    /* 다음 버튼 클릭시 display none */
+}
+.my-page-secession-pwcheck-container{
+
+    width: 30vw;
+    height: 32vh;
+    background-color: #363356;
+    background-image: linear-gradient(13deg, #c5bfff 0%, #be52f0 81%);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.my-page-secession-pwcheck-container>:nth-child(1){
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+.my-page-secession-pwcheck-container>:nth-child(2){
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.my-page-secession-inputbox{
+    position: relative;
+    width: 250px;
+}
+
+.my-page-secession-pwcheck-container input {
+
+    border-radius: 5px;
+    font-weight: bold;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 0 5px;
+}
+
+.my-page-secession-pwcheck-container i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+/* 비밀번호 확인 창 버튼 */
+.my-page-secession-pwcheck-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+
+.my-page-secession-pwcheck-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+
+.my-page-secession-pwcheck-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-secession-pwcheck-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.my-page-secession-pwcheck-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-secession-pwcheck-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/* 탈퇴 모달에서 다음 눌렀을 때 */
+.my-page-secession-info-bg{
+    display: none;
+    width: 70vw;
+    height: 70vh;
+    top: 0px;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    /* 다음버튼 클릭시 display flex */
+}
+
+#secession-title{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px;
+}
+.my-page-secession-info-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#secession-info{
+    font-size: 20px;
+}
+#secession-info>span{
+    color: #ED4C6B;
+    font-size: 25px;
+    font-weight: bold;
+}
+#secession-notice{
+    display: flex;
+    margin-top: 10px;
+    width: 60vw;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+#secession-notice-detail{
+    margin-top: 10px;
+    width: 60vw;
+    height: 25vh;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    overflow-y: scroll;
+}
+/* 스크롤바 css 작업 */
+#secession-notice-detail::-webkit-scrollbar {
+    width: 10px;
+}
+#secession-notice-detail::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+#secession-notice-detail>span{
+    font-weight: bold;
+}
+.my-page-secession-checkbox{
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+/* 탈퇴 / 취소 버튼 */
+.my-page-secession-btn{
+    margin:30px;
+    display: flex;
+    gap: 100px;
+}
+.my-page-secession-btn>button{
+    border:none;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+.my-page-secession-btn>:nth-child(1){
+    background: linear-gradient(90deg, #0F0954,#b3307a,#0F0954);
+    background-size: 400%;
+}
+.my-page-secession-btn>:nth-child(1):hover{
+    animation: animate2 8s linear infinite;
+}
+@keyframes animate2 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+.my-page-secession-btn>:nth-child(2){
+    background: linear-gradient(90deg, #0F0954,#708101,#0f0954);
+    background-size: 400%;
+}
+.my-page-secession-btn>:nth-child(2):hover{
+    animation: animate1 8s linear infinite;
+}
+@keyframes animate1 {
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+
+/* 회원 탈퇴 영역 */
+.my-page-secession-inputbox>input{
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+.my-page-secession-inputbox{
+    position: relative;
+    width: 250px;
+}
+.line3{
+    position: absolute;
+    left: 155px;
+    bottom: 9px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.line3:before{
+    content: "";
+    position: absolute;
+    left: 155px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#ff1b69,#ff0,#2196f3,#9c27b0,#ff1b69);
+    animation: animateSecession 2s linear infinite;
+    transition: 0.1s;
+}
+
+
+.my-page-secession-inputbox input:valid ~ .line3::before {
+    left: -250px;
+}
+
+.my-page-secession-inputbox input:focus ~ .line3::before {
+    left: 0;
+}
+@keyframes animateSecession{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+/* 일치할 경우 class */
+
+.clearPw{
+    position: absolute;
+    left: 155px;
+    bottom: 9px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.clearPw::before{
+    content: "";
+    position: absolute;
+    left: 155%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#1becff,#5899ff,#376bff,#0056ff,#1becff);
+    animation: animateClearPw 2s linear infinite;
+    transition: 0.1s;
+}
+.my-page-secession-inputbox input:valid ~ .clearPw::before{
+    left: -250px
+}
+.my-page-secession-inputbox input:focus ~ .clearPw::before{
+    left: 0;
+}
+@keyframes animateClearPw{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+.errorPw{
+    position: absolute;
+    left: 155px;
+    bottom: 9px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+.errorPw::before{
+    content: "";
+    position: absolute;
+    left: 155%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#ff000d,#ff6f6f,#fea8d5,#ff2b5c,#ff000d);
+    animation: animateClearPw 2s linear infinite;
+    transition: 0.1s;
+}
+.my-page-secession-inputbox input:valid ~ .errorPw::before{
+    left: -250px
+}
+.my-page-secession-inputbox input:focus ~ .errorPw::before{
+    left: 0;
+}
+@keyframes animateClearPw{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+/* 나의 문의 내역 이미지 */
+.my-page-myInquiry-imgBox>img{
+
+    height: 150px;
+    width: 150px;
+    margin-top: 15px;
+    
+}
+/* 내정보 변경 애니메이션 감싸는 div */
+.face-button-qa-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 내정보 변경 애니메이션 */
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+}
+
+button.face-button {
+    width: 6.25rem;
+    height: 6.25rem;
+    border-radius: 50%;
+    background: #fdda5f;
+    box-shadow: inset 2px -4px 18px #fd9744;
+}
+
+.face-container {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 20px;
+    margin: auto;
+}
+
+.eye {
+    position: absolute;
+    height: 0.5rem;
+    width: 0.5rem;
+    background: #2a2927;
+    border-radius: 50%;
+    -webkit-animation: eyeBlink 3200ms linear infinite;
+    animation: eyeBlink 3200ms linear infinite;
+}
+
+.eye.left {
+    left: 0;
+}
+
+.eye.right {
+    left: 2rem;
+}
+
+.mouth {
+    position: absolute;
+    top: 1.125rem;
+    left: 0.8rem;
+    width: 1rem;
+    height: 0.125rem;
+    background: #2a2927;
+    border-radius: 0;
+}
+
+.eye,
+.mouth {
+    box-shadow: inset 1px 2px 4px #121110;
+}
+
+.face-button:hover .mouth,
+.face-button:active .mouth {
+    left: 1rem;
+    width: 0.5rem;
+    height: 0.4rem;
+    border-radius: 1rem 1rem 0.125rem 0.125rem;
+}
+
+.face-button:hover .eye,
+.face-button:active .eye {
+    height: 0.375rem;
+    width: 0.375rem;
+    box-shadow: 0 0 0 0.25rem #fff;
+}
+
+@-webkit-keyframes eyeBlink {
+
+    0%,
+    30%,
+    36%,
+    100% {
+        transform: scale(1);
+    }
+
+    32%,
+    34% {
+        transform: scale(1, 0);
+    }
+}
+
+@keyframes eyeBlink {
+
+    0%,
+    30%,
+    36%,
+    100% {
+        transform: scale(1);
+    }
+
+    32%,
+    34% {
+        transform: scale(1, 0);
+    }
+}
+
+
+/* 닉네임변경 */
+#jello1{
+    filter: invert(1);
+}
+
+#jello1:hover {
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+}
+
+@-webkit-keyframes jello-horizontal {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes jello-horizontal {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+
+
+/* 문의사항 아이콘 */
+.cls-1,
+.cls-4 {
+    fill: #fff;
+}
+
+.cls-1,
+.cls-2,
+.cls-3,
+.cls-4 {
+    stroke: #231f20;
+    stroke-miterlimit: 10;
+}
+
+.cls-1,
+.cls-3 {
+    stroke-width: 3.72px;
+}
+
+.cls-2,
+.cls-3 {
+    fill: #F0BA58;
+}
+
+.cls-2,
+.cls-4 {
+    stroke-width: 3.35px;
+}
+
+
+
+#wrap {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#about {
+    height: 100px;
+}
+
+
+#exclaim:hover {
+    animation-name: hop;
+    animation-duration: 1s;
+    animation-fill-mode: forward;
+    animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+    animation-iteration-count: 3;
+}
+
+#question:hover {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-fill-mode: forward;
+    animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+    animation-iteration-count: 3;
+
+    transform-origin: 50% 50%;
+}
+
+@keyframes hop {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    25% {
+        transform: translate(0px, -12px);
+    }
+
+    50% {
+        transform: translate(0px, 0px);
+    }
+
+    65% {
+        transform: translate(0px, -8px);
+    }
+
+    75% {
+        transform: translate(0px, 0px);
+    }
+
+    80% {
+        transform: translate(0px, -6px);
+    }
+
+    85% {
+        transform: translate(0px, 0px);
+    }
+
+    90% {
+        transform: translate(0px, -3px);
+    }
+
+    93% {
+        transform: translate(0px, 0px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(8deg);
+    }
+
+    45% {
+        transform: rotate(-8deg);
+    }
+
+    60% {
+        transform: rotate(5deg);
+    }
+
+    80% {
+        transform: rotate(-5deg);
+    }
+
+    90% {
+        transform: rotate(3deg);
+    }
+
+    95% {
+        transform: rotate(-3deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* 멤버십 아이콘 애니메이션 */
+svg {
+    fill: currentColor;
+}
+
+.star-container {
+    cursor: pointer;
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.star-container:hover .star-shape {
+    color: #f59f00;
+    animation-name: star-scale;
+    animation-delay: 0.1s;
+    animation-duration: 0.85s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0, 0.8);
+}
+
+.star-container:hover .star-circle {
+    animation-name: circle-scale;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0, 0.8);
+}
+
+.star-container:hover .star-line {
+    animation-name: line-emit;
+    animation-delay: 0.05s;
+    animation-duration: 0.65s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0, 0.8);
+}
+
+.star-wrapper {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.star-shape {
+    z-index: 20;
+    color: #ced4da;
+    transform: scale(0.9);
+}
+
+.star-circle {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.star-line-container {
+    position: absolute;
+    top: 0;
+    left: 48px;
+    z-index: 10;
+}
+
+.star-line-wrapper:nth-child(1) {
+    position: absolute;
+    top: 8px;
+    left: 28px;
+    transform: rotate(36deg);
+}
+
+.star-line-wrapper:nth-child(2) {
+    position: absolute;
+    top: 64px;
+    left: 48px;
+    transform: rotate(108deg);
+}
+
+.star-line-wrapper:nth-child(3) {
+    position: absolute;
+    top: 98px;
+    left: 1px;
+    transform: rotate(180deg);
+}
+
+.star-line-wrapper:nth-child(4) {
+    position: absolute;
+    top: 66px;
+    left: -47px;
+    transform: rotate(252deg);
+}
+
+.star-line-wrapper:nth-child(5) {
+    position: absolute;
+    top: 10px;
+    left: -30px;
+    transform: rotate(324deg);
+}
+
+.star-line {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 2px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f08c00;
+    transform-origin: center bottom;
+    transform: scaleY(0);
+}
+
+@keyframes star-scale {
+
+    from,
+    15% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    70% {
+        animation-timing-function: cubic-bezier(0.215, 0.6, 0.355, 1);
+        transform: scale(0.75);
+    }
+
+    to {
+        transform: scale(0.85);
+    }
+}
+
+@keyframes circle-scale {
+    from {
+        transform: scale(0);
+        border: 50px solid #fcc419;
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0.9);
+        border: 0px solid #fcc419;
+        opacity: 0;
+    }
+}
+
+@keyframes line-emit {
+    from {
+        transform-origin: center bottom;
+        transform: scaleY(0);
+    }
+
+    50% {
+        animation-timing-function: cubic-bezier(0, 0.65, 0, 0.55);
+        transform: scaleY(0.3);
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    to {
+        transform-origin: center top;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+}

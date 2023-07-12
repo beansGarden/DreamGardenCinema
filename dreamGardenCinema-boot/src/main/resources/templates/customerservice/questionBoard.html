@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터-1:1문의</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/customerservice/questionBoard.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="customer-service-box">
+
+        <div class="service-notice">
+            <p class="notice-title">고객센터</p>
+        </div>
+        <div class="service-empty-line"></div>
+
+        <div class="service-list">
+            <ul class="service-list-choose">
+                <li><a th:href="@{/customerservice/}">FAQ</a></li>
+                <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                <li><a th:href="@{/customerservice/service}">1:1문의</a><hr></li>
+            </ul>
+        </div>
+
+
+        <!-- 문의글 작성 영역의 전체를 감싸는 div 태그 -->
+        <div class="customer-service-QA">
+
+            <!-- 안내문구 -->
+            <div class="QA-comment-box">
+                <img th:src="@{/images/customerservice/문의 아이콘.png}">
+                <div class="QA-top-notice">
+                    <pre>
+                    FAQ를 이용하시면 궁금증을 더 빠르게 해결하실 수 있습니다.
+                </pre>
+                    <ul class="QA-list">
+                        <li>▶1:1 문의글 답변 운영시간 10:00 ~ 19:00</li>
+                        <li>▶접수 후 48시간 안에 답변 드리겠습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 문의시 주의사항 -->
+            <div class="QA-notice-contents">
+                <pre>
+                    고객님의 문의에 답변하는 <span style="color: #6E569B;">직원은 고객 여러분의 가족 중 한 사람일 수 있습니다.</span>
+                    고객의 언어폭력(비하, 욕설, 반말, 성희롱 등)으로부터 직원을 보호하기 위해 관련 법에 따라 수사기관에 필요한 조치를 요구할 수 있으며,
+                    형법에 의해 처벌 대상이 될 수 있습니다.
+                </pre>
+            </div>
+
+            <form th:action="@{/customerservice/QAinsert}" method="POST" id="QAfrm" enctype="multipart/form-data">
+
+                <!-- 문의내용 -->
+                <div class="QA-main-title">
+                    <span>문의내용</span>
+                </div>
+
+                <!-- 분류 및 종류 행 -->
+                <div class="QA-divide">
+                    <span>분류</span><span style="color: red;">*</span>
+                    <select name="key" id="QASelection">분류선택
+                        <option value="">선택</option>
+                        <option value="p">상영관</option>
+                        <option value="m">영화</option>
+                        <option value="u">멤버십</option>
+                        <option value="b">예매/결제</option>
+                        <option value="h">홈페이지</option>
+                        <option value="a">계정</option>
+                        <option value="e">기타</option>
+                    </select>
+
+                </div>
+
+
+                <!-- 제목 행 -->
+                <div class="QA-title">
+                    <span>제목</span><span style="color: red;">*</span>
+                    <input name="qnaTitle" type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요." minlength="0"
+                        maxlength="49">
+                    <div class="QA-title-count-box">
+                        <span id="QATitleCount">0</span>/
+                        <span>50</span>자
+                    </div>
+                </div>
+
+                <!-- 내용 -->
+                <div class="QA-contents">
+                    <span>내용</span><span style="color: red;">*</span>
+                    <textarea name="qnaContent" id="QADetailContents" cols="100" rows="10" minlength="0" maxlength="1999"
+                        placeholder="내용을 입력 해주세요."></textarea>
+                    <div class="QA-span-container">
+                        <span id="QAContentsCount">0</span>/
+                        <span>2000</span>자
+                    </div>
+                </div>
+
+                <!-- 첨부파일 -->
+                <div class="QA-upload-file">
+                    <span>첨부파일</span>
+                    <input type="file" name="images" id="QAInsertFile" accept="image/*" multiple>
+                    <span><img th:src="@{/images/customerservice/경고.png}">첨부 파일형식 : jpg / jpeg /
+                        png/ bmp / gif / pdf (5MB X 1개)</span>
+                </div>
+
+                <!-- 회원 여부 체크  -->
+                <div class="QA-member-check">
+                    <span>비회원 체크</span>
+                    <input type="checkbox" name="chkNoneMember" id="QAmemChkBox">
+                    <span>이메일로 답변 받기</span>
+                    <span>
+                        <img th:src="@{/images/customerservice/경고.png}">
+                        비회원 문의 시 이메일로 답변 내용이 발송되므로 이메일로 답변 알림 받기는 필수입니다.</span>
+                </div>
+
+                <!-- 고객정보 -->
+
+                <div class="QA-cus-info-hidden">
+                    <div class="QA-customer-info-title">
+                        <span>고객정보</span>
+                    </div>
+
+                    <!-- 성명 -->
+                    <div class="QA-customer-name">
+                        <span>성명</span><span style="color: red;">*</span>
+                        <input name="nonMemberName" type="text" placeholder="성함을 입력해 주세요." id="cusName">
+                    </div>
+
+                    <!-- 연락처 -->
+                    <div class="QA-customer-tel">
+                        <span>연락처</span><span style="color: red;">*</span>
+                        <select name="first" id="QASelectNum">
+                            <option value="">선택</option>
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                        </select>
+
+                        <input name="nonMemberTel" type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요." id="cusTel"
+                                maxlength="8">
+
+                    </div>
+
+                    <div class="QA-customer-email">
+                        <span>이메일</span><span style="color: red;">*</span>
+                        <input name="nonMemberEmail" type="email" id="QAEmail">
+                        <span>
+                            <img th:src="@{/images/customerservice/경고.png}">답변 등록시 해당 이메일로 자동 발송 됩니다.
+                        </span>
+                    </div>
+
+                </div>
+
+
+
+                <!-- 개인정보 수집 동의 -->
+                <div class="QA-personal-agree-title">
+                    <span>개인정보 수집 동의에 대한 동의</span>
+                    <span>문의를 통해 아래의 개인정보를 수집합니다. 수집된 개인정보는 문의 외 목적으로 사용하지 않습니다.</span>
+                </div>
+
+                <div class="QA-pesonal-info-agree">
+                    <pre class="QA-personal-notice">
+                    <span style="font-weight: bold;">개인정보의 수집목적 및 항목</span>
+                    ① 수집 목적 : 원활한 고객 상담, 불편사항 및 문의사항 관련 의사소통 경로 확보
+                    ② 수집 항목
+                    *필수입력사항
+                    - 이용자 식별을 위한 항목 : 성명, 연락처, 이메일, 아이디(로그인 시 수집)
+                    <h3 style="color: #6E569B;">
+                    개인정보의 보유 및 이용기간
+                    입력하신 개인정보는 소비자 보호에 관한 법률 등 관계 법률에 의해 다음과 같이 보유합니다.
+                    보유기간 : 문의접수 후 처리 완료시점으로 부터 3년
+                    
+                </h3>
+                    ※ 1:1문의 서비스 제공을 위한 최소한의 개인정보이며 거부할 수 있습니다. 다만, 수집에 동의하지 않을 경우 서비스 이용이 제한됩니다.
+                </pre>
+                </div>
+
+                <div class="QA-personal-agree-chk">
+                    <input type="radio" name="QAAgree" id="">동의
+                </div>
+
+                <div class="QA-final-confirm">
+                    <button type="submit" class="QA-conf-btn">등록</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <!-- <script th:inline="javascript">
+
+        /* Natural Template  */
+        const message = /*[[${message}]]*/ "전달 받은 message";
+        // 타임리프 해석             값(자료형이 알아서 해석)       사라짐(설명) 
+
+        if (message != null) alert(message);
+    </script> -->
+
+    <script th:src="@{/js/customerservice/questionBoard.js}"></script>
+
+</body>
+
+</html>

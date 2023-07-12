@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터-FAQ</title>
+
+    <link rel="stylesheet" th:href="@{/css/customerservice/FAQ.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="customer-service-box">
+
+        <div class="service-notice">
+            <p class="notice-title">고객센터</p>
+        </div>
+        <div class="service-empty-line"></div>
+
+        <div class="service-list">
+            <ul class="service-list-choose">
+                <li><a th:href="@{/customerservice/}">FAQ</a></li>
+                <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
+                <li><a th:href="@{/customerservice/service}">1:1문의</a></li>
+            </ul>
+        </div>
+
+        <div class="service-search-area">
+
+            <div class="service-search-smt">
+
+                <!-- FAQ 카테고리  -->
+
+                <div class="FAQ-category-box">
+                    <!-- 상영관 관련 -->
+                    <div class="FAQ-cinemas">
+                        <a class="faq-theater-list">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org" id="camera-loader"
+                                width="85.708488" height="100" th:onclick="theList()">
+                                <defs id="defs12" />
+                                <path id="camera-body"
+                                    d="M 51.5625 0 C 50.667739 -0.00962983 49.756943 0.05800477 48.84375 0.1875 C 41.018415 1.2971691 35.117198 7.3376842 33.8125 14.71875 C 30.504071 7.9918491 23.138091 3.8277945 15.3125 4.9375 C 5.573576 6.3185261 -1.1937811 15.321773 0.1875 25.0625 C 1.030765 31.00916 4.7245026 35.850708 9.6875 38.40625 L 10.59375 44.84375 L 41.21875 40.5 C 42.618434 40.301472 43.966737 41.101389 44.15625 42.4375 C 44.34576 43.773612 43.274684 44.957723 41.875 45.15625 L 11.25 49.5 L 12.40625 57.6875 C 12.593105 59.005185 13.837018 59.937079 15.15625 59.75 L 64.25 52.78125 C 65.567815 52.594377 66.499355 51.348937 66.3125 50.03125 L 63.5625 30.78125 C 67.618077 26.946961 69.843395 21.259142 69 15.3125 C 67.748216 6.4849658 60.211858 0.09304631 51.5625 0 z M 51.28125 3.75 C 58.168631 3.6506107 64.22589 8.6859174 65.21875 15.6875 C 66.295328 23.279482 61.029156 30.329715 53.4375 31.40625 C 45.84552 32.482829 38.795329 27.18573 37.71875 19.59375 C 36.641441 11.998855 41.938942 4.9828747 49.53125 3.90625 C 50.124347 3.8221462 50.697574 3.7584222 51.28125 3.75 z M 17.5625 8.53125 C 24.449868 8.4318561 30.507144 13.46718 31.5 20.46875 C 32.576577 28.060719 27.310389 35.110969 19.71875 36.1875 C 12.126783 37.264077 5.0765804 31.966969 4 24.375 C 2.9226914 16.780121 8.2202041 9.7641225 15.8125 8.6875 C 16.405598 8.603395 16.978824 8.5396714 17.5625 8.53125 z M 79.71875 27.46875 L 66.9375 33.65625 L 68.53125 44.8125 L 82.53125 47.21875 L 79.71875 27.46875 z M 41.71875 41.0625 C 41.582761 41.058251 41.422178 41.073761 41.28125 41.09375 L 8.15625 45.78125 L 7.90625 44.09375 L 2.78125 43.9375 L 4 52.53125 L 8.875 50.9375 L 8.625 49.25 L 41.78125 44.5625 C 42.908673 44.40259 43.699053 43.493996 43.5625 42.53125 C 43.443014 41.688847 42.670671 41.092246 41.71875 41.0625 z M 51.53125 57.21875 L 28.625 60.4375 C 28.625117 63.279515 28.625057 61.501735 28.625 64.34375 L 30.90625 64.34375 L 32.40625 64.34375 L 17.21875 97.46875 C 16.804629 98.371268 17.19123 99.429629 18.09375 99.84375 C 18.996268 100.25787 20.054629 99.87127 20.46875 98.96875 L 36.34375 64.34375 L 38.28125 64.34375 L 38.28125 98.21875 C 38.28125 99.211743 39.069507 100 40.0625 100 C 41.055493 100 41.875 99.211743 41.875 98.21875 L 41.875 64.34375 L 43.6875 64.34375 L 59.71875 98.96875 C 60.136118 99.869771 61.192729 100.26112 62.09375 99.84375 C 62.994771 99.426382 63.386118 98.338521 62.96875 97.4375 L 47.65625 64.34375 L 49.09375 64.34375 L 51.53125 64.34375 L 51.53125 57.21875 z " />
+                                <path id="reel-1"
+                                    d="m 17.763265,10.60917 c -1.849868,0 -3.349902,1.500036 -3.349902,3.349902 0,1.849868 1.500034,3.34863 3.349902,3.34863 1.849865,0 3.348629,-1.498762 3.348629,-3.34863 0,-1.849866 -1.498764,-3.349902 -3.348629,-3.349902 z m -8.0539896,5.851215 c -1.849868,0 -3.3499023,1.500032 -3.3499023,3.349898 0,1.849866 1.5000343,3.349897 3.3499023,3.349897 1.8498656,0 3.3498996,-1.500031 3.3498996,-3.349897 0,-1.849866 -1.500034,-3.349898 -3.3498996,-3.349898 z m 16.1016246,0 c -1.849868,0 -3.3499,1.500032 -3.3499,3.349898 0,1.849866 1.500032,3.349897 3.3499,3.349897 1.849865,0 3.348629,-1.500031 3.348629,-3.349897 0,-1.849866 -1.498764,-3.349898 -3.348629,-3.349898 z m -13.023579,9.460259 c -1.849867,0 -3.3498994,1.500032 -3.3498994,3.349902 0,1.849865 1.5000324,3.348629 3.3498994,3.348629 1.849867,0 3.3499,-1.498764 3.3499,-3.348629 0,-1.84987 -1.500033,-3.349902 -3.3499,-3.349902 z m 9.950613,0 c -1.849866,0 -3.348629,1.500032 -3.348629,3.349902 0,1.849865 1.498763,3.348629 3.348629,3.348629 1.849865,0 3.349901,-1.498764 3.349901,-3.348629 0,-1.84987 -1.500036,-3.349902 -3.349901,-3.349902 z">
+                                    <animateTransform attributeName="transform" attributeType="XML" type="rotate"
+                                        dur="0" begin="0" from="0 17.66 22.74" to="360 17.66 22.74"
+                                        repeatCount="indefinite" class="transform" />
+
+                                </path>
+                                <path id="reel-2"
+                                    d="m 51.483904,5.8171007 c -1.849872,0 -3.349908,1.5000388 -3.349908,3.3499074 0,1.8498709 1.500036,3.3486359 3.349908,3.3486359 1.849868,0 3.348635,-1.498765 3.348635,-3.3486359 0,-1.8498686 -1.498767,-3.3499074 -3.348635,-3.3499074 z M 43.4299,11.668326 c -1.849872,0 -3.349908,1.500034 -3.349908,3.349904 0,1.849869 1.500036,3.349903 3.349908,3.349903 1.849869,0 3.349906,-1.500034 3.349906,-3.349903 0,-1.84987 -1.500037,-3.349904 -3.349906,-3.349904 z m 16.101654,0 c -1.849871,0 -3.349907,1.500034 -3.349907,3.349904 0,1.849869 1.500036,3.349903 3.349907,3.349903 1.849867,0 3.348635,-1.500034 3.348635,-3.349903 0,-1.84987 -1.498768,-3.349904 -3.348635,-3.349904 z m -13.023602,9.460276 c -1.849871,0 -3.349907,1.500034 -3.349907,3.349908 0,1.849869 1.500036,3.348635 3.349907,3.348635 1.849869,0 3.349905,-1.498766 3.349905,-3.348635 0,-1.849874 -1.500036,-3.349908 -3.349905,-3.349908 z m 9.950632,0 c -1.849872,0 -3.348637,1.500034 -3.348637,3.349908 0,1.849869 1.498765,3.348635 3.348637,3.348635 1.849867,0 3.349905,-1.498766 3.349905,-3.348635 0,-1.849874 -1.500038,-3.349908 -3.349905,-3.349908 z">
+                                    <animateTransform attributeName="transform" attributeType="XML" type="rotate"
+                                        dur="0" begin="0" from="0 51.4 17.7" to="360 51.4 17.7" repeatCount="indefinite"
+                                        class="transform" />
+                                </path>
+                            </svg>
+                            <!-- <img th:src="@{/images/customerservice/상영관 아이콘.png}" th:onclick="theList()"> -->
+                            <p>상영관 이용</p>
+                        </a>
+                    </div>
+                    <!-- 회원 관련 -->
+                    <div class="FAQ-member">
+                        <a class="faq-theater-list">
+                            <div id="FAQcontainer">
+                                <button class="face-button" th:onclick="cusList()">
+                                    <span class="face-container">
+                                        <span class="eye left"></span>
+                                        <span class="eye right"></span>
+                                        <span class="mouth"></span>
+                                    </span>
+                                </button>
+                            </div>
+                            <!-- <img th:src="@{/images/customerservice/회원 아이콘.png}" th:onclick="cusList()"> -->
+                            <p>회원</p>
+                        </a>
+                    </div>
+                    <!-- 멤버십 관련 -->
+                    <div class="FAQ-membership">
+                        <a class="faq-theater-list">
+                            <div class="star-container" th:onclick="memList()">
+                                <div class="star-wrapper">
+                                    <div class="star-shape star-shape-gray">
+                                        <svg viewBox="0 1 52 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <path
+                                                d="M19.1599493,39.1271248 C17.4576451,40.0218018 16.7108089,39.4773077 17.0355266,37.5846452 L18.2375322,30.5785868 L18.3264535,30.0602965 L17.9498333,29.6932963 L12.8580559,24.7315783 C11.4811669,23.3898591 11.7682637,22.5119148 13.669534,22.2357297 L20.7061974,21.2135596 L21.226418,21.1379905 L21.459124,20.6666223 L24.606016,14.2922998 C25.457074,12.5684024 26.381668,12.5700646 27.231905,14.2922998 L30.378797,20.6666223 L30.611503,21.1379905 L31.131724,21.2135596 L38.168387,22.2357297 C40.071492,22.5121813 40.355428,23.3911516 38.979865,24.7315783 L33.888088,29.6932963 L33.511468,30.0602965 L33.600389,30.5785868 L34.802395,37.5846452 C35.127425,39.4791331 34.378634,40.020939 32.677972,39.1271248 L26.384189,35.8193128 L25.918961,35.5748037 L25.453732,35.8193128 L19.1599493,39.1271248 L19.1599493,39.1271248 Z"
+                                                id="starme" sketch:type="MSShapeGroup"></path>
+                                        </svg>
+                                    </div>
+                                    <ul class="star-line-container">
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                        <div class="star-line-wrapper">
+                                            <li class="star-line"></li>
+                                        </div>
+                                    </ul>
+                                    <div class="star-circle"></div>
+                                </div>
+                            </div>
+                            <!-- <img th:src="@{/images/myPage/멤버십 아이콘.png}" th:onclick="memList()"> -->
+                            <p>멤버십</p>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- 검색 영역 -->
+                <div class="FAQ-search-box">
+                    <div class="notice-search-area">
+                        <input type="search" placeholder="검색어를 입력해주세요" id="query">
+                    </div>
+                    <!-- 검색 버튼 -->
+                    <div class="service-search-btn">검색</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="FAQ-list-area">
+            <div class="FAQ-list-contents">
+
+                <!-- 공지사항  전체 목록 -->
+                <div class="FAQ-title">
+                    <span>구분</span> <span>질문</span>
+                </div>
+
+                <th:block th:each="faq : ${FAQList}">
+                    <div class="FAQ-first-box">
+                        <div class="FAQ-inquiry-content">
+
+                            <!-- <h1 th:text="${faq}"></h1> -->
+                            <span th:text="${faq.categoryTitle}" class="divideFAQ">FAQ구분</span>
+                            <a class="FAQ-contents-container">
+                                <img th:src="@{/images/customerservice/Q아이콘.png}" class="Qicon">
+                                <span th:text="${faq.FAQTitle}">제목</span>
+                            </a>
+
+                            <div class="FAQ-btn">
+                                <img th:src="@{/images/customerservice/down화살표.png}" class="downBtn">
+                                <img th:src="@{/images/customerservice/up화살표.png}" class="upBtn">
+                            </div>
+
+                        </div>
+
+                        <div class="FAQ-answer-box">
+                            <div class="FAQ-answer">
+                                <img th:src="@{/images/customerservice/A아이콘.png}">
+                                <span th:text="${faq.FAQContent}">내용</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </th:block>
+
+            </div>
+
+            <!-- 페이지 번호 -->
+            <div class="FAQ-pagination">
+                <i class="fa-solid fa-arrow-left"></i>
+                <ol id="FAQpaginationNumbers">
+                    <!-- <li><a th:href="@{#}">1</a></li>
+                    <li><a th:href="@{#}">2</a></li>
+                    <li><a th:href="@{#}">3</a></li> -->
+                </ol>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+
+
+        <th:block th:replace="~{common/footer}"></th:block>
+
+        <script th:inline="javascript">
+
+
+            console.log(/*[[${FAQList}]]*/ "FAQList 객체");
+
+            /******* 답변 창 부분 ********/
+            const faqleng = /*[[${#lists.size(FAQList)}]]*/ "게시글 길이";
+
+            for (i = 0; i < faqleng; i++) {
+
+                const FAQContents = document.querySelectorAll(".FAQ-contents-container")[i];
+                const answerBox = document.getElementsByClassName("FAQ-answer-box")[i];
+                const downBtn = document.querySelectorAll(".downBtn")[i];
+                const upBtn = document.querySelectorAll(".upBtn")[i];
+
+                downBtn.addEventListener("click", () => {
+
+                    if (answerBox.style.display = "none") {
+                        answerBox.style.display = "block";
+                        downBtn.style.display = "none";
+                        upBtn.style.display = "block";
+                    }
+
+                });
+
+                upBtn.addEventListener("click", () => {
+
+                    if (answerBox.style.display = "block") {
+                        answerBox.style.display = "none";
+                        downBtn.style.display = "block";
+                        upBtn.style.display = "none";
+                    }
+                })
+            }
+
+        </script>
+
+        <script th:src="@{/js/customerservice/FAQ.js}"></script>
+
+</body>
+
+</html>

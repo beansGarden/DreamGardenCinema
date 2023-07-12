@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>faq</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="\css\admin\admin_FAQAll.css">
+
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+
+    <main th:with="pagination=${adminFaqMap.pagination}, adminFaqList=${adminFaqMap.adminFaqList}">
+
+        <!-- 검색영역 및 목록 count 감싸는 div  -->
+
+        <!-- 전체 감싸는 div -->
+        <div class="admin_faqWrap">
+
+            <!-- 게시판 제목 -->
+            <span id="admin_faqTitle">FAQ 관리</span>
+
+
+            <!-- 검색영역 및 목록 count 감싸는 div -->
+            <div class="admin-shr-cnt-box">
+
+                <!--  검색 영역 전체 div  -->
+                <div class="admin_faqSearchWrapBox">
+                <!-- 검색창 -->
+                <div class="admin_faqSearchWrap">
+                    <div class="admin_faqSearchWrap2">
+                        <form th:action="@{/getFaqAllSearchList}" autocomplete="off">
+                            <select class="admin_faqSelect" name="type" id="">
+                                <option value="number">번호</option>
+                                <option value="title">제목</option>
+                                <option value="content">내용</option>
+                            </select>
+                            <!-- 검색 input 창 -->
+                            <input type="text" name="keyword" id="" class="admin_faqInput">
+                    </div>
+                    <!-- 검색 버튼 -->
+                    <div class="admin_faqBtnWrap">
+                        <button type="submit" class="admin_faqSearchBtn" value="검색">검색</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+                <!-- 목록 count 전체를 감싸는 div -->
+                <div class="admin_countBox">
+                    <!-- 목록 count -->
+                    <div class="admin_faqList">
+                        <span>목록</span>
+                        <span>( 총</span>
+                        <span class="admin_faqCount" style="font-weight: bold;"> 0 </span>
+                        <span> / </span>
+                        <span class="admin_faqCountAll" style="font-weight: bold;">0</span>
+                        <span>개)</span>
+
+                    </div>
+
+                    <div>
+                        <span><a th:href="@{/adminFaqAll}" class="FAQCount">총 게시글 개수 : </a></span>
+                        <span class="adminFaqCountAll" style="font-weight: bold;">0</span> /
+                        <span><a th:href="@{/adminFaq}" class="FAQCount">FAQ 게시글 수 : </a></span>
+                        <span class="adminFAQInCountAll" style="font-weight: bold;">0</span> /
+                        <span><a th:href="@{/adminFaqDeleted}" class="FAQCount">삭제된 FAQ 게시글 수 : </a></span>
+                        <span class="adminFAQOutCountAll" style="font-weight: bold;">0</span> /
+                    </div>
+                </div>
+            </div>
+
+            <!-- 게시판 -->
+            <div class="admin_faqBoardWrap">
+                <table style='table-layout:fixed'>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" name="" id="" class="admin_faqCheckboxAll"
+                                    onclick='userSelectAll(this)'></th>
+                            <th>번호</th>
+                            <th>카테고리</th>
+                            <th>제목</th>
+                            <th>삭제여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="list : ${adminFaqList}">
+                            <td><input type="checkbox" name="" id="" class="admin_faqCheckbox"></td>
+                            <td th:text="${list.FAQNo}" class="admin_faq_checkbox_no">1</td>
+                            <td>
+                                <span th:if="${list.FAQCategory == 'P'}">상영관</span>
+                                <span th:if="${list.FAQCategory == 'M'}">회원</span>
+                                <span th:if="${list.FAQCategory == 'U'}">멤버쉽</span>
+                            </td>
+                            <td>
+                                <a th:href="@{adminFaqRead/{FAQNo}(FAQNo=${list.FAQNo})}" th:text="${list.FAQTitle}">인터넷
+                                    예매
+                                    후 현장에서 취소 가능한가요?</a>
+                            </td>
+                            <td class="flCheck" th:text="${list.FAQDeleteFl}">Y</td>
+                        </tr>
+                    </tbody>
+                    <tbody th:if="${#lists.isEmpty(adminFaqList)}">
+                        <tr>
+                            <td colspan="5">조회하는 결과가 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 페이지 네이션 -->
+
+            <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
+            <div class="pagination-area">
+
+                <!--              검색 X인 경우의 페이지 네이션 -->
+                <ul class="pagination">
+
+                    <!-- 첫 페이지로 이동 -->
+                    <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
+                    <li><a th:href="@{/adminFaqAll(cp=${pagination.startPage})}">&lt;&lt;</a></li>
+
+                    <!-- 이전 목록 마지막 번호로 이동 -->
+                    <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
+                    <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
+
+                    <!-- 특정 페이지로 이동 -->
+                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                        <li th:if="${i == pagination.currentPage}">
+                            <a class="current" th:text="${i}">현재 페이지</a>
+                        </li>
+                        <li th:unless="${i == pagination.currentPage}">
+                            <a th:text="${i}" th:href="@{/adminFaqAll(cp=${i})}"></a>
+                        </li>
+                    </th:block>
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${i==pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${i == pagination.currentPage}">
+                        <a th:href="@{/adminFaqAll(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
+                    </li>
+                    </th:block>
+
+                    <!-- 다음 목록 시작 번호로 이동 -->
+                    <!--   <li th:if="${i==pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                   -->
+                    <!-- 끝 페이지로 이동 -->
+                    <li><a th:href="@{/adminFaqAll(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                </ul>
+            </div>
+
+
+
+            <!-- 등록,수정,삭제 버튼 -->
+            <div class="admin_faqBtn">
+                <button class="admin_faqEndBtn"><a th:href="@{/adminFaqWrite}">글쓰기</a></button>
+                <!--                   <button class="admin_faqEndBtn"><a href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}">수정</a></button> -->
+                <button class="admin_faqEndBtn" id="deleteBtn"><a href="">삭제</a></button>
+                <button class="admin_faqEndBtn" id="restoreBtn"><a href="">복구</a></button>
+            </div>
+
+        </div>
+
+        <script src="\js\admin\admin_FAQAll.js"></script>
+
+</body>
+
+</html>

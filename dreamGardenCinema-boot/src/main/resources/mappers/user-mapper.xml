@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace를 Mapper 인터페이스로 지정 -->
+<mapper namespace="edu.kh.dgc.user.model.dao.UserMapper">
+	
+	<resultMap type="User" id="user_rm">
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userTel" column="USER_TEL" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userGender" column="USER_GENDER" />
+		<result property="userEnrollDate" column="USER_ENROLL_DT" />
+		<result property="userAmount" column="USER_AMOUNT" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userRating" column="USER_RATING" />
+		<result property="userClose" column="USER_CLOSE" />
+		<result property="userAddress" column="USER_ADDRESS" />
+	</resultMap>
+	<!-- 로그인 -->
+	<select id="login" resultMap="user_rm">
+		SELECT USER_NO, USER_ID, USER_PW, USER_NICKNAME, USER_TEL, USER_EMAIL, 
+			TO_CHAR(USER_ENROLL_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"')
+			USER_ENROLL_DT, USER_AMOUNT, USER_ROLE, USER_RATING, USER_CLOSE, USER_BIRTH, USER_GENDER, USER_ADDRESS
+		FROM "USER_INFO"
+		WHERE USER_CLOSE = 'N'
+		AND USER_ID = #{userId}
+	</select>
+	<!-- 회원 가입 -->
+	<insert id="signup">
+		INSERT INTO "USER_INFO"
+		VALUES(SEQ_USER_NO.NEXTVAL
+			, #{userId}
+			, #{userPw}
+			, #{userNickname}
+			, #{userTel}
+			, #{userEmail}
+			, SYSDATE
+			, DEFAULT
+			, DEFAULT
+			, DEFAULT
+			, DEFAULT
+			, #{userBirth}
+			, #{userGender}
+			, DEFAULT)
+	</insert>
+	
+	<select id="checkOverlapId" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_ID  = #{userId}
+		AND USER_CLOSE = 'N'
+	</select>
+	
+	<select id="checkOverlapEmail" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER_INFO"
+		WHERE USER_EMAIL  = #{userEmail}
+		AND USER_CLOSE = 'N'
+	</select>
+	
+	<select id="idFind" resultType="string">
+		SELECT USER_ID 
+		FROM "USER_INFO"
+		WHERE USER_BIRTH  = #{userBirth}
+		AND USER_TEL  = #{userTel}
+		AND USER_CLOSE = 'N';
+	</select>
+	
+	<update id="changePw" parameterType="User">
+		UPDATE "USER_INFO" SET
+		USER_PW  = #{userPw}
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<!--가입한 회원 번호 가져오기-->
+	<select id="selectNo" parameterType="User">
+		SELECT USER_NO
+		FROM USER_INFO
+		WHERE USER_ID = #{userId}
+	</select>
+	
+	<!-- 가입한 회원 쿠폰 브론즈 삽입-->
+	<insert id="insertCoupon">
+		INSERT ALL
+			INTO USER_COUPON (USER_COUPON_NO,USER_NO,COUPON_NO,USE_FL) VALUES (NEXT_UC_NO(),#{selectNo}, 1, DEFAULT)
+		SELECT 1 FROM DUAL
+		
+	</insert>
+	
+	
+</mapper>

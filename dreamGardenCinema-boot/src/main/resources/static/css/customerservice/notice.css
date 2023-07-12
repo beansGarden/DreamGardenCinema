@@ -1,0 +1,256 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    
+}
+
+/* 공지사항 전체 영역 */
+.customer-service-box {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notice-title {
+    font-size: 2rem;
+    font-weight: bolder;
+
+    margin-top: 15px;
+    margin-bottom: 12px;
+}
+
+.service-list{
+    display: flex;
+    margin: 30px 0 30px 0;
+    
+}
+
+/* 공지사항 메뉴 리스트 (FAQ, 공지사항,1:1문의 */
+.service-list-choose {
+    width: 70vw;
+    margin-bottom: 70px;
+    margin-top: 70px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 70px;
+}
+
+/* FAQ 선택시, 밑줄 */
+
+.service-list-choose>li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.service-list-choose>:not(li:nth-child(2)):hover {
+    font-weight: bold;
+    border-bottom: 3px solid #0F0954;
+}
+
+
+.service-list-choose>li:nth-child(2) {
+    font-weight: bold;
+    border-bottom: 3px solid #0F0954;
+}
+
+.service-list-choose>:not(li:nth-child(2)) {
+    border-bottom: 2px solid #ccc;
+
+}
+
+.service-empty-line{
+    width: 200px;
+    height: 0px;
+    border-bottom: 3px solid #ccc;
+}
+
+/* 검색창 영역 */
+/* 검색영역 전체를 감싸는 태그 */
+.service-search-area{
+    display: flex;
+    margin-bottom: 50px;
+
+    width: 65vw;
+    height: 7vh;
+    background-color: #0F0954;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    
+}
+
+/* 검색영역 form태그 */
+.sevice-search-smt{
+    width: 40vw;
+    display: flex;
+
+    justify-content: space-around;
+}
+
+/* 검색 종류 선택 영역 */
+#serviceSearchSelect{
+    display: inline-block;
+    width: 100px;
+    height: 35px;
+
+    text-align: center;
+    font-size: 15px;
+    border-radius: 10px;
+}
+/* 옵션 선택 창 */
+option{
+    border-radius: 10px;
+    border: 1px solid bd8e15;
+}
+
+
+#serviceSearchSelect:focus{
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
+    outline: none;
+}
+
+
+/* 검색창 */
+.notice-search-area{
+
+    
+}
+
+/* 검색 영역 */
+#searchQuery{
+    width: 25vw;
+    height: 35px;
+
+    border-radius: 10px;
+    border: none;
+
+    padding-left: 20px;
+
+    font-size: 15px;
+}
+
+#searchQuery:focus{
+    border-color: #dd9f3c;
+    box-shadow: 0 0 1px 3px #dd9f3c9b;
+    box-shadow: 0 0 0 5px -moz-mac-focusring;
+    outline: none;
+}
+
+
+/* 검색 버튼 */
+.service-search-btn{
+    background-color: #F0BA58;
+    width: 70px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 1px;
+    border: 1px solid #bd8e15;
+}
+
+/* 검색버튼 호버 */
+.service-search-btn:hover{
+    background-color: #f5a23f;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+/* 공지사항 목록 */
+
+.notice-list-box{
+    width: 65vw;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.service-notice-title{
+    width: 65vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #0f0954;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.5fr ;
+    font-weight: bold;
+    font-size: 16px;
+    justify-items: center;
+    color: white;
+
+
+}
+
+.customer-service-inquiry-content{
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* border-top: 1px solid #ccc; */
+    border-bottom: 2px solid #ccc;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.5fr ;
+    font-size: 16px;
+
+    justify-items: center;
+
+}
+
+
+/* 페이지 네이션 */
+.service-pagination{
+    display: flex;
+    justify-content: center;
+    margin: 20px 80px;
+    position: relative;
+}
+.service-pagination ol{
+    width : 400px;
+    height: 30px;
+    text-align: center;
+}
+#service-paginationNumbers li{
+    display: inline-block;
+}
+#service-paginationNumbers li a{
+    padding: 3px;
+    color: #f5a23f;
+    margin: 0 6px;
+    width: 20px;
+}
+#service-paginationNumbers li a.active{
+    font-weight: bold;
+    color: #0f0954;
+}
+.service-pagination i{
+    color: #FFD24C;
+    line-height: 30px;
+}
+
+
+

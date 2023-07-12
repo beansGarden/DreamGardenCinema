@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-page-cancle-reservation</title>
+
+    <link rel="stylesheet" th:href="@{/css/myPage/my-page-cancle-reservation.css}">
+    <link rel="stylesheet" th:href="@{/css/myPage/my-page-changeinfo.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header-white.css}">
+</head>
+
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="my-page-container">
+        <div class="my-page-nickname">
+            <p><span th:text="${session.loginUser.userNickname}">유저 이름</span>님 환영합니다!</p>
+        </div>
+
+
+        <div class="my-page-category">
+            <ul class="my-page-L">
+                <li class="my-page-myinfo" style="margin-bottom: 35px;">
+                    <a th:href="@{#}">
+                        <div class="face-button-qa-box">
+                            <div class="face-button-qa">
+                                <img th:src="@{/images/myPage/느낌표1.png}">
+                                <img th:src="@{/images/myPage/물음표.png}">
+                            </div>
+                            <button class="face-button">
+                                <span class="face-container">
+                                    <span class="eye left"></span>
+                                    <span class="eye right"></span>
+                                    <span class="mouth"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </a>
+                    <a th:href="@{#}" style="margin-top: 6px;">내정보 변경</a>
+                </li>
+
+                <li class="my-page-myprofile">
+                    <a th:href="@{#}"><img th:src="@{/images/myPage/이름흰색.png}" class="jello-horizontal" id="jello1"></a>
+                    <a th:href="@{#}">닉네임 변경</a>
+                </li>
+            </ul>
+
+            <a th:href="@{#}" class="my-page-membership-grade">
+                <th:block th:if="${session.loginUser.userRating==1}">
+                    <img th:src="@{/images/myPage/브론즈.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==2}">
+                    <img th:src="@{/images/myPage/실버.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==3}">
+                    <img th:src="@{/images/myPage/골드.png}">
+                </th:block>
+                <th:block th:if="${session.loginUser.userRating==4}">
+                    <img th:src="@{/images/myPage/플래티넘.png}">
+                </th:block>
+            </a>
+
+            <ul class="my-page-R">
+                <li class="my-page-customer-service" style="margin-top: 26px;">
+                    <a th:href="@{/customerservice/service}">
+                        <div id="wrap">
+                            <svg id="about" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188.64 180">
+                                <g id="exclaim" data-name="exclaim">
+                                    <g id="e">
+                                        <rect id="topstick" class="cls-1" x="131.06" y="12.36" width="24.28"
+                                            height="116.18" rx="9.59" ry="9.59" />
+                                    </g>
+                                    <g id="ecircle">
+                                        <circle id="bottomcircle" class="cls-2" cx="143.2" cy="154.59" r="11.45" />
+                                    </g>
+                                </g>
+                                <g id="question">
+                                    <g id="q">
+                                        <path class="cls-3"
+                                            d="M41.39,56a7.24,7.24,0,0,1-7.22,7.22A7.24,7.24,0,0,1,27,56,41.73,41.73,0,0,1,39.63,25.38,41.74,41.74,0,0,1,70.26,12.7,41.74,41.74,0,0,1,100.9,25.38,41.74,41.74,0,0,1,113.57,56a41.81,41.81,0,0,1-12.72,30.68L86,100.49A27.91,27.91,0,0,0,77.48,121,7.22,7.22,0,0,1,63,121,41.81,41.81,0,0,1,75.77,90.3L90.65,76.49A27.91,27.91,0,0,0,99.14,56,27.84,27.84,0,0,0,90.7,35.57a27.83,27.83,0,0,0-20.44-8.44,27.83,27.83,0,0,0-20.44,8.44A27.83,27.83,0,0,0,41.39,56Z" />
+                                    </g>
+                                    <g id="qcircle">
+                                        <circle id="bottomcircle-2" data-name="bottomcircle" class="cls-4" cx="70.26"
+                                            cy="154.59" r="11.45" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+                    <a th:href="@{/customerservice/service}" style="margin: 5px 0 0 7px">1:1문의</a>
+                </li>
+
+                <li class="my-page-membership" style="margin-top: 20px;">
+                    <a th:href="@{/myPage/my-page-membership}">
+                        <div class="star-container">
+                            <div class="star-wrapper">
+                                <div class="star-shape star-shape-gray">
+                                    <svg viewBox="0 1 52 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                        <path
+                                            d="M19.1599493,39.1271248 C17.4576451,40.0218018 16.7108089,39.4773077 17.0355266,37.5846452 L18.2375322,30.5785868 L18.3264535,30.0602965 L17.9498333,29.6932963 L12.8580559,24.7315783 C11.4811669,23.3898591 11.7682637,22.5119148 13.669534,22.2357297 L20.7061974,21.2135596 L21.226418,21.1379905 L21.459124,20.6666223 L24.606016,14.2922998 C25.457074,12.5684024 26.381668,12.5700646 27.231905,14.2922998 L30.378797,20.6666223 L30.611503,21.1379905 L31.131724,21.2135596 L38.168387,22.2357297 C40.071492,22.5121813 40.355428,23.3911516 38.979865,24.7315783 L33.888088,29.6932963 L33.511468,30.0602965 L33.600389,30.5785868 L34.802395,37.5846452 C35.127425,39.4791331 34.378634,40.020939 32.677972,39.1271248 L26.384189,35.8193128 L25.918961,35.5748037 L25.453732,35.8193128 L19.1599493,39.1271248 L19.1599493,39.1271248 Z"
+                                            id="starme" sketch:type="MSShapeGroup"></path>
+                                    </svg>
+                                </div>
+                                <ul class="star-line-container">
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                    <div class="star-line-wrapper">
+                                        <li class="star-line"></li>
+                                    </div>
+                                </ul>
+                                <div class="star-circle"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a th:href="@{/myPage/my-page-membership}" style="margin-top: 13px;">멤버십</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="my-page-empty-space"></div>
+
+    <div class="my-page-nav">
+        <ul class="my-page-nav-list">
+            <li>
+                <a th:href="@{/myPage/}">예매 내역</a>
+            </li>
+
+            <li>
+                <a th:href="@{#}">취소 내역</a>
+            </li>
+
+            <li>
+                <a th:href="@{/myPage/my-page-inquiry}">나의 문의 내역</a>
+            </li>
+
+            <li>
+                <a th:href="@{#}" id="my-page-secession">회원탈퇴</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 예매 내역이 있을 경우 -->
+    <div class="my-page-contents-box2">
+        <span>취소 예매 내역</span>
+    </div>
+    <div class="my-page-contents-guide">
+        <span>예매를 취소하신 후 재예매를 원하실 경우</span><span>예매 페이지</span><span>를 처음부터 이용해주세요.</span>
+    </div>
+
+    <p class="my-page-contents-guide2">예매 취소가 이루어지지 않거나 불편사항,문의사항 접수는 고객센터를 이용해주세요.</p>
+
+    <!-- each문 -->
+    <th:block th:each="cancle : ${cancleList}">
+        <div class="ticket-background">
+
+            <div class="ticket-container">
+
+                <div class="ticket-img-box">
+
+                    <span class="my-page-tiket">예매번호</span> <span class="my-page-tiket-number"
+                        th:text="${cancle.ticketId}"></span>
+                    <div class="my-page-movie-img">
+                        <img th:src="${cancle.poster}">
+                    </div>
+
+                </div>
+
+                <div class="my-page-movie-info">
+
+                    <div class="my-page-contents-info">
+
+                        <div class="my-page-contents-info-title">
+                            <span th:text="${cancle.movieTitle}"></span>
+                        </div>
+
+                        <div class="my-page-contents-info-date">
+                            <span>관람일시</span><span id="text-color" th:text="${cancle.movieTime}"></span>
+                        </div>
+
+                        <div class="my-page-contents-info-date">
+                            <span>상영관</span><span th:text="|${cancle.movieTheater}관|"></span>
+                        </div>
+
+                        <!-- 결제 내역  -->
+                        <div class="my-page-payment-detail">
+                            <span>취소된 결제 내역</span>
+                        </div>
+
+                        <div class="my-page-payment-detail-box">
+                            <div id="total-pay">
+                                <span>총 취소된 결제 금액</span> <span th:text="|${cancle.payAmount}원|">20,000원</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </th:block>
+    <!-- each문 끝 -->
+
+    <!-- 예매 내역이 없을 경우 -->
+    <div class="my-page-contents-box" th:if="${cancleList.size()==0}">
+        <div class="my-page-contents">
+            <img th:src="@{/images/myPage/느낌표.png}">
+            <p>예매 취소 내역이 존재하지 않습니다.</p>
+        </div>
+    </div>
+
+
+    <!-- 닉네임 변경 모달 영역 -->
+    <form th:action="@{/myPage/change-nickname}" method="post" id="change-nickname-form">
+        <div class="my-page-change-nickname-area">
+
+            <div class="my-page-change-nickname-content">
+                <div>
+                    닉네임 변경
+                </div>
+                <div class="my-page-change-nickname-inputbox">
+                    <input type="text" id="nickname-input" name="userNickname">
+                    <input type="hidden" name="redirectUrl" value="/myPage/"><!-- 여러 폼태그로 하나의 매핑쓰기 위해 -->
+                    <i id="nickname-i"></i>
+                </div>
+                <div class="my-page-change-nickname-update-btn">
+                    <button type="button" id="changeBtn">수정</button>
+                    <button type="button">취소</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+    <!-- 회원 탈퇴 모달 영역 -->
+    <div class="my-page-secession-area">
+        <div class="my-page-secession-pwcheck-container">
+            <div>
+                회원 탈퇴
+            </div>
+            <div>
+                비밀 번호 확인
+            </div>
+            <div class="my-page-secession-inputbox">
+                <input type="password" id="secessionPw" maxlength="15" autocomplete="off">
+                <i id="line3" class="line3"></i>
+            </div>
+            <div class="my-page-secession-pwcheck-btn">
+                <button>다음</button>
+                <button>취소</button>
+            </div>
+        </div>
+
+        <div class="my-page-secession-info-bg">
+            <div class="my-page-secession-info-content">
+
+                <span id="secession-title">회원 탈퇴</span>
+                <p id="secession-info">회원 탈퇴 전<br>
+                    <span>유의 사항</span>
+                    을 확인해 주세요.
+                </p>
+            </div>
+            <div id="secession-notice">
+                <span>유의사항</span>
+            </div>
+            <p id="secession-notice-detail">
+                <span>제 1 조 ( 계약 해지)</span> <br>
+                회원이 서비스 이용 계약을 해지 하고자 할 때는 개인정보수정의 '회원탈퇴' 메뉴에서
+                회원탈퇴를 신청하시면 됩니다. 탈퇴를 신청하시면 즉시 탈퇴처리가 완료되며, 탈퇴 후
+                회사에 다시 가입하실 수 없습니다.
+                <br>
+                <br>
+                <span>제 2조 (탈퇴 회원의 개인정보 이용)</span>
+                <br>
+                1.회사는 회원정보를 회원이 탈퇴하는 시점으로부터 1년까지 보유할 수 있습니다.
+                <br>
+                2.회사가 보관하고 있는 탈퇴 회원의 정보는 회원의 가입이력관리와 지적재산권 관리,
+                개인정보보호를 위해서만 활용할 수 있습니다. <br>
+                3.단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 아래와 같이 관계법령에서
+                정한 일정한 기간 동안 회원정보를 보관합니다. <br>
+
+                -표시/광고에 관한 기록 : 6개월
+                <br>
+                -계약 또는 청약철회 등에 관한 기록 : 5년
+                <br>
+                -대금결제 및 재화 등의 공급에 관한 기록 : 5년
+                <br>
+                <br>
+                <span>제 3조 (자격 상실)</span><br>
+
+                다음 각 항의 사유에 해당하는 경우 회사는 사전 통보 없이,<br>
+                이용계약을 해지하거나 기간을 정하여 서비스 이용을 중지 <br>
+                또는 이용계약 해지 후 무기한 가입제한 할 수 있습니다.
+                <br>
+                1.가입시 또는 정보변경시 제6조 3항의 회원정보를 누락시키거나 허위 기재한 경우<br>
+                2.미풍양속을 저해하는 비속한 아이디, 필명, 별명을 사용한 경우<br>
+                3.타인의 아이디와 비밀번호, 주민등록번호 등 회원정보를 수집, 저장, 도용한 경우<br>
+                4.회사 임직원, 운영자 등을 포함한 타인을 사칭하는 행위<br>
+                5.회사, 다른 회원 또는 제3자의 지적재산권을 침해하는 경우<br>
+                6.사회의 안녕과 질서, 미풍양속을 해치는 행위를 하는 경우<br>
+                7.타인의 명예를 훼손, 모욕, 스톡 등 괴롭히거나 불이익을 주는 행위를 한 경우<br>
+                8.정보통신망에 장애를 일으킬 수 있는 행위를 하는 경우<br>
+                9.회사의 허락 없이 회사의 서비스를 이용해 영리행위를 하는 경우<br>
+                10.회사가 허락하지 않은 방법으로 회사가 운영, 관리하는 포인트를 취득한 경우<br>
+                11.전기통신기본법, 전기통신사업법, 정보통신 윤리강령, <br>
+                정보통신 윤리위원회 심의규정, 프로그램 보호법 및 기타관련 법령과 약관이 금지하는 행위를 한 경우
+            </p>
+            <div class="my-page-secession-checkbox">
+                <input type="checkbox" id="secessionCheckbox"><span>위 유의사항을 모두 확인하였고 회원 탈퇴에 동의합니다</span>
+            </div>
+            <form th:action="@{/myPage/secession}" method="get">
+                <div class="my-page-secession-btn">
+                    <button id="secessionButton">탈퇴</button>
+                    <button type="button">취소</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- 내 정보 변경 모달 영역 -->
+    <div class="my-page-changeinfo-modal-area">
+
+        <div class="my-page-changeinfo-border">
+
+
+            <div class="my-page-changeinfo-top">
+                <span>회원 정보변경</span>
+                <p>회원 정보를<br>
+                    <span>정확하게 입력해 주세요.</span>
+                </p>
+            </div>
+            <div class="my-page-changeinfo-container">
+                <span>Dream Garden Cinema</span>
+
+                <p>회원 정보 입력<span class="my-page-changeinfo-guide-text"> *는 필수입력 항목입니다</span></p>
+            </div>
+
+
+            <form th:action="@{/myPage/change-info}" method="post" id="changeInfo">
+                <div class="my-page-changeinfo-contentbox">
+
+                    <div class="my-page-changeinfo-back">
+
+                        <div class="my-page-changeinfo-name">
+                            <p class="my-page-changeinfo-guide-text">* <span>닉네임</span></p>
+                            <span th:text="${session.loginUser.userNickname}"></span>
+                        </div>
+                        <div class="my-page-changeinfo-id">
+                            <p class="my-page-changeinfo-guide-text">* <span>아이디</span></p>
+                            <span th:text="${session.loginUser.userId}"></span>
+                        </div>
+                        <div class="my-page-changeinfo-email">
+                            <p class="my-page-changeinfo-guide-text">* <span>Email</span></p>
+                            <input type="email" id="changeEmail" name="userEmail" required
+                                th:value="${session.loginUser.userEmail}" autocomplete="off">
+                            <i id="emailLine" class="emailLine"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="my-page-changeinfo-pw-container">
+
+                        <div class="my-page-changeinfo-pw">
+                            <input type="password" required="required" maxlength="15" name="userPw" id="userPw"
+                                autocomplete="off">
+                            <span>현재 비밀번호</span>
+                            <i id="line1" class="line1"></i>
+                        </div>
+                        <div class="my-page-changeinfo-pw">
+                            <input type="password" required="required" maxlength="15" name="newPw" id="newPw"
+                                autocomplete="off">
+                            <span>새 비밀번호</span>
+                            <i id="line2" class="line2"></i>
+                        </div>
+                        <div class="my-page-changeinfo-pw">
+                            <input type="password" required="required" maxlength="15" name="checkPw" id="checkPw"
+                                autocomplete="off">
+                            <span>새 비밀번호 확인</span>
+                            <i id="line2" class="line2"></i>
+                        </div>
+                        <p class="my-page-changeinfo-guide-text">* 8-15 자리의 영문/숫자/특수문자를 함께 입력해주세요</p>
+
+                    </div>
+
+                    <div class="my-page-changeinfo-address-container">
+                        <div>
+                            <p class="my-page-changeinfo-guide-text">* <span>주소</span></p>
+                        </div>
+
+                        <div class="my-page-changeinfo-address-inputbox">
+
+                            <div id="postcode-box">
+                                <input type="text" placeholder="우편번호" id="postcode" value="" name="memberAddress"
+                                    autocomplete="off">
+                                <!-- <button id="search-address-btn" type="button" onclick="sample6_execDaumPostcode()">검색</button> -->
+                                <img th:src="@{/images/myPage/주소 검색 아이콘.png}" onclick="sample6_execDaumPostcode()"
+                                    id="my-page-changeinfo-address-btn">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="도로명/지번 주소" id="address" value="" name="memberAddress"
+                                    autocomplete="off">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="상세 주소" id="detailAddress" value="" name="memberAddress"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-page-changeinfo-update-btn">
+                        <button id="myPageBtn">수정</button>
+                        <button type="button">취소</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <input type="hidden" id="loginUserPw" th:value="${session.loginUser.userPw}"><!-- js에서 사용하기 (로그인한 회원 비밀번호) -->
+
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+    <script th:src="@{/js/myPage/my-page-reservation.js}"></script>
+
+    <script th:inline="javascript">
+
+        const loginUser = /*[[${session.loginUser}]]*/"로그인한 회원정보";
+
+        if (loginUser.userAddress != null) {
+            const arr = loginUser.userAddress.split("^^^");
+
+            document.querySelectorAll("input[name='memberAddress']").forEach((item, i) => {
+                item.value = arr[i];
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

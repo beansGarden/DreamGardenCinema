@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing2.css}">
+</head>
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="main">
+        <div class="ticketingBox">
+            <ul class="ticketingNav">
+                <li class="pass"><a th:href="@{/ticketing/date/} + ${map.movie.movieNo}">01<br>상영시간</a></li>
+                <li class="active"><a>02<br>인원/좌석</a></li>
+                <li><a>03<br>결제</a></li>
+                <li><a>04<br>결제완료</a></li>
+            </ul>
+            <form th:action="@{/ticketing/pay}" method="POST" id="frm">
+                <div class="choiceHeader">인원/좌석 선택</div>
+                <div class="choiceCount">
+                    <div class="movie_info" th:object="${map.movie}">
+                        <div class="poster">
+                            <img th:src="*{poster}">
+                        </div>
+                        <div class="content">
+                            <div class="title">
+                                <img th:src="*{rating}" alt="">
+                                <strong th:text="*{movieTitle}"></strong>
+                            </div>
+                            <div class="date">
+                                <span class="date_info" th:text="${saveday}">
+                                </span>
+                                <span class="time_info" th:text="${runningTime}">
+                                </span>
+                            </div>
+                            <div class="theater_info">
+                                <span th:text="${map.ticket.movieTheater}+'관'"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>인원</span>
+                            <div class="calc">
+                                <div id="minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="-200 -960 960 960" width="30"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
+                                </div>
+                                <div id="btn1">0</div>
+                                <div id="plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="-100 -960 960 960" width="30"><path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Seat_info">
+                    <div class="screen">S C R E E N</div>
+                    <div class="movieSeat">
+                        <!-- 
+                            <div class="seatLine col0">
+                                <span>A</span>
+                                <a class="seat" seatno="A1" onclick="seatClick(this)">
+                                    <span>1</span>
+                                </a>
+                                <a class="seat choiceSeat" seatno="A2" onclick="seatClick(this)">
+                                    <span>2</span>
+                                </a>
+                                ...
+                            </div>
+                        -->
+                    </div>
+                    <div class="seatBtm">
+                        <div class="seat_ex ex1">
+                        </div>
+                        <span>선택좌석</span>
+                        <div class="seat_ex ex2">
+                        </div>
+                        <span>선택가능</span>
+                        <div class="seat_ex ex3">
+                        </div>
+                        <span>예매완료</span>
+                    </div>
+                </div>
+                <div class="liquidate">
+                    <div>총 합계 <span class="pay">0</span>원</div>
+                    <button class="btn">결제하기</button>
+                    <input type='hidden' name="ticketNo" th:value="${map.ticket.ticketNo}">
+                    <input type='hidden' name="movieNo" th:value="${map.ticket.movieNo}">
+                    <input type='hidden' name="saveday" th:value="${saveday}">
+                    <input type='hidden' name="runningTime" th:value="${runningTime}">
+                    <input type='hidden' name="movieTheater" th:value="${map.ticket.movieTheater}">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <script th:inline="javascript">
+        const loginUser = /*[[${loginUser}]]*/ "로그인회원";
+        const movie = /*[[${map.movie}]]*/ "영화";
+        const ticket = /*[[${map.ticket}]]*/ "티켓정보";
+        const chkSeatList = /*[[${map.chkSeatList}]]*/ "예약된좌석";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script th:src="@{/js/ticketing/Ticketing2.js}"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 전체 감싸는 div */
+
+.admin_faqWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    width: 1000px;
+    left: 580px;
+    top: 60px;
+    height: 750px;
+    gap: 20px;
+}
+
+/* 게시판 제목 */
+#admin_faqTitle {
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    width: 180px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 제목 입력하는 칸 */
+.admin_faqTableInput {
+    width: 900px;
+    margin: 20px;
+    outline: none;
+    border: none;
+
+}
+
+option{
+    text-align: center;
+}
+
+#admin_faqTableSelect {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    width: 140px;
+    outline: none;
+    border: none;
+}
+
+.admin_faqContentWrap {
+    margin: 20px;
+
+}
+
+/* 글쓰기 textarea */
+#summernote {
+    width: 1000px;
+    height: 500px;
+    margin: 20px 10px;
+    border: 1px solid #c8c8c8;
+    padding: 5px 0 0 5px;
+    border-radius: 7px;
+    resize: none;
+}
+
+/* 등록버튼 */
+.admin_faqRegister {
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #59ada8;
+    color: white;
+    height: 38px;
+    width: 60px;
+    margin-left: 90%;
+
+}
+
+.admin_faqRegister:hover{
+    font-size: 15px;
+    background-color: #042928;
+    font-weight: bold;
+}
+
+.admin_faqRegister a {
+    color: white;
+
+}

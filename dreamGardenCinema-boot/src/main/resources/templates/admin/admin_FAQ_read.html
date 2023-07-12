@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>faq</title>
+    <link rel="stylesheet" href="\css\style.css">
+    <link rel="stylesheet" href="\css\admin\admin_FAQ_read.css">
+
+</head>
+<body>
+       <!-- 사이드바 -->
+ <th:block th:replace="~{/admin/admin_sideBar}"></th:block>
+    <!-- 전체 감싸는 div -->
+    <div class="admin_faqWrap">
+
+            <!-- 게시판 제목 -->
+          <span id="admin_faqTitle">FAQ 관리</span>
+
+            <!-- 게시판 -->
+            <div class="admin_faqBoardWrap" th:each="list : ${Faq}">
+                <table>
+                    <thead>
+                        <tr >
+                            <th>번호</th>
+                                <td th:text="${list.FAQNo}">1</td>
+                        </tr>
+                        <tr >
+                            <th>카테고리</th>
+                            <td th:each="faq : ${Faq}">
+                                <span th:switch="${faq.FAQCategory}">
+                                    <span th:case="'P'">영화관</span>
+                                    <span th:case="'M'">영화</span>
+                                    <span th:case="'U'">멤버쉽</span>
+                                    <span th:case="'B'">예매/결제</span>
+                                    <span th:case="'H'">홈페이지</span>
+                                    <span th:case="'A'">계정</span>
+                                    <span th:case="*">기타</span>
+                                </span>
+                            </td>
+                        <tr>
+                            <th>제목</th>
+                                <td th:text="${list.FAQTitle}">회원 정보 관리 변경 안내</td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                                <td>    <!-- 내용 -->
+                                    <div class="admin_faqContent" th:utext="${list.FAQContent}">
+                                       안내드립니다
+                                    </div></td>
+                        </tr>
+                    
+                </thead> 
+             </table>
+
+         
+ 
+                <!-- 페이지 네이션 -->
+
+          <!-- 등록,수정,삭제 버튼 -->
+          <div class="admin_faqBtn">
+            <button class="admin_faqEndBtn"><a th:href="@{/adminFaq}">목록</a></button>
+            <button class="admin_faqEndBtn"><a th:href="@{/adminFaqUpdate/{FAQNo}(FAQNo=${list.FAQNo})}" >수정</a></button>
+            <button class="admin_faqEndBtn"><a th:href="@{/adminFaqDelete/{FAQNo}(FAQNo=${list.FAQNo})}">삭제</a></button>
+        </div>
+        
+            
+
+            </div>
+
+        </div>
+
+
+
+    </div>    
+
+
+</body>
+</html>

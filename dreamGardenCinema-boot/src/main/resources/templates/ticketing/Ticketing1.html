@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예매페이지</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/ticketing/Ticketing1.css}">
+</head>
+<body>
+
+    <th:block th:replace="~{common/header-white}"></th:block>
+
+    <div class="main">
+        <div class="ticketingBox">
+            <ul class="ticketingNav">
+                <!-- 클릭하면 페이지에 클릭했던 정보가 표시되어야 함 -->
+                <li class="active"><a>01<br>상영시간</a></li>
+                <li><a class="seat">02<br>인원/좌석</a></li>
+                <li><a>03<br>결제</a></li>
+                <li><a>04<br>결제완료</a></li>
+            </ul>
+            <form th:action="@{/ticketing/seat}" method="POST" id="timeFrm">
+                <div class="choiceMovie">
+                    <div class="hiddenRadio" style="display: none;">
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(input radio 영화번호 선택) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                        <th:block th:each="movie : ${movieList}">
+                            <th:block th:if="${movie.movieNo == movieNo}">
+                                <input type="radio" name="movieNo" th:id="${movie.movieNo}" th:value="${movie.movieNo}" checked="true">
+                            </th:block>
+                            <th:block th:unless="${movie.movieNo == movieNo}">
+                                <input type="radio" name="movieNo" th:id="${movie.movieNo}" th:value="${movie.movieNo}">
+                            </th:block>
+                        </th:block>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                    </div>
+                    <div class="choiceHeader">영화 선택</div>
+                    <div>
+                        <select id="sortCont">
+                            <option name="sortOption" value="ticketing">예매순</option>
+                            <option name="sortOption" value="rating">별점순</option>
+                        </select>
+                        <div>
+                            <img class="hamburgerBtn" th:src="@{/images/ticketing/hambuger.png}" alt="">
+                            <img class="pizzaBtn" th:src="@{/images/ticketing/pizza.png}" alt="">
+                        </div>
+                    </div>
+                    <div class="MovieList hamburger">
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(햄버거 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                        <th:block th:each="movie : ${movieList}">
+                            <label th:for="${movie.movieNo}" class="checkBtn hmbgr" th:classappend="${movie.movieNo == movieNo} ? 'saveMovie'">
+                                <img class="rating" th:src="${movie.rating}">                          
+                                <span class="movieTitle" th:text="${movie.movieTitle}"></span>
+                            </label>
+                        </th:block>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                    </div>
+                    <div class="MovieList pizza" style="display: none;">
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 데이터 삽입(피자 선택 시 영화등급, 영화제목) ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                        <th:block th:each="movie : ${movieList}">
+                            <label th:for="${movie.movieNo}" class="checkBtn pzz" th:classappend="${movie.movieNo == movieNo} ? 'saveMovie'">
+                                <div class="poster">
+                                    <img th:src="${movie.poster}">
+                                </div>
+                                <div class="content">
+                                    <div class="title">
+                                        <img class="rating" th:src="${movie.rating}">
+                                        <strong class="movieTitle" th:text="${movie.movieTitle}"></strong>
+                                    </div>
+                                    <div class="rate">
+                                        <span class="rate_info">
+                                            예매율
+                                            <em th:text="${movie.ratio}+'%'"></em>
+                                        </span>
+                                        <span class="star_info">
+                                            <img th:src="@{/images/common/main/포스터/Star3.png}">
+                                            [[${movie.score}]]
+                                        </span>
+                                    </div>
+                                    <div class="date">
+                                        <span class="rate_info">
+                                            개봉일
+                                            <span th:text="${movie.releaseDate}"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                        </th:block>
+<!-- ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ -->
+                    </div>
+                </div>
+                <div class="choiceTime">
+                    <div class="choiceHeader headerDate"></div>
+                    <section class="sub_slide">
+                        <div class="inner">
+                            <div class="swiper-container">
+                                <ul class="swiper-wrapper">
+                                    <!-- 날짜 -->
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="movieChoiceTitle">
+                        <!-- 영화 제목 -->
+                    </div>
+                    <div class="timeSelect">
+                        <!-- 영화 시간 -->
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <th:block th:replace="~{common/footer}"></th:block>
+    
+    <script th:inline="javascript">
+        const loginUser = /*[[${loginUser}]]*/ "로그인회원";
+        const startMovieNo = /*[[${movieNo}]]*/ "가져온 영화번호";
+    </script>
+    <script th:src="@{/js/ticketing/Ticketing1.js}"></script>
+</body>
+<!-- </html> -->
