@@ -991,19 +991,6 @@ button.face-button {
     box-shadow: 0 0 0 0.25rem #fff;
 }
 
-<<<<<<< HEAD
-.my-page-info-icon {
-
-    position: static;
-    height: 131px;
-}
-
-.my-page-myinfo>a:nth-child(2) {
-    position: absolute;
-    left: 91px;
-    top: 427px;
-}
-=======
 @-webkit-keyframes eyeBlink {
 
     0%,
@@ -1012,7 +999,6 @@ button.face-button {
     100% {
         transform: scale(1);
     }
->>>>>>> origin/poodle
 
     32%,
     34% {
