@@ -46,7 +46,7 @@ if(screenType == 'highlight'){
 }
 if(screenType == 'all'){
     createMovieBtn.classList.add("process-type-none");
-    createHighlightBtn.classList.add("process-type-none")
+    // createHighlightBtn.classList.add("process-type-none")
     // UpdateHighlightBtn.classList.add("process-type-none")
 }
 
