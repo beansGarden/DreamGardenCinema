@@ -174,8 +174,8 @@
 
                             <li>
                                 <label class="admin_movieLabel">시놉시스</label>
-                                <div name="updateSynopsis" class="synopsis-edit" th:utext="*{synopsis}"
-                                    contenteditable="true"></div>
+                                <textarea name="updateSynopsis" class="synopsis-edit" th:text="${resp.plainStory}">
+                                </textarea>
                             </li>
 
                         </div>
@@ -213,8 +213,8 @@
                                     </div>
 
                                     <div class="person-info">
-                                        <div class="info-name update-name" name="updatePersonName" th:text="${person.name}" contenteditable="true">영화인 이름</div>
-                                        <div class="info-role update-role" name="updatePersonRole" th:text="${person.role}" contenteditable="true">영화인 역할</div>
+                                        <input class="info-name update-name" name="updatePersonName" th:value="${person.name}" placeholder="영화인 이름"></input>
+                                        <input class="info-role update-role" name="updatePersonRole" th:value="${person.role}" placeholder="영화인 역할"></input>
                                     </div>
 
                                 </div>
@@ -411,22 +411,6 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 updatePersonSwiper.appendSlide(
-/* 
-                    <div class="swiper-slide person" th:each="person : ${resp.moviePerson}">
-
-                        <div class="person-img">
-                            <img th:src="@{|${person.img}|}" onclick="openImageEditor(this)" style="cursor: pointer;">
-                            <input type="file" class="updatePerson-input" accept="image/*" style="display: none;" 
-                            onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">
-                        </div>
-
-                        <div class="person-info">
-                            <div class="info-name update-name" th:text="${person.name}" contenteditable="true">영화인 이름</div>
-                            <div class="info-role update-role" th:text="${person.role}" contenteditable="true">영화인 역할</div>
-                        </div>
-
-                    </div>
- */
 
                     '<div class="swiper-slide person">' +
                         '<div class="person-img">' +
@@ -434,8 +418,8 @@
                             '<input type="file" class="updatePerson-input" accept="image/*" style="display: none;" onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">' +
                         '</div>' +
                         '<div class="person-info">' +
-                            '<div class="info-name update-name" contenteditable="true"></div>' +
-                            '<div class="info-name update-role" contenteditable="true"></div>' +
+                            '<input class="info-name update-name" placeholder="영화인 이름"></input>' +
+                            '<input class="info-role update-role" placeholder="영화인 역할"></input>' +
                         '</div>' +
                     '</div>'
                 );

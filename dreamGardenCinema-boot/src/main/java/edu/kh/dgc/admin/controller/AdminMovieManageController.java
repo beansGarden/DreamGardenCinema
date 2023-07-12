@@ -81,11 +81,13 @@ public class AdminMovieManageController {
 		
 		
 		String story = movieInfo.getSynopsis();
+		String plainStory = story;
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
 		resp.put("movieNo", movieNo);
 		resp.put("screen", screen);
 		resp.put("type", type);
+		resp.put("plainStory", plainStory);
 		
 		model.addAttribute("resp", resp);
 		
@@ -125,7 +127,7 @@ public class AdminMovieManageController {
 		
 		
 		
-		return "redirect:/adminMovieManage";
+		return "redirect:/adminMovieManage/detail?movieNo="+ movieNo +"&type=read&screen="+updateScreening;
 	}
 	
 	
