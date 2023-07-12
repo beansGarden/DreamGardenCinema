@@ -25,17 +25,17 @@ public class UserServiceImpl implements UserService {
 
 		User loginUser = mapper.login(inputUser);
 		System.out.println("암호화 확인 : " + bcrypt.encode(inputUser.getUserPw()));
-//
-//		if (loginUser != null) {
-//
-//			if (bcrypt.matches(inputUser.getUserPw(), loginUser.getUserPw())) {
-//
-//				loginUser.setUserPw(null);
-//
-//			} else { // 다를 경우
-//				loginUser = null;
-//			}
-//		}
+
+		if (loginUser != null) {
+
+			if (bcrypt.matches(inputUser.getUserPw(), loginUser.getUserPw())) {
+
+				loginUser.setUserPw(null);
+
+			} else { // 다를 경우
+				loginUser = null;
+			}
+		}
 		return loginUser;
 	}
 

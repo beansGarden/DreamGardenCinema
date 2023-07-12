@@ -72,7 +72,6 @@
                 </div>
             </div>
             <div>
-                <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 안 된 게시글 :</a></span>
                 <span class="answer"><a th:href="@{/adminQnaAnswerYN}" id="answerBtn">답변 여부</a></span>
                 <span >/</span>
                 <span class="nomember"><a th:href="@{/adminQnaNomember}" id="nomember">비회원</a></span>
@@ -127,7 +126,6 @@
 
                     <!-- 첫 페이지로 이동 -->
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
-                    <li><a th:href="@{/adminQnaNomember(cp=${pagination.startPage})}">&lt;&lt;</a></li>
                     <li><a th:href="@{/adminQnaNomember(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->

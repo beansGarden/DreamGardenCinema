@@ -1,28 +1,41 @@
 /* 전체 감싸는 div */
 .admin_faqWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
     width: 1000px;
-    display: block;
-    margin: 100px auto;
-    height: auto;
-    top: -1000px;
-    left: 400px;
-    position: relative;
+    left: 580px;
+    top: 60px;
+    height: 750px;
+    gap: 20px;
 }
 
 /* 게시판 제목 */
 #admin_faqTitle {
-    color: #0F0954;
-    font-size: 30px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
     font-weight: bold;
+    width: 180px;
+    height: 46px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
-.admin_faqBoardWrap>table>tr,
+table>tr,
 th,
 td {
     border-bottom: 1px solid black;
+
 }
 
+
+/* 글제목 */
 table>thead>tr:nth-child(1)>th {
     width: 100px;
 }
@@ -41,11 +54,16 @@ table>thead>tr:nth-child(1)>td {
 
 /* 등록버튼 감싸는 div */
 .admin_faqBtn {
-    margin-left: 60%;
+    margin-left: 60%; 
 
 }
 
 /* 등록버튼 */
+.admin_faqEndBtn a {
+    color: white;
+
+}
+
 .admin_faqEndBtn {
     margin: 0px 10px;
     padding: 5px 15px;
@@ -54,19 +72,11 @@ table>thead>tr:nth-child(1)>td {
     color: white;
     height: 38px;
     width: 60px;
-
-
+   transform: translateX(90px) translateY(10px);
 }
 
-/* 검색버튼 hover */
-.admin_faqEndBtn:hover {
+.admin_faqEndBtn:hover{
     font-size: 15px;
     background-color: #042928;
     font-weight: bold;
-}
-
-.admin_faqEndBtn a {
-
-    color: white;
-
 }

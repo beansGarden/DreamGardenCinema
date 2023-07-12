@@ -158,32 +158,32 @@ userPw.addEventListener("input", () => {
     const userPwValue = userPw.value;
 
     const data = {
-        "secessionPwValue" : userPwValue
+        "secessionPwValue": userPwValue
     };
-    if(userPwValue.trim().length  > 0) {
+    if (userPwValue.trim().length > 0) {
         fetch("/myPage/secessionCheck", {
-            method : "POST",
-            headers : {"Content-Type": "application/json"},
-            body : JSON.stringify(data)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
 
         })
 
-    .then(resp=>resp.text())
-    .then(result=>{
+            .then(resp => resp.text())
+            .then(result => {
 
 
-        if (regex.test(userPwValue)&&result>0) {
-            line1.classList.add("clear")
-            line1.classList.remove("line1")
-            line1.classList.remove("error")
-            checkObj.userPw = true;
-        } else {
-            line1.classList.add("error")
-            line1.classList.remove("line1")
-            line1.classList.remove("clear")
-            checkObj.userPw = false;
-        }
-    })
+                if (regex.test(userPwValue) && result > 0) {
+                    line1.classList.add("clear")
+                    line1.classList.remove("line1")
+                    line1.classList.remove("error")
+                    checkObj.userPw = true;
+                } else {
+                    line1.classList.add("error")
+                    line1.classList.remove("line1")
+                    line1.classList.remove("clear")
+                    checkObj.userPw = false;
+                }
+            })
     }
 })
 
@@ -255,7 +255,7 @@ checkPw.addEventListener("focus", () => {
 });
 
 const detailAddress = document.querySelector("#detailAddress");
-detailAddress.addEventListener("input",e=>{
+detailAddress.addEventListener("input", e => {
 
     if (detailAddress.value === '') {
         checkObj.userAddress = false;
@@ -307,37 +307,37 @@ changeInfo.addEventListener("submit", e => {
 
 const secessionPw = document.querySelector("#secessionPw")
 const line3 = document.querySelector("#line3")
-secessionPw.addEventListener("input",e=>{
+secessionPw.addEventListener("input", e => {
 
     const secessionPwValue = secessionPw.value;
 
     const data = {
-        "secessionPwValue" : secessionPwValue
+        "secessionPwValue": secessionPwValue
     };
 
-    if(secessionPwValue.trim().length  > 0) { // 입력한 값이 있을 때
+    if (secessionPwValue.trim().length > 0) { // 입력한 값이 있을 때
         fetch("/myPage/secessionCheck", {
-            method : "POST",
-            headers : {"Content-Type": "application/json"},
-            body : JSON.stringify(data)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
 
         })
 
-        .then(resp=>resp.text())
-        .then(result=>{
-            
-            if(result>0){
-                line3.classList.add("clearPw")
-                line3.classList.remove("line3")
-                line3.classList.remove("errorPw")
-            }else{
-                line3.classList.add("errorPw")
-                line3.classList.remove("line3")
-                line3.classList.remove("clearPw")
-            }
+            .then(resp => resp.text())
+            .then(result => {
 
-        })
-        
+                if (result > 0) {
+                    line3.classList.add("clearPw")
+                    line3.classList.remove("line3")
+                    line3.classList.remove("errorPw")
+                } else {
+                    line3.classList.add("errorPw")
+                    line3.classList.remove("line3")
+                    line3.classList.remove("clearPw")
+                }
+
+            })
+
     }
 })
 
@@ -366,7 +366,7 @@ my_page_secession_pwcheck_btn.addEventListener("click", e => {
         my_page_secession_pwcheck_container.style.display = "none";
 
         my_page_secession_info_bg.style.display = "flex";
-    
+
         document.body.style.overflow = 'hidden';
     }
 });
@@ -390,14 +390,15 @@ const secessionButton = document.querySelector("#secessionButton");
 
 secessionButton.addEventListener("click", (e) => {
     if (!secessionCheckbox.checked) {
-        e.preventDefault(); 
+        e.preventDefault();
         alert("회원 탈퇴에 동의해야 합니다.");
     } else {
         if (confirm("정말로 탈퇴하시겠습니까?")) {
 
-        }else{
+        } else {
             e.preventDefault();
             alert("탈퇴 취소")
         }
     }
 });
+

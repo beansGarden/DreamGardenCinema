@@ -163,7 +163,7 @@
 	
 	
 	<!--영화별 매출 불러오기-->
-	<select id="ticketList" resultType="_int">
+	<select id="ticketList" resultType="Long">
 		SELECT SUM(PAY_AMOUNT) AS TOTAL_AMOUNT
 		FROM TICKETING_INFO
 		WHERE MOVIE_NO = #{movieNo}
@@ -331,7 +331,7 @@
 
 	<!--QNA(1:1)문의 리스트 조회-->
 	<select id="adminQnaList5" resultMap="qna_rm">
-		SELECT
+			SELECT
 		    QNA.QNA_NO,
 		    QNA.QNA_TITLE,
 		    TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
@@ -352,6 +352,7 @@
 		        QNA_NO
 		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
 		WHERE QNA_DELETE_FL = 'N'
+		AND QNA_CHECK_FL = 'N'
 		ORDER BY
 		    QNA.QNA_NO DESC
 		FETCH FIRST 5 ROWS ONLY
@@ -360,25 +361,27 @@
 
 	<!--QNA 게시글 조회-->
 	<select id="selectQnaOne" resultMap="qna_rm">
-		SELECT USER_NO,
-		QNA.QNA_NO,
-		QNA.QNA_TITLE,QNA.QNA_CATEGORY,QNA.QNA_CONTENT ,
-		TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
-		USER_INFO.USER_NICKNAME,USER_INFO.USER_ID,
-		QNA.QNA_DELETE_FL,
-		QNA.QNA_CHECK_FL,
-		QNA_IMG.QNA_IMG_PATH,QNA.NONMEMBER_NAME,QNA.NONMEMBER_EMAIL,QNA.NONMEMBER_TEL
+			SELECT
+		  USER_NO,
+		  QNA.QNA_NO,
+		  QNA.QNA_TITLE,
+		  QNA.QNA_CATEGORY,
+		  QNA.QNA_CONTENT,
+		  TO_CHAR(QNA.QNA_ENROLL_DATE, 'YYYY-MM-DD') AS QNA_ENROLL_DATE,
+		  USER_INFO.USER_NICKNAME,
+		  USER_INFO.USER_ID,
+		  QNA.QNA_DELETE_FL,
+		  QNA.QNA_CHECK_FL,
+		  CONCAT(QNA_IMG.QNA_IMG_PATH, QNA_IMG.QNA_IMG_RENAME) AS QNA_IMG_PATH,
+		  QNA.NONMEMBER_NAME,
+		  QNA.NONMEMBER_EMAIL,
+		  QNA.NONMEMBER_TEL
 		FROM QNA
+		LEFT JOIN QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
 		LEFT JOIN USER_INFO ON QNA.USER_NO2 = USER_INFO.USER_NO
-		LEFT JOIN (
-		SELECT QNA_NO, MAX(QNA_IMG_PATH) AS QNA_IMG_PATH
-		FROM QNA_IMG
-		GROUP BY QNA_NO
-		) QNA_IMG ON QNA.QNA_NO = QNA_IMG.QNA_NO
 		WHERE QNA.QNA_NO = #{qnaNo}
-		ORDER BY
-		QNA.QNA_NO DESC
-	</select>
+		ORDER BY QNA.QNA_NO DESC
+			</select>
 
 	<!--QNA 글 업데이트-->
 	<update id="qnaUpdate">
@@ -991,10 +994,12 @@
 					AND MOVIE_TITLE LIKE '%${content}%' 
 				</when>
 				<when test='selectOpt == "d"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE = '감독'
 				</when>
 				<when test='selectOpt == "a"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE != '감독'
 				</when>
 			</choose>
 		</if>
@@ -1026,10 +1031,12 @@
 					AND MOVIE_TITLE LIKE '%${content}%' 
 				</when>
 				<when test='selectOpt == "d"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE = '감독'
 				</when>
 				<when test='selectOpt == "a"'>
-					AND PERSON_NAME LIKE '%${PERSON_NAME}%'
+					AND PERSON_NAME LIKE '%${content}%'
+					AND PERSON_ROLE != '감독'
 				</when>
 			</choose>
 		</if>
