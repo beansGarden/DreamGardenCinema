@@ -10,6 +10,8 @@ document.onload = checkType();
 /* 타입체크 -> 현재 상영 : current, 상영예정 : promise */
 function checkType() {
 
+    releaseType = "";
+
     if (location.pathname == "/movie/current") {
         releaseType = "current";
     }
