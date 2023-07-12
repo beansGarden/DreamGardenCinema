@@ -11,6 +11,7 @@ const arrowRightBtn = document.querySelector(".fa-arrow-right");  // 오른쪽�
 let pageActiveIdx = 0; // 현재 보고있는 페이지그룹 번호
 let currentPageNum = 0; // 현재 보고 있는 페이지네이션 번호
 
+
 //페이지네이션 생성
 for (let i = 1; i <= pageCount; i++) {
   FAQpaginationNumbers.innerHTML += `<li><a href="">${i}</a></li>`;  // 페이지수 나타낼 HTML 추가
@@ -96,6 +97,98 @@ arrowLeftBtn.addEventListener("click", () => {
 
 
 
+// ajax에서 사용할 페이지네이션 생성 코드
+function pagination(count) {
+
+  FAQpaginationNumbers.innerHTML = '';
+  //페이지네이션 생성
+for (let i = 1; i <= count; i++) {
+  FAQpaginationNumbers.innerHTML += `<li><a href="">${i}</a></li>`;  // 페이지수 나타낼 HTML 추가
+}
+const paginationNumberBtn = FAQpaginationNumbers.querySelectorAll('a');  // 페이지네이션 숫자들(a태그)
+
+for (nb of paginationNumberBtn) {  // 페이지네이션 번호 감추기
+  nb.style.display = 'none';
+}
+
+paginationNumberBtn.forEach((item, idx) => {  // 페이지네이션 전부 중에
+  // item = for문 중 현재 요소 / idx = 현재 요소의 인덱스
+  item.addEventListener('click', e => {  // 선택 옵션있으면
+    e.preventDefault();  // a태그 깜빡거림 없애기
+    // 테이블 출력 함수
+    displayRow(idx);
+  });
+});
+
+function displayRow(idx) {
+  // let rowsArray = Array.from(rows);
+  let start = idx * rowsPerPage;  // 인덱스번호부터
+  let end = start + rowsPerPage;  // 보여줄 행의 개수
+  let rowsArray = [...rows]; // 데이터 행 배열로 바꾸기(slice 하기 위함)
+
+  for (ra of rowsArray) {  // 전체 행 감추기
+    ra.style.display = 'none';
+  }
+
+  let newRows = rowsArray.slice(start, end);  // 인덱스 행부터 보여줄 행의 개수 만큼의 배열
+  for (nr of newRows) {  // 이만큼만 감춘것 없애기
+    nr.style.display = '';
+  }
+  for (let pnb of paginationNumberBtn) {  // 페이지네이션 전부 active 클래스 제거
+    pnb.classList.remove('active');
+  }
+  paginationNumberBtn[idx].classList.add('active');  // 선택한 페이지네이션만 active 클래스 추가
+}  // displayRow 함수 끝
+displayRow(0);  // 페이지 새로고침하면 0 첫화면
+
+// 페이지네이션 그룹 표시 함수
+function displayPage(num) {
+  for (nb of paginationNumberBtn) {  // 페이지네이션 번호 감추기
+    nb.style.display = 'none';
+  }
+  let totalPageCount = Math.ceil(count / maxPageNum);  // 화면에 보여줄 페이지 네이션 수
+
+  let pageArr = [...paginationNumberBtn];  // 페이지네이션 번호 배열로 만들기
+  let start = num * maxPageNum;  // 페이지네이션 인덱스번호부터
+  let end = start + maxPageNum;  // 보여줄 페이지네이션 갯수
+  let pageListArr = pageArr.slice(start, end);  // 이만큼 자른 배열
+
+  for (let item of pageListArr) {  // 페이지네이션 자른 배열들만 보이게 하기
+    item.style.display = 'block';
+  }
+  if (pageActiveIdx == 0) {  // 첫화면이면 화살표 왼쪽 안보이게 오른쪽 보이게
+    arrowLeftBtn.style.display = 'none';
+  } else {
+    arrowLeftBtn.style.display = 'block';
+  }
+
+  if (pageActiveIdx == totalPageCount - 1) {  // 마지막 화면이면 화살표 왼쪽 보이게 오른쪽 안보이게
+    arrowRightBtn.style.display = 'none';
+  } else {
+    arrowRightBtn.style.display = 'block';
+  }
+}
+displayPage(0);  // 페이지 새로고침하면 첫 페이지네이션
+
+arrowRightBtn.addEventListener("click", () => {
+  let nextPageNum = pageActiveIdx * maxPageNum + maxPageNum;
+  displayRow(nextPageNum);
+  ++pageActiveIdx;
+  displayPage(pageActiveIdx);
+});
+
+arrowLeftBtn.addEventListener("click", () => {
+  let nextPageNum = pageActiveIdx * maxPageNum - 1;
+  displayRow(nextPageNum);
+  --pageActiveIdx;
+  displayPage(pageActiveIdx);
+});
+}
+
+
+
+
+
 
 
 /************** 상영관 관련 게시글 목록 출력하기 **************/
@@ -109,11 +202,13 @@ function theList() {
 
   const FAQCategory = 'P'; // p인 카테고리 타이틀
 
+  let theaterListSize;
   fetch("/customerservice/theaterFAQ?FAQCategory=" + FAQCategory)
     .then((resp) => resp.json())
     .then((theaterList) => {
       console.log(theaterList);
 
+      const theaterListSize = theaterList.length;
       for (let list of theaterList) {
         const firstBox = document.createElement("div");
         firstBox.classList.add("FAQ-first-box");
@@ -204,6 +299,10 @@ function theList() {
         }
       }
 
+      const count = Math.ceil(theaterListSize / rowsPerPage);
+
+      pagination(count);
+
     })
     .catch((error) => {
       console.error("An error occurred while fetching theater FAQs:", error);
@@ -223,10 +322,13 @@ function cusList() {
 
   const FAQCategory = 'M'; //M인 카테고리 타이틀
 
+  let customListSize;
   fetch("/customerservice/customerFAQ?FAQCategory=" + FAQCategory)
     .then((resp) => resp.json())
     .then((customList) => {
       console.log(customList);
+
+      const customListSize = customList.length;
 
       for (let cList of customList) {
         const firstBox = document.createElement("div");
@@ -318,6 +420,10 @@ function cusList() {
         }
       }
 
+      const count = Math.ceil(customListSize / rowsPerPage);
+
+      pagination(count);
+
     })
     .catch((error) => {
       console.error("An error occurred while fetching theater FAQs:", error);
@@ -338,13 +444,15 @@ function memList() {
 
 
 
-  const FAQCategory = 'U'; //M인 카테고리 타이틀
+  const FAQCategory = 'U'; //U인 카테고리 타이틀
 
+  let membListSize;
   fetch("/customerservice/membershipFAQ?FAQCategory=" + FAQCategory)
     .then((resp) => resp.json())
     .then((membList) => {
       console.log(membList);
 
+      const membListSize = membList.length; 
       for (let mList of membList) {
         const firstBox = document.createElement("div");
         firstBox.classList.add("FAQ-first-box");
@@ -434,6 +542,9 @@ function memList() {
 
         }
       }
+      const count = Math.ceil(membListSize / rowsPerPage);
+
+      pagination(count);
 
     })
     .catch((error) => {
@@ -468,7 +579,10 @@ searchBtn.addEventListener("click", (e) => {
     item.remove();
   });
   e.preventDefault();
+
   const query = document.getElementById("query").value.trim();
+  
+  let searchFAQListSize;
 
   fetch("/customerservice/searchFAQ?searchQuery=" + query)
     .then(resp => resp.json())
@@ -476,7 +590,8 @@ searchBtn.addEventListener("click", (e) => {
 
       console.log(searchFAQList);
 
-      if (searchFAQList.length == 0 || query === "") {
+      const searchFAQListSize = searchFAQList.length;
+      if (searchFAQList.length == 0) {
 
         const firstBox = document.createElement("div");
         firstBox.classList.add("FAQ-first-box");
@@ -496,6 +611,12 @@ searchBtn.addEventListener("click", (e) => {
 
         firstBox.appendChild(noneContent);
         FAQlistContents.appendChild(firstBox);
+
+        if(query.length === 0){
+
+          FAQpaginationNumbers.innerHTML = '';
+        }
+
 
         // FAQlistContents.innerHTML="";
 
@@ -596,9 +717,15 @@ searchBtn.addEventListener("click", (e) => {
 
       }
 
-    })
+      const count = Math.ceil(searchFAQListSize / rowsPerPage);
 
-})
+      pagination(count);
+
+    })
+    .catch((error) => {
+      console.error("An error occurred while fetching theater FAQs:", error);
+    });
+});
 /************************************************************************/
 
 // 상영관 아이콘 애니메이션
