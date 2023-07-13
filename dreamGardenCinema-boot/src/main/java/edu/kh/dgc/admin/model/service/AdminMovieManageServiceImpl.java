@@ -1,5 +1,7 @@
 package edu.kh.dgc.admin.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.dgc.admin.model.dao.AdminMovieManageMapper;
 import edu.kh.dgc.admin.model.dto.Pagination;
@@ -74,6 +77,13 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 //		
 //		return 0;
 //	}
+
+	@Override
+	public int updateMovie(Movie updateMovie, MultipartFile updatePoster) throws IllegalStateException, IOException  {
+		
+		String fileName = updatePoster.getOriginalFilename();
+		return mapper.updateMovie(updateMovie);
+	}
 
 	
 	
