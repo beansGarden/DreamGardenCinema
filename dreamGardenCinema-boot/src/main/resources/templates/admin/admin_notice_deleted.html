@@ -83,8 +83,11 @@
                                 th:text="${list.noticeTitle}">예매 정책</a></td>
                         <td th:text="${list.enrollDate}">2023.05.01</td>
                         <td th:text="${list.noticeFL}">Y</td>
-
-
+                    </tr>
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(adminNoticeList)}">
+                    <tr>
+                        <td colspan="5">조회하는 결과가 없습니다.</td>
                     </tr>
                 </tbody>
 
