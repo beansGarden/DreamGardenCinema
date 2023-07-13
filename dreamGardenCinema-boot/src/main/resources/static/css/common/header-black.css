@@ -972,8 +972,8 @@ header {
 }
 .top-line{
     width: 100%;
-    border: solid #fff;
-    border-width: 1px 0 0 0;
+    border: solid #ffffff3d;
+    border-width: 0.1px 0 0 0;
     height: 1px;
     position: absolute;
     top: 120px;
