@@ -43,6 +43,7 @@ function qnaDelete(qnaNo){
     console.log(qnaNo);
 
   }).catch(err=> console.log(err));
+  location.reload();
 
 }
 

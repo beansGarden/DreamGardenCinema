@@ -41,7 +41,7 @@ fetch("/adminNotice/deleteNoticeList", {
   console.log(noticeNo); //번호 나옴
 
 }).catch(err=> console.log(err));
-
+location.reload();
 }
 
 /* 복구 버튼 선택 탈퇴하기 */
@@ -94,6 +94,7 @@ function noticeRestore(noticeNos) {
       }
     })
     .catch(err => console.log(err));
+    location.reload();
 }
 
 //체크박스 숫자 불러오기
