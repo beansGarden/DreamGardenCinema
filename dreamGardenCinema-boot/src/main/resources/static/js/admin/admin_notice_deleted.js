@@ -60,6 +60,7 @@ function noticeRestore(noticeNos) {
       }
     })
     .catch(err => console.log(err));
+    location.reload();
 }
 
 
