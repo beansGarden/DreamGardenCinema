@@ -100,30 +100,41 @@ public class AdminMovieManageController {
 	
 	
 	@PostMapping("/adminMovieManage/update")
-	public String updateMovie(Movie updateMovie,
-							@RequestParam(value="updatePoster", required=false) MultipartFile updatePoster,
-//								int movieNo,
-//								MultipartFile updatePoster,
-//								String updateMovieTitle,
-//								String updateReleaseDate,
-//								String updateScreening,
-//								int updateRunningTime,
-//								String updateGenre,
-//								String updateRating,
-//								String updateSynopsis,
+	public String updateMovie(@RequestParam(value="updatePoster", required=false) MultipartFile updatePoster,
+								int movieNo,
+								String updateMovieTitle,
+								String updateReleaseDate,
+								String updateScreening,
+								String updateRunningTime,
+								String updateGenre,
+								String updateRating,
+								String updateSynopsis,
 //								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
 //								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
 //								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
 //								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
 								RedirectAttributes ra) throws IllegalStateException, IOException  {
 		
-		switch (updateMovie.getRating()) {
+		Movie updateMovie = new Movie();
+		
+		
+		updateMovie.setMovieNo(movieNo);
+		updateMovie.setMovieTitle(updateMovieTitle);
+		updateMovie.setReleaseDate(updateReleaseDate);
+		updateMovie.setScreening(updateScreening);
+		if(updateScreening.equals("wait")) updateMovie.setScreening("W");
+		if(updateScreening.equals("promise")) updateMovie.setScreening("P");
+		if(updateScreening.equals("current")) updateMovie.setScreening("C");
+		if(updateScreening.equals("down")) updateMovie.setScreening("D");
+		updateMovie.setRunningTime(updateRunningTime);
+		updateMovie.setGenre(updateGenre);
+		switch (updateRating) {
 		case "전체관람가": updateMovie.setRating("/images/common/main/ALL.png"); break;
 		case "만12세이상관람가": updateMovie.setRating("/images/common/main/12세.png"); break; 
 		case "만15세이상관람가": updateMovie.setRating("/images/common/main/15세.png"); break;
 		case "청소년관람불가": updateMovie.setRating("/images/common/main/18세.png"); break;
 		}
-		
+		updateMovie.setSynopsis(updateSynopsis);
 		
 		System.out.println(updateMovie);
 		int result = service.updateMovie(updateMovie, updatePoster);
@@ -142,7 +153,7 @@ public class AdminMovieManageController {
 		
 		ra.addFlashAttribute("message", message);
 		
-		return "redirect:/adminMovieManage/detail?movieNo=" + updateMovie.getMovieNo() + "&type=read&screen=" + updateMovie.getScreening();
+		return "redirect:/adminMovieManage/detail?movieNo=" + updateMovie.getMovieNo() + "&type=read&screen=" + updateScreening;
 	}
 	
 	@PostMapping("/adminMovieManage/create")

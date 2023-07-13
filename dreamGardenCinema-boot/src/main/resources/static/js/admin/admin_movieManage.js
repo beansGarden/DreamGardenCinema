@@ -426,7 +426,7 @@ function reloadPageList(){
 }
 
 function createButton(text, dataPage, clickHandler) {
-    var button = document.createElement('button');
+    var button = document.createElement('a');
     button.textContent = text;
     button.dataset.page = dataPage;
     button.addEventListener('click', function() {

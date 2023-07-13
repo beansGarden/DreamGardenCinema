@@ -153,10 +153,10 @@
 	
 	<update id="updateMovie">
 		UPDATE MOVIE SET MOVIE_TITLE=#{movieTitle},
-		<if test="poster != ''">
+		<!--<if test="poster != ''">
 		POSTER=#{poster},
-		</if>
-		SYNOPSIS=#{synopsis}, RUNNING_TIME=#{runningTime}, RATING=#{rating}, RELEASE_DATE=#{releaseDate}, GENRE=#{genre}
+		</if>-->
+		SYNOPSIS=#{synopsis}, RUNNING_TIME=#{runningTime}, RATING=#{rating}, RELEASE_DATE=#{releaseDate}, GENRE=#{genre}, SCREENING=#{screening}
 		WHERE MOVIE_NO = #{movieNo}
 	</update>
 	
