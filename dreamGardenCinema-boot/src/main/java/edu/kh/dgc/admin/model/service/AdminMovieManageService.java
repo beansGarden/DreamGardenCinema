@@ -12,6 +12,8 @@ public interface AdminMovieManageService {
 
 	int createMovieInfo(Movie createMovieInfo);
 
+	int deleteMovie(int movieNo);
+
 //	int updatePoster(int movieNo, String updateMovieTitle, MultipartFile updatePoster);
 	
 }

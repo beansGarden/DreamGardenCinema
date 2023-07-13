@@ -140,10 +140,15 @@
 		</selectKey>
 		INSERT INTO "beansGarden".MOVIE
 		(MOVIE_NO, MOVIE_TITLE, POSTER, SYNOPSIS, RUNNING_TIME, RATING, RELEASE_DATE, MOVIE_PRICE, SCREENING, GENRE)
-		VALUES(#{movieNo}, #{movieTitle}, '/images/movie/영화인/null.png', 
+		VALUES(#{movieNo}, #{movieTitle}, '/images/common/main/포스터/null.jpg', 
 		#{synopsis}, #{runningTime}, #{rating}, #{releaseDate}, 12000, #{screening}, #{genre})
 		
 	</insert>
+	
+	<delete id="deleteMovie">
+		DELETE FROM "beansGarden".MOVIE
+		WHERE MOVIE_NO=#{movieNo};
+	</delete>
 	
 	
 </mapper>

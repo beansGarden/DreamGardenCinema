@@ -167,6 +167,27 @@ public class AdminMovieManageController {
 		return "redirect:/adminMovieManage/detail?movieNo=" + createMovieInfo.getMovieNo() + "&type=read&screen=" + createScreening;
 		
 	}
+	
+	@PostMapping("/adminMovieManage/delete")
+	public String deleteMovie(int movieNo,
+							RedirectAttributes ra) {
+		
+		int result = service.deleteMovie(movieNo);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 삭제되었습니다.";
+			
+		}else {
+			message = "게시글 삭제 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "admin/admin_movieManageDetail";
+	}
+	
 }
 
 

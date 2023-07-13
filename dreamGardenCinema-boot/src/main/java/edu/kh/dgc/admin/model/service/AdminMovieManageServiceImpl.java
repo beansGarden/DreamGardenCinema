@@ -80,9 +80,14 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 		
 		return mapper.createMovieInfo(createMovieInfo);
 	}
-	
-	
 
+	@Override
+	public int deleteMovie(int movieNo) {
+		return mapper.deleteMovie(movieNo);
+	}
+	
+	
+	
 	
 	
 	

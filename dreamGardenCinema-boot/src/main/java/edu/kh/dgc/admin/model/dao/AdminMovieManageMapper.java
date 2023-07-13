@@ -26,4 +26,6 @@ public interface AdminMovieManageMapper {
 
 	int createMovieInfo(Movie createMovieInfo);
 
+	int deleteMovie(int movieNo);
+
 }
