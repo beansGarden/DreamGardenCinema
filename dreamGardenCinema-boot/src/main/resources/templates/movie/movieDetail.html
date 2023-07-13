@@ -112,7 +112,7 @@
 
                     <div class="movie-ticket font2">
 
-                        <a class="ticket-active" th:if="*{screening == 'C'}" href="@{/ticketing/date/} + *{movieNo}">예매하기</a>
+                        <a class="ticket-active" th:if="*{screening == 'C'}" th:href="@{/ticketing/date/} + *{movieNo}">예매하기</a>
 
                         <div class="ticket-non-active" th:unless="*{screening == 'C'}">상영예정</div>
 
@@ -337,7 +337,10 @@
     </div>
     
     <section class="movie--bot__banner">
-        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+        <a th:if="${advertisePoster.SCREENING == 'C'}" th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}&screen=current|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
+        <a th:if="${advertisePoster.SCREENING == 'P'}" th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}&screen=promise|}">
             <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
         </a>
     </section>

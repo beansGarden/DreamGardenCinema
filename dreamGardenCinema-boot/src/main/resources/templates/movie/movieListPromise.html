@@ -54,7 +54,10 @@
     </section>
 
     <section class="movie--bot__banner">
-        <a th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}|}">
+        <a th:if="${advertisePoster.SCREENING == 'C'}" th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}&screen=current|}">
+            <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
+        </a>
+        <a th:if="${advertisePoster.SCREENING == 'P'}" th:href="@{|/movie/movieDetail=${advertisePoster.MOVIE_NO}&screen=promise|}">
             <img th:src="${advertisePoster.MOVIE_IMG_PATH}">
         </a>
     </section>

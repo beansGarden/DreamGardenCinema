@@ -46,7 +46,7 @@ if(screenType == 'highlight'){
 }
 if(screenType == 'all'){
     createMovieBtn.classList.add("process-type-none");
-    createHighlightBtn.classList.add("process-type-none")
+    // createHighlightBtn.classList.add("process-type-none")
     // UpdateHighlightBtn.classList.add("process-type-none")
 }
 
@@ -138,20 +138,20 @@ deleteBtn.addEventListener('click', () => {
 });
 
 
-const selectElementScreening = document.getElementsByName('screening')[0];
-for (let i = 0; i < selectElementScreening.options.length; i++) {
-    if (selectElementScreening.options[i].value === screenType) {
-        selectElementScreening.selectedIndex = i;
+const selectElementUpdateScreening = document.getElementsByName('updateScreening')[0];
+for (let i = 0; i < selectElementUpdateScreening.options.length; i++) {
+    if (selectElementUpdateScreening.options[i].value === screenType) {
+        selectElementUpdateScreening.selectedIndex = i;
         break;
     }
 }
     
 
 
-const selectElementRating = document.getElementsByName('rating')[0];
-for (let i = 0; i < selectElementRating.options.length; i++) {
-    if (selectElementRating.options[i].value === rating) {
-        selectElementRating.selectedIndex = i;
+const selectElementUpdateRating = document.getElementsByName('updateRating')[0];
+for (let i = 0; i < selectElementUpdateRating.options.length; i++) {
+    if (selectElementUpdateRating.options[i].value === rating) {
+        selectElementUpdateRating.selectedIndex = i;
         break;
     }
 }
