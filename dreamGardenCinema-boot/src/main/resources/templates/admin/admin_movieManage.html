@@ -84,30 +84,30 @@
             <ul class="pagination">
 
                 <!-- 첫 페이지로 이동 -->
-                <li><button data-page="first" onclick="pagination(this)">&lt;&lt;</button></li>
+                <li><a data-page="first" onclick="pagination(this)">&lt;&lt;</a></li>
 
                 <!-- 이전 목록 마지막 번호로 이동 -->
-                <li><button th:data-page="prev" onclick="pagination(this)">&lt;</button></li>
+                <li><a th:data-page="prev" onclick="pagination(this)">&lt;</a></li>
 
                 <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
 
                     <!-- 현재 보고있는 페이지 -->
                     <li th:if="${i == pagination.currentPage}">
-                        <button class="num current" th:data-page="${i}" data-page-role="num" th:text="${i}" onclick="pagination(this)">현재 페이지</button>
+                        <a class="num current" th:data-page="${i}" data-page-role="num" th:text="${i}" onclick="pagination(this)">현재 페이지</a>
                     </li>
 
                     <!-- 현재 페이지를 제외한 나머지 -->
                     <li th:unless="${i == pagination.currentPage}">
-                        <button class="num" th:data-page="${i}" data-page-role="num" th:text="${i}"  onclick="pagination(this)">나머지 페이지</button>
+                        <a class="num" th:data-page="${i}" data-page-role="num" th:text="${i}"  onclick="pagination(this)">나머지 페이지</a>
                     </li>
 
                 </th:block>
                 
                 <!-- 다음 목록 시작 번호로 이동 -->
-                <li><button th:data-page="next"  onclick="pagination(this)">&gt;</button></li>
+                <li><a th:data-page="next"  onclick="pagination(this)">&gt;</a></li>
 
                 <!-- 끝 페이지로 이동 -->
-                <li><button th:data-page="max" onclick="pagination(this)">&gt;&gt;</button></li>
+                <li><a th:data-page="max" onclick="pagination(this)">&gt;&gt;</a></li>
 
 
             </ul>

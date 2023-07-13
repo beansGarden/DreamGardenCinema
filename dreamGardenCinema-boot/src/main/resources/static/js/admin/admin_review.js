@@ -131,6 +131,7 @@ function reviewDelete(reviewNos) {
       alert("리뷰가 삭제되었습니다."); // 삭제 완료 메시지
     })
     .catch(err => console.log(err));
+    location.reload();
 }
 
 
@@ -195,6 +196,7 @@ function reviewRestore(reviewNos) {
       }
     })
     .catch(err => console.log(err));
+    location.reload();
 }
 
 /* 전체 삭제 안 한 수 불러오기 ========================================*/

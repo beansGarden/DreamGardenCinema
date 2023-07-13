@@ -42,7 +42,7 @@ fetch("/adminQna/restoreQnaList", {
   console.log(qnaNo);
 
 }).catch(err=> console.log(err));
-
+location.reload();
 }
 
   /* 삭제 버튼 선택 삭제하기 */
@@ -80,6 +80,7 @@ function qnaDelete(qnaNo){
     console.log(qnaNo);
 
   }).catch(err=> console.log(err));
+  location.reload();
 
 }
 

@@ -80,3 +80,8 @@ table>thead>tr:nth-child(1)>td {
     background-color: #042928;
     font-weight: bold;
 }
+
+.admin_faqContent img {
+    max-width: 100%;
+    height: auto;
+  }

@@ -16,7 +16,7 @@ const checkboxNo = document.getElementsByClassName("admin_qna_checkbox_no"); //�
 restoreBtn.addEventListener(('click'),()=>{
 
 
-if (confirm("정말 삭제 하시겠습니까?")) {
+if (confirm("정말 복구 하시겠습니까?")) {
   for(let i=0; i<checkbox.length; i++){
     if (checkbox[i].checked) {
  var qnaNo = document.getElementsByClassName("admin_qna_checkbox_no")[i].innerText //체크박스 옆 숫자 =  공지번호
@@ -43,6 +43,7 @@ fetch("/adminQna/restoreQnaList", {
   console.log(qnaNo);
 
 }).catch(err=> console.log(err));
+location.reload();
 
 }
 

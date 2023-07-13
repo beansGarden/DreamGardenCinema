@@ -996,12 +996,6 @@ button.face-button {
     position: static;
     height: 131px;
 }
-
-.my-page-myinfo>a:nth-child(2) {
-    position: absolute;
-    left: 91px;
-    top: 427px;
-}
 @-webkit-keyframes eyeBlink {
 
     0%,

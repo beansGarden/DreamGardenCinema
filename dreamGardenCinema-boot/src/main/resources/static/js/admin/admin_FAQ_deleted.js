@@ -95,6 +95,7 @@ countAll.textContent = totalItems.toString();
         }
       })
       .catch(err => console.log(err));
+      location.reload();
   }
   
 

@@ -60,6 +60,7 @@ function userSelectAll(userSelectAll)  {
         }
       })
       .catch(err => console.log(err));
+      location.reload();
   }
   
 
@@ -114,6 +115,7 @@ function userSelectAll(userSelectAll)  {
         }
       })
       .catch(err => console.log(err));
+      location.reload();
   }
   
 

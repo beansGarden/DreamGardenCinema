@@ -139,6 +139,7 @@ deleteBtn.addEventListener('click', () => {
 
 
 const selectElementUpdateScreening = document.getElementsByName('updateScreening')[0];
+
 for (let i = 0; i < selectElementUpdateScreening.options.length; i++) {
     if (selectElementUpdateScreening.options[i].value === screenType) {
         selectElementUpdateScreening.selectedIndex = i;
