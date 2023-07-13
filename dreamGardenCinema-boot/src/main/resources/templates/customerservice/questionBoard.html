@@ -28,7 +28,9 @@
             <ul class="service-list-choose">
                 <li><a th:href="@{/customerservice/}">FAQ</a></li>
                 <li><a th:href="@{/customerservice/notice}">공지사항</a></li>
-                <li><a th:href="@{/customerservice/service}">1:1문의</a><hr></li>
+                <li><a th:href="@{/customerservice/service}">1:1문의</a>
+                    <hr>
+                </li>
             </ul>
         </div>
 
@@ -86,8 +88,8 @@
                 <!-- 제목 행 -->
                 <div class="QA-title">
                     <span>제목</span><span style="color: red;">*</span>
-                    <input name="qnaTitle" type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요." minlength="0"
-                        maxlength="49">
+                    <input name="qnaTitle" type="text" id="customerQuestionTitle" placeholder="제목을 입력해 주세요."
+                        minlength="0" maxlength="49">
                     <div class="QA-title-count-box">
                         <span id="QATitleCount">0</span>/
                         <span>50</span>자
@@ -97,8 +99,8 @@
                 <!-- 내용 -->
                 <div class="QA-contents">
                     <span>내용</span><span style="color: red;">*</span>
-                    <textarea name="qnaContent" id="QADetailContents" cols="100" rows="10" minlength="0" maxlength="1999"
-                        placeholder="내용을 입력 해주세요."></textarea>
+                    <textarea name="qnaContent" id="QADetailContents" cols="100" rows="10" minlength="0"
+                        maxlength="1999" placeholder="내용을 입력 해주세요."></textarea>
                     <div class="QA-span-container">
                         <span id="QAContentsCount">0</span>/
                         <span>2000</span>자
@@ -115,7 +117,7 @@
 
                 <!-- 회원 여부 체크  -->
                 <div class="QA-member-check">
-                    <span>비회원 체크</span>
+                    <span>이메일 답변</span>
                     <input type="checkbox" name="chkNoneMember" id="QAmemChkBox">
                     <span>이메일로 답변 받기</span>
                     <span>
@@ -133,7 +135,7 @@
                     <!-- 성명 -->
                     <div class="QA-customer-name">
                         <span>성명</span><span style="color: red;">*</span>
-                        <input name="nonMemberName" type="text" placeholder="성함을 입력해 주세요." id="cusName">
+                        <input name="nonMemberName" type="text" placeholder="성함을 입력해 주세요." id="cusName" maxlength="8">
                     </div>
 
                     <!-- 연락처 -->
@@ -149,8 +151,8 @@
                             <option value="019">019</option>
                         </select>
 
-                        <input name="nonMemberTel" type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요." id="cusTel"
-                                maxlength="8">
+                        <input name="nonMemberTel" type="text" class="QA-customer-tel-input" placeholder="- 없이 입력해 주세요."
+                            id="cusTel" maxlength="8">
 
                     </div>
 
@@ -163,6 +165,7 @@
                     </div>
 
                 </div>
+
 
 
 
@@ -193,8 +196,9 @@
                     <input type="radio" name="QAAgree" id="">동의
                 </div>
 
+
                 <div class="QA-final-confirm">
-                    <button type="submit" class="QA-conf-btn">등록</button>
+                    <button type="submit" class="QA-conf-btn" id="qaBtn">등록</button>
                 </div>
             </form>
 
@@ -203,16 +207,6 @@
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
-
-    <!-- <script th:inline="javascript">
-
-        /* Natural Template  */
-        const message = /*[[${message}]]*/ "전달 받은 message";
-        // 타임리프 해석             값(자료형이 알아서 해석)       사라짐(설명) 
-
-        if (message != null) alert(message);
-    </script> -->
-
     <script th:src="@{/js/customerservice/questionBoard.js}"></script>
 
 </body>
