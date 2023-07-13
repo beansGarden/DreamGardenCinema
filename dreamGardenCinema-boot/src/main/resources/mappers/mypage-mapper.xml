@@ -236,7 +236,6 @@
 		SELECT USER_NO
 		FROM USER_INFO
 		WHERE USER_RATING = 1
-		AND USER_ROLE = 'C'
 	</select>
 	<!--누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트-->
 	<update id="updateAllSilver">
@@ -251,7 +250,6 @@
 		SELECT USER_NO
 		FROM USER_INFO
 		WHERE USER_RATING = 2
-		AND USER_ROLE = 'C'
 	</select>
 	<!-- 실버등급)브론즈 쿠폰 1개,실버 쿠폰 2개 insert-->
 	<insert id="insertSilverCoupon">
@@ -277,7 +275,6 @@
 		SELECT USER_NO
 		FROM USER_INFO
 		WHERE USER_RATING = 3
-		AND USER_ROLE = 'C'
 	</select>
 	<!--브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개 insert-->
 	<insert id="insertAllGoldCoupon">
@@ -308,7 +305,6 @@
 		SELECT USER_NO
 		FROM USER_INFO
 		WHERE USER_RATING = 4
-		AND USER_ROLE = 'C'
 	</select>
 	<!--브론즈 쿠폰 1개,실버 쿠폰 2개,골드 쿠폰 3개,플래티넘 쿠폰 2개 insert-->
 	<insert id="insertAllPlatinumCoupon">
