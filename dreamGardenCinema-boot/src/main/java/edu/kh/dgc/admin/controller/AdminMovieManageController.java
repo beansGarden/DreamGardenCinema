@@ -1,6 +1,7 @@
 	package edu.kh.dgc.admin.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.dgc.admin.model.service.AdminMovieManageService;
 import edu.kh.dgc.movie.model.dto.Movie;
@@ -78,11 +82,13 @@ public class AdminMovieManageController {
 		
 		
 		String story = movieInfo.getSynopsis();
+		String plainStory = story;
 		movieInfo.setSynopsis(story.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
 		resp.put("movieNo", movieNo);
 		resp.put("screen", screen);
 		resp.put("type", type);
+		resp.put("plainStory", plainStory);
 		
 		model.addAttribute("resp", resp);
 		
@@ -91,9 +97,43 @@ public class AdminMovieManageController {
 	}
 	
 	
+	@PostMapping("/adminMovieManage/update")
+	public String updateMovie(int movieNo,
+//								MultipartFile updatePoster,
+								String updateMovieTitle,
+								String updateReleaseDate,
+								String updateScreening,
+								int updateRunningTime,
+								String updateGenre,
+								String updateRating,
+								String updateSynopsis,
+//								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
+//								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
+//								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
+//								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
+								RedirectAttributes ra) {
+		
+		String message = "게시글이 수정되었습니다.";
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + updateScreening;
+	}
 	
+	@PostMapping("/adminMovieManage/create")
+	public String createMovie(int movieNo,
+								String createMovieTitle,
+								String createReleaseDate,
+								String createScreening,
+								int createRunningTime,
+								String createGenre,
+								String createRating,
+								String createSynopsis,
+								RedirectAttributes ra) {
 	
-	
+		
+	return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + createScreening;
+	}
 }
 
 

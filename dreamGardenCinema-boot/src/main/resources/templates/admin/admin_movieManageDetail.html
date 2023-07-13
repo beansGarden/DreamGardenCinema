@@ -134,17 +134,17 @@
                         <div class="base-info__basic">
                             <li>
                                 <label class="admin_movieLabel">영화 제목</label>
-                                <input type="text" name="movieTitle" th:value="*{movieTitle}">
+                                <input type="text" name="updateMovieTitle" th:value="*{movieTitle}">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">개봉일</label>
-                                <input type="text" name="releaseDate" th:value="*{releaseDate}">
+                                <input type="text" name="updateReleaseDate" th:value="*{releaseDate}">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">현재상영상태</label>
-                                <select name="screening">
+                                <select name="updateScreening">
                                     <option value="wait">임시대기</option>
                                     <option value="promise">상영예정</option>
                                     <option value="current">현재상영</option>
@@ -154,17 +154,17 @@
 
                             <li>
                                 <label class="admin_movieLabel">러닝타임</label>
-                                <input type="number" name="runningTime" th:value="*{runningTime}">분
+                                <input type="number" name="updateRunningTime" th:value="*{runningTime}">분
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">장르</label>
-                                <input type="text" name="genre" th:value="*{genre}">
+                                <input type="text" name="updateGenre" th:value="*{genre}">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">영화 등급</label>
-                                <select name='rating'>
+                                <select name='updateRating'>
                                     <option value='전체관람가'>전체관람가</option>
                                     <option value='만12세이상관람가'>만12세이상관람가</option>
                                     <option value='만15세이상관람가'>만15세이상관람가</option>
@@ -174,8 +174,8 @@
 
                             <li>
                                 <label class="admin_movieLabel">시놉시스</label>
-                                <div name="synopsis" class="synopsis-edit" th:utext="*{synopsis}"
-                                    contenteditable="true"></div>
+                                <textarea name="updateSynopsis" class="synopsis-edit" th:text="${resp.plainStory}">
+                                </textarea>
                             </li>
 
                         </div>
@@ -188,7 +188,7 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" th:each="stillcut : ${resp.movieStillcut}">
                                     <img th:src="@{|${stillcut}|}" onclick="openImageEditor(this)" style="cursor: pointer;">
-                                    <input type="file" class="updateStillcut-input" accept="image/*" style="display: none;" 
+                                    <input type="file" class="updateStillcut-input" name="updateStillcut" accept="image/*" style="display: none;" 
                                     onchange="updateImage(this)" th:data-original-src="@{|${stillcut}|}">
                                 </div>
                             </div>
@@ -209,12 +209,12 @@
                                     <div class="person-img">
                                         <img th:src="@{|${person.img}|}" onclick="openImageEditor(this)" style="cursor: pointer;">
                                         <input type="file" class="updatePerson-input" accept="image/*" style="display: none;" 
-                                        onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">
+                                        onchange="updateImage(this)" name="updatePersonImg" th:data-original-src="@{|${person.img}|}">
                                     </div>
 
                                     <div class="person-info">
-                                        <div class="info-name update-name" th:text="${person.name}" contenteditable="true">영화인 이름</div>
-                                        <div class="info-role update-role" th:text="${person.role}" contenteditable="true">영화인 역할</div>
+                                        <input class="info-name update-name" name="updatePersonName" th:value="${person.name}" placeholder="영화인 이름"></input>
+                                        <input class="info-role update-role" name="updatePersonRole" th:value="${person.role}" placeholder="영화인 역할"></input>
                                     </div>
 
                                 </div>
@@ -240,42 +240,44 @@
                     <div class="base-info">
 
                         <div class="base-info__img">
-                            <label for="createPoster"><img th:src="@{/images/movie/포스터/null.jpg}" style="cursor: pointer;"></label>
-                            <input type="file" name="poster" id="createPoster" accept="image/*" style="display: none;">
+                            <label for="createPoster">
+                                <img id="createPosterImage" name="createPosterOrigin" th:src="@{/images/movie/포스터/null.jpg}" style="cursor: pointer;">
+                            </label>
+                            <input type="file" name="createPoster" id="createPoster" accept="image/*" style="display: none;">
                             <p style="text-align: center;">포스터<br>(357*510)</p>
                         </div>
 
                         <div class="base-info__basic">
                             <li>
                                 <label class="admin_movieLabel">영화 제목</label>
-                                <input type="text" name="movieTitle">
+                                <input type="text" name="createMovieTitle">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">개봉일</label>
-                                <input type="text" name="releaseDate" placeholder="20YY-MM-DD">
+                                <input type="text" name="createReleaseDate" placeholder="20YY-MM-DD">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">현재상영상태</label>
-                                <select name="screening">
+                                <select name="createScreening">
                                     <option value="wait" selected>임시대기</option>
                                 </select>
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">러닝타임</label>
-                                <input type="number" name="runningTime">분
+                                <input type="number" name="createRunningTime">분
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">장르</label>
-                                <input type="text" name="genre" placeholder="액션 / 한국">
+                                <input type="text" name="createGenre" placeholder="액션 / 한국">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">영화 등급</label>
-                                <select name='rating'>
+                                <select name='createRating'>
                                     <option value='전체관람가' selected>전체관람가</option>
                                     <option value='만12세이상관람가'>만12세이상관람가</option>
                                     <option value='만15세이상관람가'>만15세이상관람가</option>
@@ -285,7 +287,7 @@
 
                             <li>
                                 <label class="admin_movieLabel">시놉시스</label>
-                                <div name="synopsis" class="synopsis-edit" contenteditable="true"></div>
+                                <textarea name="createSynopsis" class="synopsis-edit"></textarea>
                             </li>
 
                         </div>
@@ -296,7 +298,7 @@
                         <label class="admin_movieLabel"><p style="text-align: center;">스틸컷<br>(980*653)</p></label>
                         <div class="swiper createStillcutSwiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"></div>
+                                <!--  -->
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -310,15 +312,7 @@
                         <label class="admin_movieLabel"><p style="text-align: center;">영화인<br>(144*144)</p></label>
                         <div class="swiper createPersonSwiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide person">
-
-                                    <div class="person-img">
-                                    </div>
-
-                                    <div class="person-info">
-                                    </div>
-
-                                </div>
+                                <!--  -->
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -377,15 +371,15 @@
                 prevEl: ".swiper-button-prev",
             },
         });
-
+        
         document
             .querySelector("#updateStillcutAppend")
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 updateStillCutSwiper.appendSlide(
                     '<div class="swiper-slide">' +
-                        '<img src="/images/movie/스틸컷/null.jpg" onclick="openImageEditor(this)" onerror="replaceWithPlaceholderStillcutUpdate(this)">' +
-                        '<input type="file" class="updateStillcut-input" accept="image/*" style="display: none;" ' +
+                        '<img src="/images/movie/스틸컷/null.jpg" onclick="openImageEditor(this)" onerror="replaceWithPlaceholderStillcutUpdate(this)" style="cursor: pointer;">' +
+                        '<input type="file" class="updateStillcut-input" name="updateStillcut" accept="image/*" style="display: none;" ' +
                         'onchange="updateImage(this)">' +
                     '</div>'
                     );
@@ -411,31 +405,14 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 updatePersonSwiper.appendSlide(
-/* 
-                    <div class="swiper-slide person" th:each="person : ${resp.moviePerson}">
-
-                        <div class="person-img">
-                            <img th:src="@{|${person.img}|}" onclick="openImageEditor(this)" style="cursor: pointer;">
-                            <input type="file" class="updatePerson-input" accept="image/*" style="display: none;" 
-                            onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">
-                        </div>
-
-                        <div class="person-info">
-                            <div class="info-name update-name" th:text="${person.name}" contenteditable="true">영화인 이름</div>
-                            <div class="info-role update-role" th:text="${person.role}" contenteditable="true">영화인 역할</div>
-                        </div>
-
-                    </div>
- */
-
                     '<div class="swiper-slide person">' +
                         '<div class="person-img">' +
                             '<img src="/images/movie/영화인/null.png" onclick="openImageEditor(this)" style="cursor: pointer;">' +
-                            '<input type="file" class="updatePerson-input" accept="image/*" style="display: none;" onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">' +
+                            '<input type="file" class="updatePerson-input" name="updatePersonImg" accept="image/*" style="display: none;" onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">' +
                         '</div>' +
                         '<div class="person-info">' +
-                            '<div class="info-name update-name" contenteditable="true"></div>' +
-                            '<div class="info-name update-role" contenteditable="true"></div>' +
+                            '<input class="info-name update-name" name="updatePersonName" placeholder="영화인 이름"></input>' +
+                            '<input class="info-role update-role" name="updatePersonRole" placeholder="영화인 역할"></input>' +
                         '</div>' +
                     '</div>'
                 );
@@ -458,7 +435,11 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 createStillCutSwiper.appendSlide(
-                    '<div class="swiper-slide">Slide ' + 1 + "</div>"
+                    '<div class="swiper-slide">' +
+                        '<img src="/images/movie/스틸컷/null.jpg" onclick="openImageEditor(this)" onerror="replaceWithPlaceholderStillcutUpdate(this)" style="cursor: pointer;">' +
+                        '<input type="file" class="createStillcut-input" name="createStillcut" accept="image/*" style="display: none;" ' +
+                        'onchange="updateImage(this)">' +
+                    '</div>'
                 );
             });
 
@@ -479,7 +460,16 @@
             .addEventListener("click", function (e) {
                 e.preventDefault();
                 createPersonSwiper.appendSlide(
-                    '<div class="swiper-slide">Slide ' + 1 + "</div>"
+                    '<div class="swiper-slide person">' +
+                        '<div class="person-img">' +
+                            '<img src="/images/movie/영화인/null.png" onclick="openImageEditor(this)" style="cursor: pointer;">' +
+                            '<input type="file" class="createPerson-input" name="createPersonImg" accept="image/*" style="display: none;" onchange="updateImage(this)" th:data-original-src="@{|${person.img}|}">' +
+                        '</div>' +
+                        '<div class="person-info">' +
+                            '<input class="info-name create-name" name="createPersonName" placeholder="영화인 이름"></input>' +
+                            '<input class="info-role create-role" name="createPersonRole" placeholder="영화인 역할"></input>' +
+                        '</div>' +
+                    '</div>'
                 );
             });
 
@@ -495,6 +485,12 @@
         const screenType = /*[[${resp.screen}]]*/ "상영상태";
         const processType = /*[[${resp.type}]]*/ "영화관리종류";
         const rating = /*[[${resp.movieInfo.rating}]]*/ "상영등급";
+
+        const message = /*[[${message}]]*/ "성공 실패 메세지";
+
+        if(message != null){
+            alert(message);
+        }
 
     </script>
 
