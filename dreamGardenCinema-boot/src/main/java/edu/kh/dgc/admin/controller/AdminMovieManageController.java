@@ -121,18 +121,51 @@ public class AdminMovieManageController {
 	}
 	
 	@PostMapping("/adminMovieManage/create")
-	public String createMovie(int movieNo,
-								String createMovieTitle,
+	public String createMovie(	String createMovieTitle,
 								String createReleaseDate,
 								String createScreening,
-								int createRunningTime,
+								String createRunningTime,
 								String createGenre,
 								String createRating,
 								String createSynopsis,
 								RedirectAttributes ra) {
 	
+		System.out.println(createMovieTitle);
+		System.out.println(createReleaseDate);
+		System.out.println(createScreening);
+		System.out.println(createRunningTime);
+		System.out.println(createGenre);
+		System.out.println(createRating);
+		System.out.println(createSynopsis);
 		
-	return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + createScreening;
+		Movie createMovieInfo = new Movie();
+		
+		createMovieInfo.setMovieTitle(createMovieTitle);
+		createMovieInfo.setReleaseDate(createReleaseDate);
+		createMovieInfo.setScreening("W");
+		createMovieInfo.setRunningTime(createRunningTime);
+		createMovieInfo.setGenre(createGenre);
+		if(createRating.equals("전체관람가")) createMovieInfo.setRating("/images/common/main/ALL.png");
+		if(createRating.equals("만12세이상관람가")) createMovieInfo.setRating("/images/common/main/12세.png");
+		if(createRating.equals("만15세이상관람가")) createMovieInfo.setRating("/images/common/main/15세.png");
+		if(createRating.equals("청소년관람불가")) createMovieInfo.setRating("/images/common/main/18세.png");
+		createMovieInfo.setSynopsis(createSynopsis);
+		
+		int result = service.createMovieInfo(createMovieInfo);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 등록되었습니다.";
+			
+		}else {
+			message = "게시글 등록 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/adminMovieManage/detail?movieNo=" + createMovieInfo.getMovieNo() + "&type=read&screen=" + createScreening;
+		
 	}
 }
 

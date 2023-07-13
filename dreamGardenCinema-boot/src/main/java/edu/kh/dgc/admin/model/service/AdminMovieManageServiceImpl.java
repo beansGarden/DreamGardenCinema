@@ -75,6 +75,14 @@ public class AdminMovieManageServiceImpl implements AdminMovieManageService{
 //		return 0;
 //	}
 
+	@Override
+	public int createMovieInfo(Movie createMovieInfo) {
+		
+		return mapper.createMovieInfo(createMovieInfo);
+	}
+	
+	
+
 	
 	
 	

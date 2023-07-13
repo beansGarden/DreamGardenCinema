@@ -133,7 +133,17 @@
 		WHERE MOVIE_NO = #{movieNo}	
 	</select>
 	
-	
+	<insert id="createMovieInfo" parameterType="Movie" useGeneratedKeys="true">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="movieNo">
+			SELECT SEQ_MOVIE_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO "beansGarden".MOVIE
+		(MOVIE_NO, MOVIE_TITLE, POSTER, SYNOPSIS, RUNNING_TIME, RATING, RELEASE_DATE, MOVIE_PRICE, SCREENING, GENRE)
+		VALUES(#{movieNo}, #{movieTitle}, '/images/movie/영화인/null.png', 
+		#{synopsis}, #{runningTime}, #{rating}, #{releaseDate}, 12000, #{screening}, #{genre})
+		
+	</insert>
 	
 	
 </mapper>
