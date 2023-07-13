@@ -30,11 +30,12 @@ public class MembershipScheduling {
 	@Autowired
 	private UserService UserService;
 
-	//테스트용 15초
+	// 테스트용 15초
 //	@Scheduled(cron = "0,15,30,45 * * * * *") 
-	//매달 1월 AM 5
-	@Scheduled(cron = "0 0 5 1 * *") 
-//	@Scheduled(cron = "0 */10 * * * *") //10분 마다
+	// 매달 1월 AM 5
+//	@Scheduled(cron = "0 0 5 1 * *") 
+	// 10분 마다
+	@Scheduled(cron = "0 */10 * * * *")
 	public void membership() {
 		System.out.println("스케줄러 실행");
 
@@ -42,12 +43,18 @@ public class MembershipScheduling {
 
 		// 유저 전체 쿠폰 삭제
 		int deleteAllCoupon = service.deleteAllCoupon();
-		
+
 		// 유저 전체 RATING 1 업데이트
 		int updateRating1 = service.updateRating1();
 
 		// 누적 금액 4만원 미만 고객 등급 브론즈 업데이트
 		int updateAllBronze = service.updateAllBronze();
+		// 누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트
+		int updateAllSilver = service.updateAllSilver();
+		// 누적 금액 10만원 이상 20만원 미만 고객 골드 업데이트
+		int updateAllGold = service.updateAllGold();
+		// 누적 금액 20만원 이상 고객 플래티넘 업데이트
+		int updateAllPlatinum = service.updateAllPlatinum();
 
 		// 브론즈 등급 고객 userNo전체 조회
 		List<User> bronzeNoList = service.selectBronzeUserNo();
@@ -66,8 +73,6 @@ public class MembershipScheduling {
 			}
 
 		}
-		// 누적 금액 4만원 이상 10만원 미만 고객 실버 업데이트
-		int updateAllSilver = service.updateAllSilver();
 
 		// 실버 등급 고객 userNo 전체 조회
 		List<User> silverNoList = service.selectSilverUserNo();
@@ -86,9 +91,6 @@ public class MembershipScheduling {
 
 		}
 
-		// 누적 금액 10만원 이상 20만원 미만 고객 골드 업데이트
-		int updateAllGold = service.updateAllGold();
-
 		// 골드 등급 고객 userNo 전체 조회
 		List<User> goldNoList = service.selectGoldUserNo();
 
@@ -105,12 +107,10 @@ public class MembershipScheduling {
 			}
 
 		}
-		// 누적 금액 20만원 이상 고객 플래티넘 업데이트
-		int updateAllPlatinum = service.updateAllPlatinum();
-		
+
 		// 플래티넘 등급 고객 userNo 전체 조회
 		List<User> platinumNoList = service.platinumNoList();
-		
+
 		if (!platinumNoList.isEmpty()) {
 
 			for (int i = 0; i < platinumNoList.size(); i++) {
@@ -124,13 +124,12 @@ public class MembershipScheduling {
 			}
 
 		}
-		
+
 		// 모든 유저 누적 금액 초기화
 		int updateAllAmount = service.updateAllAmount();
 		System.out.println(updateAllAmount);
-		
+
 		System.out.println("스케줄러 실행 완료");
-		
-		
+
 	}
 }

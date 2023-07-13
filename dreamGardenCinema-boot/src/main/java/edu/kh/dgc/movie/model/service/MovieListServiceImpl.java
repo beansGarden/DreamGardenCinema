@@ -59,6 +59,9 @@ public class MovieListServiceImpl implements MovieListService{
 	// 광고 포스터 조회(랜덤하게 하나)
 	@Override
 	public Map<String, String> selectAdvertisePoster() {
+		
+		
+		
 		return mapper.selectAdvertisePoster();
 	}
 
