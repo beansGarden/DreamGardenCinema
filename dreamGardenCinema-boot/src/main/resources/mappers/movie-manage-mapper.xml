@@ -147,8 +147,10 @@
 	
 	<delete id="deleteMovie">
 		DELETE FROM "beansGarden".MOVIE
-		WHERE MOVIE_NO=#{movieNo};
+		WHERE MOVIE_NO=#{movieNo}
 	</delete>
+	
+	
 	<update id="updateMovie">
 		UPDATE MOVIE SET MOVIE_TITLE=#{movieTitle},
 		<if test="poster != ''">

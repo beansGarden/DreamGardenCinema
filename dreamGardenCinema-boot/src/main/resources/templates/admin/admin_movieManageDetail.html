@@ -27,7 +27,8 @@
             <button id="typeUpdateHighlight">광고수정</button> -->
             <button id="typeRead">상세보기</button>
             <button id="typeUpdate">수정</button>
-            <button id="typeDelete">삭제</button>
+            <button id="typeDelete" th:if="${resp.movieInfo.movieNo}" th:onclick="|location='/adminMovieManage/delete?movieNo=${resp.movieInfo.movieNo}'|">삭제</button>
+            <button id="typeDelete" th:unless="${resp.movieInfo.movieNo}">삭제</button>
             <button id="typeGoList" onclick="location.href='/adminMovieManage'">
                 영화관리<br>페이지로
             </button>

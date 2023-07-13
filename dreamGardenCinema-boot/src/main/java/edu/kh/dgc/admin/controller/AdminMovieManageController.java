@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -129,7 +130,15 @@ public class AdminMovieManageController {
 		System.out.println(updatePoster.getOriginalFilename().equals(""));
 		System.out.println(updatePoster);
 		
-		String message = "게시글이 수정되었습니다.";
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 수정 되었습니다.";
+			
+		}else {
+			message = "게시글 수정 실패";
+		}
+		
 		
 		ra.addFlashAttribute("message", message);
 		
@@ -184,7 +193,7 @@ public class AdminMovieManageController {
 		
 	}
 	
-	@PostMapping("/adminMovieManage/delete")
+	@GetMapping("/adminMovieManage/delete")
 	public String deleteMovie(int movieNo,
 							RedirectAttributes ra) {
 		
@@ -200,8 +209,7 @@ public class AdminMovieManageController {
 		}
 		
 		ra.addFlashAttribute("message", message);
-		
-		return "admin/admin_movieManageDetail";
+		return "redirect:/adminMovieManage";
 	}
 	
 }
