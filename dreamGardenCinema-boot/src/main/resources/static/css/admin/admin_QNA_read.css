@@ -86,3 +86,8 @@ table>thead>tr:nth-child(1)>td {
     color: white;
 }
 
+
+.admin_qnaContent img {
+    max-width: 100%;
+    height: auto;
+  }
