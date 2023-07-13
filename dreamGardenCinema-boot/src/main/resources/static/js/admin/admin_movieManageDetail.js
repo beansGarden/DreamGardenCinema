@@ -79,7 +79,7 @@ if(processType == "delete" ){
 
 
 createMovieBtn.addEventListener('click', () => {
-
+    location.href="detail?movieNo=0&type=create&screen=wait";
     createMovieBtn.classList.add("process-type-active");
     // createHighlightBtn.classList.remove("process-type-active");
     // UpdateHighlightBtn.classList.remove("process-type-active");

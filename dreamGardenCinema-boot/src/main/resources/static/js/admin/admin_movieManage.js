@@ -200,7 +200,8 @@ async function selectList(){
             if(screenType == 'wait' || screenType == 'down' /* || screenType == 'highlight' */ || screenType == 'all'){
             const btnDelete = document.createElement("button");
             btnDelete.innerText = "삭제";
-            btnDelete.addEventListener('click', deleteList());
+            btnDelete.setAttribute("data-movieNo", movie.movieNo);
+            btnDelete.addEventListener('click', deleteList);
             movieStatue.append(btnDelete);
             }
 
@@ -435,10 +436,7 @@ function createButton(text, dataPage, clickHandler) {
     return button;
 }
 
-function deleteList(){
-
-}
-
-function createList(){
-
+function deleteList(e){
+    const movieNo = e.target.getAttribute("data-movieNo");
+    location.href = '/adminMovieManage/delete?movieNo=' + movieNo;
 }

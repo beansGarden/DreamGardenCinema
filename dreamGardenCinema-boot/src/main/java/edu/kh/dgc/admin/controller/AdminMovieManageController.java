@@ -1,5 +1,6 @@
 	package edu.kh.dgc.admin.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,42 +100,118 @@ public class AdminMovieManageController {
 	
 	
 	@PostMapping("/adminMovieManage/update")
-	public String updateMovie(int movieNo,
+	public String updateMovie(Movie updateMovie,
+							@RequestParam(value="updatePoster", required=false) MultipartFile updatePoster,
+//								int movieNo,
 //								MultipartFile updatePoster,
-								String updateMovieTitle,
-								String updateReleaseDate,
-								String updateScreening,
-								int updateRunningTime,
-								String updateGenre,
-								String updateRating,
-								String updateSynopsis,
+//								String updateMovieTitle,
+//								String updateReleaseDate,
+//								String updateScreening,
+//								int updateRunningTime,
+//								String updateGenre,
+//								String updateRating,
+//								String updateSynopsis,
 //								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
 //								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
 //								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
 //								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
-								RedirectAttributes ra) {
+								RedirectAttributes ra) throws IllegalStateException, IOException  {
 		
-		String message = "게시글이 수정되었습니다.";
+		switch (updateMovie.getRating()) {
+		case "전체관람가": updateMovie.setRating("/images/common/main/ALL.png"); break;
+		case "만12세이상관람가": updateMovie.setRating("/images/common/main/12세.png"); break; 
+		case "만15세이상관람가": updateMovie.setRating("/images/common/main/15세.png"); break;
+		case "청소년관람불가": updateMovie.setRating("/images/common/main/18세.png"); break;
+		}
+		
+		
+		System.out.println(updateMovie);
+		int result = service.updateMovie(updateMovie, updatePoster);
+		System.out.println(updatePoster.getOriginalFilename().equals(""));
+		System.out.println(updatePoster);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 수정 되었습니다.";
+			
+		}else {
+			message = "게시글 수정 실패";
+		}
+		
 		
 		ra.addFlashAttribute("message", message);
 		
-		return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + updateScreening;
+		return "redirect:/adminMovieManage/detail?movieNo=" + updateMovie.getMovieNo() + "&type=read&screen=" + updateMovie.getScreening();
 	}
 	
 	@PostMapping("/adminMovieManage/create")
-	public String createMovie(int movieNo,
-								String createMovieTitle,
+	public String createMovie(	String createMovieTitle,
 								String createReleaseDate,
 								String createScreening,
-								int createRunningTime,
+								String createRunningTime,
 								String createGenre,
 								String createRating,
 								String createSynopsis,
 								RedirectAttributes ra) {
 	
+		System.out.println(createMovieTitle);
+		System.out.println(createReleaseDate);
+		System.out.println(createScreening);
+		System.out.println(createRunningTime);
+		System.out.println(createGenre);
+		System.out.println(createRating);
+		System.out.println(createSynopsis);
 		
-	return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + createScreening;
+		Movie createMovieInfo = new Movie();
+		
+		createMovieInfo.setMovieTitle(createMovieTitle);
+		createMovieInfo.setReleaseDate(createReleaseDate);
+		createMovieInfo.setScreening("W");
+		createMovieInfo.setRunningTime(createRunningTime);
+		createMovieInfo.setGenre(createGenre);
+		if(createRating.equals("전체관람가")) createMovieInfo.setRating("/images/common/main/ALL.png");
+		if(createRating.equals("만12세이상관람가")) createMovieInfo.setRating("/images/common/main/12세.png");
+		if(createRating.equals("만15세이상관람가")) createMovieInfo.setRating("/images/common/main/15세.png");
+		if(createRating.equals("청소년관람불가")) createMovieInfo.setRating("/images/common/main/18세.png");
+		createMovieInfo.setSynopsis(createSynopsis);
+		
+		int result = service.createMovieInfo(createMovieInfo);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 등록되었습니다.";
+			
+		}else {
+			message = "게시글 등록 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/adminMovieManage/detail?movieNo=" + createMovieInfo.getMovieNo() + "&type=read&screen=" + createScreening;
+		
 	}
+	
+	@GetMapping("/adminMovieManage/delete")
+	public String deleteMovie(int movieNo,
+							RedirectAttributes ra) {
+		
+		int result = service.deleteMovie(movieNo);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "게시글이 삭제되었습니다.";
+			
+		}else {
+			message = "게시글 삭제 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		return "redirect:/adminMovieManage";
+	}
+	
 }
 
 

@@ -27,7 +27,8 @@
             <button id="typeUpdateHighlight">광고수정</button> -->
             <button id="typeRead">상세보기</button>
             <button id="typeUpdate">수정</button>
-            <button id="typeDelete">삭제</button>
+            <button id="typeDelete" th:if="${resp.movieInfo.movieNo}" th:onclick="|location='/adminMovieManage/delete?movieNo=${resp.movieInfo.movieNo}'|">삭제</button>
+            <button id="typeDelete" th:unless="${resp.movieInfo.movieNo}">삭제</button>
             <button id="typeGoList" onclick="location.href='/adminMovieManage'">
                 영화관리<br>페이지로
             </button>
@@ -134,37 +135,37 @@
                         <div class="base-info__basic">
                             <li>
                                 <label class="admin_movieLabel">영화 제목</label>
-                                <input type="text" name="updateMovieTitle" th:value="*{movieTitle}">
+                                <input type="text" name="movieTitle" th:value="*{movieTitle}">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">개봉일</label>
-                                <input type="text" name="updateReleaseDate" th:value="*{releaseDate}">
+                                <input type="text" name="releaseDate" th:value="*{releaseDate}">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">현재상영상태</label>
                                 <select name="updateScreening">
-                                    <option value="wait">임시대기</option>
-                                    <option value="promise">상영예정</option>
-                                    <option value="current">현재상영</option>
-                                    <option value="down">상영종료</option>
+                                    <option value="W">임시대기</option>
+                                    <option value="P">상영예정</option>
+                                    <option value="C">현재상영</option>
+                                    <option value="D">상영종료</option>
                                 </select>
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">러닝타임</label>
-                                <input type="number" name="updateRunningTime" th:value="*{runningTime}">분
+                                <input type="number" name="runningTime" th:value="*{runningTime}">분
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">장르</label>
-                                <input type="text" name="updateGenre" th:value="*{genre}">
+                                <input type="text" name="genre" th:value="*{genre}">
                             </li>
 
                             <li>
                                 <label class="admin_movieLabel">영화 등급</label>
-                                <select name='updateRating'>
+                                <select name='rating'>
                                     <option value='전체관람가'>전체관람가</option>
                                     <option value='만12세이상관람가'>만12세이상관람가</option>
                                     <option value='만15세이상관람가'>만15세이상관람가</option>
@@ -174,7 +175,7 @@
 
                             <li>
                                 <label class="admin_movieLabel">시놉시스</label>
-                                <textarea name="updateSynopsis" class="synopsis-edit" th:text="${resp.plainStory}">
+                                <textarea name="synopsis" class="synopsis-edit" th:text="${resp.plainStory}">
                                 </textarea>
                             </li>
 
