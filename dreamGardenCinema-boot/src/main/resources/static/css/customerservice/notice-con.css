@@ -122,13 +122,26 @@ a {
 }
 
 
-.notice-list-content>p{
+.notice-list-content>pre{
     font-size: 15px;
     margin-left: 10px;
     font-size: 14px;
     width: 100%; height: 100%; 
-    overflow: auto;
+    overflow-y: auto;
 }
+
+/* ------------------------------------------------------------------------------ */
+/* 스크롤바 */
+.notice-list-content>pre::-webkit-scrollbar {
+    width: 10px;
+}
+.notice-list-content>pre::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+/* ------------------------------------------------------------------------------ */
 
 /* 공지사항 목록 버튼 */
 #noticeListBtn{

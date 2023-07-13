@@ -116,10 +116,6 @@
                     <!-- <li><a href="/board/${boardCode}?cp=1${sp}">&lt;&lt;</a></li> -->
                     <li><a th:href="@{/adminReview(cp=${pagination.startPage})}">&lt;&lt;</a></li>
 
-                    <!-- 이전 목록 마지막 번호로 이동 -->
-                    <!-- <li><a th:href="@{/board/${boardCode}?cp=${pagination.prevPage}${sp}}">&lt;</a></li> -->
-                    <!--          <li><a th:href="@{/adminUser(cp=${pagination.prevPage})}">&lt;</a></li> -->
-
                     <!-- 특정 페이지로 이동 -->
                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
                         <li th:if="${i == pagination.currentPage}">
@@ -136,9 +132,9 @@
                     </li>
 
                     <!-- 현재 페이지를 제외한 나머지 -->
-                    <li th:unless="${i == pagination.currentPage}">
+              <!--       <li th:unless="${i == pagination.currentPage}">
                         <a th:href="@{/adminReview(cp=${pagination.nextPage})}" th:text="${i}">나머지 페이지</a>
-                    </li>
+                    </li> -->
                     </th:block>
 
                     <!-- 다음 목록 시작 번호로 이동 -->

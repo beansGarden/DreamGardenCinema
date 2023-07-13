@@ -733,6 +733,8 @@ public class AdminController {
 	public int deleteNoticeList(@RequestBody Map<String, Integer> request) {
 
 		int noticeNo = request.get("noticeNo");
+		
+		System.out.println("noticeNo :" + noticeNo);
 
 		return service.noticeDelete(noticeNo);
 	}

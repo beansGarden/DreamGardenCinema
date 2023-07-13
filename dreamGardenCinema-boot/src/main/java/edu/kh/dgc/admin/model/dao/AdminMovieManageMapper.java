@@ -24,4 +24,10 @@ public interface AdminMovieManageMapper {
 
 	List<Person> selectMoviePerson(int movieNo);
 
+	int createMovieInfo(Movie createMovieInfo);
+
+	int deleteMovie(int movieNo);
+	
+	int updateMovie(Movie updateMovie);
+
 }
