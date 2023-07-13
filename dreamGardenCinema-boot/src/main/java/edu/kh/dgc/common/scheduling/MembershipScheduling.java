@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.support.SessionStatus;
 
 import edu.kh.dgc.mypage.model.service.MypageService;
 import edu.kh.dgc.ticketing.model.dto.Ticket;
@@ -67,7 +68,8 @@ public class MembershipScheduling {
 				User user = bronzeNoList.get(i);
 
 				String selectNo = Integer.toString(user.getUserNo());
-
+				
+				System.out.println(selectNo);
 				// 브론즈 쿠폰 1개 insert
 				int insertAllBronzeCoupon = UserService.insertCoupon(selectNo);
 			}
