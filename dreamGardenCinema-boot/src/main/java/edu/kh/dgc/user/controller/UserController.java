@@ -131,7 +131,7 @@ public class UserController {
 			redisUtil.deleteData(inputUser.getUserTel());
 		}
 
-		int result = service.signup(inputUser); // DB insert
+		int result = service.signup(inputUser);
 
 		
 		if (result > 0 && result1 == true) {

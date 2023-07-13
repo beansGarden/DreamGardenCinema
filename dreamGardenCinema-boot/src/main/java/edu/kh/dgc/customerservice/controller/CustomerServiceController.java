@@ -45,6 +45,12 @@ public class CustomerServiceController {
 		
 	}
 	
+	// FAQ 상영관 관련 목록
+	
+	// FAQ 회원 관련 목록
+	
+	// FAQ 멤버십 관련 목록 
+	
 	// 공지사항 전체 목록 출력
 	@GetMapping("/notice")
 	public String notice(Model model, Notice notice) {
