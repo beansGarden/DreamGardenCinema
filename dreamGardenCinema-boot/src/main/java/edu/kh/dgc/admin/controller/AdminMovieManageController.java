@@ -99,7 +99,7 @@ public class AdminMovieManageController {
 	
 	@PostMapping("/adminMovieManage/update")
 	public String updateMovie(int movieNo,
-								MultipartFile updatePoster,
+//								MultipartFile updatePoster,
 								String updateMovieTitle,
 								String updateReleaseDate,
 								String updateScreening,
@@ -107,38 +107,12 @@ public class AdminMovieManageController {
 								String updateGenre,
 								String updateRating,
 								String updateSynopsis,
-								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
-								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
-								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
-								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
+//								@RequestParam(value="updateStillcut", required=false) List<MultipartFile> updateStillcut,
+//								@RequestParam(value="updatePersonImg", required=false) List<MultipartFile> updatePersonImg,
+//								@RequestParam(value="updatePersonName", required=false) List<String> updatePersonName,
+//								@RequestParam(value="updatePersonRole", required=false) List<String> updatePersonRole,
 								RedirectAttributes ra) {
 		
-//		int result;
-//		
-//		System.out.println(movieNo);
-//		
-//		System.out.println(updatePoster);
-//		result = service.updatePoster(movieNo,updateMovieTitle,updatePoster);
-//		
-//		System.out.println(updateMovieTitle);
-//		System.out.println(updateReleaseDate);
-//		System.out.println(updateScreening);
-//		System.out.println(updateRunningTime);
-//		System.out.println(updateGenre);
-//		System.out.println(updateRating);
-//		System.out.println(updateSynopsis);
-//		System.out.println(updateStillcut);
-//		System.out.println(updatePersonImg);
-//		System.out.println(updatePersonName);
-//		System.out.println(updatePersonRole);
-//		
-//		
-//		String message = null;
-//		
-//		if(result > 0) {
-//		}else {
-//			message = "게시글 수정 실패";
-//		}
 		String message = "게시글이 수정되었습니다.";
 		
 		ra.addFlashAttribute("message", message);
@@ -146,10 +120,20 @@ public class AdminMovieManageController {
 		return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + updateScreening;
 	}
 	
+	@PostMapping("/adminMovieManage/create")
+	public String createMovie(int movieNo,
+								String createMovieTitle,
+								String createReleaseDate,
+								String createScreening,
+								int createRunningTime,
+								String createGenre,
+								String createRating,
+								String createSynopsis,
+								RedirectAttributes ra) {
 	
-	
-	
-	
+		
+	return "redirect:/adminMovieManage/detail?movieNo=" + movieNo + "&type=read&screen=" + createScreening;
+	}
 }
 
 
