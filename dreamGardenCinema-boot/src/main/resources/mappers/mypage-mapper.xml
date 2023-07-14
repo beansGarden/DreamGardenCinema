@@ -342,7 +342,7 @@
 
 	<!--해당 취소 티켓에 사용된 쿠폰 조회-->
 	<select id="selectCouponNo" parameterType="String" resultType="int">
-		SELECT COUPON
+		SELECT NVL(COUPON, 0) COUPON
 		FROM TICKETING_INFO
 		WHERE TICKET_NO = #{ticketNo}
 	</select>

@@ -95,6 +95,7 @@ const deleteBtn = document.getElementById("deleteBtn"); // 복구 버튼
        }
      })
      .catch(err => console.log(err));
+     location.reload();
  }
  
 

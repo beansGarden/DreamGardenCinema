@@ -41,6 +41,7 @@ fetch("/adminNotice/deleteNoticeList", {
   console.log(noticeNo); //번호 나옴
 
 }).catch(err=> console.log(err));
+location.reload();
 
 }
 

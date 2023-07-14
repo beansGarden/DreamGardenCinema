@@ -137,6 +137,7 @@ function reviewRestore(reviewNos) {
       }
     })
     .catch(err => console.log(err));
+    location.reload();
 }
 
 /* 전체 삭제 안 한 수 불러오기 */

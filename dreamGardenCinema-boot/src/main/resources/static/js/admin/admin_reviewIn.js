@@ -131,6 +131,7 @@ function reviewDelete(reviewNos) {
       alert("리뷰가 삭제되었습니다."); // 삭제 완료 메시지
     })
     .catch(err => console.log(err));
+    location.reload();
 }
 
 

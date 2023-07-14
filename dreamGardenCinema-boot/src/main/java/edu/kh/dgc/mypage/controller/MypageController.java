@@ -112,9 +112,7 @@ public class MypageController {
 
 		int result = service.changeNickName(loginuser);
 
-		System.out.println(loginuser.getUserNickname());
-
-		ra.addAttribute("message", "닉네임이 변경되었습니다.");
+		ra.addFlashAttribute("message", "닉네임이 변경되었습니다.");
 
 		return "redirect:" + redirectUrl;
 	}
