@@ -251,6 +251,8 @@ public class TicketingServiceImpl implements TicketingService {
 	public int updateCancelAmount(User user) {
 		return mapper.updateCancelAmount(user);
 	}
+
+	
 	
 	
 	

@@ -353,4 +353,19 @@
 		USE_FL = 'N'
 		WHERE USER_COUPON_NO = #{couponNo}
 	</update>
+	
+	<!--현재 유저 정보 확인-->
+	<select id="selectCurrentRating" resultMap="user_rm">
+		SELECT USER_RATING
+		FROM USER_INFO
+		WHERE USER_NO = #{userNo}
+	</select>
+	
+	<!--티켓금액확인-->
+	<select id="selectCancelPrice" resultMap="ticket_rm">
+		SELECT *
+		FROM TICKETING_INFO
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
+	
 </mapper>

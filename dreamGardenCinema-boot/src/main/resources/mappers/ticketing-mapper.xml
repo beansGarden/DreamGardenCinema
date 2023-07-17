@@ -315,4 +315,5 @@
 		USER_AMOUNT = #{userAmount}
 		WHERE USER_NO = #{userNo}
 	</update>
+	
 </mapper>

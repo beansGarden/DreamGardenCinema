@@ -235,6 +235,39 @@ public class MypageServiceImpl implements MypageService{
 		return mapper.returnCoupon(couponNo);
 	}
 	
-	
+	// 취소가능한지 확인
+	@Override
+	public int selectTicketCancelInfo(String ticketNo, int userNo) {
+		
+		int result = 0;
+		
+		// 현재 유저 정보 조회
+		User currentUser = mapper.selectCurrentRating(userNo);
+		// 현재 취소할 티켓 정보 조회
+		Ticket cancelTicket = mapper.selectCancelPrice(ticketNo);
+		
+		int cancelPrice = Integer.parseInt(cancelTicket.getPayAmount());
+		
+		int afterAmount = currentUser.getUserAmount() - cancelPrice;
+		
+		int afterRating = 0;
+		
+		if(afterAmount >= 200000) {
+			afterRating = 4;
+		} else if (afterAmount >= 100000) {
+			afterRating = 3;
+		} else if (afterAmount >= 40000) {
+			afterRating = 2;
+		} else {
+			afterRating = 1;
+		}
+		// 현재 유저 등급과 금액 차감했을 때 등급이 같은지 확인 
+		// -> 금액이 다르다면 등급 업데이트 전 결제한 내역을 취소하는 것
+		if(currentUser.getUserRating() != afterRating) {
+			result = 1;
+		}
+		
+		return result;
+	}
 
 }

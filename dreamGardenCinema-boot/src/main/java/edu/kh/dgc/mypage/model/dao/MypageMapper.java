@@ -170,6 +170,15 @@ public interface MypageMapper {
 	 * @return
 	 */
 	public int returnCoupon(int couponNo);
+	
+	// 현재 유저 정보 조회
+	public User selectCurrentRating(int userNo);
+
+	// 현재 취소할 티켓 정보 조회
+	public Ticket selectCancelPrice(String ticketNo);
+
+	// 취소할 티켓 이후로 등급 상승된 티켓을 사용한 이력 확인
+	public int checkTicket(Ticket cancelTicket);
 
 
 }

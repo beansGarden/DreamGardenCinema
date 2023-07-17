@@ -166,4 +166,6 @@ public interface MypageService {
 	int returnCoupon(int couponNo);
 
 
+	// 취소가능한지 확인
+	int selectTicketCancelInfo(String ticketNo, int userNo);
 }

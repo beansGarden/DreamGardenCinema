@@ -227,40 +227,49 @@ public class MypageController {
 		} else if (movieTime.compareTo(previousTime) > 0 || movieTime.compareTo(previousTime) == 0) {
 			// movieTime1은 previousTime2보다 이후입니다.
 			// 아직 상영 10분 전
-
-			//취소 티켓 좌석 정보 삭제
-			int deleteTicketSeat = TicketingService.deleteTicketSeat(ticketNo);
 			
-			// 해당 티켓에 사용된 쿠폰 조회 
-			int couponNo = service.selectCouponNo(ticketNo);
-
-			System.out.println(couponNo);
+			// 취소가능한지 확인
+			int result = service.selectTicketCancelInfo(ticketNo, loginUser.getUserNo());
 			
-			if(couponNo>0) {
-				int returnCoupon = service.returnCoupon(couponNo);
+			if(result > 0) {
+				message = "결제를 취소할 수 없습니다. 쿠폰 사용 내역을 확인해주세요.";
+				path += "/myPage/";
+			} else {
+				
+				//취소 티켓 좌석 정보 삭제
+				int deleteTicketSeat = TicketingService.deleteTicketSeat(ticketNo);
+				
+				// 해당 티켓에 사용된 쿠폰 조회 
+				int couponNo = service.selectCouponNo(ticketNo);
+	
+				System.out.println(couponNo);
+				
+				if(couponNo>0) {
+					int returnCoupon = service.returnCoupon(couponNo);
+				}
+				
+				
+				int userAmount = loginUser.getUserAmount();
+				int userNo = loginUser.getUserNo();
+	
+				int userCancelAmount = userAmount - Integer.parseInt(payAmount);
+				
+				// 유저 Amount 취소한 결제금액 차감
+				user.setUserNo(userNo);
+				user.setUserAmount(userCancelAmount);
+				int updateCancelAmount = TicketingService.updateCancelAmount(user);
+				
+				// 결제 취소
+				String reasonCancellationPayment = "회원 취소";
+				PaymentService.payMentCancle(token, ticketImpId, payAmount, reasonCancellationPayment);
+				ticket.setReasonCancellationPayment(reasonCancellationPayment);
+				int result1 = TicketingService.updateReasonCancellationPayment(ticket);
+				
+				message = "취소되었습니다";
+				path += "/myPage/my-page-cancle-reservation";
+	
+				System.out.println("movieTime은 previousTime보다 이후입니다.");
 			}
-			
-			
-			int userAmount = loginUser.getUserAmount();
-			int userNo = loginUser.getUserNo();
-
-			int userCancelAmount = userAmount - Integer.parseInt(payAmount);
-			
-			// 유저 Amount 취소한 결제금액 차감
-			user.setUserNo(userNo);
-			user.setUserAmount(userCancelAmount);
-			int updateCancelAmount = TicketingService.updateCancelAmount(user);
-			
-			// 결제 취소
-			String reasonCancellationPayment = "회원 취소";
-			PaymentService.payMentCancle(token, ticketImpId, payAmount, reasonCancellationPayment);
-			ticket.setReasonCancellationPayment(reasonCancellationPayment);
-			int result1 = TicketingService.updateReasonCancellationPayment(ticket);
-			
-			message = "취소되었습니다";
-			path += "/myPage/my-page-cancle-reservation";
-
-			System.out.println("movieTime은 previousTime보다 이후입니다.");
 		}
 
 		ra.addFlashAttribute("message", message);
